@@ -1,0 +1,4 @@
+policy_level,rules,selected_top_k,union_covered_failed_traces,union_saved_failed_tokens,union_verified_false_stops,union_verified_false_stop_rate,union_reroute_candidates,union_peer_action_diff_rate,best_rule,best_rule_saved_failed_tokens
+generic,72,20,1038,800760044,191,0.112951,386,0.748705,generic__4__all__any__AssertFail__USELEMMA,208741771
+motif,532,20,227,309382084,9,0.005322,54,0.777778,motif__4__AC__sequence_set_map__AssertFail__USELEMMA,146080563
+project,196,20,539,548995746,66,0.03903,143,0.748252,project__4__AC__any__AssertFail__USELEMMA,146080563

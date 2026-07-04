@@ -1,0 +1,80 @@
+{
+  "dataset": {
+    "traces": 2996,
+    "verified": 1691,
+    "nonverified": 1305,
+    "effective_total_tokens": 1524386760,
+    "projects": {
+      "AC": 240,
+      "AL": 356,
+      "IR": 424,
+      "MA": 292,
+      "NO": 112,
+      "NR": 704,
+      "OS": 564,
+      "ST": 228,
+      "VE": 76
+    }
+  },
+  "rule_count": 800,
+  "top_rule": {
+    "rule_id": "generic__4__all__any__AssertFail__USELEMMA",
+    "level": "generic",
+    "threshold": 4,
+    "project": "*",
+    "motif": "*",
+    "repeated_error": "AssertFail",
+    "repeated_action": "USELEMMA",
+    "prefer_actions": "CASE_ANALYSIS NONLINEAR_ARITHMETIC",
+    "support_traces": 38,
+    "covered_failed_traces": 164,
+    "saved_failed_tokens": 208741771,
+    "saved_failed_token_rate": 0.156025,
+    "verified_false_stops": 18,
+    "verified_false_stop_rate": 0.010645,
+    "reroute_candidates": 38,
+    "peer_action_diff_rate": 0.736842,
+    "evidence": "peer_success_actions={'USELEMMA': 15, 'CASE_ANALYSIS': 7, 'NONLINEAR_ARITHMETIC': 4, 'SEQSETMAP': 3, 'INSTANTIATE_FORALL': 3}; covered_tokens=36564458"
+  },
+  "ablation": [
+    {
+      "policy_level": "generic",
+      "rules": 72,
+      "selected_top_k": 20,
+      "union_covered_failed_traces": 1038,
+      "union_saved_failed_tokens": 800760044,
+      "union_verified_false_stops": 191,
+      "union_verified_false_stop_rate": 0.112951,
+      "union_reroute_candidates": 386,
+      "union_peer_action_diff_rate": 0.748705,
+      "best_rule": "generic__4__all__any__AssertFail__USELEMMA",
+      "best_rule_saved_failed_tokens": 208741771
+    },
+    {
+      "policy_level": "motif",
+      "rules": 532,
+      "selected_top_k": 20,
+      "union_covered_failed_traces": 227,
+      "union_saved_failed_tokens": 309382084,
+      "union_verified_false_stops": 9,
+      "union_verified_false_stop_rate": 0.005322,
+      "union_reroute_candidates": 54,
+      "union_peer_action_diff_rate": 0.777778,
+      "best_rule": "motif__4__AC__sequence_set_map__AssertFail__USELEMMA",
+      "best_rule_saved_failed_tokens": 146080563
+    },
+    {
+      "policy_level": "project",
+      "rules": 196,
+      "selected_top_k": 20,
+      "union_covered_failed_traces": 539,
+      "union_saved_failed_tokens": 548995746,
+      "union_verified_false_stops": 66,
+      "union_verified_false_stop_rate": 0.03903,
+      "union_reroute_candidates": 143,
+      "union_peer_action_diff_rate": 0.748252,
+      "best_rule": "project__4__AC__any__AssertFail__USELEMMA",
+      "best_rule_saved_failed_tokens": 146080563
+    }
+  ]
+}
