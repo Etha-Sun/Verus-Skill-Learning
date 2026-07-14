@@ -1,0 +1,23 @@
+# Fixed before held-out evaluation. Canonical VeruSAGE repair-action labels.
+add_trigger_assert
+arithmetic_overflow_repair
+bit_vector_reasoning
+case_analysis
+compute
+extensional_equality
+induction
+inductive_lemma
+instantiate_exists
+instantiate_forall
+integer_ring
+invariant_end_repair
+invariant_front_repair
+loopinv
+nonlinear_arithmetic
+postcondition_repair
+precondition_repair
+reveal_opaque
+reveal_with_fuel
+seqsetmap
+termination_repair
+uselemma

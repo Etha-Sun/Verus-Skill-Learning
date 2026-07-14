@@ -5,9 +5,13 @@ import json
 from pathlib import Path
 
 from .data import load_traces, write_data_manifest
+from .ig_probe import add_prepare_parser
+from .ig_analysis import add_analysis_parser
+from .logprob_scorer import add_score_parser
 from .mining import mine_candidate_rules, write_rules, write_skeleton_cache
 from .report import write_report
 from .scoring import dataset_summary, policy_ablation, score_rules, write_csv
+from .three_target_analysis import add_three_target_analysis_parser
 
 
 def run(args: argparse.Namespace) -> None:
@@ -47,6 +51,11 @@ def main() -> None:
     run_parser.add_argument("--out", required=True, help="output run directory")
     run_parser.add_argument("--thresholds", nargs="+", type=int, default=[4, 6, 8])
     run_parser.set_defaults(func=run)
+
+    add_prepare_parser(sub)
+    add_score_parser(sub)
+    add_analysis_parser(sub)
+    add_three_target_analysis_parser(sub)
 
     args = parser.parse_args()
     args.func(args)
