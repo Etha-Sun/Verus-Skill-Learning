@@ -14,6 +14,7 @@ from statistics import mean
 from typing import Iterable
 
 from .data import batch_from_path, file_from_output_dir, model_from_path, project_from_file, read_result_rows
+from .data_layout import selected_dataset_path
 
 
 ATTEMPT_RE = re.compile(r"Repair attempt\s+(\d+)/(\d+)")
@@ -1319,7 +1320,11 @@ def build_cases(args: argparse.Namespace) -> None:
 
 
 def prepare(args: argparse.Namespace) -> None:
-    data_root = Path(args.data_root)
+    data_root = (
+        Path(args.data_root)
+        if args.data_root
+        else selected_dataset_path("verusage")
+    )
     out_dir = Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -1358,7 +1363,10 @@ def prepare(args: argparse.Namespace) -> None:
 
 def add_prepare_parser(subparsers) -> None:
     parser = subparsers.add_parser("ig-probe-prepare", help="prepare hands-on trace prefixes and IG targets")
-    parser.add_argument("--data-root", required=True, help="path containing all_batch_results-cyy-*")
+    parser.add_argument(
+        "--data-root",
+        help="path containing all_batch_results-cyy-*; defaults to the locally selected source",
+    )
     parser.add_argument("--out", required=True, help="output run directory")
     parser.add_argument("--limit", type=int, default=5, help="number of verified trace directories to parse")
     parser.add_argument("--model", default=None, help="optional model filter, e.g. claude, claude-s4, gpt5, o4mini")

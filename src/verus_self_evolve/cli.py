@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from .data import load_traces, write_data_manifest
+from .data_layout import selected_dataset_path
 from .ig_probe import add_prepare_parser
 from .ig_analysis import add_analysis_parser
 from .logprob_scorer import add_score_parser
@@ -15,7 +16,11 @@ from .three_target_analysis import add_three_target_analysis_parser
 
 
 def run(args: argparse.Namespace) -> None:
-    data_root = Path(args.data_root)
+    data_root = (
+        Path(args.data_root)
+        if args.data_root
+        else selected_dataset_path("verusage")
+    )
     out_dir = Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -47,7 +52,10 @@ def main() -> None:
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     run_parser = sub.add_parser("run", help="run offline rule mining and replay evaluation")
-    run_parser.add_argument("--data-root", required=True, help="path containing all_batch_results-cyy-*")
+    run_parser.add_argument(
+        "--data-root",
+        help="path containing all_batch_results-cyy-*; defaults to the locally selected source",
+    )
     run_parser.add_argument("--out", required=True, help="output run directory")
     run_parser.add_argument("--thresholds", nargs="+", type=int, default=[4, 6, 8])
     run_parser.set_defaults(func=run)

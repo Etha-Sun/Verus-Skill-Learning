@@ -9,6 +9,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
+from .data_layout import selected_dataset_path
+
 
 DIRECTORY_SPLITS: dict[str, dict[str, Any]] = {
     "verified-anvil": {"split": "train", "project_codes": ["AC", "AL"]},
@@ -580,7 +582,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(prog="handsoff-m0")
     subparsers = parser.add_subparsers(dest="command", required=True)
     inventory_parser = subparsers.add_parser("inventory")
-    inventory_parser.add_argument("--corpus-root", type=Path, required=True)
+    inventory_parser.add_argument(
+        "--corpus-root",
+        type=Path,
+        help="hands-off corpus root; defaults to the locally selected source",
+    )
     inventory_parser.add_argument("--out-dir", type=Path, required=True)
     audit_parser = subparsers.add_parser("audit")
     audit_parser.add_argument("--manifest", type=Path, required=True)
@@ -593,7 +599,8 @@ def main() -> None:
     quarantine_parser.add_argument("--out-dir", type=Path, required=True)
     args = parser.parse_args()
     if args.command == "inventory":
-        summary = build_inventory(args.corpus_root, args.out_dir)
+        corpus_root = args.corpus_root or selected_dataset_path("handsoff")
+        summary = build_inventory(corpus_root, args.out_dir)
         print(json.dumps(summary, indent=2))
     elif args.command == "audit":
         report = run_leakage_audit(

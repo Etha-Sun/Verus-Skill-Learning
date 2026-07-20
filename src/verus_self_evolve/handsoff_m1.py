@@ -7,6 +7,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from .data_layout import selected_dataset_path
+
 
 TRAIN_DIRECTORIES = ("verified-anvil", "verified-ironkv")
 KNOWN_MODELS = (
@@ -188,14 +190,19 @@ def write_selection(
 def main() -> None:
     parser = argparse.ArgumentParser(prog="handsoff-m1")
     parser.add_argument("--manifest", type=Path, required=True)
-    parser.add_argument("--corpus-root", type=Path, required=True)
+    parser.add_argument(
+        "--corpus-root",
+        type=Path,
+        help="hands-off corpus root; defaults to the locally selected source",
+    )
     parser.add_argument("--out-dir", type=Path, required=True)
     parser.add_argument("--per-stratum", type=int, default=3)
     args = parser.parse_args()
+    corpus_root = args.corpus_root or selected_dataset_path("handsoff")
     print(
         json.dumps(
             write_selection(
-                args.manifest, args.corpus_root, args.out_dir, args.per_stratum
+                args.manifest, corpus_root, args.out_dir, args.per_stratum
             ),
             indent=2,
         )

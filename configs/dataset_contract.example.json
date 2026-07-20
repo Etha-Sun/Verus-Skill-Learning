@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "storage": "external-per-user",
+  "contains_source_paths": false,
+  "datasets": {
+    "verusage-batch-v1": {
+      "relative_path": "verusage-batch-v1",
+      "access": "local",
+      "read_only": true,
+      "expected_tasks_per_configuration": 849,
+      "required_directories": [
+        "all_batch_results-cyy-claude",
+        "all_batch_results-cyy-claude-s4",
+        "all_batch_results-cyy-gpt5",
+        "all_batch_results-cyy-o4mini"
+      ]
+    },
+    "handsoff-v1": {
+      "relative_path": "handsoff-v1",
+      "access": "local",
+      "read_only": true,
+      "expected_trajectory_count": 9383,
+      "effective_train_count": 3341,
+      "dev_count": 3015,
+      "test_count": 3021,
+      "sealed_directories": [
+        "verified-memory-allocator",
+        "verified-nrkernel"
+      ]
+    }
+  }
+}
