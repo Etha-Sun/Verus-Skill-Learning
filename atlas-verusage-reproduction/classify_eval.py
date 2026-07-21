@@ -6,6 +6,7 @@ import os
 from collections import Counter
 from pathlib import Path
 
+from verus_self_evolve.data_layout import validate_output_path
 from run_taxonomy import CodexCLIClient
 from vendor.atlas.classifier import TaxonomyClassifier
 from vendor.atlas.config import PipelineConfig
@@ -21,6 +22,7 @@ def main() -> None:
     parser.add_argument("--reasoning-effort", default="high")
     parser.add_argument("--timeout", type=int, default=900)
     args = parser.parse_args()
+    args.out = validate_output_path(args.out)
 
     args.out.mkdir(parents=True, exist_ok=True)
     traces = [

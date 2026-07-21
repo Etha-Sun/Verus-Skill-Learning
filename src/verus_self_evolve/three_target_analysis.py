@@ -8,6 +8,7 @@ from collections import defaultdict
 from pathlib import Path
 from statistics import mean, median
 
+from .data_layout import validate_output_path
 from .ig_analysis import CONTROL_ARTIFACTS, REFERENCE_ARTIFACT, _read_jsonl
 
 
@@ -293,7 +294,7 @@ def _plot(out_dir: Path) -> None:
 
 
 def run(args: argparse.Namespace) -> None:
-    out_dir = Path(args.out_dir)
+    out_dir = validate_output_path(args.out_dir)
     analyze_three_targets(
         Path(args.aggregates),
         out_dir,

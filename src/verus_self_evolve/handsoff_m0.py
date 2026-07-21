@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
-from .data_layout import selected_dataset_path
+from .data_layout import selected_dataset_path, validate_output_path
 
 
 DIRECTORY_SPLITS: dict[str, dict[str, Any]] = {
@@ -600,21 +600,24 @@ def main() -> None:
     args = parser.parse_args()
     if args.command == "inventory":
         corpus_root = args.corpus_root or selected_dataset_path("handsoff")
-        summary = build_inventory(corpus_root, args.out_dir)
+        out_dir = validate_output_path(args.out_dir, data_root=corpus_root)
+        summary = build_inventory(corpus_root, out_dir)
         print(json.dumps(summary, indent=2))
     elif args.command == "audit":
+        out_dir = validate_output_path(args.out_dir)
         report = run_leakage_audit(
             args.manifest,
             args.eval_path,
-            args.out_dir,
+            out_dir,
             near_threshold=args.near_threshold,
         )
         print(json.dumps(report, indent=2))
     else:
+        out_dir = validate_output_path(args.out_dir)
         report = apply_leakage_quarantine(
             args.manifest,
             args.leakage_report,
-            args.out_dir,
+            out_dir,
         )
         print(json.dumps(report, indent=2))
 

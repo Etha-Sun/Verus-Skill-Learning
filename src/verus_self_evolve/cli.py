@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 from .data import load_traces, write_data_manifest
-from .data_layout import selected_dataset_path
+from .data_layout import selected_dataset_path, validate_output_path
 from .ig_probe import add_prepare_parser
 from .ig_analysis import add_analysis_parser
 from .logprob_scorer import add_score_parser
@@ -21,7 +21,7 @@ def run(args: argparse.Namespace) -> None:
         if args.data_root
         else selected_dataset_path("verusage")
     )
-    out_dir = Path(args.out)
+    out_dir = validate_output_path(args.out, data_root=data_root)
     out_dir.mkdir(parents=True, exist_ok=True)
 
     traces = load_traces(data_root)

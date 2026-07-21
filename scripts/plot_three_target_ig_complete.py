@@ -12,6 +12,8 @@ from statistics import mean, median
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
+from verus_self_evolve.data_layout import validate_output_path
+
 
 TARGETS = ("action_primary", "patch_span", "full_proof")
 TARGET_LABELS = {
@@ -386,7 +388,7 @@ def main() -> None:
 
     run_dir = args.run_dir.resolve()
     analysis_dir = run_dir / "analysis"
-    out_dir = args.out_dir.resolve()
+    out_dir = validate_output_path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     configure_style()
 

@@ -11,6 +11,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from .data_layout import validate_output_path
 from .handsoff_m0 import parse_copilot_usage, sha256_file
 
 
@@ -336,7 +337,7 @@ def main() -> None:
     args = parser.parse_args()
     result = run_harness(
         source=args.source,
-        out_dir=args.out_dir,
+        out_dir=validate_output_path(args.out_dir),
         condition=args.condition,
         model=args.model,
         copilot_bin=args.copilot_bin,

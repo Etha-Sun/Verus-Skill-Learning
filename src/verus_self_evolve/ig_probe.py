@@ -14,7 +14,7 @@ from statistics import mean
 from typing import Iterable
 
 from .data import batch_from_path, file_from_output_dir, model_from_path, project_from_file, read_result_rows
-from .data_layout import selected_dataset_path
+from .data_layout import selected_dataset_path, validate_output_path
 
 
 ATTEMPT_RE = re.compile(r"Repair attempt\s+(\d+)/(\d+)")
@@ -1102,7 +1102,7 @@ def _match_artifact_group_by_truncation(
 
 def build_cases(args: argparse.Namespace) -> None:
     run_dir = Path(args.run_dir)
-    out_path = Path(args.out)
+    out_path = validate_output_path(args.out)
     prefixes = {row["sample_id"]: row for row in read_jsonl(run_dir / "prefix_manifest.jsonl")}
     targets = read_jsonl(run_dir / "targets.jsonl")
     artifact_types = args.artifact_types
@@ -1325,7 +1325,7 @@ def prepare(args: argparse.Namespace) -> None:
         if args.data_root
         else selected_dataset_path("verusage")
     )
-    out_dir = Path(args.out)
+    out_dir = validate_output_path(args.out, data_root=data_root)
     out_dir.mkdir(parents=True, exist_ok=True)
 
     traces, prefixes = build_prefix_records(data_root, limit=args.limit, model_filter=args.model)

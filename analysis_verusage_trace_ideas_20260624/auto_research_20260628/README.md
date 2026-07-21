@@ -38,9 +38,9 @@
 在仓库根目录运行：
 
 ```bash
-python3 analysis_verusage_trace_ideas_20260624/auto_research_20260628/scripts/local_experiments.py \
-  --root . \
-  --out-dir analysis_verusage_trace_ideas_20260624/auto_research_20260628/outputs
+PYTHONPATH=src python3 analysis_verusage_trace_ideas_20260624/auto_research_20260628/scripts/local_experiments.py \
+  --root "${VERUS_SKILL_DATA_ROOT}" \
+  --out-dir "${VERUS_SKILL_RUN_ROOT}/auto-research-20260628"
 ```
 
 主数据口径：只使用 `all_batch_results-cyy-*/results-batch_*/`，不混入 sampled-unverified 额外批次。

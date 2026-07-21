@@ -11,6 +11,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from verus_self_evolve.data_layout import validate_output_path
 from vendor.atlas.config import PipelineConfig, resolve_output_dir
 from vendor.atlas.pipeline.check import TaxonomyChecker
 from vendor.atlas.pipeline.dedup import CrossCategoryDeduplicator
@@ -256,6 +257,7 @@ def main() -> None:
     parser.add_argument("--max-workers", type=int, default=2)
     parser.add_argument("--resume-after-step3", action="store_true")
     args = parser.parse_args()
+    args.out = validate_output_path(args.out)
 
     config = PipelineConfig(
         model=args.model,

@@ -5,6 +5,10 @@ __pycache__/
 .env
 .env.*
 !.env.example
+.agent-context.local.md
+.agents/skills/
+.aris/installed-skills-codex.txt
+.aris/installed-skills-codex.txt.prev
 data-local/
 artifacts/
 runs/

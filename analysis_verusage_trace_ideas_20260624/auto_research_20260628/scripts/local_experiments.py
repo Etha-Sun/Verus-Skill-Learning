@@ -17,6 +17,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from statistics import mean, median
 
+from verus_self_evolve.data_layout import validate_output_path
 
 ATTEMPT_RE = re.compile(r"Repair attempt\s+(\d+)/(\d+)")
 TARGET_RE = re.compile(r"Target error:\s*(?:VerusErrorType\.)?([A-Za-z0-9_]+)")
@@ -770,6 +771,7 @@ def main() -> None:
     parser.add_argument("--root", type=Path, default=Path("."))
     parser.add_argument("--out-dir", type=Path, required=True)
     args = parser.parse_args()
+    args.out_dir = validate_output_path(args.out_dir, data_root=args.root)
 
     results = read_results(args.root)
     traces = read_traces(args.root, results)

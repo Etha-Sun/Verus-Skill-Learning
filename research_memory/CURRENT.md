@@ -54,9 +54,12 @@ Current design principle:
 
 ## Current Scaffold
 
-Executable repo:
+Executable repository:
 
-- `verus-self-evolve-scaffold/`
+- repository root, with reusable code in `src/` and documentation in `docs/`
+- generated runs under `VERUS_SKILL_RUN_ROOT`
+- historical runs under the legacy archive described by
+  `.agent-context.local.md`
 
 Latest committed scaffold:
 
@@ -113,6 +116,31 @@ Canonical decision:
 
 - `research_memory/projects/verus_self_evolving/decisions/20260720-172029-per-user-data-source-selection-and-repository-cleanup/ENTRY.md`
 
+## Agent Context Migration (2026-07-21)
+
+The GitHub repository root is now the active agent workspace. Root
+`AGENTS.md` makes repo-local `research_memory/` canonical and overrides the
+global research-memory skill's legacy write target. Active code and docs paths
+now resolve below `src/` and `docs/`; historical run references are explicitly
+legacy archives below `VERUS_SKILL_DATA_ROOT`, while new generated runs belong
+below `VERUS_SKILL_RUN_ROOT`.
+
+Migration validation rebuilt the memory index, accepted the legacy data layout,
+and passed all 54 core unit tests. The local Copilot, Verus, and Lynette
+executables resolve; Lynette 0.0.0 is configured through the ignored local
+`.env`. Optional ARIS project skills are installed from a stable external
+checkout and remain local-only. No raw data or historical run was modified.
+
+Phase 1 output-path hardening now requires every active CLI and experiment
+writer to place generated artifacts below `VERUS_SKILL_RUN_ROOT`. The validator
+also requires that root to exist, be writable, and remain disjoint from both
+the repository and `VERUS_SKILL_DATA_ROOT`. The configured external root was
+created and passed validation in the actual execution environment. A
+model-free harness dry-run completed at
+`${VERUS_SKILL_RUN_ROOT}/phase1-output-path-smoke-20260721/`; 54 core tests and
+the 5 standalone ATLAS adapter tests pass. Restricted sandbox processes still
+need explicit permission to write to the external root, as intended.
+
 Latest offline metrics:
 
 | policy | covered failed | saved failed tokens | false-stop rate | peer diff |
@@ -152,7 +180,8 @@ Canonical artifacts:
 
 - report: `refine-logs/EXPERIMENT_RESULTS_20260714_162614.md`
 - audit: `refine-logs/EXPERIMENT_AUDIT_20260714_163500.md`
-- run: `verus-self-evolve-scaffold/runs/qwen36_three_target_ig_20260714/r032_r034_all_states_observed/`
+- legacy run archive:
+  `${VERUS_SKILL_DATA_ROOT}/verus-self-evolve-scaffold/runs/qwen36_three_target_ig_20260714/r032_r034_all_states_observed/`
 - memory: `research_memory/projects/verus_self_evolving/experiments/20260714-164002-qwen3-6-three-target-information-gain-pilot/ENTRY.md`
 
 ## Hands-Off Distillation Priority (2026-07-17)
@@ -299,8 +328,10 @@ Latest artifacts:
 
 - report: `refine-logs/EXPERIMENT_RESULTS_20260713_141542.md`
 - audit: `refine-logs/EXPERIMENT_AUDIT_20260713_140634.md`
-- analysis: `verus-self-evolve-scaffold/runs/control_null_ig_20260713/r025_six_states/analysis/analysis_summary.json`
-- state-level visualization: `verus-self-evolve-scaffold/runs/control_null_ig_20260713/r025_six_states/analysis/figures/statewise_three_way_pmi.png`
+- legacy analysis archive:
+  `${VERUS_SKILL_DATA_ROOT}/verus-self-evolve-scaffold/runs/control_null_ig_20260713/r025_six_states/analysis/analysis_summary.json`
+- legacy state-level visualization archive:
+  `${VERUS_SKILL_DATA_ROOT}/verus-self-evolve-scaffold/runs/control_null_ig_20260713/r025_six_states/analysis/figures/statewise_three_way_pmi.png`
 - memory: `research_memory/projects/verus_self_evolving/experiments/20260713-141547-control-null-direct-action-information-gain-pilot/ENTRY.md`
 
 Previous plan context follows; its patch/full-proof and scaling steps are now blocked by the July 13 STOP decision.
@@ -356,22 +387,22 @@ July 11 metric update from PlugMem (arXiv:2603.03296):
 
 Latest implementation:
 
-- `verus-self-evolve-scaffold/src/verus_self_evolve/ig_probe.py`
-- `verus-self-evolve-scaffold/src/verus_self_evolve/logprob_scorer.py`
-- `verus-self-evolve-scaffold/src/verus_self_evolve/ig_analysis.py`
+- `src/verus_self_evolve/ig_probe.py`
+- `src/verus_self_evolve/logprob_scorer.py`
+- `src/verus_self_evolve/ig_analysis.py`
 - latest results: `refine-logs/EXPERIMENT_RESULTS_20260711_145502.md`
 - latest audit: `refine-logs/EXPERIMENT_AUDIT_20260711_145502.md`
 - durable tables:
-  `verus-self-evolve-scaffold/runs/corrected_ig_20260711/r017_seven_states/analysis/`
+  `${VERUS_SKILL_DATA_ROOT}/verus-self-evolve-scaffold/runs/corrected_ig_20260711/r017_seven_states/analysis/`
 - sanity run:
-  `verus-self-evolve-scaffold/runs/ig_probe_sanity_20260704`
+  `${VERUS_SKILL_DATA_ROOT}/verus-self-evolve-scaffold/runs/ig_probe_sanity_20260704`
 - initial results:
   `refine-logs/EXPERIMENT_RESULTS.md`
 - QwQ/vLLM action-primary results:
   - raw prompt:
-    `verus-self-evolve-scaffold/runs/ig_probe_sanity_20260704/qwq_vllm_action_primary_21/`
+    `${VERUS_SKILL_DATA_ROOT}/verus-self-evolve-scaffold/runs/ig_probe_sanity_20260704/qwq_vllm_action_primary_21/`
   - explicit prompt:
-    `verus-self-evolve-scaffold/runs/ig_probe_sanity_20260704/qwq_vllm_action_primary_21_explicit/`
+    `${VERUS_SKILL_DATA_ROOT}/verus-self-evolve-scaffold/runs/ig_probe_sanity_20260704/qwq_vllm_action_primary_21_explicit/`
   - explicit mean `ig_sum`: trace rationale 1.0817, generic skill 0.8894,
     irrelevant control 0.6295.
   - caveat: irrelevant control is also positive, so current artifacts are not
@@ -383,8 +414,8 @@ Latest implementation:
   `research_memory/projects/verus_self_evolving/notes/20260720-164659-auto-research-progress-overview-2026-07-20/ENTRY.md`
 - Memory index: `research_memory/INDEX.md`
 - Project card: `research_memory/projects/verus_self_evolving/PROJECT.md`
-- Scaffold design: `verus-self-evolve-scaffold/docs/architecture.md`
-- Eval summary: `verus-self-evolve-scaffold/docs/eval_summary.md`
+- Scaffold design: `docs/architecture.md`
+- Eval summary: `docs/eval_summary.md`
 - Self-evolving survey: `analysis_verusage_trace_ideas_20260624/auto_research_20260628/self_evolving_and_verus_specificity.md`
 - Current selected idea:
   `research_memory/projects/verus_self_evolving/ideas/20260703-100812-non-blocking-verifier-guided-self-evolving-steering/ENTRY.md`

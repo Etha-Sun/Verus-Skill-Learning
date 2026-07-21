@@ -8,7 +8,8 @@ This is the first file a future agent should read when context is missing.
 2. `research_memory/INDEX.md`
 3. `research_memory/projects/verus_self_evolving/PROJECT.md`
 4. The latest relevant entry under `research_memory/projects/verus_self_evolving/`
-5. If code or metrics are needed: `verus-self-evolve-scaffold/docs/eval_summary.md`
+5. If code or metrics are needed: `docs/eval_summary.md` and `src/`
+6. If present, read `.agent-context.local.md` for machine-local legacy paths
 
 ## Current Project
 
@@ -22,15 +23,15 @@ Main objective:
 
 ## Non-Negotiable Data Rule
 
-Raw data directories are read-only:
+Raw data directories below `VERUS_SKILL_DATA_ROOT` are read-only:
 
 - `all_batch_results-cyy-claude/`
 - `all_batch_results-cyy-claude-s4/`
 - `all_batch_results-cyy-gpt5/`
 - `all_batch_results-cyy-o4mini/`
 
-Derived outputs belong in `research_memory/`, `verus-self-evolve-scaffold/`, or
-a dedicated run directory.
+Generated experiment outputs belong only below `VERUS_SKILL_RUN_ROOT`.
+`research_memory/` stores reviewed compact context and pointers, not full runs.
 
 ## How To Save New Context
 
@@ -49,4 +50,3 @@ python3 research_memory/scripts/mem.py log --project verus_self_evolving --text 
 
 Use formal entries for decisions, experiments, meeting notes, and literature
 scouting. Use inbox logs for raw or not-yet-triaged ideas.
-

@@ -9,12 +9,11 @@ polluting raw data.
 ## Current Research Claim
 
 The current repair system has Verus-specific tools/actions but lacks a
-Verus-specific learned decision policy. Historical traces can be used to mine
-candidate rules, rationales, counterexamples, and skills. The newest direction
-scores these artifacts by information gain: whether adding the artifact to a
-trajectory prefix increases the likelihood of the final verified proof. Final
-claims still require split-aware evaluation to avoid overfitting and data
-leakage.
+validated Verus-specific learned decision policy. Historical traces can be
+used to mine candidate rules, rationales, counterexamples, and skills.
+Information gain can rank or diagnose these artifacts as a secondary offline
+proxy. It does not establish downstream solved-rate or token-efficiency gains;
+those claims require leakage-safe live evaluation.
 
 ## Canonical Artifacts
 
@@ -22,22 +21,23 @@ leakage.
   `analysis_verusage_trace_ideas_20260624/`
 - Meeting-grounded auto research:
   `analysis_verusage_trace_ideas_20260624/auto_research_20260628/`
-- Executable scaffold repository:
-  `verus-self-evolve-scaffold/`
-- Scaffold run outputs:
-  `verus-self-evolve-scaffold/runs/latest/`
+- Executable code and documentation:
+  `src/` and `docs/`
+- Generated run outputs:
+  `VERUS_SKILL_RUN_ROOT`
 
 ## Raw Data Contract
 
-Raw data directories are read-only:
+Raw data directories below `VERUS_SKILL_DATA_ROOT` are read-only:
 
 - `all_batch_results-cyy-claude/`
 - `all_batch_results-cyy-claude-s4/`
 - `all_batch_results-cyy-gpt5/`
 - `all_batch_results-cyy-o4mini/`
 
-Derived outputs must be written to `research_memory/`, an experiment repository,
-or a new run directory, never into raw data directories.
+Generated experiment outputs must be written below `VERUS_SKILL_RUN_ROOT`,
+never into raw data directories or the repository. Keep only reviewed compact
+summaries and pointers in `research_memory/`.
 
 ## Current Open Questions
 

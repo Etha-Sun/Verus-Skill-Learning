@@ -9,6 +9,8 @@ from collections import defaultdict
 from pathlib import Path
 from statistics import mean, median, stdev
 
+from .data_layout import validate_output_path
+
 
 REFERENCE_ARTIFACT = "evidence_artifact"
 CONTROL_ARTIFACTS = (
@@ -175,7 +177,7 @@ def analyze_aggregates(
 
 
 def analyze(args: argparse.Namespace) -> None:
-    out_dir = Path(args.out_dir)
+    out_dir = validate_output_path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     control_artifacts = tuple(args.control_artifacts)
     raw_rows = _read_jsonl(Path(args.aggregates))

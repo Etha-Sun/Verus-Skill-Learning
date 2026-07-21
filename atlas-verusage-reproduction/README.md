@@ -5,7 +5,8 @@ small, task-disjoint sample of the local VeruSAGE repair corpus.
 
 The four `all_batch_results-cyy-*` directories are inputs only. The adapter
 rejects output paths inside any raw-data directory. All generated JSONL,
-manifests, taxonomies, logs, and diagnoses belong under `runs/` here.
+manifests, taxonomies, logs, and diagnoses belong below
+`VERUS_SKILL_RUN_ROOT`, outside this repository.
 
 ## Scope
 
@@ -28,13 +29,18 @@ PYTHONPATH=src \
   --data-root "${VERUS_SKILL_DATA_ROOT}" \
   --out "${VERUS_SKILL_RUN_ROOT}/atlas/pilot_v1/input"
 
-PYTHONPATH="${ATLAS_ROOT}" \
+PYTHONPATH="src:${ATLAS_ROOT}" \
   python3 atlas-verusage-reproduction/run_taxonomy.py \
   --traces "${VERUS_SKILL_RUN_ROOT}/atlas/pilot_v1/input/train.jsonl" \
   --out "${VERUS_SKILL_RUN_ROOT}/atlas/pilot_v1/taxonomy" \
   --model gpt-5.6-sol \
   --transport codex-cli \
   --reasoning-effort high
+
+PYTHONPATH="src:${ATLAS_ROOT}:atlas-verusage-reproduction" \
+  python3 -m unittest discover \
+  -s atlas-verusage-reproduction -p 'test_*.py' -v
 ```
 
-The source ATLAS checkout is pinned separately under `external_repos/ATLAS`.
+`ATLAS_ROOT` points to a separately pinned external ATLAS checkout. Keep its
+machine-local absolute path in the ignored `.env`; do not commit it.

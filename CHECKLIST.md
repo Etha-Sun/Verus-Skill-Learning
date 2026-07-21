@@ -3,66 +3,42 @@
 ## Identity
 
 - parent_map_node: hands-off trace distillation roadmap
-- loop_id: m0-integrity
-- run id: handsoff-distill-m0-r036-r039
-- idea id: trace-derived compact knowledge
-- stage: auxiliary/dev, minimum evidence
+- loop_id: m1-distillation
+- run_id: handsoff-distill-m1-r040-r041
+- stage: M1 train-only prompt distillation
+- active_item: R041
 
-## In Progress
+## Completed Prerequisites
 
-- [x] one concrete experiment frontier item is active: R041 prompt distillation
+- [x] R036 corpus inventory completed.
+- [x] R037 split and leakage audit completed.
+- [x] R038 unified harness implemented and tested.
+- [x] R039 mechanical smoke completed; no method-effect claim made.
+- [x] M0 classified GO for train-only R040-R041.
+- [x] R040 canonical attempt3 selected 30 unique verified train traces.
+- [x] Sealed trace-content reads remained zero.
 
-## Next
+## R041 In Progress
 
-- [x] implement and run R036
-- [x] implement and run R037
-- [x] implement/test R038
-- [x] decide whether R039 is mechanically safe to launch
-
-## Later
-
-- [ ] R040-R044 distillation and dev comparison (R040 complete; R041 next)
-- [ ] R045-R049 dev-only selection
-- [ ] R050-R053 sealed confirmatory test
+- [ ] Verify the canonical R040 manifest and hash.
+- [ ] Distill an H2 prompt of at most 800 provider tokens.
+- [ ] Link every H2 claim to one or more selected trace IDs.
+- [ ] Construct a generic H1 prompt within +/-5% of H2 provider tokens.
+- [ ] Record bytes, words, provider/tokenizer counts, and SHA-256 hashes.
+- [ ] Record model/tool, token usage, wall time, and human editing cost.
+- [ ] Scan for prohibited proof bypasses and executable-code removal guidance.
+- [ ] Freeze H1/H2, the evidence table, manifest, and reviewed summary.
+- [ ] Update `research_memory/CURRENT.md` and rebuild the memory index.
 
 ## Blocked
 
-- [x] R039 prerequisites R036-R038 satisfied
-- [x] prior R039 blocker recorded; retry is authorized by the resumed user request
-- [x] M0 GO reached for train-only R040-R041
-- [ ] frontier R042-R044 require cloud authentication and frozen M1 prompts
+- [ ] R042-R044 frontier dev evaluation requires frozen H1/H2 and working
+  frontier-model authentication.
+- [ ] R050-R053 sealed confirmation remains blocked until dev-only selection
+  and all predeclared promotion gates pass.
 
-## Planning
+## Claim Boundary
 
-- [x] selected idea summarized
-- [x] baseline and comparability contract confirmed
-- [x] code touchpoints listed
-- [x] smoke plan written
-- [x] full-run boundary written
-- [x] fallback options written
-
-## Implementation
-
-- [x] intended files modified
-- [x] unrelated dirty-worktree changes identified and excluded
-- [x] risky logic guarded or sanity-checked
-- [x] current PLAN.md matches the execution route
-
-## Pilot / Smoke
-
-- [x] dry-run command executed
-- [x] H0/H1/H2 configs differ only by payload
-- [x] bounded H0/H1/H2 agent smoke executed
-- [x] failure output and deterministic integration logs are interpretable
-
-## Validation
-
-- [x] required M0 metric keys are complete
-- [x] raw-data read-only contract verified
-- [x] result reclassified GO after resumed smoke
-- [x] tracker and research memory updated after resumed smoke
-
-## Closeout
-
-- [x] M0 summarized in 1-2 sentences
-- [x] next action explicit
+- [x] R041 is prompt construction, not downstream effectiveness evidence.
+- [x] Information gain remains a secondary offline diagnostic.
+- [x] No solved-rate or token-efficiency improvement claim is currently valid.

@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from .data_layout import selected_dataset_path
+from .data_layout import selected_dataset_path, validate_output_path
 
 
 TRAIN_DIRECTORIES = ("verified-anvil", "verified-ironkv")
@@ -199,10 +199,11 @@ def main() -> None:
     parser.add_argument("--per-stratum", type=int, default=3)
     args = parser.parse_args()
     corpus_root = args.corpus_root or selected_dataset_path("handsoff")
+    out_dir = validate_output_path(args.out_dir, data_root=corpus_root)
     print(
         json.dumps(
             write_selection(
-                args.manifest, corpus_root, args.out_dir, args.per_stratum
+                args.manifest, corpus_root, out_dir, args.per_stratum
             ),
             indent=2,
         )

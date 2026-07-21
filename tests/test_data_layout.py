@@ -9,6 +9,7 @@ from verus_self_evolve.data_layout import (
     HANDSOFF_DIRECTORIES,
     inspect_layout,
     selected_dataset_path,
+    validate_output_path,
 )
 
 
@@ -32,7 +33,8 @@ class DataLayoutTest(unittest.TestCase):
             data_root = root / "data"
             run_root = root / "runs"
             make_layout(data_root, "versioned")
-            report = inspect_layout(data_root, run_root)
+            run_root.mkdir()
+            report = inspect_layout(data_root, run_root, layout="versioned")
             self.assertTrue(report["ok"])
             self.assertTrue(report["raw_data_read_only"])
             self.assertEqual(report["missing_directories"], [])
@@ -41,8 +43,10 @@ class DataLayoutTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             data_root = root / "legacy"
+            run_root = root / "runs"
             make_layout(data_root, "legacy")
-            report = inspect_layout(data_root, root / "runs", layout="legacy")
+            run_root.mkdir()
+            report = inspect_layout(data_root, run_root, layout="legacy")
             self.assertTrue(report["ok"])
             self.assertEqual(
                 Path(report["handsoff_root"]),
@@ -53,7 +57,9 @@ class DataLayoutTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             data_root = Path(tmp) / "data"
             make_layout(data_root, "versioned")
-            report = inspect_layout(data_root, data_root / "runs")
+            run_root = data_root / "runs"
+            run_root.mkdir()
+            report = inspect_layout(data_root, run_root)
             self.assertFalse(report["ok"])
             self.assertIn("data and run roots must not overlap", report["issues"])
 
@@ -63,6 +69,7 @@ class DataLayoutTest(unittest.TestCase):
             data_root = root / "data"
             run_root = root / "runs"
             make_layout(data_root, "versioned")
+            run_root.mkdir()
             with patch.dict(
                 os.environ,
                 {
@@ -72,6 +79,47 @@ class DataLayoutTest(unittest.TestCase):
                 },
             ):
                 self.assertTrue(inspect_layout()["ok"])
+
+    def test_missing_run_root_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            data_root = root / "data"
+            make_layout(data_root, "versioned")
+            report = inspect_layout(data_root, root / "missing")
+            self.assertFalse(report["ok"])
+            self.assertIn("run root must be an existing directory", report["issues"])
+
+    def test_output_path_must_be_inside_run_root(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            run_root = root / "runs"
+            run_root.mkdir()
+            output = run_root / "experiment" / "result.json"
+            self.assertEqual(
+                validate_output_path(output, run_root=run_root),
+                output.resolve(),
+            )
+            with self.assertRaisesRegex(ValueError, "VERUS_SKILL_RUN_ROOT"):
+                validate_output_path(root / "sibling", run_root=run_root)
+
+    def test_run_root_cannot_overlap_data_or_repository(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            data_root = Path(tmp) / "data"
+            run_root = data_root / "runs"
+            run_root.mkdir(parents=True)
+            with self.assertRaisesRegex(ValueError, "data root"):
+                validate_output_path(
+                    run_root / "experiment",
+                    run_root=run_root,
+                    data_root=data_root,
+                )
+
+        repository_root = Path(__file__).resolve().parents[1]
+        with self.assertRaisesRegex(ValueError, "repository"):
+            validate_output_path(
+                repository_root / "runs",
+                run_root=repository_root,
+            )
 
     def test_selected_dataset_uses_local_legacy_source(self):
         with tempfile.TemporaryDirectory() as tmp:

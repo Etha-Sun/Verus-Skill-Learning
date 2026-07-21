@@ -12,8 +12,9 @@ export VERUS_SKILL_DATA_LAYOUT=legacy
 ```
 
 The selected data root is read-only during experiments. The run root contains
-all generated artifacts and must not overlap the data root. A local `.env` may
-hold these values; it is ignored by Git.
+all generated artifacts, must already exist and be writable, and must not
+overlap either the data root or this repository. A local `.env` may hold these
+values; it is ignored by Git.
 
 Tool paths are configured locally in the same way:
 
@@ -58,7 +59,8 @@ trace contract.
 Commands resolve `verusage` and `handsoff` paths from the selected environment.
 Explicit `--data-root` and `--corpus-root` arguments take precedence for a
 single command. Output paths remain explicit or derive from
-`VERUS_SKILL_RUN_ROOT` in repository scripts.
+`VERUS_SKILL_RUN_ROOT` in repository scripts, and active writers reject output
+paths outside that root.
 
 Validate the current selection with:
 
@@ -66,8 +68,9 @@ Validate the current selection with:
 PYTHONPATH=src python3 -m verus_self_evolve.data_layout
 ```
 
-The validator checks directory presence and data/run overlap. It never writes
-to the selected source or reads sealed trace content.
+The validator checks data-directory presence, run-root existence and
+writability, and data/run/repository separation. It never writes to the
+selected source or reads sealed trace content.
 
 ## What Git Stores
 

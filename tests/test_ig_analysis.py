@@ -4,6 +4,7 @@ import math
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from verus_self_evolve.ig_analysis import CONTROL_ARTIFACTS, REFERENCE_ARTIFACT, analyze, analyze_aggregates
 
@@ -79,13 +80,14 @@ class IgAnalysisTest(unittest.TestCase):
                 )
             rows[0]["intervention_token_count"] = 9
             write_rows()
-            with self.assertRaises(ValueError):
-                analyze(args)
-            rows[0]["intervention_token_count"] = 10
-            rows[0]["serialized_target"] = "B"
-            write_rows()
-            with self.assertRaises(ValueError):
-                analyze(args)
+            with patch.dict("os.environ", {"VERUS_SKILL_RUN_ROOT": tmp}):
+                with self.assertRaises(ValueError):
+                    analyze(args)
+                rows[0]["intervention_token_count"] = 10
+                rows[0]["serialized_target"] = "B"
+                write_rows()
+                with self.assertRaises(ValueError):
+                    analyze(args)
 
     def test_candidate_raw_mass_diagnostic_uses_unnormalized_scores(self):
         rows = []
@@ -127,16 +129,17 @@ class IgAnalysisTest(unittest.TestCase):
             distribution_path.write_text(
                 "".join(json.dumps(row) + "\n" for row in distributions), encoding="utf-8"
             )
-            analyze(argparse.Namespace(
-                aggregates=str(aggregate_path),
-                action_distributions=str(distribution_path),
-                out_dir=str(out_dir),
-                reference_artifact=REFERENCE_ARTIFACT,
-                control_artifacts=list(CONTROL_ARTIFACTS),
-                expected_state_count=6,
-                expected_candidate_count=22,
-                expected_prompt_format="chat_direct",
-            ))
+            with patch.dict("os.environ", {"VERUS_SKILL_RUN_ROOT": tmp}):
+                analyze(argparse.Namespace(
+                    aggregates=str(aggregate_path),
+                    action_distributions=str(distribution_path),
+                    out_dir=str(out_dir),
+                    reference_artifact=REFERENCE_ARTIFACT,
+                    control_artifacts=list(CONTROL_ARTIFACTS),
+                    expected_state_count=6,
+                    expected_candidate_count=22,
+                    expected_prompt_format="chat_direct",
+                ))
             summary = json.loads((out_dir / "analysis_summary.json").read_text(encoding="utf-8"))
             self.assertTrue(summary["candidate_mass_diagnostic"]["all_below_1e_6"])
             self.assertAlmostEqual(summary["candidate_mass_diagnostic"]["minimum"], 3e-10)

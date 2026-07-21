@@ -1,5 +1,13 @@
 [
   {
+    "created_at": "2026-07-21T16:06:01",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "agent migration and local skill installation",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/notes/20260721-160601-agent-migration-and-local-skill-installation/ENTRY.md"
+  },
+  {
     "created_at": "2026-07-21T14:07:25",
     "project": "verus_self_evolving",
     "kind": "notes",

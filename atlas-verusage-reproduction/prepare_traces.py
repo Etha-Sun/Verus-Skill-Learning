@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Iterable
 
 from verus_self_evolve.data import ATTEMPT_RE, load_traces, sha256_file
+from verus_self_evolve.data_layout import validate_output_path
 from verus_self_evolve.models import Trace
 
 
@@ -250,6 +251,7 @@ def main() -> None:
     parser.add_argument("--eval-quota", type=parse_quota, default=parse_quota("FAILED=4,TIMEOUT=4,VERIFIED=4"))
     args = parser.parse_args()
 
+    args.out = validate_output_path(args.out, data_root=args.data_root)
     ensure_safe_output(args.data_root, args.out)
     traces = load_traces(args.data_root)
     used_tasks: set[str] = set()

@@ -7,6 +7,8 @@ import math
 from dataclasses import dataclass
 from pathlib import Path
 
+from .data_layout import validate_output_path
+
 
 @dataclass(frozen=True)
 class TokenScore:
@@ -365,7 +367,7 @@ def score_file(args: argparse.Namespace) -> None:
         device=args.device,
         prompt_format=args.prompt_format,
     )
-    out_path = Path(args.out)
+    out_path = validate_output_path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with out_path.open("w", encoding="utf-8") as f:
         for score in scores:
@@ -546,7 +548,7 @@ def _materialize_checkpoints(cases: list[dict[str, object]], checkpoint_root: Pa
 
 def score_cases(args: argparse.Namespace) -> None:
     cases_path = Path(args.cases)
-    out_dir = Path(args.out_dir)
+    out_dir = validate_output_path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     token_path = out_dir / "token_scores.jsonl"
     aggregate_path = out_dir / "aggregates.jsonl"

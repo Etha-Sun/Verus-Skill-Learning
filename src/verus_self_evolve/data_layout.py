@@ -10,6 +10,7 @@ from typing import Any
 ENV_DATA_ROOT = "VERUS_SKILL_DATA_ROOT"
 ENV_RUN_ROOT = "VERUS_SKILL_RUN_ROOT"
 ENV_LAYOUT = "VERUS_SKILL_DATA_LAYOUT"
+REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 LAYOUTS = ("versioned", "legacy")
 BATCH_DIRECTORIES = (
     "all_batch_results-cyy-claude",
@@ -40,6 +41,46 @@ def _configured_path(explicit: Path | None, env_name: str) -> Path:
     if value is None:
         raise ValueError(f"set {env_name} or pass the corresponding command-line path")
     return value.expanduser().resolve()
+
+
+def _paths_overlap(left: Path, right: Path) -> bool:
+    return left == right or left in right.parents or right in left.parents
+
+
+def _run_root_issues(run_root: Path, data_root: Path | None = None) -> list[str]:
+    issues = []
+    if not run_root.is_dir():
+        issues.append("run root must be an existing directory")
+    elif not os.access(run_root, os.W_OK | os.X_OK):
+        issues.append("run root must be writable")
+    if _paths_overlap(run_root, REPOSITORY_ROOT):
+        issues.append("run root must be outside the repository")
+    if data_root is not None and _paths_overlap(run_root, data_root):
+        issues.append("run root must not overlap data root")
+    return issues
+
+
+def validate_output_path(
+    output_path: Path | str,
+    *,
+    run_root: Path | None = None,
+    data_root: Path | None = None,
+) -> Path:
+    """Resolve an experiment output and require it to stay under the run root."""
+    configured_run_root = _configured_path(run_root, ENV_RUN_ROOT)
+    configured_data_root = data_root
+    if configured_data_root is None and os.environ.get(ENV_DATA_ROOT):
+        configured_data_root = Path(os.environ[ENV_DATA_ROOT])
+    if configured_data_root is not None:
+        configured_data_root = configured_data_root.expanduser().resolve()
+    issues = _run_root_issues(configured_run_root, configured_data_root)
+    if issues:
+        raise ValueError("; ".join(issues))
+
+    output = Path(output_path).expanduser().resolve()
+    if output != configured_run_root and configured_run_root not in output.parents:
+        raise ValueError(f"output path must be inside {ENV_RUN_ROOT}")
+    return output
 
 
 def dataset_paths(data_root: Path, layout: str) -> dict[str, Path]:
@@ -88,16 +129,12 @@ def inspect_layout(
         *(paths["handsoff"] / name for name in HANDSOFF_DIRECTORIES),
     ]
     missing = [str(path) for path in required if not path.is_dir()]
-    overlap = (
-        data_root == run_root
-        or data_root in run_root.parents
-        or run_root in data_root.parents
-    )
     issues = []
     if missing:
         issues.append("required data directories are missing")
-    if overlap:
+    if _paths_overlap(data_root, run_root):
         issues.append("data and run roots must not overlap")
+    issues.extend(_run_root_issues(run_root))
     return {
         "ok": not issues,
         "layout": layout,
@@ -108,6 +145,9 @@ def inspect_layout(
         "eval_root": str(paths["eval"]),
         "sealed_directories": list(SEALED_DIRECTORIES),
         "raw_data_read_only": True,
+        "run_root_exists": run_root.is_dir(),
+        "run_root_writable": run_root.is_dir()
+        and os.access(run_root, os.W_OK | os.X_OK),
         "missing_directories": missing,
         "issues": issues,
     }
