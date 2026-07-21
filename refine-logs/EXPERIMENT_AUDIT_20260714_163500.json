@@ -1,0 +1,35 @@
+{
+  "date": "2026-07-14",
+  "auditor": "gpt-5.5-xhigh",
+  "overall_verdict": "warn",
+  "integrity_status": "warn",
+  "checks": {
+    "gt_provenance": {
+      "status": "warn",
+      "details": "Verifier-grounded demonstrator targets; no future proof leak found, but this is a self-supervised proxy and prior repeated actions can confound action scoring."
+    },
+    "score_normalization": {
+      "status": "warn",
+      "details": "IG arithmetic is correct; actual backend is HF and 22-way candidate-normalized action distribution was not run."
+    },
+    "result_existence": {
+      "status": "pass",
+      "details": "126-case matrix, 1,499,498 token rows, hashes, aggregate arithmetic, and CSV summaries verified."
+    },
+    "dead_code": {
+      "status": "warn",
+      "details": "Exact scoring/checkpoints/analysis/plots exercised; resume and candidate-distribution paths not exercised by this run."
+    },
+    "scope": {
+      "status": "warn",
+      "details": "Only 3 traces and 6 states; no held-out split or downstream live-agent metrics."
+    },
+    "eval_type": "self_supervised_proxy"
+  },
+  "claims": [
+    {"id": "three_target_mechanical_feasibility", "impact": "supported"},
+    {"id": "full_proof_beats_irrelevant_and_shuffled_in_pilot", "impact": "supported"},
+    {"id": "evidence_improves_action_selection", "impact": "unsupported"},
+    {"id": "downstream_agent_improvement", "impact": "unsupported"}
+  ]
+}

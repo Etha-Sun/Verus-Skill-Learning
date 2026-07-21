@@ -1,0 +1,449 @@
+# Hands-Off Trace Distillation 长期实验计划
+
+**Problem**: 如何从 frontier model + agent 的成功 Verus hands-off
+trajectories 中蒸馏可复用知识，使真实 proof-repair inference 在不明显降低
+成功率的前提下减少 token、时间或模型规模。
+
+**Method Thesis**: 冻结 leakage-safe 的 project-level trace split，把成功
+hands-off traces 压缩成短 prompt 或原子 skills；在同一 agent scaffold、
+模型、任务、工具权限和停止条件下做 paired live evaluation，以
+security-valid solved rate 为质量约束，以 uncached tokens per solved task
+为主要成本指标。
+
+**Date**: 2026-07-19
+
+## 0. 计划边界与假设
+
+- 本计划是约 6-8 周的 gated roadmap；每一阶段通过 go/stop gate 后才进入
+  下一阶段，不承诺无条件跑完所有昂贵实验。
+- 第一评价 harness 是 GitHub Copilot CLI 1.0.34 hands-off agent，因为
+  claude_sonnet_gpt5 的原始轨迹正由这类 frontier agent + tools 产生。
+- local 27B 模型优先通过同一 Copilot scaffold/custom provider 运行；若该
+  provider 无法稳定支持，则把现有 iterative-refinement runner 作为明确标注
+  的 secondary scaffold，不把两种 scaffold 的差异归因于模型。
+- 当前 raw corpus 有 9,823 个 .log 文件。第一轮只读取冻结 train projects
+  中 20-50 条成功 traces；通过 baseline gate 后再扩展到 200-500 条。
+- 现有 verusage_eval_filtered.jsonl 有 53 个任务：MA 15、AL 15、NR 12、
+  OS 5、VE 3、ST 1、NO 1、AC 1。
+- 暂定 project split：
+  - distillation/train: AC、AL、IR；
+  - development: OS、VE、ST、NO，共 10 个现有任务；
+  - sealed test: MA、NR，共 27 个现有任务；
+  - 若 M0 发现 project 映射、重复或污染，必须在查看任何 variant outcome
+    前修改并重新冻结 split。
+- claude_sonnet_gpt5/ 和 all_batch_results-cyy-* 始终只读；所有 manifest、
+  prompts、分析和 run outputs 写入 dedicated run directory。
+
+## 1. Claim Map
+
+| Claim | 为什么重要 | Minimum Convincing Evidence | Linked Blocks |
+|---|---|---|---|
+| C1：同模型 token efficiency | trace knowledge 真正帮助 hands-off frontier agent，而不是只改善离线 proxy | 在完全 held-out projects 上，trace prompt 相对原始 hands-off 满足 solved-rate non-inferiority，并将 total uncached tokens/solved task 至少降低 20%；paired 95% CI 支持方向 | B1, B2, B3 |
+| C2：跨模型 transfer | knowledge 可以降低 model-size cost，而非只对生成它的 frontier model 有效 | 冻结同一知识后，local 27B + knowledge 明显优于 local 27B baseline，并缩小到 frontier no-knowledge 的成功率/成本差距 | B4 |
+| Anti-claim A1：只是更多 prompt token | 任意长上下文也可能改变输出 | trace prompt 必须胜过长度匹配 generic 与 shuffled controls | B2, B3 |
+| Anti-claim A2：来自任务泄漏 | final proof、同名函数或同项目模板可能被记忆 | project holdout、normalized source hash、target-function/lemma overlap 和近重复审计全部通过 | B1 |
+| Anti-claim A3：通过早停牺牲成功率 | token 少并不等于更好 | 把失败任务、非法修改和全部尝试成本计入 denominator；security-valid solve 是硬约束 | B1, B2 |
+
+若最终 test sample 太小，无法让 C1 的 non-inferiority CI 达到预设 margin，
+必须扩展 held-out task set；不能用点估计代替主张。
+
+## 2. Paper Storyline
+
+Main paper 必须证明：
+
+1. leakage-safe trace-derived knowledge 能改善真实 hands-off inference 的
+   success-cost frontier。
+2. 增益来自 trace-specific knowledge，而非 prompt 长度、额外搜索预算或
+   scaffold 改动。
+3. 如果保留 C2，则同一知识对更小模型也有可重复收益。
+
+Appendix 支持：
+
+- frontier/local distiller 的一次性生成成本和 break-even task count；
+- skill family 消融、retrieval top-k sweep、IG 与 live token savings 的相关性；
+- task-level qualitative trajectories 与失败分类。
+
+明确 cut 或 conditional：
+
+- RL、权重训练、大规模 self-evolution：简单 prompt baseline 有信号后再考虑；
+- broad harness evolution：不属于第一篇主线；
+- full-proof IG scaling：仅作为 artifact ranking 诊断，不作为 live claim；
+- 70B 模型：仅当 27B 结果表明 scale gap 值得测量时运行。
+
+## 3. 冻结的评价合同
+
+### 3.1 Evaluation unit
+
+- 基本单位是一个唯一 target function/task，而不是单个 model call。
+- task identity 由 project、target function、normalized unverified source
+  SHA256 和 specification SHA256 共同确定。
+- 同一 task 的所有 prompt variants 使用相同工作目录快照、Verus 版本、
+  checker、agent permissions、模型版本和最大运行预算。
+- variant 执行顺序随机化；任何人工查看 test outputs 的行为必须记录。
+
+### 3.2 Prompt conditions
+
+- H0 Hands-off baseline：复现原始任务 prompt，不增加知识。
+- H1 Generic control：等长度的通用 Verus 建议，不使用 train trace 内容。
+- H2 Trace-distilled prompt：由 train traces 蒸馏的短、全局 prompt。
+- H3 Retrieved skills：只注入与当前 error/motif 匹配的 top-k skills；仅在
+  H2 通过 dev gate 后启用。
+- H4 Shuffled/mismatched skills：保持长度和格式但打乱适用条件；用于机制
+  消融，不进入大规模主结果。
+
+第一版 H2 预算不超过 800 prompt tokens；H3 每个 task 的注入预算不超过
+400 tokens。最终以 provider-reported input delta 校验 H1/H2 的长度差在
+±5% 内，无法精确匹配时同时报告字节、词数和 provider tokens。
+
+H* 表示只根据 dev 结果和预声明规则选出的最终 trace-specific variant。
+H* 可以是 H2、compressed H2 或 H3；在打开 sealed test 前必须冻结内容、
+budget、retrieval threshold 和 hash。所有机制选择先于 confirmatory test。
+
+### 3.3 Primary outcomes
+
+Security-valid solved task 同时满足：
+
+1. Verus 报告 0 errors；
+2. verus-checker/lynette 安全检查通过；
+3. 没有修改已有 requires/ensures、可执行 Rust 语义或引入 assume、
+   admit、external_body/新 axiom 等 bypass；
+4. 结果文件与 task/run manifest 对应。
+
+Primary quality metric：
+
+- security-valid solved rate。
+
+Primary cost metric：
+
+- total uncached tokens per solved task
+  = 所有任务和所有失败尝试的 uncached input + output tokens 总和
+    / security-valid solved task 数。
+
+同时报告：
+
+- raw input、cache-read、uncached input、output 和 total tokens/task；
+- wall time/task、tool calls、Verus calls、checker calls、edit cycles；
+- premium requests 或 provider USD cost（若可得）；
+- first-valid-solution tokens 与 time；
+- illegal-edit rate、timeout rate、format/extraction failure rate。
+
+不能只在 both-solved 子集上报告 token savings；both-solved 是 secondary
+paired diagnosis，主成本 denominator 必须包括全部任务。
+
+### 3.4 Statistical contract
+
+- task 是统计独立/cluster 单位；同一 task 的多次 calls 不能当独立样本。
+- solved-rate 差异使用 paired binary analysis 与 project-clustered
+  bootstrap 95% CI；同时给 exact task counts。
+- token/time 使用 paired bootstrap；报告 mean、median、geometric mean
+  ratio 和 heavy-tail 分位数。
+- confirmatory target：
+  - solved-rate difference 的 95% CI 下界高于 -5 percentage points；
+  - uncached tokens/solved task ratio 的 95% CI 上界低于 0.80。
+- M0 必须根据 baseline solved rate 做 power/sensitivity analysis。若 27
+  个 sealed tasks 不足，先扩展 test set 到所需规模，或把结论降级为 pilot。
+- stochastic robustness 默认在 10-task slice 上跑 3 repetitions；只有
+  variance 证明会改变结论时才把 3 repetitions 扩展到完整 test。
+
+### 3.5 Distillation cost
+
+一次性 knowledge-generation cost 与 recurring inference cost 分开记录：
+
+- trace parsing tokens/time；
+- frontier/local distiller input/output tokens；
+- human editing minutes；
+- candidate filtering/IG scoring cost；
+- skill-bank storage与检索 overhead。
+
+Break-even task count：
+
+N_break_even = one-time distillation cost / per-task inference cost saving。
+
+分别以 tokens、GPU-hours 和 provider USD 计算；缓存 token 单独列出。
+
+## 4. Experiment Blocks
+
+### Block 1: Corpus、Leakage 与 Harness Integrity
+
+- Claim tested: C1/C2 的前置条件，排除 A2/A3。
+- Why: 当前 corpus 混有多项目、多模型、多版本、nol/nolemma/advanced
+  variants；直接采样容易重复和泄漏。现有 local runner 也缺完整 token
+  accounting。
+- Dataset/split/task:
+  - 只扫描 claude_sonnet_gpt5 metadata、scripts、logs 和 result pairs；
+  - 冻结 project split 与 task identity；
+  - 对 53-task filtered eval 和候选扩展任务做 exact/near-duplicate audit。
+- Actions:
+  - 建 corpus_manifest.jsonl、split_manifest.json、leakage_report.json；
+  - 解析 model、prompt variant、success、usage、wall time、tool/verifier
+    events、source/final hashes；
+  - 建统一 Copilot run wrapper，固定 CLI/version/model/permissions/prompt；
+  - 收集 JSONL/session share、stdout stats、git-free working snapshot、
+    Verus/checker结果；
+  - unit test prompt injection、token accounting、resume、timeout、output
+    collision 和 security checker。
+- Success criterion:
+  - 所有 selected traces/tasks 有唯一 ID 与 provenance；
+  - sealed projects 的 logs/final proofs 不进入 distillation；
+  - smoke run 中 H0/H2 除 knowledge payload 外配置完全相同；
+  - provider usage coverage 100%，或明确可复算 tokenizer accounting；
+  - safety checker 与 Verus 双重判定一致。
+- Failure interpretation:
+  - 若无法统一 token/agent accounting，STOP live efficiency claim；
+  - 若 test 与 train 高度重叠，重新构造 project-heldout dataset。
+- Table/figure target: Appendix data provenance table；main paper protocol box。
+- Priority: MUST-RUN。
+
+### Block 2: Same-Model Paired Live Baseline
+
+- Claim tested: C1，排除 A1/A3。
+- Why: 这是群聊中最直接的问题——一段从 traces 学到的知识是否能让
+  frontier hands-off agent 少花 token 而保持结果。
+- Dataset:
+  - dev: 10 个 OS/VE/ST/NO tasks；
+  - sealed test: 27 个 MA/NR tasks；若 power 不足则在 freeze 后扩展。
+- Compared systems:
+  - H0 original hands-off；
+  - H1 length-matched generic；
+  - dev 阶段的 H2 trace-distilled global prompt；
+  - sealed test 阶段的 H* frozen trace-specific method。
+- Setup:
+  - Copilot CLI 1.0.34 或冻结后的 exact version；
+  - 同一 frontier model、reasoning effort、tool/path permissions、
+    max continues、任务目录和 Verus/checker；
+  - 每个 condition 的搜索预算完全相同，prompt order 随机化。
+- Metrics: 3.3 中全部 primary/secondary metrics。
+- Dev GO gate:
+  - H2 相对 H0 不多损失超过 1 个 security-valid solve；
+  - H2 的 total uncached tokens/solved task 至少下降 15%；
+  - H2 同时优于 H1，且无 illegal-edit 增长。
+- Test success criterion: 3.4 confirmatory target。
+- Failure interpretation:
+  - H2≈H1：trace-specific knowledge 未被证明；
+  - H2 token 少但 solved rate 下跌：可能是隐式早停/过度约束；
+  - H2 solved 提升但 token 增加：是质量方法，不支持 cost claim；
+  - 全部无差异：停止复杂 self-evolution，先检查知识质量或 agent 已饱和。
+- Table/figure target:
+  - Main Table 1：solved、tokens/solved、time、calls、safety；
+  - Main Figure 1：task-level paired token ratio + solved transition。
+- Priority: MUST-RUN。
+
+### Block 3: Knowledge Isolation、Compression 与 Retrieval
+
+- Claim tested: C1 mechanism，排除 A1，并验证简单方法是否足够。
+- Why: 防止把收益误归因于 prompt 长度、宽泛 Verus expertise 或更复杂
+  skill machinery。
+- Dataset: 仅 dev 做选择；冻结选择后最多一次 test confirmation。
+- Compared systems:
+  - H1 generic；
+  - H2 full trace prompt；
+  - compressed H2 at 25/50/100% token budget；
+  - H4 shuffled/mismatched；
+  - atomic skill family leave-one-out；
+  - H3 top-k retrieval vs inject-all。
+- Skill families 初始只允许来自 train evidence：
+  - verifier-first diagnosis；
+  - invariant/decreases/bounds；
+  - int/nat/coercion与 arithmetic；
+  - sequence/set/map/quantifier/trigger；
+  - temporal/state-machine；
+  - executable-code preservation 与 checker-aware validation。
+- Metrics: solved/token frontier、prompt-token overhead、retrieval hit rate、
+  skill-use evidence、failure category。
+- Success criterion:
+  - 至少一个 trace-specific variant 显著优于 H1/H4；
+  - compressed/retrieved 版本不降低 dev solved count，且总 token 更低；
+  - inject-all 若不优于短版本，则从 final method 删除。
+- Failure interpretation:
+  - skill decomposition 无收益：保留单一短 prompt，维护 simplicity；
+  - retrieval 不稳定：不进入主线，不继续建设复杂 memory system；
+  - IG 排名不预测 live savings：IG 降级为分析工具。
+- Table/figure target: Main Table 2 ablation；Appendix top-k/token-budget curve。
+- Priority: MUST-RUN 的最小部分是 H1/H2/H4 与一个 compressed H2；
+  retrieval/IG 为 CONDITIONAL。
+
+### Block 4: Cross-Model Transfer
+
+- Claim tested: C2。
+- Why: 验证 knowledge 是否降低 model-size cost，而非只帮助生成它的
+  frontier model。
+- Dataset: dev gate 后使用与 C1 相同的 frozen tasks。
+- Compared systems:
+  - frontier H0/H2；
+  - local Qwen3.6-27B H0/H2；
+  - optional 70B H0/H2，仅当 27B 与 frontier gap 足够大且可运行。
+- Setup:
+  - 优先固定同一 Copilot agent scaffold、tools 和 prompts；
+  - 若 local provider 只能使用 iterative runner，单独成表并明确
+    scaffold-confounded，不做直接 model-size 因果比较。
+- Metrics: solved、tokens、time、GPU-hours、peak memory、tokens/solved、
+  frontier-equivalent gap。
+- Success criterion:
+  - local 27B H2 相对 local H0 改善 solved rate 或在 non-inferior solved
+    下减少至少 20% tokens；
+  - local 27B H2 缩小到 frontier H0 的 solved gap，且总体 serving cost
+    明显更低。
+- Failure interpretation:
+  - 只 frontier 有效：knowledge 依赖强模型解释能力，C2 删除；
+  - 只 local 有效：方法更像小模型补偿，重新定位 supporting claim；
+  - scaffold 不一致：只报告各 scaffold 内配对结果。
+- Table/figure target: Main Table 3 model-scale transfer；cost-quality Pareto。
+- Priority: MUST-RUN if C2 remains；70B NICE-TO-HAVE。
+
+### Block 5: Failure Analysis 与 Amortized Cost
+
+- Claim tested: C1/C2 的适用范围和知识生成是否值得。
+- Dataset: 所有完成的 dev/test runs。
+- Actions:
+  - 盲化标注 failure mode：knowledge missing、wrong retrieval、
+    overconstraint、verifier misunderstanding、illegal edit、tool failure、
+    context toxicity、task intrinsically hard；
+  - 抽取 H0→H2 solve、H2→H0 regression、token outliers；
+  - 比较 frontier distiller、local distiller 和 minimal human digest；
+  - 计算 N_break_even。
+- Success criterion:
+  - 能解释主要 regression，并证明节省不是由少调用 verifier/提前放弃造成；
+  - 在合理任务量内 N_break_even 可达；若不可达，knowledge generation
+    必须改用 local/更小样本。
+- Table/figure target: Main qualitative figure + Appendix cost ledger。
+- Priority: MUST-RUN analysis；distiller comparison NICE-TO-HAVE。
+
+## 5. Run Order and Milestones
+
+| Milestone | Goal | Runs | Decision Gate | Estimated Cost | Risk |
+|---|---|---|---|---|---|
+| M0, Week 1 | 冻结数据、metric、harness | R036-R039 | provenance/leakage/token/safety 全通过 | CPU 0.5-2 days；6-10 smoke agent runs | corpus 版本混杂、usage 不完整 |
+| M1, Week 2 | 生成第一版知识并跑 dev | R040-R044 | H2 达到 dev GO gate 且胜过 generic | 20-40 frontier task-runs | prompt 无信号或过度约束 |
+| M2, Week 3 | isolation/compression/retrieval on dev | R045-R049 | H* 形成简单 Pareto 最优并冻结；test 仍 sealed | dev 20-60 task-runs | 多重比较、过度选择 |
+| M3, Weeks 4-5 | same-model confirmatory test | R050-R053 | C1 CI gate；不足则扩 data 而非调 test prompt | 81-120 frontier task-runs | 样本量不足、frontier 成本 |
+| M4, Week 6 | local 27B transfer | R054-R057 | C2 gate；失败则删除 C2 | 每 condition 约 24-96 aggregate GPU-hours | scaffold/provider 不一致 |
+| M5, Weeks 7-8 | failure/cost/audit/paper artifacts | R058-R061 | claim audit 无越界、结果可复现 | CPU + optional distiller calls | 事后解释、成本无法 amortize |
+
+Week 是顺序估计，不是固定截止日。任何昂贵 run 在前一 gate 失败后停止。
+
+### First three executable runs
+
+1. R036：只读 corpus inventory，生成 task/model/variant/usage manifest。
+2. R037：冻结 project split 并做 exact + near-duplicate leakage audit。
+3. R038：实现并测试 Copilot prompt-variant/usage/safety wrapper。
+
+首个模型 smoke 是 R039：同一非 sealed task 上跑 H0/H1/H2，各 1 次，仅
+验证机械一致性，不根据结果改 prompt。
+
+## 6. Compute and Data Budget
+
+- Raw corpus: 约 1.1 GB，9,823 logs；只读。
+- Initial distillation: 20-50 successful train traces。
+- Conditional scale-up: 200-500 de-duplicated train traces。
+- Existing dev/test: 10/27 tasks；M0 power analysis 决定是否需要扩到
+  至少约 100 个真正 held-out tasks。
+- Frontier budget:
+  - M0 smoke: 6-10 task-runs；
+  - M1 dev: 20-40 task-runs；
+  - M2 ablation: 20-60 dev-only task-runs；
+  - M3 confirmatory: 81-120 task-runs before any repetitions；
+  - 所有 selection/ablation 在 dev 完成，避免 test tuning。
+- Local compute:
+  - Qwen3.6-27B, TP=4；
+  - 预计每个完整 condition 24-96 aggregate GPU-hours，M0 smoke throughput
+    后更新；
+  - 70B 不预留 must-run budget。
+- Storage:
+  - metadata、prompts、aggregates 写入 research_memory 或 dedicated run；
+  - 大模型 outputs/session logs 写 dedicated run directory；
+  - 不复制整个 1.1 GB corpus。
+- Human effort:
+  - 首版 skill digest 最多 4 小时，必须记录；
+  - test outputs 在 prompt freeze 前禁止人工查看。
+- Biggest bottleneck:
+  - 不是 GPU，而是 leakage-safe task 数、frontier agent 调用成本和
+    provider-reported token accounting 的一致性。
+
+## 7. Go / Stop / Branch Rules
+
+### GO to full test
+
+- M0 全部 integrity checks 通过；
+- H2 在 dev 保持 solved count（最多额外损失 1 task）；
+- H2 tokens/solved 至少下降 15%；
+- H2 优于 generic control；
+- 无新增 illegal edit 或 safety-check failure。
+
+### STOP or redesign before test
+
+- test/train exact 或 near-duplicate 无法排除；
+- token/cache accounting 缺失超过 5% calls；
+- H2 只通过更早停止减少 token；
+- H2 不优于 generic/shuffled；
+- prompt 在 dev 造成超过 1 个额外 failure；
+- wrapper/scaffold 在 conditions 间不一致。
+
+### Branch after positive C1
+
+- 若短 global prompt 最优：直接进入跨模型 transfer，不强行做 retrieval。
+- 若 prompt context toxicity 明显：做 H3 top-k retrieval。
+- 若候选 skill 太多：用 IG/information density 做 dev-only ranking。
+- 若 27B transfer 失败：删除 C2，集中 same-model token efficiency。
+- 若 distillation cost 太高：比较 local distiller 与 minimal human digest。
+
+## 8. Risks and Mitigations
+
+- **Task leakage**：按 project 封存；hash unverified/verified/spec；检查
+  target-function、lemma、prompt 和 normalized AST/text 相似度。
+- **Corpus duplicate/version contamination**：同 task 多模型/日期/variant
+  聚成一组；只在组级别 split，不能把不同版本分到 train/test。
+- **Prompt-length confound**：generic/shuffled length-matched control；把
+  knowledge prompt 本身计入 token cost。
+- **Agent nondeterminism**：固定模型/CLI/effort/permissions；随机执行顺序；
+  先用 task bootstrap，再在小 slice 测 3 repetitions。
+- **Cache accounting**：分别报告 raw input、cache read、uncached input 和
+  output；不能把 cache-read tokens 当免费而不披露。
+- **Security false positive/negative**：Verus + verus-checker/lynette 双检；
+  抽样人工审计；illegal solutions 永远不算 solved。
+- **Test tuning**：所有 prompt 和 retrieval thresholds 在 dev 冻结；
+  test 只运行一次；失败后不得修改并重跑同一 test 作为新结果。
+- **Underpowered non-inferiority**：M0 做 sensitivity analysis；样本不足则
+  扩任务或明确降级为 pilot。
+- **Scaffold confound**：模型比较优先使用同一 Copilot agent；无法一致时
+  分表、分 claim。
+- **IG proxy mismatch**：只有当 IG 与 live token/solve 指标相关时才用于
+  promotion；否则不进入主线。
+
+## 9. Required Artifacts
+
+M0:
+
+- runs/handsoff_distill_20260719/m0/corpus_manifest.jsonl
+- runs/handsoff_distill_20260719/m0/split_manifest.json
+- runs/handsoff_distill_20260719/m0/leakage_report.json
+- runs/handsoff_distill_20260719/m0/metric_contract.json
+- runs/handsoff_distill_20260719/m0/harness_manifest.json
+
+M1+:
+
+- prompts/h0_hands_off.md
+- prompts/h1_generic_control.md
+- prompts/h2_trace_distilled_v1.md
+- skills/skill_bank.jsonl（conditional）
+- per-run run_manifest.json、usage.jsonl、task_results.csv
+- analysis/main_paired_results.csv
+- analysis/failure_taxonomy.csv
+- analysis/amortized_cost.json
+
+所有 artifact 必须记录 source hashes、生成命令、model/CLI/version、split id
+和 prompt hash。
+
+## 10. Final Checklist
+
+- [ ] 两个核心 claims 以内
+- [ ] Main result 是 live agent evaluation，不是 IG proxy
+- [ ] Project-level leakage-safe split 在查看 outcome 前冻结
+- [ ] Generic、shuffled 和 prompt-budget controls 覆盖
+- [ ] Token denominator 包括失败任务与注入 prompt
+- [ ] Security-valid solve 同时经过 Verus 与 checker
+- [ ] Same-model/scaffold comparison 是 C1 主结果
+- [ ] Cross-model comparison 不混淆 scaffold
+- [ ] Distillation cost 与 inference cost 分开并计算 break-even
+- [ ] Test 只运行一次，所有选择只在 dev 完成
+- [ ] Nice-to-have runs 不阻塞主线
+- [ ] Raw data directories 保持只读
