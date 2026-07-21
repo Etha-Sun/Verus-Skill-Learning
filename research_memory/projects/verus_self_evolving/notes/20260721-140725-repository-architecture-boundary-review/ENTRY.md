@@ -102,8 +102,8 @@ already published Git history.
 
 ## Implementation (2026-07-21)
 
-Created review branch `agent/research-workstreams` from public `main`. Added
-four public-safe top-level snapshots without changing `src/verus_self_evolve`:
+Added four public-safe top-level snapshots to public `main` without changing
+`src/verus_self_evolve`:
 
 - `analysis_verusage_trace_ideas_20260624/`;
 - `atlas-verusage-reproduction/`;
@@ -114,3 +114,6 @@ The audit found no retained personal absolute paths or symlinks. Raw datasets,
 ATLAS runs, meeting transcripts, the 1.5 MB skeleton cache, and other local run
 artifacts remain excluded. Existing uncommitted edits to root `PLAN.md` and
 `CHECKLIST.md` were not staged.
+
+The work was split across commits `eb4b9bc`, `56193d0`, `fdcf3da`, and
+`37581a0`. No temporary review branch was retained locally or on GitHub.

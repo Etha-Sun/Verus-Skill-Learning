@@ -60,9 +60,10 @@ Executable repo:
 
 Latest committed scaffold:
 
-- `fdcf3da Add experiment planning and audit records` (review branch)
-- `56193d0 Add ATLAS trace reproduction adapter` (review branch)
-- `eb4b9bc Add trace-analysis research workstream` (review branch)
+- `37581a0 Document public research workspace layout`
+- `fdcf3da Add experiment planning and audit records`
+- `56193d0 Add ATLAS trace reproduction adapter`
+- `eb4b9bc Add trace-analysis research workstream`
 - `5d21a81 Organize repository documentation and results`
 - `869af8f Add per-user data source selection`
 - `1446435 Record hands-off execution plan`
@@ -102,11 +103,11 @@ repository `Etha-Sun/Verus-Skill-Learning`, branch `main`, at
 `5d21a8195a9137d4cfde89ea14c03131a76cb232`. Local `main` tracks
 `origin/main`; the local and remote SHA values match.
 
-Public-safe top-level research workstreams are staged on review branch
-`agent/research-workstreams`. The snapshot excludes raw datasets, full run
-directories, caches, model/API responses, meeting transcripts, large derived
-trace artifacts, and personal absolute paths. Collaborators continue to select
-their own data through `VERUS_SKILL_DATA_ROOT`; no dataset migration is needed.
+Public-safe top-level research workstreams are published on `main` at
+`37581a0`. The snapshot excludes raw datasets, full run directories, caches,
+model/API responses, meeting transcripts, large derived trace artifacts, and
+personal absolute paths. Collaborators continue to select their own data
+through `VERUS_SKILL_DATA_ROOT`; no dataset migration is needed.
 
 Canonical decision:
 
