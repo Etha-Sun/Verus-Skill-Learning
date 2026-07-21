@@ -1,0 +1,182 @@
+{
+  "dataset": {
+    "traces": 2996,
+    "verified": 1691,
+    "nonverified": 1305,
+    "total_tokens": 1524386760
+  },
+  "result_rows": 2996,
+  "matched_traces": 2996,
+  "repetition_gate": {
+    "summary": [
+      {
+        "threshold": 2,
+        "verified_traces": 1691,
+        "nonverified_traces": 1305,
+        "gated_nonverified": 1305,
+        "gated_nonverified_rate": 1.0,
+        "verified_false_stops": 761,
+        "verified_false_stop_rate": 0.45,
+        "saved_nonverified_tokens": 1212510484,
+        "saved_verified_tokens_if_bad": 115117795,
+        "nonverified_total_tokens": 1337870858,
+        "saved_nonverified_token_rate": 0.9063
+      },
+      {
+        "threshold": 3,
+        "verified_traces": 1691,
+        "nonverified_traces": 1305,
+        "gated_nonverified": 1299,
+        "gated_nonverified_rate": 0.9954,
+        "verified_false_stops": 424,
+        "verified_false_stop_rate": 0.2507,
+        "saved_nonverified_tokens": 1076004993,
+        "saved_verified_tokens_if_bad": 74835434,
+        "nonverified_total_tokens": 1337870858,
+        "saved_nonverified_token_rate": 0.8043
+      },
+      {
+        "threshold": 4,
+        "verified_traces": 1691,
+        "nonverified_traces": 1305,
+        "gated_nonverified": 1286,
+        "gated_nonverified_rate": 0.9854,
+        "verified_false_stops": 267,
+        "verified_false_stop_rate": 0.1579,
+        "saved_nonverified_tokens": 923447476,
+        "saved_verified_tokens_if_bad": 48938720,
+        "nonverified_total_tokens": 1337870858,
+        "saved_nonverified_token_rate": 0.6902
+      },
+      {
+        "threshold": 5,
+        "verified_traces": 1691,
+        "nonverified_traces": 1305,
+        "gated_nonverified": 1252,
+        "gated_nonverified_rate": 0.9594,
+        "verified_false_stops": 178,
+        "verified_false_stop_rate": 0.1053,
+        "saved_nonverified_tokens": 776366321,
+        "saved_verified_tokens_if_bad": 31853575,
+        "nonverified_total_tokens": 1337870858,
+        "saved_nonverified_token_rate": 0.5803
+      },
+      {
+        "threshold": 6,
+        "verified_traces": 1691,
+        "nonverified_traces": 1305,
+        "gated_nonverified": 1198,
+        "gated_nonverified_rate": 0.918,
+        "verified_false_stops": 119,
+        "verified_false_stop_rate": 0.0704,
+        "saved_nonverified_tokens": 647707759,
+        "saved_verified_tokens_if_bad": 20495877,
+        "nonverified_total_tokens": 1337870858,
+        "saved_nonverified_token_rate": 0.4841
+      },
+      {
+        "threshold": 8,
+        "verified_traces": 1691,
+        "nonverified_traces": 1305,
+        "gated_nonverified": 969,
+        "gated_nonverified_rate": 0.7425,
+        "verified_false_stops": 51,
+        "verified_false_stop_rate": 0.0302,
+        "saved_nonverified_tokens": 424591160,
+        "saved_verified_tokens_if_bad": 10156729,
+        "nonverified_total_tokens": 1337870858,
+        "saved_nonverified_token_rate": 0.3174
+      }
+    ],
+    "examples": [
+      {
+        "threshold": 2,
+        "model": "gpt5",
+        "project": "MA",
+        "file": "MA__layout__impl__align_up.rs",
+        "status": "TIMEOUT",
+        "gate_attempt": 2,
+        "pair_error": "ArithmeticFlow",
+        "pair_action": "arithmetic_overflow_repair",
+        "estimated_saved_tokens": 394064,
+        "effective_total_tokens": 402140,
+        "log_path": "all_batch_results-cyy-gpt5/results-batch_004/o-MA__layout__impl__align_up-20251127-002021/verus-repair.log"
+      },
+      {
+        "threshold": 2,
+        "model": "gpt5",
+        "project": "MA",
+        "file": "MA__commit_mask__lemma_obtain_bit_index_3_aux.rs",
+        "status": "TIMEOUT",
+        "gate_attempt": 4,
+        "pair_error": "BitVAssertFail",
+        "pair_action": "bitvassert_repair",
+        "estimated_saved_tokens": 127330,
+        "effective_total_tokens": 161032,
+        "log_path": "all_batch_results-cyy-gpt5/results-batch_004/o-MA__commit_mask__lemma_obtain_bit_index_3_aux-20251126-222048/verus-repair.log"
+      },
+      {
+        "threshold": 2,
+        "model": "gpt5",
+        "project": "NR",
+        "file": "NR__impl_u__l2_impl__impl0__lemma_new_entry_mb0_bits_are_zero.rs",
+        "status": "TIMEOUT",
+        "gate_attempt": 4,
+        "pair_error": "AssertFail",
+        "pair_action": "BIT_VECTOR_REASONING",
+        "estimated_saved_tokens": 842824,
+        "effective_total_tokens": 904994,
+        "log_path": "all_batch_results-cyy-gpt5/results-batch_004/o-NR__impl_u__l2_impl__impl0__lemma_new_entry_mb0_bits_are_zero-20251127-154851/verus-repair.log"
+      },
+      {
+        "threshold": 2,
+        "model": "gpt5",
+        "project": "NR",
+        "file": "NR__impl_u__l1__impl2__lemma_entries_interp_remove_implies_interp_aux_remove.rs",
+        "status": "TIMEOUT",
+        "gate_attempt": 4,
+        "pair_error": "AssertFail",
+        "pair_action": "INDUCTION",
+        "estimated_saved_tokens": 551851,
+        "effective_total_tokens": 610912,
+        "log_path": "all_batch_results-cyy-gpt5/results-batch_004/o-NR__impl_u__l1__impl2__lemma_entries_interp_remove_implies_interp_aux_remove-20251127-120329/verus-repair.log"
+      },
+      {
+        "threshold": 2,
+        "model": "gpt5",
+        "project": "NO",
+        "file": "NO__spec__unbounded_log__LogRangeMatchesQueue_append.rs",
+        "status": "TIMEOUT",
+        "gate_attempt": 3,
+        "pair_error": "AssertFail",
+        "pair_action": "INSTANTIATE_FORALL",
+        "estimated_saved_tokens": 404274,
+        "effective_total_tokens": 428651,
+        "log_path": "all_batch_results-cyy-gpt5/results-batch_004/o-NO__spec__unbounded_log__LogRangeMatchesQueue_append-20251127-050238/verus-repair.log"
+      }
+    ]
+  },
+  "skeleton_coverage": {
+    "exact_covered_failures": 517,
+    "exact_covered_failed_tokens": 377656792,
+    "total_failed_tokens": 1337870858,
+    "retrieval_summary": [
+      {
+        "eval_queries": 517,
+        "hit_at_1": 0.9865,
+        "hit_at_3": 0.9923,
+        "hit_at_5": 0.9923
+      }
+    ]
+  },
+  "prompt_cost": {
+    "groups": 92,
+    "prompt_files": 46684
+  },
+  "skeleton_cache_and_reroute": {
+    "skeletons": 1691,
+    "reroute_candidates": 372,
+    "different_top_action": 274,
+    "different_top_action_rate": 0.7366
+  }
+}
