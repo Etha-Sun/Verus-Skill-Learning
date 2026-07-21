@@ -17,7 +17,19 @@ configs/                dataset contracts and experiment configuration
 scripts/                reproducible entry points
 docs/                   architecture, data, and experiment notes
 results/                reviewed compact result summaries only
+analysis_verusage_trace_ideas_20260624/  trace-analysis research artifacts
+atlas-verusage-reproduction/             public-safe ATLAS adapter source
+refine-logs/                              experiment plans, audits, and reports
+research_memory/                          durable public research context
+idea-stage/                               focused research contracts
 ```
+
+The workstream directories are kept side by side so trace analysis,
+self-evolution, information gain, and external reproductions can progress
+without forcing all research artifacts into the Python package. They are
+public-safe snapshots: raw datasets, full run directories, caches, model/API
+responses, meeting transcripts, large trace-derived artifacts, and personal
+absolute paths are excluded.
 
 ## Select Your Local Data Source
 

@@ -1,0 +1,9 @@
+{
+  "title": "R040 leakage-safe stratified train trace selection",
+  "project": "verus_self_evolving",
+  "kind": "experiments",
+  "created_at": "2026-07-20T16:42:28",
+  "status": "complete",
+  "links": [],
+  "raw_data_read_only": true
+}

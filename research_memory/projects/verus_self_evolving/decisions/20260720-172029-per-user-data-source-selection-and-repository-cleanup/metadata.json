@@ -1,0 +1,11 @@
+{
+  "title": "Per-user data source selection and repository cleanup",
+  "project": "verus_self_evolving",
+  "kind": "decisions",
+  "created_at": "2026-07-20T17:20:29",
+  "status": "complete",
+  "links": [
+    "https://github.com/Etha-Sun/Verus-Skill-Learning"
+  ],
+  "raw_data_read_only": true
+}

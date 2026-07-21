@@ -8,3 +8,6 @@ __pycache__/
 data-local/
 artifacts/
 runs/
+atlas-verusage-reproduction/runs/
+analysis_verusage_trace_ideas_20260624/*transcript*.txt
+analysis_verusage_trace_ideas_20260624/auto_research_20260628/outputs/skeleton_cache.jsonl
