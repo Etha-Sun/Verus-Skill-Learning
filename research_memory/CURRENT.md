@@ -255,6 +255,100 @@ Canonical entry:
 
 - `research_memory/projects/verus_self_evolving/experiments/20260720-001046-m0-hands-off-corpus-integrity-and-unified-harness-execution/ENTRY.md`
 
+## Qwen Capability Calibration Gate (2026-07-21)
+
+The one-task Qwen3.6 mechanical smoke is insufficient for selecting a local
+knowledge-effect diagnostic: it cannot distinguish model capability, task
+difficulty, context/scaffold failure, or an unrepresentative task. Before R041,
+the active execution queue now inserts R040A-R040D:
+
+1. freeze 30 independent train-domain calibration tasks, balanced 15 Anvil /
+   15 IronKV and exact/near-disjoint from the 30 R040 distillation traces;
+2. run one Qwen3.6-27B H0 screen per task under the frozen Copilot harness;
+3. add two H0 repetitions for predeclared boundary candidates;
+4. freeze up to three `pass`, `near_miss`, and `stalled` tasks before any
+   H1/H2 outcome is viewed.
+
+R041 still distills the <=800-token H2 prompt and length-controlled H1 from
+the independent R040 traces. R041A then runs the frozen prompts on the frozen
+tiers. These selected-case results are mechanism diagnostics only; held-out
+R042-R053 live evaluation remains necessary for solved-rate or token-efficiency
+claims. Context-ineligible cases are reported separately rather than labeled
+as reasoning failures.
+
+Read-only preflight found 2,752 metadata-eligible rows / 425 unique train tasks
+after exact R040 exclusions, so the pool is sufficient. Data/run layout
+validation passes and sealed reads remain 0. At planning time all four local
+L40S GPUs were at 99-100% utilization, so live R040B deployment waits for GPU
+availability; planning, CPU audit, code, tests, and model-free sanity proceed.
+
+R040A is now complete at
+`${VERUS_SKILL_RUN_ROOT}/r040a_qwen_calibration_20260721_attempt4/`: 30 unique
+canonical originals, 15 Anvil / 15 IronKV, and 10 small / 10 medium / 10 large.
+Every selected source fails its source Verus precheck, while every paired
+standard-trace answer passes the current Verus and Lynette comparison. R040
+exact/near overlap and sealed content reads are zero. The frozen screen manifest
+and model-free sanity are under
+`${VERUS_SKILL_RUN_ROOT}/r040b_qwen_screen_20260721_manifest_attempt3/` and
+`${VERUS_SKILL_RUN_ROOT}/r040b_sanity_20260721_attempt3/`; all frozen source,
+prompt, model-config, tool, timeout, and context identities match. All 69 tests
+pass.
+
+Independent final review is `GO` for R040B attempt4. Its non-blocking launch
+note is to reconfirm the live vLLM endpoint and frozen 32,768 context after the
+GPUs become free. Review: `refine-logs/EXPERIMENT_CODE_REVIEW_20260721_175704.md`.
+
+The external workload was subsequently released. R040B completed under
+`${VERUS_SKILL_RUN_ROOT}/r040b_qwen_screen_20260721_live_attempt2/` using the
+frozen Qwen3.6-27B alias, TP=4, 32,768-token context, and Qwen3/Qwen3-Coder
+reasoning/tool parsers. All 30 result and manifest records are present and
+their frozen identities match. Strict security-valid solve is 7/30 (23.3%):
+7 pass, 11 stalled, 10 timeout/infrastructure failures, and 2 unsafe; usage is
+available for 21/30. One timeout produced no candidate, which is explicitly
+recorded rather than missing evidence. The rank-1 Copilot log also records 12
+temporary Verus API probes written under `/tmp`, contrary to the prompt's
+workspace-only instruction; they were removed after exact enumeration, the
+formal run logs remain intact, and raw corpus data were untouched. No H1/H2
+outcome has been viewed.
+
+R040B also falsified the planned three-tier selector as written. All 30 source
+programs have exactly one Verus error, while `near_miss` requires a strictly
+lower candidate error count without passing. Therefore the zero observed
+`near_miss` count is structurally expected: zero errors normally implies pass.
+The three-trajectory rationale comparison remains useful as a qualitative
+mechanism pilot, but its middle case must be frozen from H0-only evidence as a
+`closest_failure` (proof-safe, compilable, localized residual proof failure),
+not relabeled as `near_miss`. The comparison should use one stable pass, one
+predeclared closest failure, and one stable stalled task, with rationale derived
+only from the independent R040 traces. It cannot support a solve-rate claim.
+
+R040C is now active. The H0-only selector found 7 pass, 5
+`closest_failure`, and 6 stalled records, then froze three candidates per class
+with Anvil/IronKV coverage. Eighteen rep2/rep3 H0 jobs are running sequentially
+in screen `r040c_reps_20260722`; no H1/H2 outcome has been viewed.
+
+R041 prompt distillation is complete. One global H2 was distilled from compact
+patch/log excerpts of the independent 30 R040 train traces, then safety-reviewed
+to prohibit all bypasses and use the actual Verus+Lynette validation. H1 is a
+trace-free generic control. The canonical reviewed freeze has H1=633 and
+H2=632 Qwen tokenizer tokens (0.16% delta), no frozen task identifiers, and no
+permissive bypass advice. H2 is global, not task-specific. Distillation usage
+was 28,206 input / 634 output tokens; AI-agent review/edit time was 5 minutes
+and human edit time was 0. Canonical artifacts are
+`${VERUS_SKILL_RUN_ROOT}/r041_prompt_distillation_20260722_attempt1/` and
+`${VERUS_SKILL_RUN_ROOT}/r041_frozen_prompts_20260722_attempt3/`; the compact
+reviewed prompt copy is `refine-logs/r041_prompts/`.
+
+An independent R041 review initially returned NO-GO on raw-data containment,
+transitive provenance, edit-cost labeling, and missing negative tests. All four
+blockers were fixed; the follow-up verdict is GO with 76 repository tests
+passing. Review artifact:
+`refine-logs/EXPERIMENT_CODE_REVIEW_20260722_132102.md`.
+
+Canonical entry:
+
+- `research_memory/projects/verus_self_evolving/experiments/20260721-172129-qwen-capability-calibration-gate/ENTRY.md`
+
 ## Important Caveat
 
 Current rule mining can overfit if rules are mined and evaluated on the same
@@ -303,10 +397,10 @@ not authorized in the current turn, so no diagnosis-accuracy claim is made.
 
 ## Next Recommended Action
 
-Complete R041 by distilling and freezing a <=800-token H2 prompt plus a
-length-controlled H1 generic prompt from the canonical 30-trace R040 set. Do
-not start R042 until frontier-model authentication and the H0/H1/H2 prompt
-freeze are available.
+Monitor the 18 active R040C H0 repetitions, freeze the first stable pass,
+closest_failure, and stalled task as R040D, then prepare the immutable 27-record
+R041A H0/H1/H2 manifest. Do not start R042 until frontier-model authentication
+is available; the H0/H1/H2 prompt freeze itself is now complete.
 
 ### Historical: July 13 control-null action pilot decision
 

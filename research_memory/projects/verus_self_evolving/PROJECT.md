@@ -53,7 +53,10 @@ summaries and pointers in `research_memory/`.
 
 ## Next Recommended Entries
 
-- `experiments`: `information_gain_reward_probe`.
-- `experiments`: split-aware rule replay evaluation.
-- `decisions`: decide leakage-safe evaluation contract.
-- `ideas`: selected rule DSL and self-evolution loop design.
+- `experiments`: monitor the active 18 R040C H0 repetitions, then freeze one
+  stable pass, closest-failure, and stalled qualitative case.
+- `experiments`: R041 H1/H2 prompts are frozen; prepare the 27-record R041A
+  manifest after R040D.
+- `experiments`: run leakage-safe held-out live H0/H1/H2 evaluation.
+- `decisions`: promote, redesign, or stop local transfer based on frozen-tier
+  diagnostics without treating selected cases as method evidence.

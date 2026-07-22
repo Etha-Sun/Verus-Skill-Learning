@@ -1,0 +1,18 @@
+1. Verify that all function signatures include correct preconditions and postconditions, ensuring that every variable used in specifications is properly quantified and bound within the appropriate scope.
+2. Confirm that ghost state and logical variables are strictly separated from executable code, preventing any accidental leakage of verification artifacts into the runtime binary or memory layout.
+3. Ensure that loop invariants are strong enough to imply the postcondition upon termination, while also being preserved by each iteration of the loop body under all possible branch conditions.
+4. Check that recursive functions have valid termination measures, such as decreasing integer arguments or well-founded relations, to guarantee that the verifier can prove termination without infinite descent.
+5. Validate that all assertions used in proofs are logically consistent with the surrounding code context, avoiding contradictions that would cause immediate verification failure or unsoundness.
+6. Review the usage of higher-order specifications to ensure that function pointers and closures are correctly typed and that their behavioral contracts are preserved across abstraction boundaries.
+7. Confirm that data structure invariants, such as sortedness or tree balance, are maintained by all mutating operations, using appropriate ghost fields to track logical properties separately from physical storage.
+8. Ensure that memory safety properties, including bounds checks and aliasing constraints, are explicitly stated and proven for all pointer dereferences and array accesses within the verified code.
+9. Verify that the interaction between verified and unverified code is properly encapsulated, using opaque specifications or trusted boundaries to prevent unsound assumptions about external behavior.
+10. Check that all quantifiers in specifications have appropriate ranges and that their bodies are decidable within the underlying SMT solver, avoiding complex arithmetic or nested quantification that may lead to timeouts.
+11. Confirm that the use of lemmas and helper proofs is modular, allowing for independent verification of sub-properties before combining them into larger proof obligations for complex functions.
+12. Ensure that the specification language features, such as triggers and patterns, are used effectively to guide the solver’s instantiation strategy, improving performance and reducing the need for manual hints.
+13. Validate that the executable semantics of the code match the intended logical behavior, ensuring that no side effects or state changes are omitted from the formal specification.
+14. Review the handling of exceptions and error conditions, ensuring that all possible failure modes are accounted for in the postconditions and that the program state remains consistent even in error paths.
+15. Confirm that the verification environment is configured correctly, with appropriate solver timeouts and resource limits, to ensure that the proof process is robust and reproducible across different hardware and software configurations.
+16. Ensure that all imports and dependencies are correctly specified, with their own verification status clearly documented, to maintain the integrity of the overall verification effort.
+17. Validate that the use of refinement types and dependent types is consistent with the underlying logic, avoiding overly complex type constraints that may hinder the solver’s ability to discharge proof obligations.
+18. Check that the documentation of specifications is clear and concise, providing sufficient context for future maintainers to understand the intent behind each proof obligation and specification clause.

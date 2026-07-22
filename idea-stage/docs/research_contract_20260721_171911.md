@@ -6,8 +6,8 @@
   短、可复用、verifier-grounded 的 proof-repair knowledge，并在相同 agent
   scaffold 下测量它能否保持 solved rate、降低 uncached inference cost，或
   帮助 local Qwen3.6-27B 缩小到 frontier baseline 的差距。
-- **Immediate gate**: 30-task Qwen capability map 已完成；下一步仅从 H0
-  记录冻结 pass、closest_failure、stalled 三个定性诊断任务。
+- **Immediate gate**: 在正式 R041 prompt distillation 前，先建立独立的
+  30-task Qwen capability map，并冻结 pass、near_miss、stalled 三档诊断任务。
 - **Selection rationale**: 当前 one-task Qwen smoke 只证明 harness 可运行，
   不能区分模型能力、任务难度和 context/scaffold failure。先测能力分布能避免
   用单一失败任务设计后续对照。
@@ -59,15 +59,15 @@
    只能称 repetition。
 4. 在查看 H1/H2 outcomes 前冻结：
    - `pass`: 至少 2/3 security-valid solved；
-   - `closest_failure`: 0/3 solved，至少 2/3 proof-safe 且可编译，只剩
-     1 个 localized assertion/postcondition/precondition proof failure；
+   - `near_miss`: 0/3 solved，但至少 2/3 proof-safe 且有 verifier-grounded
+     局部进展，严格定义为 candidate target-error count 下降；total verified
+     count 上升不算 progress；
    - `stalled`: 0/3 solved，至少 2/3 完成 candidate、Verus 和 Lynette 检查，
-     但不满足上述 `closest_failure` 条件。
+     但没有上述 verifier progress。
 5. candidate 缺失、tool failure、timeout 或 context exhaustion 归入
    `infrastructure_failure`，不能解释为 reasoning failure。
-6. 每类选择 3 个候选，补两次 repetition 后冻结第一个稳定 task；
-   三个 task 的对照只形成 qualitative smoke。
-7. R040B 一次 screen 后按预声明类别选择 3 题/类补两次 repetition；
+6. 每档优先选择 3 tasks；每档只有 1 task 时只形成 qualitative smoke。
+7. R040B 一次 screen 后按预声明类别最多选择 5 题/类补两次 repetition；
    required results 或 task/source/prompt/model hashes 不完整时禁止写 frozen
    tiers，聚合目录禁止覆盖。
 
@@ -110,9 +110,9 @@
 - [x] M0 corpus/leakage/harness integrity complete
 - [x] R040 30-trace distillation source frozen
 - [x] R040A 30-task calibration set frozen
-- [x] R040B Qwen H0 screen complete: 7/30 strict pass
+- [ ] R040B Qwen H0 screen complete
 - [ ] R040C-R040D repetitions and tiers frozen
-- [x] R041 H1/H2 prompts distilled and frozen: 633/632 tokens, global H2
+- [ ] R041 H1/H2 prompts distilled and frozen
 - [ ] R041A tiered local contrast complete
 - [ ] R042-R044 held-out frontier dev gate complete
 - [ ] Confirmatory sealed evaluation complete

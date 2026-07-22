@@ -1,0 +1,31 @@
+1. **Isolate Proof from Execution**: Strictly separate ghost/proof code from executable logic. Never modify executable statements (loops, assignments, returns) to satisfy proofs; instead, add `proof` blocks, invariants, and lemmas. If executable code is buggy (e.g., missing loop updates), flag it as a compile/logic error, not a proof gap.
+
+2. **Bridge Concrete-Abstract Gaps**: Use `ghost` variables to capture pre-state (`old(self)@`) and intermediate values. Explicitly assert equalities between concrete implementations (e.g., `Vec`, `Option`) and their abstract specifications (`Seq`, `Set`) using helper lemmas for `fold_left`, `map`, and `filter`.
+
+3. **Enforce Loop Discipline**: For every `while` loop, provide:
+   - **Invariants**: Bounds (`0 <= i <= len`), partial correctness (e.g., `prefix is sorted`), and state preservation.
+   - **Decreases Clause**: A well-founded measure (e.g., `len - i`) to prove termination.
+   - **Post-loop Assertions**: Prove the postcondition using the invariant and the loop exit condition.
+
+4. **Manage Quantifiers and Triggers**:
+   - Use `#[trigger]` annotations on function applications inside `forall`/`exists` to guide SMT instantiation.
+   - For finite domains, use set induction or explicit enumeration to swap quantifiers or prove properties about all elements.
+   - Avoid unbounded quantification over infinite types without specific triggers.
+
+5. **Handle Temporal Logic**:
+   - Decompose `leads_to` and `always` properties into smaller lemmas (e.g., `suffix_composition`, `stability`).
+   - Never introduce `external_body`, `assume`, `admit`, or new axioms. Reuse existing trusted temporal lemmas or prove the missing property constructively.
+   - Prove liveness by showing fairness conditions imply eventual progress.
+
+6. **Resolve Type and Coercion Errors**:
+   - Explicitly cast between `int`, `nat`, and `usize` where necessary, ensuring bounds checks are satisfied.
+   - Use `reveal` or `reveal_with_fuel` to expose the definitions of opaque spec functions (e.g., `fold_left`, `abs`) when the solver needs internal structure.
+
+7. **Iterative Refinement**:
+   - Start with minimal proof annotations. If verification fails, analyze the error:
+     - **Assertion Failure**: Add intermediate `assert` statements or helper lemmas.
+     - **Invariant Failure**: Strengthen invariants or add missing preservation proofs.
+     - **Solver Timeout**: Add triggers, reduce quantifier complexity, or split lemmas.
+   - Never use `admit`, `assume`, `external_body`, or new axioms; use constructive proofs.
+
+8. **Verify Safety**: Run Verus, then Lynette target-mode comparison against the original input. Ghost code changes must not alter specifications or runtime behavior.

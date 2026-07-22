@@ -13,11 +13,11 @@ CONDITIONAL。
 | R039 | M0 | end-to-end mechanical smoke | H0/H1/H2, 1 non-sealed task each | train-domain smoke | Verus/checker, usage coverage, config diff | MUST | GO | Qwen3.6 mechanical-only: all 3 usage/Verus/Lynette complete; 0/3 solved; context exhaustion exposed |
 | R040 | M1 | select train traces | 20-50 de-duplicated successes | AC/AL/IR train only | motif/error/model coverage | MUST | DONE | canonical attempt3: 30 unique verified task/source pairs; 15 Anvil + 15 IronKV; five models ×6; sealed reads 0 |
 | R040A | M0.5 | freeze local capability tasks | canonical `unverified/` 30-task selector + physical audit | train calibration, R040-disjoint | task/source/near-overlap, source-fail, paired security validity, tokenizer context, size tertiles | MUST | DONE | canonical attempt4: 15 Anvil + 15 IronKV; small/medium/large each 10; 30/30 paired Verus+Lynette pass; overlap 0; sealed reads 0 |
-| R040B | M0.5 | Qwen capability screen | Qwen3.6-27B H0, one repetition | frozen 30-task calibration | security-valid solved, usage, time, verifier/checker, context/tool failure | MUST | DONE | live attempt2 complete: 7/30 pass (23.3%), 11 stalled, 10 infrastructure/timeout, 2 unsafe; 30/30 identities complete; usage 21/30 |
-| R040C | M0.5 | stabilize qualitative cases | Qwen H0, two extra repetitions on 3 candidates/class | predeclared R040B candidates | repeated pass/closest_failure/stalled state | MUST | IN_PROGRESS | selection reads H0 only; 18 additional H0 runs maximum; no H1/H2 outcomes viewed |
-| R040D | M0.5 | freeze qualitative cases | deterministic pass/closest_failure/stalled selector | R040B-R040C only | first stable task/class, hashes, rationale | MUST | BLOCKED | old near_miss is structurally unreachable because every source has one error; exactly one task/class is qualitative only |
-| R041 | M1 | distill prompt variants | H1 generic + H2 trace prompt | train only | prompt tokens, provenance, edit time | MUST | DONE | frozen attempt3: H1 633 tokens, H2 632; delta 0.16%; H2 is one global prompt from 30 R040 traces; transitive provenance and safety review PASS; AI edit 5 min, human 0 |
-| R041A | M1 | three-case local contrast | Qwen H0/H1/H2, 3 repetitions | frozen R040D cases | pass retention, closest-failure transition, stalled ceiling | MUST_FOR_C2 | BLOCKED | 3 tasks × 3 conditions × 3 repetitions = 27 records; qualitative, not held-out claim |
+| R040B | M0.5 | Qwen capability screen | Qwen3.6-27B H0, one repetition | frozen 30-task calibration | security-valid solved, usage, time, verifier/checker, context/tool failure | MUST | BLOCKED | R040A independent review GO; only remaining gate is free 4-GPU local backend; current GPUs busy |
+| R040C | M0.5 | stabilize capability labels | Qwen H0, two extra repetitions on boundary candidates | predeclared R040B candidates | repeated solve/progress/stall state | MUST | BLOCKED | no H1/H2 outcomes may be viewed before tier freeze |
+| R040D | M0.5 | freeze diagnostic tiers | deterministic pass/near_miss/stalled selector | R040B-R040C only | 3 tasks/tier if available, hashes, rationale | MUST | BLOCKED | infrastructure failures are separate; one task/tier is qualitative only |
+| R041 | M1 | distill prompt variants | H1 generic + H2 trace prompt | train only | prompt tokens, provenance, human time | MUST | TODO | H2 <=800 tokens; freeze before dev |
+| R041A | M1 | tiered local contrast | Qwen H0/H1/H2, 3 repetitions | frozen R040D tiers | pass-tier cost, near-miss solved, stalled ceiling | MUST_FOR_C2 | BLOCKED | requires R040D and frozen R041 prompts; diagnostic, not held-out claim |
 | R042 | M1 | reproduce hands-off dev baseline | frontier agent H0 | OS/VE/ST/NO dev | solved, tokens, time, calls, safety | MUST | TODO | same budget as variants |
 | R043 | M1 | generic-control dev | frontier agent H1 | same dev tasks | same primary metrics | MUST | TODO | length delta within ±5% |
 | R044 | M1 | trace-prompt dev gate | frontier agent H2 | same dev tasks | Δsolved, tokens/solved, paired ratios | MUST | TODO | GO only if plan gate passes |
@@ -41,10 +41,10 @@ CONDITIONAL。
 
 ## Immediate execution queue
 
-1. Freeze the H0-only R040C candidate manifest and run two extra repetitions.
-2. Freeze one stable pass, closest_failure, and stalled task as R040D.
-3. R041 is frozen; after R040D, prepare the immutable 27-record R041A manifest.
-4. Run R041A; keep R042 blocked until frontier authentication.
+1. R040A implementation, audit, 69 tests, and model-free sanity are complete.
+2. Launch the frozen R040B manifest only when all four local GPUs are available.
+3. Run R040C-R040D, then R041 and R041A.
+4. Run R042 only after frontier authentication and prompt freeze.
 
 R040A-R040D 只建立 local capability map；它们不读取 sealed content，也不
 支持 method-effect claim。R041 只读取冻结 train selection。任何 frontier

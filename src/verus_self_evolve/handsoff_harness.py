@@ -218,6 +218,8 @@ def run_harness(
     prompt_path = out_dir / "prompt.txt"
     prompt_path.write_text(prompt)
     command = build_copilot_command(copilot_bin, model, prompt)
+    model_path_value = os.environ.get("HANDSOFF_MODEL_PATH")
+    model_config = Path(model_path_value) / "config.json" if model_path_value else None
     manifest: dict[str, Any] = {
         "created_at": _now(),
         "condition": condition,
@@ -226,7 +228,17 @@ def run_harness(
             "type": os.environ.get("COPILOT_PROVIDER_TYPE"),
             "base_url": os.environ.get("COPILOT_PROVIDER_BASE_URL"),
             "wire_model": os.environ.get("COPILOT_PROVIDER_WIRE_MODEL"),
-            "model_path": os.environ.get("HANDSOFF_MODEL_PATH"),
+            "model_path": model_path_value,
+            "model_config_sha256": (
+                sha256_file(model_config)
+                if model_config is not None and model_config.is_file()
+                else None
+            ),
+            "max_model_len": (
+                int(os.environ["HANDSOFF_MAX_MODEL_LEN"])
+                if os.environ.get("HANDSOFF_MAX_MODEL_LEN")
+                else None
+            ),
             "offline": os.environ.get("COPILOT_OFFLINE"),
         },
         "dry_run": dry_run,
@@ -244,6 +256,11 @@ def run_harness(
         "copilot_version": _version([str(copilot_bin), "--version"]),
         "verus_version": _version([str(verus_bin), "--version"]),
         "lynette_version": _version([str(lynette_bin), "--version"]),
+        "tool_sha256": {
+            "copilot": sha256_file(copilot_bin) if copilot_bin.is_file() else None,
+            "verus": sha256_file(verus_bin) if verus_bin.is_file() else None,
+            "lynette": sha256_file(lynette_bin) if lynette_bin.is_file() else None,
+        },
         "timeout_seconds": timeout_seconds,
     }
     _write_json(out_dir / "run_manifest.json", manifest)
