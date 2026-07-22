@@ -656,17 +656,23 @@ def prepare_screen(
     return summary
 
 
-def run_screen_job(
+def run_calibration_job(
     tasks_path: Path,
     corpus_root: Path,
     runs_dir: Path,
     calibration_id: str,
     repetition: int,
+    condition: str,
     model: str,
     timeout_seconds: int,
     *,
+    knowledge_file: Path | None = None,
     expected_max_model_len: int = 32768,
 ) -> dict[str, Any]:
+    if condition == "h0" and knowledge_file is not None:
+        raise ValueError("h0 must not receive a knowledge file")
+    if condition != "h0" and knowledge_file is None:
+        raise ValueError(f"{condition} requires a knowledge file")
     configured = os.environ.get("HANDSOFF_MAX_MODEL_LEN")
     if configured is None or int(configured) != expected_max_model_len:
         raise ValueError(
@@ -709,18 +715,54 @@ def run_screen_job(
         raise ValueError("canonical source changed after selection")
     return run_harness(
         source=source,
-        out_dir=runs_dir / calibration_id / f"rep_{repetition}" / "h0",
-        condition="h0",
+        out_dir=runs_dir / calibration_id / f"rep_{repetition}" / condition,
+        condition=condition,
         model=model,
         copilot_bin=tools["copilot"],
         verus_bin=tools["verus"],
         lynette_bin=tools["lynette"],
+        knowledge_file=knowledge_file,
         timeout_seconds=timeout_seconds,
     )
 
 
-def _run_record(task: dict[str, Any], run_dir: Path, repetition: int) -> dict[str, Any]:
-    base = {"calibration_id": task["calibration_id"], "repetition": repetition}
+def run_screen_job(
+    tasks_path: Path,
+    corpus_root: Path,
+    runs_dir: Path,
+    calibration_id: str,
+    repetition: int,
+    model: str,
+    timeout_seconds: int,
+    *,
+    expected_max_model_len: int = 32768,
+) -> dict[str, Any]:
+    return run_calibration_job(
+        tasks_path,
+        corpus_root,
+        runs_dir,
+        calibration_id,
+        repetition,
+        "h0",
+        model,
+        timeout_seconds,
+        expected_max_model_len=expected_max_model_len,
+    )
+
+
+def _run_record(
+    task: dict[str, Any],
+    run_dir: Path,
+    repetition: int,
+    *,
+    condition: str = "h0",
+    expected_knowledge_sha256: str | None = None,
+) -> dict[str, Any]:
+    base = {
+        "calibration_id": task["calibration_id"],
+        "repetition": repetition,
+        "condition": condition,
+    }
     result_path = run_dir / "result.json"
     manifest_path = run_dir / "run_manifest.json"
     if not result_path.is_file() or not manifest_path.is_file():
@@ -734,8 +776,19 @@ def _run_record(task: dict[str, Any], run_dir: Path, repetition: int) -> dict[st
     for key, value in expected.items():
         if manifest.get(key) != value:
             raise ValueError(f"run identity mismatch for {task['calibration_id']}: {key}")
-    if manifest.get("condition") != "h0" or manifest.get("prompt_sha256") != manifest.get("base_prompt_sha256"):
-        raise ValueError(f"non-H0 prompt identity for {task['calibration_id']}")
+    if manifest.get("condition") != condition:
+        message = "non-H0 prompt identity" if condition == "h0" else "condition mismatch"
+        raise ValueError(f"{message} for {task['calibration_id']}")
+    if condition == "h0":
+        if manifest.get("prompt_sha256") != manifest.get("base_prompt_sha256"):
+            raise ValueError(f"non-H0 prompt identity for {task['calibration_id']}")
+        if manifest.get("knowledge_payload_sha256") is not None:
+            raise ValueError(f"unexpected H0 knowledge for {task['calibration_id']}")
+    elif (
+        expected_knowledge_sha256 is None
+        or manifest.get("knowledge_payload_sha256") != expected_knowledge_sha256
+    ):
+        raise ValueError(f"knowledge identity mismatch for {task['calibration_id']}")
     if manifest.get("provider", {}).get("model_config_sha256") != task.get("expected_model_config_sha256"):
         raise ValueError(f"run model config mismatch for {task['calibration_id']}")
     if manifest.get("model") != task.get("expected_model_alias"):

@@ -33,3 +33,13 @@
 | 2026-07-14 09:08 | /experiment-plan | refine-logs/EXPERIMENT_PLAN.md | planning | latest three-target plan pointer |
 | 2026-07-14 09:08 | /experiment-plan | refine-logs/EXPERIMENT_TRACKER_20260714_090843.md | planning | new R027-R035 execution tracker |
 | 2026-07-14 09:08 | /experiment-plan | refine-logs/EXPERIMENT_TRACKER.md | planning | cumulative tracker with three-target runs |
+| 2026-07-22 17:34 | /experiment-plan | refine-logs/EXPERIMENT_PLAN_20260722_173417.md | planning | frozen R041A adaptive-case and paired ATLAS model comparison plan |
+| 2026-07-22 17:34 | /experiment-plan | refine-logs/EXPERIMENT_PLAN.md | planning | latest R041A and paired ATLAS plan |
+| 2026-07-22 17:34 | /experiment-plan | refine-logs/EXPERIMENT_TRACKER_20260722_173417.md | planning | focused R041A and paired ATLAS execution tracker |
+| 2026-07-22 17:34 | /experiment-plan | refine-logs/EXPERIMENT_TRACKER.md | planning | latest focused execution tracker |
+| 2026-07-22 17:41 | /run-experiment | ${VERUS_SKILL_RUN_ROOT}/r040d_adaptive_cases_20260722_attempt1/r040d_summary.json | implementation | H0-only adaptive three-case freeze |
+| 2026-07-22 17:41 | /run-experiment | ${VERUS_SKILL_RUN_ROOT}/r041a_contrast_20260722_attempt1/r041a_contrast_summary.json | implementation | immutable 27-record R041A contrast contract |
+| 2026-07-22 17:41 | /run-experiment | ${VERUS_SKILL_RUN_ROOT}/atlas_paired_eval_20260722_attempt1/input/pair_manifest.json | implementation | frozen eight-trace paired ATLAS contract |
+| 2026-07-22 17:48 | /run-experiment | ${VERUS_SKILL_RUN_ROOT}/atlas_paired_eval_20260722_attempt1/analysis_strict_attempt2/strict_audit_summary.json | analysis | strict raw-response audit of paired ATLAS diagnoses |
+| 2026-07-22 17:52 | /run-experiment | refine-logs/ATLAS_PAIRED_RESULTS_20260722_175218.md | analysis | paired ATLAS integrity result and blinded model-quality comparison |
+| 2026-07-22 17:52 | /run-experiment | refine-logs/ATLAS_PAIRED_RESULTS.md | analysis | latest paired ATLAS pilot report |

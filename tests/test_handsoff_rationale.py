@@ -5,8 +5,10 @@ from pathlib import Path
 from unittest import mock
 
 from verus_self_evolve.handsoff_rationale import (
+    _adaptive_case,
     _knowledge_text,
     _stable_case,
+    freeze_adaptive_cases,
     freeze_prompts,
     freeze_qualitative_cases,
     qualitative_label,
@@ -128,6 +130,26 @@ class HandsOffRationaleTest(unittest.TestCase):
             _stable_case(["closest_failure", "pass", "closest_failure"], "closest_failure")
         )
 
+    def test_adaptive_case_contract_is_strict_and_fail_closed(self):
+        self.assertEqual(_adaptive_case(["pass"] * 3, "pass"), "stable_pass")
+        self.assertIsNone(_adaptive_case(["pass", "pass", "stalled"], "pass"))
+        self.assertEqual(
+            _adaptive_case(["closest_failure"] * 3, "closest_failure"),
+            "stable_closest_failure",
+        )
+        self.assertIsNone(
+            _adaptive_case(
+                ["closest_failure", "closest_failure", "stalled"],
+                "closest_failure",
+            )
+        )
+        self.assertEqual(
+            _adaptive_case(["stalled", "pass", "pass"], "stalled"), "unstable"
+        )
+        self.assertIsNone(
+            _adaptive_case(["stalled", "pass", "unsafe"], "stalled")
+        )
+
     def test_distiller_tags_are_removed_from_frozen_payload(self):
         response = {
             "choices": [{"message": {"content": "<knowledge>check Verus</knowledge>"}}]
@@ -223,6 +245,46 @@ class HandsOffRationaleTest(unittest.TestCase):
                 (root / "frozen" / "r040d_frozen_cases.json").read_text()
             )
             self.assertEqual(len(frozen["cases"]), 3)
+
+    def test_adaptive_freeze_selects_strict_cases_before_h1_h2(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            initial_cases = ("pass", "closest_failure", "stalled")
+            candidates = []
+            runs = root / "runs"
+            for index in range(9):
+                task = self._task(index)
+                task["candidate_case"] = initial_cases[index // 3]
+                candidates.append(task)
+                labels = [task["candidate_case"]] * 3
+                if index == 6:
+                    labels = ["stalled", "pass", "pass"]
+                for repetition, label in enumerate(labels, start=1):
+                    self._write_run(
+                        runs / task["calibration_id"] / f"rep_{repetition}" / "h0",
+                        task,
+                        label,
+                    )
+            candidate_path = root / "r040c_qualitative_candidates.jsonl"
+            candidate_path.write_text(
+                "".join(json.dumps(row) + "\n" for row in candidates)
+            )
+            (root / "r040c_summary.json").write_text(
+                json.dumps(
+                    {
+                        "status": "FROZEN",
+                        "candidate_sha256": sha256_file(candidate_path),
+                    }
+                )
+            )
+            summary = freeze_adaptive_cases(candidate_path, runs, root / "out")
+            self.assertEqual(summary["status"], "DONE")
+            frozen = json.loads((root / "out" / "r040d_frozen_cases.json").read_text())
+            self.assertFalse(frozen["h1_h2_outcomes_read"])
+            self.assertEqual(
+                {row["final_case"] for row in frozen["cases"]},
+                {"stable_pass", "stable_closest_failure", "unstable"},
+            )
 
     def test_prompt_freeze_enforces_transitive_provenance_and_bypass_gate(self):
         with tempfile.TemporaryDirectory() as tmp:

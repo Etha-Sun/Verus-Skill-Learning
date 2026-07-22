@@ -38,6 +38,7 @@ class CodexCLIClient:
         self.log_dir = log_dir
         self.timeout = timeout
         self.call_index = 0
+        self.last_response = ""
         self.lock = threading.Lock()
         self.log_dir.mkdir(parents=True, exist_ok=True)
 
@@ -89,6 +90,8 @@ class CodexCLIClient:
                 response = "{}"
             finally:
                 output_path.unlink(missing_ok=True)
+
+            self.last_response = response
 
             stdout = getattr(result, "stdout", "") or ""
             stderr = getattr(result, "stderr", "") or ""
