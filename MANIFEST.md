@@ -43,3 +43,6 @@
 | 2026-07-22 17:48 | /run-experiment | ${VERUS_SKILL_RUN_ROOT}/atlas_paired_eval_20260722_attempt1/analysis_strict_attempt2/strict_audit_summary.json | analysis | strict raw-response audit of paired ATLAS diagnoses |
 | 2026-07-22 17:52 | /run-experiment | refine-logs/ATLAS_PAIRED_RESULTS_20260722_175218.md | analysis | paired ATLAS integrity result and blinded model-quality comparison |
 | 2026-07-22 17:52 | /run-experiment | refine-logs/ATLAS_PAIRED_RESULTS.md | analysis | latest paired ATLAS pilot report |
+| 2026-07-22 22:28 | /run-experiment | `${VERUS_SKILL_RUN_ROOT}/codex_three_case_baseline_20260722_attempt1/batch_audit.json` | analysis | audited fresh Codex baseline on three H0-frozen qualitative tasks |
+| 2026-07-22 22:28 | /run-experiment | refine-logs/CODEX_THREE_CASE_BASELINE_20260722_222807.md | analysis | reviewed three-case Codex result, integrity checks, and claim boundary |
+| 2026-07-22 22:28 | /run-experiment | refine-logs/CODEX_THREE_CASE_BASELINE.md | analysis | latest Codex three-case baseline pointer |

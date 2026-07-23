@@ -1,6 +1,6 @@
 # Current Research State
 
-Last updated: 2026-07-21
+Last updated: 2026-07-22
 
 ## Active Direction
 
@@ -532,6 +532,93 @@ Latest implementation:
     irrelevant control 0.6295.
   - caveat: irrelevant control is also positive, so current artifacts are not
     yet clean enough for a promotion claim.
+
+## R041A And ATLAS Paired Completion (2026-07-22)
+
+All current local Qwen batches are complete. R040B produced 30 H0 repair
+trajectories on 30 unique calibration tasks; R040C added 18 H0 repetitions on
+9 predeclared qualitative candidates; R041A added 18 H1/H2 trajectories on 3
+H0-frozen cases. The ATLAS paired pilot added 8 Qwen trace diagnoses and 8
+gpt-5.6-sol/high diagnoses on the same held-out failures. Therefore the current
+Qwen execution total is 74 trace-conditioned calls: 66 repair trajectories and
+8 ATLAS diagnoses, covering 38 distinct calibration/eval task traces. The
+separate R041 distillation call consumed a packed set of 30 independent train
+traces but is one global model call, not 30 repair trajectories.
+
+R040B's unbiased screen result remains 7/30 security-valid solves, with 11
+stalled, 10 timeout/infrastructure, and 2 unsafe outcomes. The selected R040C
+repetitions completed 18/18 and supported freezing one 3/3 stable pass, one 3/3
+stable localized closest failure, and one 2/3 unstable case. These selected
+repetitions do not define a solve-rate estimate.
+
+On the frozen three-case R041A diagnostic, H0 and length-matched generic H1
+each passed 5/9, while trace-distilled H2 passed 4/9. H0 and H1 were Lynette-safe
+in 9/9; H2 was safe in only 6/9. Recorded whole-session token totals were
+3.503M for H0, 3.502M for H1, and 4.449M for H2. This is a negative qualitative
+signal for the current H2 prompt: it neither improved passes nor reduced
+observed inference cost and introduced three safety regressions. It is not a
+held-out method-effect estimate, and the three cases were selected for
+mechanism diagnosis rather than population inference.
+
+The ATLAS pilot completed 8/8 valid diagnoses per model. Qwen and
+gpt-5.6-sol/high agreed on the exact taxonomy code in 7/8 pairs. In blinded
+quality review, Qwen scored 36/48 versus 45/48 for the frontier arm; Qwen had
+slightly stronger evidence grounding (16 vs 15), while the frontier arm was
+more root-cause-specific (14 vs 11) and actionable (16 vs 9), winning 7/8
+pairs. There are no human gold diagnosis labels, the taxonomy was induced by
+the frontier model, transports differ, and each arm has one repetition, so
+this supports only a qualitative actionability gap, not accuracy or a pure
+model-scale claim.
+
+Next action: audit the completed R041A trajectories at the failure/edit level
+before changing the prompt. Treat the current global H2 as a failed qualitative
+candidate unless the audit identifies a narrow, testable construction bug.
+For a stronger ATLAS claim, add expert adjudication or run three frozen
+repetitions per arm to separate cross-model differences from within-model
+variance. R042-R053 held-out live evaluation remains required for any
+solved-rate or token-efficiency claim.
+
+Canonical compact artifacts:
+
+- `refine-logs/ATLAS_PAIRED_RESULTS.md`
+- `refine-logs/EXPERIMENT_PLAN.md`
+- `refine-logs/EXPERIMENT_TRACKER.md`
+- `${VERUS_SKILL_RUN_ROOT}/r040b_qwen_screen_20260721_live_attempt2/`
+- `${VERUS_SKILL_RUN_ROOT}/r040d_adaptive_cases_20260722_attempt1/`
+- `${VERUS_SKILL_RUN_ROOT}/r041a_contrast_20260722_attempt1/`
+- `${VERUS_SKILL_RUN_ROOT}/atlas_paired_eval_20260722_attempt1/`
+
+Raw and sealed datasets remained read-only; all generated outputs stayed below
+`VERUS_SKILL_RUN_ROOT`.
+
+## Codex Three-Case Fresh Baseline (2026-07-22)
+
+A programmatic local-Codex baseline is complete on the same three H0-frozen
+R041A qualitative cases. Each `gpt-5.6-sol`/high run started only from the
+canonical unverified source; no old trajectory, verified answer, H1/H2
+rationale, or case label was visible. Detailed JSONL events and all tool logs
+were preserved.
+
+Codex passed 3/3: the stable-pass task in 27.2 seconds, the stable localized
+closest failure in 279.6 seconds, and the unstable task in 37.9 seconds. All
+three independent Verus checks reported `1 verified, 0 errors`, all three
+Lynette comparisons passed, and all immutable inputs retained their frozen
+hashes. The corresponding Qwen H0 repetitions were 3/3, 0/3, and 2/3, so the
+useful qualitative result is that fresh Codex exploration completed the
+localized proof that Qwen repeatedly approached but did not solve.
+
+This is one Codex repetition per deliberately selected task, with different
+transport and agent scaffolding, so it is not a population solve-rate estimate
+or a pure model-size effect. Next, compare the recorded edit/error sequence on
+the closest-failure task against its three Qwen H0 trajectories and the
+trace-distilled H2 trajectories; use that comparison to identify whether H2
+failed through generic over-conditioning, unsafe edits, or failure to expose
+the specific eight-byte-prefix/extensionality subgoals.
+
+Compact report:
+`refine-logs/CODEX_THREE_CASE_BASELINE_20260722_222807.md`.
+Canonical detailed logs:
+`${VERUS_SKILL_RUN_ROOT}/codex_three_case_baseline_20260722_attempt1/`.
 
 ## Fast Pointers
 
