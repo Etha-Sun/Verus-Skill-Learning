@@ -620,6 +620,56 @@ Compact report:
 Canonical detailed logs:
 `${VERUS_SKILL_RUN_ROOT}/codex_three_case_baseline_20260722_attempt1/`.
 
+## Skill-Distillation Synthesis And Failure-Path Audit (2026-07-22)
+
+The prior literature surveys and current experiments are now consolidated under
+`skill-distillation-analysis/`. The reviewed pool separates 21 formally
+accepted core papers from six arXiv/workshop frontier papers and records full
+titles, authors, publication-time affiliations, links, skill representations,
+validation mechanisms, and the specific innovation that supported acceptance.
+The cross-paper conclusion is that strong accepted work changes at least one
+of the learning unit, validation signal, or update mechanism; method-level
+work in the crowded 2026 skill-learning space usually needs to change two.
+Trajectory summarization alone is not a sufficient main contribution.
+
+The closest-failure edit/error audit found a material harness confound. All
+nine Qwen H0/H1/H2 agent logs for calibration
+`099e5503300d7b344c40` contain rejected attempts to call the configured
+absolute Verus path (`Permission denied and could not request permission from
+user`), although the independent runner-side final Verus check remained
+available. Codex had working Verus feedback from its first iteration, used
+compiler hints to locate `lemma_auto_spec_u64_to_from_le_bytes`, and completed
+the remaining offset-index extensional proof without a bypass. Qwen H2/1 did
+identify the fixed-prefix/cancellation structure and temporarily reduced the
+proof to one error, but ended with an illegal nested proof function and an
+unsafe `external_body` helper.
+
+Therefore Codex 1/1 versus Qwen 0/9 on this task is not a clean model-scale
+comparison. It supports a qualitative difference in converting available
+feedback into a safe supported proof, but verifier-feedback availability is a
+first-order confound. The current global H2 remains a negative candidate:
+4/9 passes versus 5/9 for H0/H1, higher observed session cost, and three
+Lynette regressions. Do not expand it or start parametric distillation.
+
+Immediate next action: create a workspace-local Verus wrapper or verified
+safe PATH alias for the Qwen agent loop, require a command smoke that returns
+real verifier stdout/stderr, then rerun the closest-failure H0/H1/H2 arms with
+the same model, harness, timeout, and three repetitions. Only after that
+matched control should the project test a minimal task-state-specific H3 with
+negative scope (no `external_body`, no specification edits) and component
+ablations. Treat information gain as a cheap prescreen only; promotion still
+requires strict live verifier outcomes and Expected Cost to Success.
+
+Compact artifacts:
+
+- `skill-distillation-analysis/README.md`
+- `skill-distillation-analysis/PAPER_MATRIX.md`
+- `skill-distillation-analysis/FAILURE_PATH_ANALYSIS.md`
+- `skill-distillation-analysis/RESEARCH_SYNTHESIS.md`
+
+Raw and sealed datasets remained read-only. Full run logs remain only below
+`${VERUS_SKILL_RUN_ROOT}`.
+
 ## Fast Pointers
 
 - Chinese auto-research progress overview:
