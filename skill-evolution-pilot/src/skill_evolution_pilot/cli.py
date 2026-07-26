@@ -16,6 +16,7 @@ from .codex_runner import run_codex_smoke
 from .events import EventLog, audit_events, load_events
 from .meta_agent import reaudit_token_meta_agent, run_token_meta_agent
 from .openrouter_adapter import DEFAULT_MODEL, run_preflight
+from .qwen_runner import run_qwen_agentic_smoke
 from .redaction import secret_match_count
 from .token_ledger import aggregate_ledgers, build_run_ledger, write_ledger
 from .token_compare import write_token_comparison
@@ -112,6 +113,14 @@ def main() -> None:
     preflight = commands.add_parser("openrouter-preflight")
     preflight.add_argument("--out-dir", type=Path, required=True)
     preflight.add_argument("--model", default=DEFAULT_MODEL)
+    qwen_smoke = commands.add_parser("qwen-agentic-smoke")
+    qwen_smoke.add_argument("--source", type=Path, required=True)
+    qwen_smoke.add_argument("--out-dir", type=Path, required=True)
+    qwen_smoke.add_argument("--verus-bin", type=Path, required=True)
+    qwen_smoke.add_argument("--lynette-bin", type=Path, required=True)
+    qwen_smoke.add_argument("--model", default=DEFAULT_MODEL)
+    qwen_smoke.add_argument("--max-iters", type=int, default=6)
+    qwen_smoke.add_argument("--max-tokens", type=int, default=8192)
     ledger = commands.add_parser("token-ledger")
     ledger.add_argument("--run-dir", type=Path, required=True)
     ledger.add_argument("--output", type=Path, required=True)
@@ -199,6 +208,16 @@ def main() -> None:
         )
     elif args.command == "openrouter-preflight":
         result = run_preflight(args.out_dir, args.model)
+    elif args.command == "qwen-agentic-smoke":
+        result = run_qwen_agentic_smoke(
+            source=args.source,
+            out_dir=args.out_dir,
+            verus_bin=args.verus_bin,
+            lynette_bin=args.lynette_bin,
+            model=args.model,
+            max_iters=args.max_iters,
+            max_tokens=args.max_tokens,
+        )
     elif args.command == "token-ledger":
         result = write_ledger(args.run_dir, args.output)
     elif args.command == "token-aggregate":

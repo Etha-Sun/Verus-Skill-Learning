@@ -128,8 +128,46 @@ does not claim access to raw hidden chain-of-thought.
 
 ## Current decision
 
-Smoke 03 defines the canonical capture configuration, and the token G6 smoke
-passes. The next research-facing step is the frozen four-task matrix; the
-single-task deltas above are not a method claim. OpenRouter remains
-blocked until `OPENROUTER_API_KEY` is supplied to the process environment; the
-credential is not read from chat or persisted in the repository.
+Smoke 03 defines the canonical Codex capture configuration, and the token G6
+smoke passes. The single-task deltas above are not a method claim.
+
+## 2026-07-26: token first-round matrix
+
+- The frozen `3 skills x 4 tasks` matrix completed 12/12.
+- All 12 runs solved, passed F3, and passed independent Verus and Lynette.
+- Mean primary uncached Expected Tokens to Success:
+  - H0: 52,350;
+  - `bounded-exploration-gate`: 51,497, delta -853 (-1.63%);
+  - `delta-certificate`: 53,794.25, delta +1,444.25 (+2.76%);
+  - `obligation-graph`: 52,418.5, delta +68.5 (+0.13%).
+- Task-level effects are heterogeneous. For example, `obligation-graph`
+  reduced the unstable task from 32,784 to 19,991 tokens but increased the
+  hard-solved task from 79,245 to 88,367.
+- This round provides a valid high/low contrast for analysis, but the best
+  aggregate delta is small relative to observed H0 variability. It does not
+  establish a general token-efficiency improvement.
+
+External aggregate:
+`${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/token-r1-matrix-20260726/token_matrix_summary.json`.
+
+## 2026-07-26: OpenRouter and Qwen agentic fidelity
+
+- The runtime credential was supplied through `OPENROUTER_API_KEY`.
+- The final bounded preflight returned the requested
+  `qwen/qwen3.6-27b`, `finish_reason=stop`, and content `READY`.
+- The one-task host-controlled agentic smoke used five API requests and
+  completed in 57.86 seconds.
+- Qwen performed real file reads, a failing Verus check, an exact
+  `replace_text` edit, a passing Verus check, and a passing Lynette check.
+- Final outcome: `SOLVED`, F3=true, model identity matched, request counts
+  matched, immutable input unchanged, and zero credential matches in the
+  repository or run.
+- Every provider request/response, exposed reasoning field, tool call/result,
+  verifier payload, candidate snapshot, and exact diff is retained.
+
+External artifact:
+`${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/qwen-agentic-smoke-20260726-openrouter/`.
+
+The API and Qwen agentic gates now pass. The next executable branch is the
+small-model meta-skill and `3 x 4` matrix. InfoGain remains blocked until its
+complete-proof target and scorer contract are frozen.

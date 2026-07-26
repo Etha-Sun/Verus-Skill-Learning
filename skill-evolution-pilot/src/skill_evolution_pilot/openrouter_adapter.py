@@ -137,13 +137,15 @@ class OpenRouterClient:
     def complete(
         self,
         *,
-        messages: list[dict[str, str]],
+        messages: list[dict[str, Any]],
         event_log: EventLog,
         provider_io_path: Path | None = None,
         temperature: float = SOLVER_TEMPERATURE,
         top_p: float = 1.0,
         max_tokens: int = 8,
         reasoning_effort: str = "high",
+        tools: list[dict[str, Any]] | None = None,
+        tool_choice: str | dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         secret = self._credential()
         request_id = f"openrouter-{uuid.uuid4().hex}"
@@ -158,6 +160,10 @@ class OpenRouterClient:
                 "exclude": False,
             },
         }
+        if tools is not None:
+            payload["tools"] = tools
+        if tool_choice is not None:
+            payload["tool_choice"] = tool_choice
         event_log.append(
             actor="qwen",
             event_type="model_request",
@@ -303,8 +309,20 @@ def run_preflight(out_dir: Path, model: str = DEFAULT_MODEL) -> dict[str, Any]:
         provider_io_path=out_dir / "provider_io.jsonl",
         temperature=PREFLIGHT_TEMPERATURE,
         top_p=1.0,
-        max_tokens=8,
+        max_tokens=256,
+        reasoning_effort="low",
     )
+    content = result["message"].get("content")
+    if (
+        not isinstance(content, str)
+        or content.strip() != "READY"
+        or result["finish_reason"] == "length"
+    ):
+        raise OpenRouterError(
+            "incomplete_preflight",
+            None,
+            "OpenRouter preflight did not complete with exactly READY",
+        )
     summary = {
         "status": "COMPLETE",
         "requested_model": model,
@@ -313,6 +331,7 @@ def run_preflight(out_dir: Path, model: str = DEFAULT_MODEL) -> dict[str, Any]:
         "credential_present": True,
         "usage": result["usage"],
         "finish_reason": result["finish_reason"],
+        "content": content,
     }
     (out_dir / "result.json").write_text(
         json.dumps(summary, ensure_ascii=False, indent=2) + "\n",
