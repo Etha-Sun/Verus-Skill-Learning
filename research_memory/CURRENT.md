@@ -138,7 +138,7 @@ InfoGain remains later because its full-proof target span and scorer contract
 are not yet frozen.
 
 The experiment-local infrastructure is now implemented below
-`skill-evolution-pilot/src/skill_evolution_pilot/`; 27 model-free tests pass.
+`skill-evolution-pilot/src/skill_evolution_pilot/`; 28 model-free tests pass.
 It retains complete raw provider/Codex fields, uses normalized events only as a
 secondary index, redacts credentials, records visibility manifests, and saves
 full candidate snapshots/diffs at every completed Codex tool/edit boundary.
@@ -834,6 +834,39 @@ Compact artifacts:
 
 Raw and sealed datasets remained read-only. Full run logs remain only below
 `${VERUS_SKILL_RUN_ROOT}`.
+
+## Three-Objective Skill Evolution Execution Update (2026-07-26)
+
+The frozen token first round is complete. All 12 skill-conditioned Codex runs
+passed F3, Verus, and Lynette. H0 mean primary uncached Expected Tokens to
+Success was 52,350. `bounded-exploration-gate` was best at 51,497 (-853,
+-1.63%), `delta-certificate` was 53,794.25 (+1,444.25, +2.76%), and
+`obligation-graph` was 52,418.5 (+68.5, +0.13%). Task-level interactions were
+large, while the best aggregate gain is small relative to observed H0
+variability. This is a valid contrast for meta-analysis, not evidence of a
+general token-efficiency improvement.
+
+OpenRouter is now operational through the runtime-only credential contract.
+The final preflight returned the exact requested `qwen/qwen3.6-27b` identity,
+a complete `READY` response, provider usage, and exposed reasoning counts. A
+new host-controlled Qwen agentic runner then solved the stable-pass proof in
+five API requests and 57.86 seconds. It performed real file reads, Verus
+feedback, an exact code edit, and Lynette validation. The run passed F3 with
+matching request counts and model identity, unchanged immutable input, and zero
+credential matches. Complete sanitized provider payloads, tool payloads,
+snapshots, and diffs remain under
+`${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/qwen-agentic-smoke-20260726-openrouter/`.
+
+The proposed NRKernel replacement fourth task has a valid source precheck
+(`47 verified, 1 error`, localized to the target postcondition) and historical
+difficulty evidence. Its current Codex screen was interrupted during the tmux
+migration and lacks `result.json`; it is invalid evidence and must be rerun
+before replacing the existing `hard_solved` fourth task.
+
+Next action: implement the isolated small-model meta-agent, freeze three
+small-model skills, and run the OpenRouter Qwen `3 x 4` matrix. Start InfoGain
+only after the complete-proof target span, truncation policy, and frozen scorer
+checks pass.
 
 ## Fast Pointers
 

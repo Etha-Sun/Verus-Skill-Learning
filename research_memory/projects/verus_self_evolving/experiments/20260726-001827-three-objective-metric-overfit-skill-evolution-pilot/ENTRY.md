@@ -123,7 +123,7 @@ remains unresolved.
 ## Infrastructure Evidence (2026-07-26)
 
 The experiment-local implementation now lives below
-`skill-evolution-pilot/src/skill_evolution_pilot/` with 27 passing model-free
+`skill-evolution-pilot/src/skill_evolution_pilot/` with 28 passing model-free
 tests. It preserves raw Codex/OpenRouter fields without payload truncation,
 builds a secondary normalized event index, redacts runtime credentials, creates
 allowlisted visibility manifests, and records complete candidate snapshots and
@@ -189,10 +189,33 @@ Reviewed run log:
 The one-task token deltas are engineering evidence only. The first
 research-facing comparison remains the frozen 3-skill x 4-task matrix.
 
+## First-Round Token Result And Qwen Gate
+
+The token matrix completed 12/12 with all runs F3, Verus-valid, Lynette-safe,
+and solved. Mean primary uncached Expected Tokens to Success was 52,350 for H0,
+51,497 for `bounded-exploration-gate` (-1.63%), 53,794.25 for
+`delta-certificate` (+2.76%), and 52,418.5 for `obligation-graph` (+0.13%).
+The aggregate best delta is small relative to observed H0 variability, while
+per-task effects are strongly heterogeneous. This supports a useful
+meta-analysis contrast but no general token-efficiency claim.
+
+OpenRouter preflight now passes with exact `qwen/qwen3.6-27b` identity,
+complete output, usage, exposed reasoning counts, and zero credential matches.
+The host-controlled one-task Qwen agentic smoke solved in five API requests
+and 57.86 seconds. It passed F3, Verus, and Lynette with complete sanitized
+provider payloads, exact tool/edit payloads, candidate snapshots/diffs, and an
+unchanged immutable input.
+
+The NRKernel `impl_u__wrapped_token__impl1__lemma_interps_match_aux1` source is
+a promising fourth-task replacement candidate: its source precheck is
+`47 verified, 1 error` at the target postcondition and historical traces show
+long failures. The current Codex screen was interrupted during tmux migration
+and produced no `result.json`, so it remains invalid and cannot yet replace the
+existing hard-solved fourth task.
+
 ## Next Action
 
-Monitor and audit the running frozen token matrix, reconstruct per-run ledgers,
-and produce the failure-aware aggregate. In parallel, connect the
-tested OpenRouter completion adapter to the host-controlled Qwen repair loop.
-The API credential remains process-environment-only; if it is unavailable,
-run the already-approved local fallback as a separately labeled arm.
+Implement the isolated small-model meta-agent, freeze three small-model skills,
+and run the OpenRouter Qwen `3 x 4` matrix. Rerun the NRKernel current-Codex H0
+screen separately. Start InfoGain only after its complete-proof target span,
+context/truncation policy, and frozen local scorer gates pass.

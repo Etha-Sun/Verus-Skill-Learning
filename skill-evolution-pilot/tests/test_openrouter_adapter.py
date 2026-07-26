@@ -115,6 +115,60 @@ class OpenRouterAdapterTest(unittest.TestCase):
                     event_log=log,
                 )
 
+    def test_tools_are_sent_without_losing_tool_calls(self):
+        response = {
+            "model": DEFAULT_MODEL,
+            "choices": [
+                {
+                    "finish_reason": "tool_calls",
+                    "message": {
+                        "role": "assistant",
+                        "content": None,
+                        "tool_calls": [
+                            {
+                                "id": "call-1",
+                                "type": "function",
+                                "function": {
+                                    "name": "run_verus",
+                                    "arguments": "{}",
+                                },
+                            }
+                        ],
+                    },
+                }
+            ],
+            "usage": {"prompt_tokens": 10, "completion_tokens": 4},
+        }
+
+        def fake_transport(request, timeout):
+            payload = json.loads(request.data)
+            self.assertEqual(payload["tool_choice"], "auto")
+            self.assertEqual(payload["tools"][0]["function"]["name"], "run_verus")
+            return json.dumps(response).encode("utf-8")
+
+        with tempfile.TemporaryDirectory() as tmp, patch.dict(
+            os.environ, {"OPENROUTER_API_KEY": "test-secret"}, clear=False
+        ):
+            log = EventLog(Path(tmp) / "events.jsonl", "tools", ("test-secret",))
+            result = OpenRouterClient(transport=fake_transport).complete(
+                messages=[{"role": "user", "content": "Verify"}],
+                event_log=log,
+                tools=[
+                    {
+                        "type": "function",
+                        "function": {
+                            "name": "run_verus",
+                            "parameters": {"type": "object", "properties": {}},
+                        },
+                    }
+                ],
+                tool_choice="auto",
+            )
+            self.assertEqual(
+                result["message"]["tool_calls"][0]["function"]["name"],
+                "run_verus",
+            )
+
     def test_missing_credential_stops_before_transport(self):
         with tempfile.TemporaryDirectory() as tmp, patch.dict(
             os.environ, {}, clear=True
