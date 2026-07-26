@@ -1,6 +1,6 @@
 # Current Research State
 
-Last updated: 2026-07-22
+Last updated: 2026-07-25
 
 ## Active Direction
 
@@ -31,6 +31,54 @@ Core hypothesis:
 > uncached inference tokens, wall time, or required model scale. Promotion
 > requires project-held-out live reruns; offline information gain alone is
 > insufficient.
+
+## Hands-Off Log Fidelity And Phase Segmentation (2026-07-25)
+
+The earlier read-only analysis of the 30-trace R040 train selection was a
+phase-segmentation pilot, not a corpus-wide log-fidelity audit. It suggests
+using verifier checkpoints as macro boundaries, tool calls as micro-events,
+edits as actions, and `verus-checker`/Lynette as separate safety validation.
+This recommendation remains provisional until validated on a heterogeneous
+full-corpus sample with explicit boundary labels.
+
+The sample contains 24 plain CLI logs and 6 structured o4 JSONL logs. Tool/edit
+sequences are detectable in 28/30 and explicit Verus invocations in 27/30;
+summary-only and raw-diagnostic logs require provenance-aware fallbacks. In
+the six exact JSONL logs, 55 Verus boundaries correspond to 46 single-edit,
+5 multi-edit, and 4 zero-edit intervals, showing why edits and verifier calls
+must not be treated as one-to-one.
+
+The authoritative full audit covers 9,383 primary hands-off logs:
+
+- 8,447 (90.0%) have tool-call markers, but only 859 (9.2%) have all started
+  shell commands paired with uncompressed completed JSONL events.
+- 60,581/75,904 (79.81%) successful Edit events retain exact line-level
+  diffs. Among Edit events with displayed diff boxes, 60,581/60,740 (99.74%)
+  match the declared line counts. It is therefore incorrect to characterize
+  code edits as generally incomplete.
+- The edit losses are format-specific: 15,164 successful Edit events are
+  summary-only, all 5,977 UI Create events omit bodies, and all 4,000 o4
+  `file_change` events omit patch text.
+- 9,031/9,383 (96.3%) have paired original/final code, which recovers exact
+  final net diff but not intermediate edit history.
+- 735 (7.8%) have strict structured verifier trajectories and 3,259 (34.7%)
+  have explicit verifier payloads.
+- 0/9,383 expose thinking/reasoning-token fields. Usage is available in
+  9,268 (98.8%), but visible narration and output usage are not hidden
+  reasoning tokens.
+
+Downstream analyses must separately label tool payload, exact diff, Create,
+verifier payload, original/final pairing, and incremental replayability.
+Verifier-anchored phases are exact only when both verifier evidence and the
+evaluated code state are recoverable; otherwise they must carry a weaker
+provenance label.
+
+Canonical note:
+
+- `research_memory/projects/verus_self_evolving/notes/20260724-165940-hands-off-verifier-anchored-phase-segmentation/ENTRY.md`
+- `research_memory/projects/verus_self_evolving/notes/20260725-215004-full-hands-off-log-fidelity-audit-migration/ENTRY.md`
+- `docs/hands_off_log_fidelity_audit.zh.md`
+- `scripts/hands_off_log_fidelity/`
 
 Current design principle:
 
