@@ -1,6 +1,6 @@
 # Current Research State
 
-Last updated: 2026-07-25
+Last updated: 2026-07-26
 
 ## Active Direction
 
@@ -79,6 +79,123 @@ Canonical note:
 - `research_memory/projects/verus_self_evolving/notes/20260725-215004-full-hands-off-log-fidelity-audit-migration/ENTRY.md`
 - `docs/hands_off_log_fidelity_audit.zh.md`
 - `scripts/hands_off_log_fidelity/`
+
+## Three-Objective Skill Evolution Pilot Design (2026-07-26)
+
+The current draft intentionally separates three metric-overfit skill loops:
+token cost, API small-model benefit, and pre/post full-proof InfoGain. All
+three start from the same `n=4` fresh Codex H0 tasks but operate in isolated
+workspaces. Each objective-specific meta-agent sees only its own traces,
+primary metric, and safety evidence; one call analyzes the prior round and
+emits three new skills.
+
+For `n=4`, the first round requires 31 Codex agent invocations, 12 small-model
+agentic trajectories, and 28 local teacher-forced scoring sequences. Later
+rounds require 27, 12, and 24. A final frozen meta-skill synthesis adds three
+Codex calls. If the API agent uses one model request per step with
+`max_iters=10`, the 12 small-model trajectories can require up to 120 actual
+API requests per round.
+
+The four token-branch tasks are now fixed. The first three retain their
+historical labels (stable pass, stable closest failure, unstable). The user
+selected IronKV `delegation_map_v__impl4__range_consistent_impl` as the fourth
+task. Contrary to the historical expectation, current Codex solved both its
+standard source and the same-task no-lemma source under fresh H0. The standard
+source is therefore labeled `hard_solved`, not `current_codex_failure`; this
+negative screening result must remain visible.
+
+Canonical draft:
+
+- `research_memory/projects/verus_self_evolving/experiments/20260726-001827-three-objective-metric-overfit-skill-evolution-pilot/ENTRY.md`
+- `skill-evolution-pilot/EXPERIMENT_PLAN.md`
+- `skill-evolution-pilot/INFORMATION_CONTRACT.md`
+- `skill-evolution-pilot/DEBUG_GATES.md`
+- `skill-evolution-pilot/TRACKER.md`
+- `figures/three-objective-skill-evolution-loop.mmd`
+- `figures/three-objective-skill-evolution-loop.png`
+
+The pilot now has a staged launch contract. Token cost is the first executable
+branch. Before any metric experiment, model-free tests must validate the
+normalized event schema and credential redaction; two fresh one-task Codex
+H0 runs must then establish workspace visibility, edit/tool payload fidelity,
+candidate-hash-bound verifier checkpoints, independent Verus/Lynette
+validation, and token usage completeness.
+
+OpenRouter `qwen/qwen3.6-27b` is the primary small-model transport. Its
+credential is runtime-only through `OPENROUTER_API_KEY` and must never enter a
+command, manifest, response log, exception, memory entry, or repository file.
+The historical OpenRouter repair script is reference material only because it
+does not satisfy the new isolation and logging contract. Local Qwen is a
+separately labeled last-resort arm after a recorded no-credit or bounded
+provider failure; API and local results cannot be pooled.
+
+The minimal token engineering smoke requires six Codex invocations: two fresh
+H0 runs on one task, one token meta-agent call producing three skills, and
+three skill-conditioned solver runs. An optional reflection is a seventh call.
+Only after this smoke is fully auditable should the project identify the fourth
+task through an H0-only screen and launch the 12-run token first round.
+InfoGain remains later because its full-proof target span and scorer contract
+are not yet frozen.
+
+The experiment-local infrastructure is now implemented below
+`skill-evolution-pilot/src/skill_evolution_pilot/`; 27 model-free tests pass.
+It retains complete raw provider/Codex fields, uses normalized events only as a
+secondary index, redacts credentials, records visibility manifests, and saves
+full candidate snapshots/diffs at every completed Codex tool/edit boundary.
+
+Two real `gpt-5.6-sol/high` fidelity smokes used the prior stable-pass task
+`seq_filter_contains_implies_seq_contains`; neither is the fourth task. Smoke
+01 solved but failed F3 because the first adapter treated four valid
+`todo_list` events as unknown. After the lossless mapping was added, smoke 02
+passed F3: 25/25 raw events exactly indexed, six completed command/edit
+boundaries covered by eight full candidate snapshots, zero missing/unpaired
+payloads, zero truncation markers, zero shell-edit suspects, unchanged input,
+and matching independent Verus/Lynette validation.
+
+Smoke 02 recorded 232,495 input, 203,264 cached input, 1,671 output, and 369
+reasoning-output tokens but no visible reasoning text. A follow-up audit showed
+this was a harness omission: the local `gpt-5.6-sol` catalog supports reasoning
+summaries but defaults to `summary=none`. Smokes 01-02 are therefore not
+canonical final baselines.
+
+Smoke 03 explicitly requested `model_reasoning_summary="detailed"`, forced
+reasoning-summary support, disabled hiding, and enabled raw-reasoning display.
+It passed F3 and returned four reasoning events with 186 total characters,
+while usage reported 392 reasoning-output tokens. The exact returned events
+are present in both raw and normalized logs. They are reasoning summaries, not
+the entire hidden 392-token sequence. The harness now requests and preserves
+all exposed reasoning fields but does not claim hidden chain-of-thought access.
+Smoke 03 is the canonical Codex fidelity configuration.
+
+The durable compact log is `skill-evolution-pilot/RUNLOG.md`; complete runs
+remain outside the repository under `VERUS_SKILL_RUN_ROOT`.
+
+Canonical H0 and token G6 execution are complete. The three historical tasks
+were 3/3 solved and 3/3 F3 in the fresh canonical batch, with 25,555, 71,816,
+and 32,784 primary uncached tokens. Two canonical stable-pass H0 runs have
+mean 27,660 uncached tokens and 10.8% coefficient of variation.
+
+The one-task token meta-agent emitted exactly three schema-valid skills. A
+replayed visibility audit confirmed no access outside its allowlisted
+workspace. On the stable-pass engineering smoke, H0, conservative,
+aggressive, and structural conditions all solved and passed F3; their primary
+uncached tokens were 25,555, 15,611, 20,320, and 28,880 respectively. These
+single-task deltas (-38.9%, -20.5%, +13.0%) establish that the intervention is
+measurable and produces useful contrast, not that token efficiency generally
+improves.
+
+The standard fourth task solved in 410.97 seconds using 79,245 primary
+uncached tokens. Its no-lemma diagnostic also solved in 496.61 seconds using
+81,130 primary uncached tokens. The standard version is frozen for the token
+matrix. A first full-four meta-agent attempt was invalidated because it wrote
+scratch evidence to `/tmp`; its logs were retained. The runner now forces
+scratch storage inside the meta workspace and treats any outside path as an
+invalid visibility audit. One isolated attempt then stalled before tool use
+and was terminated. The next retry completed in 327.04 seconds with a valid
+schema, zero outside-workspace commands, and zero secret matches. It emitted
+`bounded-exploration-gate`, `delta-certificate`, and `obligation-graph`. The
+frozen 3-skill x 4-task token matrix is now running with Codex concurrency 6
+and a 600-second per-run cap.
 
 Current design principle:
 
