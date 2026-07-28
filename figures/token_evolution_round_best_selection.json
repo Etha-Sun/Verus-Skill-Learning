@@ -1,0 +1,29 @@
+{
+  "rounds": [
+    "H0",
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6"
+  ],
+  "selected_skill_ids": [
+    "no skill",
+    "bounded-exploration-gate",
+    "branch-witness-cutset",
+    "local-contract-closure",
+    "zero-ceremony-direct",
+    "backward-contract-frontier",
+    "micro-direct-kernel"
+  ],
+  "etts": [
+    52350.0,
+    51497.0,
+    58832.25,
+    53403.75,
+    59032.0,
+    52013.5,
+    51881.0
+  ]
+}
