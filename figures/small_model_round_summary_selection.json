@@ -1,0 +1,26 @@
+{
+  "rounds": [
+    "H0",
+    "R1",
+    "R2",
+    "R3"
+  ],
+  "selected_skill_ids": [
+    "no skill",
+    "lemma first minimal",
+    "contract match loop r2",
+    "direct or witness r3"
+  ],
+  "solve_count": [
+    2,
+    2,
+    2,
+    2
+  ],
+  "total_provider_tokens": [
+    312656.0,
+    327572.0,
+    321998.0,
+    322195.0
+  ]
+}
