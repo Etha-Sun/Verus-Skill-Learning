@@ -67,6 +67,7 @@ post contexts.
   - `figures/three-objective-skill-evolution-loop.mmd`
   - `figures/three-objective-skill-evolution-loop.md`
   - `figures/three-objective-skill-evolution-loop.png`
+  - `figures/three-objective-figure-index.md`
 - reviewed pilot controls:
   - `skill-evolution-pilot/EXPERIMENT_PLAN.md`
   - `skill-evolution-pilot/INFORMATION_CONTRACT.md`
@@ -206,16 +207,78 @@ and 57.86 seconds. It passed F3, Verus, and Lynette with complete sanitized
 provider payloads, exact tool/edit payloads, candidate snapshots/diffs, and an
 unchanged immutable input.
 
-The NRKernel `impl_u__wrapped_token__impl1__lemma_interps_match_aux1` source is
-a promising fourth-task replacement candidate: its source precheck is
-`47 verified, 1 error` at the target postcondition and historical traces show
-long failures. The current Codex screen was interrupted during tmux migration
-and produced no `result.json`, so it remains invalid and cannot yet replace the
-existing hard-solved fourth task.
+The NRKernel `impl_u__wrapped_token__impl1__lemma_interps_match_aux1` current
+Codex screen has now completed at the 600-second cap. It is UNSOLVED and F3:
+165 raw events, 259 normalized events, 59 tool/edit boundaries with complete
+snapshots, unchanged input, independent Lynette success, and a final genuine
+Verus type error. It replaces the fourth task only in the small-model branch;
+the completed token matrix remains frozen on its original fourth task.
+
+The objective-isolated small-model meta-agent passed schema, visibility, and
+credential audits and generated three Qwen-facing skills:
+`verus-ten-request-ladder`, `verus-lemma-first-minimal`, and
+`verus-obligation-state-machine`. Matched no-skill Qwen H0 completed 4/4 with
+F3 under `temperature=0.2` and a ten-request cap: two solved and two unsolved.
+NRKernel was UNSOLVED after ten requests and 447.9 seconds. An earlier
+incomplete provider attempt is retained as transport evidence but excluded
+from model outcomes.
+
+The formal 12-trajectory small-model matrix completed at:
+
+- `${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/qwen-small-model-r1-20260726/`
+
+All 12 trajectories passed F3 with no runner error or transport retry. Matched
+H0 solved 2/4 using 29 requests and 312,656 provider-reported tokens. Each
+skill solved the same two tasks and failed the same two tasks:
+
+- `verus-ten-request-ladder`: 2/4, 32 requests, 354,570 tokens;
+- `verus-lemma-first-minimal`: 2/4, 30 requests, 327,572 tokens;
+- `verus-obligation-state-machine`: 2/4, 29 requests, 355,616 tokens.
+
+Relative to H0, the token deltas are +13.41%, +4.77%, and +13.74%,
+respectively. No first-round skill improves Qwen solve rate, and none reduces
+total token use. Provider dollar cost is not a substitute for the token
+objective: the minimal arm cost slightly less only because prompt and
+completion tokens have different prices.
+
+## InfoGain Execution Retrospective (audited 2026-07-29)
+
+The InfoGain branch progressed further than the earlier tracker recorded.
+The frozen Qwen scorer gate is valid on all four tasks: all complete reference
+proofs fit the 32,768-token context, exact teacher forcing is used without
+truncation, and repeated baseline scores are identical.
+
+R1 and R2 each completed 12/12 F3 and solved Codex trajectories, followed by
+12/12 exact paired pre/post scores and token-level logs. Mean aggregate
+InfoGain in bits was:
+
+| round | skill | pre | post | post bits / target token |
+|---|---|---:|---:|---:|
+| R1 | `proof_state_saturation` | -832.14 | 238.59 | 0.2156 |
+| R1 | `minimal_sufficient_rationale` | -1040.89 | 402.57 | 0.2198 |
+| R1 | `dependency_bridge_map` | -137.28 | 435.24 | 0.2095 |
+| R2 | `verifier_delta_atlas` | -413.21 | 165.27 | 0.1681 |
+| R2 | `contract_unification_certificate` | -135.29 | 297.56 | 0.2031 |
+| R2 | `boundary_cut_proof_dag` | -520.29 | 281.13 | 0.1703 |
+
+R3 trajectory generation also completed: 12/12 are F3 and 11/12 solved. The
+unsolved run is `clause_local_contract_certificate` on the hard
+`range_consistent_impl` task. No R3 score directory or aggregate summary
+exists, and no scorer process is currently active. The three-round experiment
+is therefore incomplete only at R3's 24 local pre/post scoring sequences,
+final aggregation, and visualization; the 12 R3 Codex trajectories do not
+need to be regenerated.
+
+The positive post-summary scores show that terminal repair summaries increase
+the frozen model's reference-proof likelihood relative to no summary on
+average. They do not establish live solve-rate or token-efficiency gains. R2
+also fails to improve over the strongest R1 post score, so the completed
+rounds do not show monotonic InfoGain evolution.
 
 ## Next Action
 
-Implement the isolated small-model meta-agent, freeze three small-model skills,
-and run the OpenRouter Qwen `3 x 4` matrix. Rerun the NRKernel current-Codex H0
-screen separately. Start InfoGain only after its complete-proof target span,
-context/truncation policy, and frozen local scorer gates pass.
+Do not promote a first-round small-model skill. Analyze the matched hard-task
+failure trajectories and run a second evolution round only if that comparison
+yields a concrete editable mechanism. Complete the 24 frozen-scorer sequences
+for InfoGain R3, then aggregate and plot R1-R3 before deciding whether another
+InfoGain evolution round is justified.
