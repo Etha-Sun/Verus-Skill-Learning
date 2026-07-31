@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import difflib
 import json
+import shlex
 import shutil
 from pathlib import Path
 from typing import Any
@@ -15,6 +16,52 @@ def _candidate_hash(candidate_path: Path | None) -> str | None:
     if candidate_path is None or not candidate_path.is_file():
         return None
     return sha256_file(candidate_path)
+
+
+def _shell_command_heads(command: str) -> list[str]:
+    try:
+        outer = shlex.split(command)
+    except ValueError:
+        return []
+    if not outer:
+        return []
+    if Path(outer[0]).name in {"bash", "sh", "zsh"}:
+        for index, argument in enumerate(outer[1:-1], start=1):
+            if argument.startswith("-") and "c" in argument[1:]:
+                command = outer[index + 1]
+                break
+
+    lexer = shlex.shlex(command, posix=True, punctuation_chars=";&|")
+    lexer.whitespace_split = True
+    lexer.commenters = ""
+    try:
+        tokens = list(lexer)
+    except ValueError:
+        return []
+
+    heads: list[str] = []
+    expect_command = True
+    for token in tokens:
+        if token and all(character in ";&|" for character in token):
+            expect_command = True
+        elif expect_command:
+            heads.append(token)
+            expect_command = False
+    return heads
+
+
+def _verifier_actor(command: str) -> str | None:
+    wrappers = {
+        "lynette": "lynette",
+        "run_lynette.sh": "lynette",
+        "run_verus.sh": "verus",
+        "verus": "verus",
+    }
+    for executable in _shell_command_heads(command):
+        actor = wrappers.get(Path(executable).name)
+        if actor is not None:
+            return actor
+    return None
 
 
 def append_codex_event(
@@ -50,11 +97,7 @@ def append_codex_event(
             )
             if event_type == "tool_result":
                 command = str(item.get("command") or "")
-                verifier_actor = None
-                if "lynette" in command:
-                    verifier_actor = "lynette"
-                elif "verus" in command:
-                    verifier_actor = "verus"
+                verifier_actor = _verifier_actor(command)
                 if verifier_actor is not None:
                     log.append(
                         actor=verifier_actor,

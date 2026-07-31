@@ -14,13 +14,25 @@ from .batch_runner import (
 )
 from .codex_runner import run_codex_smoke
 from .events import EventLog, audit_events, load_events
-from .meta_agent import reaudit_token_meta_agent, run_token_meta_agent
+from .ig_scorer import (
+    prepare_reference_manifest,
+    run_scorer_gate,
+    score_information_gain_round,
+)
+from .meta_agent import (
+    reaudit_token_meta_agent,
+    run_information_gain_meta_agent,
+    run_small_model_meta_agent,
+    run_token_meta_agent,
+)
 from .openrouter_adapter import DEFAULT_MODEL, run_preflight
 from .qwen_runner import run_qwen_agentic_smoke
+from .qwen_batch import prepare_qwen_jobs, run_qwen_batch
 from .redaction import secret_match_count
 from .token_ledger import aggregate_ledgers, build_run_ledger, write_ledger
 from .token_compare import write_token_comparison
 from .token_matrix import write_token_matrix_summary
+from .verusage_transcript import render_verusage_transcript
 
 
 def model_free_smoke(out_dir: Path) -> dict[str, object]:
@@ -95,6 +107,9 @@ def main() -> None:
     normalize.add_argument("--normalized-events", type=Path, required=True)
     normalize.add_argument("--run-id", required=True)
     normalize.add_argument("--candidate", type=Path)
+    render_log = commands.add_parser("render-verusage-log")
+    render_log.add_argument("--run-dir", type=Path, required=True)
+    render_log.add_argument("--output", type=Path, required=True)
     codex_smoke = commands.add_parser("codex-smoke")
     codex_smoke.add_argument("--source", type=Path, required=True)
     codex_smoke.add_argument("--out-dir", type=Path, required=True)
@@ -121,6 +136,24 @@ def main() -> None:
     qwen_smoke.add_argument("--model", default=DEFAULT_MODEL)
     qwen_smoke.add_argument("--max-iters", type=int, default=6)
     qwen_smoke.add_argument("--max-tokens", type=int, default=8192)
+    qwen_smoke.add_argument("--skill-file", type=Path)
+    qwen_smoke.add_argument("--provider-timeout-seconds", type=float, default=180.0)
+    prepare_qwen = commands.add_parser("prepare-qwen-batch")
+    prepare_qwen.add_argument("--tasks", type=Path, required=True)
+    prepare_qwen.add_argument("--out-root", type=Path, required=True)
+    prepare_qwen.add_argument("--output", type=Path, required=True)
+    prepare_qwen.add_argument("--meta-output", type=Path)
+    qwen_batch = commands.add_parser("run-qwen-batch")
+    qwen_batch.add_argument("--jobs", type=Path, required=True)
+    qwen_batch.add_argument("--summary", type=Path, required=True)
+    qwen_batch.add_argument("--verus-bin", type=Path, required=True)
+    qwen_batch.add_argument("--lynette-bin", type=Path, required=True)
+    qwen_batch.add_argument("--model", default=DEFAULT_MODEL)
+    qwen_batch.add_argument("--max-workers", type=int, default=4)
+    qwen_batch.add_argument("--max-iters", type=int, default=10)
+    qwen_batch.add_argument("--max-tokens", type=int, default=8192)
+    qwen_batch.add_argument("--transport-attempts", type=int, default=2)
+    qwen_batch.add_argument("--provider-timeout-seconds", type=float, default=180.0)
     ledger = commands.add_parser("token-ledger")
     ledger.add_argument("--run-dir", type=Path, required=True)
     ledger.add_argument("--output", type=Path, required=True)
@@ -144,10 +177,62 @@ def main() -> None:
     token_meta.add_argument("--h0-run-dir", type=Path, action="append", required=True)
     token_meta.add_argument("--out-dir", type=Path, required=True)
     token_meta.add_argument("--codex-bin", type=Path, required=True)
-    token_meta.add_argument("--current-meta-skill", type=Path, required=True)
+    token_current = token_meta.add_mutually_exclusive_group(required=True)
+    token_current.add_argument("--current-meta-skill", type=Path)
+    token_current.add_argument("--current-meta-output", type=Path)
+    token_meta.add_argument("--prior-run-dir", type=Path, action="append", default=[])
+    token_meta.add_argument("--prior-meta-output", type=Path)
+    token_meta.add_argument("--prior-summary", type=Path)
+    token_meta.add_argument("--design-brief", type=Path)
+    token_meta.add_argument("--forbidden-term", action="append", default=[])
     token_meta.add_argument("--model", default="gpt-5.6-sol")
     token_meta.add_argument("--reasoning-effort", default="high")
     token_meta.add_argument("--timeout-seconds", type=int, default=600)
+    small_meta = commands.add_parser("small-model-meta-agent")
+    small_meta.add_argument("--h0-run-dir", type=Path, action="append", required=True)
+    small_meta.add_argument("--out-dir", type=Path, required=True)
+    small_meta.add_argument("--codex-bin", type=Path, required=True)
+    small_current = small_meta.add_mutually_exclusive_group(required=True)
+    small_current.add_argument("--current-meta-skill", type=Path)
+    small_current.add_argument("--current-meta-output", type=Path)
+    small_meta.add_argument(
+        "--baseline-run-dir", type=Path, action="append", default=[]
+    )
+    small_meta.add_argument("--prior-run-dir", type=Path, action="append", default=[])
+    small_meta.add_argument("--prior-meta-output", type=Path)
+    small_meta.add_argument("--prior-summary", type=Path)
+    small_meta.add_argument("--forbidden-term", action="append", default=[])
+    small_meta.add_argument("--model", default="gpt-5.6-sol")
+    small_meta.add_argument("--reasoning-effort", default="high")
+    small_meta.add_argument("--timeout-seconds", type=int, default=600)
+    ig_meta = commands.add_parser("information-gain-meta-agent")
+    ig_meta.add_argument("--h0-run-dir", type=Path, action="append", required=True)
+    ig_meta.add_argument("--out-dir", type=Path, required=True)
+    ig_meta.add_argument("--codex-bin", type=Path, required=True)
+    ig_current = ig_meta.add_mutually_exclusive_group(required=True)
+    ig_current.add_argument("--current-meta-skill", type=Path)
+    ig_current.add_argument("--current-meta-output", type=Path)
+    ig_meta.add_argument("--prior-run-dir", type=Path, action="append", default=[])
+    ig_meta.add_argument("--prior-meta-output", type=Path)
+    ig_meta.add_argument("--prior-summary", type=Path)
+    ig_meta.add_argument("--forbidden-term", action="append", default=[])
+    ig_meta.add_argument("--model", default="gpt-5.6-sol")
+    ig_meta.add_argument("--reasoning-effort", default="high")
+    ig_meta.add_argument("--timeout-seconds", type=int, default=600)
+    ig_references = commands.add_parser("prepare-ig-references")
+    ig_references.add_argument("--tasks", type=Path, required=True)
+    ig_references.add_argument("--output", type=Path, required=True)
+    ig_references.add_argument("--verus-bin", type=Path, required=True)
+    ig_references.add_argument("--lynette-bin", type=Path, required=True)
+    ig_gate = commands.add_parser("run-ig-scorer-gate")
+    ig_gate.add_argument("--reference-manifest", type=Path, required=True)
+    ig_gate.add_argument("--out-dir", type=Path, required=True)
+    ig_score = commands.add_parser("score-ig-round")
+    ig_score.add_argument("--reference-manifest", type=Path, required=True)
+    ig_score.add_argument("--gate-summary", type=Path, required=True)
+    ig_score.add_argument("--meta-output", type=Path, required=True)
+    ig_score.add_argument("--jobs", type=Path, required=True)
+    ig_score.add_argument("--out-dir", type=Path, required=True)
     prepare_skills = commands.add_parser("prepare-skill-batch")
     prepare_skills.add_argument("--task-jobs", type=Path, required=True)
     prepare_skills.add_argument("--meta-output", type=Path, required=True)
@@ -193,6 +278,11 @@ def main() -> None:
             run_id=args.run_id,
             candidate_path=args.candidate,
         )
+    elif args.command == "render-verusage-log":
+        result = render_verusage_transcript(
+            run_dir=args.run_dir,
+            output_path=args.output,
+        )
     elif args.command == "codex-smoke":
         result = run_codex_smoke(
             source=args.source,
@@ -217,6 +307,34 @@ def main() -> None:
             model=args.model,
             max_iters=args.max_iters,
             max_tokens=args.max_tokens,
+            skill_text=(
+                args.skill_file.read_text(encoding="utf-8")
+                if args.skill_file is not None
+                else None
+            ),
+            provider_timeout_seconds=args.provider_timeout_seconds,
+        )
+    elif args.command == "prepare-qwen-batch":
+        result = {
+            "jobs": prepare_qwen_jobs(
+                tasks_path=args.tasks,
+                out_root=args.out_root,
+                output_path=args.output,
+                meta_output_path=args.meta_output,
+            )
+        }
+    elif args.command == "run-qwen-batch":
+        result = run_qwen_batch(
+            jobs_path=args.jobs,
+            summary_path=args.summary,
+            verus_bin=args.verus_bin,
+            lynette_bin=args.lynette_bin,
+            model=args.model,
+            max_workers=args.max_workers,
+            max_iters=args.max_iters,
+            max_tokens=args.max_tokens,
+            transport_attempts=args.transport_attempts,
+            provider_timeout_seconds=args.provider_timeout_seconds,
         )
     elif args.command == "token-ledger":
         result = write_ledger(args.run_dir, args.output)
@@ -250,14 +368,89 @@ def main() -> None:
             timeout_seconds=args.timeout_seconds,
         )
     elif args.command == "token-meta-agent":
+        current_meta_skill = (
+            args.current_meta_skill.read_text(encoding="utf-8")
+            if args.current_meta_skill is not None
+            else json.loads(
+                args.current_meta_output.read_text(encoding="utf-8")
+            )["revised_meta_skill"]
+        )
         result = run_token_meta_agent(
             out_dir=args.out_dir,
             h0_run_dirs=args.h0_run_dir,
-            current_meta_skill=args.current_meta_skill.read_text(encoding="utf-8"),
+            current_meta_skill=current_meta_skill,
             codex_bin=args.codex_bin,
+            prior_run_dirs=args.prior_run_dir,
+            prior_meta_output_path=args.prior_meta_output,
+            prior_summary_path=args.prior_summary,
+            design_brief_path=args.design_brief,
+            forbidden_terms=args.forbidden_term,
             model=args.model,
             reasoning_effort=args.reasoning_effort,
             timeout_seconds=args.timeout_seconds,
+        )
+    elif args.command == "small-model-meta-agent":
+        current_meta_skill = (
+            args.current_meta_skill.read_text(encoding="utf-8")
+            if args.current_meta_skill is not None
+            else json.loads(
+                args.current_meta_output.read_text(encoding="utf-8")
+            )["revised_meta_skill"]
+        )
+        result = run_small_model_meta_agent(
+            out_dir=args.out_dir,
+            h0_run_dirs=args.h0_run_dir,
+            current_meta_skill=current_meta_skill,
+            codex_bin=args.codex_bin,
+            baseline_run_dirs=args.baseline_run_dir,
+            prior_run_dirs=args.prior_run_dir,
+            prior_meta_output_path=args.prior_meta_output,
+            prior_summary_path=args.prior_summary,
+            forbidden_terms=args.forbidden_term,
+            model=args.model,
+            reasoning_effort=args.reasoning_effort,
+            timeout_seconds=args.timeout_seconds,
+        )
+    elif args.command == "information-gain-meta-agent":
+        current_meta_skill = (
+            args.current_meta_skill.read_text(encoding="utf-8")
+            if args.current_meta_skill is not None
+            else json.loads(
+                args.current_meta_output.read_text(encoding="utf-8")
+            )["revised_meta_skill"]
+        )
+        result = run_information_gain_meta_agent(
+            out_dir=args.out_dir,
+            h0_run_dirs=args.h0_run_dir,
+            current_meta_skill=current_meta_skill,
+            codex_bin=args.codex_bin,
+            prior_run_dirs=args.prior_run_dir,
+            prior_meta_output_path=args.prior_meta_output,
+            prior_summary_path=args.prior_summary,
+            forbidden_terms=args.forbidden_term,
+            model=args.model,
+            reasoning_effort=args.reasoning_effort,
+            timeout_seconds=args.timeout_seconds,
+        )
+    elif args.command == "prepare-ig-references":
+        result = prepare_reference_manifest(
+            tasks_path=args.tasks,
+            output_path=args.output,
+            verus_bin=args.verus_bin,
+            lynette_bin=args.lynette_bin,
+        )
+    elif args.command == "run-ig-scorer-gate":
+        result = run_scorer_gate(
+            reference_manifest_path=args.reference_manifest,
+            out_dir=args.out_dir,
+        )
+    elif args.command == "score-ig-round":
+        result = score_information_gain_round(
+            reference_manifest_path=args.reference_manifest,
+            gate_summary_path=args.gate_summary,
+            meta_output_path=args.meta_output,
+            jobs_path=args.jobs,
+            out_dir=args.out_dir,
         )
     elif args.command == "prepare-skill-batch":
         result = {
