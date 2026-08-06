@@ -1,0 +1,12 @@
+{
+  "title": "Codex GPT-5.5 sampled 100 token cost and success audit",
+  "project": "verus_self_evolving",
+  "kind": "notes",
+  "created_at": "2026-08-06T03:04:57",
+  "status": "complete",
+  "links": [
+    "${VERUS_SKILL_LEGACY_ROOT}/runs/codex_sampled_unverified_100_gpt55_20260729/aggregate_100.json",
+    "https://developers.openai.com/api/docs/models/gpt-5.5"
+  ],
+  "raw_data_read_only": true
+}
