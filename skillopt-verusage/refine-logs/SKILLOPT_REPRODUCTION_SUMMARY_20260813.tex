@@ -220,11 +220,8 @@ accepted the candidate because 17/20 strictly exceeded 16/20.
 
 \section{Usage and Cost}
 
-Table~\ref{tab:cost} separates newly executed actor work from optimizer work.
-This distinction is important for replay experiments: F/P ran no actor tasks,
-and F/S reused all 40 training trajectories and paid only for a new candidate
-gate. The P/S actor ledger includes the full initial evaluation, training
-rollout, and candidate gate.
+Table~\ref{tab:cost} separates newly executed actor work from optimizer work;
+``Tasks'' counts only new actor executions in each experiment.
 
 \begin{table*}[t]
 \centering
@@ -243,42 +240,24 @@ Actor & Optimizer & Tasks & Requests & \mbox{Input (cached)} & Output & Actor co
 \vspace{2pt}
 \begin{minipage}{\textwidth}\footnotesize
 \emph{Notes.} Parentheses in ``Input (cached)'' report cache-hit input tokens.
-Cost/task is actor cost divided by the number of newly executed actor tasks;
-the Flash/Sol value covers a 20-task candidate gate rather than a full epoch.
-The Flash/Pro row is optimizer-only reanalysis of stored Flash trajectories,
-so it has no new actor tasks. Optimizer costs use model-specific prices
-recorded at experiment time. Flash/Flash uses the Flash rates:
-\$0.0028/M cache-hit input, \$0.14/M cache-miss input, and \$0.28/M output.
-Flash/Pro uses the Pro rates: \$0.003625/M cache-hit input, \$0.435/M cache-miss
-input, and \$0.87/M output. Because the optimizer logs do not retain a prompt
-cache split, their DeepSeek prompt tokens are conservatively treated as cache
-misses. The displayed Flash/Pro value is the final Pro-v2 analysis; including the
-earlier rejected Pro-v1 analysis gives \$0.1126. F/S and P/S used local Codex
-quota for the \sol{} optimizer and therefore had zero metered optimizer cash
-cost. At the recorded Sol API rates and treating all optimizer input as
-uncached, their API-equivalent costs would be approximately \$1.5671 and
-\$5.7069, respectively, before any long-context uplift. P/S actor cost excludes
-Pro-native preflights and a stopped wrong-reasoning startup. Including those
-bring-up calls yields approximately \$4.7360 for that Pro launch.
+The first three experiments share the same 40 Flash training trajectories:
+F/F generated them, while F/P and F/S reused them. F/P performed optimizer-only
+analysis and was rejected before the gate because the Pro-generated candidate
+incorrectly attributed a verifier failure. F/S therefore ran only a fresh
+20-task selection gate; P/S ran a full 80-task epoch. Cost/task is actor cost
+divided by newly executed actor tasks. The \sol{} optimizer used local Codex
+quota, so its metered API cost was \$0.
 \end{minipage}
 \caption{Measured actor usage and optimizer usage. Dollar values are estimated
 from the provider usage ledgers.}
 \label{tab:cost}
 \end{table*}
 
-In these measured runs, the Pro/Sol actor cost less per task than the
-Flash/Flash actor (\$0.0548 versus \$0.0650), but this does not mean that Pro
-has lower token prices. The Pro/Sol epoch used substantially more input tokens than Flash/Flash, but
-98.7\% of its input was served from the DeepSeek prompt cache and it produced
-only 2.986M output tokens. By comparison, Flash/Flash had a 78.2\% input cache
-rate and produced 14.403M output tokens. Output alone cost approximately
-\$4.0327 in Flash/Flash, versus \$2.5980 in Pro/Sol. The cache-hit, cache-miss,
-and output contributions were therefore \$0.0777, \$1.0866, and \$4.0327 for
-Flash/Flash, compared with \$0.7055, \$1.0844, and \$2.5980 for Pro/Sol. This
-token-shape difference outweighs Pro's higher unit prices, yielding formal
-actor costs of \$5.1971 and \$4.3879, respectively. This is a measured harness
-outcome, not evidence that Pro is intrinsically cheaper. The local \sol{}
-optimizer incurred no metered API cash cost in either Sol experiment.
+In these measured runs, Pro/Sol cost less per actor task than Flash/Flash
+(\$0.0548 versus \$0.0650). This was a workload effect, not evidence that Pro
+is intrinsically cheaper: Pro/Sol produced 2.986M output tokens with a 98.7\%
+input-cache rate, whereas Flash/Flash produced 14.403M output tokens with a
+78.2\% input-cache rate.
 
 \section{Interpretation}
 
