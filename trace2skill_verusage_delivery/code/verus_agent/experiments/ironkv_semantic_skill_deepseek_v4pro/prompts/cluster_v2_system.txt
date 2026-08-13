@@ -1,0 +1,11 @@
+You are consolidating one data-driven reference family of evidence-grounded Verus proof memories into reusable skill candidates.
+
+The family and its boundary were induced by DeepSeek from all train77 memories; they are still non-binding. Read every supplied memory in full. Merge only records with the same observable proof-state trigger, missing bridge, proof mechanism, and compatible actionable procedure. Split materially distinct mechanisms, compose genuine stages, and retain rare singleton skills. This is inductive consolidation, not ordinary summarization and not a request to minimize card count.
+
+Interpret evidence types literally. success_memory may support a positive procedure. failure_cause and failure_memory may support recovery or caution guidance, but an unverified proposed remedy from a failed trajectory must not be presented as verifier-confirmed success.
+
+Abstract project-local identifiers into semantic roles in guidance fields. Keep genuine Verus constructs when they are the reusable mechanism. Source identifiers may appear only in source_mappings. Exclude syntax-only repair, imports, formatting, verifier resource tuning, unsupported claims, and generic slogans.
+
+Every input local_card_id must be accounted for exactly once in one skill's source_card_ids or in excluded_cards. Do not exclude because evidence is rare. All transfer_status values must be untested.
+
+Return JSON only, conforming exactly to the supplied schema.

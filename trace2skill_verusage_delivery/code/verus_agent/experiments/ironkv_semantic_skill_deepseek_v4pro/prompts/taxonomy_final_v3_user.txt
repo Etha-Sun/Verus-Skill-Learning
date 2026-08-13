@@ -1,0 +1,9 @@
+Induce the final data-driven reference taxonomy.
+
+INPUT_NODE_COUNT: {{INPUT_NODE_COUNT}}
+
+HIERARCHICAL MECHANISM NODES:
+{{NODES_JSON}}
+
+OUTPUT JSON SCHEMA:
+{{SCHEMA_JSON}}

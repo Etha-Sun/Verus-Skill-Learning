@@ -1,0 +1,14 @@
+Here is the target agent's complete Verus task execution log. Treat the entire
+content as one trajectory; do not truncate, sample, or pre-segment it.
+
+<agent_log>
+{agent_log}
+</agent_log>
+
+Produce:
+
+1. the Lean Solution Path that led to the verified result, with non-contributing
+   failures removed; and
+2. at most 3 Success Memory Items capturing reusable successful procedures.
+
+Follow the system-prompt format exactly.

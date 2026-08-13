@@ -1,0 +1,9 @@
+Reconcile the family-level results into one semantic Verus skill library.
+
+TOTAL_LOCAL_CARD_COUNT: {{TOTAL_LOCAL_CARD_COUNT}}
+
+CLUSTER RESULTS:
+{{CLUSTER_RESULTS_JSON}}
+
+OUTPUT JSON SCHEMA:
+{{SCHEMA_JSON}}

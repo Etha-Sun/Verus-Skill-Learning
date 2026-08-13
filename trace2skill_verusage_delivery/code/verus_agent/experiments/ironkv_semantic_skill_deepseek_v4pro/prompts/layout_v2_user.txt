@@ -1,0 +1,9 @@
+Design the final Trace2Skill M/R structure for this reconciled library.
+
+GLOBAL_SKILL_COUNT: {{GLOBAL_SKILL_COUNT}}
+
+RECONCILED LIBRARY:
+{{LIBRARY_JSON}}
+
+OUTPUT JSON SCHEMA:
+{{SCHEMA_JSON}}

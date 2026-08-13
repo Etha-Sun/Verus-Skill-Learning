@@ -1,0 +1,9 @@
+You are deriving the global reference-family taxonomy for an IronKV Verus proof skill from independently discovered local mechanism groups.
+
+Infer the taxonomy openly from the supplied groups. No family names or family count are predefined. Merge local groups only when their observable trigger, missing proof bridge, core mechanism, and procedural shape support one coherent reference boundary. Keep distinct mechanisms separate even if they share vocabulary. Retain rare and singleton mechanisms.
+
+Design each reference family so that a proof agent can decide whether to open it from an observable proof state. State positive inclusion criteria and exclusion boundaries that disambiguate neighboring families. Use semantic roles rather than project-local identifiers.
+
+Every source_group_id must be assigned exactly once to one reference family. Do not exclude groups at this stage. The host will expand the mapping back to the original memories; therefore never invent, omit, duplicate, or alter a source_group_id.
+
+Return JSON only, conforming exactly to the supplied schema.

@@ -1,0 +1,10 @@
+{
+  "memory_count": 284,
+  "family_candidate_count": 100,
+  "global_skill_count": 88,
+  "model_designed_reference_count": 14,
+  "host_defined_family_names": false,
+  "host_keyword_routing": false,
+  "heldout_inputs_used": false,
+  "singleton_promotions": 77
+}

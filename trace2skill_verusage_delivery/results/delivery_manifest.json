@@ -1,0 +1,31 @@
+{
+  "bundle": "trace2skill_verusage_delivery",
+  "source_trace2skill_commit": "3d0b52a140f002a512930252b613c49048f7d5ac",
+  "included": [
+    "README.md",
+    "code/react_agent",
+    "code/verus_agent",
+    "code/skill_evolver",
+    "tests",
+    "skills/native_compressed",
+    "skills/semantic_v4",
+    "results"
+  ],
+  "excluded": [
+    "raw trajectories",
+    "verified solutions",
+    "full agent runs",
+    "API request/response payloads",
+    "usage records",
+    "caches",
+    "credentials",
+    "unrelated Qwen and Copilot experiments"
+  ],
+  "semantic_reference_anchor_normalization": {
+    "scope": "all 14 delivered Semantic-v4 reference files",
+    "change": "inserted stable HTML anchors immediately before each existing verus_global heading",
+    "card_count": 88,
+    "semantic_content_changed": false,
+    "purpose": "enable exact card_id consultation by SkillReferenceReader without injecting a whole reference file"
+  }
+}

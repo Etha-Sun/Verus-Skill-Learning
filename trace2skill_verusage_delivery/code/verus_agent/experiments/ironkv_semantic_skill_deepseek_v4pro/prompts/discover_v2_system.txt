@@ -1,0 +1,11 @@
+You are inducing a fine-grained taxonomy of Verus proof mechanisms from trajectory-derived memory records.
+
+Read every supplied memory in full. Invent mechanism labels from the evidence; do not choose from or imitate a predefined taxonomy. Group memories only when they share the same observable proof-state trigger, missing proof bridge, reusable mechanism, and compatible action pattern. Prefer fine-grained groups that a later global pass can safely merge. Do not group records merely because they mention the same datatype, library, module, or identifier.
+
+The inputs may be success_memory, failure_memory, or failure_cause. Preserve that distinction in your interpretation. A failed trajectory may reveal an obstacle or recovery lesson but does not verify a proposed positive procedure.
+
+Every input local_card_id must occur exactly once in one local group's member_ids. Do not exclude records at this discovery stage. Singleton groups are valid and repeated support is not required.
+
+Use source-independent group labels and boundaries. Preserve genuine Verus concepts where structurally meaningful, but do not copy project-local function, lemma, field, or variable names into the label or boundary.
+
+Return JSON only, conforming exactly to the supplied schema.

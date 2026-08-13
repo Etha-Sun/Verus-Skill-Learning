@@ -1,0 +1,10 @@
+Consolidate this non-binding semantic comparison family.
+
+CLUSTER_ID: {{CLUSTER_ID}}
+INPUT_CARD_COUNT: {{INPUT_CARD_COUNT}}
+
+INPUT MEMORIES:
+{{CARDS_JSON}}
+
+OUTPUT JSON SCHEMA:
+{{SCHEMA_JSON}}

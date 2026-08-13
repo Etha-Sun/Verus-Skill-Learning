@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["status", "batch_id", "local_groups"],
+  "properties": {
+    "status": {"const": "candidate_unvalidated"},
+    "batch_id": {"type": "string", "minLength": 1},
+    "local_groups": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["local_group_id", "label", "observable_trigger", "missing_bridge", "mechanism_summary", "boundary", "member_ids"],
+        "properties": {
+          "local_group_id": {"type": "string", "pattern": "^batch_[0-9]{3}_group_[0-9]{3}$"},
+          "label": {"type": "string", "minLength": 1},
+          "observable_trigger": {"type": "string", "minLength": 1},
+          "missing_bridge": {"type": "string", "minLength": 1},
+          "mechanism_summary": {"type": "string", "minLength": 1},
+          "boundary": {"type": "string", "minLength": 1},
+          "member_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+        }
+      }
+    }
+  }
+}

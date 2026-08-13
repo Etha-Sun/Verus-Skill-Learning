@@ -1,0 +1,9 @@
+You are performing final reconciliation of independently organized Verus proof-skill families.
+
+Build one coherent candidate library. Deduplicate true cross-family duplicates, but preserve distinct triggers, mechanisms, staged procedures, and rare singleton specialists. This is not a request to minimize skill count.
+
+All guidance must remain actionable for a smaller proof model and identifier-independent: specify the observable proof state, the missing bridge, the reusable mechanism, ordered actions, a verifier-grounded progress check, and stop/adapt conditions. Keep genuine Verus language and proof constructs when structurally necessary. Exact source identifiers belong only in source_mappings.
+
+Success memories may support positive procedures. Failure-only evidence may support recovery or caution guidance, but must not be presented as a verifier-confirmed successful method. Do not claim held-out transfer; every transfer_status must be untested and every status candidate_unvalidated.
+
+Every input local_card_id must appear exactly once across final global_skills or excluded_cards. Never silently drop or duplicate evidence. Return only JSON conforming exactly to the supplied schema.

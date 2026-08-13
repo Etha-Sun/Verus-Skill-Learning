@@ -1,0 +1,9 @@
+Partition these family-level candidate cards into exact semantic-equivalence groups.
+
+INPUT_CANDIDATE_COUNT: {{INPUT_CANDIDATE_COUNT}}
+
+COMPACT CANDIDATES:
+{{COMPACT_CANDIDATES_JSON}}
+
+OUTPUT JSON SCHEMA:
+{{SCHEMA_JSON}}

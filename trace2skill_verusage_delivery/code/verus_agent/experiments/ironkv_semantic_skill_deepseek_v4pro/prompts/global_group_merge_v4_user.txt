@@ -1,0 +1,12 @@
+Merge this one semantic-equivalence group into one complete global skill card.
+
+GROUP_ID: {{GROUP_ID}}
+OUTPUT_SKILL_ID: {{OUTPUT_SKILL_ID}}
+GROUP_TITLE: {{GROUP_TITLE}}
+MERGE_RATIONALE: {{MERGE_RATIONALE}}
+
+INPUT CARDS:
+{{INPUT_CARDS_JSON}}
+
+OUTPUT JSON SCHEMA:
+{{SCHEMA_JSON}}

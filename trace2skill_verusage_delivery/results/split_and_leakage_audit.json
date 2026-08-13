@@ -1,0 +1,18 @@
+{
+  "trajectory_count": 77,
+  "outcome_counts": {
+    "success": 53,
+    "failure": 24
+  },
+  "strict_routing_counts": {
+    "official_nontrue_failure": 24,
+    "official_true_success": 43,
+    "trivial_success_outside_official_118": 10
+  },
+  "selection_count": 15,
+  "selection_method": "strict qualification followed by deterministic module-stratified selection",
+  "selection_seed": 20260811,
+  "heldout_trajectories_exposed_to_evaluation": false,
+  "heldout_verified_solutions_exposed_to_evaluation": false,
+  "selected_leakage_component_duplicate_count": 0
+}

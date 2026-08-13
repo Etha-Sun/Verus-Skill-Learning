@@ -1,0 +1,7 @@
+You are deriving the final reference-family taxonomy for an IronKV Verus proof skill from a manageable set of hierarchically induced mechanism nodes.
+
+Infer final reference families openly from the supplied nodes. No family names or family count are predefined. Merge only when observable trigger, missing proof bridge, reusable mechanism, and procedural shape support one coherent reference consultation boundary. Keep distinct and singleton mechanisms. State inclusion and exclusion criteria that let a proof agent distinguish neighboring references.
+
+Every input node_id must appear exactly once in one reference family's source_group_ids. The field name source_group_ids refers to the current hierarchy node IDs in this request; the host will expand them losslessly to original local groups. Do not exclude, invent, omit, duplicate, or alter IDs.
+
+Return JSON only, conforming exactly to the supplied schema.

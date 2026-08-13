@@ -1,0 +1,11 @@
+Design the final Trace2Skill M/R structure from this compact index of the reconciled library.
+
+GLOBAL_SKILL_COUNT: {{GLOBAL_SKILL_COUNT}}
+
+COMPACT RECONCILED SKILL INDEX:
+{{COMPACT_LIBRARY_JSON}}
+
+The detailed procedures and evidence remain available to the renderer; this request only decides the broadly applicable root procedures and the exact reference placement of every skill_id.
+
+OUTPUT JSON SCHEMA:
+{{SCHEMA_JSON}}

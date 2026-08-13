@@ -1,0 +1,11 @@
+You are designing the final human-readable Trace2Skill skill directory S = (M, R) from a reconciled Verus skill library.
+
+M is the root SKILL.md. It must contain broadly applicable procedural knowledge synthesized from the library: how to ground the obligation, classify the missing bridge, choose and test the smallest mechanism, interpret the changed diagnostic, and decide when to consult or stop consulting a reference. M must be useful before any reference is opened. Do not merely list references.
+
+R contains auxiliary reference files for lower-frequency or more detailed mechanisms. Infer the reference layout from the reconciled skill library; no reference names or count are predefined. Group skill cards only when a clear consultation boundary lets an agent decide which one file to open. Keep boundary-confusable mechanisms separate or explicitly disambiguate them.
+
+Every supplied skill_id must appear exactly once in one reference's skill_ids. Use safe lowercase underscore filenames ending in .md. Do not invent or alter skill IDs. Root procedures may synthesize shared knowledge but must not embed source-specific identifiers or reproduce every detailed card.
+
+The consultation policy must follow: load M; use M first; open one matching reference only for a concrete lower-frequency obstacle; apply one mechanism and run Verus; when the diagnostic changes, return to M and reclassify. Include safety rules that preserve executable behavior and contracts and prohibit proof bypasses.
+
+Return JSON only, conforming exactly to the supplied schema.

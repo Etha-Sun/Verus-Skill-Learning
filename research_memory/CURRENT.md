@@ -2,6 +2,12 @@
 
 Last updated: 2026-07-25
 
+## Latest Trace2Skill-Style IronKV Baseline (2026-08-13)
+
+A compact public-safe delivery records a 77-trajectory IronKV training split and a leakage-controlled 15-task held-out evaluation of native Trace2Skill MAP/REDUCE versus semantic-v4 `(M,R)` skill organization. Stage A (40 turns) was 8/15 no-skill, 7/15 native, and 8/15 semantic-v4. A selected fresh six-task Stage-B resample at 60 turns was 1/6 no-skill and 3/6 semantic-v4; it is not aggregated into the 15-task score. The result is a baseline and a promising organization signal, not a demonstrated overall improvement.
+
+The public bundle contains code, final skills, and compact audits only; raw trajectories, full runs, API payloads, usage records, and credentials remain outside the repository. Canonical entry: `research_memory/projects/verus_self_evolving/experiments/20260813-105146-ironkv-trace2skill-style-held-out-skill-organization-baseline/ENTRY.md`.
+
 ## Active Direction
 
 The user clarified that trace analysis, skill learning, and self-evolution are

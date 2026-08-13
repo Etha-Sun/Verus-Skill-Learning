@@ -1,0 +1,4 @@
+interface:
+  display_name: "Verus Proof Repair"
+  short_description: "Verifier-guided Verus proof repair workflow"
+  default_prompt: "Use $verus-proof-repair to repair this failing Verus proof safely."

@@ -1,0 +1,9 @@
+Induce a global data-driven mechanism taxonomy and reference-family boundaries.
+
+LOCAL_GROUP_COUNT: {{LOCAL_GROUP_COUNT}}
+
+DISCOVERED LOCAL GROUPS:
+{{LOCAL_GROUPS_JSON}}
+
+OUTPUT JSON SCHEMA:
+{{SCHEMA_JSON}}

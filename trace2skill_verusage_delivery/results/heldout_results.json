@@ -1,0 +1,136 @@
+{
+  "stage_a": {
+    "max_turns": 40,
+    "conditions": {
+      "no_skill": {
+        "successes": "8/15"
+      },
+      "native_compressed_skill": {
+        "successes": "7/15"
+      },
+      "semantic_v4_skill": {
+        "successes": "8/15"
+      }
+    },
+    "turns_by_task": {
+      "1": {
+        "no_skill": "40 F",
+        "native": "40 F",
+        "semantic_v4": "40 F"
+      },
+      "2": {
+        "no_skill": 21,
+        "native": 18,
+        "semantic_v4": 8
+      },
+      "3": {
+        "no_skill": "40 F",
+        "native": "40 F",
+        "semantic_v4": 23
+      },
+      "4": {
+        "no_skill": 36,
+        "native": 24,
+        "semantic_v4": 19
+      },
+      "5": {
+        "no_skill": "40 F",
+        "native": "40 F",
+        "semantic_v4": "40 F"
+      },
+      "6": {
+        "no_skill": 18,
+        "native": 28,
+        "semantic_v4": "40 F"
+      },
+      "7": {
+        "no_skill": "40 F",
+        "native": "40 F",
+        "semantic_v4": "40 F"
+      },
+      "8": {
+        "no_skill": 16,
+        "native": 40,
+        "semantic_v4": 20
+      },
+      "9": {
+        "no_skill": "40 F",
+        "native": "40 F",
+        "semantic_v4": "40 F"
+      },
+      "10": {
+        "no_skill": 25,
+        "native": "40 F",
+        "semantic_v4": 32
+      },
+      "11": {
+        "no_skill": 19,
+        "native": 19,
+        "semantic_v4": 14
+      },
+      "12": {
+        "no_skill": "39 F",
+        "native": "40 F",
+        "semantic_v4": "40 F"
+      },
+      "13": {
+        "no_skill": 14,
+        "native": 20,
+        "semantic_v4": 9
+      },
+      "14": {
+        "no_skill": "40 F",
+        "native": "40 F",
+        "semantic_v4": "25 F"
+      },
+      "15": {
+        "no_skill": 24,
+        "native": 25,
+        "semantic_v4": 21
+      }
+    }
+  },
+  "stage_b_selected_resample": {
+    "selected_task_ids": [
+      1,
+      5,
+      6,
+      7,
+      9,
+      12
+    ],
+    "max_turns": 60,
+    "successes": {
+      "no_skill": "1/6",
+      "semantic_v4": "3/6"
+    },
+    "turns_by_task": {
+      "1": {
+        "no_skill": "60 F",
+        "semantic_v4": "58 F (host early-stop)"
+      },
+      "5": {
+        "no_skill": "60 F",
+        "semantic_v4": 34
+      },
+      "6": {
+        "no_skill": "60 F",
+        "semantic_v4": 51
+      },
+      "7": {
+        "no_skill": "28 F (host early-stop)",
+        "semantic_v4": 55
+      },
+      "9": {
+        "no_skill": "41 F (host early-stop)",
+        "semantic_v4": "60 F"
+      },
+      "12": {
+        "no_skill": 42,
+        "semantic_v4": "35 F (host early-stop)"
+      }
+    },
+    "verification": "All three semantic-only successes were independently checked with Verus, Lynette, source-hash preservation, and contract comparison."
+  },
+  "interpretation": "Stage B is a selected fresh resample and must not be aggregated with Stage A as an unbiased 15-task score."
+}

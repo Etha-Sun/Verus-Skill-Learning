@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["status", "taxonomy_summary", "reference_families", "boundary_notes"],
+  "properties": {
+    "status": {"const": "candidate_unvalidated"},
+    "taxonomy_summary": {"type": "string", "minLength": 1},
+    "reference_families": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["family_id", "title", "scope", "inclusion_criteria", "exclusion_criteria", "source_group_ids"],
+        "properties": {
+          "family_id": {"type": "string", "pattern": "^ironkv_family_[0-9]{3}$"},
+          "title": {"type": "string", "minLength": 1},
+          "scope": {"type": "string", "minLength": 1},
+          "inclusion_criteria": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+          "exclusion_criteria": {"type": "array", "items": {"type": "string", "minLength": 1}},
+          "source_group_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+        }
+      }
+    },
+    "boundary_notes": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  }
+}

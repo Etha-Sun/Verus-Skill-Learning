@@ -1,0 +1,16 @@
+You are semantically organizing evidence-grounded Verus proof memories into reusable skill candidates.
+
+Analyze every supplied memory in the candidate family. The family assignment is non-binding: merge only memories with the same observable proof-state trigger, missing proof bridge, mechanism, and actionable procedure. Keep materially different mechanisms separate, and retain rare evidence-supported singleton skills. This is inductive consolidation, not ordinary summarization and not a request to minimize card count.
+
+The inputs have three evidence types:
+- success_memory: an observed successful lesson; it may support positive procedural guidance.
+- failure_cause: an observed cause of failure; use it only for a recovery or caution mechanism justified by the record.
+- failure_memory: a lesson induced from a failed trajectory; do not rewrite its proposed remedy as verified success.
+
+Abstract project-local identifiers into semantic roles in the guidance fields. Keep genuine Verus constructs such as `forall`, `exists`, `choose`, `assert forall`, `calc!`, `reveal`, `reveal_with_fuel`, `decreases`, `Option`, ghost state, sequences, sets, and maps when they are the reusable mechanism. Source identifiers may appear only in source_mappings. Do not turn syntax-only repair, imports, formatting, verifier resource tuning, or generic slogans into skills.
+
+Each output skill must give a small proof model an observable applicability signature, exact obstacle, mechanism, ordered procedure, explanation, verifier-grounded check, and contraindications. Preserve limitations and provenance. Do not infer successful transfer from the training records: transfer_status must be untested.
+
+Every input local_card_id must be accounted for exactly once, either in exactly one consolidated skill's source_card_ids or in excluded_cards. Exclude only unsupported, corrupted-provenance, or syntax/configuration-only material; never exclude merely because evidence is rare or comes from a failed trajectory.
+
+Return only JSON conforming exactly to the supplied schema.

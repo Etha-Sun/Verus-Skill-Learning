@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["status", "merged_skill", "merge_notes"],
+  "properties": {
+    "status": {"const": "candidate_unvalidated"},
+    "merged_skill": {"$ref": "#/$defs/skill"},
+    "merge_notes": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "$defs": {
+    "mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_term", "semantic_role"],
+      "properties": {
+        "source_term": {"type": "string", "minLength": 1},
+        "semantic_role": {"type": "string", "minLength": 1}
+      }
+    },
+    "skill": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["skill_id", "title", "status", "family", "support_level", "transfer_status", "applicability_signature", "proof_obstacle", "mechanism", "procedure", "why", "check", "contraindications", "source_card_ids", "source_trajectories", "source_mappings", "limitations"],
+      "properties": {
+        "skill_id": {"type": "string", "pattern": "^verus_global_[0-9]{3}$"},
+        "title": {"type": "string", "minLength": 1},
+        "status": {"const": "candidate_unvalidated"},
+        "family": {"type": "string", "minLength": 1},
+        "support_level": {"enum": ["single_trajectory", "multiple_trajectories"]},
+        "transfer_status": {"const": "untested"},
+        "applicability_signature": {"type": "string", "minLength": 1},
+        "proof_obstacle": {"type": "string", "minLength": 1},
+        "mechanism": {"type": "string", "minLength": 1},
+        "procedure": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "why": {"type": "string", "minLength": 1},
+        "check": {"type": "string", "minLength": 1},
+        "contraindications": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "source_card_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "source_trajectories": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "source_mappings": {"type": "array", "items": {"$ref": "#/$defs/mapping"}},
+        "limitations": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    }
+  }
+}
