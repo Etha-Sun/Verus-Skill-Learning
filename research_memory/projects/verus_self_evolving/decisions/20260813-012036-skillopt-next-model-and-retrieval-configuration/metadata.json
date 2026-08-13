@@ -1,0 +1,12 @@
+{
+  "title": "SkillOpt Next Model And Retrieval Configuration",
+  "project": "verus_self_evolving",
+  "kind": "decisions",
+  "created_at": "2026-08-13T01:20:36-05:00",
+  "status": "complete",
+  "links": [
+    "skillopt-verusage/refine-logs/EXPERIMENT_TRACKER.md",
+    "research_memory/projects/verus_self_evolving/experiments/20260812-000000-skillopt-gpt56sol-native-replay/ENTRY.md"
+  ],
+  "raw_data_read_only": true
+}
