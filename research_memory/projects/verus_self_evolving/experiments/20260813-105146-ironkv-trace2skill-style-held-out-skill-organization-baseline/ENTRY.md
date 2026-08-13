@@ -12,14 +12,14 @@
 
 ## Commands
 
-The public bundle contains the exercised harness, evolver, prompts, schemas, and tests under `trace2skill_verusage_delivery/code/`. Re-running requires a locally configured Verus/Lynette installation, model endpoint, and external data/run roots; none are bundled.
+The public bundle contains the exercised harness, evolver, prompts, schemas, and tests under `trace2skill_verusage_baseline_test/code/`. Re-running requires a locally configured Verus/Lynette installation, model endpoint, and external data/run roots; none are bundled.
 
 ## Public Outputs
 
-- detailed report: `trace2skill_verusage_delivery/README.md`
-- final native and semantic-v4 skills: `trace2skill_verusage_delivery/skills/`
-- compact split/training/evaluation audits: `trace2skill_verusage_delivery/results/`
-- harness/evolver code and offline tests: `trace2skill_verusage_delivery/code/` and `trace2skill_verusage_delivery/tests/`
+- detailed report: `trace2skill_verusage_baseline_test/README.md`
+- final native and semantic-v4 skills: `trace2skill_verusage_baseline_test/skills/`
+- compact split/training/evaluation audits: `trace2skill_verusage_baseline_test/results/`
+- harness/evolver code and offline tests: `trace2skill_verusage_baseline_test/code/` and `trace2skill_verusage_baseline_test/tests/`
 
 Raw trajectories, verified solutions, complete agent runs, API payloads, token/usage records, and credentials are deliberately excluded.
 

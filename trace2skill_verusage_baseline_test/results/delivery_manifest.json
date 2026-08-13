@@ -1,5 +1,5 @@
 {
-  "bundle": "trace2skill_verusage_delivery",
+  "bundle": "trace2skill_verusage_baseline_test",
   "source_trace2skill_commit": "3d0b52a140f002a512930252b613c49048f7d5ac",
   "included": [
     "README.md",
