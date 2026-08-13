@@ -182,9 +182,9 @@ incorrectly convert a pre-gate audit rejection into an evaluated result.
 \toprule
 ID & Actor & Optimizer & $S_0$ & Train & Candidate & $\Delta$ & Gain/Loss & Skill bytes & Decision \\
 \midrule
-F/F & \dflashshort{} & \dflash{}
+F/F & \dflashshort{} & \dflashshort{}
     & 6/20 & 8/40 & 4/20 & $-2$ & 0/2 & 10,322 & Reject \\
-F/P & \dflashshort{} & \dpro{}
+F/P & \dflashshort{} & \dproshort{}
     & $6/20^{\dagger}$ & $8/40^{\dagger}$ & \na{} & \na{} & \na{} & 1,646 & Pre-gate reject \\
 F/S & \dflashshort{} & \sol{}
     & $6/20^{\dagger}$ & $8/40^{\dagger}$ & 4/20 & $-2$ & 0/2 & 3,490 & Reject \\
@@ -229,20 +229,22 @@ rollout, and candidate gate.
 \begin{table*}[t]
 \centering
 \scriptsize
-\setlength{\tabcolsep}{4pt}
-\begin{tabularx}{\textwidth}{@{}YYrrYYYr@{}}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}llrrlrrrr@{}}
 \toprule
-Actor & Optimizer & Tasks & Actor req. & Input (cached) & Output & Actor cost & Optimizer cost \\
+Actor & Optimizer & Tasks & Req. & \mbox{Input (cached)} & Output & Actor cost & Cost/task & Optimizer cost \\
 \midrule
-\dflashshort{} & \dflash{} & 80 & 4,184 & 35.528M (27.766M) & 14.403M & \$5.1971 & \$0.0351 \\
-\dflashshort{} & \dpro{} & 0 & 0 & \na{} & \na{} & \$0 & \$0.0581 \\
-\dflashshort{} & \sol{} & 20 & 1,627 & 12.925M (9.559M) & 5.447M & \$2.0230 & \$0 local \\
-\dproshort{} & \sol{} & 80 & 3,559 & 197.107M (194.614M) & 2.986M & \$4.3879 & \$0 local \\
+\dflashshort{} & \dflashshort{} & 80 & 4,184 & \mbox{35.528M (27.766M)} & 14.403M & \$5.1971 & \$0.0650 & \$0.0351 \\
+\dflashshort{} & \dproshort{} & 0 & 0 & \na{} & \na{} & \$0 & \na{} & \$0.0581 \\
+\dflashshort{} & \sol{} & 20 & 1,627 & \mbox{12.925M (9.559M)} & 5.447M & \$2.0230 & \$0.1011 & \$0 local \\
+\dproshort{} & \sol{} & 80 & 3,559 & \mbox{197.107M (194.614M)} & 2.986M & \$4.3879 & \$0.0548 & \$0 local \\
 \bottomrule
-\end{tabularx}
+\end{tabular}
 \vspace{2pt}
 \begin{minipage}{\textwidth}\footnotesize
 \emph{Notes.} Parentheses in ``Input (cached)'' report cache-hit input tokens.
+Cost/task is actor cost divided by the number of newly executed actor tasks;
+the Flash/Sol value covers a 20-task candidate gate rather than a full epoch.
 The Flash/Pro row is optimizer-only reanalysis of stored Flash trajectories,
 so it has no new actor tasks. Optimizer costs use model-specific prices
 recorded at experiment time. Flash/Flash uses the Flash rates:
@@ -264,7 +266,9 @@ from the provider usage ledgers.}
 \label{tab:cost}
 \end{table*}
 
-The Pro/Sol epoch used substantially more input tokens than Flash/Flash, but
+In these measured runs, the Pro/Sol actor cost less per task than the
+Flash/Flash actor (\$0.0548 versus \$0.0650), but this does not mean that Pro
+has lower token prices. The Pro/Sol epoch used substantially more input tokens than Flash/Flash, but
 98.7\% of its input was served from the DeepSeek prompt cache and it produced
 only 2.986M output tokens. By comparison, Flash/Flash had a 78.2\% input cache
 rate and produced 14.403M output tokens. Output alone cost approximately
