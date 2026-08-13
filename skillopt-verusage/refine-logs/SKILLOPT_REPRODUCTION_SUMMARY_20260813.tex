@@ -230,28 +230,33 @@ rollout, and candidate gate.
 \centering
 \scriptsize
 \setlength{\tabcolsep}{4pt}
-\begin{tabular}{@{}lrrrrrrrl@{}}
+\begin{tabular}{@{}lrrrrrrl@{}}
 \toprule
-ID & New actor tasks & Actor requests & Actor input & Actor output & Actor cost & Opt. calls & Opt. tokens & Cost scope \\
+ID & New actor tasks & Actor requests & Actor input & Actor output & Actor cost & Optimizer analysis cost & Cost scope \\
 \midrule
-F/F & 80 & 4,184 & 35.528M & 14.403M & \$5.1971 & 7 & 181,930 & Complete epoch \\
-F/P & 0 & 0 & \na{} & \na{} & \$0 & 2 & 126,807 & Final Pro-v2 reanalysis \\
-F/S & 20 & 1,627 & 12.925M & 5.447M & \$2.0230 & 8 & 257,497 & Candidate gate only \\
-P/S & 80 & 3,559 & 197.107M & 2.986M & \$4.3879 & 9 & 992,796 & Complete epoch \\
+F/F & 80 & 4,184 & 35.528M & 14.403M & \$5.1971 & \$0.0351 & Complete epoch \\
+F/P & 0 & 0 & \na{} & \na{} & \$0 & \$0.0581 & Final Pro-v2 reanalysis \\
+F/S & 20 & 1,627 & 12.925M & 5.447M & \$2.0230 & \$0 (local quota) & Candidate gate only \\
+P/S & 80 & 3,559 & 197.107M & 2.986M & \$4.3879 & \$0 (local quota) & Complete epoch \\
 \bottomrule
 \end{tabular}
 \vspace{2pt}
 \begin{minipage}{\textwidth}\footnotesize
 \emph{Notes.} Actor input includes cached and uncached input tokens. For P/S,
-194.614M of 197.107M actor input tokens were cache hits. The F/F optimizer adds
-an estimated \$0.0351 to the end-to-end F/F cost; the displayed actor cost
-excludes this optimizer estimate. The final F/P Pro-v2 optimizer attempt cost
-approximately \$0.0581. The earlier invalid Pro-v1 attempt is excluded from the
-row; both attempts together cost approximately \$0.1126. F/S and P/S used
-local Codex quota for the \sol{} optimizer, giving zero metered optimizer cash
-cost; optimizer tokens are still reported. P/S actor cost excludes Pro-native
-preflights and a stopped wrong-reasoning startup. Including those bring-up
-calls yields approximately \$4.7360 for that Pro launch.
+194.614M of 197.107M actor input tokens were cache hits. Optimizer costs use
+model-specific prices recorded at experiment time. F/F uses the Flash rates:
+\$0.0028/M cache-hit input, \$0.14/M cache-miss input, and \$0.28/M output.
+F/P uses the Pro rates: \$0.003625/M cache-hit input, \$0.435/M cache-miss
+input, and \$0.87/M output. Because the optimizer logs do not retain a prompt
+cache split, their DeepSeek prompt tokens are conservatively treated as cache
+misses. The displayed F/P value is the final Pro-v2 analysis; including the
+earlier rejected Pro-v1 analysis gives \$0.1126. F/S and P/S used local Codex
+quota for the \sol{} optimizer and therefore had zero metered optimizer cash
+cost. At the recorded Sol API rates and treating all optimizer input as
+uncached, their API-equivalent costs would be approximately \$1.5671 and
+\$5.7069, respectively, before any long-context uplift. P/S actor cost excludes
+Pro-native preflights and a stopped wrong-reasoning startup. Including those
+bring-up calls yields approximately \$4.7360 for that Pro launch.
 \end{minipage}
 \caption{Measured actor usage and optimizer usage. Dollar values are estimated
 from the provider usage ledgers.}
