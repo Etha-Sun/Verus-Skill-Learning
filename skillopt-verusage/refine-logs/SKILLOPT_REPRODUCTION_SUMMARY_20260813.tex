@@ -230,26 +230,27 @@ rollout, and candidate gate.
 \centering
 \scriptsize
 \setlength{\tabcolsep}{4pt}
-\begin{tabular}{@{}lrrrrrrl@{}}
+\begin{tabularx}{\textwidth}{@{}YYrrYYYr@{}}
 \toprule
-ID & New actor tasks & Actor requests & Actor input & Actor output & Actor cost & Optimizer analysis cost & Cost scope \\
+Actor & Optimizer & Tasks & Actor req. & Input (cached) & Output & Actor cost & Optimizer cost \\
 \midrule
-F/F & 80 & 4,184 & 35.528M & 14.403M & \$5.1971 & \$0.0351 & Complete epoch \\
-F/P & 0 & 0 & \na{} & \na{} & \$0 & \$0.0581 & Final Pro-v2 reanalysis \\
-F/S & 20 & 1,627 & 12.925M & 5.447M & \$2.0230 & \$0 (local quota) & Candidate gate only \\
-P/S & 80 & 3,559 & 197.107M & 2.986M & \$4.3879 & \$0 (local quota) & Complete epoch \\
+\dflashshort{} & \dflash{} & 80 & 4,184 & 35.528M (27.766M) & 14.403M & \$5.1971 & \$0.0351 \\
+\dflashshort{} & \dpro{} & 0 & 0 & \na{} & \na{} & \$0 & \$0.0581 \\
+\dflashshort{} & \sol{} & 20 & 1,627 & 12.925M (9.559M) & 5.447M & \$2.0230 & \$0 local \\
+\dproshort{} & \sol{} & 80 & 3,559 & 197.107M (194.614M) & 2.986M & \$4.3879 & \$0 local \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \vspace{2pt}
 \begin{minipage}{\textwidth}\footnotesize
-\emph{Notes.} Actor input includes cached and uncached input tokens. For P/S,
-194.614M of 197.107M actor input tokens were cache hits. Optimizer costs use
-model-specific prices recorded at experiment time. F/F uses the Flash rates:
+\emph{Notes.} Parentheses in ``Input (cached)'' report cache-hit input tokens.
+The Flash/Pro row is optimizer-only reanalysis of stored Flash trajectories,
+so it has no new actor tasks. Optimizer costs use model-specific prices
+recorded at experiment time. Flash/Flash uses the Flash rates:
 \$0.0028/M cache-hit input, \$0.14/M cache-miss input, and \$0.28/M output.
-F/P uses the Pro rates: \$0.003625/M cache-hit input, \$0.435/M cache-miss
+Flash/Pro uses the Pro rates: \$0.003625/M cache-hit input, \$0.435/M cache-miss
 input, and \$0.87/M output. Because the optimizer logs do not retain a prompt
 cache split, their DeepSeek prompt tokens are conservatively treated as cache
-misses. The displayed F/P value is the final Pro-v2 analysis; including the
+misses. The displayed Flash/Pro value is the final Pro-v2 analysis; including the
 earlier rejected Pro-v1 analysis gives \$0.1126. F/S and P/S used local Codex
 quota for the \sol{} optimizer and therefore had zero metered optimizer cash
 cost. At the recorded Sol API rates and treating all optimizer input as
@@ -263,11 +264,17 @@ from the provider usage ledgers.}
 \label{tab:cost}
 \end{table*}
 
-The P/S epoch used substantially more input tokens than F/F, but nearly all
-of the input was served from the DeepSeek prompt cache. At the recorded rates,
-the formal P/S actor epoch cost \$4.3879, less than the \$5.1971 actor cost of
-the robust F/F epoch. The local \sol{} optimizer incurred no metered API cash
-cost in either Sol experiment.
+The Pro/Sol epoch used substantially more input tokens than Flash/Flash, but
+98.7\% of its input was served from the DeepSeek prompt cache and it produced
+only 2.986M output tokens. By comparison, Flash/Flash had a 78.2\% input cache
+rate and produced 14.403M output tokens. Output alone cost approximately
+\$4.0327 in Flash/Flash, versus \$2.5980 in Pro/Sol. The cache-hit, cache-miss,
+and output contributions were therefore \$0.0777, \$1.0866, and \$4.0327 for
+Flash/Flash, compared with \$0.7055, \$1.0844, and \$2.5980 for Pro/Sol. This
+token-shape difference outweighs Pro's higher unit prices, yielding formal
+actor costs of \$5.1971 and \$4.3879, respectively. This is a measured harness
+outcome, not evidence that Pro is intrinsically cheaper. The local \sol{}
+optimizer incurred no metered API cash cost in either Sol experiment.
 
 \section{Interpretation}
 
