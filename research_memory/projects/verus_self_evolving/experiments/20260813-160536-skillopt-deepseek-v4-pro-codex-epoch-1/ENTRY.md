@@ -33,6 +33,9 @@ python -m skillopt_verusage.train \
 - metrics: `summary.json`, `history.json`, and `cost_ledger.json`
 - manifest: `config.json`, `bridge_manifest.json`, and per-task `run_manifest.json`
 - reviewed summary: `skillopt-verusage/refine-logs/CODEX_PRO_0813_EPOCH1_RESULT_20260813.md`
+- compiled reproduction document:
+  `skillopt-verusage/refine-logs/SKILLOPT_REPRODUCTION_SUMMARY_20260813.tex`
+  and `skillopt-verusage/refine-logs/SKILLOPT_REPRODUCTION_SUMMARY_20260813.pdf`
 
 ## Results
 
