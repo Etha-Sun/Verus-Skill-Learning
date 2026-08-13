@@ -99,6 +99,7 @@ def run_gate(
     cards_path: Path,
     source_prediction_dir: Path,
     run_dir: Path,
+    budget_state_path: Path | None,
     prior_spend_usd: float,
     approval_limit_usd: float,
     workers: int,
@@ -111,7 +112,7 @@ def run_gate(
     if not support_audit["passed"]:
         raise RuntimeError("retrieval card support audit failed")
 
-    budget_state_path = run_dir / "gate_budget.json"
+    budget_state_path = budget_state_path or run_dir / "gate_budget.json"
     s0_adapter = _adapter(
         cfg,
         out_root=run_dir,
@@ -209,11 +210,22 @@ def main() -> None:
     parser.add_argument("--cards", type=Path, required=True)
     parser.add_argument("--source-prediction-dir", type=Path, required=True)
     parser.add_argument("--run-dir", type=Path, required=True)
+    parser.add_argument("--budget-state-path", type=Path)
     parser.add_argument("--prior-spend-usd", type=float, required=True)
     parser.add_argument("--approval-limit-usd", type=float, default=12.0)
     parser.add_argument("--workers", type=int, default=20)
     args = parser.parse_args()
-    print(json.dumps(run_gate(**vars(args)), ensure_ascii=False, indent=2))
+    result = run_gate(
+        config_path=args.config,
+        cards_path=args.cards,
+        source_prediction_dir=args.source_prediction_dir,
+        run_dir=args.run_dir,
+        budget_state_path=args.budget_state_path,
+        prior_spend_usd=args.prior_spend_usd,
+        approval_limit_usd=args.approval_limit_usd,
+        workers=args.workers,
+    )
+    print(json.dumps(result, ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":
