@@ -244,9 +244,8 @@ The first three experiments share the same 40 Flash training trajectories:
 F/F generated them, while F/P and F/S reused them. F/P performed optimizer-only
 analysis and was rejected before the gate because the Pro-generated candidate
 incorrectly attributed a verifier failure. F/S therefore ran only a fresh
-20-task selection gate; P/S ran a full 80-task epoch. Cost/task is actor cost
-divided by newly executed actor tasks. The \sol{} optimizer used local Codex
-quota, so its metered API cost was \$0.
+20-task selection gate; P/S ran a full 80-task epoch. The \sol{} optimizer used
+local Codex quota, so its metered API cost was \$0.
 \end{minipage}
 \caption{Measured actor usage and optimizer usage. Dollar values are estimated
 from the provider usage ledgers.}
