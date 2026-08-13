@@ -1,0 +1,12 @@
+{
+  "title": "SkillOpt GPT-5.6 Sol native optimizer replay",
+  "project": "verus_self_evolving",
+  "kind": "experiments",
+  "created_at": "2026-08-12T00:00:00",
+  "status": "complete",
+  "links": [
+    "research_memory/projects/verus_self_evolving/notes/20260811-000000-skillopt-deepseek-v4-flash-epoch1-failure-analysis/ENTRY.md",
+    "research_memory/projects/verus_self_evolving/notes/20260811-204930-skillopt-pro-reanalysis-and-retrieval-audit/ENTRY.md"
+  ],
+  "raw_data_read_only": true
+}

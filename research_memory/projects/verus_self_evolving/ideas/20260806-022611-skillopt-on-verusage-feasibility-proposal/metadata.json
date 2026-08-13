@@ -1,0 +1,12 @@
+{
+  "title": "SkillOpt on VeruSAGE feasibility proposal",
+  "project": "verus_self_evolving",
+  "kind": "ideas",
+  "created_at": "2026-08-06T02:26:11",
+  "status": "complete",
+  "links": [
+    "skillopt-verusage/refine-logs/EXPERIMENT_PLAN.md",
+    "skillopt-verusage/refine-logs/EXPERIMENT_TRACKER.md"
+  ],
+  "raw_data_read_only": true
+}

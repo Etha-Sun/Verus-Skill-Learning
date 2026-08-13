@@ -1,0 +1,13 @@
+{
+  "title": "SkillOpt Pro Reanalysis And Retrieval Audit",
+  "project": "verus_self_evolving",
+  "kind": "notes",
+  "created_at": "2026-08-11T20:49:30-05:00",
+  "status": "complete",
+  "links": [
+    "research_memory/CURRENT.md",
+    "skillopt-verusage/refine-logs/EXPERIMENT_PLAN.md",
+    "skillopt-verusage/refine-logs/EXPERIMENT_TRACKER.md"
+  ],
+  "raw_data_read_only": true
+}

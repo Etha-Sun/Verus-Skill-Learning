@@ -1,0 +1,800 @@
+# SkillOpt on VeruSAGE 实验方案
+
+**问题**：能否把 SkillOpt 的 validation-gated textual skill optimization
+接到真实 VeruSAGE repair scaffold 上，在不放宽 Verus/Lynette 安全条件的前提下，
+改善 task-held-out repair outcome 或推理成本？
+
+**方法主张**：把一份全局 executive skill 作为 VeruSAGE 所有目标模型调用的
+附加只读策略，并用 task-disjoint VeruSAGE live rollouts 产生 reflection；
+SkillOpt 只允许 bounded patch，经 frozen selection gate 后才能更新 skill。
+
+**日期**：2026-08-06
+
+**本次修订**：把原 6/4/4 feasibility split 升级为从 leakage-audited
+Anvil/IronKV effective-train pool 新冻结 40/20/40；既有 sampled-100
+因含 MA/NR 不再作为 split 来源，只保留为不可见成本先验。冻结两 epoch
+主阶段、四 epoch 条件确认阶段，并加入 GPT-5.5 与 DeepSeek-V4 的
+token/cost 预算。
+
+**上游固定版本**：
+`microsoft/SkillOpt@9639719632daecacd1baaa47fe781f3c0253600a`
+
+## 0. 结论先行
+
+建议做，并尽量复现 SkillOpt 的 `batch_size=40`、
+`slow_update_samples=20`、reflection minibatch 8、textual learning rate 4
+和 gated slow update。考虑到 VeruSAGE 单个 rollout 显著贵于论文 benchmark，
+先跑两 epoch 主阶段；只有主阶段通过 stop/go gate，才补到论文默认的四 epoch。
+
+原因：
+
+1. SkillOpt 的核心接口与 VeruSAGE 匹配：target rollout、optimizer reflection、
+   bounded text edit、selection gate 和 frozen skill artifact 都有清晰对应物。
+2. VeruSAGE 已有结构化 error routing、specialized agents、repair actions、
+   Verus feedback 和 proof-only safety check，适合产生比 generic QA 更强的
+   verifier-grounded reflection。
+3. 不能直接采用上游默认设置：
+   - gate 原生只比较一个标量，而本项目需要
+     `safety -> solved count -> total uncached token cost`；
+   - 默认 `slow_update` 可在没有 selection gate 的情况下写入 current skill；
+   - 默认输出目录可能落在 checkout 内；
+   - 通用 Codex exec harness 不是 VeruSAGE scaffold，不能用它冒充
+     “SkillOpt on VeruSAGE”。
+4. 40/20 不是“每版 skill 只跑 40 次”：每个训练 step 跑 40 个 train task，
+   candidate 再跑 20 个 selection task；第二 epoch 末的 slow update 还会对
+   20 个 task 分别跑 previous/current skill，并把 slow candidate 再跑 20 个
+   selection task。因此第二 epoch 的完整优化路径最多包含 120 个 task
+   rollouts。
+5. 第一阶段仍只验证“adapter 是否忠实、迭代 gate 是否比 seed/one-shot 更有用”。
+   不碰 sealed MA/NR，不做跨项目主张，也不把 offline information gain 当 endpoint。
+
+## 1. 已审计的实际接口
+
+### 1.1 SkillOpt
+
+上游 research engine 的真实循环是：
+
+```text
+target rollout
+  -> failure/success reflection
+  -> patch aggregation
+  -> edit ranking/clipping
+  -> skill update
+  -> valid_seen selection rollout
+  -> strict scalar improvement gate
+  -> valid_unseen final evaluation
+```
+
+关键接口：
+
+| 能力 | 上游位置 | VeruSAGE 对应 |
+|---|---|---|
+| benchmark adapter | `SkillOpt/skillopt/envs/base.py` | `VeruSAGEAdapter` |
+| split loader | `SkillOpt/skillopt/datasets/base.py` | frozen task manifest |
+| trainer | `SkillOpt/skillopt/engine/trainer.py` | 不 fork，直接复用 |
+| validation gate | `SkillOpt/skillopt/evaluation/gate.py` | 词典序复合分数 |
+| exec target example | `SkillOpt/skillopt/model/codex_harness.py` | 仅作隔离参考，不作为 target |
+| training CLI | `SkillOpt/scripts/train.py` | 自定义 launcher 直接实例化 trainer |
+
+上游默认 `use_slow_update: true`，且
+`slow_update_gate_with_selection: false` 时会 force-inject guidance。MVP 必须关闭。
+
+### 1.2 VeruSAGE
+
+实际 repair path 是：
+
+```text
+RepairRunner
+  -> RepairMainLoop
+  -> fixed error prioritization
+  -> AgentOrchestrator
+  -> specialized agent observe/reason/act
+  -> action candidate evaluation
+  -> proof-only safety check
+  -> next Verus checkpoint
+```
+
+中央 LLM 接口位于 `verusage/infer.py::LLM.infer_llm`；绝大多数 action generation
+经 `BaseAction.invoke_llm` 到达该接口，assertion action selection 也直接调用它。
+因此可以用一个 proxy 包装中央接口，将 exact skill 追加到 `system_info`，无需修改
+外部 VeruSAGE checkout。
+
+注意：当前 `RepairMainLoop` 接受 code change 时检查 proof-only safety，但下一个
+loop 才重新运行 Verus。实验 judge 不能只相信内部 exit code，必须对最终 candidate
+独立运行 Verus 和 Lynette。
+
+### 1.3 当前仓库可复用资产
+
+`skill-evolution-pilot/` 已实现：
+
+- 外部 run-root 强制；
+- allowlisted workspace 和 immutable input；
+- exact skill/source/prompt hash；
+- 独立 Verus/Lynette final validation；
+- provider usage 与 uncached-token ledger；
+- F3-style trace fidelity 和 secret redaction；
+- `Expected Tokens to Success` 在零成功时为无穷大。
+
+这些协议应复用；但它当前执行的是 hands-off Codex solver，不是 VeruSAGE，
+所以不能直接把现有 runner 当 adapter。
+
+## 2. 冻结主张
+
+### Claim map
+
+| Claim | 为什么重要 | 最小可信证据 | 关联实验 |
+|---|---|---|---|
+| C1：在同一 frozen VeruSAGE scaffold/model/budget 下，SkillOpt 的迭代、selection-gated skill 相对同一 seed skill 改善 task-held-out 词典序结果 | 证明优化循环有用，而不只是多加一段 prompt | 独立 `D_test` 上 strict solves 不下降，并减少总 uncached tokens；或增加至少一个 solve 且不产生安全回归 | B1, B2 |
+| C2：改善来自迭代 gate，而不只是一次强模型写 skill | 隔离 SkillOpt 机制 | `S_best` 对比等输入、等长度上限的 `S_one_shot`，并保留所有 accepted/rejected skill versions | B2, B3 |
+
+### Anti-claims
+
+第一阶段明确不声称：
+
+- 对未见项目、MA/NR sealed test 或完整 VeruSAGE-Bench 泛化；
+- SkillOpt 已提高总体 solved rate 或 token efficiency；
+- R041 distilled prompt 已有效，或 R042 已完成；
+- offline information gain 能证明 live repair 改善；
+- SkillOpt-Sleep 的 harvest/mining 路线有效；
+- SkillOpt 论文中的 benchmark gain 已在 VeruSAGE 复现。
+
+## 3. MVP 研究对象
+
+### 3.1 Trainable state
+
+只优化一个 Markdown 文档：
+
+```text
+S = VeruSAGE executive skill
+```
+
+它可以规定：
+
+- 如何根据 Verus error 和 prior attempt history 选择/排除 action；
+- 何时先检查 lemma、quantifier、invariant、overflow、type/mode/scope；
+- 何时运行 verifier、何时改变策略、何时停止重复；
+- 如何保持 spec/exec/proof boundary；
+- 如何生成简短、可审核的下一步。
+
+它不可以包含：
+
+- task name、source path、project-local identifier；
+- finished proof、reference patch 或 verified artifact 内容；
+- `assume`、`admit`、`external_body`、spec weakening 或 executable edit 指令；
+- provider credential、raw trace path 或 sealed label。
+
+### 3.2 Injection seam
+
+实现 `SkillAwareLLMProxy`，只包装 VeruSAGE target 的两个中央接口：
+
+```text
+infer_llm(...)
+infer_llm_with_history(...)
+```
+
+每个 target call 的 system message 变成：
+
+```text
+<original VeruSAGE system message>
+
+<BEGIN_SKILLOPT_VERUSAGE_SKILL sha256="...">
+<exact frozen skill text>
+<END_SKILLOPT_VERUSAGE_SKILL>
+```
+
+固定规则：
+
+1. 原始 VeruSAGE prompt 不被替换或重写。
+2. static safety policy 的优先级高于 learned skill。
+3. H0 不注入 delimiter；S0/S1/... 注入 exact skill。
+4. 每个 call 保存 source skill hash、最终 system-message hash 和 call index。
+5. optimizer 与 target 是两个独立角色；target skill 不注入 optimizer。
+6. MVP 采用 all-target-call injection。action-only injection 只在主信号成立后做
+   appendix ablation。
+7. VeruSAGE 原生 API retry path 不是可靠的请求预算边界；proxy 还要在实际
+   `chat.completions.create` transport 层计数，并在每个 rollout 达到硬上限后
+   抛出可分类的 `REQUEST_BUDGET_EXCEEDED`，外层 subprocess timeout 再作兜底。
+
+### 3.3 Adapter boundary
+
+计划中的最小目录：
+
+```text
+skillopt-verusage/
+  SkillOpt/                       # clean pinned upstream checkout
+  src/skillopt_verusage/
+    adapter.py                    # EnvAdapter implementation
+    dataloader.py                 # external frozen manifests
+    runner.py                     # isolated VeruSAGE subprocess
+    skill_proxy.py                # central LLM injection
+    scoring.py                    # strict outcome + cost composite
+    train.py                      # custom launcher, no upstream registry edit
+  tests/                          # synthetic/model-free tests
+  configs/verusage_pilot.yaml
+  refine-logs/
+```
+
+不修改 `SkillOpt/` 和 `${VERUSAGE_SRC_ROOT}`。如果将来确需 upstream patch，单独
+记录 patch hash，并先证明 proxy 路线不够。
+
+### 3.4 Per-rollout contract
+
+每个 rollout 在 `${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/<run_id>/` 下创建：
+
+```text
+workspace/
+  input.rs                 # immutable
+  candidate.rs             # writable output
+  skill.md                 # absent for H0
+run_manifest.json
+visibility_manifest.json
+target_calls.jsonl
+conversation.json
+verus_checkpoints.jsonl
+action_events.jsonl
+usage.json
+validation.json
+result.json
+```
+
+必须记录：
+
+- task/source/spec/toolchain/model/config/skill/prompt hashes；
+- 每个 target request 的 index、visible messages、usage 和 error category；
+- VeruSAGE action/error sequence；
+- every accepted candidate hash 与 Verus checkpoint；
+- immutable-input check；
+- 独立 final Verus 和 Lynette；
+- output diff 与 proof-only classification；
+- wall time、request count、primary uncached tokens；
+- `V0_INVALID / V1_OUTCOME / V2_TRACE / V3_AUDITED` fidelity。
+
+完整 code、prompt 和 trace 只留在外部 run root。
+
+## 4. 数据和 split
+
+### 4.1 Budgeted 40/20/40 split
+
+从 effective corpus manifest 中只取 `split=train, variant=standard` 的
+`verified-anvil` / `verified-ironkv` canonical unverified source，并排除 R040
+task/source/7-token-shingle Jaccard >= 0.90 的近重复。在任何新 VeruSAGE
+rollout 前，按 source hash、size bin 和 project 做静态审计，然后冻结：
+
+| Split | 数量 | 用途 | optimizer 可见性 |
+|---|---:|---|---|
+| `D_train` | 40 | 每 epoch 一个完整 SkillOpt rollout/reflection batch | 当前 compact rollout，无 reference proof |
+| `D_sel` | 20 | initial/candidate/slow-update selection gate | 只返回 score；不进入 reflection |
+| `D_test` | 40 | skill freeze 后一次性 held-out evaluation | 完全不可用于更新 |
+
+冻结规则：
+
+1. 先按 normalized task、source hash、target signature、near-duplicate group 去重；
+2. 三个 split 间 task/source/spec/target-function/near-duplicate group overlap 为零；
+3. Anvil/IronKV 各 50 个；每个 project 内按 source size small/medium/large
+   近似平衡；
+4. split assignment 只使用静态 provenance，不按历史 H0 success/failure 分层；
+5. 在任何新 VeruSAGE outcome 产生前冻结；
+6. target/optimizer 只看到原始 unverified source，不看到 paired verified file；
+7. split manifest 含本机 path 的版本只写外部 run root；仓库只保留去标识 hash 摘要；
+8. sealed MA/NR content read count 必须为零。
+
+既有 GPT-5.5 sampled-100 含 MA/NR，严禁用作本实验 train/selection/test
+来源。若 allowed effective-train pool 不能产生无 overlap 的 40/20/40，则停止；
+不得通过读取 sealed、split overlap 或缩小 test 偷偷补齐。这个 split 仍只能支持
+“同项目 task-held-out development result”，不能支持跨项目或 sealed-test 主张。
+
+### 4.2 与 R041/R042 的关系
+
+- R041 仍按现有计划完成；本 proposal 不改变其 train-only prompt-distillation
+  合同。
+- SkillOpt pilot 不以未冻结的 H1/H2 为 seed，避免依赖当前未完成 artifact。
+- 若 R041 后来冻结，可把 H1/H2 作为额外 baseline，但不能追溯改变
+  `D_train/D_sel/D_test`。
+- R042 仍是独立 frontier dev evaluation。只有本 pilot 通过且用户明确批准后，
+  才能讨论把 frozen `S_best` 加为 R042-compatible arm。
+
+## 5. Judge 与 gate
+
+### 5.1 原始指标
+
+每个 task rollout：
+
+```text
+strict_success =
+  final Verus pass
+  AND final Lynette pass
+  AND immutable input unchanged
+  AND no spec/exec/bypass regression
+  AND fidelity == V3_AUDITED
+```
+
+主结果始终单独报告：
+
+```text
+SSR  = strict successes / valid attempted tasks
+ETtS = total primary uncached tokens over all valid attempts
+       / strict successes
+```
+
+零成功时 `ETtS = infinity`。timeout 和 semantic failure 计入失败及成本；
+harness/provider corruption 单独标成 invalid，不静默当普通失败，也不能被排除后
+只报告好看的子集。
+
+### 5.2 SkillOpt-compatible lexicographic score
+
+SkillOpt 当前 gate 需要每项一个 `[0,1]` 标量。对固定大小
+`N = |D_sel|`，定义：
+
+```text
+epsilon = 1 / (2 * (N + 1))
+cost_ratio_i = min(primary_uncached_tokens_i / frozen_token_budget_i, 1)
+cost_utility_i = 1 - ceil(cost_ratio_i / 0.05) * 0.05
+
+gate_item_i =
+  (1 - epsilon) * strict_success_i
+  + epsilon * cost_utility_i
+```
+
+再对 `gate_item_i` 求均值，并让 SkillOpt 使用 `gate_metric=hard`。
+
+性质：因为 `epsilon < 1/(N+1)`，多一个 strict success 的 candidate 无论 cost
+utility 如何都胜过少一个 success 的 candidate；strict success 数相同时才由
+5% cost bucket 决定。这只是兼容上游 scalar gate 的工程编码，不能在论文/报告中
+代替 SSR 或 ETtS。
+
+额外硬约束：
+
+- selection batch 任一 output 出现 Lynette/spec/exec/bypass regression，则该
+  candidate 整批 gate score 设为 `0` 并标记 `SAFETY_REJECT`；
+- 任一 required usage/fidelity 字段缺失，则 candidate 不可接受；
+- selection task coverage 不完整，则 candidate 不可接受；
+- `use_semantic_density=false`，避免用措辞形式奖励 skill；
+- `use_gate=true`。
+
+若模型/transport 的 token usage 不能稳定取得，MVP 退化成 strict-success-only
+gate；不能用字符数冒充 provider token primary metric。
+
+### 5.3 Frozen SkillOpt MVP config
+
+当前获批的单 epoch bring-up 使用 DeepSeek-V4-Flash thinking 同时作为 target
+和 optimizer。它只验证 40/20 机械路径、调用/usage 账本和 gate 行为，不取代后续
+正式 target/optimizer 隔离实验，也不能直接支持效果主张。GPT 与 DeepSeek 的
+正式 target arms 若执行，必须分开训练 skill，不能共享 learned `S_best`。
+
+```yaml
+train:
+  num_epochs: 2
+  train_size: 40
+  batch_size: 40
+  accumulation: 1
+  seed: 42
+
+gradient:
+  minibatch_size: 8
+  merge_batch_size: 8
+  analyst_workers: 4
+  max_analyst_rounds: 3
+  failure_only: false
+
+optimizer:
+  learning_rate: 4
+  min_learning_rate: 2
+  lr_scheduler: cosine
+  skill_update_mode: patch
+  use_slow_update: true
+  slow_update_samples: 20
+  slow_update_gate_with_selection: true
+  longitudinal_pair_policy: mixed
+  use_meta_skill: false
+  use_skill_aware_reflection: false
+
+evaluation:
+  use_gate: true
+  gate_metric: hard
+  use_semantic_density: false
+  sel_env_num: 20
+  test_env_num: 40
+  eval_test: true
+
+env:
+  name: verusage
+  split_mode: split_dir
+  max_repair_attempts: 4
+  max_provider_requests_per_rollout: 12
+  optimizer_visible_trace_tokens_per_task: 8000
+  workers: 4
+  out_root: ${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/<run_id>
+```
+
+`analyst_workers=4` 有意低于上游默认 16：它只改变并发，不改变 40/8 的
+minibatch 语义，可降低 VeruSAGE/API burst 风险。当前 pinned trainer 读取并打印
+`max_analyst_rounds=3`，但没有把它传入 reflection；实际是每个 minibatch 一次
+semantic analyst call，底层 transport 最多 retry 3 次。若要声称严格复现论文的
+“up to 3 analyst rounds”，必须先补实现并单独审计。
+
+两 epoch 主阶段关闭 meta skill，因为 epoch 2 末生成的 meta memory 不会被后续
+step 消费；若主阶段 GO 并补到四 epoch，则从一开始重跑一个
+`num_epochs=4, use_meta_skill=true` 的 frozen confirmation arm，不能在两 epoch
+checkpoint 上临时改配置续跑。
+
+历史 `agent_events.jsonl` 单任务中位数约 1.11 MB；8 个 raw trace 直接拼接约
+8.9 MB，可能超过模型 context。上游 formatter 不做 truncation，所以 adapter
+必须把 optimizer-visible trace 限到每 task 8k tokens，只保留 verifier/action
+transition、最终 outcome 和 usage；完整 trace 留在外部 run root，不能丢弃或
+塞进 reflection prompt。对 step analyst，8k 是单次 rollout 的上限；对 slow/meta
+update，8k 是同一 task 的 previous/current 两条 compact trace 合并上限，确保
+20-pair longitudinal prompt 仍低于 GPT 的 272k long-context threshold。
+
+所有 generation 参数、target/optimizer model identity、VeruSAGE commit、
+toolchain hash、max attempts、timeout、trace compactor 和 concurrency 在 M0 后冻结。
+
+## 6. Compared systems
+
+最多三类 baseline：
+
+1. **H0 / no extra skill**：原始 VeruSAGE prompts 和相同运行预算。
+2. **S0 / fixed seed 与 S_one_shot**：
+   - S0 是短小、无 task-specific content 的 generic VeruSAGE executive seed；
+   - S_one_shot 让同一 optimizer 在相同 `D_train` evidence 和 skill-length 上限下
+     一次性改写 S0，不做 iterative selection gate。
+3. **S_best / SkillOpt**：两 epoch、每 epoch 一个 40-task step、bounded
+   patch、每 step 经 20-task `D_sel` gate，并在 epoch 2 做 gated slow update。
+
+内部版本 `S1/S2`、rejected candidates 和 final/last skill 全部保留，但主比较使用
+validation-best `S_best`。
+
+## 7. 实验 storyline
+
+### Block B0：Harness 与注入 fidelity
+
+- **Claim tested**：后续差异确实来自 exact skill，不是 path、reference、
+  toolchain 或 logging 差异。
+- **为什么存在**：VeruSAGE 是多调用 agent loop，单看 final output 不足以证明
+  skill 被一致注入或 evaluator 隔离。
+- **Dataset / split / task**：synthetic fixtures；再加一个 `D_train` task 的
+  H0/S0 mechanical smoke。
+- **Compared systems**：H0、S0、S0 fresh repeat。
+- **Metrics**：V3 pass、skill/prompt hash coverage、independent Verus/Lynette、
+  usage completeness、sealed reads、source mutation、A/A dispersion。
+- **Setup**：max repair attempts 2；不进入优化。
+- **Success criterion**：
+  - model-free tests 全过；
+  - 每个 target call 的 skill hash 与 condition 一致；
+  - H0 无 delimiter；
+  - reference/verified artifact visibility 为 false；
+  - raw/sealed source writes 为零；
+  - final checks 与 recorded outcome 一致。
+- **Failure interpretation**：adapter 不可信，停止所有 SkillOpt training。
+- **Table / figure target**：Appendix fidelity table。
+- **Priority**：MUST-RUN。
+
+### Block B1：主 anchor result
+
+- **Claim tested**：S_best 相对同 seed S0 改善 held-out live VeruSAGE outcome。
+- **为什么存在**：这是唯一能支持 method-effect 的主结果。
+- **Dataset / split / task**：`D_test` 40 个 task；在冻结 skill 后运行。
+- **Compared systems**：H0、S0、S_best。
+- **Metrics**：
+  - 决定性：SSR、ETtS、unsafe regression；
+  - 次级：uncached input、output、requests、Verus calls、wall time、
+    success attempt。
+- **Setup**：相同 model/transport/config/max attempts；主阶段每 condition
+  一个 frozen pass，不因看到 `D_test` outcome 再选 skill。
+- **Success criterion**：
+  - S_best 对 S0 不少 solve 且总 uncached tokens 至少下降 15%；或
+  - S_best 多至少一个 strict solve，且 total token cost 不增加超过 25%；
+  - unsafe regression 为零；
+  - 所有 primary rows 为 V3。
+- **Failure interpretation**：
+  - solve 下降：STOP，skill over-control；
+  - solve 相同但 token gain <15%：没有足够工程信号；
+  - 只改善 offline error delta：不算成功。
+- **Table / figure target**：主表，逐 task paired rows。
+- **Priority**：MUST-RUN。
+
+### Block B2：迭代优化隔离
+
+- **Claim tested**：收益来自 iterative gated update，而非 seed 或一次性强模型
+  prompt generation。
+- **为什么存在**：SkillOpt 的核心新机制是 repeated feedback + validation gate。
+- **Dataset / split / task**：同一 frozen `D_train/D_sel/D_test`。
+- **Compared systems**：S0、S_one_shot、S_best。
+- **Metrics**：SSR、ETtS、gate accepts/rejects、skill bytes/tokens、edit count。
+- **Setup**：S_one_shot 使用相同 optimizer、可见 evidence、输出长度上限；
+  不看到 `D_sel/D_test` content。
+- **Success criterion**：S_best 在 `D_test` 的 lexicographic raw outcome
+  优于 S_one_shot，且不是单纯更长。
+- **Failure interpretation**：若 one-shot 相当或更好，保留简单 baseline，
+  不宣称 SkillOpt loop 必要。
+- **Table / figure target**：主表第二部分；skill edit trajectory 放 appendix。
+- **Priority**：MUST-RUN。
+
+### Block B3：Gate necessity
+
+- **Claim tested**：selection gate 防止有害 skill update。
+- **为什么存在**：VeruSAGE skill 可能让多个 internal agents 共同偏航。
+- **Dataset / split / task**：只使用训练过程中已经产生的 accepted/rejected
+  candidate 和 `D_sel` results；不额外查看 `D_test`。
+- **Compared systems**：accepted S_best、被 gate 拒绝的候选；若没有 rejected
+  candidate，不强行制造。
+- **Metrics**：selection SSR/cost/safety、edit diff、failure family。
+- **Setup**：离线审核已产生 artifact；不运行默认 ungated slow update。
+- **Success criterion**：至少一个 reject 能由 safety/solve/cost regression
+  解释；否则只报告 gate 未触发。
+- **Failure interpretation**：没有 reject 不证明 gate 无用；只说明本 pilot
+  没观察到反例。
+- **Table / figure target**：Appendix candidate trajectory。
+- **Priority**：NICE-TO-HAVE（无新增模型成本时执行）。
+
+### Block B4：Failure analysis
+
+- **Claim tested**：发现的 effect 能映射到 VeruSAGE decision/action mechanism。
+- **为什么存在**：避免只给一个总分而无法判断 skill 学到了什么。
+- **Dataset / split / task**：所有 valid train/selection/test rollouts。
+- **Compared systems**：H0、S0、S_one_shot、S_best。
+- **Metrics**：error family、selected action、repeated action/error loops、
+  verifier deltas、requests、token components、stop reason。
+- **Setup**：只用 recorded events；不读 reference proof。
+- **Success criterion**：每个 gain/regression 至少能归因到一个可观察的
+  decision change；不能归因的标记 unknown。
+- **Failure interpretation**：若只有 prompt-length effect，不能宣传
+  verifier-grounded mechanism。
+- **Table / figure target**：case table；最多两个 representative cases。
+- **Priority**：MUST-RUN。
+
+## 8. 有意不做的实验
+
+- 不在首轮启用 SkillOpt-Sleep：它会同时引入 transcript harvesting/mining，
+  无法隔离 benchmark adapter。
+- 主阶段启用 slow update，但强制
+  `slow_update_gate_with_selection=true`；主阶段关闭 meta skill，四 epoch
+  confirmation 才启用。
+- 不做 population search、SFT、RL 或多 agent optimizer。
+- 不在 sealed MA/NR 上调参、选择 skill 或做多次确认。
+- 不把 action-only/all-call injection 同时塞进主矩阵；主信号成立后再做。
+- 不用 semantic-density bonus、字符数 proxy 或 offline IG 作为 promotion gate。
+
+## 9. 执行顺序与 milestones
+
+| Milestone | 目标 | Runs / 工作 | Decision gate | 预计成本 | 主要风险 |
+|---|---|---|---|---|---|
+| M0 | adapter/model-free contract | output guard、manifest、proxy、score、redaction、synthetic tests | 全部测试通过；sealed reads/writes=0 | CPU，<1h | path escape、prompt hash 不全 |
+| M1 | per-model fidelity/cost smoke | 同 task H0/S0/S0 repeat + 两个静态长度桶 H0，max_attempts=2 | 全部 V3；独立 judge 一致；usage/caching 可审计 | 每模型 5 VeruSAGE rollouts | provider usage 缺失 |
+| M2 | freeze 40/20/40 split | task/source/spec/near-dup audit | overlap=0；任何新 outcome 前冻结 | CPU，<1h | split leakage |
+| M3 | SkillOpt two-epoch train | S0 selection baseline + 2 train/gate steps + gated slow update | 无 safety accept；artifact 完整 | 200 VeruSAGE rollouts | target/optimizer 成本 |
+| M4 | one-shot control | 一次 optimizer generation；不看 val/test | schema/length/safety pass | 1 optimizer call | control 不等价 |
+| M5 | held-out evaluation | internal S0/S_best + external H0/S_one_shot on 40 tasks | B1/B2 gate | 160 rollouts；final!=best 时最多再加 60 | 随机性、成本 |
+| M6 | analysis/closeout | paired table、failure taxonomy、reviewed compact summary | claim boundary audit | CPU | 选择性报告 |
+
+### Task rollout 与 target-call 预算
+
+令 epoch 数为 `E`。在 `train=40, selection=20, slow=20, test=40` 且
+`longitudinal_pair_policy=mixed` 时，SkillOpt core 的 task rollout 数为：
+
+```text
+R_core(E)
+  = 20                              # initial S0 selection
+  + E * (40 + 20)                   # train + step candidate gate
+  + (E - 1) * (20 + 20 + 20)       # previous/current slow + slow gate
+  + 2 * 40                          # S0 and validation-best final test
+  + optional(20 + 40)               # only when final skill != best skill
+```
+
+H0 与 S_one_shot 的 test control 再加 `2 * 40 = 80`。每模型 fidelity/cost
+smoke 另加 5，不计入主结果。
+
+| 方案 | SkillOpt core task rollouts | 含 H0/one-shot controls | 名义 target calls（8/rollout） | provider request 硬上限（12/rollout） |
+|---|---:|---:|---:|---:|
+| 2 epoch 主阶段 | 280-340 | 360-420 | 2,880-3,360 | 4,320-5,040 |
+| 4 epoch 条件确认 | 520-580 | 600-660 | 4,800-5,280 | 7,200-7,920 |
+
+名义 8 calls 来自 `4 attempts * (reasoning + action)`；某些 VeruSAGE action
+可能额外调用，所以只把 12-request transport counter 当真正硬上限。第二 epoch
+本身是 `40 train + 20 gate + 20 previous slow + 20 current slow + 20 slow
+candidate gate = 120` task rollouts。
+
+40 条 trajectory 按 outcome 分开后再以 8 分组，每 step 是 5-6 次 analyst
+调用；加 category merge/final merge 和 rank，每 step 约 7-10 个 logical
+optimizer calls。两 epoch含一次 slow reflection和一次 one-shot，合计约
+16-22 次；四 epoch启用 meta 后约 35-47 次。每次 backend 最多 retry 3 次，
+因此还要分别记录 logical optimizer calls 与 HTTP attempts。
+
+### Token 与价格估算（2026-08-06）
+
+成本锚点是已审计的 100-task GPT-5.5/high H0：完整 100 task 估计
+76.2-89.4M raw input、70.6-83.5M cached input、5.54-5.92M uncached input、
+0.765-0.892M output，按当前 API 等价价约 USD 85.93-98.07。这个 run 是
+hands-off Codex H0，不是真实 VeruSAGE adapter；这里只能线性外推成本，不能复用
+它的 outcome 代替新 H0。
+
+按这个 token profile，完整比较矩阵的 target token 量为：
+
+| 方案 | Raw input | 其中 cached | 其中 uncached | Output | optimizer 额外预算 |
+|---|---:|---:|---:|---:|---:|
+| 2 epoch，360-420 rollouts | 274-375M | 254-350M | 19.9-24.9M | 2.75-3.75M | 1.2-1.8M input + 0.05-0.15M output |
+| 4 epoch，600-660 rollouts | 457-590M | 424-551M | 33.2-39.1M | 4.59-5.89M | 3.0-4.5M input + 0.15-0.35M output |
+
+DeepSeek 的 tokenizer、reasoning 长度、成功率和 retry 行为不同；上述 DeepSeek
+token 数只是 GPT profile 的 token-equivalent，正式预算再加 30% usage
+contingency。
+
+价格使用：
+
+- GPT-5.5：USD 5/M uncached input、0.50/M cached input、30/M output；
+  单 request/session 输入超过 272k tokens 时整段按 2x input、1.5x output
+  计价，本估算尚未加该 uplift。
+- DeepSeek-V4-Pro：USD 0.435/M cache miss、0.003625/M cache hit、
+  0.87/M output。
+- DeepSeek-V4-Flash：USD 0.14/M cache miss、0.0028/M cache hit、
+  0.28/M output。Flash 只作为低价 sensitivity，不作为首选 capability arm。
+
+| 完整矩阵 | GPT-5.5 target + GPT optimizer | DeepSeek-V4-Pro target + DeepSeek optimizer | DeepSeek-V4-Pro target + GPT optimizer |
+|---|---:|---:|---:|
+| 2 epoch，沿用历史 cache profile | USD 317-425 | USD 13-16 | USD 20-29 |
+| 2 epoch，target input 全部 cache miss | USD 1,461-2,003 | USD 122-168 | USD 129-180 |
+| 4 epoch，沿用历史 cache profile | USD 535-680 | USD 21-26 | USD 39-57 |
+| 4 epoch，target input 全部 cache miss | USD 2,442-3,159 | USD 204-264 | USD 222-295 |
+
+DeepSeek caching 默认开启但只按实际公共前缀命中，不保证命中率。V4-Flash
+matched-model sensitivity 为：2 epoch 约 USD 4.5-5.8（历史 cache profile）
+或 USD 39-54（全 miss）；4 epoch 约 USD 8-9.4 或 USD 66-85。
+
+推荐 apples-to-apples 设计是两个 target arm 都固定 GPT-5.5 optimizer：
+
+1. GPT-5.5/high target + GPT-5.5 optimizer，复用历史 cost anchor；
+2. DeepSeek-V4-Pro thinking target + 同一 GPT-5.5 optimizer，隔离 target
+   model 差异。
+
+如果研究问题改成“单 provider 最低端到端费用”，才使用全 DeepSeek optimizer
+列。GPT-5.6 Sol 当前 token 单价与 GPT-5.5 相同，但 token 行为未校准，不能把
+本表直接标成 GPT-5.6 实测预算。
+
+### Budget gate
+
+每个 target arm 先跑 5-rollout M1：一个 task 做 H0/S0/S0 fidelity A/A，
+另选两个静态 code-length bucket 做 H0，使 cost calibration 覆盖三个不同 task。
+要求：
+
+- GPT cache ratio 至少 80%，且 target API-equivalent cost 均值不超过
+  USD 1.25/rollout；
+- DeepSeek-V4-Pro 单 target rollout 不超过 USD 0.55；
+- optimizer-visible trajectory 确实不超过 8k tokens/task，单个 optimizer
+  request 小于 272k input tokens；
+- request cap hit rate 不超过 10%，usage 字段完整。
+
+满足后，2-epoch hard approval cap 建议为 GPT arm USD 500、DeepSeek-Pro +
+GPT optimizer arm USD 250；两 arm 合计 USD 750。只有 M5 GO 才审批 4-epoch
+confirmation，建议 cap 分别为 USD 850 和 USD 400。任一 calibration 失败时
+停止并用实测 per-rollout usage 重算，不靠扩大预算继续。
+
+## 10. Stop / go rules
+
+### 立即 STOP
+
+- 任何 raw/sealed input 被修改、复制进仓库或泄漏给 optimizer/target；
+- reference/verified proof 对 target 或 optimizer 可见；
+- H0 与 skill condition 的 model/tool/budget 不一致；
+- independent Verus/Lynette 与 recorded outcome 不一致；
+- primary token usage 缺失且无法恢复；
+- accepted skill 包含 bypass、spec weakening、executable-edit guidance；
+- selection coverage 不完整却被 gate 接受；
+- 上游 checkout 或外部 VeruSAGE checkout 出现未记录修改。
+
+### Feasibility GO
+
+同时满足：
+
+1. M0/M1 fidelity 全过；
+2. S_best 对 S0 达到 B1 criterion；
+3. S_best 对 S_one_shot 达到 B2 criterion，或明确判定 one-shot 足够并停止
+   SkillOpt 机制主张；
+4. unsafe regression 为零；
+5. 所有失败、timeout、invalid 和 rejected candidate 完整保留；
+6. 不根据 `D_test` outcome 追溯更换 split、skill 或 gate 参数；结果不足时明确
+   降级为 inconclusive development experiment。
+
+通过 GO 也只允许继续做 unsealed dev evaluation；sealed confirmatory run 仍需
+独立批准和预注册。
+
+## 11. 风险与缓解
+
+| 风险 | 后果 | 缓解 |
+|---|---|---|
+| VeruSAGE 内部多 LLM call，skill 注入不完整 | condition 不可解释 | 中央 proxy；逐 call skill/system hash coverage |
+| 原生 retry/无限循环绕过 rollout 预算 | 意外花费或挂死 | transport-level request counter（每 rollout 12）+ subprocess timeout；测试 timeout/rate-limit/not-found path |
+| skill 同时影响 routing、query generation 和 action generation | 机制归因混合 | 主实验明确称 all-call executive skill；后续再做 action-only ablation |
+| scalar gate 掩盖 solve/cost tradeoff | 接受快失败 | epsilon 词典序编码 + raw SSR/ETtS + batch safety veto |
+| 20-task selection 的 hard score 仍有 5-point 粒度 | gate 随机 | fixed tasks、5% cost bucket、A/A smoke；不看 test 后重选 |
+| raw VeruSAGE trace 远超 reflection context | optimizer request 失败或触发 GPT long-context uplift | 8k-token compact trace contract；full evidence 只留 external run root |
+| GPT 历史 cache ratio 不迁移到 VeruSAGE/DeepSeek | 预算低估 4-6x | per-model 3-task calibration；同时报告 cache-profile 与 all-miss |
+| SkillOpt slow/meta path绕过 gate | safety regression | MVP 两者关闭；配置审计测试 |
+| optimizer 看到 reference proof | 泄漏 | visibility manifest；只有 source、target trace、verifier outcome |
+| paired verified artifacts 通过路径或 prompt 泄漏 | 无效实验 | manifest 去标识；workspace allowlist；secret/path scan |
+| VeruSAGE internal acceptance 与 final judge 不一致 | 假成功 | 每个 rollout 独立 final Verus+Lynette |
+| prompt 变长本身改变 cache/token | 成本混淆 | S0、one-shot、S_best 分别报告 skill tokens、cached/uncached components |
+| 仅同项目 100-task development set | 过度外推 | 明确 task-held-out development result；不做跨项目或 sealed-test claim |
+| nested upstream checkout 被误提交 | repository pollution | 父仓库 `.gitignore` 排除；记录 commit hash |
+
+## 12. 计划中的命令接口
+
+以下是实现后的目标接口，不是当前已存在的命令：
+
+```bash
+export VERUSAGE_SRC_ROOT=/path/to/verus-proof-synthesis/verusage
+export VERUS_SKILL_RUN_ROOT=/path/to/external-run-root
+
+PYTHONPATH=skillopt-verusage/SkillOpt:skillopt-verusage/src \
+  python -m skillopt_verusage.audit \
+  --out "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/m0"
+
+PYTHONPATH=skillopt-verusage/SkillOpt:skillopt-verusage/src \
+  python -m skillopt_verusage.freeze_split \
+  --out "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/split-v1"
+
+PYTHONPATH=skillopt-verusage/SkillOpt:skillopt-verusage/src \
+  python -m skillopt_verusage.train \
+  --config skillopt-verusage/configs/verusage_pilot.yaml \
+  --out "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/pilot-v1"
+```
+
+credential 只通过 provider-specific environment variable 或已认证 CLI 传入，
+不进入命令、配置、manifest 或日志。
+
+## 13. 最先执行的三个 runs
+
+1. `SV-M0-UNIT`：纯 model-free adapter、path、score、redaction 和 gate tests。
+2. `SV-M1-H0`：一个 `D_train` task 的 no-skill VeruSAGE fidelity/cost smoke。
+3. `SV-M1-S0-A` / `SV-M1-S0-B`：同 task、同配置、fresh workspace 的 seed-skill
+   A/A smoke；GPT 与 DeepSeek arm 分别执行和审批。
+
+随后再补两个不同静态 code-length bucket 的 H0 cost samples；五个 M1 rollouts
+全部完成前不启动 SkillOpt training。
+
+在这三项完成前，不启动 SkillOpt training。
+
+## 14. Pro optimizer 复盘与 retrieval 修订（2026-08-11）
+
+robust v5 的 40 条训练轨迹已用 `deepseek-v4-pro` 做两阶段离线复盘，
+target 仍冻结为 Flash，且没有发起新的 target rollout。训练 launcher 已修正为
+分别读取 `optimizer_model` 和 `target_model`；此前仅改 YAML 不会生效，因为
+launcher 把两个角色都硬编码成了 Flash。
+
+Pro v1 的两次调用使用 118,424 input 和 3,487 output tokens，估算
+USD 0.054548。它虽然在 provider 最大 384K output cap 下运行，却自行提前结束，
+并输出了错误的 Python-list 形式 appendix，同时把已有 trusted helper 的使用误判
+为 bypass，因此作废。
+
+修复 list normalization、immutable benchmark contract 和 trusted-context lint 后，
+Pro v2 的两次调用使用 120,165 input 和 6,642 output tokens，估算
+USD 0.058050，生成 1,646-byte candidate。人工审计仍发现其 evidence map 把一个
+真实标签为 `Verus=false, Lynette=true` 的任务说成“被 Lynette 拒绝”，并从这一
+单一失败轨迹推广出递归展开限制。新的 deterministic evidence-label audit 已能拒绝
+这类矛盾，20/20 tests、compileall 和 targeted mypy 通过。v2 candidate 不进入
+20-task gate。
+
+该结果说明扩大 optimizer token budget 能改善压缩和表面一致性，但不能单独解决
+错误归因和全局 skill 干扰。上游 research engine 没有 runtime retrieval：每个
+rollout 都接收整个 `current_skill`。SkillOpt-Sleep 的 `recall_k` 只是按 task intent
+token Jaccard 在 nightly consolidation 时召回历史 train tasks，默认 0；它不是
+proof-state-conditioned retrieval。
+
+下一实验应冻结 838-byte seed，只把 replay/label 审核通过的原子规则做成 typed
+cards。每个有效 Verus checkpoint 根据 error family、action family、scope/type/mode
+和结构锚点检索，首个 pilot 最多注入 1 张 card；无充分匹配时 abstain。Pro 可用于
+离线 card 提议和批判，但 promotion 必须通过 deterministic contract checks、
+独立轨迹支持和 live paired gate。不要把整个 card bank 再拼回全局 prompt。
+
+## 15. Final checklist
+
+- [x] 主张不超过两个
+- [x] 主结果是 live Verus/Lynette outcome，不是 offline IG
+- [x] novelty 用 one-shot control 隔离
+- [x] slow update 使用 20 samples 且强制 selection gate；2-epoch 主阶段关闭无效 meta
+- [x] frontier component 的 target/optimizer 角色分开
+- [x] must-run 与 nice-to-have 已分开
+- [x] R041/R042 和 sealed-test 边界明确
+- [ ] adapter model-free tests 已实现并通过
+- [ ] 40/20/40 split 已在任何新 VeruSAGE outcome 前冻结
+- [ ] target/optimizer model 与 transport 已认证并冻结
+- [ ] M1 fidelity smoke 已通过
+- [ ] 用户批准模型/API 预算后再启动 M3-M5
