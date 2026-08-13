@@ -5,10 +5,24 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from skill_evolution_pilot.codex_runner import build_command, run_codex_smoke
+from skill_evolution_pilot.codex_runner import (
+    _command_modifies_candidate,
+    build_command,
+    run_codex_smoke,
+)
 
 
 class CodexRunnerTest(unittest.TestCase):
+    def test_shell_edit_audit_allows_read_only_commands_and_stderr_merge(self):
+        self.assertFalse(
+            _command_modifies_candidate("./tools/run_verus.sh candidate.rs 2>&1")
+        )
+        self.assertFalse(_command_modifies_candidate("sed -n '1,80p' candidate.rs"))
+        self.assertFalse(_command_modifies_candidate("git diff -- candidate.rs"))
+        self.assertTrue(_command_modifies_candidate("sed -i 's/a/b/' candidate.rs"))
+        self.assertTrue(_command_modifies_candidate("printf x > candidate.rs"))
+        self.assertTrue(_command_modifies_candidate("cat proof.rs | tee candidate.rs"))
+
     @staticmethod
     def _executable(path: Path, text: str) -> Path:
         path.write_text(text, encoding="utf-8")

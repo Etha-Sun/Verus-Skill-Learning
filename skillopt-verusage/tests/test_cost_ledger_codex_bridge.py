@@ -15,7 +15,8 @@ class CostLedgerCodexBridgeTests(unittest.TestCase):
             (root / "bridge_calls.jsonl").write_text(
                 json.dumps(
                     {
-                        "task_id": "task-a",
+                        "task_id": "rollout--task-a--a01",
+                        "phase": "rollout",
                         "attempts": [
                             {
                                 "usage": {
@@ -44,6 +45,8 @@ class CostLedgerCodexBridgeTests(unittest.TestCase):
             ledger = build_cost_ledger(root)
             self.assertEqual(ledger["target"]["requests"], 1)
             self.assertEqual(ledger["target"]["completion_tokens"], 5)
+            self.assertEqual(ledger["target_by_phase"]["rollout"]["tasks"], 1)
+            self.assertEqual(ledger["target_by_phase"]["rollout"]["requests"], 1)
             self.assertEqual(ledger["optimizer"]["calls"], 1)
             self.assertEqual(ledger["optimizer"]["actual_metered_cost_usd"], 0.0)
 

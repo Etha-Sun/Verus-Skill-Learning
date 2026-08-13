@@ -202,6 +202,21 @@ def _event_fingerprint(value: Any) -> str:
     return hashlib.sha256(encoded).hexdigest()
 
 
+def _command_modifies_candidate(command: str) -> bool:
+    """Flag shell-based candidate edits without treating stderr redirects as edits."""
+    if "candidate.rs" not in command:
+        return False
+    edit_patterns = (
+        r"\bsed\b[^\n]*\s-i(?:\s|$)",
+        r"\bperl\b[^\n]*\s-i(?:\s|$)",
+        r"\bpython(?:3)?\b",
+        r"\b(?:cp|mv)\b",
+        r"(?:^|\s)\d*>>?\s*['\"]?(?:\./)?candidate\.rs\b",
+        r"(?:^|\s)tee(?:\s+-a)?\s+['\"]?(?:\./)?candidate\.rs\b",
+    )
+    return any(re.search(pattern, command, re.IGNORECASE) for pattern in edit_patterns)
+
+
 def run_codex_smoke(
     *,
     source: Path,
@@ -520,16 +535,10 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         bool(truncation_pattern.search(str(row["item"].get("aggregated_output") or "")))
         for row in completed_commands
     )
-    shell_edit_pattern = re.compile(
-        r"(?:\bsed\b[^\n]*\s-i\b|\bperl\b[^\n]*\s-i\b|"
-        r"\bpython(?:3)?\b|\bcp\b|\bmv\b|>>?|(?:^|\s)tee(?:\s|$))",
-        re.IGNORECASE,
-    )
     shell_edit_suspects = [
         str(row["item"].get("command"))
         for row in completed_commands
-        if "candidate.rs" in str(row["item"].get("command"))
-        and shell_edit_pattern.search(str(row["item"].get("command")))
+        if _command_modifies_candidate(str(row["item"].get("command")))
     ]
     fidelity = {
         **event_audit,

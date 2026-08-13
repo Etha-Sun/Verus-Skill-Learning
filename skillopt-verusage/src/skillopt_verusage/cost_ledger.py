@@ -162,21 +162,33 @@ def build_cost_ledger(run_root: Path) -> dict[str, Any]:
             task_id = str(row.get("task_id") or "")
             if task_id:
                 task_ids.add(task_id)
+            phase = str(row.get("phase") or "codex_bridge")
+            phase_totals = by_phase.setdefault(
+                phase,
+                {"tasks": 0, "requests": 0, **{key: 0 for key in TOKEN_KEYS}},
+            )
+            phase_totals["requests"] += 1
             for attempt in row.get("attempts") or []:
                 usage = attempt.get("usage")
                 if not isinstance(usage, dict):
                     continue
                 target["requests"] += 1
                 for key in TOKEN_KEYS:
-                    target[key] += int(usage.get(key, 0) or 0)
+                    value = int(usage.get(key, 0) or 0)
+                    target[key] += value
+                    phase_totals[key] += value
         target["task_ledgers"] = len(task_ids)
         target["completed_task_ledgers"] = len(task_ids)
-        target["ledger_source"] = "codex_responses_bridge"
-        by_phase["codex_bridge"] = {
-            "tasks": len(task_ids),
-            "requests": target["requests"],
-            **{key: target[key] for key in TOKEN_KEYS},
-        }
+        target["ledger_source"] = "codex_native_responses_meter"
+        for phase, totals in by_phase.items():
+            totals["tasks"] = len(
+                {
+                    str(row.get("task_id"))
+                    for row in rows
+                    if str(row.get("phase") or "codex_bridge") == phase
+                    and row.get("task_id")
+                }
+            )
     for task_dir in task_dirs:
         usage, complete = _target_usage(task_dir, model)
         relative = task_dir.relative_to(run_root)

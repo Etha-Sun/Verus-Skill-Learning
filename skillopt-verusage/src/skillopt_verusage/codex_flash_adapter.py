@@ -13,8 +13,8 @@ from skill_evolution_pilot.codex_runner import build_prompt
 from skill_evolution_pilot.workspace import sha256_file
 
 
-class CodexFlashAdapter(VeruSAGEAdapter):
-    """SkillOpt adapter whose target is DeepSeek Flash inside Codex CLI."""
+class CodexDeepSeekAdapter(VeruSAGEAdapter):
+    """SkillOpt adapter whose DeepSeek target runs inside the Codex CLI."""
 
     def __init__(
         self,
@@ -26,6 +26,8 @@ class CodexFlashAdapter(VeruSAGEAdapter):
         bridge_url: str,
         bridge_ledger_path: str,
         bridge_manifest_path: str,
+        model: str = "deepseek-v4-flash",
+        reasoning_effort: str = "high",
         workers: int = 60,
         analyst_workers: int = 60,
         failure_only: bool = False,
@@ -42,7 +44,7 @@ class CodexFlashAdapter(VeruSAGEAdapter):
             verusage_src_root=".",
             verus_bin=verus_bin,
             lynette_bin=lynette_bin,
-            model="deepseek-v4-flash",
+            model=model,
             workers=workers,
             analyst_workers=analyst_workers,
             failure_only=failure_only,
@@ -53,6 +55,8 @@ class CodexFlashAdapter(VeruSAGEAdapter):
             seed=seed,
         )
         self.codex_bin = Path(codex_bin).resolve()
+        self.actor_model = model
+        self.reasoning_effort = reasoning_effort
         self.bridge_url = bridge_url.rstrip("/")
         self.bridge_ledger_path = Path(bridge_ledger_path).resolve()
         self.bridge_manifest_path = Path(bridge_manifest_path).resolve()
@@ -87,22 +91,21 @@ class CodexFlashAdapter(VeruSAGEAdapter):
             self.bridge_manifest_path.read_text(encoding="utf-8")
         )
         attempt_index = int(result.get("task_attempt_index", 1) or 1)
-        task_key = hashlib.sha256(
-            f"{task_dir.resolve()}:{attempt_index}".encode("utf-8")
-        ).hexdigest()[:24]
+        task_key = self._task_key(task_dir, attempt_index)
         expected_provider_url = self.bridge_url + f"/tasks/{task_key}/v1"
         tools = manifest.get("tools") or {}
         provider = manifest.get("provider") or {}
         bridge = manifest.get("bridge") or {}
         if (
             result.get("id") == task_dir.name
-            and result.get("actor_model") == "deepseek-v4-flash"
+            and result.get("actor_model") == self.actor_model
+            and result.get("actor_reasoning_effort") == self.reasoning_effort
             and result.get("fidelity") in {"V2_TRACE", "V1_TRUNCATED"}
             and manifest.get("source_sha256") == item["source_sha256"]
             and manifest.get("skill_sha256") == skill_sha256
             and manifest.get("prompt_sha256")
             == hashlib.sha256(build_prompt().encode("utf-8")).hexdigest()
-            and manifest.get("model") == "deepseek-v4-flash"
+            and manifest.get("model") == self.actor_model
             and manifest.get("timeout_seconds") == timeout_seconds
             and provider.get("base_url") == expected_provider_url
             and provider.get("wire_api") == "responses"
@@ -116,6 +119,8 @@ class CodexFlashAdapter(VeruSAGEAdapter):
             and bridge.get("config_sha256") == bridge_manifest.get("config_sha256")
             and bridge.get("implementation_sha256")
             == bridge_manifest.get("implementation_sha256")
+            and bridge.get("protocol") == "native_responses_passthrough"
+            and bridge.get("native_responses") is True
             and bridge.get("fake_mode") is False
         ):
             return result
@@ -131,9 +136,7 @@ class CodexFlashAdapter(VeruSAGEAdapter):
         timeout_seconds: int,
     ) -> dict[str, Any]:
         task_dir = prediction_dir / item["id"]
-        task_key = hashlib.sha256(
-            f"{task_dir.resolve()}:{attempt_index}".encode("utf-8")
-        ).hexdigest()[:24]
+        task_key = self._task_key(task_dir, attempt_index)
         command = [
             sys.executable,
             "-m",
@@ -164,6 +167,10 @@ class CodexFlashAdapter(VeruSAGEAdapter):
             str(self.bridge_manifest_path),
             "--bridge-task-key",
             task_key,
+            "--model",
+            self.actor_model,
+            "--reasoning-effort",
+            self.reasoning_effort,
             "--timeout-seconds",
             str(timeout_seconds),
             "--model-context-window",
@@ -260,3 +267,17 @@ class CodexFlashAdapter(VeruSAGEAdapter):
         archive_dir.mkdir(parents=True)
         for path in list(task_dir.iterdir()):
             shutil.move(str(path), archive_dir / path.name)
+
+    @staticmethod
+    def _task_key(task_dir: Path, attempt_index: int) -> str:
+        phase = task_dir.parent.parent.name
+        if phase == "predictions":
+            phase = task_dir.parent.parent.parent.name
+        phase = "".join(
+            char if char.isalnum() or char in "_-" else "_" for char in phase
+        )
+        return f"{phase}--{task_dir.name}--a{attempt_index:02d}"
+
+
+# Backward-compatible import for the isolated Flash preflight configuration.
+CodexFlashAdapter = CodexDeepSeekAdapter
