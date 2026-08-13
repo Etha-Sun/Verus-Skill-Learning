@@ -79,8 +79,12 @@ def build_command(
     reasoning_effort: str,
     reasoning_summary: str = "detailed",
     show_raw_agent_reasoning: bool = True,
+    provider_id: str | None = None,
+    provider_base_url: str | None = None,
+    provider_env_key: str | None = None,
+    model_context_window: int | None = None,
 ) -> list[str]:
-    return [
+    command = [
         str(codex_bin),
         "exec",
         "--model",
@@ -110,6 +114,25 @@ def build_command(
         str(last_message),
         "-",
     ]
+    if any(value is not None for value in (provider_id, provider_base_url, provider_env_key)):
+        if not all((provider_id, provider_base_url, provider_env_key)):
+            raise ValueError("custom Codex provider requires id, base URL, and env key")
+        provider_config = [
+            "-c",
+            f'model_provider="{provider_id}"',
+            "-c",
+            f'model_providers.{provider_id}.name="DeepSeek Bridge"',
+            "-c",
+            f'model_providers.{provider_id}.base_url="{provider_base_url}"',
+            "-c",
+            f'model_providers.{provider_id}.env_key="{provider_env_key}"',
+            "-c",
+            f'model_providers.{provider_id}.wire_api="responses"',
+        ]
+        command[2:2] = provider_config
+    if model_context_window is not None:
+        command[2:2] = ["-c", f"model_context_window={int(model_context_window)}"]
+    return command
 
 
 def _version(path: Path) -> dict[str, Any]:
@@ -192,6 +215,10 @@ def run_codex_smoke(
     show_raw_agent_reasoning: bool = True,
     timeout_seconds: int = 600,
     skill_text: str | None = None,
+    provider_id: str | None = None,
+    provider_base_url: str | None = None,
+    provider_env_key: str | None = None,
+    model_context_window: int | None = None,
 ) -> dict[str, Any]:
     out_dir = _require_external_output(out_dir)
     codex_bin = _require_executable(codex_bin, "codex")
@@ -250,6 +277,10 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         reasoning_effort=reasoning_effort,
         reasoning_summary=reasoning_summary,
         show_raw_agent_reasoning=show_raw_agent_reasoning,
+        provider_id=provider_id,
+        provider_base_url=provider_base_url,
+        provider_env_key=provider_env_key,
+        model_context_window=model_context_window,
     )
     manifest = {
         "run_id": out_dir.name,
@@ -262,6 +293,13 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         "hide_agent_reasoning": False,
         "show_raw_agent_reasoning": show_raw_agent_reasoning,
         "timeout_seconds": timeout_seconds,
+        "provider": {
+            "id": provider_id,
+            "base_url": provider_base_url,
+            "env_key": provider_env_key,
+            "wire_api": "responses" if provider_id else None,
+            "model_context_window": model_context_window,
+        },
         "source_sha256": source_sha,
         "prompt_sha256": sha256_file(prompt_path),
         "skill_present": skill_text is not None,
