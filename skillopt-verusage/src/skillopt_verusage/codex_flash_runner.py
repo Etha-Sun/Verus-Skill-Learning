@@ -18,7 +18,9 @@ def _external_file(path: Path) -> Path:
     return resolved
 
 
-def _bridge_usage(path: Path, task_key: str) -> dict[str, Any]:
+def _bridge_usage(
+    path: Path, task_key: str, model: str = "deepseek-v4-flash"
+) -> dict[str, Any]:
     totals: dict[str, Any] = {
         "requests": 0,
         "prompt_tokens": 0,
@@ -49,9 +51,7 @@ def _bridge_usage(path: Path, task_key: str) -> dict[str, Any]:
                 "reasoning_tokens",
             ):
                 totals[key] += int(usage.get(key, 0) or 0)
-    totals["estimated_cost_usd"] = estimate_deepseek_cost(
-        totals, "deepseek-v4-flash"
-    )
+    totals["estimated_cost_usd"] = estimate_deepseek_cost(totals, model)
     return totals
 
 
@@ -127,6 +127,8 @@ def run_task(
     bridge_ledger_path: Path,
     bridge_manifest_path: Path,
     bridge_task_key: str,
+    model: str,
+    reasoning_effort: str,
     timeout_seconds: int,
     model_context_window: int,
 ) -> dict[str, Any]:
@@ -144,8 +146,10 @@ def run_task(
     bridge_manifest = json.loads(bridge_manifest_path.read_text(encoding="utf-8"))
     if bridge_manifest.get("fake_mode"):
         raise ValueError("live Codex task cannot use a fake bridge")
-    if bridge_manifest.get("model") != "deepseek-v4-flash":
+    if bridge_manifest.get("model") != model:
         raise ValueError("bridge manifest model mismatch")
+    if bridge_manifest.get("native_responses") is not True:
+        raise ValueError("formal Codex task requires native Responses passthrough")
     skill_text = skill_file.read_text(encoding="utf-8")
     provider_base_url = (
         bridge_url.rstrip("/") + f"/tasks/{bridge_task_key}/v1"
@@ -156,8 +160,8 @@ def run_task(
         codex_bin=codex_bin,
         verus_bin=verus_bin,
         lynette_bin=lynette_bin,
-        model="deepseek-v4-flash",
-        reasoning_effort="high",
+        model=model,
+        reasoning_effort=reasoning_effort,
         reasoning_summary="detailed",
         show_raw_agent_reasoning=True,
         timeout_seconds=timeout_seconds,
@@ -173,7 +177,8 @@ def run_task(
         "task_key": bridge_task_key,
         "config_sha256": bridge_manifest["config_sha256"],
         "implementation_sha256": bridge_manifest["implementation_sha256"],
-        "allowed_tool_names": bridge_manifest["allowed_tool_names"],
+        "protocol": bridge_manifest["protocol"],
+        "native_responses": bridge_manifest["native_responses"],
         "fake_mode": bridge_manifest["fake_mode"],
     }
     manifest_path.write_text(
@@ -184,7 +189,7 @@ def run_task(
     hard = bool(validation["verus"]["passed"] and validation["lynette"]["passed"])
     raw_events = out_dir / "codex_events.raw.jsonl"
     conversation = _conversation(raw_events, validation)
-    usage = _bridge_usage(bridge_ledger_path, bridge_task_key)
+    usage = _bridge_usage(bridge_ledger_path, bridge_task_key, model)
     fail_reason = ""
     if not hard:
         if result.get("timed_out"):
@@ -218,8 +223,9 @@ def run_task(
             row.get("type") in {"tool_call", "file_change"} for row in conversation
         ),
         "fidelity": fidelity,
-        "actor_model": "deepseek-v4-flash",
-        "actor_harness": "codex-cli-responses-bridge",
+        "actor_model": model,
+        "actor_harness": "codex-cli-native-responses",
+        "actor_reasoning_effort": reasoning_effort,
         "bridge_task_key": bridge_task_key,
         "source_sha256": expected_source_sha256,
         "skill_sha256": hashlib.sha256(skill_text.encode("utf-8")).hexdigest(),
@@ -254,6 +260,8 @@ def main() -> None:
     parser.add_argument("--bridge-ledger-path", type=Path, required=True)
     parser.add_argument("--bridge-manifest-path", type=Path, required=True)
     parser.add_argument("--bridge-task-key", required=True)
+    parser.add_argument("--model", default="deepseek-v4-flash")
+    parser.add_argument("--reasoning-effort", default="high")
     parser.add_argument("--timeout-seconds", type=int, default=1200)
     parser.add_argument("--model-context-window", type=int, default=262144)
     args = parser.parse_args()
@@ -271,6 +279,8 @@ def main() -> None:
         bridge_ledger_path=args.bridge_ledger_path,
         bridge_manifest_path=args.bridge_manifest_path,
         bridge_task_key=args.bridge_task_key,
+        model=args.model,
+        reasoning_effort=args.reasoning_effort,
         timeout_seconds=args.timeout_seconds,
         model_context_window=args.model_context_window,
     )

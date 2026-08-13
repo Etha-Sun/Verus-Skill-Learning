@@ -11,7 +11,7 @@ from skillopt.config import flatten_config, load_config
 from skillopt.engine.trainer import ReflACTTrainer
 
 from skillopt_verusage.adapter import VeruSAGEAdapter
-from skillopt_verusage.codex_flash_adapter import CodexFlashAdapter
+from skillopt_verusage.codex_flash_adapter import CodexDeepSeekAdapter
 from skillopt_verusage.codex_reoptimize import _install_prompt_free_codex_ledger
 from skillopt_verusage.cost_ledger import write_cost_ledger
 
@@ -37,8 +37,11 @@ def _expand(value: Any) -> Any:
 
 
 def _adapter(cfg: dict[str, Any]) -> VeruSAGEAdapter:
-    if cfg.get("target_harness") == "codex_cli_bridge":
-        return CodexFlashAdapter(
+    if cfg.get("target_harness") in {
+        "codex_cli_bridge",
+        "codex_cli_native_responses",
+    }:
+        return CodexDeepSeekAdapter(
             split_dir=cfg["split_dir"],
             codex_bin=cfg["codex_exec_path"],
             verus_bin=cfg["verus_bin"],
@@ -46,6 +49,8 @@ def _adapter(cfg: dict[str, Any]) -> VeruSAGEAdapter:
             bridge_url=cfg["codex_bridge_url"],
             bridge_ledger_path=cfg["codex_bridge_ledger_path"],
             bridge_manifest_path=cfg["codex_bridge_manifest_path"],
+            model=cfg["target_model"],
+            reasoning_effort=cfg.get("target_reasoning_effort", "high"),
             workers=cfg.get("workers", 40),
             analyst_workers=cfg["analyst_workers"],
             failure_only=cfg["failure_only"],

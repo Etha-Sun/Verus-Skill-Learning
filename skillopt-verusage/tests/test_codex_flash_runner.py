@@ -31,7 +31,7 @@ class CodexFlashRunnerTests(unittest.TestCase):
             ledger.write_text(
                 "".join(json.dumps(row) + "\n" for row in rows), encoding="utf-8"
             )
-            usage = _bridge_usage(ledger, "wanted")
+            usage = _bridge_usage(ledger, "wanted", "deepseek-v4-pro")
             self.assertEqual(usage["requests"], 1)
             self.assertEqual(usage["completion_tokens"], 4)
             self.assertGreater(usage["estimated_cost_usd"], 0)

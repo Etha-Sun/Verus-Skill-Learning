@@ -3,12 +3,30 @@ from __future__ import annotations
 import unittest
 
 from skillopt_verusage.codex_deepseek_bridge import (
+    _native_response_usage,
     responses_sse_events,
     translate_responses_request,
 )
 
 
 class CodexDeepSeekBridgeTests(unittest.TestCase):
+    def test_extracts_usage_without_rewriting_native_response_stream(self) -> None:
+        body = (
+            'event: response.completed\n'
+            'data: {"type":"response.completed","response":'
+            '{"status":"completed","model":"deepseek-v4-pro-0813","usage":'
+            '{"input_tokens":100,"input_tokens_details":{"cached_tokens":60},'
+            '"output_tokens":25,"output_tokens_details":{"reasoning_tokens":20},'
+            '"total_tokens":125}}}\n\n'
+            'data: [DONE]\n\n'
+        ).encode()
+        usage, model, status = _native_response_usage(body)
+        self.assertEqual(model, "deepseek-v4-pro-0813")
+        self.assertEqual(status, "completed")
+        self.assertEqual(usage["prompt_cache_hit_tokens"], 60)
+        self.assertEqual(usage["prompt_cache_miss_tokens"], 40)
+        self.assertEqual(usage["completion_tokens"], 25)
+
     def test_translates_codex_history_and_tools(self) -> None:
         payload = {
             "instructions": "system rules",

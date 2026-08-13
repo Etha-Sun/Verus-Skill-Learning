@@ -347,6 +347,8 @@ class BridgeConfig:
     max_output_tokens: int
     retry_output_tokens: int
     request_timeout_seconds: int
+    native_responses: bool = False
+    model_catalog: bytes | None = None
     budget_guard: SharedBudgetGuard | None = None
     fake_reply: str | None = None
     fake_tool_name: str | None = None
@@ -356,6 +358,130 @@ class BridgeConfig:
     state_lock: threading.Lock = field(default_factory=threading.Lock)
     config_sha256: str | None = None
     ledger_lock: threading.Lock = field(default_factory=threading.Lock)
+
+
+def _native_response_usage(
+    body: bytes,
+) -> tuple[dict[str, int] | None, str | None, str | None]:
+    """Extract final usage/model/status without changing a native Responses body."""
+    final_response: dict[str, Any] | None = None
+    decoded = body.decode("utf-8", errors="replace")
+    for line in decoded.splitlines():
+        if not line.startswith("data:"):
+            continue
+        data = line[5:].strip()
+        if not data or data == "[DONE]":
+            continue
+        try:
+            event = json.loads(data)
+        except json.JSONDecodeError:
+            continue
+        if event.get("type") in {"response.completed", "response.incomplete"}:
+            response = event.get("response")
+            if isinstance(response, dict):
+                final_response = response
+    if final_response is None:
+        try:
+            candidate = json.loads(decoded)
+        except json.JSONDecodeError:
+            candidate = None
+        if isinstance(candidate, dict):
+            final_response = candidate.get("response", candidate)
+    if not isinstance(final_response, dict):
+        return None, None, None
+    raw = final_response.get("usage")
+    if not isinstance(raw, dict):
+        return None, str(final_response.get("model") or "") or None, str(
+            final_response.get("status") or ""
+        ) or None
+    input_tokens = int(raw.get("input_tokens", 0) or 0)
+    input_details = raw.get("input_tokens_details") or {}
+    output_tokens = int(raw.get("output_tokens", 0) or 0)
+    output_details = raw.get("output_tokens_details") or {}
+    hit = int(input_details.get("cached_tokens", 0) or 0)
+    usage = {
+        "prompt_tokens": input_tokens,
+        "completion_tokens": output_tokens,
+        "prompt_cache_hit_tokens": hit,
+        "prompt_cache_miss_tokens": max(0, input_tokens - hit),
+        "reasoning_tokens": int(output_details.get("reasoning_tokens", 0) or 0),
+        "total_tokens": int(raw.get("total_tokens", input_tokens + output_tokens) or 0),
+    }
+    return (
+        usage,
+        str(final_response.get("model") or "") or None,
+        str(final_response.get("status") or "") or None,
+    )
+
+
+def forward_native_responses(
+    config: BridgeConfig,
+    payload: dict[str, Any],
+    *,
+    task_id: str | None = None,
+) -> tuple[bytes, str, dict[str, Any]]:
+    """Pass a Codex Responses request through unchanged except for frozen model id."""
+    request_payload = dict(payload)
+    request_payload["model"] = config.model
+    started = time.monotonic()
+    usage: dict[str, int] | None = None
+    upstream_model: str | None = None
+    response_status: str | None = None
+    error_text: str | None = None
+    content_type = "text/event-stream"
+    body = b""
+    try:
+        request = Request(
+            config.upstream_base_url.rstrip("/") + "/responses",
+            data=json.dumps(request_payload, ensure_ascii=False).encode("utf-8"),
+            headers={
+                "Authorization": f"Bearer {config.api_key}",
+                "Content-Type": "application/json",
+            },
+            method="POST",
+        )
+        with urlopen(request, timeout=config.request_timeout_seconds) as response:
+            content_type = response.headers.get_content_type()
+            body = response.read()
+        usage, upstream_model, response_status = _native_response_usage(body)
+    except HTTPError as error:
+        detail = error.read().decode("utf-8", errors="replace")[:2000]
+        error_text = f"DeepSeek HTTP {error.code}: {detail}"
+        raise RuntimeError(error_text) from error
+    except URLError as error:
+        error_text = f"DeepSeek transport error: {error.reason}"
+        raise RuntimeError(error_text) from error
+    except Exception as error:
+        error_text = f"{type(error).__name__}: {error}"
+        raise
+    finally:
+        phase = task_id.split("--", 1)[0] if task_id and "--" in task_id else None
+        attempt = {
+            "retry_index": 0,
+            "max_tokens": request_payload.get("max_output_tokens"),
+            "finish_reason": response_status,
+            "usage": usage,
+            "estimated_cost_usd": (
+                estimate_deepseek_cost(usage, config.model) if usage else None
+            ),
+            "error": error_text,
+        }
+        record = {
+            "request_id": uuid.uuid4().hex,
+            "task_id": task_id,
+            "phase": phase,
+            "model": config.model,
+            "upstream_model": upstream_model,
+            "bridge_config_sha256": config.config_sha256,
+            "protocol": "native_responses_passthrough",
+            "input_items": len(payload.get("input") or []),
+            "tool_count": len(payload.get("tools") or []),
+            "attempts": [attempt],
+            "wall_seconds": time.monotonic() - started,
+        }
+        with config.ledger_lock:
+            _append_jsonl(config.ledger_path, record)
+    return body, content_type, record
 
 
 def _post_chat(config: BridgeConfig, payload: dict[str, Any]) -> dict[str, Any]:
@@ -544,7 +670,16 @@ def make_handler(config: BridgeConfig):
             self.wfile.write(body)
 
         def do_GET(self) -> None:
-            if self.path.rstrip("/") not in {"", "/health"}:
+            request_path = self.path.split("?", 1)[0].rstrip("/")
+            if request_path.endswith("/models") and config.model_catalog is not None:
+                body = config.model_catalog
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+                return
+            if request_path not in {"", "/health"}:
                 self._json_error(404, "not found")
                 return
             body = json.dumps({"status": "ok", "model": config.model}).encode("utf-8")
@@ -570,6 +705,18 @@ def make_handler(config: BridgeConfig):
             try:
                 length = int(self.headers.get("Content-Length", "0"))
                 payload = json.loads(self.rfile.read(length).decode("utf-8"))
+                if config.native_responses:
+                    body, content_type, _ = forward_native_responses(
+                        config, payload, task_id=task_id
+                    )
+                    self.send_response(200)
+                    self.send_header("Content-Type", content_type)
+                    self.send_header("Content-Length", str(len(body)))
+                    self.send_header("Connection", "close")
+                    self.end_headers()
+                    self.wfile.write(body)
+                    self.wfile.flush()
+                    return
                 events, _ = forward_responses(config, payload, task_id=task_id)
                 self.send_response(200)
                 self.send_header("Content-Type", "text/event-stream")
@@ -599,6 +746,11 @@ def main() -> None:
     parser.add_argument("--max-output-tokens", type=int, default=32768)
     parser.add_argument("--retry-output-tokens", type=int, default=131072)
     parser.add_argument("--request-timeout-seconds", type=int, default=1800)
+    parser.add_argument(
+        "--native-responses",
+        action="store_true",
+        help="transparently forward Codex Responses requests to DeepSeek /responses",
+    )
     parser.add_argument("--budget-state-path", type=Path)
     parser.add_argument("--approval-limit-usd", type=float, default=20.0)
     parser.add_argument("--prior-spend-usd", type=float, default=0.0)
@@ -607,6 +759,7 @@ def main() -> None:
     parser.add_argument("--fake-tool-name")
     parser.add_argument("--fake-tool-arguments", default="{}")
     parser.add_argument("--manifest-path", type=Path)
+    parser.add_argument("--model-catalog-path", type=Path)
     parser.add_argument(
         "--allowed-tool",
         action="append",
@@ -628,6 +781,19 @@ def main() -> None:
         if args.budget_state_path
         else None
     )
+    model_catalog: bytes | None = None
+    model_catalog_sha256: str | None = None
+    if args.model_catalog_path:
+        model_catalog = args.model_catalog_path.read_bytes()
+        catalog = json.loads(model_catalog.decode("utf-8"))
+        slugs = {
+            str(entry.get("slug") or "")
+            for entry in catalog.get("models") or []
+            if isinstance(entry, dict)
+        }
+        if args.model not in slugs:
+            raise ValueError(f"model catalog does not contain {args.model}")
+        model_catalog_sha256 = hashlib.sha256(model_catalog).hexdigest()
     config = BridgeConfig(
         model=args.model,
         upstream_base_url=args.upstream_base_url,
@@ -636,6 +802,8 @@ def main() -> None:
         max_output_tokens=args.max_output_tokens,
         retry_output_tokens=args.retry_output_tokens,
         request_timeout_seconds=args.request_timeout_seconds,
+        native_responses=args.native_responses,
+        model_catalog=model_catalog,
         budget_guard=budget_guard,
         fake_reply=args.fake_reply,
         fake_tool_name=args.fake_tool_name,
@@ -651,7 +819,16 @@ def main() -> None:
         "max_output_tokens": config.max_output_tokens,
         "retry_output_tokens": config.retry_output_tokens,
         "request_timeout_seconds": config.request_timeout_seconds,
-        "allowed_tool_names": sorted(config.allowed_tool_names),
+        "native_responses": config.native_responses,
+        "model_catalog_sha256": model_catalog_sha256,
+        "protocol": (
+            "native_responses_passthrough"
+            if config.native_responses
+            else "responses_to_chat_completions"
+        ),
+        "allowed_tool_names": (
+            None if config.native_responses else sorted(config.allowed_tool_names)
+        ),
         "implementation_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         "fake_mode": config.fake_reply is not None,
     }
