@@ -10,7 +10,13 @@ from typing import Any
 from skillopt.config import flatten_config, load_config
 
 from skillopt_verusage.adapter import VeruSAGEAdapter
-from skillopt_verusage.codex_selection_gate import _paired_summary, _score
+from skillopt_verusage.codex_selection_gate import (
+    _load_results,
+    _paired_summary,
+    _resume_partition,
+    _score,
+    _sha256_text,
+)
 from skillopt_verusage.cost_ledger import write_cost_ledger
 from skillopt_verusage.retrieval import load_retrieval_cards
 from skillopt_verusage.train import _expand
@@ -139,19 +145,33 @@ def run_gate(
     items = list(batch.payload or [])
     if len(items) != 20:
         raise ValueError(f"expected 20 selection items, found {len(items)}")
+    ordered_ids = [str(item["id"]) for item in items]
     skill_text = Path(cfg["skill_init"]).read_text(encoding="utf-8")
+    skill_sha256 = _sha256_text(skill_text)
     s0_dir = run_dir / "s0"
     retrieval_dir = run_dir / "retrieval"
+    _, s0_pending = _resume_partition(
+        items, s0_dir / "predictions", skill_sha256
+    )
+    _, retrieval_pending = _resume_partition(
+        items, retrieval_dir / "predictions", skill_sha256
+    )
     with ThreadPoolExecutor(max_workers=2) as executor:
-        s0_future = executor.submit(s0_adapter.rollout, items, skill_text, str(s0_dir))
+        s0_future = executor.submit(
+            s0_adapter.rollout, s0_pending, skill_text, str(s0_dir)
+        )
         retrieval_future = executor.submit(
             retrieval_adapter.rollout,
-            items,
+            retrieval_pending,
             skill_text,
             str(retrieval_dir),
         )
-        s0_results = s0_future.result()
-        retrieval_results = retrieval_future.result()
+        s0_future.result()
+        retrieval_future.result()
+    s0_results = _load_results(s0_dir / "predictions", ordered_ids)
+    retrieval_results = _load_results(
+        retrieval_dir / "predictions", ordered_ids
+    )
 
     s0_hard, s0_soft = _score(s0_results)
     retrieval_hard, retrieval_soft = _score(retrieval_results)
@@ -182,6 +202,10 @@ def run_gate(
         "selection_n": 20,
         "configured_workers_per_condition": workers,
         "configured_total_task_workers": workers * 2,
+        "resumed_s0_tasks": len(items) - len(s0_pending),
+        "new_s0_tasks": len(s0_pending),
+        "resumed_retrieval_tasks": len(items) - len(retrieval_pending),
+        "new_retrieval_tasks": len(retrieval_pending),
         "cards_sha256": hashlib.sha256(cards_path.read_bytes()).hexdigest(),
         "card_count": len(cards["cards"]),
         "abstain_threshold": cards["abstain_threshold"],

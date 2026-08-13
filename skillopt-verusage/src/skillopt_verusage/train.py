@@ -11,6 +11,8 @@ from skillopt.config import flatten_config, load_config
 from skillopt.engine.trainer import ReflACTTrainer
 
 from skillopt_verusage.adapter import VeruSAGEAdapter
+from skillopt_verusage.codex_flash_adapter import CodexFlashAdapter
+from skillopt_verusage.codex_reoptimize import _install_prompt_free_codex_ledger
 from skillopt_verusage.cost_ledger import write_cost_ledger
 
 
@@ -35,6 +37,28 @@ def _expand(value: Any) -> Any:
 
 
 def _adapter(cfg: dict[str, Any]) -> VeruSAGEAdapter:
+    if cfg.get("target_harness") == "codex_cli_bridge":
+        return CodexFlashAdapter(
+            split_dir=cfg["split_dir"],
+            codex_bin=cfg["codex_exec_path"],
+            verus_bin=cfg["verus_bin"],
+            lynette_bin=cfg["lynette_bin"],
+            bridge_url=cfg["codex_bridge_url"],
+            bridge_ledger_path=cfg["codex_bridge_ledger_path"],
+            bridge_manifest_path=cfg["codex_bridge_manifest_path"],
+            workers=cfg.get("workers", 40),
+            analyst_workers=cfg["analyst_workers"],
+            failure_only=cfg["failure_only"],
+            minibatch_size=cfg["minibatch_size"],
+            edit_budget=cfg["edit_budget"],
+            task_retries=cfg.get("task_retries", 2),
+            codex_timeout_seconds=cfg.get("codex_timeout_seconds", 1200),
+            max_codex_timeout_seconds=cfg.get(
+                "max_codex_timeout_seconds", 1200
+            ),
+            model_context_window=cfg.get("model_context_window", 262144),
+            seed=cfg["seed"],
+        )
     return VeruSAGEAdapter(
         split_dir=cfg["split_dir"],
         verusage_src_root=cfg["verusage_src_root"],
@@ -107,7 +131,19 @@ def main() -> None:
         }
         print(json.dumps({"status": "ok", "counts": counts}, indent=2))
         return
-    _configure_deepseek(cfg)
+    if cfg.get("optimizer_backend") == "openai_compatible":
+        _configure_deepseek(cfg)
+    elif cfg.get("optimizer_backend") == "codex_exec":
+        if not os.environ.get("DEEPSEEK_API_KEY", ""):
+            raise RuntimeError("DEEPSEEK_API_KEY is not set for Codex bridge auth")
+        os.environ["CODEX_WORKING_DIRECTORY"] = str(Path(cfg["out_root"]).resolve())
+        _install_prompt_free_codex_ledger(
+            Path(cfg["out_root"]) / "optimizer_calls.jsonl"
+        )
+    else:
+        raise ValueError(
+            f"unsupported optimizer backend: {cfg.get('optimizer_backend')}"
+        )
     summary = ReflACTTrainer(cfg, adapter).train()
     summary["cost_ledger"] = write_cost_ledger(Path(cfg["out_root"]))
     print(json.dumps(summary, indent=2, ensure_ascii=False))
