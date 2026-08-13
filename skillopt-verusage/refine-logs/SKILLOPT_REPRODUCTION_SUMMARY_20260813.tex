@@ -12,6 +12,8 @@
 
 \newcommand{\dflash}{DeepSeek V4 Flash}
 \newcommand{\dpro}{DeepSeek V4 Pro}
+\newcommand{\dflashshort}{DS V4 Flash}
+\newcommand{\dproshort}{DS V4 Pro}
 \newcommand{\sol}{GPT-5.6 Sol}
 \newcommand{\na}{--}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
@@ -180,13 +182,13 @@ incorrectly convert a pre-gate audit rejection into an evaluated result.
 \toprule
 ID & Actor & Optimizer and run type & $S_0$ & Train & Candidate & $\Delta$ & Gain/Loss & Skill bytes & Decision \\
 \midrule
-F/F & \dflash{} & \dflash{}; complete epoch
+F/F & \dflashshort{} & \dflash{}; complete epoch
     & 6/20 & 8/40 & 4/20 & $-2$ & 0/2 & 10,322 & Reject \\
-F/P & \dflash{} & \dpro{}; stored-trajectory reanalysis
+F/P & \dflashshort{} & \dpro{}; stored-trajectory reanalysis
     & $6/20^{\dagger}$ & $8/40^{\dagger}$ & \na{} & \na{} & \na{} & 1,646 & Pre-gate reject \\
-F/S & \dflash{} & \sol{}; stored-trajectory replay and live gate
+F/S & \dflashshort{} & \sol{}; stored-trajectory replay and live gate
     & $6/20^{\dagger}$ & $8/40^{\dagger}$ & 4/20 & $-2$ & 0/2 & 3,490 & Reject \\
-P/S & \dpro{} & \sol{}; complete epoch
+P/S & \dproshort{} & \sol{}; complete epoch
     & 16/20 & 35/40 & \textbf{17/20} & $\mathbf{+1}$ & \textbf{1/0} & 2,932 & \textbf{Accept} \\
 \bottomrule
 \end{tabularx}
