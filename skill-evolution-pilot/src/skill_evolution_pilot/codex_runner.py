@@ -206,11 +206,20 @@ def _command_modifies_candidate(command: str) -> bool:
     """Flag shell-based candidate edits without treating stderr redirects as edits."""
     if "candidate.rs" not in command:
         return False
+    temp_cd = re.search(r"\bcd\s+['\"]?/tmp(?:/[^\s;&|]*)?", command)
+    if temp_cd:
+        suffix = command[temp_cd.end() :]
+        non_temp_absolute_candidate = re.search(
+            r"(?:^|\s)/(?!tmp(?:/|\s))[^\s;&|'\"]*/candidate\.rs\b",
+            suffix,
+        )
+        if not non_temp_absolute_candidate:
+            command = command[: temp_cd.start()]
     edit_patterns = (
-        r"\bsed\b[^\n]*\s-i(?:\s|$)",
-        r"\bperl\b[^\n]*\s-i(?:\s|$)",
-        r"\bpython(?:3)?\b",
-        r"\b(?:cp|mv)\b",
+        r"\bsed\b(?=[^;&|\n]*\s-i(?:\s|$))[^;&|\n]*\bcandidate\.rs\b",
+        r"\bperl\b(?=[^;&|\n]*\s-i(?:\s|$))[^;&|\n]*\bcandidate\.rs\b",
+        r"\bpython(?:3)?\b[^;&|\n]*\bcandidate\.rs\b",
+        r"\b(?:cp|mv)\b[^;&|\n]*\s['\"]?(?:\./)?candidate\.rs['\"]?\s*(?:[;&|]|$)",
         r"(?:^|\s)\d*>>?\s*['\"]?(?:\./)?candidate\.rs\b",
         r"(?:^|\s)tee(?:\s+-a)?\s+['\"]?(?:\./)?candidate\.rs\b",
     )

@@ -19,7 +19,24 @@ class CodexRunnerTest(unittest.TestCase):
         )
         self.assertFalse(_command_modifies_candidate("sed -n '1,80p' candidate.rs"))
         self.assertFalse(_command_modifies_candidate("git diff -- candidate.rs"))
+        self.assertFalse(
+            _command_modifies_candidate(
+                "cp candidate.rs /tmp/probe.rs && sed -i 's/a/b/' /tmp/probe.rs"
+            )
+        )
+        self.assertFalse(
+            _command_modifies_candidate(
+                "cp input.rs /tmp/probe/candidate.rs && cd /tmp/probe "
+                "&& sed -i 's/a/b/' candidate.rs"
+            )
+        )
         self.assertTrue(_command_modifies_candidate("sed -i 's/a/b/' candidate.rs"))
+        self.assertTrue(
+            _command_modifies_candidate(
+                "cd /tmp/probe && sed -i 's/a/b/' /workspace/candidate.rs"
+            )
+        )
+        self.assertTrue(_command_modifies_candidate("cp proof.rs candidate.rs"))
         self.assertTrue(_command_modifies_candidate("printf x > candidate.rs"))
         self.assertTrue(_command_modifies_candidate("cat proof.rs | tee candidate.rs"))
 
