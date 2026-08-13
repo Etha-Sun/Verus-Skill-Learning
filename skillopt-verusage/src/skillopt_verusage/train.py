@@ -50,7 +50,7 @@ def _adapter(cfg: dict[str, Any]) -> VeruSAGEAdapter:
             bridge_ledger_path=cfg["codex_bridge_ledger_path"],
             bridge_manifest_path=cfg["codex_bridge_manifest_path"],
             model=cfg["target_model"],
-            reasoning_effort=cfg.get("target_reasoning_effort", "high"),
+            reasoning_effort=cfg.get("reasoning_effort", "high"),
             workers=cfg.get("workers", 40),
             analyst_workers=cfg["analyst_workers"],
             failure_only=cfg["failure_only"],

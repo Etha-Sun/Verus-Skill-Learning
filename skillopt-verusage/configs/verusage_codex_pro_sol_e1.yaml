@@ -4,7 +4,7 @@ model:
   target: deepseek-v4-pro
   optimizer_backend: codex_exec
   target_backend: codex_exec
-  target_reasoning_effort: max
+  reasoning_effort: max
   codex_exec_path: ${CODEX_CLI_BIN}
   codex_exec_sandbox: read-only
   codex_exec_profile: ""
