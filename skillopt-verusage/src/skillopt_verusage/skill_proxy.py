@@ -11,8 +11,13 @@ from openai import OpenAI
 
 from skillopt_verusage.budget_guard import (
     SharedBudgetGuard,
-    estimate_flash_cost,
-    estimate_flash_request_upper_bound,
+    estimate_deepseek_cost,
+    estimate_deepseek_request_upper_bound,
+)
+from skillopt_verusage.retrieval import (
+    load_retrieval_cards,
+    render_retrieved_card,
+    retrieve_card,
 )
 
 
@@ -69,6 +74,8 @@ class SkillAwareDeepSeekLLM:
         budget_prior_spend_usd: float = 0.0,
         budget_optimizer_reserve_usd: float = 1.0,
         budget_request_reserve_usd: float = 0.3,
+        retrieval_cards_path: Path | None = None,
+        retrieval_project: str = "any",
         client: Any | None = None,
     ):
         api_key = os.environ.get("DEEPSEEK_API_KEY", "")
@@ -88,6 +95,12 @@ class SkillAwareDeepSeekLLM:
         self.max_reasoning_output_tokens = int(max_reasoning_output_tokens)
         self.request_timeout_seconds = int(request_timeout_seconds)
         self.request_count = 0
+        self.retrieval_cards = (
+            load_retrieval_cards(retrieval_cards_path)
+            if retrieval_cards_path is not None
+            else None
+        )
+        self.retrieval_project = retrieval_project
         self.budget_guard = (
             SharedBudgetGuard(
                 budget_state_path,
@@ -106,23 +119,35 @@ class SkillAwareDeepSeekLLM:
             timeout=self.request_timeout_seconds,
         )
 
-    @property
-    def skill_block(self) -> str:
-        separator = "" if self.skill_text.endswith("\n") else "\n"
+    def _skill_block(self, retrieval: dict[str, Any] | None) -> str:
+        skill_text = self.skill_text
+        if retrieval is not None:
+            skill_text = f"{skill_text.rstrip()}\n\n{render_retrieved_card(retrieval)}\n"
+        separator = "" if skill_text.endswith("\n") else "\n"
         return (
-            f'{BEGIN} sha256="{self.skill_sha256}">\n'
-            f"{self.skill_text}{separator}{END}"
+            f'{BEGIN} sha256="{_sha256_text(skill_text)}">\n'
+            f"{skill_text}{separator}{END}"
         )
 
-    def _inject(self, messages: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    def _retrieval(self, messages: list[dict[str, Any]]) -> dict[str, Any] | None:
+        if self.retrieval_cards is None:
+            return None
+        return retrieve_card(self.retrieval_cards, messages, self.retrieval_project)
+
+    def _inject(
+        self,
+        messages: list[dict[str, Any]],
+        retrieval: dict[str, Any] | None = None,
+    ) -> list[dict[str, Any]]:
         result = [dict(message) for message in messages]
+        block = self._skill_block(retrieval)
         for message in result:
             if message.get("role") == "system":
                 content = str(message.get("content") or "")
                 if BEGIN not in content:
-                    message["content"] = f"{content.rstrip()}\n\n{self.skill_block}"
+                    message["content"] = f"{content.rstrip()}\n\n{block}"
                 return result
-        result.insert(0, {"role": "system", "content": self.skill_block})
+        result.insert(0, {"role": "system", "content": block})
         return result
 
     def _call(
@@ -136,7 +161,8 @@ class SkillAwareDeepSeekLLM:
         json_mode: bool,
         timeout: float,
     ) -> list[str]:
-        injected = self._inject(messages)
+        retrieval = self._retrieval(messages)
+        injected = self._inject(messages, retrieval)
         requested_tokens = max(1, int(max_tokens))
         thinking = requested_tokens >= 8192
         budgets = (
@@ -161,8 +187,9 @@ class SkillAwareDeepSeekLLM:
                 for transport_retry in range(2):
                     if self.request_count >= self.request_cap:
                         raise RuntimeError("REQUEST_BUDGET_EXCEEDED")
-                    reserve_usd = estimate_flash_request_upper_bound(
-                        effective_tokens
+                    reserve_usd = estimate_deepseek_request_upper_bound(
+                        effective_tokens,
+                        engine,
                     )
                     reservation_id = (
                         self.budget_guard.reserve(reserve_usd)
@@ -200,7 +227,7 @@ class SkillAwareDeepSeekLLM:
                         if self.budget_guard and reservation_id:
                             self.budget_guard.settle(
                                 reservation_id,
-                                cost_usd=estimate_flash_cost(usage),
+                                cost_usd=estimate_deepseek_cost(usage, engine),
                                 usage=usage,
                             )
                             reservation_id = None
@@ -239,6 +266,15 @@ class SkillAwareDeepSeekLLM:
                                 ),
                                 "budget_reserve_usd": reserve_usd,
                                 "skill_sha256": self.skill_sha256,
+                                "retrieved_card_id": (
+                                    retrieval["card"]["id"] if retrieval else None
+                                ),
+                                "retrieval_score": (
+                                    retrieval["score"] if retrieval else 0
+                                ),
+                                "retrieval_matched_triggers": (
+                                    retrieval["matched_triggers"] if retrieval else []
+                                ),
                                 "system_message_sha256": _sha256_text(
                                     str(injected[0].get("content") or "")
                                 ),
@@ -259,7 +295,9 @@ class SkillAwareDeepSeekLLM:
                                 "response_issue": response_issue,
                                 "accepted": accepted,
                                 "usage": usage,
-                                "estimated_cost_usd": estimate_flash_cost(usage),
+                                "estimated_cost_usd": estimate_deepseek_cost(
+                                    usage, engine
+                                ),
                                 "wall_seconds": time.monotonic() - started,
                                 "error": None,
                             },
@@ -296,6 +334,15 @@ class SkillAwareDeepSeekLLM:
                                 ),
                                 "budget_reserve_usd": reserve_usd,
                                 "skill_sha256": self.skill_sha256,
+                                "retrieved_card_id": (
+                                    retrieval["card"]["id"] if retrieval else None
+                                ),
+                                "retrieval_score": (
+                                    retrieval["score"] if retrieval else 0
+                                ),
+                                "retrieval_matched_triggers": (
+                                    retrieval["matched_triggers"] if retrieval else []
+                                ),
                                 "system_message_sha256": _sha256_text(
                                     str(injected[0].get("content") or "")
                                 ),
@@ -371,7 +418,11 @@ class SkillAwareDeepSeekLLM:
             json_mode=json,
             timeout=timeout,
         )
-        return (answers, self._inject(messages)) if return_msg else answers
+        return (
+            (answers, self._inject(messages, self._retrieval(messages)))
+            if return_msg
+            else answers
+        )
 
     def infer_llm_with_history(
         self,
@@ -397,4 +448,8 @@ class SkillAwareDeepSeekLLM:
             json_mode=json,
             timeout=100,
         )
-        return (answers, self._inject(messages)) if return_msg else answers
+        return (
+            (answers, self._inject(messages, self._retrieval(messages)))
+            if return_msg
+            else answers
+        )

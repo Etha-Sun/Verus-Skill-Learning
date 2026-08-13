@@ -9,28 +9,60 @@ from pathlib import Path
 from typing import Any
 
 
-FLASH_RATES_USD_PER_MILLION = {
-    "prompt_cache_hit_tokens": 0.0028,
-    "prompt_cache_miss_tokens": 0.14,
-    "completion_tokens": 0.28,
+DEEPSEEK_RATES_USD_PER_MILLION = {
+    "deepseek-v4-flash": {
+        "prompt_cache_hit_tokens": 0.0028,
+        "prompt_cache_miss_tokens": 0.14,
+        "completion_tokens": 0.28,
+    },
+    "deepseek-v4-pro": {
+        "prompt_cache_hit_tokens": 0.003625,
+        "prompt_cache_miss_tokens": 0.435,
+        "completion_tokens": 0.87,
+    },
 }
+FLASH_RATES_USD_PER_MILLION = DEEPSEEK_RATES_USD_PER_MILLION[
+    "deepseek-v4-flash"
+]
 
 
-def estimate_flash_cost(usage: dict[str, int]) -> float:
+def rates_for_model(model: str) -> dict[str, float]:
+    try:
+        return DEEPSEEK_RATES_USD_PER_MILLION[model]
+    except KeyError as error:
+        raise ValueError(f"unsupported DeepSeek billing model: {model}") from error
+
+
+def estimate_deepseek_cost(usage: dict[str, int], model: str) -> float:
     return sum(
         int(usage.get(key, 0) or 0) * rate / 1_000_000
-        for key, rate in FLASH_RATES_USD_PER_MILLION.items()
+        for key, rate in rates_for_model(model).items()
     )
 
 
-def estimate_flash_request_upper_bound(max_completion_tokens: int) -> float:
+def estimate_deepseek_request_upper_bound(
+    max_completion_tokens: int,
+    model: str,
+) -> float:
     """Conservative request bound: 1M uncached input plus capped output."""
 
-    return estimate_flash_cost(
+    return estimate_deepseek_cost(
         {
             "prompt_cache_miss_tokens": 1_000_000,
             "completion_tokens": max_completion_tokens,
-        }
+        },
+        model,
+    )
+
+
+def estimate_flash_cost(usage: dict[str, int]) -> float:
+    return estimate_deepseek_cost(usage, "deepseek-v4-flash")
+
+
+def estimate_flash_request_upper_bound(max_completion_tokens: int) -> float:
+    return estimate_deepseek_request_upper_bound(
+        max_completion_tokens,
+        "deepseek-v4-flash",
     )
 
 

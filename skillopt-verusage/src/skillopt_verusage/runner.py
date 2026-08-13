@@ -13,7 +13,7 @@ import types
 from pathlib import Path
 from typing import Any
 
-from skillopt_verusage.budget_guard import FLASH_RATES_USD_PER_MILLION
+from skillopt_verusage.budget_guard import estimate_deepseek_cost
 from skillopt_verusage.skill_proxy import SkillAwareDeepSeekLLM
 
 
@@ -90,7 +90,7 @@ def _load_calls(path: Path) -> list[dict[str, Any]]:
         return [json.loads(line) for line in handle if line.strip()]
 
 
-def _usage_summary(calls: list[dict[str, Any]]) -> dict[str, Any]:
+def _usage_summary(calls: list[dict[str, Any]], model: str) -> dict[str, Any]:
     totals: dict[str, Any] = {
         "requests": len(calls),
         "prompt_tokens": 0,
@@ -103,10 +103,7 @@ def _usage_summary(calls: list[dict[str, Any]]) -> dict[str, Any]:
         for key in totals:
             if key != "requests":
                 totals[key] += int(usage.get(key, 0) or 0)
-    cost = sum(
-        totals[key] * rate / 1_000_000
-        for key, rate in FLASH_RATES_USD_PER_MILLION.items()
-    )
+    cost = estimate_deepseek_cost(totals, model)
     totals["estimated_cost_usd"] = round(cost, 8)
     return totals
 
@@ -192,6 +189,7 @@ def run_task(
     budget_prior_spend_usd: float = 0.0,
     budget_optimizer_reserve_usd: float = 1.0,
     budget_request_reserve_usd: float = 0.3,
+    retrieval_cards_path: Path | None = None,
 ) -> dict[str, Any]:
     started = time.monotonic()
     if Path(item_id).name != item_id:
@@ -244,6 +242,9 @@ def run_task(
         "budget_approval_limit_usd": budget_approval_limit_usd,
         "budget_prior_spend_usd": budget_prior_spend_usd,
         "budget_optimizer_reserve_usd": budget_optimizer_reserve_usd,
+        "retrieval_cards_path": (
+            str(retrieval_cards_path.resolve()) if retrieval_cards_path else None
+        ),
         "reference_proof_visible": False,
         "prior_trace_visible": False,
     }
@@ -280,6 +281,10 @@ def run_task(
                     budget_prior_spend_usd=budget_prior_spend_usd,
                     budget_optimizer_reserve_usd=budget_optimizer_reserve_usd,
                     budget_request_reserve_usd=budget_request_reserve_usd,
+                    retrieval_cards_path=retrieval_cards_path,
+                    retrieval_project=(
+                        "anvil" if directory_group == "verified-anvil" else "ironkv"
+                    ),
                 )
 
         infer_module = types.ModuleType("infer")
@@ -353,7 +358,7 @@ def run_task(
     )
 
     calls = _load_calls(calls_path)
-    usage = _usage_summary(calls)
+    usage = _usage_summary(calls, model)
     accepted_calls = [call for call in calls if call.get("accepted") is True]
     rejected_responses = [
         call for call in calls if call.get("response_issue") not in {None, "provider_error"}
@@ -440,6 +445,7 @@ def main() -> None:
     parser.add_argument("--budget-prior-spend-usd", type=float, default=0.0)
     parser.add_argument("--budget-optimizer-reserve-usd", type=float, default=1.0)
     parser.add_argument("--budget-request-reserve-usd", type=float, default=0.3)
+    parser.add_argument("--retrieval-cards-path", type=Path)
     args = parser.parse_args()
     result = run_task(**vars(args))
     print(json.dumps(result, ensure_ascii=False))

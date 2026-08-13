@@ -7,7 +7,10 @@ import unittest
 from pathlib import Path
 from types import SimpleNamespace
 
-from skillopt_verusage.budget_guard import SharedBudgetGuard
+from skillopt_verusage.budget_guard import (
+    SharedBudgetGuard,
+    estimate_deepseek_cost,
+)
 from skillopt_verusage.skill_proxy import BEGIN, SkillAwareDeepSeekLLM
 
 
@@ -39,6 +42,17 @@ class FakeCompletions:
 
 
 class SkillProxyTest(unittest.TestCase):
+    def test_pro_pricing_is_model_aware(self) -> None:
+        usage = {
+            "prompt_cache_hit_tokens": 1_000_000,
+            "prompt_cache_miss_tokens": 1_000_000,
+            "completion_tokens": 1_000_000,
+        }
+        self.assertAlmostEqual(
+            estimate_deepseek_cost(usage, "deepseek-v4-pro"),
+            1.308625,
+        )
+
     def test_proxy_injects_exact_skill_and_records_usage(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             completions = FakeCompletions()

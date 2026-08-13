@@ -8,7 +8,7 @@ from pathlib import Path
 
 from openai import OpenAI
 
-from skillopt_verusage.runner import FLASH_RATES_USD_PER_MILLION
+from skillopt_verusage.budget_guard import estimate_deepseek_cost
 from skillopt_verusage.skill_proxy import _usage_dict
 
 
@@ -54,13 +54,7 @@ def main() -> None:
         extra_body={"thinking": {"type": "disabled"}},
     )
     usage = _usage_dict(response.usage)
-    estimated_cost_usd = round(
-        sum(
-            usage[key_name] * rate / 1_000_000
-            for key_name, rate in FLASH_RATES_USD_PER_MILLION.items()
-        ),
-        8,
-    )
+    estimated_cost_usd = round(estimate_deepseek_cost(usage, args.model), 8)
     result = {
         "status": "ok",
         "model": args.model,

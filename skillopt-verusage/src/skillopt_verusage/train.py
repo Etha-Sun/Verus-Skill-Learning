@@ -64,6 +64,7 @@ def _adapter(cfg: dict[str, Any]) -> VeruSAGEAdapter:
         budget_prior_spend_usd=cfg.get("budget_prior_spend_usd", 0.0),
         budget_optimizer_reserve_usd=cfg.get("budget_optimizer_reserve_usd", 1.0),
         budget_request_reserve_usd=cfg.get("budget_request_reserve_usd", 0.3),
+        retrieval_cards_path=cfg.get("retrieval_cards_path"),
         seed=cfg["seed"],
     )
 
