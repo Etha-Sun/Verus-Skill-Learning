@@ -233,8 +233,8 @@ Actor & Optimizer & Tasks & Requests & \mbox{Input (cached)} & Output & Actor co
 \midrule
 \dflashshort{} & \dflashshort{} & 80 & 4,184 & \mbox{35.528M (27.766M)} & 14.403M & \$5.1971 & \$0.0650 & \$0.0351 \\
 \dflashshort{} & \dproshort{} & 0 & 0 & \na{} & \na{} & \$0 & \na{} & \$0.0581 \\
-\dflashshort{} & \sol{} & 20 & 1,627 & \mbox{12.925M (9.559M)} & 5.447M & \$2.0230 & \$0.1011 & \$0 local \\
-\dproshort{} & \sol{} & 80 & 3,559 & \mbox{197.107M (194.614M)} & 2.986M & \$4.3879 & \$0.0548 & \$0 local \\
+\dflashshort{} & \sol{} & 20 & 1,627 & \mbox{12.925M (9.559M)} & 5.447M & \$2.0230 & \$0.1011 & \$0 local quota \\
+\dproshort{} & \sol{} & 80 & 3,559 & \mbox{197.107M (194.614M)} & 2.986M & \$4.3879 & \$0.0548 & \$0 local quota \\
 \bottomrule
 \end{tabular*}
 \vspace{2pt}
@@ -244,8 +244,7 @@ The first three experiments share the same 40 Flash training trajectories:
 F/F generated them, while F/P and F/S reused them. F/P performed optimizer-only
 analysis and was rejected before the gate because the Pro-generated candidate
 incorrectly attributed a verifier failure. F/S therefore ran only a fresh
-20-task selection gate; P/S ran a full 80-task epoch. The \sol{} optimizer used
-local Codex quota, so its metered API cost was \$0.
+20-task selection gate; P/S ran a full 80-task epoch.
 \end{minipage}
 \caption{Measured actor usage and optimizer usage. Dollar values are estimated
 from the provider usage ledgers.}
