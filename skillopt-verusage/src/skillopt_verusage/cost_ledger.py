@@ -49,6 +49,36 @@ def _target_usage(
 
 def _optimizer_usage(run_root: Path, model: str) -> dict[str, Any]:
     rates = rates_for_model(model)
+    codex_ledger = run_root / "optimizer_calls.jsonl"
+    if codex_ledger.is_file():
+        rows = [
+            json.loads(line)
+            for line in codex_ledger.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        ]
+        successful = [row for row in rows if row.get("status") == "success"]
+        prompt = sum(
+            int((row.get("usage") or {}).get("prompt_tokens", 0) or 0)
+            for row in successful
+        )
+        completion = sum(
+            int((row.get("usage") or {}).get("completion_tokens", 0) or 0)
+            for row in successful
+        )
+        return {
+            "source": "codex_optimizer_calls",
+            "calls": len(successful),
+            "failed_calls": len(rows) - len(successful),
+            "prompt_tokens": prompt,
+            "completion_tokens": completion,
+            "actual_metered_cost_usd": 0.0,
+            "estimated_cost_usd_all_prompt_cache_miss": (
+                prompt * rates["prompt_cache_miss_tokens"]
+                + completion * rates["completion_tokens"]
+            )
+            / 1_000_000,
+            "estimate_only": "DeepSeek-equivalent rate; optimizer used local Codex quota",
+        }
     summary_path = run_root / "summary.json"
     if summary_path.is_file():
         summary = json.loads(summary_path.read_text(encoding="utf-8"))
@@ -120,6 +150,33 @@ def build_cost_ledger(run_root: Path) -> dict[str, Any]:
         **{key: 0 for key in TOKEN_KEYS},
     }
     by_phase: dict[str, dict[str, Any]] = {}
+    bridge_path = run_root / "bridge_calls.jsonl"
+    if bridge_path.is_file():
+        rows = [
+            json.loads(line)
+            for line in bridge_path.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        ]
+        task_ids: set[str] = set()
+        for row in rows:
+            task_id = str(row.get("task_id") or "")
+            if task_id:
+                task_ids.add(task_id)
+            for attempt in row.get("attempts") or []:
+                usage = attempt.get("usage")
+                if not isinstance(usage, dict):
+                    continue
+                target["requests"] += 1
+                for key in TOKEN_KEYS:
+                    target[key] += int(usage.get(key, 0) or 0)
+        target["task_ledgers"] = len(task_ids)
+        target["completed_task_ledgers"] = len(task_ids)
+        target["ledger_source"] = "codex_responses_bridge"
+        by_phase["codex_bridge"] = {
+            "tasks": len(task_ids),
+            "requests": target["requests"],
+            **{key: target[key] for key in TOKEN_KEYS},
+        }
     for task_dir in task_dirs:
         usage, complete = _target_usage(task_dir, model)
         relative = task_dir.relative_to(run_root)

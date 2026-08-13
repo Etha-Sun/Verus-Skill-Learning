@@ -1,0 +1,13 @@
+{
+  "title": "SkillOpt Codex Harness Alignment",
+  "project": "verus_self_evolving",
+  "kind": "decisions",
+  "created_at": "2026-08-13T03:52:34-05:00",
+  "status": "complete",
+  "links": [
+    "skill-evolution-pilot/src/skill_evolution_pilot/codex_runner.py",
+    "src/verus_self_evolve/codex_baseline.py",
+    "skillopt-verusage/refine-logs/EXPERIMENT_PLAN.md"
+  ],
+  "raw_data_read_only": true
+}

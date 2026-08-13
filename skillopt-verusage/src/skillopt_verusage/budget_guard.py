@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import fcntl
 import json
 import os
@@ -213,3 +214,27 @@ class SharedBudgetGuard:
             return amount
 
         return float(self._update(apply))
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("action", choices=["mark-stale-uncertain"])
+    parser.add_argument("--state", type=Path, required=True)
+    parser.add_argument("--approval-limit-usd", type=float, required=True)
+    parser.add_argument("--prior-spend-usd", type=float, required=True)
+    parser.add_argument("--optimizer-reserve-usd", type=float, required=True)
+    parser.add_argument("--request-reserve-usd", type=float, default=0.3)
+    args = parser.parse_args()
+    guard = SharedBudgetGuard(
+        args.state,
+        approval_limit_usd=args.approval_limit_usd,
+        prior_spend_usd=args.prior_spend_usd,
+        optimizer_reserve_usd=args.optimizer_reserve_usd,
+        request_reserve_usd=args.request_reserve_usd,
+    )
+    amount = guard.mark_stale_reservations_uncertain()
+    print(json.dumps({"marked_uncertain_usd": amount}, indent=2))
+
+
+if __name__ == "__main__":
+    main()

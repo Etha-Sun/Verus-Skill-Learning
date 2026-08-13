@@ -131,6 +131,24 @@ last.write_text("complete")
         self.assertIn("hide_agent_reasoning=false", joined)
         self.assertIn("show_raw_agent_reasoning=true", joined)
 
+    def test_command_supports_responses_bridge_without_changing_defaults(self):
+        command = build_command(
+            codex_bin=Path("/tools/codex"),
+            workspace=Path("/run/workspace"),
+            last_message=Path("/run/last.txt"),
+            model="deepseek-v4-flash",
+            reasoning_effort="high",
+            provider_id="deepseek_bridge",
+            provider_base_url="http://127.0.0.1:18080/tasks/task-1/v1",
+            provider_env_key="DEEPSEEK_API_KEY",
+            model_context_window=262144,
+        )
+        joined = " ".join(command)
+        self.assertIn('model_provider="deepseek_bridge"', joined)
+        self.assertIn('wire_api="responses"', joined)
+        self.assertIn("model_context_window=262144", joined)
+        self.assertNotIn("dummy-secret", joined)
+
 
 if __name__ == "__main__":
     unittest.main()
