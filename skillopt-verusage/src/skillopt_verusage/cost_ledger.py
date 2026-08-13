@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from skillopt_verusage.runner import FLASH_RATES_USD_PER_MILLION
+from skillopt_verusage.budget_guard import estimate_deepseek_cost, rates_for_model
 
 
 TOKEN_KEYS = (
@@ -16,14 +16,14 @@ TOKEN_KEYS = (
 )
 
 
-def _cost(totals: dict[str, Any]) -> float:
-    return sum(
-        int(totals.get(key, 0) or 0) * rate / 1_000_000
-        for key, rate in FLASH_RATES_USD_PER_MILLION.items()
-    )
+def _cost(totals: dict[str, Any], model: str) -> float:
+    return estimate_deepseek_cost(totals, model)
 
 
-def _target_usage(task_dir: Path) -> tuple[dict[str, Any], bool]:
+def _target_usage(
+    task_dir: Path,
+    model: str,
+) -> tuple[dict[str, Any], bool]:
     usage_path = task_dir / "usage.json"
     if usage_path.is_file():
         try:
@@ -43,11 +43,12 @@ def _target_usage(task_dir: Path) -> tuple[dict[str, Any], bool]:
         usage = call.get("usage") or {}
         for key in TOKEN_KEYS:
             totals[key] += int(usage.get(key, 0) or 0)
-    totals["estimated_cost_usd"] = _cost(totals)
+    totals["estimated_cost_usd"] = _cost(totals, model)
     return totals, False
 
 
-def _optimizer_usage(run_root: Path) -> dict[str, Any]:
+def _optimizer_usage(run_root: Path, model: str) -> dict[str, Any]:
+    rates = rates_for_model(model)
     summary_path = run_root / "summary.json"
     if summary_path.is_file():
         summary = json.loads(summary_path.read_text(encoding="utf-8"))
@@ -61,11 +62,9 @@ def _optimizer_usage(run_root: Path) -> dict[str, Any]:
             "prompt_tokens": prompt,
             "completion_tokens": completion,
             "estimated_cost_usd_all_prompt_cache_miss": (
-                prompt * FLASH_RATES_USD_PER_MILLION[
-                    "prompt_cache_miss_tokens"
-                ]
+                prompt * rates["prompt_cache_miss_tokens"]
                 + completion
-                * FLASH_RATES_USD_PER_MILLION["completion_tokens"]
+                * rates["completion_tokens"]
             )
             / 1_000_000,
         }
@@ -86,15 +85,30 @@ def _optimizer_usage(run_root: Path) -> dict[str, Any]:
         "completion_tokens": completion,
         "estimated_cost_usd_all_prompt_cache_miss": (
             prompt
-            * FLASH_RATES_USD_PER_MILLION["prompt_cache_miss_tokens"]
-            + completion * FLASH_RATES_USD_PER_MILLION["completion_tokens"]
+            * rates["prompt_cache_miss_tokens"]
+            + completion * rates["completion_tokens"]
         )
         / 1_000_000,
     }
 
 
+def _target_model(run_root: Path) -> str:
+    models: set[str] = set()
+    for path in run_root.rglob("run_manifest.json"):
+        try:
+            model = str(json.loads(path.read_text(encoding="utf-8")).get("model") or "")
+        except json.JSONDecodeError:
+            continue
+        if model:
+            models.add(model)
+    if len(models) > 1:
+        raise ValueError(f"mixed target models in one run: {sorted(models)}")
+    return next(iter(models), "deepseek-v4-flash")
+
+
 def build_cost_ledger(run_root: Path) -> dict[str, Any]:
     run_root = run_root.resolve()
+    model = _target_model(run_root)
     task_dirs = sorted(
         path.parent for path in run_root.rglob("target_calls.jsonl")
     )
@@ -107,7 +121,7 @@ def build_cost_ledger(run_root: Path) -> dict[str, Any]:
     }
     by_phase: dict[str, dict[str, Any]] = {}
     for task_dir in task_dirs:
-        usage, complete = _target_usage(task_dir)
+        usage, complete = _target_usage(task_dir, model)
         relative = task_dir.relative_to(run_root)
         phase = relative.parts[0] if relative.parts else "unknown"
         phase_totals = by_phase.setdefault(
@@ -120,17 +134,17 @@ def build_cost_ledger(run_root: Path) -> dict[str, Any]:
             value = int(usage.get(key, 0) or 0)
             target[key] += value
             phase_totals[key] += value
-    target["estimated_cost_usd"] = _cost(target)
+    target["estimated_cost_usd"] = _cost(target, model)
     for totals in by_phase.values():
-        totals["estimated_cost_usd"] = _cost(totals)
+        totals["estimated_cost_usd"] = _cost(totals, model)
 
-    optimizer = _optimizer_usage(run_root)
+    optimizer = _optimizer_usage(run_root, model)
     combined = target["estimated_cost_usd"] + optimizer[
         "estimated_cost_usd_all_prompt_cache_miss"
     ]
     return {
         "schema_version": "1",
-        "model": "deepseek-v4-flash",
+        "model": model,
         "status": "complete" if (run_root / "summary.json").is_file() else "running",
         "target": target,
         "target_by_phase": by_phase,

@@ -47,6 +47,7 @@ class VeruSAGEAdapter(EnvAdapter):
         budget_prior_spend_usd: float = 0.0,
         budget_optimizer_reserve_usd: float = 1.0,
         budget_request_reserve_usd: float = 0.3,
+        retrieval_cards_path: str | None = None,
         seed: int = 42,
     ):
         self.verusage_src_root = Path(verusage_src_root).resolve()
@@ -74,6 +75,7 @@ class VeruSAGEAdapter(EnvAdapter):
         self.budget_prior_spend_usd = float(budget_prior_spend_usd)
         self.budget_optimizer_reserve_usd = float(budget_optimizer_reserve_usd)
         self.budget_request_reserve_usd = float(budget_request_reserve_usd)
+        self.retrieval_cards_path = retrieval_cards_path
         self._process_lock = threading.Lock()
         self._active_processes: set[subprocess.Popen[str]] = set()
         self.dataloader = VeruSAGEDataLoader(
@@ -200,6 +202,8 @@ class VeruSAGEAdapter(EnvAdapter):
         ]
         if self.budget_state_path:
             command.extend(["--budget-state-path", self.budget_state_path])
+        if self.retrieval_cards_path:
+            command.extend(["--retrieval-cards-path", self.retrieval_cards_path])
         process: subprocess.Popen[str] | None = None
         try:
             process = subprocess.Popen(
