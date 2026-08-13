@@ -230,16 +230,16 @@ rollout, and candidate gate.
 \centering
 \scriptsize
 \setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}llrrlrrrr@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llrrlrrrr@{}}
 \toprule
-Actor & Optimizer & Tasks & Req. & \mbox{Input (cached)} & Output & Actor cost & Cost/task & Optimizer cost \\
+Actor & Optimizer & Tasks & Requests & \mbox{Input (cached)} & Output & Actor cost & Cost/task & Optimizer cost \\
 \midrule
 \dflashshort{} & \dflashshort{} & 80 & 4,184 & \mbox{35.528M (27.766M)} & 14.403M & \$5.1971 & \$0.0650 & \$0.0351 \\
 \dflashshort{} & \dproshort{} & 0 & 0 & \na{} & \na{} & \$0 & \na{} & \$0.0581 \\
 \dflashshort{} & \sol{} & 20 & 1,627 & \mbox{12.925M (9.559M)} & 5.447M & \$2.0230 & \$0.1011 & \$0 local \\
 \dproshort{} & \sol{} & 80 & 3,559 & \mbox{197.107M (194.614M)} & 2.986M & \$4.3879 & \$0.0548 & \$0 local \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \vspace{2pt}
 \begin{minipage}{\textwidth}\footnotesize
 \emph{Notes.} Parentheses in ``Input (cached)'' report cache-hit input tokens.
