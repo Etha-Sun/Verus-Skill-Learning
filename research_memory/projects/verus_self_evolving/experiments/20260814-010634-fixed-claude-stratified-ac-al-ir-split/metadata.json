@@ -1,0 +1,11 @@
+{
+  "title": "Fixed Claude-stratified AC AL IR split",
+  "project": "verus_self_evolving",
+  "kind": "experiments",
+  "created_at": "2026-08-14T01:06:34",
+  "status": "complete",
+  "links": [
+    "skillopt-verusage/refine-logs/FIXED_CLAUDE_STRATIFIED_SPLIT_20260814.md"
+  ],
+  "raw_data_read_only": true
+}
