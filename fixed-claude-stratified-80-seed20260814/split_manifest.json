@@ -1,0 +1,187 @@
+{
+  "schema_version": "1",
+  "seed": 20260814,
+  "counts": {
+    "train": 40,
+    "val": 20,
+    "test": 20
+  },
+  "by_project": {
+    "train": {
+      "AC": 12,
+      "AL": 14,
+      "IR": 14
+    },
+    "val": {
+      "AC": 6,
+      "AL": 7,
+      "IR": 7
+    },
+    "test": {
+      "AC": 6,
+      "AL": 7,
+      "IR": 7
+    }
+  },
+  "by_claude_outcome": {
+    "train": {
+      "failed": 10,
+      "normal": 30
+    },
+    "val": {
+      "failed": 5,
+      "normal": 15
+    },
+    "test": {
+      "failed": 5,
+      "normal": 15
+    }
+  },
+  "by_claude_status": {
+    "train": {
+      "FAILED": 9,
+      "TIMEOUT": 1,
+      "VERIFIED": 30
+    },
+    "val": {
+      "FAILED": 5,
+      "VERIFIED": 15
+    },
+    "test": {
+      "FAILED": 4,
+      "TIMEOUT": 1,
+      "VERIFIED": 15
+    }
+  },
+  "by_project_and_outcome": {
+    "train": {
+      "AC/failed": 4,
+      "AC/normal": 8,
+      "AL/failed": 2,
+      "AL/normal": 12,
+      "IR/failed": 4,
+      "IR/normal": 10
+    },
+    "val": {
+      "AC/failed": 2,
+      "AC/normal": 4,
+      "AL/failed": 1,
+      "AL/normal": 6,
+      "IR/failed": 2,
+      "IR/normal": 5
+    },
+    "test": {
+      "AC/failed": 2,
+      "AC/normal": 4,
+      "AL/failed": 1,
+      "AL/normal": 6,
+      "IR/failed": 2,
+      "IR/normal": 5
+    }
+  },
+  "difficulty": {
+    "train": {
+      "source_loc": {
+        "mean": 1120.025,
+        "median": 198.5,
+        "min": 11.0,
+        "max": 5407.0
+      },
+      "claude_time_seconds": {
+        "mean": 433.182,
+        "median": 139.195,
+        "min": 13.78,
+        "max": 1800.01
+      },
+      "claude_total_tokens": {
+        "mean": 391099.775,
+        "median": 43800.5,
+        "min": 0.0,
+        "max": 2760420.0
+      },
+      "difficulty_proxy": {
+        "mean": 0.503,
+        "median": 0.472,
+        "min": 0.039,
+        "max": 0.991
+      }
+    },
+    "val": {
+      "source_loc": {
+        "mean": 996.1,
+        "median": 136.0,
+        "min": 20.0,
+        "max": 4966.0
+      },
+      "claude_time_seconds": {
+        "mean": 376.078,
+        "median": 84.885,
+        "min": 11.91,
+        "max": 1459.75
+      },
+      "claude_total_tokens": {
+        "mean": 442362.0,
+        "median": 55049.5,
+        "min": 2028.0,
+        "max": 2835623.0
+      },
+      "difficulty_proxy": {
+        "mean": 0.481,
+        "median": 0.48,
+        "min": 0.051,
+        "max": 0.904
+      }
+    },
+    "test": {
+      "source_loc": {
+        "mean": 1252.25,
+        "median": 122.0,
+        "min": 13.0,
+        "max": 4965.0
+      },
+      "claude_time_seconds": {
+        "mean": 432.048,
+        "median": 218.885,
+        "min": 14.12,
+        "max": 1800.01
+      },
+      "claude_total_tokens": {
+        "mean": 404007.4,
+        "median": 55039.0,
+        "min": 0.0,
+        "max": 2927436.0
+      },
+      "difficulty_proxy": {
+        "mean": 0.52,
+        "median": 0.514,
+        "min": 0.118,
+        "max": 0.804
+      }
+    }
+  },
+  "candidate_audit": {
+    "historical_input_match": 143,
+    "prior_r040_task": 28,
+    "prior_skillopt_task": 84
+  },
+  "source_precheck_audit": {
+    "source_precheck_failed_as_expected": 143
+  },
+  "exact_task_overlap": 0,
+  "exact_source_hash_overlap": 0,
+  "failed_fraction": {
+    "train": 0.25,
+    "val": 0.25,
+    "test": 0.25
+  },
+  "split_sha256": "a71e2a3838c2222312cc2487fc35b6a24cbc924e0a917d5e9120499f0ba2b49c",
+  "historical_label": "all_batch_results-cyy-claude final CSV status",
+  "normal_definition": "VERIFIED",
+  "failed_definition": [
+    "FAILED",
+    "TIMEOUT"
+  ],
+  "selection_directory_name": "val",
+  "reference_content_exported": false,
+  "sealed_directories_read": []
+}
