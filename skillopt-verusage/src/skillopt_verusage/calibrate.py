@@ -32,6 +32,44 @@ def _response_audit(root: Path, results: list[dict[str, Any]]) -> dict[str, Any]
             for line in path.read_text(encoding="utf-8").splitlines()
             if line.strip()
         )
+    if not calls and (root / "bridge_calls.jsonl").is_file():
+        bridge_rows = [
+            json.loads(line)
+            for line in (root / "bridge_calls.jsonl")
+            .read_text(encoding="utf-8")
+            .splitlines()
+            if line.strip()
+        ]
+        attempts = [
+            attempt
+            for row in bridge_rows
+            for attempt in row.get("attempts") or []
+        ]
+        accepted = [
+            attempt
+            for attempt in attempts
+            if not attempt.get("error") and isinstance(attempt.get("usage"), dict)
+        ]
+        silent = [
+            attempt
+            for attempt in accepted
+            if attempt.get("finish_reason") == "incomplete"
+        ]
+        unresolved = [
+            result for result in results if result.get("fidelity") == "V0_INVALID"
+        ]
+        explicit_issues = [attempt for attempt in attempts if attempt.get("error")]
+        return {
+            "requests": len(attempts),
+            "accepted_requests": len(accepted),
+            "explicitly_rejected_requests": len(explicit_issues),
+            "silent_truncations": len(silent),
+            "unresolved_response_failures": len(unresolved),
+            "task_ledgers": len(
+                {str(row.get("task_id")) for row in bridge_rows if row.get("task_id")}
+            ),
+            "passed": not silent and not unresolved and not explicit_issues,
+        }
     accepted = [call for call in calls if call.get("accepted") is True]
     silent = [
         call

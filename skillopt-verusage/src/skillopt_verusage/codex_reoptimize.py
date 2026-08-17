@@ -7,6 +7,7 @@ import os
 import re
 import threading
 import time
+import uuid
 from pathlib import Path
 from typing import Any
 
@@ -55,10 +56,68 @@ def _require_run_root(path: Path) -> Path:
 
 
 def _install_prompt_free_codex_ledger(path: Path) -> None:
-    """Record completed native optimizer calls without persisting prompts/traces."""
+    """Record every native optimizer attempt without persisting prompts/traces."""
     from skillopt.model import codex_backend
 
-    original = codex_backend._chat_messages_impl
+    original_chat = codex_backend._chat_messages_impl
+    original_exec = codex_backend._run_codex_exec
+    local = threading.local()
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    def append(row: dict[str, Any]) -> None:
+        with _LEDGER_LOCK:
+            with path.open("a", encoding="utf-8") as handle:
+                handle.write(json.dumps(row, ensure_ascii=False) + "\n")
+
+    def tracked_exec(
+        *,
+        model: str,
+        prompt: str,
+        attachments: list[dict[str, Any]],
+        output_schema: dict[str, Any] | None,
+        timeout: int | None,
+    ):
+        call_id = str(getattr(local, "call_id", "") or uuid.uuid4().hex)
+        attempt_index = int(getattr(local, "attempt_index", 0)) + 1
+        local.attempt_index = attempt_index
+        started = time.monotonic()
+        status = "success"
+        error_type: str | None = None
+        usage: dict[str, int] | None = None
+        try:
+            value, usage = original_exec(
+                model=model,
+                prompt=prompt,
+                attachments=attachments,
+                output_schema=output_schema,
+                timeout=timeout,
+            )
+            return value, usage
+        except Exception as error:
+            status = "error"
+            error_type = type(error).__name__
+            raise
+        finally:
+            append(
+                {
+                    "record_type": "optimizer_attempt",
+                    "timestamp_unix": time.time(),
+                    "call_id": call_id,
+                    "attempt_index": attempt_index,
+                    "stage": str(getattr(local, "stage", "unknown")),
+                    "model": model,
+                    "status": status,
+                    "error_type": error_type,
+                    "prompt_sha256": _sha256_text(prompt),
+                    "attachment_count": len(attachments),
+                    "requested_completion_policy": "backend_unbounded",
+                    "usage": usage,
+                    "usage_known": bool(
+                        usage and int(usage.get("total_tokens", 0) or 0) > 0
+                    ),
+                    "wall_seconds": time.monotonic() - started,
+                }
+            )
 
     def tracked(
         model: str,
@@ -68,19 +127,15 @@ def _install_prompt_free_codex_ledger(path: Path) -> None:
         stage: str,
         **kwargs: Any,
     ):
-        prompt, attachments = codex_backend._build_prompt_from_messages(
-            messages,
-            tools=kwargs.get("tools"),
-            tool_choice=kwargs.get("tool_choice"),
-            structured_output=bool(kwargs.get("tools"))
-            or bool(kwargs.get("return_message")),
-        )
+        call_id = uuid.uuid4().hex
+        local.call_id = call_id
+        local.attempt_index = 0
+        local.stage = stage
         started = time.monotonic()
         status = "success"
         error_type: str | None = None
-        usage = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
         try:
-            value, usage = original(
+            return original_chat(
                 model,
                 messages,
                 max_completion_tokens,
@@ -88,28 +143,29 @@ def _install_prompt_free_codex_ledger(path: Path) -> None:
                 stage,
                 **kwargs,
             )
-            return value, usage
         except Exception as error:
             status = "error"
             error_type = type(error).__name__
             raise
         finally:
-            row = {
-                "timestamp_unix": time.time(),
-                "stage": stage,
-                "model": model,
-                "status": status,
-                "error_type": error_type,
-                "prompt_sha256": _sha256_text(prompt),
-                "attachment_count": len(attachments),
-                "requested_completion_policy": "backend_unbounded",
-                "usage": usage,
-                "wall_seconds": time.monotonic() - started,
-            }
-            with _LEDGER_LOCK:
-                with path.open("a", encoding="utf-8") as handle:
-                    handle.write(json.dumps(row, ensure_ascii=False) + "\n")
+            append(
+                {
+                    "record_type": "optimizer_logical_call",
+                    "timestamp_unix": time.time(),
+                    "call_id": call_id,
+                    "stage": stage,
+                    "model": model,
+                    "status": status,
+                    "error_type": error_type,
+                    "attempts": int(getattr(local, "attempt_index", 0)),
+                    "wall_seconds": time.monotonic() - started,
+                }
+            )
+            for name in ("call_id", "attempt_index", "stage"):
+                if hasattr(local, name):
+                    delattr(local, name)
 
+    codex_backend._run_codex_exec = tracked_exec
     codex_backend._chat_messages_impl = tracked
 
 
