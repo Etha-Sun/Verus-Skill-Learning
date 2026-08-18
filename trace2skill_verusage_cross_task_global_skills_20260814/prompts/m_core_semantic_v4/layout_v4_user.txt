@@ -1,0 +1,11 @@
+Design the M-core-oriented internal M_core/R_analysis structure from this compact index of the reconciled cross-task library.
+
+GLOBAL_SKILL_COUNT: {{GLOBAL_SKILL_COUNT}}
+
+COMPACT RECONCILED SKILL INDEX:
+{{COMPACT_LIBRARY_JSON}}
+
+Use only mechanisms supported by the compact index. Produce concrete, broadly applicable, actor-visible M_core procedures without inventing missing details or relying on R_analysis. Also assign every skill_id exactly once to the internal R_analysis layout for provenance; those entries will not be rendered in the M-core baseline.
+
+OUTPUT JSON SCHEMA:
+{{SCHEMA_JSON}}

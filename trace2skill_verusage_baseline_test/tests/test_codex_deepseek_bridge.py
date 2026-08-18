@@ -1,12 +1,18 @@
 from __future__ import annotations
 
+import json
+import tempfile
 import unittest
+from pathlib import Path
+from unittest.mock import patch
 
-from verus_agent.codex_harness.upstream_skillopt.codex_deepseek_bridge import (
-    _native_response_usage,
-    responses_sse_events,
-    translate_responses_request,
-)
+from verus_agent.codex_harness.upstream_skillopt import codex_deepseek_bridge as bridge
+from verus_agent.codex_harness.upstream_skillopt.budget_guard import SharedBudgetGuard
+
+
+_native_response_usage = bridge._native_response_usage
+responses_sse_events = bridge.responses_sse_events
+translate_responses_request = bridge.translate_responses_request
 
 
 class CodexDeepSeekBridgeTests(unittest.TestCase):
@@ -26,6 +32,73 @@ class CodexDeepSeekBridgeTests(unittest.TestCase):
         self.assertEqual(usage["prompt_cache_hit_tokens"], 60)
         self.assertEqual(usage["prompt_cache_miss_tokens"], 40)
         self.assertEqual(usage["completion_tokens"], 25)
+
+    def test_native_responses_passthrough_settles_shared_budget(self) -> None:
+        body = (
+            'data: {"type":"response.completed","response":'
+            '{"status":"completed","model":"deepseek-v4-pro-0813","usage":'
+            '{"input_tokens":100,"input_tokens_details":{"cached_tokens":60},'
+            '"output_tokens":25,"output_tokens_details":{"reasoning_tokens":20},'
+            '"total_tokens":125}}}\n\n'
+            'data: [DONE]\n\n'
+        ).encode()
+
+        class Headers:
+            @staticmethod
+            def get_content_type() -> str:
+                return "text/event-stream"
+
+        class Response:
+            headers = Headers()
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_args):
+                return False
+
+            @staticmethod
+            def read() -> bytes:
+                return body
+
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            state_path = root / "provider_budget_state.json"
+            guard = SharedBudgetGuard(
+                state_path,
+                approval_limit_usd=20.0,
+                prior_spend_usd=0.02769123,
+                optimizer_reserve_usd=0.0,
+                request_reserve_usd=0.25,
+            )
+            config = bridge.BridgeConfig(
+                model="deepseek-v4-pro",
+                upstream_base_url="https://unit.test",
+                api_key="not-used",
+                ledger_path=root / "ledger.jsonl",
+                max_output_tokens=8192,
+                retry_output_tokens=8192,
+                request_timeout_seconds=1,
+                native_responses=True,
+                budget_guard=guard,
+            )
+            with patch.object(bridge, "urlopen", return_value=Response()):
+                returned, content_type, record = bridge.forward_native_responses(
+                    config,
+                    {"input": [], "tools": [], "max_output_tokens": 8192},
+                    task_id="val--unit",
+                )
+            state = json.loads(state_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(body, returned)
+        self.assertEqual("text/event-stream", content_type)
+        self.assertEqual(1, state["settled_requests"])
+        self.assertEqual({}, state["reservations"])
+        self.assertEqual(60, state["usage"]["prompt_cache_hit_tokens"])
+        self.assertEqual(40, state["usage"]["prompt_cache_miss_tokens"])
+        self.assertEqual(25, state["usage"]["completion_tokens"])
+        self.assertGreater(state["target_spend_usd"], 0)
+        self.assertEqual(record["attempts"][0]["usage"]["total_tokens"], 125)
 
     def test_translates_codex_tool_history(self) -> None:
         translated, types = translate_responses_request(

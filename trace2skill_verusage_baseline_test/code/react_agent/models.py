@@ -94,10 +94,12 @@ def _create_disk_cache(cache_path: str):
     return dc.Cache(cache_path, **cache_settings)
 
 
-def _make_cache_key(model: str, messages: list[dict]) -> tuple:
-    """Create a cache key from model and messages."""
+def _make_cache_key(
+    model: str, messages: list[dict], wire_api: str = "chat_completions"
+) -> tuple:
+    """Create a cache key from model, wire protocol, and messages."""
     messages_str = json.dumps(messages, ensure_ascii=False, sort_keys=True)
-    return (model, messages_str)
+    return (model, wire_api, messages_str)
 
 
 TRANSIENT_REPLY_PATTERNS = (
@@ -175,6 +177,7 @@ class OpenAIClient(LLMClient):
         generation_config: dict | None = None,
         retry_times: tuple[int, ...] = (5, 10, 30),
         timeout: float | None = 600.0,
+        wire_api: str = "chat_completions",
     ):
         """
         Initialize OpenAI-compatible client.
@@ -188,11 +191,15 @@ class OpenAIClient(LLMClient):
             generation_config: Custom generation config (uses preset from GENERATION_CONFIG_PRESETS if None and model matches)
             retry_times: Tuple of wait times (seconds) between retries
             timeout: Request timeout in seconds (default 600s). Pass None for no timeout.
+            wire_api: OpenAI wire API, either "chat_completions" or "responses".
         """
+        if wire_api not in {"chat_completions", "responses"}:
+            raise ValueError("wire_api must be 'chat_completions' or 'responses'")
         self.model = model
         self.api_key = api_key or os.getenv("OPENAI_API_KEY")
         self.base_url = base_url or os.getenv("OPENAI_BASE_URL")
         self.retry_times = retry_times
+        self.wire_api = wire_api
 
         if not self.api_key:
             raise ValueError(
@@ -241,16 +248,59 @@ class OpenAIClient(LLMClient):
         with self._cache_lock:
             self._cache[cache_key] = response
 
-    def _parse_response(self, response) -> tuple[str, str]:
-        """
-        Parse response, extracting reasoning content if present.
+    @staticmethod
+    def _responses_output_text(response: Any) -> str:
+        direct = getattr(response, "output_text", None)
+        if isinstance(direct, str):
+            return direct
+        value: Any = response
+        if isinstance(response, str):
+            deltas: list[str] = []
+            completed: str | None = None
+            for line in response.splitlines():
+                if not line.startswith("data:"):
+                    continue
+                raw = line[5:].strip()
+                if not raw or raw == "[DONE]":
+                    continue
+                try:
+                    event = json.loads(raw)
+                except json.JSONDecodeError:
+                    continue
+                if event.get("type") == "response.output_text.delta":
+                    deltas.append(str(event.get("delta") or ""))
+                elif event.get("type") == "response.output_text.done":
+                    completed = str(event.get("text") or "")
+            if completed is not None:
+                return completed
+            if deltas:
+                return "".join(deltas)
+            try:
+                value = json.loads(response)
+            except json.JSONDecodeError:
+                return response
+        elif hasattr(response, "model_dump"):
+            value = response.model_dump()
+        if not isinstance(value, dict):
+            return ""
+        chunks: list[str] = []
+        for item in value.get("output") or []:
+            if not isinstance(item, dict):
+                continue
+            for part in item.get("content") or []:
+                if isinstance(part, dict) and part.get("type") == "output_text":
+                    chunks.append(str(part.get("text") or ""))
+        return "".join(chunks)
 
-        Returns:
-            Tuple of (reply, reasoning_content)
-        """
-        message = response.choices[0].message
-        reply = message.content or ""
-        reasoning_content = getattr(message, "reasoning_content", "") or ""
+    def _parse_response(self, response) -> tuple[str, str]:
+        """Parse Chat Completions or Responses output into text and reasoning."""
+        if self.wire_api == "responses":
+            reply = self._responses_output_text(response)
+            reasoning_content = ""
+        else:
+            message = response.choices[0].message
+            reply = message.content or ""
+            reasoning_content = getattr(message, "reasoning_content", "") or ""
 
         # Handle models that embed thinking in the response with </think> tags
         if "</think>" in reply:
@@ -260,15 +310,27 @@ class OpenAIClient(LLMClient):
 
         return reply, reasoning_content
 
+    def _send_once(self, client, messages: list[dict], config: dict):
+        if self.wire_api == "responses":
+            responses_config = dict(config)
+            if "max_tokens" in responses_config:
+                responses_config["max_output_tokens"] = responses_config.pop("max_tokens")
+            return client.responses.create(
+                model=self.model,
+                input=messages,
+                **responses_config,
+            )
+        return client.chat.completions.create(
+            model=self.model,
+            messages=messages,
+            **config,
+        )
+
     def _send_request_with_retry(self, messages: list[dict], config: dict):
         """Send request with retry logic."""
         for i, wait_time in enumerate(self.retry_times):
             try:
-                return self._client.chat.completions.create(
-                    model=self.model,
-                    messages=messages,
-                    **config,
-                )
+                return self._send_once(self._client, messages, config)
             except Exception as e:
                 if _is_context_length_bad_request(e):
                     raise RequestContextLengthExceeded(_extract_openai_error_message(e)) from e
@@ -279,11 +341,7 @@ class OpenAIClient(LLMClient):
                 time.sleep(wait_time)
 
         # Final attempt without catch
-        return self._client.chat.completions.create(
-            model=self.model,
-            messages=messages,
-            **config,
-        )
+        return self._send_once(self._client, messages, config)
 
     def _get_async_client(self):
         if self._async_client is None:
@@ -297,10 +355,16 @@ class OpenAIClient(LLMClient):
 
         for i, wait_time in enumerate(self.retry_times):
             try:
-                return await self._get_async_client().chat.completions.create(
-                    model=self.model,
-                    messages=messages,
-                    **config,
+                client = self._get_async_client()
+                if self.wire_api == "responses":
+                    responses_config = dict(config)
+                    if "max_tokens" in responses_config:
+                        responses_config["max_output_tokens"] = responses_config.pop("max_tokens")
+                    return await client.responses.create(
+                        model=self.model, input=messages, **responses_config
+                    )
+                return await client.chat.completions.create(
+                    model=self.model, messages=messages, **config
                 )
             except Exception as e:
                 if _is_context_length_bad_request(e):
@@ -312,10 +376,16 @@ class OpenAIClient(LLMClient):
                 await asyncio.sleep(wait_time)
 
         # Final attempt without catch
-        return await self._get_async_client().chat.completions.create(
-            model=self.model,
-            messages=messages,
-            **config,
+        client = self._get_async_client()
+        if self.wire_api == "responses":
+            responses_config = dict(config)
+            if "max_tokens" in responses_config:
+                responses_config["max_output_tokens"] = responses_config.pop("max_tokens")
+            return await client.responses.create(
+                model=self.model, input=messages, **responses_config
+            )
+        return await client.chat.completions.create(
+            model=self.model, messages=messages, **config
         )
 
     async def aclose(self) -> None:
@@ -355,7 +425,7 @@ class OpenAIClient(LLMClient):
             config.update(settings_dict)
 
         # Check cache
-        cache_key = _make_cache_key(self.model, openai_messages)
+        cache_key = _make_cache_key(self.model, openai_messages, self.wire_api)
         cached = self._get_from_cache(cache_key)
         if cached is not None:
             log.debug("Loaded response from cache")

@@ -1,0 +1,12 @@
+Induce conservative provisional mechanism families for one hierarchy batch of the heterogeneous cross-task corpus.
+
+LEVEL: {{LEVEL}}
+BATCH_ID: {{BATCH_ID}}
+OUTPUT_NODE_ID_PREFIX: {{OUTPUT_NODE_ID_PREFIX}}
+INPUT_NODE_COUNT: {{INPUT_NODE_COUNT}}
+
+INPUT NODES:
+{{NODES_JSON}}
+
+OUTPUT JSON SCHEMA:
+{{SCHEMA_JSON}}

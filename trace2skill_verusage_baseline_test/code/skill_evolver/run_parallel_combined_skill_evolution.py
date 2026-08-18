@@ -12,11 +12,14 @@ import shutil
 import sys
 from pathlib import Path
 
-from src.react_agent.models import ApiChatClient, OpenAIClient
+from react_agent.models import ApiChatClient, OpenAIClient
 from skill_evolver.parallel_success_evolving_agent import (
     CombinedParallelSkillEvolver,
     normalize_mixed_patterns,
     normalize_mixed_records,
+)
+from skill_evolver.semantic_reduce_evolving_agent import (
+    SemanticReduceParallelSkillEvolver,
 )
 from skill_evolver.run_parallel_skill_evolution import (
     _build_generation_config,
@@ -158,6 +161,12 @@ def main() -> None:
     parser.add_argument("--continue-evolving", action="store_true", help="Continue evolving without creating a backup")
     parser.add_argument("--dry-run", action="store_true", help="Show changes without writing to disk")
     parser.add_argument("--max-skill-lines", type=int, default=500, help="Max SKILL.md lines")
+    parser.add_argument(
+        "--max-references",
+        type=int,
+        default=None,
+        help="Maximum references (default: 5 for native global REDUCE, 256 safety ceiling for semantic REDUCE)",
+    )
     parser.add_argument("--temperature", type=float, default=0.6, help="LLM temperature")
     parser.add_argument("--max-tokens", type=int, default=None, help="Max generation tokens for LLM responses")
     parser.add_argument("--verbose", action="store_true", help="Print detailed progress")
@@ -181,6 +190,16 @@ def main() -> None:
     )
     parser.add_argument("--skip-translation", action="store_true", help="Skip TRANSLATION phase")
     parser.add_argument("--patch-pipeline", type=str, default="json", choices=["json", "markdown"])
+    parser.add_argument(
+        "--reduce-strategy",
+        type=str,
+        default="global",
+        choices=["global", "semantic"],
+        help=(
+            "REDUCE organization: native global hierarchical compression, or "
+            "semantic routing followed by within-family native REDUCE"
+        ),
+    )
     parser.add_argument(
         "--semantic-item-marker-format",
         type=str,
@@ -318,7 +337,18 @@ def main() -> None:
     else:
         client = OpenAIClient(**client_kwargs)
 
-    evolver = CombinedParallelSkillEvolver(
+    if args.reduce_strategy == "semantic" and args.patch_pipeline != "markdown":
+        parser.error("--reduce-strategy semantic requires --patch-pipeline markdown")
+
+    evolver_class = (
+        SemanticReduceParallelSkillEvolver
+        if args.reduce_strategy == "semantic"
+        else CombinedParallelSkillEvolver
+    )
+    max_references = args.max_references
+    if max_references is None:
+        max_references = 256 if args.reduce_strategy == "semantic" else 5
+    evolver = evolver_class(
         client=client,
         skill_dir=args.skill_dir,
         batch_size=args.batch_size,
@@ -332,6 +362,7 @@ def main() -> None:
         output_dir=intermediates_dir,
         parse_failure_dir=args.parse_failure_dir,
         max_skill_lines=args.max_skill_lines,
+        max_references=max_references,
         skip_translation=args.skip_translation,
         patch_pipeline=args.patch_pipeline,
         semantic_item_marker_format=args.semantic_item_marker_format,

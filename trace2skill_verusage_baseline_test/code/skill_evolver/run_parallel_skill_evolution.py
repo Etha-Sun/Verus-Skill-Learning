@@ -34,8 +34,11 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-from spreadsheetbench_support import load_dataset
-from src.react_agent.models import ApiChatClient, OpenAIClient
+try:
+    from spreadsheetbench_support import load_dataset
+except ModuleNotFoundError:  # Optional in the Verus-only delivery bundle.
+    load_dataset = None
+from react_agent.models import ApiChatClient, OpenAIClient
 from skill_evolver.skill_evolving_agent import PROMPT_VARIANTS, QUICK_VALIDATE_SCRIPT
 from skill_evolver.parallel_evolving_agent import ParallelSkillEvolver
 
@@ -130,6 +133,10 @@ def _load_dataset_task_ids(
     sample_task_count: int | None = None,
 ) -> list[str]:
     """Load task ids from the dataset using SpreadsheetBench runner semantics."""
+    if load_dataset is None:
+        raise RuntimeError(
+            "spreadsheetbench_support is required only when --data-path is used"
+        )
     dataset = load_dataset(str(data_path))
     end = end_idx if end_idx is not None else len(dataset)
     sliced_dataset = dataset[start_idx or 0:end]

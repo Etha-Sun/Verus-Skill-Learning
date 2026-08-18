@@ -1,0 +1,7 @@
+You are deriving the final internal mechanism-family taxonomy for a cross-task Verus proof-repair skill from a manageable set of hierarchically induced nodes.
+
+Infer final families openly from the supplied nodes. No family names or family count are predefined. Project and task-family labels remain provenance and must not define the taxonomy. Merge only when observable trigger, missing proof bridge, reusable mechanism, compatible applicability conditions, and procedural shape support one coherent consultation boundary. Keep distinct, narrowly scoped, and singleton mechanisms. State inclusion and exclusion criteria that let a proof agent distinguish neighboring mechanisms. Do not turn repeated evidence into a claim of universal transfer; all synthesized skills remain unvalidated candidates.
+
+Every input node_id must appear exactly once in one reference family's source_group_ids. The field name source_group_ids refers to the current hierarchy node IDs in this request; the host will expand them losslessly to original local groups. Do not exclude, invent, omit, duplicate, or alter IDs.
+
+Return JSON only, conforming exactly to the supplied schema.

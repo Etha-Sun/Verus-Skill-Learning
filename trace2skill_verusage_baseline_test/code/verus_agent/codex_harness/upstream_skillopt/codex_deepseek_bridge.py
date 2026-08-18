@@ -358,6 +358,7 @@ class BridgeConfig:
     state_lock: threading.Lock = field(default_factory=threading.Lock)
     config_sha256: str | None = None
     ledger_lock: threading.Lock = field(default_factory=threading.Lock)
+    instance_id: str | None = None
 
 
 def _native_response_usage(
@@ -430,6 +431,15 @@ def forward_native_responses(
     error_text: str | None = None
     content_type = "text/event-stream"
     body = b""
+    requested_output_tokens = int(
+        request_payload.get("max_output_tokens") or config.max_output_tokens
+    )
+    reserve = estimate_deepseek_request_upper_bound(
+        requested_output_tokens, config.model
+    )
+    reservation_id = (
+        config.budget_guard.reserve(reserve) if config.budget_guard else None
+    )
     try:
         request = Request(
             config.upstream_base_url.rstrip("/") + "/responses",
@@ -444,6 +454,15 @@ def forward_native_responses(
             content_type = response.headers.get_content_type()
             body = response.read()
         usage, upstream_model, response_status = _native_response_usage(body)
+        if config.budget_guard and reservation_id:
+            config.budget_guard.settle(
+                reservation_id,
+                cost_usd=(
+                    estimate_deepseek_cost(usage, config.model) if usage else None
+                ),
+                usage=usage,
+            )
+            reservation_id = None
     except HTTPError as error:
         detail = error.read().decode("utf-8", errors="replace")[:2000]
         error_text = f"DeepSeek HTTP {error.code}: {detail}"
@@ -455,6 +474,11 @@ def forward_native_responses(
         error_text = f"{type(error).__name__}: {error}"
         raise
     finally:
+        if config.budget_guard and reservation_id:
+            config.budget_guard.settle(
+                reservation_id, cost_usd=None, usage=None
+            )
+            reservation_id = None
         phase = task_id.split("--", 1)[0] if task_id and "--" in task_id else None
         attempt = {
             "retry_index": 0,
@@ -682,7 +706,13 @@ def make_handler(config: BridgeConfig):
             if request_path not in {"", "/health"}:
                 self._json_error(404, "not found")
                 return
-            body = json.dumps({"status": "ok", "model": config.model}).encode("utf-8")
+            body = json.dumps(
+                {
+                    "status": "ok",
+                    "model": config.model,
+                    "instance_id": config.instance_id,
+                }
+            ).encode("utf-8")
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.send_header("Content-Length", str(len(body)))
@@ -759,6 +789,7 @@ def main() -> None:
     parser.add_argument("--fake-tool-name")
     parser.add_argument("--fake-tool-arguments", default="{}")
     parser.add_argument("--manifest-path", type=Path)
+    parser.add_argument("--instance-id")
     parser.add_argument("--model-catalog-path", type=Path)
     parser.add_argument(
         "--allowed-tool",
@@ -811,6 +842,7 @@ def main() -> None:
         allowed_tool_names=frozenset(
             args.allowed_tool or ["exec_command", "write_stdin"]
         ),
+        instance_id=args.instance_id or uuid.uuid4().hex,
     )
     public_manifest = {
         "schema_version": "1",
@@ -830,17 +862,34 @@ def main() -> None:
             None if config.native_responses else sorted(config.allowed_tool_names)
         ),
         "implementation_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "instance_id": config.instance_id,
         "fake_mode": config.fake_reply is not None,
+        "shared_budget_guard_enabled": config.budget_guard is not None,
+        "approval_limit_usd": (
+            config.budget_guard.approval_limit_usd
+            if config.budget_guard is not None
+            else None
+        ),
+        "prior_spend_usd": (
+            config.budget_guard.prior_spend_usd
+            if config.budget_guard is not None
+            else None
+        ),
+        "request_reserve_usd": (
+            config.budget_guard.request_reserve_usd
+            if config.budget_guard is not None
+            else None
+        ),
     }
     config.config_sha256 = _sha256_json(public_manifest)
     public_manifest["config_sha256"] = config.config_sha256
+    server = ThreadingHTTPServer((args.host, args.port), make_handler(config))
     if args.manifest_path:
         args.manifest_path.parent.mkdir(parents=True, exist_ok=True)
         args.manifest_path.write_text(
             json.dumps(public_manifest, ensure_ascii=False, indent=2) + "\n",
             encoding="utf-8",
         )
-    server = ThreadingHTTPServer((args.host, args.port), make_handler(config))
     print(
         f"BRIDGE_READY http://{args.host}:{server.server_port}/v1 "
         f"model={args.model} config_sha256={config.config_sha256}",

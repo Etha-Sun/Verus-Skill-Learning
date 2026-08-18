@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://etha-sun.github.io/verus-skill-learning/candidate-update-manifest-v1.schema.json",
+  "title": "Trace2Skill candidate update schedule",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "schedule_id", "construction_method", "unit_type", "m_core", "shared_memories", "construction", "units", "schedule_sha256"],
+  "properties": {
+    "schema_version": {"const": "candidate-update-manifest-v1"},
+    "schedule_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+    "construction_method": {"enum": ["native-compressed", "semantic-reduce"]},
+    "unit_type": {"enum": ["native-compressed-bundle", "semantic-family-bundle"]},
+    "m_core": {"$ref": "#/$defs/frozenArtifact"},
+    "shared_memories": {"$ref": "#/$defs/frozenArtifact"},
+    "construction": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["map_artifact_sha256", "map_item_count", "ordering_policy"],
+      "properties": {
+        "map_artifact_sha256": {"$ref": "#/$defs/sha256"},
+        "map_item_count": {"type": "integer", "minimum": 1},
+        "ordering_policy": {"type": "string", "minLength": 1}
+      }
+    },
+    "units": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/unit"}},
+    "schedule_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "frozenArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "unit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unit_id", "order", "construction_method", "unit_type", "payload_format", "payload_path", "payload_sha256", "content_sha256", "train_provenance_ids", "source_item_ids"],
+      "properties": {
+        "unit_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+        "order": {"type": "integer", "minimum": 1},
+        "construction_method": {"enum": ["native-compressed", "semantic-reduce"]},
+        "unit_type": {"enum": ["native-compressed-bundle", "semantic-family-bundle"]},
+        "family_id": {"type": ["string", "null"]},
+        "payload_format": {"enum": ["semantic-patch-markdown-v1", "exact-patch-json-v1"]},
+        "payload_path": {"type": "string", "minLength": 1},
+        "payload_sha256": {"$ref": "#/$defs/sha256"},
+        "content_sha256": {"$ref": "#/$defs/sha256"},
+        "train_provenance_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "source_item_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+You organize Trace2Skill MAP semantic patch items into mechanism-coherent
+reference families before the native REDUCE phase.
+
+Infer families from the supplied item semantics. Do not use project names as
+families and do not use keyword-only routing. Group items only when they share
+the same proof obstacle and reusable proof mechanism. Keep ambiguous or unique
+mechanisms as singleton families instead of forcing them into a broad bucket.
+
+Every input item_id must occur exactly once. Every family must have a unique,
+ASCII lowercase family_id and a unique path of the form
+references/<descriptive-kebab-name>.md. There is no target family count and no
+brevity objective. This phase partitions items; it does not summarize, delete,
+rewrite, score, or validate their content.
+
+Return exactly one JSON object:
+
+{"families":[{"family_id":"quantifier-instantiation","title":"Quantifier instantiation and triggers","reference_file":"references/quantifier-instantiation.md","member_item_ids":["map_0001_item_001"]}]}

@@ -1,0 +1,14 @@
+Consolidate this provisional cross-task semantic family without erasing narrow applicability or evidence status.
+
+CLUSTER_ID: {{CLUSTER_ID}}
+FAMILY_TITLE: {{FAMILY_TITLE}}
+FAMILY_SCOPE: {{FAMILY_SCOPE}}
+INCLUSION_CRITERIA: {{INCLUSION_CRITERIA}}
+EXCLUSION_CRITERIA: {{EXCLUSION_CRITERIA}}
+INPUT_CARD_COUNT: {{INPUT_CARD_COUNT}}
+
+INPUT MEMORIES:
+{{CARDS_JSON}}
+
+OUTPUT JSON SCHEMA:
+{{SCHEMA_JSON}}

@@ -1,0 +1,7 @@
+You are hierarchically inducing a data-driven taxonomy of Verus proof mechanisms.
+
+The supplied nodes summarize mechanism groups discovered from a frozen heterogeneous cross-task training corpus or from an earlier taxonomy level. Their project and task-family origins are provenance, not taxonomy labels. Invent provisional family labels from the evidence; no taxonomy names or target count are predefined. Merge nodes only when they share a coherent observable trigger, missing proof bridge, reusable mechanism, compatible preconditions, and consultation boundary. Cross-project occurrence alone is not equivalence, and same-project origin is not a reason to merge. Keep materially distinct, narrowly scoped, or rare mechanisms separate. Prefer conservative, fine-grained provisional families because later levels can merge them across batches but cannot safely undo an unsupported over-merge.
+
+Every input node_id must appear exactly once in one provisional family's source_node_ids. Do not exclude nodes. Use the required output-node ID prefix exactly and number the provisional families from 001 without gaps.
+
+Return JSON only, conforming exactly to the supplied schema.

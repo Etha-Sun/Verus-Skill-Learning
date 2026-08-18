@@ -159,6 +159,8 @@ def _build_success_merge_user_message_semantic(
             parts.append(f"Target File: {item.target_file}")
             parts.append(f"Edit Intent: {item.edit_intent}")
             parts.append(f"Location Hint: {item.location_hint}")
+            if item.source_item_ids:
+                parts.append(f"Source Item IDs: {', '.join(item.source_item_ids)}")
             parts.append("Change Instruction:")
             parts.append(item.change_instruction)
         parts.append("")
@@ -245,6 +247,8 @@ def _build_combined_merge_user_message_semantic(
             parts.append(f"Target File: {item.target_file}")
             parts.append(f"Edit Intent: {item.edit_intent}")
             parts.append(f"Location Hint: {item.location_hint}")
+            if item.source_item_ids:
+                parts.append(f"Source Item IDs: {', '.join(item.source_item_ids)}")
             parts.append("Change Instruction:")
             parts.append(item.change_instruction)
         parts.append("")

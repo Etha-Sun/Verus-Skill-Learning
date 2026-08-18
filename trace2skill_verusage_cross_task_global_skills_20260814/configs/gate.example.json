@@ -1,0 +1,52 @@
+{
+  "held_out_gate": {
+    "enabled": false,
+    "expected_task_count": 20,
+    "success_weight": 0.70,
+    "token_weight": 0.15,
+    "wall_time_weight": 0.15,
+    "primary_uncached_token_component_weight": 0.60,
+    "reasoning_token_component_weight": 0.40,
+    "max_total_token_increase_success_gain": 0.20,
+    "max_wall_time_increase_success_gain": 0.20,
+    "max_total_token_increase_equal_success": 0.10,
+    "max_wall_time_increase_equal_success": 0.10,
+    "max_total_token_ratio_to_m_core_equal_success": 1.10,
+    "max_total_token_ratio_to_m_core_success_gain": 1.20,
+    "min_common_solved_count": 3,
+    "min_token_gain": 0.15,
+    "min_wall_time_gain": 0.10,
+    "min_efficiency_gain": 0.05,
+    "relative_gain_clip": 1.0
+  },
+  "history_path": "RUN_ROOT/gate-history.json",
+  "incumbent": {
+    "candidate_id": "m-core",
+    "skill_dir": "RUN_ROOT/snapshots/m-core/verus-proof-repair",
+    "construction_method": "semantic-reduce",
+    "unit_type": "m-core-seed",
+    "train_provenance_ids": []
+  },
+  "candidates": [
+    {
+      "candidate_id": "family-0001",
+      "skill_dir": "RUN_ROOT/snapshots/family-0001/verus-proof-repair",
+      "construction_method": "semantic-reduce",
+      "unit_type": "semantic-family-bundle",
+      "train_provenance_ids": ["train-item-id"]
+    }
+  ],
+  "evaluator": {
+    "argv": [
+      "python3",
+      "ACTOR_RUNNER.py",
+      "--skill-dir",
+      "{skill_dir}",
+      "--output-dir",
+      "{output_dir}"
+    ],
+    "output_root": "RUN_ROOT/validation-actor",
+    "summary_relative_path": "summary.json",
+    "timeout_seconds": 21600
+  }
+}

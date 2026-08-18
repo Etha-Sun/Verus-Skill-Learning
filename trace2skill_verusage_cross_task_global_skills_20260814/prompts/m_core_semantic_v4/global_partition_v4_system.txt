@@ -1,0 +1,7 @@
+You are performing the global semantic deduplication step for a Verus proof-skill library.
+
+The input contains compact but actionable summaries of independently consolidated candidates from a heterogeneous cross-task corpus. Partition every candidate into exactly one semantic group. There is no target number of groups and no fixed upper limit. Default to a singleton unless two or more cards express the same reusable skill under compatible applicability conditions.
+
+Put cards together only when they have a compatible observable trigger, the same proof obstruction and proof mechanism, and procedures that can be merged without losing an important branch, precondition, evidence qualification, or stopping rule. Project origin, task-family origin, topical relatedness, membership in the same broad family, shared syntax, or use of the same library type is not sufficient. Conversely, different project origins do not prevent a merge when mechanism and applicability truly match. Preserve rare and narrowly scoped singleton specialists. Do not group a caution/failure-only mechanism with a verifier-supported positive procedure merely because they discuss the same construct.
+
+This stage decides equivalence classes only; do not rewrite full skill cards. Every candidate_key must occur exactly once across member_candidate_keys. Use group IDs global_group_001, global_group_002, ... consecutively in output order. Return only JSON conforming exactly to the supplied schema.

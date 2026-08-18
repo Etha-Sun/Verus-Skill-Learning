@@ -23,7 +23,7 @@ from pathlib import Path
 
 from tqdm import tqdm
 
-from src.react_agent.models import Message, ModelSettings, OpenAIClient
+from react_agent.models import Message, ModelSettings, OpenAIClient
 from skill_evolver.prompt_loader import load_prompt_template
 from skill_evolver.skill_evolving_agent import (
     MODIFICATION_STRATEGIES_SECTION,
@@ -94,6 +94,7 @@ class SemanticPatchItem:
     edit_intent: str
     location_hint: str
     change_instruction: str
+    source_item_ids: tuple[str, ...] = ()
 
 
 @dataclass
@@ -266,7 +267,14 @@ def _apply_patch_edit_to_content(content: str, edit: "PatchEdit") -> str:
     if edit.op == "replace_in_section":
         if edit.target_section:
             bounds = _find_section_bounds(lines, edit.target_section)
+            full = "\n".join(lines)
             if bounds is None:
+                if edit.old_text and full.count(edit.old_text) == 1:
+                    log.warning(
+                        "replace_in_section: section not found: %r; using unique exact old_text fallback",
+                        edit.target_section,
+                    )
+                    return full.replace(edit.old_text, edit.content, 1)
                 log.warning(
                     "replace_in_section: section not found: %r", edit.target_section
                 )
@@ -274,6 +282,12 @@ def _apply_patch_edit_to_content(content: str, edit: "PatchEdit") -> str:
             start, end = bounds
             section_text = "\n".join(lines[start:end])
             if edit.old_text not in section_text:
+                if edit.old_text and full.count(edit.old_text) == 1:
+                    log.warning(
+                        "replace_in_section: old_text not found in section %r; using unique exact old_text fallback",
+                        edit.target_section,
+                    )
+                    return full.replace(edit.old_text, edit.content, 1)
                 log.warning(
                     "replace_in_section: old_text not found in section %r",
                     edit.target_section,
@@ -880,6 +894,9 @@ class ParallelSkillEvolver:
             if edit:
                 edits.append(edit)
 
+        if not edits and re.sub(r"\s+", "", edits_array) != "[]":
+            return None
+
         payload = {
             "reasoning": reasoning,
             "edits": edits,
@@ -889,6 +906,47 @@ class ParallelSkillEvolver:
         if issues:
             return None
         return payload
+
+    @classmethod
+    def _extract_embedded_json_payloads(
+        cls,
+        text: str,
+        schema: str,
+    ) -> list[dict]:
+        """Recover complete schema-valid JSON objects embedded after a cutoff.
+
+        A continuation may start a fresh fenced JSON object after an earlier
+        response was cut off mid-string. The outer fence span is then invalid
+        JSON even though the later object is complete. Scan object starts and
+        retain only independently decodable top-level payloads that satisfy the
+        requested schema.
+        """
+        decoder = json.JSONDecoder()
+        payloads: list[dict] = []
+        seen: set[str] = set()
+        for match in re.finditer(r"\{", text):
+            try:
+                parsed, _ = decoder.raw_decode(text[match.start():])
+            except json.JSONDecodeError:
+                continue
+            issues = (
+                cls._validate_patch_payload(parsed)
+                if schema != "editting"
+                else cls._validate_apply_payload(parsed)
+            )
+            if issues:
+                continue
+            fingerprint = json.dumps(
+                parsed,
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            )
+            if fingerprint in seen:
+                continue
+            seen.add(fingerprint)
+            payloads.append(parsed)
+        return payloads
 
     @staticmethod
     def _extract_fenced_blocks(response: str, language: str) -> list[str]:
@@ -933,6 +991,16 @@ class ParallelSkillEvolver:
                 try:
                     parsed = json.loads(raw)
                 except json.JSONDecodeError as exc:
+                    embedded = cls._extract_embedded_json_payloads(raw, schema)
+                    if embedded:
+                        log.warning(
+                            "Recovered %d complete embedded JSON payload(s) after fenced response cutoff: %s at char %d",
+                            len(embedded),
+                            exc.msg,
+                            exc.pos,
+                        )
+                        parsed_payloads.extend(embedded)
+                        continue
                     heuristic = cls._heuristic_parse_patch_payload(raw)
                     if heuristic is not None and schema != "editting":
                         log.warning(
@@ -1059,6 +1127,7 @@ class ParallelSkillEvolver:
             "Edit Intent": "edit_intent",
             "Location Hint": "location_hint",
             "Change Instruction": "change_instruction",
+            "Source Item IDs": "source_item_ids",
         }
         item_start_pattern = re.compile(r"^\[ITEM_(\d+)_START\]$")
         item_end_pattern = re.compile(r"^\[ITEM_(\d+)_END\]$")
@@ -1090,6 +1159,13 @@ class ParallelSkillEvolver:
                         edit_intent=normalized_item["edit_intent"],
                         location_hint=normalized_item["location_hint"],
                         change_instruction=normalized_item["change_instruction"],
+                        source_item_ids=tuple(
+                            item_id.strip().strip("`")
+                            for item_id in ",".join(
+                                current_item.get("source_item_ids", [])
+                            ).split(",")
+                            if item_id.strip().strip("`")
+                        ),
                     )
                 )
             current_item = None
@@ -1376,6 +1452,8 @@ class ParallelSkillEvolver:
                 parts.append(f"Target File: {item.target_file}")
                 parts.append(f"Edit Intent: {item.edit_intent}")
                 parts.append(f"Location Hint: {item.location_hint}")
+                if item.source_item_ids:
+                    parts.append(f"Source Item IDs: {', '.join(item.source_item_ids)}")
                 parts.append("Change Instruction:")
                 parts.append(item.change_instruction)
             parts.append("")
@@ -3044,6 +3122,11 @@ class ParallelSkillEvolver:
                     f"Target File: {item.target_file}",
                     f"Edit Intent: {item.edit_intent}",
                     f"Location Hint: {item.location_hint}",
+                    *(
+                        [f"Source Item IDs: {', '.join(item.source_item_ids)}"]
+                        if item.source_item_ids
+                        else []
+                    ),
                     "Change Instruction:",
                     item.change_instruction,
                     "",

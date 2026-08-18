@@ -1,0 +1,10 @@
+Induce fine-grained local mechanism groups from this deterministic batch of complete cross-task memory records. This batch is only one shard of the corpus: do not infer global frequency or absence from this batch alone.
+
+BATCH_ID: {{BATCH_ID}}
+INPUT_MEMORY_COUNT: {{INPUT_MEMORY_COUNT}}
+
+MEMORY RECORDS:
+{{CARDS_JSON}}
+
+OUTPUT JSON SCHEMA:
+{{SCHEMA_JSON}}

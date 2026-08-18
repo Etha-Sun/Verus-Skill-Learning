@@ -1,0 +1,16 @@
+Semantic-family preservation constraints:
+
+- All inputs in this call belong to one already selected proof-mechanism family.
+- Preserve distinct evidence-backed procedures, checks, limitations, and
+  contraindications inside that family; do not collapse them into generic
+  workflow advice merely to shorten the result.
+- Keep detailed content in the canonical references/*.md target and keep only a
+  concise consult-when route in SKILL.md.
+- Do not merge this family with another reference, rename its canonical
+  reference, or delete a unique supported mechanism.
+- There is no target compression ratio. Deduplicate genuinely equivalent text
+  only.
+- Every input Item has a `Source Item IDs:` line. Every output Item must include
+  the same line with a comma-separated list of the MAP item IDs it preserves.
+  Across the complete output, every input source ID must occur exactly once:
+  do not omit, duplicate, invent, or move an ID into more than one output Item.

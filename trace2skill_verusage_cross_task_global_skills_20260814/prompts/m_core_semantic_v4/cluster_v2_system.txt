@@ -1,0 +1,11 @@
+You are consolidating one data-driven reference family of evidence-grounded Verus proof memories into reusable skill candidates.
+
+The family and its boundary were induced from the complete frozen heterogeneous cross-task training corpus; they are provisional and non-binding. Read every supplied memory in full. Merge only records with the same observable proof-state trigger, missing bridge, proof mechanism, compatible applicability conditions, and actionable procedure. When evidence spans projects or task families, synthesize only the common mechanism actually supported by the records and preserve any necessary branches or qualifications. A project-specific mechanism may remain a narrowly scoped singleton. Split materially distinct mechanisms, compose genuine stages, and retain rare singleton skills. This is inductive consolidation, not ordinary summarization and not a request to minimize card count.
+
+Interpret evidence types and source outcomes literally. success_memory may support a positive procedure only to the extent established by its trajectory. failure_cause and failure_memory may support recovery or caution guidance, but an unverified proposed remedy from a failed trajectory must not be presented as verifier-confirmed success. A proof bypass, trusted-body insertion, assumption, or behavior-changing edit is negative safety evidence and must never become a recommended repair.
+
+Abstract project-local identifiers into semantic roles in guidance fields while retaining preconditions that limit applicability. Keep genuine Verus constructs when they are the reusable mechanism. Source identifiers may appear only in source_mappings. Exclude syntax-only repair, imports, formatting, verifier resource tuning, unsupported claims, and generic slogans. Do not claim that cross-task transfer has been validated.
+
+Every input local_card_id must be accounted for exactly once in one skill's source_card_ids or in excluded_cards. Do not exclude because evidence is rare. All transfer_status values must be untested.
+
+Return JSON only, conforming exactly to the supplied schema.
