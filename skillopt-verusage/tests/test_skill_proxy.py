@@ -4,12 +4,14 @@ import json
 import hashlib
 import tempfile
 import unittest
+from datetime import datetime, timezone
 from pathlib import Path
 from types import SimpleNamespace
 
 from skillopt_verusage.budget_guard import (
     SharedBudgetGuard,
     estimate_deepseek_cost,
+    price_band_for_utc,
 )
 from skillopt_verusage.skill_proxy import BEGIN, SkillAwareDeepSeekLLM
 
@@ -49,8 +51,38 @@ class SkillProxyTest(unittest.TestCase):
             "completion_tokens": 1_000_000,
         }
         self.assertAlmostEqual(
-            estimate_deepseek_cost(usage, "deepseek-v4-pro"),
-            1.308625,
+            estimate_deepseek_cost(
+                usage,
+                "deepseek-v4-pro",
+                price_band="off_peak",
+            ),
+            2.662,
+        )
+        self.assertAlmostEqual(
+            estimate_deepseek_cost(
+                usage,
+                "deepseek-v4-pro",
+                price_band="peak",
+            ),
+            5.324,
+        )
+
+    def test_price_band_uses_documented_utc_windows(self) -> None:
+        self.assertEqual(
+            price_band_for_utc(datetime(2026, 8, 17, 2, tzinfo=timezone.utc)),
+            "peak",
+        )
+        self.assertEqual(
+            price_band_for_utc(datetime(2026, 8, 17, 5, tzinfo=timezone.utc)),
+            "off_peak",
+        )
+        self.assertEqual(
+            price_band_for_utc(datetime(2026, 8, 17, 8, tzinfo=timezone.utc)),
+            "peak",
+        )
+        self.assertEqual(
+            price_band_for_utc(datetime(2026, 8, 17, 18, tzinfo=timezone.utc)),
+            "off_peak",
         )
 
     def test_proxy_injects_exact_skill_and_records_usage(self) -> None:
