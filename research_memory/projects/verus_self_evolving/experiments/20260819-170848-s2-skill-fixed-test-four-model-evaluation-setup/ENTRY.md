@@ -4,8 +4,8 @@
 
 - project: `verus_self_evolving`
 - created_at: `2026-08-19T17:08:48-05:00`
-- updated_at: `2026-08-19T21:40:00-05:00`
-- status: `six_of_eight_arms_complete_qwen_gpu_blocked`
+- updated_at: `2026-08-20T19:10:00-05:00`
+- status: `glm_stable_pair_complete_qwen_gpu_blocked_verusage_verus_installed`
 - planned conditions: GPT-5.6 Sol, DeepSeek V4 Pro, GLM-5.3, and local
   Qwen3.8-27B crossed with `blank` and accepted S2
 - planned endpoint: 20 held-out tasks per condition; 160 task executions total
@@ -138,6 +138,70 @@ attempt, but blank/S2 still had 16 and 12 timeouts. Thus 20 workers is robust
 with backoff but exceeds effective account throughput and confounds solve rate
 with rate-limit waiting. Qwen blank/S2 remain pending on GPU release.
 
+These worker-20 GLM scores are now treated as throughput-confounded rather
+than stable capability measurements. A four-item frozen-training calibration
+used the same blank skill, Codex CLI Chat bridge, 262,144 context, max
+reasoning, 600-second limit, and joint Verus+Lynette metric at two workers.
+All four tasks completed once as V2 traces; 51/51 upstream calls were metered
+and accepted with zero HTTP-429 retries, zero backoff, and USD 0.354103 total
+cost. Three of four tasks solved. Blank and S2 test-20 reruns therefore started
+sequentially at two workers; their scores must replace the worker-20 GLM rows
+only after both runs and complete-ledger checks finish.
+
+Both stable reruns completed at 12/20 with 20/20 valid results, yielding zero
+aggregate S2 delta. Blank used 592 requests, 20,333,394 prompt tokens, 216,940
+completion tokens, and USD 6.976968; S2 used 498 requests, 15,920,375 prompt
+tokens, 173,588 completion tokens, and USD 5.565405. Both ledgers had zero
+terminal upstream errors but retained recovered HTTP-429 backoff. The stable
+pair cost USD 12.542373; measured paid campaign spend including earlier arms,
+smokes/rejected attempts, and calibration is USD 20.346263.
+
+After these runs finished, the official VeruSAGE Verus commit
+`ddc66116aa7a844a9e19cc50922fe85c84b8b4a5` was built in the machine-local
+side-by-side checkout recorded in `.agent-context.local.md`. The binary reports
+`0.2025.09.11.ddc6611`; both disputed IronKV references verify, both
+unverified inputs reach their intended proof obligations, and one prior solved
+candidate passes the new Verus plus Lynette. The local `.env` now selects this
+binary while retaining the July binary under `VERUS_BIN_LEGACY`. Existing run
+manifests and scores remain tied to the old verifier.
+
+The accepted DeepSeek evolution uplift is independently confirmed as 13/20
+for the custom 838-byte S0 and 15/20 for retained S2 on the reused selection
+set. It is not a held-out or repeated-seed effect. The evolution and current
+test paths share DeepSeek V4 Pro, Codex CLI, max reasoning, a 600-second task
+limit, and the joint Verus+Lynette score, but are not exact protocol clones:
+the current test baseline is the one-byte blank skill, the task prompt differs
+by a two-word cleanup, context is 262,144 rather than 1,048,576, and optional
+Codex capabilities are explicitly disabled. No observed evolution or test
+prompt exceeded 262,144 tokens, so the context difference was nonbinding.
+
+## Screenshot Audit and Official-Verus Two-Task Rerun
+
+Comparison with `WechatIMG221.jpg` confirms that the July verifier was one
+real undercounting source but not the whole explanation for lower scores. A
+fresh actor rerun of the two version-sensitive IronKV tasks under official
+VeruSAGE commit `ddc66116aa7a844a9e19cc50922fe85c84b8b4a5` produced the same
+outcome in GPT blank/S2, DeepSeek blank/S2, and GLM blank/S2:
+`f24cf9cc9db98c56f792` solved and `826687f9c56eb8e65d5d` timed out at 600
+seconds. All 12 results were valid. Replacing just these two outcomes raises
+the interim corrected blank/S2 estimates to GPT 19/18, DeepSeek 14/14, and GLM
+13/13. These are targeted corrections, not complete official-Verus test-20
+reruns.
+
+Fresh metered spend was USD 1.947193: USD 0.310558 for DeepSeek and USD
+1.636636 for GLM; GPT used local quota. DeepSeek had no provider retry. GLM
+blank/S2 accumulated 17/21 recovered HTTP 429s and 193/372 aggregate
+thread-seconds of backoff even at two task workers. Therefore GLM 12/20 remains
+throughput-confounded. The screenshot's `Native baseline` label, test hash,
+prompt hash, verifier hash, timeout, and actual upstream sampling parameters
+are unavailable, so its 16/20 GLM score cannot yet be treated as an exact
+same-condition replication.
+
+The test evaluator now supports a repeatable `--item-id` diagnostic filter
+without changing the default frozen test-20 behavior. The launcher exposes it
+through `SKILLOPT_TEST_ITEM_IDS`. All 75 SkillOpt-VeruSAGE tests and launcher
+syntax pass.
+
 ## Planning Budget
 
 For both skill conditions (40 tasks per actor), planning estimates are:
@@ -153,7 +217,7 @@ These are planning estimates, not measured formal outcomes.
 
 ## Verification
 
-- all 71 currently discovered SkillOpt-VeruSAGE tests and all 43
+- all 75 currently discovered SkillOpt-VeruSAGE tests and all 43
   skill-evolution-pilot tests pass;
 - launcher syntax passes; blank and S2 check-only contracts match the same
   test, prompt, workers, context, and timeout, and record both known items;
@@ -177,10 +241,13 @@ These are planning estimates, not measured formal outcomes.
   `${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/qwen38-blank-apply-patch-smoke3-20260819/`
 - measured result report:
   `skillopt-verusage/refine-logs/FIXED_TEST20_RESULTS_20260820.md`
+- image/setting audit:
+  `skillopt-verusage/refine-logs/IMAGE_RESULT_SETTING_AUDIT_20260820.md`
 
 ## Next Action
 
-Add Qwen blank and S2 at four workers after GPU release. Preserve the original
-test-20 and common solved/20 denominator. Before GLM scale-up, calibrate a lower
-worker count because 20 workers caused severe rate-limit waiting despite
-successful provider-valid recovery.
+Obtain the screenshot run's contract hashes before merging its numbers. For
+GLM, use one task worker or a global request-rate limiter and calibrate until
+recovered 429 waiting is negligible, then rerun both complete test-20 arms
+under official Verus. Run Qwen only after an owned service is available and
+its model revision, precision, and reasoning template are locked.
