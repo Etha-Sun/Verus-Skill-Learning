@@ -6,6 +6,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from skill_evolution_pilot.codex_runner import (
+    _codex_environment,
     _command_modifies_candidate,
     build_command,
     run_codex_smoke,
@@ -125,18 +126,12 @@ last.write_text("complete")
 
             self.assertEqual(result["status"], "SOLVED")
             self.assertTrue(result["fidelity"]["f3"])
-            self.assertEqual(
-                result["fidelity"]["completed_tool_or_edit_boundaries"], 2
-            )
-            self.assertGreaterEqual(
-                result["fidelity"]["candidate_snapshot_count"], 4
-            )
+            self.assertEqual(result["fidelity"]["completed_tool_or_edit_boundaries"], 2)
+            self.assertGreaterEqual(result["fidelity"]["candidate_snapshot_count"], 4)
             self.assertTrue(result["fidelity"]["reasoning_token_count_available"])
             self.assertEqual(result["fidelity"]["visible_reasoning_item_count"], 0)
             self.assertEqual(result["fidelity"]["visible_reasoning_text_chars"], 0)
-            self.assertFalse(
-                result["fidelity"]["raw_hidden_chain_of_thought_claimed"]
-            )
+            self.assertFalse(result["fidelity"]["raw_hidden_chain_of_thought_claimed"])
             raw_rows = [
                 json.loads(line)
                 for line in (out_dir / "codex_events.raw.jsonl")
@@ -161,6 +156,16 @@ last.write_text("complete")
         self.assertIn("model_supports_reasoning_summaries=true", joined)
         self.assertIn("hide_agent_reasoning=false", joined)
         self.assertIn("show_raw_agent_reasoning=true", joined)
+        for capability in (
+            "apps",
+            "browser_use",
+            "computer_use",
+            "goals",
+            "multi_agent",
+            "plugins",
+            "skill_search",
+        ):
+            self.assertIn(f"--disable {capability}", joined)
 
     def test_command_supports_responses_bridge_without_changing_defaults(self):
         command = build_command(
@@ -173,12 +178,34 @@ last.write_text("complete")
             provider_base_url="http://127.0.0.1:18080/tasks/task-1/v1",
             provider_env_key="DEEPSEEK_API_KEY",
             model_context_window=262144,
+            model_catalog_json=Path("/run/models.json"),
         )
         joined = " ".join(command)
         self.assertIn('model_provider="deepseek_bridge"', joined)
         self.assertIn('wire_api="responses"', joined)
         self.assertIn("model_context_window=262144", joined)
+        self.assertIn('model_catalog_json="/run/models.json"', joined)
         self.assertNotIn("dummy-secret", joined)
+
+    def test_actor_environment_excludes_unrelated_credentials(self):
+        with patch.dict(
+            os.environ,
+            {
+                "HOME": "/home/test",
+                "PATH": "/usr/bin",
+                "DEEPSEEK_API_KEY": "upstream-secret",
+                "SKILLOPT_CODEX_BRIDGE_TOKEN": "bridge-secret",
+            },
+            clear=True,
+        ):
+            direct = _codex_environment(None)
+            bridged = _codex_environment("SKILLOPT_CODEX_BRIDGE_TOKEN")
+        self.assertNotIn("DEEPSEEK_API_KEY", direct)
+        self.assertNotIn("DEEPSEEK_API_KEY", bridged)
+        self.assertNotIn("SKILLOPT_CODEX_BRIDGE_TOKEN", direct)
+        self.assertEqual(
+            bridged["SKILLOPT_CODEX_BRIDGE_TOKEN"], "bridge-secret"
+        )
 
 
 if __name__ == "__main__":

@@ -53,6 +53,27 @@
   和 split manifest 只能写到 `${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/`。
 - 本目录只保留代码、测试、配置模板、hash、proposal 和审核后的紧凑摘要。
 
+## GLM API 配置
+
+固定 test-20 launcher 通过 Z.AI 的通用 OpenAI-compatible API 调用 GLM。
+把密钥只写入仓库根目录的 `.env`（不要提交）：
+
+```bash
+ZAI_API_KEY=your-key
+ZAI_BASE_URL=https://api.z.ai/api/paas/v4
+SKILLOPT_MODEL_CATALOG_PATH=/absolute/path/to/reviewed/models.json
+```
+
+launcher 会把 sourced `.env` 中的密钥显式 export 给 bridge，因此带或不带
+`export` 前缀均可。Z.AI 当前公开文档列出的最新文本模型是 `glm-5.1`，而本
+实验冻结的是 `glm-5.3`；正式运行前应在账号控制台确认该 ID，或先发一个极小
+的 Chat Completion smoke。如果账号不可见，不要在某一个实验 arm 中静默替换
+模型。运行命令为：
+
+```bash
+skillopt-verusage/scripts/run_s2_fixed_test20.sh glm {blank|s2}
+```
+
 ## 研究边界
 
 本方案的第一阶段只做 Anvil/IronKV effective-train 内的 task-held-out

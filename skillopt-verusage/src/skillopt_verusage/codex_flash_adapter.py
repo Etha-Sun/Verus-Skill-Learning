@@ -34,9 +34,11 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
         minibatch_size: int = 8,
         edit_budget: int = 4,
         task_retries: int = 2,
+        timeout_retries: int | None = None,
         codex_timeout_seconds: int = 1200,
         max_codex_timeout_seconds: int = 1200,
         model_context_window: int = 262144,
+        fail_on_invalid: bool = True,
         seed: int = 42,
     ) -> None:
         super().__init__(
@@ -52,6 +54,7 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
             edit_budget=edit_budget,
             task_retries=task_retries,
             task_timeout_seconds=max_codex_timeout_seconds + 120,
+            fail_on_invalid=fail_on_invalid,
             seed=seed,
         )
         self.codex_bin = Path(codex_bin).resolve()
@@ -62,6 +65,9 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
         self.bridge_manifest_path = Path(bridge_manifest_path).resolve()
         self.codex_timeout_seconds = int(codex_timeout_seconds)
         self.max_codex_timeout_seconds = int(max_codex_timeout_seconds)
+        self.timeout_retries = (
+            self.task_retries if timeout_retries is None else int(timeout_retries)
+        )
         self.model_context_window = int(model_context_window)
         self._codex_version = subprocess.run(
             [str(self.codex_bin), "--version"],
@@ -96,6 +102,10 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
         tools = manifest.get("tools") or {}
         provider = manifest.get("provider") or {}
         bridge = manifest.get("bridge") or {}
+        allowed_timeouts = {
+            min(self.max_codex_timeout_seconds, timeout_seconds * attempt)
+            for attempt in range(1, self.task_retries + 2)
+        }
         if (
             result.get("id") == task_dir.name
             and result.get("actor_model") == self.actor_model
@@ -106,7 +116,7 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
             and manifest.get("prompt_sha256")
             == hashlib.sha256(build_prompt().encode("utf-8")).hexdigest()
             and manifest.get("model") == self.actor_model
-            and manifest.get("timeout_seconds") == timeout_seconds
+            and manifest.get("timeout_seconds") in allowed_timeouts
             and provider.get("base_url") == expected_provider_url
             and provider.get("wire_api") == "responses"
             and provider.get("model_context_window") == self.model_context_window
@@ -119,9 +129,11 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
             and bridge.get("config_sha256") == bridge_manifest.get("config_sha256")
             and bridge.get("implementation_sha256")
             == bridge_manifest.get("implementation_sha256")
-            and bridge.get("protocol") == "native_responses_passthrough"
-            and bridge.get("native_responses") is True
+            and bridge.get("protocol") == bridge_manifest.get("protocol")
+            and bridge.get("native_responses")
+            == bridge_manifest.get("native_responses")
             and bridge.get("fake_mode") is False
+            and not (result.get("timed_out") and not result.get("hard"))
         ):
             return result
         return None
@@ -246,7 +258,11 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
                 json.dumps(result, ensure_ascii=False, indent=2) + "\n",
                 encoding="utf-8",
             )
-            retry = result.get("fidelity") == "V0_INVALID"
+            retry = result.get("fidelity") == "V0_INVALID" or bool(
+                result.get("timed_out")
+                and not result.get("hard")
+                and attempt_index <= self.timeout_retries
+            )
             if not retry or attempt_index > self.task_retries:
                 return result
             self._archive_safely(task_dir, attempt_index)
@@ -270,9 +286,14 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
 
     @staticmethod
     def _task_key(task_dir: Path, attempt_index: int) -> str:
-        phase = task_dir.parent.parent.name
-        if phase == "predictions":
-            phase = task_dir.parent.parent.parent.name
+        phase_dir = (
+            task_dir.parent.parent
+            if task_dir.parent.name == "predictions"
+            else task_dir.parent
+        )
+        phase = phase_dir.name
+        if phase_dir.parent.name.startswith("step_"):
+            phase = f"{phase_dir.parent.name}-{phase}"
         phase = "".join(
             char if char.isalnum() or char in "_-" else "_" for char in phase
         )

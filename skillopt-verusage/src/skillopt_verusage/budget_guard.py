@@ -6,44 +6,88 @@ import json
 import os
 import time
 import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 
 DEEPSEEK_RATES_USD_PER_MILLION = {
     "deepseek-v4-flash": {
-        "prompt_cache_hit_tokens": 0.0028,
-        "prompt_cache_miss_tokens": 0.14,
-        "completion_tokens": 0.28,
+        "off_peak": {
+            "prompt_cache_hit_tokens": 0.007,
+            "prompt_cache_miss_tokens": 0.22,
+            "completion_tokens": 0.66,
+        },
+        "peak": {
+            "prompt_cache_hit_tokens": 0.014,
+            "prompt_cache_miss_tokens": 0.44,
+            "completion_tokens": 1.32,
+        },
     },
     "deepseek-v4-pro": {
-        "prompt_cache_hit_tokens": 0.003625,
-        "prompt_cache_miss_tokens": 0.435,
-        "completion_tokens": 0.87,
+        "off_peak": {
+            "prompt_cache_hit_tokens": 0.022,
+            "prompt_cache_miss_tokens": 0.66,
+            "completion_tokens": 1.98,
+        },
+        "peak": {
+            "prompt_cache_hit_tokens": 0.044,
+            "prompt_cache_miss_tokens": 1.32,
+            "completion_tokens": 3.96,
+        },
     },
 }
+DEEPSEEK_PEAK_UTC_HOURS = ((1, 4), (6, 10))
 FLASH_RATES_USD_PER_MILLION = DEEPSEEK_RATES_USD_PER_MILLION[
     "deepseek-v4-flash"
-]
+]["off_peak"]
 
 
-def rates_for_model(model: str) -> dict[str, float]:
+def price_band_for_utc(when: datetime | None = None) -> str:
+    current = when or datetime.now(timezone.utc)
+    if current.tzinfo is None:
+        raise ValueError("DeepSeek price-band timestamp must be timezone-aware")
+    hour = current.astimezone(timezone.utc).hour
+    return (
+        "peak"
+        if any(start <= hour < end for start, end in DEEPSEEK_PEAK_UTC_HOURS)
+        else "off_peak"
+    )
+
+
+def rates_for_model(
+    model: str,
+    *,
+    price_band: str | None = None,
+) -> dict[str, float]:
     try:
-        return DEEPSEEK_RATES_USD_PER_MILLION[model]
+        model_rates = DEEPSEEK_RATES_USD_PER_MILLION[model]
     except KeyError as error:
         raise ValueError(f"unsupported DeepSeek billing model: {model}") from error
+    band = price_band or price_band_for_utc()
+    try:
+        return model_rates[band]
+    except KeyError as error:
+        raise ValueError(f"unsupported DeepSeek price band: {band}") from error
 
 
-def estimate_deepseek_cost(usage: dict[str, int], model: str) -> float:
+def estimate_deepseek_cost(
+    usage: dict[str, int],
+    model: str,
+    *,
+    price_band: str | None = None,
+) -> float:
     return sum(
         int(usage.get(key, 0) or 0) * rate / 1_000_000
-        for key, rate in rates_for_model(model).items()
+        for key, rate in rates_for_model(model, price_band=price_band).items()
     )
 
 
 def estimate_deepseek_request_upper_bound(
     max_completion_tokens: int,
     model: str,
+    *,
+    price_band: str | None = None,
 ) -> float:
     """Conservative request bound: 1M uncached input plus capped output."""
 
@@ -53,6 +97,7 @@ def estimate_deepseek_request_upper_bound(
             "completion_tokens": max_completion_tokens,
         },
         model,
+        price_band=price_band,
     )
 
 

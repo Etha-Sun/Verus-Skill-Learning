@@ -96,6 +96,27 @@ class AdapterProcessCleanupTest(unittest.TestCase):
                     str(Path(temp_dir) / "rollout"),
                 )
 
+    def test_rollout_can_retain_invalid_task_for_uniform_evaluation(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            adapter = object.__new__(VeruSAGEAdapter)
+            adapter.workers = 1
+            adapter.fail_on_invalid = False
+            adapter._process_lock = threading.Lock()
+            adapter._active_processes = set()
+            adapter._run_one = lambda item, prediction_dir, skill_file: {
+                "id": item["id"],
+                "hard": 0,
+                "status": "UNSOLVED",
+                "fidelity": "V0_INVALID",
+                "fail_reason": "provider exhausted",
+            }
+            results = adapter.rollout(
+                [{"id": "task-one"}],
+                "skill\n",
+                str(Path(temp_dir) / "rollout"),
+            )
+            self.assertEqual(results[0]["fidelity"], "V0_INVALID")
+
 
 if __name__ == "__main__":
     unittest.main()

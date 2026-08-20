@@ -5,7 +5,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from skillopt_verusage.codex_flash_runner import _bridge_usage, _conversation
+from skillopt_verusage.codex_flash_runner import (
+    _bridge_usage,
+    _classify_fidelity,
+    _conversation,
+)
 
 
 class CodexFlashRunnerTests(unittest.TestCase):
@@ -63,6 +67,54 @@ class CodexFlashRunnerTests(unittest.TestCase):
             )
             self.assertEqual(conversation[0]["obs"], "full diagnostic")
             self.assertIn("Independent final Verus", conversation[-1]["content"])
+
+    def test_bridge_usage_counts_unmetered_incomplete_and_error_attempts(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            ledger = Path(tmp) / "ledger.jsonl"
+            ledger.write_text(
+                json.dumps(
+                    {
+                        "task_id": "wanted",
+                        "upstream_model": "deepseek-v4-pro-0813",
+                        "attempts": [
+                            {
+                                "finish_reason": "incomplete",
+                                "usage": None,
+                                "error": "truncated",
+                            }
+                        ],
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            usage = _bridge_usage(ledger, "wanted", "deepseek-v4-pro")
+            self.assertEqual(usage["requests"], 1)
+            self.assertEqual(usage["unmetered_requests"], 1)
+            self.assertEqual(usage["incomplete_requests"], 1)
+            self.assertEqual(usage["error_requests"], 1)
+
+    def test_fidelity_fails_closed_on_terminal_or_provider_failure(self) -> None:
+        base = {
+            "codex_returncode": 0,
+            "timed_out": False,
+            "fidelity": {"f3": True, "input_unchanged": True},
+        }
+        completed = {"completed": 1, "failed": 0, "errors": 0}
+        self.assertEqual(_classify_fidelity(base, True, completed), "V2_TRACE")
+        self.assertEqual(_classify_fidelity(base, False, completed), "V0_INVALID")
+        self.assertEqual(
+            _classify_fidelity({**base, "codex_returncode": 1}, True, completed),
+            "V0_INVALID",
+        )
+        self.assertEqual(
+            _classify_fidelity(base, True, {"completed": 0, "failed": 1, "errors": 0}),
+            "V0_INVALID",
+        )
+        self.assertEqual(
+            _classify_fidelity({**base, "timed_out": True}, True, completed),
+            "V1_TRUNCATED",
+        )
 
 
 if __name__ == "__main__":

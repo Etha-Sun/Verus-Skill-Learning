@@ -23,14 +23,23 @@ def _bridge_usage(
 ) -> dict[str, Any]:
     totals: dict[str, Any] = {
         "requests": 0,
+        "metered_requests": 0,
+        "unmetered_requests": 0,
+        "error_requests": 0,
+        "completed_requests": 0,
+        "incomplete_requests": 0,
+        "unknown_status_requests": 0,
         "prompt_tokens": 0,
         "prompt_cache_hit_tokens": 0,
         "prompt_cache_miss_tokens": 0,
         "completion_tokens": 0,
         "reasoning_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "unknown_cost_requests": 0,
+        "price_bands": {},
+        "upstream_models": [],
     }
     if not path.is_file():
-        totals["estimated_cost_usd"] = 0.0
         return totals
     for line in path.read_text(encoding="utf-8").splitlines():
         if not line.strip():
@@ -38,11 +47,25 @@ def _bridge_usage(
         record = json.loads(line)
         if record.get("task_id") != task_key:
             continue
+        upstream_model = str(record.get("upstream_model") or "")
+        if upstream_model and upstream_model not in totals["upstream_models"]:
+            totals["upstream_models"].append(upstream_model)
         for attempt in record.get("attempts") or []:
+            totals["requests"] += 1
+            status = str(attempt.get("finish_reason") or "")
+            if status == "completed":
+                totals["completed_requests"] += 1
+            elif status == "incomplete":
+                totals["incomplete_requests"] += 1
+            else:
+                totals["unknown_status_requests"] += 1
+            if attempt.get("error"):
+                totals["error_requests"] += 1
             usage = attempt.get("usage")
             if not isinstance(usage, dict):
+                totals["unmetered_requests"] += 1
                 continue
-            totals["requests"] += 1
+            totals["metered_requests"] += 1
             for key in (
                 "prompt_tokens",
                 "prompt_cache_hit_tokens",
@@ -51,8 +74,73 @@ def _bridge_usage(
                 "reasoning_tokens",
             ):
                 totals[key] += int(usage.get(key, 0) or 0)
-    totals["estimated_cost_usd"] = estimate_deepseek_cost(totals, model)
+            price_band = str(attempt.get("price_band") or "")
+            if price_band:
+                totals["price_bands"][price_band] = (
+                    int(totals["price_bands"].get(price_band, 0)) + 1
+                )
+            recorded_cost = attempt.get("estimated_cost_usd")
+            if recorded_cost is not None:
+                totals["estimated_cost_usd"] += float(recorded_cost)
+            else:
+                try:
+                    totals["estimated_cost_usd"] += estimate_deepseek_cost(
+                        usage,
+                        model,
+                        price_band=price_band or None,
+                    )
+                except ValueError:
+                    totals["unknown_cost_requests"] += 1
     return totals
+
+
+def _codex_terminal(raw_events: Path) -> dict[str, int]:
+    totals = {"completed": 0, "failed": 0, "errors": 0}
+    if not raw_events.is_file():
+        return totals
+    for line in raw_events.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        try:
+            row = json.loads(line)
+        except json.JSONDecodeError:
+            totals["errors"] += 1
+            continue
+        row_type = str(row.get("type") or "")
+        if row_type == "turn.completed":
+            totals["completed"] += 1
+        elif row_type == "turn.failed":
+            totals["failed"] += 1
+        elif row_type == "error":
+            totals["errors"] += 1
+    return totals
+
+
+def _compatible_upstream_model(configured: str, returned: str) -> bool:
+    expected = configured.strip().lower().replace("_", "-")
+    actual = returned.strip().lower().replace("_", "-")
+    return actual == expected
+
+
+def _classify_fidelity(
+    result: dict[str, Any], provider_valid: bool, terminal: dict[str, int]
+) -> str:
+    terminal_valid = bool(
+        result.get("codex_returncode") == 0
+        and not result.get("timed_out")
+        and terminal["completed"] == 1
+        and terminal["failed"] == 0
+        and terminal["errors"] == 0
+    )
+    if (
+        result.get("timed_out")
+        and bool(result["fidelity"].get("input_unchanged"))
+        and provider_valid
+    ):
+        return "V1_TRUNCATED"
+    if bool(result["fidelity"].get("f3")) and provider_valid and terminal_valid:
+        return "V2_TRACE"
+    return "V0_INVALID"
 
 
 def _conversation(raw_events: Path, validation: dict[str, Any]) -> list[dict[str, Any]]:
@@ -148,12 +236,17 @@ def run_task(
         raise ValueError("live Codex task cannot use a fake bridge")
     if bridge_manifest.get("model") != model:
         raise ValueError("bridge manifest model mismatch")
-    if bridge_manifest.get("native_responses") is not True:
-        raise ValueError("formal Codex task requires native Responses passthrough")
+    model_catalog_path = _external_file(bridge_manifest_path.parent / "models.json")
+    if sha256_file(model_catalog_path) != bridge_manifest.get("model_catalog_sha256"):
+        raise ValueError("Codex model catalog hash mismatch")
+    protocol = str(bridge_manifest.get("protocol") or "")
+    if protocol not in {
+        "native_responses_passthrough",
+        "responses_to_chat_completions",
+    }:
+        raise ValueError(f"unsupported bridge protocol: {protocol!r}")
     skill_text = skill_file.read_text(encoding="utf-8")
-    provider_base_url = (
-        bridge_url.rstrip("/") + f"/tasks/{bridge_task_key}/v1"
-    )
+    provider_base_url = bridge_url.rstrip("/") + f"/tasks/{bridge_task_key}/v1"
     result = run_codex_smoke(
         source=source,
         out_dir=out_dir,
@@ -168,8 +261,9 @@ def run_task(
         skill_text=skill_text,
         provider_id="deepseek_bridge",
         provider_base_url=provider_base_url,
-        provider_env_key="DEEPSEEK_API_KEY",
+        provider_env_key="SKILLOPT_CODEX_BRIDGE_TOKEN",
         model_context_window=model_context_window,
+        model_catalog_json=model_catalog_path,
     )
     manifest_path = out_dir / "run_manifest.json"
     run_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -180,6 +274,9 @@ def run_task(
         "protocol": bridge_manifest["protocol"],
         "native_responses": bridge_manifest["native_responses"],
         "fake_mode": bridge_manifest["fake_mode"],
+        "chat_profile": bridge_manifest.get("chat_profile"),
+        "pricing_profile": bridge_manifest.get("pricing_profile"),
+        "model_catalog_sha256": bridge_manifest.get("model_catalog_sha256"),
     }
     manifest_path.write_text(
         json.dumps(run_manifest, ensure_ascii=False, indent=2) + "\n",
@@ -190,6 +287,31 @@ def run_task(
     raw_events = out_dir / "codex_events.raw.jsonl"
     conversation = _conversation(raw_events, validation)
     usage = _bridge_usage(bridge_ledger_path, bridge_task_key, model)
+    terminal = _codex_terminal(raw_events)
+    returned_models = list(usage.get("upstream_models") or [])
+    provider_valid = bool(
+        usage["requests"] > 0
+        and usage["metered_requests"] == usage["requests"]
+        and usage["completed_requests"] > 0
+        and usage["completed_requests"] + usage["incomplete_requests"]
+        == usage["requests"]
+        and usage["error_requests"] == 0
+        and usage["unknown_cost_requests"] == 0
+        and all(
+            _compatible_upstream_model(
+                str(bridge_manifest.get("expected_upstream_model") or model), value
+            )
+            for value in returned_models
+        )
+        and bool(returned_models)
+    )
+    terminal_valid = bool(
+        result.get("codex_returncode") == 0
+        and not result.get("timed_out")
+        and terminal["completed"] == 1
+        and terminal["failed"] == 0
+        and terminal["errors"] == 0
+    )
     fail_reason = ""
     if not hard:
         if result.get("timed_out"):
@@ -200,16 +322,13 @@ def run_task(
                 + str(validation["verus"].get("stderr") or "")
             ).strip()
             fail_reason = diagnostic[-4000:] or "independent-final-verus-failed"
-    fidelity = (
-        "V2_TRACE"
-        if bool(result["fidelity"].get("f3"))
-        else (
-            "V1_TRUNCATED"
-            if bool(result["fidelity"].get("input_unchanged"))
-            and result.get("timed_out")
-            else "V0_INVALID"
-        )
-    )
+    fidelity = _classify_fidelity(result, provider_valid, terminal)
+    if fidelity == "V0_INVALID" and not fail_reason:
+        fail_reason = (
+            "invalid-bridge-provider-or-codex-terminal: "
+            f"provider={provider_valid} terminal={terminal_valid} "
+            f"usage={usage} codex_terminal={terminal}"
+        )[-4000:]
     enriched = {
         **result,
         "schema_version": "1",
@@ -224,20 +343,24 @@ def run_task(
         ),
         "fidelity": fidelity,
         "actor_model": model,
-        "actor_harness": "codex-cli-native-responses",
+        "actor_harness": (
+            "codex-cli-native-responses"
+            if protocol == "native_responses_passthrough"
+            else "codex-cli-responses-via-chat-bridge"
+        ),
         "actor_reasoning_effort": reasoning_effort,
         "bridge_task_key": bridge_task_key,
         "source_sha256": expected_source_sha256,
         "skill_sha256": hashlib.sha256(skill_text.encode("utf-8")).hexdigest(),
         "usage": usage,
+        "codex_terminal": terminal,
+        "provider_valid": provider_valid,
     }
     (out_dir / "conversation.json").write_text(
         json.dumps(conversation, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
-    (out_dir / "target_user_prompt.txt").write_text(
-        build_prompt(), encoding="utf-8"
-    )
+    (out_dir / "target_user_prompt.txt").write_text(build_prompt(), encoding="utf-8")
     (out_dir / "result.json").write_text(
         json.dumps(enriched, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",

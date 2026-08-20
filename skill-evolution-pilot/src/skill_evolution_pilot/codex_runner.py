@@ -62,7 +62,7 @@ Proof rules:
 - Never use assume, admit, external_body, new axioms, or verification bypasses.
 - Run `./tools/run_verus.sh` after edits and use its complete diagnostics.
 - Run `./tools/run_lynette.sh` before finishing.
-- Continue normal hands-off exploration until both checks pass or useful
+- Continue exploration until both checks pass or useful
   approaches are exhausted.
 
 Leave the complete best candidate in candidate.rs. In the final response,
@@ -83,7 +83,22 @@ def build_command(
     provider_base_url: str | None = None,
     provider_env_key: str | None = None,
     model_context_window: int | None = None,
+    model_catalog_json: Path | None = None,
 ) -> list[str]:
+    disabled_capabilities = (
+        "apps",
+        "browser_use",
+        "browser_use_external",
+        "computer_use",
+        "default_mode_request_user_input",
+        "goals",
+        "image_generation",
+        "multi_agent",
+        "plugins",
+        "skill_search",
+        "tool_suggest",
+        "workspace_dependencies",
+    )
     command = [
         str(codex_bin),
         "exec",
@@ -99,6 +114,11 @@ def build_command(
         "hide_agent_reasoning=false",
         "-c",
         f"show_raw_agent_reasoning={'true' if show_raw_agent_reasoning else 'false'}",
+        *(
+            value
+            for capability in disabled_capabilities
+            for value in ("--disable", capability)
+        ),
         "--sandbox",
         "workspace-write",
         "--ephemeral",
@@ -114,14 +134,17 @@ def build_command(
         str(last_message),
         "-",
     ]
-    if any(value is not None for value in (provider_id, provider_base_url, provider_env_key)):
+    if any(
+        value is not None
+        for value in (provider_id, provider_base_url, provider_env_key)
+    ):
         if not all((provider_id, provider_base_url, provider_env_key)):
             raise ValueError("custom Codex provider requires id, base URL, and env key")
         provider_config = [
             "-c",
             f'model_provider="{provider_id}"',
             "-c",
-            f'model_providers.{provider_id}.name="DeepSeek Bridge"',
+            f'model_providers.{provider_id}.name="Codex Compatibility Bridge"',
             "-c",
             f'model_providers.{provider_id}.base_url="{provider_base_url}"',
             "-c",
@@ -132,6 +155,11 @@ def build_command(
         command[2:2] = provider_config
     if model_context_window is not None:
         command[2:2] = ["-c", f"model_context_window={int(model_context_window)}"]
+    if model_catalog_json is not None:
+        command[2:2] = [
+            "-c",
+            f"model_catalog_json={json.dumps(str(model_catalog_json.resolve()))}",
+        ]
     return command
 
 
@@ -148,6 +176,26 @@ def _version(path: Path) -> dict[str, Any]:
         "stdout": result.stdout,
         "stderr": result.stderr,
     }
+
+
+def _codex_environment(provider_env_key: str | None) -> dict[str, str]:
+    allowed = {
+        "HOME",
+        "PATH",
+        "TMPDIR",
+        "TERM",
+        "LANG",
+        "LC_ALL",
+        "SSL_CERT_FILE",
+        "SSL_CERT_DIR",
+        "HTTP_PROXY",
+        "HTTPS_PROXY",
+        "NO_PROXY",
+        "CODEX_HOME",
+    }
+    if provider_env_key:
+        allowed.add(provider_env_key)
+    return {key: value for key, value in os.environ.items() if key in allowed}
 
 
 def _run_complete(
@@ -243,6 +291,7 @@ def run_codex_smoke(
     provider_base_url: str | None = None,
     provider_env_key: str | None = None,
     model_context_window: int | None = None,
+    model_catalog_json: Path | None = None,
 ) -> dict[str, Any]:
     out_dir = _require_external_output(out_dir)
     codex_bin = _require_executable(codex_bin, "codex")
@@ -305,6 +354,7 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         provider_base_url=provider_base_url,
         provider_env_key=provider_env_key,
         model_context_window=model_context_window,
+        model_catalog_json=model_catalog_json,
     )
     manifest = {
         "run_id": out_dir.name,
@@ -323,6 +373,9 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
             "env_key": provider_env_key,
             "wire_api": "responses" if provider_id else None,
             "model_context_window": model_context_window,
+            "model_catalog_json": (
+                str(model_catalog_json.resolve()) if model_catalog_json else None
+            ),
         },
         "source_sha256": source_sha,
         "prompt_sha256": sha256_file(prompt_path),
@@ -346,6 +399,7 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
             "$LAST_MESSAGE",
             "-",
         ],
+        "actor_environment_keys": sorted(_codex_environment(provider_env_key)),
         "raw_log_uncompressed": True,
         "hidden_chain_of_thought_claimed": False,
     }
@@ -368,6 +422,7 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
             text=True,
             bufsize=1,
             start_new_session=True,
+            env=_codex_environment(provider_env_key),
         )
         assert process.stdin is not None
         assert process.stdout is not None
@@ -438,10 +493,7 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         )
         passed = bool(
             check["returncode"] == 0
-            and (
-                actor == "lynette"
-                or "verified, 0 errors" in str(check["stdout"])
-            )
+            and (actor == "lynette" or "verified, 0 errors" in str(check["stdout"]))
         )
         recorder.log.append(
             actor=actor,
@@ -466,8 +518,7 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         and row["item"].get("type") in {"command_execution", "file_change"}
     ]
     expected_boundaries = {
-        f"{row['item']['type']}:{row['item'].get('id')}"
-        for row in completed_raw_items
+        f"{row['item']['type']}:{row['item'].get('id')}" for row in completed_raw_items
     }
     snapshot_rows = [
         row
@@ -476,19 +527,14 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         and row.get("type") == "lifecycle"
         and row.get("data", {}).get("snapshot")
     ]
-    observed_boundaries = {
-        str(row["data"].get("boundary")) for row in snapshot_rows
-    }
+    observed_boundaries = {str(row["data"].get("boundary")) for row in snapshot_rows}
     completed_boundaries = len(completed_raw_items)
     snapshots = sorted((out_dir / "snapshots").glob("*-candidate.rs"))
     usage = _usage_from_rows(rows)
     reasoning_items = [
         row
         for row in rows
-        if row.get("data", {})
-        .get("raw_codex_event", {})
-        .get("item", {})
-        .get("type")
+        if row.get("data", {}).get("raw_codex_event", {}).get("item", {}).get("type")
         == "reasoning"
     ]
     visible_reasoning_chars = sum(
@@ -508,8 +554,7 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
     snapshot_files_complete = all(
         (out_dir / row["data"]["snapshot"]).is_file()
         and (out_dir / row["data"]["diff"]).is_file()
-        and sha256_file(out_dir / row["data"]["snapshot"])
-        == row["candidate_sha256"]
+        and sha256_file(out_dir / row["data"]["snapshot"]) == row["candidate_sha256"]
         for row in snapshot_rows
     )
     raw_fingerprints = Counter(_event_fingerprint(row) for row in raw_rows)
@@ -570,8 +615,7 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         "raw_reasoning_display_requested": show_raw_agent_reasoning,
         "reasoning_summary_observed": bool(reasoning_items),
         "reasoning_token_count_available": bool(
-            isinstance(usage, dict)
-            and usage.get("reasoning_output_tokens") is not None
+            isinstance(usage, dict) and usage.get("reasoning_output_tokens") is not None
         ),
         "raw_hidden_chain_of_thought_claimed": False,
         "usage": usage,
