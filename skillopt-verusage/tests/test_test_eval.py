@@ -1,16 +1,38 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 
 from skill_evolution_pilot.codex_runner import build_prompt
-from skillopt_verusage.test_eval import _load_skill, _require_run_dir, _summarize
+from skillopt_verusage.test_eval import (
+    _attach_item_metadata,
+    _load_skill,
+    _require_run_dir,
+    _summarize,
+)
 
 
 class TestFixedTestEvalContract(unittest.TestCase):
+    def test_bridge_results_receive_frozen_item_metadata(self) -> None:
+        results = [{"id": "case-a", "status": "UNSOLVED"}]
+        _attach_item_metadata(
+            results,
+            [
+                {
+                    "id": "case-a",
+                    "task_id": "AC__case_a",
+                    "project_code": "AC",
+                    "claude_failed": True,
+                }
+            ],
+        )
+        self.assertEqual(results[0]["task_id"], "AC__case_a")
+        self.assertTrue(results[0]["claude_failed"])
+
     def test_run_dir_allows_tee_log_created_before_evaluator_start(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir) / "runs"
@@ -80,6 +102,51 @@ class TestFixedTestEvalContract(unittest.TestCase):
         )
         self.assertEqual(summary["solved"], 0)
         self.assertEqual(summary["invalid_solved_excluded"], 1)
+
+    def test_bridge_summary_uses_complete_ledger_cost(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            ledger = Path(temp_dir) / "bridge.jsonl"
+            rows = [
+                {
+                    "attempts": [
+                        {
+                            "usage": {"prompt_tokens": 10, "completion_tokens": 2},
+                            "estimated_cost_usd": 0.1,
+                        }
+                    ]
+                },
+                {
+                    "attempts": [
+                        {
+                            "usage": {"prompt_tokens": 20, "completion_tokens": 3},
+                            "estimated_cost_usd": 0.2,
+                        }
+                    ]
+                },
+            ]
+            ledger.write_text(
+                "".join(json.dumps(row) + "\n" for row in rows), encoding="utf-8"
+            )
+            summary = _summarize(
+                [
+                    {
+                        "status": "SOLVED",
+                        "fidelity": "V2_TRACE",
+                        "usage": {
+                            "prompt_tokens": 10,
+                            "completion_tokens": 2,
+                            "estimated_cost_usd": 0.1,
+                        },
+                        "claude_failed": False,
+                    }
+                ],
+                transport="bridge",
+                model="glm-5.3",
+                bridge_ledger=ledger,
+            )
+        self.assertEqual(summary["usage"]["requests"], 2)
+        self.assertAlmostEqual(summary["estimated_api_cost_usd"], 0.3)
+        self.assertAlmostEqual(summary["archived_or_replaced_attempt_cost_usd"], 0.2)
 
 
 if __name__ == "__main__":
