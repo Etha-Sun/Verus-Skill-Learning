@@ -51,6 +51,7 @@ def _require_run_dir(path: Path) -> Path:
             "bridge_calls.jsonl",
             "bridge_manifest.json",
             "models.json",
+            "test.log",
         }
         unexpected = sorted(item.name for item in resolved.iterdir() if item.name not in allowed)
         if unexpected:
