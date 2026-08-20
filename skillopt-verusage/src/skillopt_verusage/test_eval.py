@@ -198,8 +198,51 @@ def _run_direct(
     return [by_id[str(item["id"])] for item in items]
 
 
+def _attach_item_metadata(
+    results: list[dict[str, Any]], items: list[dict[str, Any]]
+) -> None:
+    items_by_id = {str(item["id"]): item for item in items}
+    for result in results:
+        item = items_by_id.get(str(result.get("id") or ""))
+        if item is None:
+            raise ValueError(f"result has unknown test item id: {result.get('id')}")
+        result.update(
+            {
+                "task_id": item["task_id"],
+                "project_code": item["project_code"],
+                "claude_failed": bool(item["claude_failed"]),
+            }
+        )
+
+
+def _bridge_ledger_usage(path: Path) -> tuple[dict[str, int], float]:
+    attempts = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.strip():
+            attempts.extend(json.loads(line).get("attempts") or [])
+    usage = {
+        "requests": len(attempts),
+        **{
+            key: sum(int((attempt.get("usage") or {}).get(key, 0) or 0) for attempt in attempts)
+            for key in (
+                "prompt_tokens",
+                "prompt_cache_hit_tokens",
+                "prompt_cache_miss_tokens",
+                "completion_tokens",
+                "reasoning_tokens",
+            )
+        },
+    }
+    cost = sum(float(attempt.get("estimated_cost_usd", 0.0) or 0.0) for attempt in attempts)
+    return usage, cost
+
+
 def _summarize(
-    results: list[dict[str, Any]], *, transport: str, model: str
+    results: list[dict[str, Any]],
+    *,
+    transport: str,
+    model: str,
+    bridge_ledger: Path | None = None,
 ) -> dict[str, Any]:
     if transport == "direct":
         usage_rows = [(row.get("fidelity") or {}).get("usage") or {} for row in results]
@@ -219,7 +262,7 @@ def _summarize(
         }
     else:
         usage_rows = [row.get("usage") or {} for row in results]
-        usage = {
+        retained_usage = {
             key: sum(int(row.get(key, 0) or 0) for row in usage_rows)
             for key in (
                 "requests",
@@ -230,16 +273,22 @@ def _summarize(
                 "reasoning_tokens",
             )
         }
-        estimated_cost = sum(
+        retained_cost = sum(
             float(row.get("estimated_cost_usd", 0.0) or 0.0) for row in usage_rows
         )
+        if bridge_ledger is not None:
+            usage, estimated_cost = _bridge_ledger_usage(bridge_ledger)
+            cost_basis = "complete bridge ledger including archived attempts"
+        else:
+            usage, estimated_cost = retained_usage, retained_cost
+            cost_basis = "retained task results"
         is_valid = lambda row: row.get("fidelity") in {  # noqa: E731
             "V1_TRUNCATED",
             "V2_TRACE",
         }
     valid = sum(is_valid(row) for row in results)
     solved = sum(is_valid(row) and row.get("status") == "SOLVED" for row in results)
-    return {
+    summary = {
         "status": "complete" if valid == len(results) else "complete_with_invalid_results",
         "finished_at": _now(),
         "model": model,
@@ -258,8 +307,14 @@ def _summarize(
         ),
         "usage": usage,
         "estimated_api_cost_usd": estimated_cost,
-        "cost_basis": "local quota" if transport == "direct" else "bridge ledger",
+        "cost_basis": "local quota" if transport == "direct" else cost_basis,
     }
+    if transport == "bridge" and bridge_ledger is not None:
+        summary["retained_task_estimated_api_cost_usd"] = retained_cost
+        summary["archived_or_replaced_attempt_cost_usd"] = max(
+            0.0, estimated_cost - retained_cost
+        )
+    return summary
 
 
 def main() -> None:
@@ -384,8 +439,14 @@ def main() -> None:
         adapter.setup({"out_root": str(run_dir)})
         results = adapter.rollout(items, skill_text, str(run_dir))
 
+    _attach_item_metadata(results, items)
     _write_json(run_dir / "per_task.json", results)
-    summary = _summarize(results, transport=args.transport, model=args.model)
+    summary = _summarize(
+        results,
+        transport=args.transport,
+        model=args.model,
+        bridge_ledger=args.bridge_ledger if args.transport == "bridge" else None,
+    )
     _write_json(run_dir / "summary.json", summary)
     contract["status"] = summary["status"]
     contract["finished_at"] = summary["finished_at"]
