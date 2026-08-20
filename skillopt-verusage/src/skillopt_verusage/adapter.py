@@ -48,6 +48,7 @@ class VeruSAGEAdapter(EnvAdapter):
         budget_optimizer_reserve_usd: float = 1.0,
         budget_request_reserve_usd: float = 0.3,
         retrieval_cards_path: str | None = None,
+        fail_on_invalid: bool = True,
         seed: int = 42,
     ):
         self.verusage_src_root = Path(verusage_src_root).resolve()
@@ -76,6 +77,7 @@ class VeruSAGEAdapter(EnvAdapter):
         self.budget_optimizer_reserve_usd = float(budget_optimizer_reserve_usd)
         self.budget_request_reserve_usd = float(budget_request_reserve_usd)
         self.retrieval_cards_path = retrieval_cards_path
+        self.fail_on_invalid = bool(fail_on_invalid)
         self._process_lock = threading.Lock()
         self._active_processes: set[subprocess.Popen[str]] = set()
         self.dataloader = VeruSAGEDataLoader(
@@ -315,7 +317,10 @@ class VeruSAGEAdapter(EnvAdapter):
                         prediction_dir / item["id"],
                         f"{type(error).__name__}: {error}",
                     )
-                if result.get("fidelity") == "V0_INVALID":
+                if (
+                    getattr(self, "fail_on_invalid", True)
+                    and result.get("fidelity") == "V0_INVALID"
+                ):
                     raise RuntimeError(
                         f"HARNESS_INVALID after task retries: {item['id']}: "
                         f"{result.get('fail_reason', '')}"

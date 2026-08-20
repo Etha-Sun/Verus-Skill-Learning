@@ -8,6 +8,7 @@ import threading
 import time
 import uuid
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
@@ -18,7 +19,37 @@ from skillopt_verusage.budget_guard import (
     SharedBudgetGuard,
     estimate_deepseek_cost,
     estimate_deepseek_request_upper_bound,
+    price_band_for_utc,
 )
+
+
+DATED_PRICING_RATES_USD_PER_MILLION = {
+    "zai-glm-5.3-20260819": {
+        "prompt_cache_hit_tokens": 0.26,
+        "prompt_cache_miss_tokens": 1.40,
+        "completion_tokens": 4.40,
+    },
+    "local-zero": {
+        "prompt_cache_hit_tokens": 0.0,
+        "prompt_cache_miss_tokens": 0.0,
+        "completion_tokens": 0.0,
+    },
+}
+
+
+def _profile_cost(
+    usage: dict[str, int],
+    *,
+    model: str,
+    pricing_profile: str,
+    price_band: str | None = None,
+) -> float:
+    if pricing_profile in {"legacy-deepseek", "deepseek-current"}:
+        return estimate_deepseek_cost(usage, model, price_band=price_band)
+    rates = DATED_PRICING_RATES_USD_PER_MILLION[pricing_profile]
+    return sum(
+        int(usage.get(key, 0) or 0) * rate / 1_000_000 for key, rate in rates.items()
+    )
 
 
 def _append_jsonl(path: Path | None, row: dict[str, Any]) -> None:
@@ -57,6 +88,7 @@ def translate_responses_request(
     max_output_tokens: int,
     allowed_tool_names: frozenset[str] | None = None,
     reasoning_by_call: dict[str, str] | None = None,
+    chat_profile: str = "deepseek",
 ) -> tuple[dict[str, Any], dict[str, str]]:
     """Translate the subset of Responses used by Codex into Chat Completions."""
     messages: list[dict[str, Any]] = []
@@ -91,20 +123,25 @@ def translate_responses_request(
         if not isinstance(item, dict):
             continue
         item_type = str(item.get("type") or "message")
-        if item_type == "function_call":
+        if item_type in {"function_call", "custom_tool_call"}:
+            arguments = str(item.get("arguments") or "{}")
+            if item_type == "custom_tool_call":
+                arguments = json.dumps(
+                    {"input": str(item.get("input") or "")}, ensure_ascii=False
+                )
             pending_calls.append(
                 {
                     "id": str(item.get("call_id") or item.get("id") or ""),
                     "type": "function",
                     "function": {
                         "name": str(item.get("name") or ""),
-                        "arguments": str(item.get("arguments") or "{}"),
+                        "arguments": arguments,
                     },
                 }
             )
             continue
         flush_calls()
-        if item_type == "function_call_output":
+        if item_type in {"function_call_output", "custom_tool_call_output"}:
             messages.append(
                 {
                     "role": "tool",
@@ -121,6 +158,19 @@ def translate_responses_request(
         messages.append({"role": role, "content": _content_text(item.get("content"))})
     flush_calls()
 
+    if chat_profile == "qwen38":
+        system_content = [
+            str(message.get("content") or "").strip()
+            for message in messages
+            if message.get("role") == "system"
+            and str(message.get("content") or "").strip()
+        ]
+        messages = [message for message in messages if message.get("role") != "system"]
+        if system_content:
+            messages.insert(
+                0, {"role": "system", "content": "\n\n".join(system_content)}
+            )
+
     tool_types: dict[str, str] = {}
     tools: list[dict[str, Any]] = []
     for tool in payload.get("tools") or []:
@@ -130,12 +180,19 @@ def translate_responses_request(
         if not name:
             continue
         original_type = str(tool.get("type") or "function")
-        if original_type != "function":
+        if original_type not in {"function", "custom"}:
             continue
         if allowed_tool_names is not None and name not in allowed_tool_names:
             continue
         tool_types[name] = original_type
         parameters = tool.get("parameters")
+        if original_type == "custom":
+            parameters = {
+                "type": "object",
+                "properties": {"input": {"type": "string"}},
+                "required": ["input"],
+                "additionalProperties": False,
+            }
         if not isinstance(parameters, dict):
             parameters = {
                 "type": "object",
@@ -159,9 +216,34 @@ def translate_responses_request(
         "messages": messages,
         "stream": False,
         "max_tokens": int(payload.get("max_output_tokens") or max_output_tokens),
-        "thinking": {"type": "enabled"},
-        "reasoning_effort": "high",
     }
+    if chat_profile == "deepseek":
+        request["thinking"] = {"type": "enabled"}
+        request["reasoning_effort"] = "high"
+    elif chat_profile == "glm":
+        request["thinking"] = {"type": "enabled", "clear_thinking": False}
+        request["reasoning_effort"] = "max"
+        request["temperature"] = 1.0
+    elif chat_profile == "qwen3":
+        request.update(
+            {
+                "temperature": 0.6,
+                "top_p": 0.95,
+                "top_k": 20,
+                "chat_template_kwargs": {"enable_thinking": True},
+            }
+        )
+    elif chat_profile == "qwen38":
+        request.update(
+            {
+                "temperature": 1.0,
+                "top_p": 0.95,
+                "top_k": 20,
+                "chat_template_kwargs": {"reasoning_effort": "xhigh"},
+            }
+        )
+    else:
+        raise ValueError(f"unsupported chat profile: {chat_profile}")
     if tools:
         request["tools"] = tools
         request["tool_choice"] = "auto"
@@ -173,7 +255,14 @@ def _usage(raw: Any) -> dict[str, int]:
     value = raw if isinstance(raw, dict) else {}
     prompt = int(value.get("prompt_tokens", 0) or 0)
     completion = int(value.get("completion_tokens", 0) or 0)
-    hit = int(value.get("prompt_cache_hit_tokens", 0) or 0)
+    prompt_details = value.get("prompt_tokens_details") or {}
+    hit = int(
+        value.get(
+            "prompt_cache_hit_tokens",
+            prompt_details.get("cached_tokens", 0),
+        )
+        or 0
+    )
     miss = int(value.get("prompt_cache_miss_tokens", max(0, prompt - hit)) or 0)
     completion_details = value.get("completion_tokens_details") or {}
     return {
@@ -190,10 +279,11 @@ def responses_sse_events(
     chat_payload: dict[str, Any],
     *,
     request_model: str,
+    tool_types: dict[str, str] | None = None,
 ) -> list[dict[str, Any]]:
     choices = list(chat_payload.get("choices") or [])
     if not choices:
-        raise RuntimeError("DeepSeek returned no choices")
+        raise RuntimeError("chat completion returned no choices")
     choice = choices[0]
     message = choice.get("message") or {}
     text = str(message.get("content") or "")
@@ -289,13 +379,50 @@ def responses_sse_events(
         emit("response.output_item.done", output_index=output_index, item=completed)
         output.append(completed)
 
+    tool_types = tool_types or {}
     for raw_call in tool_calls:
         function = raw_call.get("function") or {}
         call_id = str(raw_call.get("id") or f"call_{uuid.uuid4().hex}")
         name = str(function.get("name") or "")
         arguments = str(function.get("arguments") or "{}")
+        original_type = tool_types.get(name, "function")
         item_id = f"fc_{uuid.uuid4().hex}"
         output_index = len(output)
+        if original_type == "custom":
+            try:
+                decoded_arguments = json.loads(arguments)
+            except json.JSONDecodeError:
+                decoded_arguments = {}
+            custom_input = str(
+                decoded_arguments.get("input", "")
+                if isinstance(decoded_arguments, dict)
+                else ""
+            )
+            added = {
+                "type": "custom_tool_call",
+                "id": item_id,
+                "status": "in_progress",
+                "call_id": call_id,
+                "name": name,
+                "input": "",
+            }
+            emit("response.output_item.added", output_index=output_index, item=added)
+            emit(
+                "response.custom_tool_call_input.delta",
+                item_id=item_id,
+                output_index=output_index,
+                delta=custom_input,
+            )
+            emit(
+                "response.custom_tool_call_input.done",
+                item_id=item_id,
+                output_index=output_index,
+                input=custom_input,
+            )
+            completed = {**added, "status": "completed", "input": custom_input}
+            emit("response.output_item.done", output_index=output_index, item=completed)
+            output.append(completed)
+            continue
         added = {
             "type": "function_call",
             "id": item_id,
@@ -347,7 +474,10 @@ class BridgeConfig:
     max_output_tokens: int
     retry_output_tokens: int
     request_timeout_seconds: int
+    expected_upstream_model: str | None = None
     native_responses: bool = False
+    chat_profile: str = "deepseek"
+    pricing_profile: str = "legacy-deepseek"
     model_catalog: bytes | None = None
     budget_guard: SharedBudgetGuard | None = None
     fake_reply: str | None = None
@@ -358,6 +488,8 @@ class BridgeConfig:
     state_lock: threading.Lock = field(default_factory=threading.Lock)
     config_sha256: str | None = None
     ledger_lock: threading.Lock = field(default_factory=threading.Lock)
+    active_requests: int = 0
+    total_requests: int = 0
 
 
 def _native_response_usage(
@@ -391,9 +523,11 @@ def _native_response_usage(
         return None, None, None
     raw = final_response.get("usage")
     if not isinstance(raw, dict):
-        return None, str(final_response.get("model") or "") or None, str(
-            final_response.get("status") or ""
-        ) or None
+        return (
+            None,
+            str(final_response.get("model") or "") or None,
+            str(final_response.get("status") or "") or None,
+        )
     input_tokens = int(raw.get("input_tokens", 0) or 0)
     input_details = raw.get("input_tokens_details") or {}
     output_tokens = int(raw.get("output_tokens", 0) or 0)
@@ -414,6 +548,12 @@ def _native_response_usage(
     )
 
 
+def _compatible_upstream_model(expected_model: str, returned: str | None) -> bool:
+    expected = expected_model.strip().lower().replace("_", "-")
+    actual = str(returned or "").strip().lower().replace("_", "-")
+    return actual == expected
+
+
 def forward_native_responses(
     config: BridgeConfig,
     payload: dict[str, Any],
@@ -424,6 +564,7 @@ def forward_native_responses(
     request_payload = dict(payload)
     request_payload["model"] = config.model
     started = time.monotonic()
+    started_at = datetime.now(timezone.utc)
     usage: dict[str, int] | None = None
     upstream_model: str | None = None
     response_status: str | None = None
@@ -444,6 +585,19 @@ def forward_native_responses(
             content_type = response.headers.get_content_type()
             body = response.read()
         usage, upstream_model, response_status = _native_response_usage(body)
+        if response_status != "completed":
+            error_text = f"DeepSeek Responses terminal status is {response_status!r}"
+            raise RuntimeError(error_text)
+        if usage is None:
+            error_text = "DeepSeek completed response omitted usage"
+            raise RuntimeError(error_text)
+        expected_upstream_model = config.expected_upstream_model or config.model
+        if not _compatible_upstream_model(expected_upstream_model, upstream_model):
+            error_text = (
+                f"DeepSeek returned incompatible model {upstream_model!r}; "
+                f"expected {expected_upstream_model!r}"
+            )
+            raise RuntimeError(error_text)
     except HTTPError as error:
         detail = error.read().decode("utf-8", errors="replace")[:2000]
         error_text = f"DeepSeek HTTP {error.code}: {detail}"
@@ -455,6 +609,12 @@ def forward_native_responses(
         error_text = f"{type(error).__name__}: {error}"
         raise
     finally:
+        finished_at = datetime.now(timezone.utc)
+        price_band: str | None = None
+        if config.pricing_profile in {"legacy-deepseek", "deepseek-current"}:
+            start_band = price_band_for_utc(started_at)
+            finish_band = price_band_for_utc(finished_at)
+            price_band = "peak" if "peak" in {start_band, finish_band} else "off_peak"
         phase = task_id.split("--", 1)[0] if task_id and "--" in task_id else None
         attempt = {
             "retry_index": 0,
@@ -462,8 +622,16 @@ def forward_native_responses(
             "finish_reason": response_status,
             "usage": usage,
             "estimated_cost_usd": (
-                estimate_deepseek_cost(usage, config.model) if usage else None
+                _profile_cost(
+                    usage,
+                    model=config.model,
+                    pricing_profile=config.pricing_profile,
+                    price_band=price_band,
+                )
+                if usage
+                else None
             ),
+            "price_band": price_band,
             "error": error_text,
         }
         record = {
@@ -474,9 +642,17 @@ def forward_native_responses(
             "upstream_model": upstream_model,
             "bridge_config_sha256": config.config_sha256,
             "protocol": "native_responses_passthrough",
+            "pricing_profile": config.pricing_profile,
             "input_items": len(payload.get("input") or []),
             "tool_count": len(payload.get("tools") or []),
             "attempts": [attempt],
+            "started_at_utc": started_at.isoformat(),
+            "finished_at_utc": finished_at.isoformat(),
+            "pricing_basis": (
+                "peak_if_request_crosses_price_band_boundary"
+                if config.pricing_profile in {"legacy-deepseek", "deepseek-current"}
+                else config.pricing_profile
+            ),
             "wall_seconds": time.monotonic() - started,
         }
         with config.ledger_lock:
@@ -513,7 +689,11 @@ def _post_chat(config: BridgeConfig, payload: dict[str, Any]) -> dict[str, Any]:
                         "finish_reason": "tool_calls",
                     }
                 ],
-                "usage": {"prompt_tokens": 1, "completion_tokens": 1, "total_tokens": 2},
+                "usage": {
+                    "prompt_tokens": 1,
+                    "completion_tokens": 1,
+                    "total_tokens": 2,
+                },
             }
         return {
             "id": "chatcmpl-fake",
@@ -541,9 +721,9 @@ def _post_chat(config: BridgeConfig, payload: dict[str, Any]) -> dict[str, Any]:
             return json.loads(response.read().decode("utf-8"))
     except HTTPError as error:
         detail = error.read().decode("utf-8", errors="replace")[:2000]
-        raise RuntimeError(f"DeepSeek HTTP {error.code}: {detail}") from error
+        raise RuntimeError(f"upstream HTTP {error.code}: {detail}") from error
     except URLError as error:
-        raise RuntimeError(f"DeepSeek transport error: {error.reason}") from error
+        raise RuntimeError(f"upstream transport error: {error.reason}") from error
 
 
 def forward_responses(
@@ -553,45 +733,77 @@ def forward_responses(
     task_id: str | None = None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     with config.state_lock:
-        chat_request, _ = translate_responses_request(
+        chat_request, tool_types = translate_responses_request(
             payload,
             model=config.model,
             max_output_tokens=config.max_output_tokens,
             allowed_tool_names=config.allowed_tool_names,
             reasoning_by_call=dict(config.reasoning_by_call),
+            chat_profile=config.chat_profile,
         )
     started = time.monotonic()
     attempts: list[dict[str, Any]] = []
-    requested_budgets = [config.max_output_tokens, config.retry_output_tokens]
+    requested_budgets = list(
+        dict.fromkeys([config.max_output_tokens, config.retry_output_tokens])
+    )
     final_payload: dict[str, Any] | None = None
-    for retry_index, output_tokens in enumerate(dict.fromkeys(requested_budgets)):
+    for retry_index, output_tokens in enumerate(requested_budgets):
         chat_request["max_tokens"] = output_tokens
-        reserve = estimate_deepseek_request_upper_bound(output_tokens, config.model)
-        reservation_id = config.budget_guard.reserve(reserve) if config.budget_guard else None
+        reserve = (
+            estimate_deepseek_request_upper_bound(output_tokens, config.model)
+            if config.pricing_profile in {"legacy-deepseek", "deepseek-current"}
+            else 0.0
+        )
+        reservation_id = (
+            config.budget_guard.reserve(reserve) if config.budget_guard else None
+        )
         try:
             candidate = _post_chat(config, chat_request)
+            upstream_model = str(candidate.get("model") or "")
+            expected_upstream_model = config.expected_upstream_model or config.model
+            if not (
+                candidate.get("choices") and isinstance(candidate.get("usage"), dict)
+            ):
+                raise RuntimeError("chat completion omitted choices or usage")
+            if not _compatible_upstream_model(expected_upstream_model, upstream_model):
+                raise RuntimeError(
+                    f"chat completion returned incompatible model {upstream_model!r}; "
+                    f"expected {expected_upstream_model!r}"
+                )
             usage = _usage(candidate.get("usage"))
             if config.budget_guard and reservation_id:
                 config.budget_guard.settle(
                     reservation_id,
-                    cost_usd=estimate_deepseek_cost(usage, config.model),
+                    cost_usd=_profile_cost(
+                        usage,
+                        model=config.model,
+                        pricing_profile=config.pricing_profile,
+                    ),
                     usage=usage,
                 )
                 reservation_id = None
-            finish_reason = str(
+            upstream_finish_reason = str(
                 ((candidate.get("choices") or [{}])[0]).get("finish_reason") or ""
+            )
+            finish_reason = (
+                "incomplete" if upstream_finish_reason == "length" else "completed"
             )
             attempts.append(
                 {
                     "retry_index": retry_index,
                     "max_tokens": output_tokens,
                     "finish_reason": finish_reason,
+                    "upstream_finish_reason": upstream_finish_reason,
                     "usage": usage,
-                    "estimated_cost_usd": estimate_deepseek_cost(usage, config.model),
+                    "estimated_cost_usd": _profile_cost(
+                        usage,
+                        model=config.model,
+                        pricing_profile=config.pricing_profile,
+                    ),
                     "error": None,
                 }
             )
-            if finish_reason != "length":
+            if upstream_finish_reason != "length":
                 final_payload = candidate
                 break
         except Exception as error:
@@ -612,7 +824,7 @@ def forward_responses(
                 raise
             time.sleep(1)
     if final_payload is None:
-        raise RuntimeError("DeepSeek response remained truncated after expanded retry")
+        raise RuntimeError("chat response remained truncated after expanded retry")
     message = ((final_payload.get("choices") or [{}])[0]).get("message") or {}
     reasoning_content = str(message.get("reasoning_content") or "")
     if reasoning_content:
@@ -621,12 +833,20 @@ def forward_responses(
                 call_id = str(tool_call.get("id") or "")
                 if call_id:
                     config.reasoning_by_call[call_id] = reasoning_content
-    events = responses_sse_events(final_payload, request_model=config.model)
+    events = responses_sse_events(
+        final_payload,
+        request_model=config.model,
+        tool_types=tool_types,
+    )
     record = {
         "request_id": uuid.uuid4().hex,
         "task_id": task_id,
         "model": config.model,
+        "upstream_model": str(final_payload.get("model") or ""),
         "bridge_config_sha256": config.config_sha256,
+        "protocol": "responses_to_chat_completions",
+        "chat_profile": config.chat_profile,
+        "pricing_profile": config.pricing_profile,
         "input_items": len(payload.get("input") or []),
         "input_item_types": [
             str(item.get("type") or "message")
@@ -682,7 +902,17 @@ def make_handler(config: BridgeConfig):
             if request_path not in {"", "/health"}:
                 self._json_error(404, "not found")
                 return
-            body = json.dumps({"status": "ok", "model": config.model}).encode("utf-8")
+            with config.state_lock:
+                active_requests = config.active_requests
+                total_requests = config.total_requests
+            body = json.dumps(
+                {
+                    "status": "ok",
+                    "model": config.model,
+                    "active_requests": active_requests,
+                    "total_requests": total_requests,
+                }
+            ).encode("utf-8")
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.send_header("Content-Length", str(len(body)))
@@ -702,6 +932,9 @@ def make_handler(config: BridgeConfig):
             elif request_path != "/v1/responses":
                 self._json_error(404, "only /v1/responses is supported")
                 return
+            with config.state_lock:
+                config.active_requests += 1
+                config.total_requests += 1
             try:
                 length = int(self.headers.get("Content-Length", "0"))
                 payload = json.loads(self.rfile.read(length).decode("utf-8"))
@@ -726,11 +959,16 @@ def make_handler(config: BridgeConfig):
                 for event in events:
                     event_type = str(event["type"])
                     data = json.dumps(event, ensure_ascii=False, separators=(",", ":"))
-                    self.wfile.write(f"event: {event_type}\ndata: {data}\n\n".encode("utf-8"))
+                    self.wfile.write(
+                        f"event: {event_type}\ndata: {data}\n\n".encode("utf-8")
+                    )
                 self.wfile.write(b"data: [DONE]\n\n")
                 self.wfile.flush()
             except Exception as error:
                 self._json_error(502, f"{type(error).__name__}: {error}")
+            finally:
+                with config.state_lock:
+                    config.active_requests -= 1
 
     return Handler
 
@@ -746,6 +984,21 @@ def main() -> None:
     parser.add_argument("--max-output-tokens", type=int, default=32768)
     parser.add_argument("--retry-output-tokens", type=int, default=131072)
     parser.add_argument("--request-timeout-seconds", type=int, default=1800)
+    parser.add_argument("--expected-upstream-model")
+    parser.add_argument(
+        "--chat-profile",
+        choices=("deepseek", "glm", "qwen3", "qwen38"),
+        default="deepseek",
+    )
+    parser.add_argument(
+        "--pricing-profile",
+        choices=(
+            "legacy-deepseek",
+            "deepseek-current",
+            *DATED_PRICING_RATES_USD_PER_MILLION,
+        ),
+        default="legacy-deepseek",
+    )
     parser.add_argument(
         "--native-responses",
         action="store_true",
@@ -781,6 +1034,11 @@ def main() -> None:
         if args.budget_state_path
         else None
     )
+    if budget_guard and args.pricing_profile not in {
+        "legacy-deepseek",
+        "deepseek-current",
+    }:
+        raise ValueError("budget state is supported only with DeepSeek pricing")
     model_catalog: bytes | None = None
     model_catalog_sha256: str | None = None
     if args.model_catalog_path:
@@ -802,14 +1060,17 @@ def main() -> None:
         max_output_tokens=args.max_output_tokens,
         retry_output_tokens=args.retry_output_tokens,
         request_timeout_seconds=args.request_timeout_seconds,
+        expected_upstream_model=args.expected_upstream_model,
         native_responses=args.native_responses,
+        chat_profile=args.chat_profile,
+        pricing_profile=args.pricing_profile,
         model_catalog=model_catalog,
         budget_guard=budget_guard,
         fake_reply=args.fake_reply,
         fake_tool_name=args.fake_tool_name,
         fake_tool_arguments=args.fake_tool_arguments,
         allowed_tool_names=frozenset(
-            args.allowed_tool or ["exec_command", "write_stdin"]
+            args.allowed_tool or ["apply_patch", "exec_command", "write_stdin"]
         ),
     )
     public_manifest = {
@@ -819,7 +1080,10 @@ def main() -> None:
         "max_output_tokens": config.max_output_tokens,
         "retry_output_tokens": config.retry_output_tokens,
         "request_timeout_seconds": config.request_timeout_seconds,
+        "expected_upstream_model": config.expected_upstream_model,
         "native_responses": config.native_responses,
+        "chat_profile": config.chat_profile,
+        "pricing_profile": config.pricing_profile,
         "model_catalog_sha256": model_catalog_sha256,
         "protocol": (
             "native_responses_passthrough"
@@ -829,7 +1093,9 @@ def main() -> None:
         "allowed_tool_names": (
             None if config.native_responses else sorted(config.allowed_tool_names)
         ),
-        "implementation_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "implementation_sha256": hashlib.sha256(
+            Path(__file__).read_bytes()
+        ).hexdigest(),
         "fake_mode": config.fake_reply is not None,
     }
     config.config_sha256 = _sha256_json(public_manifest)
