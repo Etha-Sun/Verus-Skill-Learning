@@ -4,12 +4,24 @@ import hashlib
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from skill_evolution_pilot.codex_runner import build_prompt
-from skillopt_verusage.test_eval import _load_skill, _summarize
+from skillopt_verusage.test_eval import _load_skill, _require_run_dir, _summarize
 
 
 class TestFixedTestEvalContract(unittest.TestCase):
+    def test_run_dir_allows_tee_log_created_before_evaluator_start(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir) / "runs"
+            run_dir = root / "bridge-arm"
+            run_dir.mkdir(parents=True)
+            (run_dir / "test.log").write_text("", encoding="utf-8")
+            with patch.dict(
+                "os.environ", {"VERUS_SKILL_RUN_ROOT": str(root)}, clear=False
+            ):
+                self.assertEqual(_require_run_dir(run_dir), run_dir.resolve())
+
     def test_blank_skill_has_no_strategy_content(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             path = Path(temp_dir) / "blank.md"
