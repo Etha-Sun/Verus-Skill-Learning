@@ -125,12 +125,13 @@ def _compatible_upstream_model(configured: str, returned: str) -> bool:
 def _classify_fidelity(
     result: dict[str, Any], provider_valid: bool, terminal: dict[str, int]
 ) -> str:
+    # Codex emits `error` events for recoverable reconnects. A later unique
+    # turn.completed plus a clean provider ledger is the terminal success.
     terminal_valid = bool(
         result.get("codex_returncode") == 0
         and not result.get("timed_out")
         and terminal["completed"] == 1
         and terminal["failed"] == 0
-        and terminal["errors"] == 0
     )
     if (
         result.get("timed_out")
@@ -305,12 +306,13 @@ def run_task(
         )
         and bool(returned_models)
     )
+    # Preserve transient-error counts for audit without treating recovered
+    # reconnects as a failed terminal state.
     terminal_valid = bool(
         result.get("codex_returncode") == 0
         and not result.get("timed_out")
         and terminal["completed"] == 1
         and terminal["failed"] == 0
-        and terminal["errors"] == 0
     )
     fail_reason = ""
     if not hard:

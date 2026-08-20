@@ -102,6 +102,14 @@ class CodexFlashRunnerTests(unittest.TestCase):
         }
         completed = {"completed": 1, "failed": 0, "errors": 0}
         self.assertEqual(_classify_fidelity(base, True, completed), "V2_TRACE")
+        self.assertEqual(
+            _classify_fidelity(
+                base,
+                True,
+                {"completed": 1, "failed": 0, "errors": 2},
+            ),
+            "V2_TRACE",
+        )
         self.assertEqual(_classify_fidelity(base, False, completed), "V0_INVALID")
         self.assertEqual(
             _classify_fidelity({**base, "codex_returncode": 1}, True, completed),

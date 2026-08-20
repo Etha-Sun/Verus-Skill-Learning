@@ -60,10 +60,11 @@ with 20 held-out tasks per condition:
 | Qwen3.8-27B | 20 | 20 |
 
 No condition has started. Per the experiment decision on 2026-08-20, the
-original test-20 is retained unchanged. GLM still awaits a real edit/verify
-smoke. The current public Z.AI documentation lists `glm-5.1`, not the frozen
-`glm-5.3` ID, so account availability must be confirmed before that arm starts;
-the model must not be silently substituted in only one condition.
+original test-20 is retained unchanged. A real GLM-5.3 Codex edit/verify smoke
+passed Verus, Lynette, bridge-ledger, and F3 checks. The current public Z.AI
+documentation lists `glm-5.1`, not the frozen `glm-5.3` ID, but the smoke
+confirmed exact `glm-5.3` availability for this account; the model must not be
+silently substituted in only one condition.
 
 ## Locked Common Controls
 
@@ -74,7 +75,10 @@ All eight conditions use:
   `13a4598f7ff0fd6bf6955a961d48b77c7c59bfff68cd2f786aeac9fb6e81a0a6`;
 - the same Codex CLI autonomous runner and workspace layout;
 - the same visible task source and exactly one selected `SKILL.md`;
-- reasoning effort `max`, 262,144 context, four workers, and 600 seconds;
+- reasoning effort `max`, 262,144 context, and 600 seconds;
+- 20 actor-task workers for each remote provider group and four for local Qwen;
+  blank and S2 run sequentially within each group, so a provider never exceeds
+  its declared worker cap;
 - no retry for a valid timeout and at most two retries for invalid harness
   execution;
 - no reference proof, prior trajectory, retrieval cards, or cost cap;

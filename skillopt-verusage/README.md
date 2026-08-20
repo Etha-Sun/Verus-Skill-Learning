@@ -74,6 +74,16 @@ launcher 会把 sourced `.env` 中的密钥显式 export 给 bridge，因此带�
 skillopt-verusage/scripts/run_s2_fixed_test20.sh glm {blank|s2}
 ```
 
+远程 API arm 可以在启动时设为 20 个 actor task 并发：
+
+```bash
+SKILLOPT_TEST_WORKERS=20 \
+  skillopt-verusage/scripts/run_s2_fixed_test20.sh glm {blank|s2}
+```
+
+本地 Qwen vLLM 仍使用 `SKILLOPT_TEST_WORKERS=4`，与服务端的
+`--max-num-seqs 4` 保持一致。
+
 ## 研究边界
 
 本方案的第一阶段只做 Anvil/IronKV effective-train 内的 task-held-out

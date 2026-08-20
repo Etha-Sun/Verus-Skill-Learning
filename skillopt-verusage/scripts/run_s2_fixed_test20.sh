@@ -40,6 +40,11 @@ RUN_NAME="${SKILLOPT_TEST_RUN_NAME:-fixed-test20-${CONDITION}-${SKILL_VARIANT}-$
 RUN_DIR="$VERUS_SKILL_RUN_ROOT/skillopt-verusage/$RUN_NAME"
 BRIDGE_PORT="${SKILLOPT_BRIDGE_PORT:-18083}"
 BRIDGE_URL="http://127.0.0.1:$BRIDGE_PORT"
+WORKERS="${SKILLOPT_TEST_WORKERS:-4}"
+if ! [[ "$WORKERS" =~ ^[1-9][0-9]*$ ]]; then
+  echo "SKILLOPT_TEST_WORKERS must be a positive integer" >&2
+  exit 2
+fi
 
 export PYTHONPATH="$REPO_ROOT/skillopt-verusage/src:$REPO_ROOT/skillopt-verusage/SkillOpt:$REPO_ROOT/skill-evolution-pilot/src"
 export VERUS_SKILL_RUN_ROOT VERUS_BIN LYNETTE_BIN
@@ -59,7 +64,7 @@ if [[ "$CONDITION" == "gpt" ]]; then
     --transport direct \
     --model gpt-5.6-sol \
     --reasoning-effort max \
-    --workers 4 \
+    --workers "$WORKERS" \
     --timeout-seconds 600 \
     --model-context-window 262144
 fi
@@ -71,7 +76,6 @@ API_KEY_ENV=""
 CHAT_PROFILE=""
 PRICING_PROFILE=""
 CONTEXT_WINDOW=262144
-WORKERS=4
 NATIVE_FLAG=()
 MAX_OUTPUT_TOKENS=65536
 RETRY_OUTPUT_TOKENS=65536
