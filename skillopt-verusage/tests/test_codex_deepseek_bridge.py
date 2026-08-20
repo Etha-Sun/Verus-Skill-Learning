@@ -3,13 +3,17 @@ from __future__ import annotations
 import json
 import tempfile
 import unittest
+from email.message import Message
+from io import BytesIO
 from pathlib import Path
 from unittest.mock import patch
+from urllib.error import HTTPError
 
 from skillopt_verusage.codex_deepseek_bridge import (
     BridgeConfig,
     _compatible_upstream_model,
     _native_response_usage,
+    _post_chat,
     forward_native_responses,
     forward_responses,
     responses_sse_events,
@@ -18,6 +22,57 @@ from skillopt_verusage.codex_deepseek_bridge import (
 
 
 class CodexDeepSeekBridgeTests(unittest.TestCase):
+    def test_chat_retries_rate_limit_and_records_backoff(self) -> None:
+        class Response:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            @staticmethod
+            def read():
+                return b'{"model":"glm-5.3","choices":[],"usage":{}}'
+
+        headers = Message()
+        headers["Retry-After"] = "2"
+        rate_limit = HTTPError(
+            "https://example.invalid/chat/completions",
+            429,
+            "rate limited",
+            headers,
+            BytesIO(b'{"error":"rate limited"}'),
+        )
+        config = BridgeConfig(
+            model="glm-5.3",
+            upstream_base_url="https://example.invalid",
+            api_key="secret",
+            ledger_path=None,
+            max_output_tokens=1,
+            retry_output_tokens=1,
+            request_timeout_seconds=10,
+            rate_limit_retries=1,
+            rate_limit_backoff_seconds=1,
+            rate_limit_max_backoff_seconds=3,
+        )
+        with (
+            patch(
+                "skillopt_verusage.codex_deepseek_bridge.urlopen",
+                side_effect=[rate_limit, Response()],
+            ) as mocked_urlopen,
+            patch(
+                "skillopt_verusage.codex_deepseek_bridge.random.uniform",
+                return_value=0.25,
+            ),
+            patch("skillopt_verusage.codex_deepseek_bridge.time.sleep") as sleep,
+        ):
+            candidate, metadata = _post_chat(config, {"messages": []})
+        self.assertEqual(candidate["model"], "glm-5.3")
+        self.assertEqual(metadata["rate_limit_retries"], 1)
+        self.assertEqual(metadata["rate_limit_sleep_seconds"], 2.25)
+        self.assertEqual(mocked_urlopen.call_count, 2)
+        sleep.assert_called_once_with(2.25)
+
     def test_openai_style_cached_input_usage_is_preserved(self) -> None:
         events = responses_sse_events(
             {

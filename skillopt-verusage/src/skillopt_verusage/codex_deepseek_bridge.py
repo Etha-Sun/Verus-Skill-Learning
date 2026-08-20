@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import os
+import random
 import threading
 import time
 import uuid
@@ -474,6 +475,9 @@ class BridgeConfig:
     max_output_tokens: int
     retry_output_tokens: int
     request_timeout_seconds: int
+    rate_limit_retries: int = 0
+    rate_limit_backoff_seconds: float = 1.0
+    rate_limit_max_backoff_seconds: float = 30.0
     expected_upstream_model: str | None = None
     native_responses: bool = False
     chat_profile: str = "deepseek"
@@ -660,7 +664,13 @@ def forward_native_responses(
     return body, content_type, record
 
 
-def _post_chat(config: BridgeConfig, payload: dict[str, Any]) -> dict[str, Any]:
+def _post_chat(
+    config: BridgeConfig, payload: dict[str, Any]
+) -> tuple[dict[str, Any], dict[str, float | int]]:
+    retry_metadata: dict[str, float | int] = {
+        "rate_limit_retries": 0,
+        "rate_limit_sleep_seconds": 0.0,
+    }
     if config.fake_reply is not None:
         has_tool_result = any(
             message.get("role") == "tool" for message in payload.get("messages") or []
@@ -694,7 +704,7 @@ def _post_chat(config: BridgeConfig, payload: dict[str, Any]) -> dict[str, Any]:
                     "completion_tokens": 1,
                     "total_tokens": 2,
                 },
-            }
+            }, retry_metadata
         return {
             "id": "chatcmpl-fake",
             "model": config.model,
@@ -706,24 +716,55 @@ def _post_chat(config: BridgeConfig, payload: dict[str, Any]) -> dict[str, Any]:
                 }
             ],
             "usage": {"prompt_tokens": 1, "completion_tokens": 1, "total_tokens": 2},
-        }
-    request = Request(
-        config.upstream_base_url.rstrip("/") + "/chat/completions",
-        data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
-        headers={
-            "Authorization": f"Bearer {config.api_key}",
-            "Content-Type": "application/json",
-        },
-        method="POST",
-    )
-    try:
-        with urlopen(request, timeout=config.request_timeout_seconds) as response:
-            return json.loads(response.read().decode("utf-8"))
-    except HTTPError as error:
-        detail = error.read().decode("utf-8", errors="replace")[:2000]
-        raise RuntimeError(f"upstream HTTP {error.code}: {detail}") from error
-    except URLError as error:
-        raise RuntimeError(f"upstream transport error: {error.reason}") from error
+        }, retry_metadata
+    url = config.upstream_base_url.rstrip("/") + "/chat/completions"
+    body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+    deadline = time.monotonic() + config.request_timeout_seconds
+    for retry_index in range(config.rate_limit_retries + 1):
+        request = Request(
+            url,
+            data=body,
+            headers={
+                "Authorization": f"Bearer {config.api_key}",
+                "Content-Type": "application/json",
+            },
+            method="POST",
+        )
+        try:
+            remaining_seconds = deadline - time.monotonic()
+            if remaining_seconds <= 0:
+                raise RuntimeError("upstream request deadline exhausted during 429 retry")
+            with urlopen(request, timeout=remaining_seconds) as response:
+                candidate = json.loads(response.read().decode("utf-8"))
+            return candidate, retry_metadata
+        except HTTPError as error:
+            detail = error.read().decode("utf-8", errors="replace")[:2000]
+            if error.code != 429 or retry_index >= config.rate_limit_retries:
+                raise RuntimeError(f"upstream HTTP {error.code}: {detail}") from error
+            retry_after = 0.0
+            if error.headers is not None:
+                try:
+                    retry_after = max(0.0, float(error.headers.get("Retry-After", 0)))
+                except (TypeError, ValueError):
+                    retry_after = 0.0
+            backoff = min(
+                config.rate_limit_max_backoff_seconds,
+                config.rate_limit_backoff_seconds * (2**retry_index),
+            )
+            delay = max(retry_after, backoff)
+            delay += random.uniform(0.0, min(1.0, delay * 0.25))
+            if delay >= deadline - time.monotonic():
+                raise RuntimeError(
+                    f"upstream HTTP 429 retry deadline exhausted: {detail}"
+                ) from error
+            time.sleep(delay)
+            retry_metadata["rate_limit_retries"] = retry_index + 1
+            retry_metadata["rate_limit_sleep_seconds"] = (
+                float(retry_metadata["rate_limit_sleep_seconds"]) + delay
+            )
+        except URLError as error:
+            raise RuntimeError(f"upstream transport error: {error.reason}") from error
+    raise AssertionError("unreachable")
 
 
 def forward_responses(
@@ -758,7 +799,7 @@ def forward_responses(
             config.budget_guard.reserve(reserve) if config.budget_guard else None
         )
         try:
-            candidate = _post_chat(config, chat_request)
+            candidate, retry_metadata = _post_chat(config, chat_request)
             upstream_model = str(candidate.get("model") or "")
             expected_upstream_model = config.expected_upstream_model or config.model
             if not (
@@ -800,6 +841,7 @@ def forward_responses(
                         model=config.model,
                         pricing_profile=config.pricing_profile,
                     ),
+                    **retry_metadata,
                     "error": None,
                 }
             )
@@ -984,6 +1026,9 @@ def main() -> None:
     parser.add_argument("--max-output-tokens", type=int, default=32768)
     parser.add_argument("--retry-output-tokens", type=int, default=131072)
     parser.add_argument("--request-timeout-seconds", type=int, default=1800)
+    parser.add_argument("--rate-limit-retries", type=int, default=0)
+    parser.add_argument("--rate-limit-backoff-seconds", type=float, default=1.0)
+    parser.add_argument("--rate-limit-max-backoff-seconds", type=float, default=30.0)
     parser.add_argument("--expected-upstream-model")
     parser.add_argument(
         "--chat-profile",
@@ -1060,6 +1105,9 @@ def main() -> None:
         max_output_tokens=args.max_output_tokens,
         retry_output_tokens=args.retry_output_tokens,
         request_timeout_seconds=args.request_timeout_seconds,
+        rate_limit_retries=args.rate_limit_retries,
+        rate_limit_backoff_seconds=args.rate_limit_backoff_seconds,
+        rate_limit_max_backoff_seconds=args.rate_limit_max_backoff_seconds,
         expected_upstream_model=args.expected_upstream_model,
         native_responses=args.native_responses,
         chat_profile=args.chat_profile,
@@ -1080,6 +1128,9 @@ def main() -> None:
         "max_output_tokens": config.max_output_tokens,
         "retry_output_tokens": config.retry_output_tokens,
         "request_timeout_seconds": config.request_timeout_seconds,
+        "rate_limit_retries": config.rate_limit_retries,
+        "rate_limit_backoff_seconds": config.rate_limit_backoff_seconds,
+        "rate_limit_max_backoff_seconds": config.rate_limit_max_backoff_seconds,
         "expected_upstream_model": config.expected_upstream_model,
         "native_responses": config.native_responses,
         "chat_profile": config.chat_profile,

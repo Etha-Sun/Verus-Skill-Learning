@@ -77,6 +77,7 @@ CHAT_PROFILE=""
 PRICING_PROFILE=""
 CONTEXT_WINDOW=262144
 NATIVE_FLAG=()
+RATE_LIMIT_FLAGS=()
 MAX_OUTPUT_TOKENS=65536
 RETRY_OUTPUT_TOKENS=65536
 
@@ -99,6 +100,11 @@ case "$CONDITION" in
     API_KEY_ENV="ZAI_API_KEY"
     CHAT_PROFILE="glm"
     PRICING_PROFILE="zai-glm-5.3-20260819"
+    RATE_LIMIT_FLAGS=(
+      --rate-limit-retries 12
+      --rate-limit-backoff-seconds 1
+      --rate-limit-max-backoff-seconds 30
+    )
     ;;
   qwen)
     MODEL="qwen3.8-27b"
@@ -131,6 +137,7 @@ mkdir "$RUN_DIR"
 
 "$PYTHON_BIN" -m skillopt_verusage.codex_deepseek_bridge \
   "${NATIVE_FLAG[@]}" \
+  "${RATE_LIMIT_FLAGS[@]}" \
   --model "$MODEL" \
   --port "$BRIDGE_PORT" \
   --upstream-base-url "$UPSTREAM_BASE_URL" \
