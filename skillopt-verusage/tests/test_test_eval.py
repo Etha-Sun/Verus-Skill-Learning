@@ -12,11 +12,26 @@ from skillopt_verusage.test_eval import (
     _attach_item_metadata,
     _load_skill,
     _require_run_dir,
+    _select_test_items,
     _summarize,
 )
 
 
 class TestFixedTestEvalContract(unittest.TestCase):
+    def test_select_test_items_preserves_frozen_split_order(self) -> None:
+        items = [{"id": "a"}, {"id": "b"}, {"id": "c"}]
+        self.assertEqual(
+            _select_test_items(items, ["c", "a"]),
+            [{"id": "a"}, {"id": "c"}],
+        )
+
+    def test_select_test_items_rejects_unknown_or_duplicate_ids(self) -> None:
+        items = [{"id": "a"}, {"id": "b"}]
+        with self.assertRaisesRegex(ValueError, "unknown --item-id"):
+            _select_test_items(items, ["c"])
+        with self.assertRaisesRegex(ValueError, "duplicate --item-id"):
+            _select_test_items(items, ["a", "a"])
+
     def test_bridge_results_receive_frozen_item_metadata(self) -> None:
         results = [{"id": "case-a", "status": "UNSOLVED"}]
         _attach_item_metadata(

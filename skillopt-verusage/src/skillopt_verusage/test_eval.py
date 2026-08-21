@@ -19,7 +19,7 @@ from skillopt_verusage.dataloader import VeruSAGEDataLoader
 
 FIXED_SPLIT_SHA256 = "a71e2a3838c2222312cc2487fc35b6a24cbc924e0a917d5e9120499f0ba2b49c"
 TEST_ITEMS_SHA256 = "81194e9cc30b737898c9eb545ad9934490eff2118616194bd9c051600c2d0c42"
-KNOWN_HARNESS_INCOMPATIBLE_ITEM_IDS = (
+KNOWN_VERUS_VERSION_SENSITIVE_ITEM_IDS = (
     "f24cf9cc9db98c56f792",
     "826687f9c56eb8e65d5d",
 )
@@ -79,6 +79,21 @@ def _load_test_items(split_dir: Path) -> tuple[list[dict[str, Any]], dict[str, A
     if len(items) != 20 or len({str(item["id"]) for item in items}) != 20:
         raise ValueError("held-out test split is not 20 unique items")
     return items, manifest
+
+
+def _select_test_items(
+    items: list[dict[str, Any]], requested_ids: list[str]
+) -> list[dict[str, Any]]:
+    if not requested_ids:
+        return items
+    if len(requested_ids) != len(set(requested_ids)):
+        raise ValueError("duplicate --item-id")
+    available = {str(item["id"]) for item in items}
+    unknown = sorted(set(requested_ids) - available)
+    if unknown:
+        raise ValueError(f"unknown --item-id: {', '.join(unknown)}")
+    requested = set(requested_ids)
+    return [item for item in items if str(item["id"]) in requested]
 
 
 def _load_skill(skill_file: Path, expected_sha256: str) -> tuple[str, str]:
@@ -336,12 +351,14 @@ def main() -> None:
     parser.add_argument("--bridge-url")
     parser.add_argument("--bridge-ledger", type=Path)
     parser.add_argument("--bridge-manifest", type=Path)
+    parser.add_argument("--item-id", action="append", default=[])
     parser.add_argument("--check-only", action="store_true")
     args = parser.parse_args()
 
     split_dir = args.split_dir.resolve()
     os.chdir(split_dir.parent)
     items, split_manifest = _load_test_items(split_dir)
+    items = _select_test_items(items, args.item_id)
     skill_text, skill_sha256 = _load_skill(
         args.skill_file, args.expected_skill_sha256
     )
@@ -360,12 +377,12 @@ def main() -> None:
         "test_n": len(items),
         "test_manifest_sha256": sha256_file(split_dir / "test" / "items.json"),
         "split_sha256": split_manifest["split_sha256"],
-        "known_harness_incompatible_item_ids": [
+        "known_verus_version_sensitive_item_ids": [
             str(item["id"])
             for item in items
-            if str(item["id"]) in KNOWN_HARNESS_INCOMPATIBLE_ITEM_IDS
+            if str(item["id"]) in KNOWN_VERUS_VERSION_SENSITIVE_ITEM_IDS
         ],
-        "known_harness_incompatible_scoring": "included unchanged; verifier outcome counts toward solved/20",
+        "version_sensitive_item_scoring": "included unchanged; selected verifier outcome counts toward solved denominator",
         "skill_label": args.skill_label,
         "skill_sha256": skill_sha256,
         "skill_bytes": len(skill_text.encode("utf-8")),
