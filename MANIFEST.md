@@ -46,3 +46,23 @@
 | 2026-07-22 22:28 | /run-experiment | `${VERUS_SKILL_RUN_ROOT}/codex_three_case_baseline_20260722_attempt1/batch_audit.json` | analysis | audited fresh Codex baseline on three H0-frozen qualitative tasks |
 | 2026-07-22 22:28 | /run-experiment | refine-logs/CODEX_THREE_CASE_BASELINE_20260722_222807.md | analysis | reviewed three-case Codex result, integrity checks, and claim boundary |
 | 2026-07-22 22:28 | /run-experiment | refine-logs/CODEX_THREE_CASE_BASELINE.md | analysis | latest Codex three-case baseline pointer |
+| 2026-08-04 17:42 | /research-refine | refine-logs/REFINE_STATE_20260804_173130.json | implementation | initial checkpoint for Verus retrieval skill-system refinement |
+| 2026-08-04 17:42 | /research-refine | refine-logs/REFINE_STATE_20260804_173700.json | implementation | round-1 refinement checkpoint |
+| 2026-08-04 17:42 | /research-refine | refine-logs/REFINE_STATE_20260804_174000.json | implementation | round-2 refinement checkpoint |
+| 2026-08-04 17:42 | /research-refine | refine-logs/REFINE_STATE_20260804_174224.json | implementation | completed refinement checkpoint |
+| 2026-08-04 17:42 | /research-refine | refine-logs/REFINE_STATE.json | implementation | latest completed refinement state |
+| 2026-08-04 17:42 | /research-refine | refine-logs/round-0-initial-proposal.md | implementation | initial broad Verus hybrid-RAG proposal |
+| 2026-08-04 17:42 | /research-refine | refine-logs/round-1-review.md | review | first independent method review |
+| 2026-08-04 17:42 | /research-refine | refine-logs/round-1-refinement.md | implementation | replay-validated transition refinement |
+| 2026-08-04 17:42 | /research-refine | refine-logs/round-2-review.md | review | second independent method review |
+| 2026-08-04 17:42 | /research-refine | refine-logs/round-2-refinement.md | implementation | final selective lemma-transition proposal |
+| 2026-08-04 17:42 | /research-refine | refine-logs/round-3-review.md | review | final READY re-score |
+| 2026-08-04 17:42 | /research-refine | refine-logs/score-history.md | review | three-round score evolution |
+| 2026-08-04 17:42 | /research-refine | refine-logs/FINAL_PROPOSAL_20260804_174224.md | implementation | timestamped clean replay-validated selective retrieval proposal |
+| 2026-08-04 17:42 | /research-refine | refine-logs/FINAL_PROPOSAL.md | implementation | latest clean replay-validated selective retrieval proposal |
+| 2026-08-04 17:42 | /research-refine | refine-logs/REVIEW_SUMMARY_20260804_174224.md | review | timestamped three-round review summary |
+| 2026-08-04 17:42 | /research-refine | refine-logs/REVIEW_SUMMARY.md | review | latest three-round review summary |
+| 2026-08-04 17:42 | /research-refine | refine-logs/REFINEMENT_REPORT_20260804_174224.md | implementation | timestamped refinement report |
+| 2026-08-04 17:42 | /research-refine | refine-logs/REFINEMENT_REPORT.md | implementation | latest refinement report |
+| 2026-08-04 17:42 | /research-memory | research_memory/projects/verus_self_evolving/ideas/20260804-174224-verus-retrieval-skill-system-design/ENTRY.md | memory | durable design decision and evidence boundary |
+| 2026-08-04 17:42 | /research-memory | research_memory/projects/verus_self_evolving/ideas/20260804-174224-verus-retrieval-skill-system-design/metadata.json | memory | memory-entry metadata and source links |

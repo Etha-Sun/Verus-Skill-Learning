@@ -1,0 +1,34 @@
+{
+  "skill": "research-refine",
+  "topic": "verus-memory-index-trigger-card-design",
+  "language": "zh",
+  "status": "complete",
+  "round": 3,
+  "created_at": "2026-08-05T14:00:32-05:00",
+  "updated_at": "2026-08-05T14:17:18-05:00",
+  "proposal": "FINAL_PROPOSAL.md",
+  "reviewer_agent": "/root/rag_skill_reviewer",
+  "score_history": [
+    {
+      "round": 1,
+      "score": 6.38,
+      "verdict": "REVISE",
+      "review": "round-1-review.md"
+    },
+    {
+      "round": 2,
+      "score": 7.69,
+      "verdict": "REVISE",
+      "review": "round-2-review.md"
+    },
+    {
+      "round": 3,
+      "score": 9.06,
+      "verdict": "READY",
+      "review": "round-3-review.md"
+    }
+  ],
+  "final_proposal": "FINAL_PROPOSAL.md",
+  "review_summary": "REVIEW_SUMMARY.md",
+  "refinement_report": "REFINEMENT_REPORT.md"
+}
