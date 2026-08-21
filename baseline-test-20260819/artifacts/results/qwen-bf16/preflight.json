@@ -1,0 +1,216 @@
+{
+  "actor_runner_sha256": "3f1acf145187b653b74ca4ec238c59ba3ba76f2ba6e9888bc646b56bf23ac129",
+  "conditions": [
+    "no-skill",
+    "with-native-official-baseline"
+  ],
+  "created_at": "2026-08-21T04:44:57.318721+00:00",
+  "experiment_driver_sha256": "f14330d3c1c3d87e2261f280c65635bbe53b247cceb493b0d237d621d955348a",
+  "local_provider_usd_budget": 0.0,
+  "model": "qwen38-27b-bf16",
+  "native_official_baseline_actor_sha256": "fc2c51a283212ffe365fcd9bc91fedca1c6a46d43a51c4310facd7f76f41b74b",
+  "native_official_baseline_generator_sha256": "195ab1294871689873e3bd6d9d2dbfb0a89a0d13b2ea0bdd1f7d716d826437c2",
+  "network_requests": 0,
+  "preflight_sha256": "27d7fa3a3e5f06e0c7baa4c6b58174bac434f44dd3ec4cb12a0fcccdc2545361",
+  "qwen_control": {
+    "artifact_sha256": {
+      "codex_live_smoke": "238cfdb8a7511672ee86d6af31285d8d7fe7498a5cb2eee1ecfefcd21eeb91d8",
+      "direct_service_smoke": "62bbfbf5b2ce04e080f4dce28b71605aa043c2a8d257a04a810c35d740d01459",
+      "model_snapshot_manifest": "4a5c4db4e59c8aa6247f6ca369a93a47a4df99a7684787c7dddccffb314d0450",
+      "runtime_manifest": "f1b916a1669090f8f25ea6c3f277f313cf98836181a84527c9a18d70922a465d",
+      "service_manifest": "bcdc9d0242633082140d143ea2908f3b546ea41fb266b834fa0c5e2b0bc7d271"
+    },
+    "checks": {
+      "codex_live_smoke": true,
+      "direct_service_smoke": true,
+      "live_service": true,
+      "model_snapshot": true,
+      "runtime": true,
+      "service_manifest": true
+    },
+    "live_service": {
+      "api_healthy": true,
+      "healthy": true,
+      "model_present": true,
+      "models": [
+        "qwen38-27b-bf16"
+      ],
+      "pid": 1896375,
+      "process_alive": true,
+      "process_owned": true
+    },
+    "service_manager_sha256": "3f0f935a731bde6be603094abd95ac169abedcdcb526435574ef82e0449ec7ac"
+  },
+  "schema_version": 1,
+  "subrun_actor_contract_sha256": [
+    "6bc161e9b7ed6ad011ac81eaf68186d072c53382ba68d5302328e6cdaa4f3f6f",
+    "fc1aebe2c310764074343e0f9a73591d53268dfae558a1417e5bcbd31c085511"
+  ],
+  "test_projection": [
+    {
+      "heldout_index": 1,
+      "project_code": "AL",
+      "source_sha256": "20bb68867bdf8060d8ef5ffcb0d2895a2b68921654dd2ae01b0eb60bd6af0495",
+      "source_split": "test",
+      "source_split_index": 1,
+      "task_id": "AL__leads_to_by_borrowing_inv"
+    },
+    {
+      "heldout_index": 2,
+      "project_code": "AL",
+      "source_sha256": "5487d61bd99b37f8d3917ad631308304ae0e1f647989aa6b11f2dfc000f038d2",
+      "source_split": "test",
+      "source_split_index": 2,
+      "task_id": "AL__entails_implies_leads_to"
+    },
+    {
+      "heldout_index": 3,
+      "project_code": "IR",
+      "source_sha256": "c341f1b4c97d6a15b6bf89221b1a2d4ac571c1d3ef399de119f7251825ec356b",
+      "source_split": "test",
+      "source_split_index": 3,
+      "task_id": "IR__marshal_v__impl3__lemma_serialize_injective"
+    },
+    {
+      "heldout_index": 4,
+      "project_code": "AL",
+      "source_sha256": "2b796a0cc86f86d8a4b8934d6ad9a2780e8cd3c460432a5f2d3ff64e71a66147",
+      "source_split": "test",
+      "source_split_index": 4,
+      "task_id": "AL__push_to_set_seq_to_set_insert"
+    },
+    {
+      "heldout_index": 5,
+      "project_code": "AC",
+      "source_sha256": "6fcbfdf7012f7443970f6915f7520f5efa8b2c69c8ff30c6c0fdd8292071fe8c",
+      "source_split": "test",
+      "source_split_index": 5,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__api_actions__lemma_list_pods_request_returns_ok_list_resp_containing_matching_pods"
+    },
+    {
+      "heldout_index": 6,
+      "project_code": "AC",
+      "source_sha256": "58fe0d84f137a5da6cde4375cf2a70336fa7a93f871bc0ec17be8a86b271df68",
+      "source_split": "test",
+      "source_split_index": 6,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__spec__invariant_since_phase_iv_is_stable"
+    },
+    {
+      "heldout_index": 7,
+      "project_code": "IR",
+      "source_sha256": "aac3faf8dde41412418f112a6d6caf8ea577c86f6592d454de5097553dfbae89",
+      "source_split": "test",
+      "source_split_index": 7,
+      "task_id": "IR__verus_extra__lemma_seq_fold_left_sum_len_int_positive"
+    },
+    {
+      "heldout_index": 8,
+      "project_code": "AL",
+      "source_sha256": "0e9962fa56759a839363b83814f51c177be8a59c81170585c2b7eed938d28c07",
+      "source_split": "test",
+      "source_split_index": 8,
+      "task_id": "AL__seq_filter_preserves_no_duplicates"
+    },
+    {
+      "heldout_index": 9,
+      "project_code": "IR",
+      "source_sha256": "39731482101ef62a4bed7b31292c8665761441d538f71a6d156bb6c8079c2d6e",
+      "source_split": "test",
+      "source_split_index": 9,
+      "task_id": "IR__marshal_ironsht_specific_v__impl2__lemma_serialize_injective"
+    },
+    {
+      "heldout_index": 10,
+      "project_code": "IR",
+      "source_sha256": "f5263090467afb9b73dba22065484f20ae008aa30ed7189d1c70216e1439938a",
+      "source_split": "test",
+      "source_split_index": 10,
+      "task_id": "IR__host_impl_v__make_send_only_event_results"
+    },
+    {
+      "heldout_index": 11,
+      "project_code": "AC",
+      "source_sha256": "153a036e66c0507e7f82d9cdf1131a5780cadfc5ef18c78bd2960bc28c516241",
+      "source_split": "test",
+      "source_split_index": 11,
+      "task_id": "AC__vreplicaset_controller__proof__helper_invariants__proof__lemma_eventually_always_no_other_pending_request_interferes_with_vrs_reconcile"
+    },
+    {
+      "heldout_index": 12,
+      "project_code": "AL",
+      "source_sha256": "27f134d158314aa8c4249da0b7b6927dea19d5a374345e7e3997c1ec27a72076",
+      "source_split": "test",
+      "source_split_index": 12,
+      "task_id": "AL__always_implies_to_leads_to"
+    },
+    {
+      "heldout_index": 13,
+      "project_code": "AC",
+      "source_sha256": "727cdd32ddae566cd5f69d260f901b28b30040c0ee8410861b619c7bc063c056",
+      "source_split": "test",
+      "source_split_index": 13,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__spec__invariant_is_stable"
+    },
+    {
+      "heldout_index": 14,
+      "project_code": "AL",
+      "source_sha256": "f13bca3450bb5b912ac13d6971441cabb875cc6534b3e30354a61056a139d8d1",
+      "source_split": "test",
+      "source_split_index": 14,
+      "task_id": "AL__always_to_current"
+    },
+    {
+      "heldout_index": 15,
+      "project_code": "AC",
+      "source_sha256": "8d37dd9244ae1dea2f433bc42287f277df7b22d820d975e06d5626af92fa33ce",
+      "source_split": "test",
+      "source_split_index": 15,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__api_actions__lemma_get_then_delete_matching_pod_request_deletes_matching_pod_and_returns_ok"
+    },
+    {
+      "heldout_index": 16,
+      "project_code": "IR",
+      "source_sha256": "50d21c8ab0a2a6629a8d5dc20d6179091a846e95aed6cd8d476bc67ca0f16c05",
+      "source_split": "test",
+      "source_split_index": 16,
+      "task_id": "IR__delegation_map_v__impl4__empty_key_range_is_consistent"
+    },
+    {
+      "heldout_index": 17,
+      "project_code": "IR",
+      "source_sha256": "2cea72cbda5848c7d6661d15991e56e3504ef6fcd463e90e777defd978c89130",
+      "source_split": "test",
+      "source_split_index": 17,
+      "task_id": "IR__delegation_map_v__impl3__values_agree"
+    },
+    {
+      "heldout_index": 18,
+      "project_code": "AL",
+      "source_sha256": "b6b510353a6a400fd2210595eb666449ce9cfbe5e193a02f430f0e52939ca552",
+      "source_split": "test",
+      "source_split_index": 18,
+      "task_id": "AL__leads_to_shortcut_temp"
+    },
+    {
+      "heldout_index": 19,
+      "project_code": "IR",
+      "source_sha256": "0a72fa7be5402ff0726b31c2a07c40a45fa71e60050e3689a67899ec1e9f75bd",
+      "source_split": "test",
+      "source_split_index": 19,
+      "task_id": "IR__single_delivery_model_v__impl2__send_single_cmessage"
+    },
+    {
+      "heldout_index": 20,
+      "project_code": "AC",
+      "source_sha256": "fb01080e4d16c978979275c8398caa3a0339db11ec9aaaa283f56113a87ffc00",
+      "source_split": "test",
+      "source_split_index": 20,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__resource_match__lemma_from_after_receive_ok_resp_to_send_create_pod_req"
+    }
+  ],
+  "test_projection_sha256": "593cd9cd382e39818c33ceec4139b9c39c619919ffde1d3a5fdbe65c2ab6f912",
+  "test_task_count_per_condition": 20,
+  "timeout_seconds_per_task": 600,
+  "total_actor_invocations": 40,
+  "valid": true
+}

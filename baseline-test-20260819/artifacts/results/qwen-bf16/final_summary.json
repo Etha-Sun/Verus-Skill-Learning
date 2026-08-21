@@ -1,0 +1,22 @@
+{
+  "completed_at": "2026-08-21T09:59:55.603136+00:00",
+  "model": "qwen38-27b-bf16",
+  "native_official_baseline_actor_sha256": "fc2c51a283212ffe365fcd9bc91fedca1c6a46d43a51c4310facd7f76f41b74b",
+  "native_official_baseline_generator_sha256": "195ab1294871689873e3bd6d9d2dbfb0a89a0d13b2ea0bdd1f7d716d826437c2",
+  "results": {
+    "no-skill": {
+      "successes": 7,
+      "summary": "/zp_vegeta/scratch_sb/xinyueh/verus_skill_runs/baseline-test-20260819/qwen-bf16/no-skill/summary_test20.json",
+      "task_count": 20
+    },
+    "with-native-official-baseline": {
+      "successes": 6,
+      "summary": "/zp_vegeta/scratch_sb/xinyueh/verus_skill_runs/baseline-test-20260819/qwen-bf16/with-native-official-baseline/summary_test20.json",
+      "task_count": 20
+    }
+  },
+  "schema_version": 1,
+  "status": "complete",
+  "test_projection_sha256": "593cd9cd382e39818c33ceec4139b9c39c619919ffde1d3a5fdbe65c2ab6f912",
+  "timeout_seconds_per_task": 600
+}

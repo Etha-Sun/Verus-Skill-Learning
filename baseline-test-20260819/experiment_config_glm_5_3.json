@@ -1,0 +1,26 @@
+{
+  "approval_limit_usd": 20.0,
+  "conditions": [
+    "no-skill",
+    "with-native-official-baseline"
+  ],
+  "driver": "code/run_glm_5_3.py",
+  "env_file": "/zp_vegeta/scratch_sb/xinyueh/.env.glm",
+  "experiment_id": "baseline-test-20260819-glm-5.3-test20",
+  "model": "glm-5.3",
+  "model_max_output_tokens": 8192,
+  "native_official_baseline_actor_sha256": "fc2c51a283212ffe365fcd9bc91fedca1c6a46d43a51c4310facd7f76f41b74b",
+  "output_root": "/zp_vegeta/scratch_sb/xinyueh/verus_skill_runs/baseline-test-20260819/glm-5.3",
+  "provider_profile": "glm",
+  "provider_request_max_retries": 4,
+  "provider_stream_max_retries": 4,
+  "reasoning_effort": "max",
+  "schema_version": 1,
+  "split_root": "fixed-claude-stratified-80-seed20260814",
+  "splits": [
+    "test"
+  ],
+  "task_count_per_condition": 20,
+  "timeout_seconds_per_task": 600,
+  "verification_timeout_seconds": 120
+}

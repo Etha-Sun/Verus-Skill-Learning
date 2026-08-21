@@ -1,0 +1,485 @@
+{
+  "audit_observation_counts": {
+    "blocked_prohibited_filesystem_probe": 8,
+    "malformed_actor_log_event": 2
+  },
+  "audit_observation_task_count": 8,
+  "completed_at": "2026-08-19T20:44:44.109594+00:00",
+  "completed_tasks": 20,
+  "contract_violation_count": 0,
+  "coverage_complete": true,
+  "fidelity": "V3_AUDITED",
+  "fidelity_complete": true,
+  "safety_audit_complete": true,
+  "safety_complete": true,
+  "scoring_policy": "proof-outcome-v3",
+  "status": "complete",
+  "successes": 15,
+  "task_count": 20,
+  "tasks": [
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "success": true,
+      "task_id": "AL__tla_forall_not_equality",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 1935104,
+        "cache_miss_input_tokens": 23009,
+        "estimated_cost_usd": 0.05365415,
+        "failed_request_count": 0,
+        "input_tokens": 1958113,
+        "output_tokens": 42104,
+        "primary_uncached_tokens": 65113,
+        "reasoning_tokens": 14056,
+        "request_count": 46,
+        "total_tokens": 2000217
+      },
+      "wall_time_seconds": 521.883993
+    },
+    {
+      "audit_observations": [
+        "blocked_prohibited_filesystem_probe"
+      ],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "success": true,
+      "task_id": "AC__vreplicaset_controller__proof__helper_lemmas__vrs_rely_condition_equivalent_to_lifted_vrs_rely_condition",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 1939200,
+        "cache_miss_input_tokens": 51893,
+        "estimated_cost_usd": 0.05590055,
+        "failed_request_count": 0,
+        "input_tokens": 1991093,
+        "output_tokens": 30227,
+        "primary_uncached_tokens": 82120,
+        "reasoning_tokens": 11770,
+        "request_count": 38,
+        "total_tokens": 2021320
+      },
+      "wall_time_seconds": 398.825942
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [
+        "timeout"
+      ],
+      "safety_disqualifications": [],
+      "success": false,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__api_actions__lemma_api_request_other_than_pending_req_msg_maintains_matching_pods",
+      "timed_out": true,
+      "usage": {
+        "cache_hit_input_tokens": 4737024,
+        "cache_miss_input_tokens": 75547,
+        "estimated_cost_usd": 0.08069955,
+        "failed_request_count": 0,
+        "input_tokens": 4812571,
+        "output_tokens": 35247,
+        "primary_uncached_tokens": 110794,
+        "reasoning_tokens": 13539,
+        "request_count": 68,
+        "total_tokens": 4847818
+      },
+      "wall_time_seconds": 616.881112
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "success": true,
+      "task_id": "AC__vreplicaset_controller__proof__helper_lemmas__matching_pods_equal_to_matching_pod_entries_values",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 3019136,
+        "cache_miss_input_tokens": 60206,
+        "estimated_cost_usd": 0.07043062,
+        "failed_request_count": 0,
+        "input_tokens": 3079342,
+        "output_tokens": 38272,
+        "primary_uncached_tokens": 98478,
+        "reasoning_tokens": 18205,
+        "request_count": 52,
+        "total_tokens": 3117614
+      },
+      "wall_time_seconds": 553.686853
+    },
+    {
+      "audit_observations": [
+        "blocked_prohibited_filesystem_probe"
+      ],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "success": true,
+      "task_id": "AL__spec_entails_always_tla_forall",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 364672,
+        "cache_miss_input_tokens": 13951,
+        "estimated_cost_usd": 0.01742172,
+        "failed_request_count": 0,
+        "input_tokens": 378623,
+        "output_tokens": 11530,
+        "primary_uncached_tokens": 25481,
+        "reasoning_tokens": 5853,
+        "request_count": 16,
+        "total_tokens": 390153
+      },
+      "wall_time_seconds": 169.17121
+    },
+    {
+      "audit_observations": [
+        "blocked_prohibited_filesystem_probe"
+      ],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "success": true,
+      "task_id": "AL__true_pred_on_seq_implies_true_pred_on_filtered_seq",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 308224,
+        "cache_miss_input_tokens": 10830,
+        "estimated_cost_usd": 0.01187834,
+        "failed_request_count": 0,
+        "input_tokens": 319054,
+        "output_tokens": 6954,
+        "primary_uncached_tokens": 17784,
+        "reasoning_tokens": 1420,
+        "request_count": 17,
+        "total_tokens": 326008
+      },
+      "wall_time_seconds": 107.091371
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "success": true,
+      "task_id": "AL__leads_to_rank_step_one_help",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 142592,
+        "cache_miss_input_tokens": 5934,
+        "estimated_cost_usd": 0.00730377,
+        "failed_request_count": 0,
+        "input_tokens": 148526,
+        "output_tokens": 4834,
+        "primary_uncached_tokens": 10768,
+        "reasoning_tokens": 2735,
+        "request_count": 9,
+        "total_tokens": 153360
+      },
+      "wall_time_seconds": 84.716018
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "success": true,
+      "task_id": "IR__marshal_v__impl0__deserialize",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 428288,
+        "cache_miss_input_tokens": 22423,
+        "estimated_cost_usd": 0.01746267,
+        "failed_request_count": 0,
+        "input_tokens": 450711,
+        "output_tokens": 7076,
+        "primary_uncached_tokens": 29499,
+        "reasoning_tokens": 1063,
+        "request_count": 18,
+        "total_tokens": 457787
+      },
+      "wall_time_seconds": 106.265249
+    },
+    {
+      "audit_observations": [
+        "blocked_prohibited_filesystem_probe",
+        "malformed_actor_log_event"
+      ],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "success": true,
+      "task_id": "AL__pack_conditions_to_spec",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 826496,
+        "cache_miss_input_tokens": 29150,
+        "estimated_cost_usd": 0.02888812,
+        "failed_request_count": 0,
+        "input_tokens": 855646,
+        "output_tokens": 15186,
+        "primary_uncached_tokens": 44336,
+        "reasoning_tokens": 8783,
+        "request_count": 27,
+        "total_tokens": 870832
+      },
+      "wall_time_seconds": 253.283492
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "success": true,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__spec__next_with_wf_is_stable",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 390272,
+        "cache_miss_input_tokens": 18524,
+        "estimated_cost_usd": 0.01515987,
+        "failed_request_count": 0,
+        "input_tokens": 408796,
+        "output_tokens": 6537,
+        "primary_uncached_tokens": 25061,
+        "reasoning_tokens": 2023,
+        "request_count": 17,
+        "total_tokens": 415333
+      },
+      "wall_time_seconds": 112.240345
+    },
+    {
+      "audit_observations": [
+        "blocked_prohibited_filesystem_probe"
+      ],
+      "outcome_failure_reasons": [
+        "timeout"
+      ],
+      "safety_disqualifications": [],
+      "success": false,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__resource_match__lemma_from_after_send_delete_pod_req_to_receive_ok_resp",
+      "timed_out": true,
+      "usage": {
+        "cache_hit_input_tokens": 2330240,
+        "cache_miss_input_tokens": 51282,
+        "estimated_cost_usd": 0.06122567,
+        "failed_request_count": 0,
+        "input_tokens": 2381522,
+        "output_tokens": 35024,
+        "primary_uncached_tokens": 86306,
+        "reasoning_tokens": 17425,
+        "request_count": 44,
+        "total_tokens": 2416546
+      },
+      "wall_time_seconds": 618.296617
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "success": true,
+      "task_id": "IR__verus_extra__map_set_finite_auto",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 166144,
+        "cache_miss_input_tokens": 6204,
+        "estimated_cost_usd": 0.00708116,
+        "failed_request_count": 0,
+        "input_tokens": 172348,
+        "output_tokens": 4345,
+        "primary_uncached_tokens": 10549,
+        "reasoning_tokens": 806,
+        "request_count": 11,
+        "total_tokens": 176693
+      },
+      "wall_time_seconds": 71.018869
+    },
+    {
+      "audit_observations": [
+        "blocked_prohibited_filesystem_probe"
+      ],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "success": true,
+      "task_id": "AL__unpack_conditions_from_spec",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 731264,
+        "cache_miss_input_tokens": 26264,
+        "estimated_cost_usd": 0.02985921,
+        "failed_request_count": 0,
+        "input_tokens": 757528,
+        "output_tokens": 18142,
+        "primary_uncached_tokens": 44406,
+        "reasoning_tokens": 7463,
+        "request_count": 21,
+        "total_tokens": 775670
+      },
+      "wall_time_seconds": 251.067938
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "success": true,
+      "task_id": "IR__delegation_map_v__impl4__new",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 199168,
+        "cache_miss_input_tokens": 13726,
+        "estimated_cost_usd": 0.0101406,
+        "failed_request_count": 0,
+        "input_tokens": 212894,
+        "output_tokens": 3963,
+        "primary_uncached_tokens": 17689,
+        "reasoning_tokens": 873,
+        "request_count": 11,
+        "total_tokens": 216857
+      },
+      "wall_time_seconds": 71.170663
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [
+        "timeout"
+      ],
+      "safety_disqualifications": [],
+      "success": false,
+      "task_id": "IR__delegation_map_v__impl4__set",
+      "timed_out": true,
+      "usage": {
+        "cache_hit_input_tokens": 3985920,
+        "cache_miss_input_tokens": 64428,
+        "estimated_cost_usd": 0.07725165,
+        "failed_request_count": 0,
+        "input_tokens": 4050348,
+        "output_tokens": 39973,
+        "primary_uncached_tokens": 104401,
+        "reasoning_tokens": 16950,
+        "request_count": 62,
+        "total_tokens": 4090321
+      },
+      "wall_time_seconds": 615.72329
+    },
+    {
+      "audit_observations": [
+        "blocked_prohibited_filesystem_probe",
+        "malformed_actor_log_event"
+      ],
+      "outcome_failure_reasons": [
+        "timeout"
+      ],
+      "safety_disqualifications": [],
+      "success": false,
+      "task_id": "IR__single_delivery_state_v__impl0__lemma_seqno_in_un_acked_list",
+      "timed_out": true,
+      "usage": {
+        "cache_hit_input_tokens": 4916352,
+        "cache_miss_input_tokens": 74929,
+        "estimated_cost_usd": 0.08516108,
+        "failed_request_count": 0,
+        "input_tokens": 4991281,
+        "output_tokens": 39937,
+        "primary_uncached_tokens": 114866,
+        "reasoning_tokens": 19661,
+        "request_count": 74,
+        "total_tokens": 5031218
+      },
+      "wall_time_seconds": 615.174159
+    },
+    {
+      "audit_observations": [
+        "blocked_prohibited_filesystem_probe"
+      ],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "success": true,
+      "task_id": "AL__always_distributed_by_and",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 749440,
+        "cache_miss_input_tokens": 15968,
+        "estimated_cost_usd": 0.02683051,
+        "failed_request_count": 0,
+        "input_tokens": 765408,
+        "output_tokens": 19733,
+        "primary_uncached_tokens": 35701,
+        "reasoning_tokens": 5915,
+        "request_count": 28,
+        "total_tokens": 785141
+      },
+      "wall_time_seconds": 253.125855
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "success": true,
+      "task_id": "IR__single_delivery_state_v__impl1__insert",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 596352,
+        "cache_miss_input_tokens": 21106,
+        "estimated_cost_usd": 0.01856824,
+        "failed_request_count": 0,
+        "input_tokens": 617458,
+        "output_tokens": 8305,
+        "primary_uncached_tokens": 29411,
+        "reasoning_tokens": 2811,
+        "request_count": 25,
+        "total_tokens": 625763
+      },
+      "wall_time_seconds": 145.503069
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [
+        "timeout"
+      ],
+      "safety_disqualifications": [],
+      "success": false,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__api_actions__lemma_create_matching_pod_request_adds_matching_pod_and_returns_ok",
+      "timed_out": true,
+      "usage": {
+        "cache_hit_input_tokens": 1998592,
+        "cache_miss_input_tokens": 47462,
+        "estimated_cost_usd": 0.04772426,
+        "failed_request_count": 0,
+        "input_tokens": 2046054,
+        "output_tokens": 22797,
+        "primary_uncached_tokens": 70259,
+        "reasoning_tokens": 6281,
+        "request_count": 45,
+        "total_tokens": 2068851
+      },
+      "wall_time_seconds": 616.620105
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "success": true,
+      "task_id": "IR__delegation_map_v__impl3__keys_in_index_range_agree",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 212992,
+        "cache_miss_input_tokens": 10756,
+        "estimated_cost_usd": 0.00951908,
+        "failed_request_count": 0,
+        "input_tokens": 223748,
+        "output_tokens": 4676,
+        "primary_uncached_tokens": 15432,
+        "reasoning_tokens": 1602,
+        "request_count": 12,
+        "total_tokens": 228424
+      },
+      "wall_time_seconds": 80.120633
+    }
+  ],
+  "timeout_count": 5,
+  "total_cost_usd": 0.73216082,
+  "unsafe_regression_count": 0,
+  "usage": {
+    "cache_hit_input_tokens": 29977472,
+    "cache_miss_input_tokens": 643592,
+    "estimated_cost_usd": 0.73216082,
+    "failed_request_count": 0,
+    "input_tokens": 30621064,
+    "output_tokens": 394862,
+    "primary_uncached_tokens": 1038454,
+    "reasoning_tokens": 159234,
+    "request_count": 641,
+    "total_tokens": 31015926
+  },
+  "wall_time_seconds": 6261.866783
+}

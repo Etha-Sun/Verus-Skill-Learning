@@ -83,6 +83,125 @@ BRIDGE_COMMIT = "d6fc7754602f320db90a32401ec1ca1739ac2b1c"
 PROVIDER_REQUEST_MAX_RETRIES = 4
 PROVIDER_STREAM_MAX_RETRIES = 4
 
+PROVIDER_PROFILES: dict[str, dict[str, Any]] = {
+    "deepseek": {
+        "config_name": "deepseek_bridge",
+        "display_name": "DeepSeek V4 Pro Native Responses Bridge",
+        "model": "deepseek-v4-pro",
+        "reasoning_effort": "high",
+        "api_key_env": "DEEPSEEK_API_KEY",
+        "base_url_env": "DEEPSEEK_BASE_URL",
+        "model_env": "DEEPSEEK_MODEL",
+        "default_api_key": "",
+        "default_base_url": "https://api.deepseek.com",
+        "requires_api_key": True,
+        "requires_budget": True,
+        "native_responses": True,
+        "context_window": 1048576,
+        "max_output_tokens": 8192,
+        "chat_reasoning_effort": "high",
+        "include_chat_thinking_field": True,
+        "chat_template_kwargs": {},
+        "reasoning_history_field": "reasoning_content",
+        "harness": "codex_cli_0.147.0_native_deepseek_responses_bridge",
+        "bridge_log": "deepseek_bridge.log",
+    },
+    "openai": {
+        "config_name": "openai_bridge",
+        "display_name": "OpenAI GPT-5.6 Sol Native Responses Bridge",
+        "model": "gpt-5.6-sol",
+        "reasoning_effort": "max",
+        "api_key_env": "OPENAI_API_KEY",
+        "base_url_env": "OPENAI_BASE_URL",
+        "model_env": "OPENAI_MODEL",
+        "default_api_key": "",
+        "default_base_url": "https://api.openai.com/v1",
+        "requires_api_key": True,
+        "requires_budget": True,
+        "native_responses": True,
+        "context_window": 1048576,
+        "max_output_tokens": 8192,
+        "chat_reasoning_effort": "high",
+        "include_chat_thinking_field": True,
+        "chat_template_kwargs": {},
+        "reasoning_history_field": "reasoning_content",
+        "harness": "codex_cli_0.147.0_native_openai_responses_bridge",
+        "bridge_log": "openai_bridge.log",
+    },
+    "glm": {
+        "config_name": "glm_bridge",
+        "display_name": "Z.AI GLM-5.3 Responses-to-Chat Bridge",
+        "model": "glm-5.3",
+        "reasoning_effort": "max",
+        "api_key_env": "GLM_API_KEY",
+        "base_url_env": "GLM_BASE_URL",
+        "model_env": "GLM_MODEL",
+        "default_api_key": "",
+        "default_base_url": "https://api.z.ai/api/paas/v4",
+        "requires_api_key": True,
+        "requires_budget": True,
+        "native_responses": False,
+        "context_window": 1048576,
+        "max_output_tokens": 8192,
+        "chat_reasoning_effort": "max",
+        "include_chat_thinking_field": True,
+        "chat_template_kwargs": {},
+        "reasoning_history_field": "reasoning_content",
+        "harness": "codex_cli_0.147.0_glm53_responses_to_chat_bridge",
+        "bridge_log": "glm_responses_bridge.log",
+    },
+    "qwen_local": {
+        "config_name": "qwen_local_bridge",
+        "display_name": "Local Qwen3.8-27B FP8 Responses-to-Chat Bridge",
+        "model": "qwen38-27b-fp8",
+        "reasoning_effort": "xhigh",
+        "api_key_env": "QWEN_LOCAL_API_KEY",
+        "base_url_env": "QWEN_LOCAL_BASE_URL",
+        "model_env": "QWEN_LOCAL_MODEL",
+        "default_api_key": "EMPTY",
+        "default_base_url": "http://127.0.0.1:8000/v1",
+        "requires_api_key": False,
+        "requires_budget": False,
+        "native_responses": False,
+        "context_window": 262144,
+        "max_output_tokens": 8192,
+        "chat_reasoning_effort": "",
+        "include_chat_thinking_field": False,
+        "chat_template_kwargs": {
+            "enable_thinking": True,
+            "preserve_thinking": True,
+        },
+        "reasoning_history_field": "reasoning",
+        "harness": "codex_cli_0.147.0_local_qwen38_responses_to_chat_bridge",
+        "bridge_log": "qwen_responses_bridge.log",
+    },
+    "qwen_bf16_local": {
+        "config_name": "qwen_bf16_local_bridge",
+        "display_name": "Local Qwen3.8-27B BF16 Responses-to-Chat Bridge",
+        "model": "qwen38-27b-bf16",
+        "reasoning_effort": "xhigh",
+        "api_key_env": "QWEN_BF16_LOCAL_API_KEY",
+        "base_url_env": "QWEN_BF16_LOCAL_BASE_URL",
+        "model_env": "QWEN_BF16_LOCAL_MODEL",
+        "default_api_key": "EMPTY",
+        "default_base_url": "http://127.0.0.1:8001/v1",
+        "requires_api_key": False,
+        "requires_budget": False,
+        "native_responses": False,
+        "context_window": 262144,
+        "max_output_tokens": 8192,
+        "chat_reasoning_effort": "",
+        "include_chat_thinking_field": False,
+        "chat_template_kwargs": {
+            "enable_thinking": True,
+            "preserve_thinking": True,
+        },
+        "reasoning_history_field": "reasoning",
+        "harness": "codex_cli_0.147.0_local_qwen38_bf16_responses_to_chat_bridge",
+        "bridge_log": "qwen_bf16_responses_bridge.log",
+    },
+}
+
 ADDED_BYPASS_PATTERNS = {
     "assume": re.compile(r"\bassume\s*\("),
     "admit": re.compile(r"\badmit\s*\("),
@@ -214,20 +333,66 @@ def skill_audit(skill_dir: Path, require_zero_references: bool) -> dict[str, Any
     }
 
 
-def load_nonsecret_env(env_file: Path, execute: bool) -> dict[str, str]:
+def provider_profile(provider_name: str) -> dict[str, Any]:
+    try:
+        return PROVIDER_PROFILES[provider_name]
+    except KeyError as exc:
+        raise ValueError(f"unsupported provider profile: {provider_name}") from exc
+
+
+def code_mode_host_for_provider(
+    provider_name: str, codex_bin: Path
+) -> Path | None:
+    """Return the co-versioned Code Mode host only for the OpenAI profile."""
+    if provider_name != "openai":
+        return None
+    return require_executable(
+        codex_bin.with_name("codex-code-mode-host"), "Codex Code Mode host"
+    )
+
+
+def load_nonsecret_env(
+    env_file: Path, execute: bool, provider_name: str = "deepseek"
+) -> dict[str, str]:
+    profile = provider_profile(provider_name)
     values = {
         key: str(value or "") for key, value in dotenv_values(env_file).items()
     }
     env = os.environ.copy()
-    for key in ("DEEPSEEK_API_KEY", "DEEPSEEK_BASE_URL", "DEEPSEEK_MODEL"):
+    if not profile["requires_api_key"]:
+        sensitive_fragments = (
+            "API_KEY",
+            "ACCESS_KEY",
+            "SECRET",
+            "TOKEN",
+            "PASSWORD",
+            "CREDENTIAL",
+        )
+        env = {
+            key: value
+            for key, value in env.items()
+            if not any(fragment in key.upper() for fragment in sensitive_fragments)
+        }
+    for key in (
+        profile["api_key_env"],
+        profile["base_url_env"],
+        profile["model_env"],
+    ):
         if key not in env and values.get(key):
             env[key] = values[key]
-    env.setdefault("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
-    env.setdefault("DEEPSEEK_MODEL", "deepseek-v4-pro")
-    if execute and not env.get("DEEPSEEK_API_KEY", "").strip():
-        raise ValueError("DEEPSEEK_API_KEY is missing")
-    if env.get("DEEPSEEK_MODEL") != "deepseek-v4-pro":
-        raise ValueError("actor experiment requires deepseek-v4-pro")
+    env.setdefault(profile["api_key_env"], profile["default_api_key"])
+    env.setdefault(profile["base_url_env"], profile["default_base_url"])
+    env.setdefault(profile["model_env"], profile["model"])
+    if (
+        execute
+        and profile["requires_api_key"]
+        and not env.get(profile["api_key_env"], "").strip()
+    ):
+        raise ValueError(f"{profile['api_key_env']} is missing")
+    if env.get(profile["model_env"]) != profile["model"]:
+        raise ValueError(
+            f"{provider_name} actor profile requires {profile['model']}"
+        )
     env["PYTHONPATH"] = str(BASELINE_CODE) + os.pathsep + env.get("PYTHONPATH", "")
     return env
 
@@ -265,8 +430,11 @@ def codex_command(
     task_key: str,
     codex_bin: Path,
     prompt: str,
+    provider_name: str = "deepseek",
 ) -> list[str]:
-    provider = "model_providers.deepseek_bridge"
+    profile = provider_profile(provider_name)
+    config_name = profile["config_name"]
+    provider = f"model_providers.{config_name}"
     return [
         str(codex_bin),
         "-a",
@@ -281,15 +449,15 @@ def codex_command(
         "-s",
         "danger-full-access",
         "-m",
-        "deepseek-v4-pro",
+        profile["model"],
         "-c",
-        'model_provider="deepseek_bridge"',
+        f'model_provider="{config_name}"',
         "-c",
-        f'{provider}.name="DeepSeek V4 Pro Native Responses Bridge"',
+        f'{provider}.name="{profile["display_name"]}"',
         "-c",
         f'{provider}.base_url="http://127.0.0.1:{port}/tasks/{task_key}/v1"',
         "-c",
-        f'{provider}.env_key="DEEPSEEK_API_KEY"',
+        f'{provider}.env_key="{profile["api_key_env"]}"',
         "-c",
         f'{provider}.wire_api="responses"',
         "-c",
@@ -297,11 +465,11 @@ def codex_command(
         "-c",
         f"{provider}.stream_max_retries={PROVIDER_STREAM_MAX_RETRIES}",
         "-c",
-        'model_reasoning_effort="high"',
+        f'model_reasoning_effort="{profile["reasoning_effort"]}"',
         "-c",
-        "model_context_window=1048576",
+        f'model_context_window={profile["context_window"]}',
         "-c",
-        "model_max_output_tokens=8192",
+        f'model_max_output_tokens={profile["max_output_tokens"]}',
         prompt,
     ]
 
@@ -316,9 +484,10 @@ def isolated_codex_command(
     lynette_bin: Path,
     scratch_root: Path,
     bridge_port: int,
+    code_mode_host: Path | None = None,
 ) -> list[str]:
     """Wrap Codex in a mount namespace that exposes only this task and tools."""
-    return [
+    wrapper = [
         str(UNSHARE_BIN),
         "--user",
         "--map-root-user",
@@ -339,14 +508,16 @@ def isolated_codex_command(
         str(rust_root),
         "--lynette-bin",
         str(lynette_bin),
-        "--bridge-port",
-        str(bridge_port),
-        "--",
-        *command,
     ]
+    if code_mode_host is not None:
+        wrapper.extend(["--code-mode-host", str(code_mode_host)])
+    wrapper.extend(["--bridge-port", str(bridge_port), "--", *command])
+    return wrapper
 
 
-def actor_subprocess_env(bridge_env: dict[str, str]) -> dict[str, str]:
+def actor_subprocess_env(
+    bridge_env: dict[str, str], provider_name: str = "deepseek"
+) -> dict[str, str]:
     """Remove host credentials before model-generated commands can inspect env."""
     sensitive_fragments = (
         "API_KEY",
@@ -362,7 +533,9 @@ def actor_subprocess_env(bridge_env: dict[str, str]) -> dict[str, str]:
         if not any(fragment in key.upper() for fragment in sensitive_fragments)
     }
     actor_env.pop("PYTHONPATH", None)
-    actor_env["DEEPSEEK_API_KEY"] = "local-bridge-only-not-a-provider-secret"
+    actor_env[provider_profile(provider_name)["api_key_env"]] = (
+        "local-bridge-only-not-a-provider-secret"
+    )
     return actor_env
 
 
@@ -383,20 +556,24 @@ def start_bridge(
     port: int,
     *,
     fake: bool,
+    provider_name: str = "deepseek",
     budget_state_path: Path | None = None,
     approval_limit_usd: float = 20.0,
     prior_spend_usd: float = 0.0,
     request_reserve_usd: float = 0.25,
 ) -> subprocess.Popen[bytes]:
+    profile = provider_profile(provider_name)
     instance_id = uuid.uuid4().hex
     command = [
         sys.executable,
         "-m",
         BRIDGE_MODULE,
         "--model",
-        "deepseek-v4-pro",
+        profile["model"],
         "--upstream-base-url",
-        env["DEEPSEEK_BASE_URL"],
+        env[profile["base_url_env"]],
+        "--api-key-env",
+        profile["api_key_env"],
         "--host",
         "127.0.0.1",
         "--port",
@@ -406,12 +583,20 @@ def start_bridge(
         "--manifest-path",
         str(output / "bridge_manifest.json"),
         "--max-output-tokens",
-        "8192",
+        str(profile["max_output_tokens"]),
+        "--chat-reasoning-effort",
+        profile["chat_reasoning_effort"],
+        "--chat-template-kwargs-json",
+        json.dumps(profile["chat_template_kwargs"], separators=(",", ":")),
+        "--reasoning-history-field",
+        profile["reasoning_history_field"],
         "--request-timeout-seconds",
         "1800",
         "--instance-id",
         instance_id,
     ]
+    if not profile["include_chat_thinking_field"]:
+        command.append("--omit-chat-thinking-field")
     if fake:
         command.extend(
             [
@@ -428,7 +613,8 @@ def start_bridge(
             ]
         )
     else:
-        command.append("--native-responses")
+        if profile["native_responses"]:
+            command.append("--native-responses")
         if budget_state_path is not None:
             command.extend(
                 [
@@ -442,7 +628,8 @@ def start_bridge(
                     str(request_reserve_usd),
                 ]
             )
-    log = (output / "deepseek_bridge.log").open("wb")
+    log_path = output / profile["bridge_log"]
+    log = log_path.open("wb")
     process = subprocess.Popen(
         command,
         cwd=REPOSITORY_ROOT,
@@ -458,7 +645,7 @@ def start_bridge(
         while time.monotonic() < deadline:
             if process.poll() is not None:
                 raise RuntimeError(
-                    f"bridge exited early; see {output / 'deepseek_bridge.log'}"
+                    f"bridge exited early; see {log_path}"
                 )
             try:
                 with urlopen(health, timeout=2) as response:
@@ -566,6 +753,37 @@ def result_is_complete(result: dict[str, Any]) -> bool:
     return bool(result.get("task_complete", True))
 
 
+def archive_interrupted_task_attempt(
+    output: Path,
+    work: Path,
+    log_path: Path,
+) -> Path | None:
+    """Preserve an interrupted attempt before recreating its task workspace."""
+    if not work.exists() and not log_path.exists():
+        return None
+    attempt_root = (
+        output
+        / "interrupted_attempts"
+        / work.name
+        / f"{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')}_{uuid.uuid4().hex[:8]}"
+    )
+    attempt_root.mkdir(parents=True, exist_ok=False)
+    if work.exists():
+        shutil.move(str(work), str(attempt_root / "workspace"))
+    if log_path.exists():
+        shutil.move(str(log_path), str(attempt_root / "codex_events.jsonl"))
+    write_json(
+        attempt_root / "archive_manifest.json",
+        {
+            "archived_at": utc_now(),
+            "reason": "interrupted_actor_attempt",
+            "workspace_present": (attempt_root / "workspace").exists(),
+            "codex_log_present": (attempt_root / "codex_events.jsonl").exists(),
+        },
+    )
+    return attempt_root
+
+
 def usage_for_task(ledger_path: Path, task_key: str) -> dict[str, Any]:
     rows = []
     if ledger_path.is_file():
@@ -579,6 +797,7 @@ def usage_for_task(ledger_path: Path, task_key: str) -> dict[str, Any]:
         "input_tokens": "prompt_tokens",
         "cache_hit_input_tokens": "prompt_cache_hit_tokens",
         "cache_miss_input_tokens": "prompt_cache_miss_tokens",
+        "cache_write_input_tokens": "prompt_cache_write_tokens",
         "output_tokens": "completion_tokens",
         "reasoning_tokens": "reasoning_tokens",
         "total_tokens": "total_tokens",
@@ -605,7 +824,9 @@ def usage_for_task(ledger_path: Path, task_key: str) -> dict[str, Any]:
                 result["failed_request_count"] += 1
     result["estimated_cost_usd"] = round(result["estimated_cost_usd"], 8)
     result["primary_uncached_tokens"] = (
-        result["cache_miss_input_tokens"] + result["output_tokens"]
+        result["cache_miss_input_tokens"]
+        + result["cache_write_input_tokens"]
+        + result["output_tokens"]
     )
     return result
 
@@ -849,12 +1070,14 @@ def run_smoke(args: argparse.Namespace) -> int:
     if version != args.expected_codex_version:
         raise ValueError(f"Codex version mismatch: {version}")
     source_skill = args.skill_dir.resolve()
-    audit = skill_audit(source_skill, require_zero_references=True)
+    audit = skill_audit(
+        source_skill, require_zero_references=args.require_zero_references
+    )
     snapshot = snapshot_skill(output, source_skill, resume=False)
     smoke_source = output / "configuration" / "smoke_input.rs"
     smoke_source.parent.mkdir(parents=True)
     smoke_source.write_text(
-        "use vstd::prelude::*;\n\nverus! {\nfn smoke() { assert(true); }\n}\n",
+        "use vstd::prelude::*;\n\nverus! {\nfn smoke() { assert(true); }\n}\n\nfn main() {}\n",
         encoding="utf-8",
     )
     work = output / "tasks" / "smoke_skill_load"
@@ -864,10 +1087,23 @@ def run_smoke(args: argparse.Namespace) -> int:
         actor_prompt(True, args.verus_bin.resolve(), args.lynette_bin.resolve()),
         encoding="utf-8",
     )
-    env = load_nonsecret_env(args.env_file.resolve(), execute=False)
-    env["DEEPSEEK_API_KEY"] = "fake-local-smoke-key"
+    env = load_nonsecret_env(
+        args.env_file.resolve(), execute=False, provider_name=args.provider
+    )
+    if not args.live_smoke:
+        env[provider_profile(args.provider)["api_key_env"]] = "fake-local-smoke-key"
     task_key = "smoke--skill-load"
-    proxy = start_bridge(output, env, args.proxy_port, fake=True)
+    proxy = start_bridge(
+        output,
+        env,
+        args.proxy_port,
+        fake=not args.live_smoke,
+        provider_name=args.provider,
+        budget_state_path=(args.budget_state_path if args.live_smoke else None),
+        approval_limit_usd=args.approval_limit_usd,
+        prior_spend_usd=args.prior_spend_usd,
+        request_reserve_usd=args.request_reserve_usd,
+    )
     try:
         log_path = output / "logs" / "smoke_skill_load.jsonl"
         command = isolated_codex_command(
@@ -877,6 +1113,7 @@ def run_smoke(args: argparse.Namespace) -> int:
                 task_key,
                 codex_bin,
                 "Read the supplied skill as instructed, then complete this smoke check.",
+                provider_name=args.provider,
             ),
             work_dir=work,
             codex_bin=codex_bin,
@@ -884,16 +1121,18 @@ def run_smoke(args: argparse.Namespace) -> int:
             rust_root=rust_root,
             lynette_bin=lynette_bin,
             scratch_root=args.scratch_root.resolve(),
+            code_mode_host=code_mode_host_for_provider(args.provider, codex_bin),
             bridge_port=args.proxy_port,
         )
         returncode, timed_out, wall = run_codex(
-            command, work, actor_subprocess_env(env), log_path, 120
+            command, work, actor_subprocess_env(env, args.provider), log_path, 120
         )
     finally:
         stop_process_group(proxy)
     usage = usage_for_task(output / "bridge_calls.jsonl", task_key)
-    usage["estimated_cost_usd"] = 0.0
-    usage["synthetic_usage"] = True
+    if not args.live_smoke:
+        usage["estimated_cost_usd"] = 0.0
+    usage["synthetic_usage"] = not args.live_smoke
     log_text = log_path.read_text(encoding="utf-8", errors="replace")
     access = command_access_audit(
         log_path,
@@ -914,17 +1153,31 @@ def run_smoke(args: argparse.Namespace) -> int:
             sha256_file(workspace.input_path) == sha256_file(workspace.candidate_path)
         ),
         "provider_requests_recorded": usage["request_count"] >= 2,
-        "zero_references": audit["reference_file_count"] == 0
-        and not audit["reference_routes_present"],
+        "skill_reference_policy": (
+            not args.require_zero_references
+            or (
+                audit["reference_file_count"] == 0
+                and not audit["reference_routes_present"]
+            )
+        ),
     }
     manifest = json.loads((output / "bridge_manifest.json").read_text(encoding="utf-8"))
-    checks["fake_bridge"] = manifest.get("fake_mode") is True
-    checks["responses_translation"] = (
-        manifest.get("protocol") == "responses_to_chat_completions"
+    checks["bridge_mode_matches"] = (
+        manifest.get("fake_mode") is (not args.live_smoke)
+    )
+    expected_protocol = (
+        "native_responses_passthrough"
+        if provider_profile(args.provider)["native_responses"]
+        else "responses_to_chat_completions"
+    )
+    checks["bridge_protocol_matches"] = (
+        manifest.get("protocol") == expected_protocol
     )
     result = {
         "status": "complete" if all(checks.values()) else "failed",
-        "network_provider_requests": 0,
+        "network_provider_requests": (
+            usage["request_count"] if args.live_smoke else 0
+        ),
         "codex_version": version,
         "bridge_commit": BRIDGE_COMMIT,
         "actor_runner_sha256": sha256_file(Path(__file__)),
@@ -944,6 +1197,7 @@ def run_smoke(args: argparse.Namespace) -> int:
 
 
 def run_matrix(args: argparse.Namespace) -> int:
+    profile = provider_profile(args.provider)
     output = args.output_root.resolve()
     prepare_output(output, args.run_root.resolve(), resume=args.resume)
     codex_bin = require_executable(args.codex_bin, "Codex")
@@ -977,6 +1231,7 @@ def run_matrix(args: argparse.Namespace) -> int:
             f"{args.split}--{{task_key}}",
             codex_bin,
             prompt_template,
+            provider_name=args.provider,
         ),
         work_dir=template_work_dir,
         codex_bin=codex_bin,
@@ -984,11 +1239,12 @@ def run_matrix(args: argparse.Namespace) -> int:
         rust_root=rust_root,
         lynette_bin=lynette_bin,
         scratch_root=args.scratch_root.resolve(),
+        code_mode_host=code_mode_host_for_provider(args.provider, codex_bin),
         bridge_port=args.proxy_port,
     )
     actor_contract = {
         "command_template": command_template,
-        "native_responses": True,
+        "native_responses": profile["native_responses"],
         "provider_request_max_retries": PROVIDER_REQUEST_MAX_RETRIES,
         "provider_stream_max_retries": PROVIDER_STREAM_MAX_RETRIES,
         "outcome_policy": {
@@ -1029,6 +1285,7 @@ def run_matrix(args: argparse.Namespace) -> int:
             "local_bridge_placeholder_key_only": True,
         },
         "provider_budget": {
+            "required": profile["requires_budget"],
             "shared_state_path": (
                 str(args.budget_state_path.resolve())
                 if args.budget_state_path is not None
@@ -1050,7 +1307,7 @@ def run_matrix(args: argparse.Namespace) -> int:
         "project_counts": dict(sorted(Counter(row["project_code"] for row in rows).items())),
         "condition": args.condition,
         "skill": skill_info,
-        "harness": "codex_cli_0.147.0_native_deepseek_responses_bridge",
+        "harness": profile["harness"],
         "codex_version": version,
         "codex_bin": str(codex_bin),
         "codex_bin_sha256": sha256_file(codex_bin),
@@ -1067,8 +1324,8 @@ def run_matrix(args: argparse.Namespace) -> int:
         "bridge_commit": BRIDGE_COMMIT,
         "bridge_source": str(BRIDGE_SOURCE),
         "bridge_source_sha256": sha256_file(BRIDGE_SOURCE),
-        "model": "deepseek-v4-pro",
-        "reasoning_effort": "high",
+        "model": profile["model"],
+        "reasoning_effort": profile["reasoning_effort"],
         "timeout_seconds_per_task": args.timeout_seconds,
         "provider_retries": PROVIDER_REQUEST_MAX_RETRIES,
         "heldout_trajectory_or_verified_solution_exposed": False,
@@ -1093,6 +1350,9 @@ def run_matrix(args: argparse.Namespace) -> int:
             "selected_task_numbers",
             "condition",
             "skill",
+            "harness",
+            "model",
+            "reasoning_effort",
             "codex_version",
             "codex_bin_sha256",
             "verus_bin_sha256",
@@ -1131,8 +1391,10 @@ def run_matrix(args: argparse.Namespace) -> int:
         if skill_source is not None
         else None
     )
-    env = load_nonsecret_env(args.env_file.resolve(), execute=True)
-    actor_env = actor_subprocess_env(env)
+    env = load_nonsecret_env(
+        args.env_file.resolve(), execute=True, provider_name=args.provider
+    )
+    actor_env = actor_subprocess_env(env, args.provider)
     results: list[dict[str, Any]] = []
     for row in rows:
         result_path = task_result_path(output, row)
@@ -1146,6 +1408,7 @@ def run_matrix(args: argparse.Namespace) -> int:
         env,
         args.proxy_port,
         fake=False,
+        provider_name=args.provider,
         budget_state_path=(
             args.budget_state_path.resolve()
             if args.budget_state_path is not None
@@ -1163,6 +1426,19 @@ def run_matrix(args: argparse.Namespace) -> int:
             source = Path(row["_source_resolved"])
             work = output / "tasks" / row["normalized_task_id"]
             result_path = task_result_path(output, row)
+            log_path = (
+                output
+                / "logs"
+                / f"{row['_split_index']:02d}_{row['normalized_task_id']}.jsonl"
+            )
+            if args.resume:
+                archived = archive_interrupted_task_attempt(output, work, log_path)
+                if archived is not None:
+                    print(
+                        f"[{position:02d}/{len(rows):02d}] ARCHIVE "
+                        f"{row['task_id']} -> {archived}",
+                        flush=True,
+                    )
             workspace = prepare_workspace(source, work, task="Repair candidate.rs.")
             workspace.verus_bin = workspace._require_executable(verus_bin, "Verus")
             workspace.lynette_bin = workspace._require_executable(lynette_bin, "Lynette")
@@ -1174,7 +1450,6 @@ def run_matrix(args: argparse.Namespace) -> int:
                 encoding="utf-8",
             )
             task_key = f"{args.split}--{row['normalized_task_id']}"
-            log_path = output / "logs" / f"{row['_split_index']:02d}_{row['normalized_task_id']}.jsonl"
             print(f"[{position:02d}/{len(rows):02d}] START {row['task_id']}", flush=True)
             started_at = utc_now()
             task_started_monotonic = time.monotonic()
@@ -1185,6 +1460,7 @@ def run_matrix(args: argparse.Namespace) -> int:
                     task_key,
                     codex_bin,
                     actor_prompt(snapshot is not None, verus_bin, lynette_bin),
+                    provider_name=args.provider,
                 ),
                 work_dir=work,
                 codex_bin=codex_bin,
@@ -1192,6 +1468,7 @@ def run_matrix(args: argparse.Namespace) -> int:
                 rust_root=rust_root,
                 lynette_bin=lynette_bin,
                 scratch_root=args.scratch_root.resolve(),
+                code_mode_host=code_mode_host_for_provider(args.provider, codex_bin),
                 bridge_port=args.proxy_port,
             )
             exit_code, timed_out, codex_wall = run_codex(
@@ -1307,7 +1584,15 @@ def parser() -> argparse.ArgumentParser:
     mode.add_argument("--preflight", action="store_true")
     mode.add_argument("--execute", action="store_true")
     mode.add_argument("--smoke", action="store_true")
+    result.add_argument(
+        "--live-smoke",
+        action="store_true",
+        help="use the selected real provider during synthetic smoke",
+    )
     result.add_argument("--split", choices=("val", "test"), default="val")
+    result.add_argument(
+        "--provider", choices=tuple(PROVIDER_PROFILES), default="deepseek"
+    )
     result.add_argument("--split-root", type=Path, default=SPLIT_ROOT)
     result.add_argument("--condition", choices=("skill", "no-skill"), default="skill")
     result.add_argument("--skill-dir", type=Path, default=DEFAULT_M_CORE)
@@ -1347,7 +1632,12 @@ def main(argv: list[str] | None = None) -> int:
         )
     if args.budget_state_path is not None:
         assert_strict_child(args.budget_state_path, args.run_root)
-    if args.execute and args.budget_state_path is None:
+    profile = provider_profile(args.provider)
+    if (
+        (args.execute or args.live_smoke)
+        and profile["requires_budget"]
+        and args.budget_state_path is None
+    ):
         raise ValueError("paid actor execution requires --budget-state-path")
     if args.execute or args.smoke:
         def terminate_cleanly(signum: int, _frame: Any) -> None:
@@ -1355,6 +1645,8 @@ def main(argv: list[str] | None = None) -> int:
 
         signal.signal(signal.SIGTERM, terminate_cleanly)
         signal.signal(signal.SIGINT, terminate_cleanly)
+    if args.live_smoke and not args.smoke:
+        raise ValueError("--live-smoke requires --smoke")
     if args.smoke:
         if args.resume or args.condition != "skill":
             raise ValueError("smoke requires a fresh skill condition")

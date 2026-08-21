@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any
 
 
-DEEPSEEK_RATES_USD_PER_MILLION = {
+MODEL_RATES_USD_PER_MILLION = {
     "deepseek-v4-flash": {
         "prompt_cache_hit_tokens": 0.0028,
         "prompt_cache_miss_tokens": 0.14,
@@ -21,6 +21,32 @@ DEEPSEEK_RATES_USD_PER_MILLION = {
         "prompt_cache_miss_tokens": 0.435,
         "completion_tokens": 0.87,
     },
+    "gpt-5.6-sol": {
+        "prompt_cache_hit_tokens": 0.50,
+        "prompt_cache_miss_tokens": 5.00,
+        "prompt_cache_write_tokens": 6.25,
+        "completion_tokens": 30.00,
+    },
+    "glm-5.3": {
+        "prompt_cache_hit_tokens": 0.26,
+        "prompt_cache_miss_tokens": 1.40,
+        "completion_tokens": 4.40,
+    },
+    "qwen38-27b-fp8": {
+        "prompt_cache_hit_tokens": 0.0,
+        "prompt_cache_miss_tokens": 0.0,
+        "completion_tokens": 0.0,
+    },
+    "qwen38-27b-bf16": {
+        "prompt_cache_hit_tokens": 0.0,
+        "prompt_cache_miss_tokens": 0.0,
+        "completion_tokens": 0.0,
+    },
+}
+DEEPSEEK_RATES_USD_PER_MILLION = {
+    model: rates
+    for model, rates in MODEL_RATES_USD_PER_MILLION.items()
+    if model.startswith("deepseek-")
 }
 FLASH_RATES_USD_PER_MILLION = DEEPSEEK_RATES_USD_PER_MILLION[
     "deepseek-v4-flash"
@@ -29,31 +55,42 @@ FLASH_RATES_USD_PER_MILLION = DEEPSEEK_RATES_USD_PER_MILLION[
 
 def rates_for_model(model: str) -> dict[str, float]:
     try:
-        return DEEPSEEK_RATES_USD_PER_MILLION[model]
+        return MODEL_RATES_USD_PER_MILLION[model]
     except KeyError as error:
-        raise ValueError(f"unsupported DeepSeek billing model: {model}") from error
+        raise ValueError(f"unsupported billing model: {model}") from error
 
 
-def estimate_deepseek_cost(usage: dict[str, int], model: str) -> float:
+def estimate_model_cost(usage: dict[str, int], model: str) -> float:
     return sum(
         int(usage.get(key, 0) or 0) * rate / 1_000_000
         for key, rate in rates_for_model(model).items()
     )
 
 
-def estimate_deepseek_request_upper_bound(
+def estimate_model_request_upper_bound(
     max_completion_tokens: int,
     model: str,
 ) -> float:
     """Conservative request bound: 1M uncached input plus capped output."""
 
-    return estimate_deepseek_cost(
+    return estimate_model_cost(
         {
             "prompt_cache_miss_tokens": 1_000_000,
             "completion_tokens": max_completion_tokens,
         },
         model,
     )
+
+
+def estimate_deepseek_cost(usage: dict[str, int], model: str) -> float:
+    return estimate_model_cost(usage, model)
+
+
+def estimate_deepseek_request_upper_bound(
+    max_completion_tokens: int,
+    model: str,
+) -> float:
+    return estimate_model_request_upper_bound(max_completion_tokens, model)
 
 
 def estimate_flash_cost(usage: dict[str, int]) -> float:
@@ -68,7 +105,7 @@ def estimate_flash_request_upper_bound(max_completion_tokens: int) -> float:
 
 
 class SharedBudgetGuard:
-    """Cross-process conservative spend guard for DeepSeek target calls."""
+    """Cross-process conservative spend guard for provider target calls."""
 
     def __init__(
         self,
@@ -100,6 +137,7 @@ class SharedBudgetGuard:
             "usage": {
                 "prompt_cache_hit_tokens": 0,
                 "prompt_cache_miss_tokens": 0,
+                "prompt_cache_write_tokens": 0,
                 "completion_tokens": 0,
             },
             "reservations": {},

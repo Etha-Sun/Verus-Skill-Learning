@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "experiment_id": "baseline-test-20260819",
+  "model": "deepseek-v4-pro",
+  "reasoning_effort": "high",
+  "harness": "codex_cli_0.147.0_native_deepseek_responses_bridge",
+  "timeout_seconds_per_task": 600,
+  "heldout_40": {
+    "composition": [
+      "fixed-claude-stratified-80-seed20260814/val/items.json",
+      "fixed-claude-stratified-80-seed20260814/test/items.json"
+    ],
+    "task_count": 40,
+    "training_tasks_excluded": true
+  },
+  "conditions": [
+    "no-skill",
+    "with-native-official-baseline"
+  ],
+  "native_official_baseline": {
+    "skill_tree_sha256": "195ab1294871689873e3bd6d9d2dbfb0a89a0d13b2ea0bdd1f7d716d826437c2",
+    "source_run": "$VERUS_SKILL_RUN_ROOT/cross-task-global-20260814/native_official_baseline_v1"
+  },
+  "scoring_policy": "proof-outcome-v3",
+  "condition_order": [
+    "no-skill/val",
+    "no-skill/test",
+    "with-native-official-baseline/val",
+    "with-native-official-baseline/test"
+  ]
+}

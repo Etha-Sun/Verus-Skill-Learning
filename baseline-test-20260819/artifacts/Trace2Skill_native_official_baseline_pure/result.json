@@ -1,0 +1,42 @@
+{
+  "schema_version": "trace2skill-native-official-baseline-result-v1",
+  "status": "complete",
+  "completed_at": "2026-08-19T01:47:06.782462+00:00",
+  "map_patch_count": 40,
+  "applied_file_edit_count": 9,
+  "estimated_upstream_llm_calls": 65,
+  "reasoning": "Merged the two patch sets into one coherent patch. I kept the stronger in-place target workflow from Patch 1 and folded Patch 2's fresh-run-primary/log-secondary reproduction, #![auto] trigger-note cleanup, and signature/grep audit into the same core workflow/safety bullets. I resolved the verified-file conflict by treating a separate <name>_verified.rs copy as isolated validation only unless the task explicitly assigns that artifact. I deduplicated the overlapping temporal/execution/liveness/stability and general proof-pattern references into a smaller set of linked reference files, preserving unique serialization, state-machine, multiset, function extensionality, set, and proof-pattern techniques. All reference links and their create operations were kept as atomic pairs.",
+  "changelog": [
+    "Merged: core workflow now requires fresh-target diagnostic reproduction, proof-goal classification, recursive-definition inspection, existing-construct reuse, in-place target editing, deterministic macro expansion, and zero-error final audit on the assigned proof target.",
+    "Merged: proof-construction and gap-check rules were consolidated into one Core-workflow-adjacent section.",
+    "Merged: safety boundaries now forbid external_body/axiom-like bypasses, unverified copy/generated-artifact success claims, removed required assertions, and unsupported proof syntax, with a grep/diff audit for isolated validation copies.",
+    "Merged: reference index and reference files were deduplicated into eight linked files preserving general, stability, temporal/execution/liveness, set, function-extensionality, serialization, state-machine, and multiset proof patterns.",
+    "replace_in_section in SKILL.md: ## Core workflow",
+    "replace_in_section in SKILL.md: ## Core workflow",
+    "replace_in_section in SKILL.md: ## Core workflow",
+    "replace_in_section in SKILL.md: ## Core workflow",
+    "insert_after in SKILL.md: ## Core workflow",
+    "replace_in_section in SKILL.md: ## Core workflow",
+    "add_section in SKILL.md",
+    "replace_in_section in SKILL.md: ## Safety boundaries",
+    "replace_in_section in SKILL.md: ## Safety boundaries",
+    "replace_in_section in SKILL.md: ## Safety boundaries",
+    "add_section in SKILL.md",
+    "Created references/proof-patterns.md",
+    "Created references/temporal-stability-proofs.md",
+    "Created references/temporal-logic-proofs.md",
+    "Created references/set-proof-patterns.md",
+    "Created references/function-extensional-equality.md",
+    "Created references/serialization-proof-patterns.md",
+    "Created references/state-machine-invariants.md",
+    "Created references/multiset-length-zero-proofs.md"
+  ],
+  "skill_dir": "/zp_vegeta/scratch_sb/xinyueh/verus_skill_runs/cross-task-global-20260814/native_official_baseline_v1/skill/verus-proof-repair",
+  "skill_tree_sha256": "195ab1294871689873e3bd6d9d2dbfb0a89a0d13b2ea0bdd1f7d716d826437c2",
+  "skill_validation": {
+    "valid": true,
+    "message": "Skill is valid!",
+    "validator": "/home/xinyueh/.codex/skills/.system/skill-creator/scripts/quick_validate.py"
+  },
+  "preflight_sha256": "7df77cfb60c5d8192cc50ed8dd3eff9b984c6d1a5e06cb2b4a78a805b114296b"
+}

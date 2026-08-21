@@ -316,6 +316,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--network-child", action="store_true", help=argparse.SUPPRESS)
     parser.add_argument("--workspace", type=Path, required=True)
     parser.add_argument("--codex-bin", type=Path)
+    parser.add_argument("--code-mode-host", type=Path)
     parser.add_argument("--verus-root", type=Path)
     parser.add_argument("--rust-root", type=Path)
     parser.add_argument("--lynette-bin", type=Path)
@@ -375,6 +376,9 @@ def main() -> int:
     rust_root = strict_child(args.rust_root, scratch_root, "rust root")
     lynette_bin = strict_child(args.lynette_bin, scratch_root, "lynette")
     codex_bin = args.codex_bin.resolve()
+    code_mode_host = (
+        args.code_mode_host.resolve() if args.code_mode_host is not None else None
+    )
 
     if not workspace.is_dir():
         raise ValueError(f"workspace is not a directory: {workspace}")
@@ -382,6 +386,10 @@ def main() -> int:
         raise ValueError("Verus and Rust roots must be directories")
     if not lynette_bin.is_file() or not codex_bin.is_file():
         raise ValueError("Lynette and Codex must be files")
+    if code_mode_host is not None and (
+        not code_mode_host.is_file() or not os.access(code_mode_host, os.X_OK)
+    ):
+        raise ValueError(f"Codex Code Mode host is invalid: {code_mode_host}")
     if Path(args.command[0]).resolve() != codex_bin:
         raise ValueError("actor command executable does not match --codex-bin")
 
@@ -393,6 +401,7 @@ def main() -> int:
         "rust": stage / "rust",
         "lynette": stage / "lynette",
         "codex": stage / "codex",
+        "code_mode_host": stage / "codex-code-mode-host",
         "isolation_runner": stage / "actor_isolation.py",
     }
     staged_mounts: list[Path] = []
@@ -407,6 +416,9 @@ def main() -> int:
         ):
             bind(source, destination)
             staged_mounts.append(destination)
+        if code_mode_host is not None:
+            bind(code_mode_host, staged["code_mode_host"])
+            staged_mounts.append(staged["code_mode_host"])
 
         os.chdir("/")
         run_mount("-t", "tmpfs", "-o", "size=64m,mode=755", "tmpfs", str(scratch_root))
@@ -418,6 +430,11 @@ def main() -> int:
         bind(staged["lynette"], lynette_bin, read_only=True)
         isolated_codex = workspace / ".actor_codex"
         bind(staged["codex"], isolated_codex, read_only=True)
+        if code_mode_host is not None:
+            isolated_code_mode_host = workspace / "codex-code-mode-host"
+            bind(
+                staged["code_mode_host"], isolated_code_mode_host, read_only=True
+            )
         isolated_runner = workspace / ".actor_isolation.py"
         bind(staged["isolation_runner"], isolated_runner, read_only=True)
 

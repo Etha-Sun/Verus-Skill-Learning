@@ -109,6 +109,7 @@ class ActorMatrixTests(unittest.TestCase):
         self.assertIn(str(subject.ISOLATION_RUNNER), command)
         self.assertIn("--bridge-port", command)
         self.assertIn("4017", command)
+        self.assertNotIn("--code-mode-host", command)
         separator = command.index("--")
         self.assertEqual(["/opt/codex", "exec", "prompt"], command[separator + 1 :])
 
@@ -182,6 +183,165 @@ class ActorMatrixTests(unittest.TestCase):
         self.assertIn("--json", command)
         sandbox_index = command.index("-s")
         self.assertEqual("danger-full-access", command[sandbox_index + 1])
+
+    def test_openai_profile_mounts_code_mode_host_only_for_openai(self) -> None:
+        self.assertIsNone(
+            subject.code_mode_host_for_provider("deepseek", Path("/opt/codex"))
+        )
+        self.assertIsNone(
+            subject.code_mode_host_for_provider("qwen_local", Path("/opt/codex"))
+        )
+        self.assertIsNone(
+            subject.code_mode_host_for_provider("glm", Path("/opt/codex"))
+        )
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            codex = root / "codex"
+            host = root / "codex-code-mode-host"
+            codex.write_text("codex", encoding="utf-8")
+            host.write_text("host", encoding="utf-8")
+            host.chmod(0o755)
+            selected = subject.code_mode_host_for_provider("openai", codex)
+            self.assertEqual(host.resolve(), selected)
+            command = subject.isolated_codex_command(
+                [str(codex), "exec", "prompt"],
+                work_dir=Path("/scratch/run/task"),
+                codex_bin=codex,
+                verus_bin=Path("/scratch/tools/verus/bin/verus"),
+                rust_root=Path("/scratch/tools/rust"),
+                lynette_bin=Path("/scratch/tools/lynette"),
+                scratch_root=Path("/scratch"),
+                bridge_port=4331,
+                code_mode_host=selected,
+            )
+        host_index = command.index("--code-mode-host")
+        self.assertEqual(str(host.resolve()), command[host_index + 1])
+
+    def test_qwen_profile_is_isolated_and_uses_translated_responses(self) -> None:
+        command = subject.codex_command(
+            Path("/tmp/work"),
+            4333,
+            "test--task",
+            Path("/bin/true"),
+            "prompt",
+            provider_name="qwen_local",
+        )
+        joined = "\n".join(command)
+        self.assertIn("qwen38-27b-fp8", joined)
+        self.assertIn('model_provider="qwen_local_bridge"', joined)
+        self.assertIn('env_key="QWEN_LOCAL_API_KEY"', joined)
+        self.assertIn('model_reasoning_effort="xhigh"', joined)
+        self.assertIn("model_context_window=262144", joined)
+        profile = subject.provider_profile("qwen_local")
+        self.assertFalse(profile["native_responses"])
+        self.assertFalse(profile["requires_budget"])
+        self.assertTrue(subject.provider_profile("deepseek")["native_responses"])
+        self.assertTrue(subject.provider_profile("openai")["native_responses"])
+
+    def test_qwen_local_env_needs_no_paid_provider_secret(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            env_file = Path(temporary) / "empty.env"
+            env_file.write_text("", encoding="utf-8")
+            with mock.patch.dict(
+                subject.os.environ,
+                {
+                    "DEEPSEEK_API_KEY": "must-not-propagate",
+                    "OPENAI_API_KEY": "must-not-propagate",
+                    "UNRELATED_TOKEN": "must-not-propagate",
+                    "PATH": "/usr/bin",
+                },
+                clear=True,
+            ):
+                env = subject.load_nonsecret_env(
+                    env_file, execute=True, provider_name="qwen_local"
+                )
+        self.assertEqual("EMPTY", env["QWEN_LOCAL_API_KEY"])
+        self.assertEqual("http://127.0.0.1:8000/v1", env["QWEN_LOCAL_BASE_URL"])
+        self.assertNotIn("DEEPSEEK_API_KEY", env)
+        self.assertNotIn("OPENAI_API_KEY", env)
+
+    def test_qwen_bf16_profile_is_additive_and_uses_its_own_endpoint(self) -> None:
+        command = subject.codex_command(
+            Path("/tmp/work"),
+            4337,
+            "test--task",
+            Path("/bin/true"),
+            "prompt",
+            provider_name="qwen_bf16_local",
+        )
+        joined = "\n".join(command)
+        self.assertIn("qwen38-27b-bf16", joined)
+        self.assertIn('model_provider="qwen_bf16_local_bridge"', joined)
+        self.assertIn('env_key="QWEN_BF16_LOCAL_API_KEY"', joined)
+        self.assertIn("model_context_window=262144", joined)
+        profile = subject.provider_profile("qwen_bf16_local")
+        self.assertEqual("http://127.0.0.1:8001/v1", profile["default_base_url"])
+        self.assertFalse(profile["native_responses"])
+        self.assertFalse(profile["requires_budget"])
+        self.assertEqual("qwen38-27b-fp8", subject.provider_profile("qwen_local")["model"])
+
+    def test_qwen_bf16_local_env_needs_no_paid_provider_secret(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            env_file = Path(temporary) / "empty.env"
+            env_file.write_text("", encoding="utf-8")
+            with mock.patch.dict(
+                subject.os.environ,
+                {
+                    "DEEPSEEK_API_KEY": "must-not-propagate",
+                    "QWEN_LOCAL_API_KEY": "must-not-propagate",
+                    "PATH": "/usr/bin",
+                },
+                clear=True,
+            ):
+                env = subject.load_nonsecret_env(
+                    env_file, execute=True, provider_name="qwen_bf16_local"
+                )
+        self.assertEqual("EMPTY", env["QWEN_BF16_LOCAL_API_KEY"])
+        self.assertEqual(
+            "http://127.0.0.1:8001/v1", env["QWEN_BF16_LOCAL_BASE_URL"]
+        )
+        self.assertNotIn("DEEPSEEK_API_KEY", env)
+        self.assertNotIn("QWEN_LOCAL_API_KEY", env)
+
+    def test_glm_profile_is_isolated_and_uses_translated_responses(self) -> None:
+        command = subject.codex_command(
+            Path("/tmp/work"),
+            4335,
+            "test--task",
+            Path("/bin/true"),
+            "prompt",
+            provider_name="glm",
+        )
+        joined = "\n".join(command)
+        self.assertIn("glm-5.3", joined)
+        self.assertIn('model_provider="glm_bridge"', joined)
+        self.assertIn('env_key="GLM_API_KEY"', joined)
+        self.assertIn('model_reasoning_effort="max"', joined)
+        self.assertIn("model_context_window=1048576", joined)
+        profile = subject.provider_profile("glm")
+        self.assertFalse(profile["native_responses"])
+        self.assertTrue(profile["requires_budget"])
+        self.assertEqual("max", profile["chat_reasoning_effort"])
+
+    def test_glm_actor_environment_receives_only_bridge_placeholder(self) -> None:
+        actor_env = subject.actor_subprocess_env(
+            {
+                "PATH": "/usr/bin",
+                "GLM_API_KEY": "real-glm-key",
+                "DEEPSEEK_API_KEY": "real-deepseek-key",
+                "OPENAI_API_KEY": "real-openai-key",
+                "UNRELATED_TOKEN": "secret-token",
+            },
+            provider_name="glm",
+        )
+        self.assertEqual("/usr/bin", actor_env["PATH"])
+        self.assertEqual(
+            "local-bridge-only-not-a-provider-secret",
+            actor_env["GLM_API_KEY"],
+        )
+        self.assertNotIn("DEEPSEEK_API_KEY", actor_env)
+        self.assertNotIn("OPENAI_API_KEY", actor_env)
+        self.assertNotIn("UNRELATED_TOKEN", actor_env)
 
     def test_bridge_identity_rejects_stale_healthy_process(self) -> None:
         expected = "new-instance"
@@ -385,6 +545,19 @@ class ActorMatrixTests(unittest.TestCase):
                         str(root),
                     ]
                 )
+            with self.assertRaisesRegex(ValueError, "requires --budget-state-path"):
+                subject.main(
+                    [
+                        "--smoke",
+                        "--live-smoke",
+                        "--provider",
+                        "glm",
+                        "--output-root",
+                        str(root / "smoke"),
+                        "--run-root",
+                        str(root),
+                    ]
+                )
 
     def test_task_number_selection_is_exact(self) -> None:
         rows = [{"n": number} for number in range(1, 21)]
@@ -409,6 +582,34 @@ class ActorMatrixTests(unittest.TestCase):
                     ["/bin/true"], root, {}, root / "actor.jsonl", 10
                 )
             stop.assert_called_once_with(process)
+
+    def test_interrupted_workspace_and_log_are_archived_before_resume(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary)
+            work = output / "tasks" / "task-a"
+            work.mkdir(parents=True)
+            (work / "candidate.rs").write_text("proof", encoding="utf-8")
+            log = output / "logs" / "01_task-a.jsonl"
+            log.parent.mkdir()
+            log.write_text('{"type":"turn.failed"}\n', encoding="utf-8")
+
+            archived = subject.archive_interrupted_task_attempt(output, work, log)
+
+            self.assertIsNotNone(archived)
+            assert archived is not None
+            self.assertFalse(work.exists())
+            self.assertFalse(log.exists())
+            self.assertEqual(
+                "proof",
+                (archived / "workspace" / "candidate.rs").read_text(
+                    encoding="utf-8"
+                ),
+            )
+            self.assertTrue((archived / "codex_events.jsonl").is_file())
+            manifest = json.loads(
+                (archived / "archive_manifest.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual("interrupted_actor_attempt", manifest["reason"])
 
     def test_per_task_results_have_distinct_durable_paths(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

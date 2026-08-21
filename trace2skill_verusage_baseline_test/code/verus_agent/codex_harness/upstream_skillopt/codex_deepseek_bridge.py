@@ -16,8 +16,8 @@ from urllib.request import Request, urlopen
 
 from verus_agent.codex_harness.upstream_skillopt.budget_guard import (
     SharedBudgetGuard,
-    estimate_deepseek_cost,
-    estimate_deepseek_request_upper_bound,
+    estimate_model_cost,
+    estimate_model_request_upper_bound,
 )
 
 
@@ -50,6 +50,15 @@ def _content_text(content: Any) -> str:
     )
 
 
+def _json_arguments(arguments: Any) -> str:
+    """Normalize provider tool arguments to the JSON string Responses expects."""
+    if isinstance(arguments, str):
+        return arguments or "{}"
+    if arguments is None:
+        return "{}"
+    return json.dumps(arguments, ensure_ascii=False, separators=(",", ":"))
+
+
 def translate_responses_request(
     payload: dict[str, Any],
     *,
@@ -57,12 +66,17 @@ def translate_responses_request(
     max_output_tokens: int,
     allowed_tool_names: frozenset[str] | None = None,
     reasoning_by_call: dict[str, str] | None = None,
+    chat_reasoning_effort: str | None = "high",
+    include_chat_thinking_field: bool = True,
+    chat_template_kwargs: dict[str, Any] | None = None,
+    reasoning_history_field: str = "reasoning_content",
 ) -> tuple[dict[str, Any], dict[str, str]]:
     """Translate the subset of Responses used by Codex into Chat Completions."""
     messages: list[dict[str, Any]] = []
+    system_contents: list[str] = []
     instructions = str(payload.get("instructions") or "").strip()
     if instructions:
-        messages.append({"role": "system", "content": instructions})
+        system_contents.append(instructions)
 
     pending_calls: list[dict[str, Any]] = []
 
@@ -83,7 +97,7 @@ def translate_responses_request(
                     "",
                 )
                 if reasoning:
-                    assistant["reasoning_content"] = reasoning
+                    assistant[reasoning_history_field] = reasoning
             messages.append(assistant)
             pending_calls.clear()
 
@@ -98,7 +112,7 @@ def translate_responses_request(
                     "type": "function",
                     "function": {
                         "name": str(item.get("name") or ""),
-                        "arguments": str(item.get("arguments") or "{}"),
+                        "arguments": _json_arguments(item.get("arguments")),
                     },
                 }
             )
@@ -116,10 +130,15 @@ def translate_responses_request(
         if item_type in {"reasoning", "computer_call", "computer_call_output"}:
             continue
         role = str(item.get("role") or "user")
-        if role == "developer":
-            role = "system"
-        messages.append({"role": role, "content": _content_text(item.get("content"))})
+        content = _content_text(item.get("content"))
+        if role in {"developer", "system"}:
+            if content.strip():
+                system_contents.append(content)
+            continue
+        messages.append({"role": role, "content": content})
     flush_calls()
+    if system_contents:
+        messages.insert(0, {"role": "system", "content": "\n\n".join(system_contents)})
 
     tool_types: dict[str, str] = {}
     tools: list[dict[str, Any]] = []
@@ -159,9 +178,13 @@ def translate_responses_request(
         "messages": messages,
         "stream": False,
         "max_tokens": int(payload.get("max_output_tokens") or max_output_tokens),
-        "thinking": {"type": "enabled"},
-        "reasoning_effort": "high",
     }
+    if chat_reasoning_effort:
+        request["reasoning_effort"] = chat_reasoning_effort
+    if include_chat_thinking_field:
+        request["thinking"] = {"type": "enabled"}
+    if chat_template_kwargs:
+        request["chat_template_kwargs"] = dict(chat_template_kwargs)
     if tools:
         request["tools"] = tools
         request["tool_choice"] = "auto"
@@ -173,7 +196,14 @@ def _usage(raw: Any) -> dict[str, int]:
     value = raw if isinstance(raw, dict) else {}
     prompt = int(value.get("prompt_tokens", 0) or 0)
     completion = int(value.get("completion_tokens", 0) or 0)
-    hit = int(value.get("prompt_cache_hit_tokens", 0) or 0)
+    prompt_details = value.get("prompt_tokens_details") or {}
+    hit = int(
+        value.get(
+            "prompt_cache_hit_tokens",
+            prompt_details.get("cached_tokens", 0),
+        )
+        or 0
+    )
     miss = int(value.get("prompt_cache_miss_tokens", max(0, prompt - hit)) or 0)
     completion_details = value.get("completion_tokens_details") or {}
     return {
@@ -193,7 +223,7 @@ def responses_sse_events(
 ) -> list[dict[str, Any]]:
     choices = list(chat_payload.get("choices") or [])
     if not choices:
-        raise RuntimeError("DeepSeek returned no choices")
+        raise RuntimeError("provider returned no choices")
     choice = choices[0]
     message = choice.get("message") or {}
     text = str(message.get("content") or "")
@@ -293,7 +323,7 @@ def responses_sse_events(
         function = raw_call.get("function") or {}
         call_id = str(raw_call.get("id") or f"call_{uuid.uuid4().hex}")
         name = str(function.get("name") or "")
-        arguments = str(function.get("arguments") or "{}")
+        arguments = _json_arguments(function.get("arguments"))
         item_id = f"fc_{uuid.uuid4().hex}"
         output_index = len(output)
         added = {
@@ -354,6 +384,10 @@ class BridgeConfig:
     fake_tool_name: str | None = None
     fake_tool_arguments: str = "{}"
     allowed_tool_names: frozenset[str] = frozenset({"exec_command", "write_stdin"})
+    chat_reasoning_effort: str | None = "high"
+    include_chat_thinking_field: bool = True
+    chat_template_kwargs: dict[str, Any] = field(default_factory=dict)
+    reasoning_history_field: str = "reasoning_content"
     reasoning_by_call: dict[str, str] = field(default_factory=dict)
     state_lock: threading.Lock = field(default_factory=threading.Lock)
     config_sha256: str | None = None
@@ -400,11 +434,13 @@ def _native_response_usage(
     output_tokens = int(raw.get("output_tokens", 0) or 0)
     output_details = raw.get("output_tokens_details") or {}
     hit = int(input_details.get("cached_tokens", 0) or 0)
+    cache_write = int(input_details.get("cache_write_tokens", 0) or 0)
     usage = {
         "prompt_tokens": input_tokens,
         "completion_tokens": output_tokens,
         "prompt_cache_hit_tokens": hit,
-        "prompt_cache_miss_tokens": max(0, input_tokens - hit),
+        "prompt_cache_write_tokens": cache_write,
+        "prompt_cache_miss_tokens": max(0, input_tokens - hit - cache_write),
         "reasoning_tokens": int(output_details.get("reasoning_tokens", 0) or 0),
         "total_tokens": int(raw.get("total_tokens", input_tokens + output_tokens) or 0),
     }
@@ -434,7 +470,7 @@ def forward_native_responses(
     requested_output_tokens = int(
         request_payload.get("max_output_tokens") or config.max_output_tokens
     )
-    reserve = estimate_deepseek_request_upper_bound(
+    reserve = estimate_model_request_upper_bound(
         requested_output_tokens, config.model
     )
     reservation_id = (
@@ -458,17 +494,28 @@ def forward_native_responses(
             config.budget_guard.settle(
                 reservation_id,
                 cost_usd=(
-                    estimate_deepseek_cost(usage, config.model) if usage else None
+                    estimate_model_cost(usage, config.model) if usage else None
                 ),
                 usage=usage,
             )
             reservation_id = None
     except HTTPError as error:
         detail = error.read().decode("utf-8", errors="replace")[:2000]
-        error_text = f"DeepSeek HTTP {error.code}: {detail}"
+        error_text = f"Provider HTTP {error.code}: {detail}"
+        if (
+            config.budget_guard
+            and reservation_id
+            and 400 <= int(error.code) < 500
+        ):
+            # A provider rejection before a successful response has no billable
+            # response usage, so release rather than conservatively burn reserve.
+            config.budget_guard.settle(
+                reservation_id, cost_usd=0.0, usage={}
+            )
+            reservation_id = None
         raise RuntimeError(error_text) from error
     except URLError as error:
-        error_text = f"DeepSeek transport error: {error.reason}"
+        error_text = f"Provider transport error: {error.reason}"
         raise RuntimeError(error_text) from error
     except Exception as error:
         error_text = f"{type(error).__name__}: {error}"
@@ -486,7 +533,7 @@ def forward_native_responses(
             "finish_reason": response_status,
             "usage": usage,
             "estimated_cost_usd": (
-                estimate_deepseek_cost(usage, config.model) if usage else None
+                estimate_model_cost(usage, config.model) if usage else None
             ),
             "error": error_text,
         }
@@ -565,9 +612,9 @@ def _post_chat(config: BridgeConfig, payload: dict[str, Any]) -> dict[str, Any]:
             return json.loads(response.read().decode("utf-8"))
     except HTTPError as error:
         detail = error.read().decode("utf-8", errors="replace")[:2000]
-        raise RuntimeError(f"DeepSeek HTTP {error.code}: {detail}") from error
+        raise RuntimeError(f"Provider HTTP {error.code}: {detail}") from error
     except URLError as error:
-        raise RuntimeError(f"DeepSeek transport error: {error.reason}") from error
+        raise RuntimeError(f"Provider transport error: {error.reason}") from error
 
 
 def forward_responses(
@@ -583,6 +630,10 @@ def forward_responses(
             max_output_tokens=config.max_output_tokens,
             allowed_tool_names=config.allowed_tool_names,
             reasoning_by_call=dict(config.reasoning_by_call),
+            chat_reasoning_effort=config.chat_reasoning_effort,
+            include_chat_thinking_field=config.include_chat_thinking_field,
+            chat_template_kwargs=config.chat_template_kwargs,
+            reasoning_history_field=config.reasoning_history_field,
         )
     started = time.monotonic()
     attempts: list[dict[str, Any]] = []
@@ -590,7 +641,7 @@ def forward_responses(
     final_payload: dict[str, Any] | None = None
     for retry_index, output_tokens in enumerate(dict.fromkeys(requested_budgets)):
         chat_request["max_tokens"] = output_tokens
-        reserve = estimate_deepseek_request_upper_bound(output_tokens, config.model)
+        reserve = estimate_model_request_upper_bound(output_tokens, config.model)
         reservation_id = config.budget_guard.reserve(reserve) if config.budget_guard else None
         try:
             candidate = _post_chat(config, chat_request)
@@ -598,7 +649,7 @@ def forward_responses(
             if config.budget_guard and reservation_id:
                 config.budget_guard.settle(
                     reservation_id,
-                    cost_usd=estimate_deepseek_cost(usage, config.model),
+                    cost_usd=estimate_model_cost(usage, config.model),
                     usage=usage,
                 )
                 reservation_id = None
@@ -611,7 +662,7 @@ def forward_responses(
                     "max_tokens": output_tokens,
                     "finish_reason": finish_reason,
                     "usage": usage,
-                    "estimated_cost_usd": estimate_deepseek_cost(usage, config.model),
+                    "estimated_cost_usd": estimate_model_cost(usage, config.model),
                     "error": None,
                 }
             )
@@ -636,9 +687,11 @@ def forward_responses(
                 raise
             time.sleep(1)
     if final_payload is None:
-        raise RuntimeError("DeepSeek response remained truncated after expanded retry")
+        raise RuntimeError("provider response remained truncated after expanded retry")
     message = ((final_payload.get("choices") or [{}])[0]).get("message") or {}
-    reasoning_content = str(message.get("reasoning_content") or "")
+    reasoning_content = str(
+        message.get("reasoning_content") or message.get("reasoning") or ""
+    )
     if reasoning_content:
         with config.state_lock:
             for tool_call in message.get("tool_calls") or []:
@@ -776,10 +829,18 @@ def main() -> None:
     parser.add_argument("--max-output-tokens", type=int, default=32768)
     parser.add_argument("--retry-output-tokens", type=int, default=131072)
     parser.add_argument("--request-timeout-seconds", type=int, default=1800)
+    parser.add_argument("--chat-reasoning-effort", default="high")
+    parser.add_argument("--omit-chat-thinking-field", action="store_true")
+    parser.add_argument("--chat-template-kwargs-json", default="{}")
+    parser.add_argument(
+        "--reasoning-history-field",
+        choices=("reasoning_content", "reasoning"),
+        default="reasoning_content",
+    )
     parser.add_argument(
         "--native-responses",
         action="store_true",
-        help="transparently forward Codex Responses requests to DeepSeek /responses",
+        help="transparently forward Codex Responses requests upstream",
     )
     parser.add_argument("--budget-state-path", type=Path)
     parser.add_argument("--approval-limit-usd", type=float, default=20.0)
@@ -798,6 +859,9 @@ def main() -> None:
         help="Codex function tool exposed to DeepSeek (repeatable)",
     )
     args = parser.parse_args()
+    chat_template_kwargs = json.loads(args.chat_template_kwargs_json)
+    if not isinstance(chat_template_kwargs, dict):
+        raise ValueError("chat template kwargs must decode to an object")
     api_key = os.environ.get(args.api_key_env, "")
     if not api_key and args.fake_reply is None:
         raise RuntimeError(f"{args.api_key_env} is not set")
@@ -842,6 +906,10 @@ def main() -> None:
         allowed_tool_names=frozenset(
             args.allowed_tool or ["exec_command", "write_stdin"]
         ),
+        chat_reasoning_effort=args.chat_reasoning_effort,
+        include_chat_thinking_field=not args.omit_chat_thinking_field,
+        chat_template_kwargs=chat_template_kwargs,
+        reasoning_history_field=args.reasoning_history_field,
         instance_id=args.instance_id or uuid.uuid4().hex,
     )
     public_manifest = {
@@ -861,6 +929,10 @@ def main() -> None:
         "allowed_tool_names": (
             None if config.native_responses else sorted(config.allowed_tool_names)
         ),
+        "chat_reasoning_effort": config.chat_reasoning_effort,
+        "include_chat_thinking_field": config.include_chat_thinking_field,
+        "chat_template_kwargs": config.chat_template_kwargs,
+        "reasoning_history_field": config.reasoning_history_field,
         "implementation_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         "instance_id": config.instance_id,
         "fake_mode": config.fake_reply is not None,

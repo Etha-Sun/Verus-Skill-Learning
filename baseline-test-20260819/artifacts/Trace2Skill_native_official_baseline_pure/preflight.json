@@ -1,0 +1,60 @@
+{
+  "schema_version": "trace2skill-native-official-baseline-preflight-v1",
+  "created_at": "2026-08-19T01:16:27.020168+00:00",
+  "mode": "preflight",
+  "network_requests": 0,
+  "records": {
+    "path": "/zp_vegeta/scratch_sb/xinyueh/verus_skill_runs/cross-task-global-20260814/shared_memories/combined_records.json",
+    "sha256": "4151b9c4ca39ca98628f33bc0355a7f49d509e28a18258482d66f935733d8466",
+    "record_count": 40,
+    "error_record_count": 11,
+    "success_record_count": 29,
+    "item_count": 160,
+    "held_out_inputs_used": false
+  },
+  "neutral_seed": {
+    "path": "/zp_vegeta/scratch_sb/xinyueh/Verus-Skill-Learning/trace2skill_verusage_baseline_test/code/verus_agent/skill_evolution/neutral_seed/verus-proof-repair",
+    "tree_sha256": "f67322cd47bc25f993f92788767b58047c11a6863d0d7a6ba987f5dff163d7a2"
+  },
+  "upstream": {
+    "path": "/tmp/trace2skill-upstream-audit-20260818",
+    "commit": "3d0b52a140f002a512930252b613c49048f7d5ac",
+    "tracked_worktree_clean": true
+  },
+  "configuration": {
+    "upstream_commit": "3d0b52a140f002a512930252b613c49048f7d5ac",
+    "model": "deepseek-v4-pro",
+    "batch_size": 1,
+    "merge_batch_size": 5,
+    "max_workers": 4,
+    "max_merge_levels": 5,
+    "temperature": 0.6,
+    "max_tokens": null,
+    "seed": null,
+    "max_skill_lines": 500,
+    "max_references": 5,
+    "max_verification_rounds": 3,
+    "patch_pipeline": "json",
+    "semantic_item_marker_format": "bracket",
+    "skip_translation": false,
+    "enable_json_format_self_fix": true,
+    "initial_skill": "fixed-neutral-verus-seed",
+    "domain_adaptation": "vocabulary-only spreadsheet-to-Verus MAP substitutions",
+    "m_core_used": false,
+    "semantic_router_used": false,
+    "candidate_gate_used": false,
+    "actor_calls": 0
+  },
+  "prompt_hashes": {
+    "adapted_map_system": "4bdafecb8340e6023517dda14c8de5da669ab8b20ef10f09beac9f8f77d436ca",
+    "upstream_merge_system": "c9b707e3dafacd96536c92fe43b78507d3b20e6b6d1552d67e61d3b5377e706f",
+    "upstream_translation_system": "3870a22f3cd2ff066220393f6e991c7c2858c0f67e1e90601408920b4084802e",
+    "upstream_verification_system": "bb925b81873aed35af89bc9a1116ec5e70f4a1eb01371db91023e0115e9ad91a"
+  },
+  "projected_map_calls": 40,
+  "projected_reduce_calls_if_one_patch_per_map": 11,
+  "translation_calls": "data-dependent",
+  "verification_fix_calls": "0..3, only if deterministic validation fails",
+  "output": "/zp_vegeta/scratch_sb/xinyueh/verus_skill_runs/cross-task-global-20260814/native_official_baseline_v1",
+  "preflight_sha256": "7df77cfb60c5d8192cc50ed8dd3eff9b984c6d1a5e06cb2b4a78a805b114296b"
+}

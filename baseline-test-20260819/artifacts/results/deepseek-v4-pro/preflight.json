@@ -1,0 +1,348 @@
+{
+  "actor_runner_sha256": "cd1f55480259baa4c1557c572ee7578fc3e8f4ace033ffd86a1c7157c3bbea99",
+  "approval_limit_usd": 20.0,
+  "conditions": [
+    "no-skill",
+    "with-native-official-baseline"
+  ],
+  "created_at": "2026-08-19T16:02:22.194638+00:00",
+  "heldout_projection": [
+    {
+      "heldout_index": 1,
+      "project_code": "AL",
+      "source_sha256": "2044ca1f205c49f95ea4710872906da765a44a5abb3c2a67e4aea6961aa3053f",
+      "source_split": "val",
+      "source_split_index": 1,
+      "task_id": "AL__tla_forall_not_equality"
+    },
+    {
+      "heldout_index": 2,
+      "project_code": "AC",
+      "source_sha256": "df3facae7b68ee7c84224c2ce77590da096f312840cb24e74b27692bee1099ee",
+      "source_split": "val",
+      "source_split_index": 2,
+      "task_id": "AC__vreplicaset_controller__proof__helper_lemmas__vrs_rely_condition_equivalent_to_lifted_vrs_rely_condition"
+    },
+    {
+      "heldout_index": 3,
+      "project_code": "AC",
+      "source_sha256": "53b6fbe427d1289f54a9ef8b082f5a2ee61b5dcd76c08dbb62f05c03b391b58d",
+      "source_split": "val",
+      "source_split_index": 3,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__api_actions__lemma_api_request_other_than_pending_req_msg_maintains_matching_pods"
+    },
+    {
+      "heldout_index": 4,
+      "project_code": "AC",
+      "source_sha256": "cc5b4c1b328e1cb0a643a05969d826f4ab7bd2042d914ac2ec3e5cf03fca87ef",
+      "source_split": "val",
+      "source_split_index": 4,
+      "task_id": "AC__vreplicaset_controller__proof__helper_lemmas__matching_pods_equal_to_matching_pod_entries_values"
+    },
+    {
+      "heldout_index": 5,
+      "project_code": "AL",
+      "source_sha256": "a44f26a6f7ab1ca4a38b496fa06676b1734413dd7faed1ba3c89124fe2552218",
+      "source_split": "val",
+      "source_split_index": 5,
+      "task_id": "AL__spec_entails_always_tla_forall"
+    },
+    {
+      "heldout_index": 6,
+      "project_code": "AL",
+      "source_sha256": "7bff1c5c19cd3ebe08f2d3281669353249982a0c940078c0bd2109f60a6964c2",
+      "source_split": "val",
+      "source_split_index": 6,
+      "task_id": "AL__true_pred_on_seq_implies_true_pred_on_filtered_seq"
+    },
+    {
+      "heldout_index": 7,
+      "project_code": "AL",
+      "source_sha256": "e7e596c6b475c1a8e9818d638d376fb024e789638c411e2c839855fa03b377a6",
+      "source_split": "val",
+      "source_split_index": 7,
+      "task_id": "AL__leads_to_rank_step_one_help"
+    },
+    {
+      "heldout_index": 8,
+      "project_code": "IR",
+      "source_sha256": "62a4f7f82874c3c5a9b2e253cfc8e3bf8262b51869b79c976ba1a9a2e4365d75",
+      "source_split": "val",
+      "source_split_index": 8,
+      "task_id": "IR__marshal_v__impl0__deserialize"
+    },
+    {
+      "heldout_index": 9,
+      "project_code": "AL",
+      "source_sha256": "d79b1d81c1566689d8b74eb8802dab80b87f664e6486ea3a8df45a0680e3a048",
+      "source_split": "val",
+      "source_split_index": 9,
+      "task_id": "AL__pack_conditions_to_spec"
+    },
+    {
+      "heldout_index": 10,
+      "project_code": "AC",
+      "source_sha256": "17af50add1c3eb0aea62ed65316b7a1bb06b0fb3dbb7d2e264c7a803a0322a90",
+      "source_split": "val",
+      "source_split_index": 10,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__spec__next_with_wf_is_stable"
+    },
+    {
+      "heldout_index": 11,
+      "project_code": "AC",
+      "source_sha256": "4c81887af511426b2a84b13c70080cd4319e18705cd13d1669cc3cdea831cccf",
+      "source_split": "val",
+      "source_split_index": 11,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__resource_match__lemma_from_after_send_delete_pod_req_to_receive_ok_resp"
+    },
+    {
+      "heldout_index": 12,
+      "project_code": "IR",
+      "source_sha256": "9f9066e469865c7741d12970beb1ec1c0ab04dca43f72eb78b4bc450d7956353",
+      "source_split": "val",
+      "source_split_index": 12,
+      "task_id": "IR__verus_extra__map_set_finite_auto"
+    },
+    {
+      "heldout_index": 13,
+      "project_code": "AL",
+      "source_sha256": "8740278e3269964da2ec60994a11e27e1ed7d08b74c007c613a00dd3b61e9bea",
+      "source_split": "val",
+      "source_split_index": 13,
+      "task_id": "AL__unpack_conditions_from_spec"
+    },
+    {
+      "heldout_index": 14,
+      "project_code": "IR",
+      "source_sha256": "2daaadf8b5ffda13a0cf6221593dc7493dc870dec6b48e372f2088fad4cfe7c2",
+      "source_split": "val",
+      "source_split_index": 14,
+      "task_id": "IR__delegation_map_v__impl4__new"
+    },
+    {
+      "heldout_index": 15,
+      "project_code": "IR",
+      "source_sha256": "bbd8765991689bfcf3d774df3109b13c94b6104c93b564d5b204d7d32a4457c4",
+      "source_split": "val",
+      "source_split_index": 15,
+      "task_id": "IR__delegation_map_v__impl4__set"
+    },
+    {
+      "heldout_index": 16,
+      "project_code": "IR",
+      "source_sha256": "fb4b1d9c87a31a432491588c2fe850b07b7ef3ac455f3ce931b336a7a7cdd183",
+      "source_split": "val",
+      "source_split_index": 16,
+      "task_id": "IR__single_delivery_state_v__impl0__lemma_seqno_in_un_acked_list"
+    },
+    {
+      "heldout_index": 17,
+      "project_code": "AL",
+      "source_sha256": "c8f9cee5f8dd54bcc5cb43e1baa6ce378c9cb1e4ac5bcd3c90d7338e32957748",
+      "source_split": "val",
+      "source_split_index": 17,
+      "task_id": "AL__always_distributed_by_and"
+    },
+    {
+      "heldout_index": 18,
+      "project_code": "IR",
+      "source_sha256": "14f93e9deef2fe6af380732e5c85aabee8c98cbf7bca5f87da6eb83ece7678cd",
+      "source_split": "val",
+      "source_split_index": 18,
+      "task_id": "IR__single_delivery_state_v__impl1__insert"
+    },
+    {
+      "heldout_index": 19,
+      "project_code": "AC",
+      "source_sha256": "ffee30e9eacdaeb2abf14c5daed598ea40a01555c675ad569729cdcee90e1a31",
+      "source_split": "val",
+      "source_split_index": 19,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__api_actions__lemma_create_matching_pod_request_adds_matching_pod_and_returns_ok"
+    },
+    {
+      "heldout_index": 20,
+      "project_code": "IR",
+      "source_sha256": "de4390f80a79f8c6d985b31cb13968bd48b313506cc03f9af36f776b015ef4e8",
+      "source_split": "val",
+      "source_split_index": 20,
+      "task_id": "IR__delegation_map_v__impl3__keys_in_index_range_agree"
+    },
+    {
+      "heldout_index": 21,
+      "project_code": "AL",
+      "source_sha256": "20bb68867bdf8060d8ef5ffcb0d2895a2b68921654dd2ae01b0eb60bd6af0495",
+      "source_split": "test",
+      "source_split_index": 1,
+      "task_id": "AL__leads_to_by_borrowing_inv"
+    },
+    {
+      "heldout_index": 22,
+      "project_code": "AL",
+      "source_sha256": "5487d61bd99b37f8d3917ad631308304ae0e1f647989aa6b11f2dfc000f038d2",
+      "source_split": "test",
+      "source_split_index": 2,
+      "task_id": "AL__entails_implies_leads_to"
+    },
+    {
+      "heldout_index": 23,
+      "project_code": "IR",
+      "source_sha256": "c341f1b4c97d6a15b6bf89221b1a2d4ac571c1d3ef399de119f7251825ec356b",
+      "source_split": "test",
+      "source_split_index": 3,
+      "task_id": "IR__marshal_v__impl3__lemma_serialize_injective"
+    },
+    {
+      "heldout_index": 24,
+      "project_code": "AL",
+      "source_sha256": "2b796a0cc86f86d8a4b8934d6ad9a2780e8cd3c460432a5f2d3ff64e71a66147",
+      "source_split": "test",
+      "source_split_index": 4,
+      "task_id": "AL__push_to_set_seq_to_set_insert"
+    },
+    {
+      "heldout_index": 25,
+      "project_code": "AC",
+      "source_sha256": "6fcbfdf7012f7443970f6915f7520f5efa8b2c69c8ff30c6c0fdd8292071fe8c",
+      "source_split": "test",
+      "source_split_index": 5,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__api_actions__lemma_list_pods_request_returns_ok_list_resp_containing_matching_pods"
+    },
+    {
+      "heldout_index": 26,
+      "project_code": "AC",
+      "source_sha256": "58fe0d84f137a5da6cde4375cf2a70336fa7a93f871bc0ec17be8a86b271df68",
+      "source_split": "test",
+      "source_split_index": 6,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__spec__invariant_since_phase_iv_is_stable"
+    },
+    {
+      "heldout_index": 27,
+      "project_code": "IR",
+      "source_sha256": "aac3faf8dde41412418f112a6d6caf8ea577c86f6592d454de5097553dfbae89",
+      "source_split": "test",
+      "source_split_index": 7,
+      "task_id": "IR__verus_extra__lemma_seq_fold_left_sum_len_int_positive"
+    },
+    {
+      "heldout_index": 28,
+      "project_code": "AL",
+      "source_sha256": "0e9962fa56759a839363b83814f51c177be8a59c81170585c2b7eed938d28c07",
+      "source_split": "test",
+      "source_split_index": 8,
+      "task_id": "AL__seq_filter_preserves_no_duplicates"
+    },
+    {
+      "heldout_index": 29,
+      "project_code": "IR",
+      "source_sha256": "39731482101ef62a4bed7b31292c8665761441d538f71a6d156bb6c8079c2d6e",
+      "source_split": "test",
+      "source_split_index": 9,
+      "task_id": "IR__marshal_ironsht_specific_v__impl2__lemma_serialize_injective"
+    },
+    {
+      "heldout_index": 30,
+      "project_code": "IR",
+      "source_sha256": "f5263090467afb9b73dba22065484f20ae008aa30ed7189d1c70216e1439938a",
+      "source_split": "test",
+      "source_split_index": 10,
+      "task_id": "IR__host_impl_v__make_send_only_event_results"
+    },
+    {
+      "heldout_index": 31,
+      "project_code": "AC",
+      "source_sha256": "153a036e66c0507e7f82d9cdf1131a5780cadfc5ef18c78bd2960bc28c516241",
+      "source_split": "test",
+      "source_split_index": 11,
+      "task_id": "AC__vreplicaset_controller__proof__helper_invariants__proof__lemma_eventually_always_no_other_pending_request_interferes_with_vrs_reconcile"
+    },
+    {
+      "heldout_index": 32,
+      "project_code": "AL",
+      "source_sha256": "27f134d158314aa8c4249da0b7b6927dea19d5a374345e7e3997c1ec27a72076",
+      "source_split": "test",
+      "source_split_index": 12,
+      "task_id": "AL__always_implies_to_leads_to"
+    },
+    {
+      "heldout_index": 33,
+      "project_code": "AC",
+      "source_sha256": "727cdd32ddae566cd5f69d260f901b28b30040c0ee8410861b619c7bc063c056",
+      "source_split": "test",
+      "source_split_index": 13,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__spec__invariant_is_stable"
+    },
+    {
+      "heldout_index": 34,
+      "project_code": "AL",
+      "source_sha256": "f13bca3450bb5b912ac13d6971441cabb875cc6534b3e30354a61056a139d8d1",
+      "source_split": "test",
+      "source_split_index": 14,
+      "task_id": "AL__always_to_current"
+    },
+    {
+      "heldout_index": 35,
+      "project_code": "AC",
+      "source_sha256": "8d37dd9244ae1dea2f433bc42287f277df7b22d820d975e06d5626af92fa33ce",
+      "source_split": "test",
+      "source_split_index": 15,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__api_actions__lemma_get_then_delete_matching_pod_request_deletes_matching_pod_and_returns_ok"
+    },
+    {
+      "heldout_index": 36,
+      "project_code": "IR",
+      "source_sha256": "50d21c8ab0a2a6629a8d5dc20d6179091a846e95aed6cd8d476bc67ca0f16c05",
+      "source_split": "test",
+      "source_split_index": 16,
+      "task_id": "IR__delegation_map_v__impl4__empty_key_range_is_consistent"
+    },
+    {
+      "heldout_index": 37,
+      "project_code": "IR",
+      "source_sha256": "2cea72cbda5848c7d6661d15991e56e3504ef6fcd463e90e777defd978c89130",
+      "source_split": "test",
+      "source_split_index": 17,
+      "task_id": "IR__delegation_map_v__impl3__values_agree"
+    },
+    {
+      "heldout_index": 38,
+      "project_code": "AL",
+      "source_sha256": "b6b510353a6a400fd2210595eb666449ce9cfbe5e193a02f430f0e52939ca552",
+      "source_split": "test",
+      "source_split_index": 18,
+      "task_id": "AL__leads_to_shortcut_temp"
+    },
+    {
+      "heldout_index": 39,
+      "project_code": "IR",
+      "source_sha256": "0a72fa7be5402ff0726b31c2a07c40a45fa71e60050e3689a67899ec1e9f75bd",
+      "source_split": "test",
+      "source_split_index": 19,
+      "task_id": "IR__single_delivery_model_v__impl2__send_single_cmessage"
+    },
+    {
+      "heldout_index": 40,
+      "project_code": "AC",
+      "source_sha256": "fb01080e4d16c978979275c8398caa3a0339db11ec9aaaa283f56113a87ffc00",
+      "source_split": "test",
+      "source_split_index": 20,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__resource_match__lemma_from_after_receive_ok_resp_to_send_create_pod_req"
+    }
+  ],
+  "heldout_projection_sha256": "460cc85e4477b8b7046f7830efe873b2a7158139dcbb5ad68ac42fa87f8f8aae",
+  "heldout_task_count_per_condition": 40,
+  "model": "deepseek-v4-pro",
+  "native_official_baseline_actor_sha256": "fc2c51a283212ffe365fcd9bc91fedca1c6a46d43a51c4310facd7f76f41b74b",
+  "native_official_baseline_generator_sha256": "195ab1294871689873e3bd6d9d2dbfb0a89a0d13b2ea0bdd1f7d716d826437c2",
+  "network_requests": 0,
+  "preflight_sha256": "f7a50e29751461851444599bee06383c199e9afad1f599849bece915faba7b67",
+  "schema_version": 1,
+  "subrun_actor_contract_sha256": [
+    "34539a2c923ac4f28651bffe78d61238ad3dfcc81ed9915561e4dd29026ea5c5",
+    "667cec5aa4b38a439800069b849b8807293d50dc422bc1494fde075cf09643fb",
+    "78f688e06f96d2d89f6df86ceecf170d799894ce6e1dde6a1c859eaeeac0a42d",
+    "fd3cf361daa6b20409b36a9bd4f867af6514e180f14b1f8947bbc4e3d614fb2f"
+  ],
+  "timeout_seconds_per_task": 600,
+  "total_actor_invocations": 80,
+  "valid": true
+}

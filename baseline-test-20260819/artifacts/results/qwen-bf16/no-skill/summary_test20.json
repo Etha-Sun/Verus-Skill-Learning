@@ -1,0 +1,529 @@
+{
+  "completed_at": "2026-08-21T09:59:55.600714+00:00",
+  "completed_tasks": 20,
+  "condition": "no-skill",
+  "coverage_complete": true,
+  "fidelity_complete": true,
+  "model": "qwen38-27b-bf16",
+  "safety_complete": true,
+  "schema_version": 1,
+  "scoring_policy": "proof-outcome-v3",
+  "status": "complete",
+  "successes": 7,
+  "task_count": 20,
+  "tasks": [
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [
+        "timeout"
+      ],
+      "safety_disqualifications": [],
+      "source_split": "test",
+      "success": false,
+      "task_id": "AL__leads_to_by_borrowing_inv",
+      "timed_out": true,
+      "usage": {
+        "cache_hit_input_tokens": 0,
+        "cache_miss_input_tokens": 358263,
+        "cache_write_input_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "failed_request_count": 0,
+        "input_tokens": 358263,
+        "output_tokens": 23675,
+        "primary_uncached_tokens": 381938,
+        "reasoning_tokens": 0,
+        "request_count": 17,
+        "total_tokens": 381938
+      },
+      "wall_time_seconds": 615.26038
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [
+        "timeout"
+      ],
+      "safety_disqualifications": [],
+      "source_split": "test",
+      "success": false,
+      "task_id": "AL__entails_implies_leads_to",
+      "timed_out": true,
+      "usage": {
+        "cache_hit_input_tokens": 0,
+        "cache_miss_input_tokens": 374646,
+        "cache_write_input_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "failed_request_count": 0,
+        "input_tokens": 374646,
+        "output_tokens": 21978,
+        "primary_uncached_tokens": 396624,
+        "reasoning_tokens": 0,
+        "request_count": 19,
+        "total_tokens": 396624
+      },
+      "wall_time_seconds": 615.346866
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "source_split": "test",
+      "success": true,
+      "task_id": "IR__marshal_v__impl3__lemma_serialize_injective",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 0,
+        "cache_miss_input_tokens": 117045,
+        "cache_write_input_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "failed_request_count": 0,
+        "input_tokens": 117045,
+        "output_tokens": 5835,
+        "primary_uncached_tokens": 122880,
+        "reasoning_tokens": 0,
+        "request_count": 10,
+        "total_tokens": 122880
+      },
+      "wall_time_seconds": 177.135625
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "source_split": "test",
+      "success": true,
+      "task_id": "AL__push_to_set_seq_to_set_insert",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 0,
+        "cache_miss_input_tokens": 112127,
+        "cache_write_input_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "failed_request_count": 0,
+        "input_tokens": 112127,
+        "output_tokens": 4665,
+        "primary_uncached_tokens": 116792,
+        "reasoning_tokens": 0,
+        "request_count": 10,
+        "total_tokens": 116792
+      },
+      "wall_time_seconds": 134.824067
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [
+        "timeout"
+      ],
+      "safety_disqualifications": [],
+      "source_split": "test",
+      "success": false,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__api_actions__lemma_list_pods_request_returns_ok_list_resp_containing_matching_pods",
+      "timed_out": true,
+      "usage": {
+        "cache_hit_input_tokens": 0,
+        "cache_miss_input_tokens": 653090,
+        "cache_write_input_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "failed_request_count": 0,
+        "input_tokens": 653090,
+        "output_tokens": 19088,
+        "primary_uncached_tokens": 672178,
+        "reasoning_tokens": 0,
+        "request_count": 28,
+        "total_tokens": 672178
+      },
+      "wall_time_seconds": 616.586997
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "source_split": "test",
+      "success": true,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__spec__invariant_since_phase_iv_is_stable",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 0,
+        "cache_miss_input_tokens": 160578,
+        "cache_write_input_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "failed_request_count": 0,
+        "input_tokens": 160578,
+        "output_tokens": 3116,
+        "primary_uncached_tokens": 163694,
+        "reasoning_tokens": 0,
+        "request_count": 12,
+        "total_tokens": 163694
+      },
+      "wall_time_seconds": 123.130008
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "source_split": "test",
+      "success": true,
+      "task_id": "IR__verus_extra__lemma_seq_fold_left_sum_len_int_positive",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 0,
+        "cache_miss_input_tokens": 230754,
+        "cache_write_input_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "failed_request_count": 0,
+        "input_tokens": 230754,
+        "output_tokens": 8933,
+        "primary_uncached_tokens": 239687,
+        "reasoning_tokens": 0,
+        "request_count": 17,
+        "total_tokens": 239687
+      },
+      "wall_time_seconds": 258.08649
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [
+        "timeout"
+      ],
+      "safety_disqualifications": [],
+      "source_split": "test",
+      "success": false,
+      "task_id": "AL__seq_filter_preserves_no_duplicates",
+      "timed_out": true,
+      "usage": {
+        "cache_hit_input_tokens": 0,
+        "cache_miss_input_tokens": 656223,
+        "cache_write_input_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "failed_request_count": 0,
+        "input_tokens": 656223,
+        "output_tokens": 20951,
+        "primary_uncached_tokens": 677174,
+        "reasoning_tokens": 0,
+        "request_count": 33,
+        "total_tokens": 677174
+      },
+      "wall_time_seconds": 615.322753
+    },
+    {
+      "audit_observations": [
+        "malformed_actor_log_event"
+      ],
+      "outcome_failure_reasons": [
+        "timeout"
+      ],
+      "safety_disqualifications": [],
+      "source_split": "test",
+      "success": false,
+      "task_id": "IR__marshal_ironsht_specific_v__impl2__lemma_serialize_injective",
+      "timed_out": true,
+      "usage": {
+        "cache_hit_input_tokens": 0,
+        "cache_miss_input_tokens": 824404,
+        "cache_write_input_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "failed_request_count": 0,
+        "input_tokens": 824404,
+        "output_tokens": 19327,
+        "primary_uncached_tokens": 843731,
+        "reasoning_tokens": 0,
+        "request_count": 32,
+        "total_tokens": 843731
+      },
+      "wall_time_seconds": 615.084129
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "source_split": "test",
+      "success": true,
+      "task_id": "IR__host_impl_v__make_send_only_event_results",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 0,
+        "cache_miss_input_tokens": 59466,
+        "cache_write_input_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "failed_request_count": 0,
+        "input_tokens": 59466,
+        "output_tokens": 1990,
+        "primary_uncached_tokens": 61456,
+        "reasoning_tokens": 0,
+        "request_count": 6,
+        "total_tokens": 61456
+      },
+      "wall_time_seconds": 71.121685
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [
+        "final_verification_failed"
+      ],
+      "safety_disqualifications": [],
+      "source_split": "test",
+      "success": false,
+      "task_id": "AC__vreplicaset_controller__proof__helper_invariants__proof__lemma_eventually_always_no_other_pending_request_interferes_with_vrs_reconcile",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 0,
+        "cache_miss_input_tokens": 338224,
+        "cache_write_input_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "failed_request_count": 0,
+        "input_tokens": 338224,
+        "output_tokens": 20096,
+        "primary_uncached_tokens": 358320,
+        "reasoning_tokens": 0,
+        "request_count": 19,
+        "total_tokens": 358320
+      },
+      "wall_time_seconds": 537.005222
+    },
+    {
+      "audit_observations": [
+        "blocked_prohibited_filesystem_probe",
+        "malformed_actor_log_event"
+      ],
+      "outcome_failure_reasons": [
+        "timeout"
+      ],
+      "safety_disqualifications": [],
+      "source_split": "test",
+      "success": false,
+      "task_id": "AL__always_implies_to_leads_to",
+      "timed_out": true,
+      "usage": {
+        "cache_hit_input_tokens": 0,
+        "cache_miss_input_tokens": 298279,
+        "cache_write_input_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "failed_request_count": 0,
+        "input_tokens": 298279,
+        "output_tokens": 17821,
+        "primary_uncached_tokens": 316100,
+        "reasoning_tokens": 0,
+        "request_count": 16,
+        "total_tokens": 316100
+      },
+      "wall_time_seconds": 615.258632
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "source_split": "test",
+      "success": true,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__spec__invariant_is_stable",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 0,
+        "cache_miss_input_tokens": 116397,
+        "cache_write_input_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "failed_request_count": 0,
+        "input_tokens": 116397,
+        "output_tokens": 3264,
+        "primary_uncached_tokens": 119661,
+        "reasoning_tokens": 0,
+        "request_count": 11,
+        "total_tokens": 119661
+      },
+      "wall_time_seconds": 114.525676
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [],
+      "safety_disqualifications": [],
+      "source_split": "test",
+      "success": true,
+      "task_id": "AL__always_to_current",
+      "timed_out": false,
+      "usage": {
+        "cache_hit_input_tokens": 0,
+        "cache_miss_input_tokens": 64170,
+        "cache_write_input_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "failed_request_count": 0,
+        "input_tokens": 64170,
+        "output_tokens": 3778,
+        "primary_uncached_tokens": 67948,
+        "reasoning_tokens": 0,
+        "request_count": 7,
+        "total_tokens": 67948
+      },
+      "wall_time_seconds": 105.591605
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [
+        "timeout"
+      ],
+      "safety_disqualifications": [],
+      "source_split": "test",
+      "success": false,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__api_actions__lemma_get_then_delete_matching_pod_request_deletes_matching_pod_and_returns_ok",
+      "timed_out": true,
+      "usage": {
+        "cache_hit_input_tokens": 0,
+        "cache_miss_input_tokens": 486580,
+        "cache_write_input_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "failed_request_count": 0,
+        "input_tokens": 486580,
+        "output_tokens": 19542,
+        "primary_uncached_tokens": 506122,
+        "reasoning_tokens": 0,
+        "request_count": 26,
+        "total_tokens": 506122
+      },
+      "wall_time_seconds": 616.634103
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [
+        "timeout"
+      ],
+      "safety_disqualifications": [],
+      "source_split": "test",
+      "success": false,
+      "task_id": "IR__delegation_map_v__impl4__empty_key_range_is_consistent",
+      "timed_out": true,
+      "usage": {
+        "cache_hit_input_tokens": 0,
+        "cache_miss_input_tokens": 32710,
+        "cache_write_input_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "failed_request_count": 0,
+        "input_tokens": 32710,
+        "output_tokens": 8440,
+        "primary_uncached_tokens": 41150,
+        "reasoning_tokens": 0,
+        "request_count": 4,
+        "total_tokens": 41150
+      },
+      "wall_time_seconds": 615.382842
+    },
+    {
+      "audit_observations": [
+        "blocked_prohibited_filesystem_probe",
+        "malformed_actor_log_event"
+      ],
+      "outcome_failure_reasons": [
+        "timeout"
+      ],
+      "safety_disqualifications": [],
+      "source_split": "test",
+      "success": false,
+      "task_id": "IR__delegation_map_v__impl3__values_agree",
+      "timed_out": true,
+      "usage": {
+        "cache_hit_input_tokens": 0,
+        "cache_miss_input_tokens": 779102,
+        "cache_write_input_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "failed_request_count": 0,
+        "input_tokens": 779102,
+        "output_tokens": 18339,
+        "primary_uncached_tokens": 797441,
+        "reasoning_tokens": 0,
+        "request_count": 35,
+        "total_tokens": 797441
+      },
+      "wall_time_seconds": 615.456212
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [
+        "timeout"
+      ],
+      "safety_disqualifications": [],
+      "source_split": "test",
+      "success": false,
+      "task_id": "AL__leads_to_shortcut_temp",
+      "timed_out": true,
+      "usage": {
+        "cache_hit_input_tokens": 0,
+        "cache_miss_input_tokens": 40391,
+        "cache_write_input_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "failed_request_count": 0,
+        "input_tokens": 40391,
+        "output_tokens": 23150,
+        "primary_uncached_tokens": 63541,
+        "reasoning_tokens": 0,
+        "request_count": 4,
+        "total_tokens": 63541
+      },
+      "wall_time_seconds": 615.261309
+    },
+    {
+      "audit_observations": [
+        "blocked_prohibited_filesystem_probe",
+        "malformed_actor_log_event"
+      ],
+      "outcome_failure_reasons": [
+        "timeout"
+      ],
+      "safety_disqualifications": [],
+      "source_split": "test",
+      "success": false,
+      "task_id": "IR__single_delivery_model_v__impl2__send_single_cmessage",
+      "timed_out": true,
+      "usage": {
+        "cache_hit_input_tokens": 0,
+        "cache_miss_input_tokens": 1129389,
+        "cache_write_input_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "failed_request_count": 0,
+        "input_tokens": 1129389,
+        "output_tokens": 15681,
+        "primary_uncached_tokens": 1145070,
+        "reasoning_tokens": 0,
+        "request_count": 35,
+        "total_tokens": 1145070
+      },
+      "wall_time_seconds": 615.183054
+    },
+    {
+      "audit_observations": [],
+      "outcome_failure_reasons": [
+        "timeout"
+      ],
+      "safety_disqualifications": [],
+      "source_split": "test",
+      "success": false,
+      "task_id": "AC__vreplicaset_controller__proof__liveness__resource_match__lemma_from_after_receive_ok_resp_to_send_create_pod_req",
+      "timed_out": true,
+      "usage": {
+        "cache_hit_input_tokens": 0,
+        "cache_miss_input_tokens": 590839,
+        "cache_write_input_tokens": 0,
+        "estimated_cost_usd": 0.0,
+        "failed_request_count": 0,
+        "input_tokens": 590839,
+        "output_tokens": 18039,
+        "primary_uncached_tokens": 608878,
+        "reasoning_tokens": 0,
+        "request_count": 25,
+        "total_tokens": 608878
+      },
+      "wall_time_seconds": 616.468902
+    }
+  ],
+  "timeout_count": 12,
+  "total_cost_usd": 0.0,
+  "usage": {
+    "cache_hit_input_tokens": 0,
+    "cache_miss_input_tokens": 7422677,
+    "cache_write_input_tokens": 0,
+    "estimated_cost_usd": 0.0,
+    "failed_request_count": 0,
+    "input_tokens": 7422677,
+    "output_tokens": 277708,
+    "primary_uncached_tokens": 7700385,
+    "reasoning_tokens": 0,
+    "request_count": 366,
+    "total_tokens": 7700385
+  },
+  "wall_time_seconds": 8908.666557
+}
