@@ -1,0 +1,62 @@
+{
+  "schema_version": "1",
+  "date": "2026-08-19",
+  "formal_test_status": "NOT_STARTED",
+  "independent_review": {
+    "reviewer": "gpt-5.6-sol",
+    "review_type": "same-family Type-A",
+    "initial_verdict": "FAIL_NO_GO"
+  },
+  "verdict": {
+    "strict_byte_identical_cross_provider": "NO_GO",
+    "semantic_contract": "CONDITIONAL_GO_PENDING_GLM_EDIT_SMOKE"
+  },
+  "skills": {
+    "blank": {
+      "path": "skillopt-verusage/skills/blank.md",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    "s2": {
+      "bytes": 4179,
+      "sha256": "1549611562e38c6dcb75d0b18bdf081434c431c5d7d6659a3411f8cbc540d96e"
+    }
+  },
+  "locked_controls": {
+    "workers": 4,
+    "context_window": 262144,
+    "task_timeout_seconds": 600,
+    "test_items_sha256": "81194e9cc30b737898c9eb545ad9934490eff2118616194bd9c051600c2d0c42",
+    "task_prompt_sha256": "13a4598f7ff0fd6bf6955a961d48b77c7c59bfff68cd2f786aeac9fb6e81a0a6"
+  },
+  "known_dataset_limitation": {
+    "prelaunch_check": "WARN_AND_INCLUDE",
+    "unscoreable_item_ids": [
+      "f24cf9cc9db98c56f792",
+      "826687f9c56eb8e65d5d"
+    ],
+    "raw_data_modified": false,
+    "scoring": "included unchanged in every condition and counted toward solved/20"
+  },
+  "qwen_apply_patch_smoke": {
+    "status": "PASS_FOR_TOOL_COMPATIBILITY",
+    "task_status": "UNSOLVED",
+    "fidelity": "V1_TRUNCATED",
+    "timed_out": true,
+    "wall_seconds": 600.6260681519998,
+    "file_changes": 5,
+    "command_calls": 7,
+    "requests": 12,
+    "completed_requests": 12,
+    "prompt_tokens": 137856,
+    "completion_tokens": 24649,
+    "f3": true,
+    "input_unchanged": true,
+    "shell_edit_suspect_count": 0,
+    "artifact": "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/qwen38-blank-apply-patch-smoke3-20260819/"
+  },
+  "remaining_blockers": [
+    "GLM requires a real edit-to-Verus-to-Lynette smoke with ZAI_API_KEY",
+    "Provider transport, message-role treatment, sampling, and raw tool schemas are not byte-identical"
+  ]
+}
