@@ -1,5 +1,197 @@
 [
   {
+    "created_at": "2026-08-19T20:03:47",
+    "project": "verus_self_evolving",
+    "kind": "literature",
+    "title": "SkillOpt and Skill Entropy comparative literature review",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/literature/20260819-200347-skillopt-and-skill-entropy-comparative-literature-review/ENTRY.md"
+  },
+  {
+    "created_at": "2026-08-19T19:07:26-05:00",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "SkillOpt Non-Timeout Failure Audit",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/notes/20260819-190726-skillopt-non-timeout-failure-audit/ENTRY.md"
+  },
+  {
+    "created_at": "2026-08-19T17:08:48-05:00",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "S2 skill fixed-test four-model evaluation setup",
+    "status": "setup_complete_qwen38_preflight_pass",
+    "path": "projects/verus_self_evolving/experiments/20260819-170848-s2-skill-fixed-test-four-model-evaluation-setup/ENTRY.md"
+  },
+  {
+    "created_at": "2026-08-18T16:15:58",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "SkillOpt accepted versus rejected skill case study",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/notes/20260818-161558-skillopt-accepted-versus-rejected-skill-case-study/ENTRY.md"
+  },
+  {
+    "created_at": "2026-08-18T15:30:02",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Fixed-20 S2 DeepSeek V4 Pro versus Codex actor comparison",
+    "status": "draft",
+    "path": "projects/verus_self_evolving/experiments/20260818-153002-fixed-20-s2-deepseek-v4-pro-versus-codex-actor-comparison/ENTRY.md"
+  },
+  {
+    "created_at": "2026-08-17T14:03:32",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "SkillOpt DeepSeek V4 Pro fixed-80 epoch 1",
+    "status": "in_progress",
+    "path": "projects/verus_self_evolving/experiments/20260817-140332-skillopt-deepseek-v4-pro-fixed-80-epoch-1/ENTRY.md"
+  },
+  {
+    "created_at": "2026-08-14T01:06:34",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Fixed Claude-stratified AC AL IR split",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/experiments/20260814-010634-fixed-claude-stratified-ac-al-ir-split/ENTRY.md"
+  },
+  {
+    "created_at": "2026-08-13T16:05:36",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "SkillOpt DeepSeek V4 Pro Codex epoch 1",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/experiments/20260813-160536-skillopt-deepseek-v4-pro-codex-epoch-1/ENTRY.md"
+  },
+  {
+    "created_at": "2026-08-13T03:52:34-05:00",
+    "project": "verus_self_evolving",
+    "kind": "decisions",
+    "title": "SkillOpt Codex Harness Alignment",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/decisions/20260813-035234-skillopt-codex-harness-alignment/ENTRY.md"
+  },
+  {
+    "created_at": "2026-08-13T01:20:36-05:00",
+    "project": "verus_self_evolving",
+    "kind": "decisions",
+    "title": "SkillOpt Next Model And Retrieval Configuration",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/decisions/20260813-012036-skillopt-next-model-and-retrieval-configuration/ENTRY.md"
+  },
+  {
+    "created_at": "2026-08-12T23:37:07-05:00",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "Weekly SkillOpt Update And Git Publication Audit",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/notes/20260812-233707-weekly-skillopt-update-and-git-publication-audit/ENTRY.md"
+  },
+  {
+    "created_at": "2026-08-12T00:00:00",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "SkillOpt GPT-5.6 Sol native optimizer replay",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/experiments/20260812-000000-skillopt-gpt56sol-native-replay/ENTRY.md"
+  },
+  {
+    "created_at": "2026-08-11T20:49:30-05:00",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "SkillOpt Pro Reanalysis And Retrieval Audit",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/notes/20260811-204930-skillopt-pro-reanalysis-and-retrieval-audit/ENTRY.md"
+  },
+  {
+    "created_at": "2026-08-11T00:00:00-05:00",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "SkillOpt DeepSeek V4 Flash Epoch-1 Failure Analysis",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/notes/20260811-000000-skillopt-deepseek-v4-flash-epoch1-failure-analysis/ENTRY.md"
+  },
+  {
+    "created_at": "2026-08-06T03:04:57",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "Codex GPT-5.5 sampled 100 token cost and success audit",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/notes/20260806-030457-codex-gpt-5-5-sampled-100-token-cost-and-success-audit/ENTRY.md"
+  },
+  {
+    "created_at": "2026-08-06T02:26:11",
+    "project": "verus_self_evolving",
+    "kind": "ideas",
+    "title": "SkillOpt on VeruSAGE feasibility proposal",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/ideas/20260806-022611-skillopt-on-verusage-feasibility-proposal/ENTRY.md"
+  },
+  {
+    "created_at": "2026-08-05T14:50:00",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "three metric skill case study",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/notes/20260805-145000-three-metric-skill-case-study/ENTRY.md"
+  },
+  {
+    "created_at": "2026-08-05T14:17:18-05:00",
+    "project": "verus_self_evolving",
+    "kind": "ideas",
+    "title": "verus retrieval index trigger and card contract",
+    "status": "active",
+    "path": "projects/verus_self_evolving/ideas/20260805-141718-verus-retrieval-index-trigger-and-card-contract/ENTRY.md"
+  },
+  {
+    "created_at": "2026-08-05T13:56:28",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "standout skill memory case study shortlist",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/notes/20260805-135628-standout-skill-memory-case-study-shortlist/ENTRY.md"
+  },
+  {
+    "created_at": "2026-08-04T17:42:24-05:00",
+    "project": "verus_self_evolving",
+    "kind": "ideas",
+    "title": "verus retrieval skill system design",
+    "status": "active",
+    "path": "projects/verus_self_evolving/ideas/20260804-174224-verus-retrieval-skill-system-design/ENTRY.md"
+  },
+  {
+    "created_at": "2026-08-04T17:35:07",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "self evolving failure mechanism case study",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/notes/20260804-173507-self-evolving-failure-mechanism-case-study/ENTRY.md"
+  },
+  {
+    "created_at": "2026-07-26T00:18:27",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Three-objective metric-overfit skill evolution pilot",
+    "status": "draft",
+    "path": "projects/verus_self_evolving/experiments/20260726-001827-three-objective-metric-overfit-skill-evolution-pilot/ENTRY.md"
+  },
+  {
+    "created_at": "2026-07-25T21:50:04",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "Full hands-off log fidelity audit migration",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/notes/20260725-215004-full-hands-off-log-fidelity-audit-migration/ENTRY.md"
+  },
+  {
+    "created_at": "2026-07-24T16:59:40",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "R040 30-trace hands-off phase-segmentation pilot",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/notes/20260724-165940-hands-off-verifier-anchored-phase-segmentation/ENTRY.md"
+  },
+  {
     "created_at": "2026-07-21T17:21:29",
     "project": "verus_self_evolving",
     "kind": "experiments",

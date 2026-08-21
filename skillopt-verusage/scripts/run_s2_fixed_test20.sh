@@ -40,10 +40,23 @@ RUN_NAME="${SKILLOPT_TEST_RUN_NAME:-fixed-test20-${CONDITION}-${SKILL_VARIANT}-$
 RUN_DIR="$VERUS_SKILL_RUN_ROOT/skillopt-verusage/$RUN_NAME"
 BRIDGE_PORT="${SKILLOPT_BRIDGE_PORT:-18083}"
 BRIDGE_URL="http://127.0.0.1:$BRIDGE_PORT"
-WORKERS="${SKILLOPT_TEST_WORKERS:-4}"
+if [[ -n "${SKILLOPT_TEST_WORKERS:-}" ]]; then
+  WORKERS="$SKILLOPT_TEST_WORKERS"
+elif [[ "$CONDITION" == "glm" ]]; then
+  WORKERS=2
+else
+  WORKERS=4
+fi
 if ! [[ "$WORKERS" =~ ^[1-9][0-9]*$ ]]; then
   echo "SKILLOPT_TEST_WORKERS must be a positive integer" >&2
   exit 2
+fi
+ITEM_FLAGS=()
+if [[ -n "${SKILLOPT_TEST_ITEM_IDS:-}" ]]; then
+  IFS=',' read -r -a ITEM_IDS <<<"$SKILLOPT_TEST_ITEM_IDS"
+  for ITEM_ID in "${ITEM_IDS[@]}"; do
+    ITEM_FLAGS+=(--item-id "$ITEM_ID")
+  done
 fi
 
 export PYTHONPATH="$REPO_ROOT/skillopt-verusage/src:$REPO_ROOT/skillopt-verusage/SkillOpt:$REPO_ROOT/skill-evolution-pilot/src"
@@ -66,7 +79,8 @@ if [[ "$CONDITION" == "gpt" ]]; then
     --reasoning-effort max \
     --workers "$WORKERS" \
     --timeout-seconds 600 \
-    --model-context-window 262144
+    --model-context-window 262144 \
+    "${ITEM_FLAGS[@]}"
 fi
 
 MODEL=""
@@ -194,4 +208,5 @@ export SKILLOPT_CODEX_BRIDGE_TOKEN=local-bridge-only
   --workers "$WORKERS" \
   --timeout-seconds 600 \
   --model-context-window "$CONTEXT_WINDOW" \
+  "${ITEM_FLAGS[@]}" \
   2>&1 | tee "$RUN_DIR/test.log"

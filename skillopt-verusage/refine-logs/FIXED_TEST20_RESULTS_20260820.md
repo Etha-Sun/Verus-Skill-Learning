@@ -2,6 +2,18 @@
 
 Date: 2026-08-20
 
+## Superseding Addendum
+
+The worker-20 GLM rows below are retained only as provenance. The stable
+worker-2 blank/S2 reruns both scored 12/20, with complete-ledger costs of
+$6.976968 and $5.565405. A later official-Verus audit and fresh rerun of the
+two version-sensitive IronKV tasks raises the targeted corrected estimate to
+GPT 19/18, DeepSeek 14/14, and GLM 13/13 for blank/S2. These are targeted
+18-old-plus-2-fresh estimates, not complete official-Verus test-20 reruns.
+
+The current setting comparison, screenshot audit, and exact rerun ledger are
+in `IMAGE_RESULT_SETTING_AUDIT_20260820.md`.
+
 ## Contract
 
 All completed arms used the frozen 20-task test set, autonomous noninteractive
@@ -67,6 +79,13 @@ GLM throughput. The resulting 16 and 12 task timeouts confound model quality
 with rate-limit waiting. Retain these paired results, but calibrate a lower GLM
 worker count before scale-up. GPT and DeepSeek did not show this failure mode
 at 20 workers.
+
+A subsequent four-task frozen-training calibration at two workers produced
+4/4 one-attempt V2 traces and 51/51 accepted upstream calls with zero 429
+retry, zero backoff, and USD 0.354103 cost. Three tasks solved. The launcher
+now defaults GLM to two workers. Sequential worker-2 blank/S2 test-20 reruns
+are in progress; until both complete, the worker-20 scores above remain
+reported for provenance but are not stable GLM capability estimates.
 
 ## Remaining Arm
 
