@@ -10,7 +10,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from skill_evolution_pilot.codex_runner import build_prompt, run_codex_smoke
+from skill_evolution_pilot.codex_runner import (
+    build_cross_provider_prompt,
+    build_prompt,
+    run_codex_smoke,
+)
 from skill_evolution_pilot.workspace import sha256_file
 
 from skillopt_verusage.codex_flash_adapter import CodexDeepSeekAdapter
@@ -136,10 +140,13 @@ def _run_direct(
     workers: int,
     timeout_seconds: int,
     model_context_window: int,
+    actor_contract_profile: str,
+    condition_skill_present: bool,
 ) -> list[dict[str, Any]]:
     predictions = out_dir / "predictions"
     predictions.mkdir(parents=True)
-    (out_dir / "skill.md").write_text(skill_text, encoding="utf-8")
+    if condition_skill_present:
+        (out_dir / "skill.md").write_text(skill_text, encoding="utf-8")
 
     def execute(item: dict[str, Any]) -> dict[str, Any]:
         task_dir = predictions / str(item["id"])
@@ -158,8 +165,11 @@ def _run_direct(
                     reasoning_summary="detailed",
                     show_raw_agent_reasoning=True,
                     timeout_seconds=timeout_seconds,
-                    skill_text=skill_text,
+                    skill_text=skill_text if condition_skill_present else None,
                     model_context_window=model_context_window,
+                    contract_profile=actor_contract_profile,
+                    condition_skill_sha256=skill_sha256,
+                    stage="formal_held_out_evaluation",
                 )
                 result.update(
                     {
@@ -170,6 +180,8 @@ def _run_direct(
                         "actor_model": model,
                         "actor_harness": "codex-cli-native-responses",
                         "actor_reasoning_effort": reasoning_effort,
+                        "actor_contract_profile": actor_contract_profile,
+                        "condition_skill_present": condition_skill_present,
                         "fidelity_class": _local_fidelity(result),
                         "task_attempt_index": attempt_index,
                         "skill_sha256": skill_sha256,
@@ -196,6 +208,8 @@ def _run_direct(
             "actor_model": model,
             "actor_harness": "codex-cli-native-responses",
             "actor_reasoning_effort": reasoning_effort,
+            "actor_contract_profile": actor_contract_profile,
+            "condition_skill_present": condition_skill_present,
             "fidelity_class": "V0_INVALID",
             "task_attempt_index": 3,
             "skill_sha256": skill_sha256,
@@ -348,6 +362,12 @@ def main() -> None:
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--timeout-seconds", type=int, default=600)
     parser.add_argument("--model-context-window", type=int, default=262144)
+    parser.add_argument(
+        "--actor-contract-profile",
+        choices=("project", "cross_provider_20260819"),
+        default="project",
+    )
+    parser.add_argument("--codex-provider-id", default="deepseek_bridge")
     parser.add_argument("--bridge-url")
     parser.add_argument("--bridge-ledger", type=Path)
     parser.add_argument("--bridge-manifest", type=Path)
@@ -361,6 +381,19 @@ def main() -> None:
     items = _select_test_items(items, args.item_id)
     skill_text, skill_sha256 = _load_skill(
         args.skill_file, args.expected_skill_sha256
+    )
+    condition_skill_present = not (
+        args.actor_contract_profile == "cross_provider_20260819"
+        and args.skill_label == "blank"
+    )
+    prompt = (
+        build_cross_provider_prompt(
+            skill_present=condition_skill_present,
+            verus_bin=args.verus_bin,
+            lynette_bin=args.lynette_bin,
+        )
+        if args.actor_contract_profile == "cross_provider_20260819"
+        else build_prompt()
     )
     for binary in (args.codex_bin, args.verus_bin, args.lynette_bin):
         if not binary.resolve().is_file():
@@ -386,9 +419,12 @@ def main() -> None:
         "skill_label": args.skill_label,
         "skill_sha256": skill_sha256,
         "skill_bytes": len(skill_text.encode("utf-8")),
-        "prompt_sha256": hashlib.sha256(build_prompt().encode("utf-8")).hexdigest(),
+        "prompt_sha256": hashlib.sha256(prompt.encode("utf-8")).hexdigest(),
         "transport": args.transport,
         "model": args.model,
+        "actor_contract_profile": args.actor_contract_profile,
+        "condition_skill_present": condition_skill_present,
+        "codex_provider_id": args.codex_provider_id,
         "workers": args.workers,
         "timeout_seconds": args.timeout_seconds,
         "model_context_window": args.model_context_window,
@@ -431,6 +467,8 @@ def main() -> None:
             workers=args.workers,
             timeout_seconds=args.timeout_seconds,
             model_context_window=args.model_context_window,
+            actor_contract_profile=args.actor_contract_profile,
+            condition_skill_present=condition_skill_present,
         )
     else:
         adapter = CodexDeepSeekAdapter(
@@ -452,6 +490,10 @@ def main() -> None:
             model_context_window=args.model_context_window,
             fail_on_invalid=False,
             seed=42,
+            actor_contract_profile=args.actor_contract_profile,
+            condition_skill_present=condition_skill_present,
+            codex_provider_id=args.codex_provider_id,
+            run_stage="formal_held_out_evaluation",
         )
         adapter.setup({"out_root": str(run_dir)})
         results = adapter.rollout(items, skill_text, str(run_dir))

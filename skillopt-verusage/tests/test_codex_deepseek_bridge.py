@@ -298,7 +298,7 @@ class CodexDeepSeekBridgeTests(unittest.TestCase):
         self.assertEqual(translated["temperature"], 0.6)
         self.assertEqual(translated["chat_template_kwargs"], {"enable_thinking": True})
 
-    def test_qwen38_profile_uses_official_xhigh_sampling(self) -> None:
+    def test_qwen38_profile_uses_reference_chat_template_without_sampling(self) -> None:
         translated, _ = translate_responses_request(
             {"input": []},
             model="qwen3.8-27b",
@@ -307,11 +307,12 @@ class CodexDeepSeekBridgeTests(unittest.TestCase):
         )
         self.assertNotIn("thinking", translated)
         self.assertNotIn("reasoning_effort", translated)
-        self.assertEqual(translated["temperature"], 1.0)
-        self.assertEqual(translated["top_p"], 0.95)
-        self.assertEqual(translated["top_k"], 20)
+        self.assertNotIn("temperature", translated)
+        self.assertNotIn("top_p", translated)
+        self.assertNotIn("top_k", translated)
         self.assertEqual(
-            translated["chat_template_kwargs"], {"reasoning_effort": "xhigh"}
+            translated["chat_template_kwargs"],
+            {"enable_thinking": True, "preserve_thinking": True},
         )
 
     def test_qwen38_merges_all_system_messages_at_the_front(self) -> None:
@@ -356,6 +357,32 @@ class CodexDeepSeekBridgeTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "exact diagnostic"):
                 forward_responses(config, {"input": []})
 
+    def test_transport_error_does_not_trigger_expanded_output_retry(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            ledger = Path(tmp) / "bridge.jsonl"
+            config = BridgeConfig(
+                model="glm-5.3",
+                upstream_base_url="https://example.invalid",
+                api_key="secret",
+                ledger_path=ledger,
+                max_output_tokens=8192,
+                retry_output_tokens=131072,
+                request_timeout_seconds=10,
+                expected_upstream_model="glm-5.3",
+                chat_profile="glm",
+                pricing_profile="zai-glm-5.3-20260819",
+            )
+            with patch(
+                "skillopt_verusage.codex_deepseek_bridge._post_chat",
+                side_effect=RuntimeError("upstream HTTP 429: rate limited"),
+            ) as post_chat:
+                with self.assertRaisesRegex(RuntimeError, "rate limited"):
+                    forward_responses(config, {"input": []})
+            self.assertEqual(post_chat.call_count, 1)
+            row = json.loads(ledger.read_text(encoding="utf-8"))
+            self.assertIn("rate limited", row["attempts"][0]["error"])
+            self.assertIsNone(row["attempts"][0]["estimated_cost_usd"])
+
     def test_glm_profile_preserves_interleaved_thinking(self) -> None:
         translated, _ = translate_responses_request(
             {"input": []},
@@ -364,9 +391,84 @@ class CodexDeepSeekBridgeTests(unittest.TestCase):
             chat_profile="glm",
         )
         self.assertEqual(
-            translated["thinking"], {"type": "enabled", "clear_thinking": False}
+            translated["thinking"], {"type": "enabled"}
         )
         self.assertEqual(translated["reasoning_effort"], "max")
+        self.assertNotIn("temperature", translated)
+        self.assertNotIn("top_p", translated)
+        self.assertNotIn("seed", translated)
+
+    def test_glm_merges_all_system_messages_at_the_front(self) -> None:
+        translated, _ = translate_responses_request(
+            {
+                "instructions": "base rules",
+                "input": [
+                    {"type": "message", "role": "user", "content": "task"},
+                    {"type": "message", "role": "developer", "content": "late rules"},
+                    {"type": "message", "role": "user", "content": "continue"},
+                ],
+            },
+            model="glm-5.3",
+            max_output_tokens=8192,
+            chat_profile="glm",
+        )
+        self.assertEqual(
+            [message["role"] for message in translated["messages"]],
+            ["system", "user", "user"],
+        )
+        self.assertEqual(
+            translated["messages"][0]["content"], "base rules\n\nlate rules"
+        )
+
+    def test_glm_reasoning_fallback_is_preserved_for_tool_history(self) -> None:
+        config = BridgeConfig(
+            model="glm-5.3",
+            upstream_base_url="https://example.invalid",
+            api_key="secret",
+            ledger_path=None,
+            max_output_tokens=8192,
+            retry_output_tokens=131072,
+            request_timeout_seconds=10,
+            expected_upstream_model="glm-5.3",
+            chat_profile="glm",
+            pricing_profile="zai-glm-5.3-20260819",
+        )
+        candidate = {
+            "model": "glm-5.3",
+            "choices": [
+                {
+                    "message": {
+                        "role": "assistant",
+                        "content": None,
+                        "reasoning": "continuity from fallback field",
+                        "tool_calls": [
+                            {
+                                "id": "call-glm",
+                                "type": "function",
+                                "function": {
+                                    "name": "exec_command",
+                                    "arguments": '{"cmd":"pwd"}',
+                                },
+                            }
+                        ],
+                    },
+                    "finish_reason": "tool_calls",
+                }
+            ],
+            "usage": {"prompt_tokens": 10, "completion_tokens": 2},
+        }
+        with patch(
+            "skillopt_verusage.codex_deepseek_bridge._post_chat",
+            return_value=(
+                candidate,
+                {"rate_limit_retries": 0, "rate_limit_sleep_seconds": 0.0},
+            ),
+        ):
+            forward_responses(config, {"input": []})
+        self.assertEqual(
+            config.reasoning_by_call["call-glm"],
+            "continuity from fallback field",
+        )
 
     def test_translated_chat_records_valid_terminal_model_and_local_cost(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -416,6 +518,32 @@ class CodexDeepSeekBridgeTests(unittest.TestCase):
             translated["messages"][0]["reasoning_content"],
             "private continuity state",
         )
+
+    def test_restores_qwen38_reasoning_in_reference_field(self) -> None:
+        translated, _ = translate_responses_request(
+            {
+                "input": [
+                    {
+                        "type": "function_call",
+                        "call_id": "call-1",
+                        "name": "exec_command",
+                        "arguments": '{"cmd":"pwd"}',
+                    },
+                    {
+                        "type": "function_call_output",
+                        "call_id": "call-1",
+                        "output": "workspace",
+                    },
+                ]
+            },
+            model="qwen3.8-27b",
+            max_output_tokens=65536,
+            reasoning_by_call={"call-1": "private continuity state"},
+            chat_profile="qwen38",
+        )
+        assistant = translated["messages"][0]
+        self.assertEqual(assistant["reasoning"], "private continuity state")
+        self.assertNotIn("reasoning_content", assistant)
 
     def test_emits_complete_text_response_stream(self) -> None:
         events = responses_sse_events(

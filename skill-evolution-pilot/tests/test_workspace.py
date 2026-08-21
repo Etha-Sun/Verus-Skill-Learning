@@ -48,6 +48,28 @@ class WorkspaceTest(unittest.TestCase):
                     extra_files={"../answer.rs": "leak"},
                 )
 
+    def test_skill_can_use_reference_nested_path(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "source.rs"
+            source.write_text("fn proof_task() {}\n", encoding="utf-8")
+            workspace = root / "run" / "workspace"
+            manifest = prepare_solver_workspace(
+                source=source,
+                workspace=workspace,
+                task_text="Repair candidate.rs.\n",
+                skill_text="Use the smallest proof-only edit.\n",
+                skill_relative_path="skill/verus-proof-repair/SKILL.md",
+            )
+            nested = workspace / "skill" / "verus-proof-repair" / "SKILL.md"
+            self.assertTrue(nested.is_file())
+            roles = {
+                row["relative_path"]: row["role"] for row in manifest["files"]
+            }
+            self.assertEqual(
+                roles["skill/verus-proof-repair/SKILL.md"], "candidate_skill"
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

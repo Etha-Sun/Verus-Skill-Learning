@@ -6,7 +6,11 @@ import json
 from pathlib import Path
 from typing import Any
 
-from skill_evolution_pilot.codex_runner import build_prompt, run_codex_smoke
+from skill_evolution_pilot.codex_runner import (
+    build_cross_provider_prompt,
+    build_prompt,
+    run_codex_smoke,
+)
 from skill_evolution_pilot.workspace import sha256_file
 from skillopt_verusage.budget_guard import estimate_deepseek_cost
 
@@ -220,6 +224,10 @@ def run_task(
     reasoning_effort: str,
     timeout_seconds: int,
     model_context_window: int,
+    actor_contract_profile: str = "project",
+    condition_skill_present: bool = True,
+    codex_provider_id: str = "deepseek_bridge",
+    run_stage: str = "skillopt_actor_rollout",
 ) -> dict[str, Any]:
     if Path(item_id).name != item_id:
         raise ValueError(f"unsafe item id: {item_id!r}")
@@ -247,6 +255,7 @@ def run_task(
     }:
         raise ValueError(f"unsupported bridge protocol: {protocol!r}")
     skill_text = skill_file.read_text(encoding="utf-8")
+    injected_skill_text = skill_text if condition_skill_present else None
     provider_base_url = bridge_url.rstrip("/") + f"/tasks/{bridge_task_key}/v1"
     result = run_codex_smoke(
         source=source,
@@ -259,12 +268,17 @@ def run_task(
         reasoning_summary="detailed",
         show_raw_agent_reasoning=True,
         timeout_seconds=timeout_seconds,
-        skill_text=skill_text,
-        provider_id="deepseek_bridge",
+        skill_text=injected_skill_text,
+        provider_id=codex_provider_id,
         provider_base_url=provider_base_url,
         provider_env_key="SKILLOPT_CODEX_BRIDGE_TOKEN",
         model_context_window=model_context_window,
         model_catalog_json=model_catalog_path,
+        contract_profile=actor_contract_profile,
+        condition_skill_sha256=hashlib.sha256(
+            skill_text.encode("utf-8")
+        ).hexdigest(),
+        stage=run_stage,
     )
     manifest_path = out_dir / "run_manifest.json"
     run_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -279,6 +293,8 @@ def run_task(
         "pricing_profile": bridge_manifest.get("pricing_profile"),
         "model_catalog_sha256": bridge_manifest.get("model_catalog_sha256"),
     }
+    run_manifest["condition_skill_present"] = condition_skill_present
+    run_manifest["codex_provider_id"] = codex_provider_id
     manifest_path.write_text(
         json.dumps(run_manifest, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
@@ -351,6 +367,7 @@ def run_task(
             else "codex-cli-responses-via-chat-bridge"
         ),
         "actor_reasoning_effort": reasoning_effort,
+        "actor_contract_profile": actor_contract_profile,
         "bridge_task_key": bridge_task_key,
         "source_sha256": expected_source_sha256,
         "skill_sha256": hashlib.sha256(skill_text.encode("utf-8")).hexdigest(),
@@ -362,7 +379,18 @@ def run_task(
         json.dumps(conversation, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
-    (out_dir / "target_user_prompt.txt").write_text(build_prompt(), encoding="utf-8")
+    target_prompt = (
+        build_cross_provider_prompt(
+            skill_present=condition_skill_present,
+            verus_bin=verus_bin,
+            lynette_bin=lynette_bin,
+        )
+        if actor_contract_profile == "cross_provider_20260819"
+        else build_prompt()
+    )
+    (out_dir / "target_user_prompt.txt").write_text(
+        target_prompt, encoding="utf-8"
+    )
     (out_dir / "result.json").write_text(
         json.dumps(enriched, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
@@ -389,6 +417,14 @@ def main() -> None:
     parser.add_argument("--reasoning-effort", default="high")
     parser.add_argument("--timeout-seconds", type=int, default=1200)
     parser.add_argument("--model-context-window", type=int, default=262144)
+    parser.add_argument(
+        "--actor-contract-profile",
+        choices=("project", "cross_provider_20260819"),
+        default="project",
+    )
+    parser.add_argument("--condition-skill-absent", action="store_true")
+    parser.add_argument("--codex-provider-id", default="deepseek_bridge")
+    parser.add_argument("--run-stage", default="skillopt_actor_rollout")
     args = parser.parse_args()
     result = run_task(
         item_id=args.item_id,
@@ -408,6 +444,10 @@ def main() -> None:
         reasoning_effort=args.reasoning_effort,
         timeout_seconds=args.timeout_seconds,
         model_context_window=args.model_context_window,
+        actor_contract_profile=args.actor_contract_profile,
+        condition_skill_present=not args.condition_skill_absent,
+        codex_provider_id=args.codex_provider_id,
+        run_stage=args.run_stage,
     )
     print(json.dumps(result, ensure_ascii=False, indent=2))
 

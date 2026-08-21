@@ -1,6 +1,7 @@
 import json
 import os
 import tempfile
+import time
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -8,12 +9,25 @@ from unittest.mock import patch
 from skill_evolution_pilot.codex_runner import (
     _codex_environment,
     _command_modifies_candidate,
+    _run_complete,
     build_command,
     run_codex_smoke,
 )
 
 
 class CodexRunnerTest(unittest.TestCase):
+    def test_complete_timeout_kills_the_entire_process_group(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            started = time.monotonic()
+            result = _run_complete(
+                ["bash", "-c", "sleep 30 & wait"],
+                cwd=Path(tmp),
+                timeout_seconds=1,
+            )
+            self.assertTrue(result["timed_out"])
+            self.assertIsNone(result["returncode"])
+            self.assertLess(time.monotonic() - started, 5)
+
     def test_shell_edit_audit_allows_read_only_commands_and_stderr_merge(self):
         self.assertFalse(
             _command_modifies_candidate("./tools/run_verus.sh candidate.rs 2>&1")
@@ -122,6 +136,7 @@ last.write_text("complete")
                     verus_bin=verus,
                     lynette_bin=lynette,
                     timeout_seconds=30,
+                    stage="formal_held_out_evaluation",
                 )
 
             self.assertEqual(result["status"], "SOLVED")
@@ -142,6 +157,10 @@ last.write_text("complete")
             self.assertTrue((out_dir / "visibility_manifest.json").is_file())
             self.assertTrue((out_dir / "validation.json").is_file())
             self.assertTrue((out_dir / "snapshots").is_dir())
+            manifest = json.loads(
+                (out_dir / "run_manifest.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(manifest["stage"], "formal_held_out_evaluation")
 
     def test_command_explicitly_requests_reasoning_summary_and_raw_events(self):
         command = build_command(
@@ -186,6 +205,37 @@ last.write_text("complete")
         self.assertIn("model_context_window=262144", joined)
         self.assertIn('model_catalog_json="/run/models.json"', joined)
         self.assertNotIn("dummy-secret", joined)
+
+    def test_cross_provider_command_matches_frozen_invocation_contract(self):
+        prompt = "Repair the Verus proof in candidate.rs."
+        command = build_command(
+            codex_bin=Path("/tools/codex"),
+            workspace=Path("/run/workspace"),
+            last_message=Path("/run/last.txt"),
+            model="glm-5.3",
+            reasoning_effort="max",
+            provider_id="glm",
+            provider_base_url="http://127.0.0.1:18083/v1",
+            provider_env_key="SKILLOPT_CODEX_BRIDGE_TOKEN",
+            model_context_window=1048576,
+            contract_profile="cross_provider_20260819",
+            prompt_text=prompt,
+        )
+        joined = " ".join(command)
+        self.assertEqual(command[-1], prompt)
+        self.assertIn("-a never exec", joined)
+        self.assertIn("--ignore-user-config", command)
+        self.assertIn("--ephemeral", command)
+        self.assertIn("--json", command)
+        self.assertIn("--skip-git-repo-check", command)
+        self.assertIn("-s workspace-write", joined)
+        self.assertIn('model_provider="glm"', joined)
+        self.assertIn("request_max_retries=4", joined)
+        self.assertIn("stream_max_retries=4", joined)
+        self.assertIn('model_reasoning_effort="max"', joined)
+        self.assertIn("model_context_window=1048576", joined)
+        self.assertIn("model_max_output_tokens=8192", joined)
+        self.assertNotIn("model_reasoning_summary", joined)
 
     def test_actor_environment_excludes_unrelated_credentials(self):
         with patch.dict(

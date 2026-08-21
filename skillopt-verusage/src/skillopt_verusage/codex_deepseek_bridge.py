@@ -116,7 +116,10 @@ def translate_responses_request(
                     "",
                 )
                 if reasoning:
-                    assistant["reasoning_content"] = reasoning
+                    reasoning_field = (
+                        "reasoning" if chat_profile == "qwen38" else "reasoning_content"
+                    )
+                    assistant[reasoning_field] = reasoning
             messages.append(assistant)
             pending_calls.clear()
 
@@ -159,7 +162,7 @@ def translate_responses_request(
         messages.append({"role": role, "content": _content_text(item.get("content"))})
     flush_calls()
 
-    if chat_profile == "qwen38":
+    if chat_profile in {"glm", "qwen38"}:
         system_content = [
             str(message.get("content") or "").strip()
             for message in messages
@@ -222,9 +225,8 @@ def translate_responses_request(
         request["thinking"] = {"type": "enabled"}
         request["reasoning_effort"] = "high"
     elif chat_profile == "glm":
-        request["thinking"] = {"type": "enabled", "clear_thinking": False}
+        request["thinking"] = {"type": "enabled"}
         request["reasoning_effort"] = "max"
-        request["temperature"] = 1.0
     elif chat_profile == "qwen3":
         request.update(
             {
@@ -235,14 +237,10 @@ def translate_responses_request(
             }
         )
     elif chat_profile == "qwen38":
-        request.update(
-            {
-                "temperature": 1.0,
-                "top_p": 0.95,
-                "top_k": 20,
-                "chat_template_kwargs": {"reasoning_effort": "xhigh"},
-            }
-        )
+        request["chat_template_kwargs"] = {
+            "enable_thinking": True,
+            "preserve_thinking": True,
+        }
     else:
         raise ValueError(f"unsupported chat profile: {chat_profile}")
     if tools:
@@ -784,6 +782,46 @@ def forward_responses(
         )
     started = time.monotonic()
     attempts: list[dict[str, Any]] = []
+    observed_upstream_model = ""
+
+    def write_record() -> dict[str, Any]:
+        record = {
+            "request_id": uuid.uuid4().hex,
+            "task_id": task_id,
+            "model": config.model,
+            "upstream_model": observed_upstream_model,
+            "bridge_config_sha256": config.config_sha256,
+            "protocol": "responses_to_chat_completions",
+            "chat_profile": config.chat_profile,
+            "pricing_profile": config.pricing_profile,
+            "input_items": len(payload.get("input") or []),
+            "input_item_types": [
+                str(item.get("type") or "message")
+                for item in payload.get("input") or []
+                if isinstance(item, dict)
+            ],
+            "tool_count": len(payload.get("tools") or []),
+            "tools": [
+                {
+                    "name": str(tool.get("name") or ""),
+                    "type": str(tool.get("type") or ""),
+                    "parameter_keys": sorted(
+                        str(key)
+                        for key in (
+                            (tool.get("parameters") or {}).get("properties") or {}
+                        )
+                    ),
+                }
+                for tool in payload.get("tools") or []
+                if isinstance(tool, dict)
+            ],
+            "attempts": attempts,
+            "wall_seconds": time.monotonic() - started,
+        }
+        with config.ledger_lock:
+            _append_jsonl(config.ledger_path, record)
+        return record
+
     requested_budgets = list(
         dict.fromkeys([config.max_output_tokens, config.retry_output_tokens])
     )
@@ -800,15 +838,18 @@ def forward_responses(
         )
         try:
             candidate, retry_metadata = _post_chat(config, chat_request)
-            upstream_model = str(candidate.get("model") or "")
+            observed_upstream_model = str(candidate.get("model") or "")
             expected_upstream_model = config.expected_upstream_model or config.model
             if not (
                 candidate.get("choices") and isinstance(candidate.get("usage"), dict)
             ):
                 raise RuntimeError("chat completion omitted choices or usage")
-            if not _compatible_upstream_model(expected_upstream_model, upstream_model):
+            if not _compatible_upstream_model(
+                expected_upstream_model, observed_upstream_model
+            ):
                 raise RuntimeError(
-                    f"chat completion returned incompatible model {upstream_model!r}; "
+                    "chat completion returned incompatible model "
+                    f"{observed_upstream_model!r}; "
                     f"expected {expected_upstream_model!r}"
                 )
             usage = _usage(candidate.get("usage"))
@@ -862,13 +903,15 @@ def forward_responses(
                     "error": f"{type(error).__name__}: {error}",
                 }
             )
-            if retry_index + 1 >= len(requested_budgets):
-                raise
-            time.sleep(1)
+            write_record()
+            raise
     if final_payload is None:
+        write_record()
         raise RuntimeError("chat response remained truncated after expanded retry")
     message = ((final_payload.get("choices") or [{}])[0]).get("message") or {}
-    reasoning_content = str(message.get("reasoning_content") or "")
+    reasoning_content = str(
+        message.get("reasoning_content") or message.get("reasoning") or ""
+    )
     if reasoning_content:
         with config.state_lock:
             for tool_call in message.get("tool_calls") or []:
@@ -880,39 +923,7 @@ def forward_responses(
         request_model=config.model,
         tool_types=tool_types,
     )
-    record = {
-        "request_id": uuid.uuid4().hex,
-        "task_id": task_id,
-        "model": config.model,
-        "upstream_model": str(final_payload.get("model") or ""),
-        "bridge_config_sha256": config.config_sha256,
-        "protocol": "responses_to_chat_completions",
-        "chat_profile": config.chat_profile,
-        "pricing_profile": config.pricing_profile,
-        "input_items": len(payload.get("input") or []),
-        "input_item_types": [
-            str(item.get("type") or "message")
-            for item in payload.get("input") or []
-            if isinstance(item, dict)
-        ],
-        "tool_count": len(payload.get("tools") or []),
-        "tools": [
-            {
-                "name": str(tool.get("name") or ""),
-                "type": str(tool.get("type") or ""),
-                "parameter_keys": sorted(
-                    str(key)
-                    for key in ((tool.get("parameters") or {}).get("properties") or {})
-                ),
-            }
-            for tool in payload.get("tools") or []
-            if isinstance(tool, dict)
-        ],
-        "attempts": attempts,
-        "wall_seconds": time.monotonic() - started,
-    }
-    with config.ledger_lock:
-        _append_jsonl(config.ledger_path, record)
+    record = write_record()
     return events, record
 
 
