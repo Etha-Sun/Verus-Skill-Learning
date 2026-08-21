@@ -9,6 +9,67 @@ from skill_evolution_pilot.workspace import sha256_file
 
 
 class CodexAdapterTest(unittest.TestCase):
+    def test_verifier_index_requires_actual_command_execution(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            candidate = root / "candidate.rs"
+            candidate.write_text("fn task() {}\n", encoding="utf-8")
+            recorder = CodexStreamRecorder(
+                raw_path=root / "raw.jsonl",
+                normalized_path=root / "normalized.jsonl",
+                snapshots_dir=root / "snapshots",
+                run_id="verifier-command-fixture",
+                candidate_path=candidate,
+            )
+            commands = [
+                (
+                    "search-only",
+                    "/usr/bin/bash -lc \"pwd && rg --files "
+                    "-g 'tools/run_verus.sh' -g 'tools/run_lynette.sh'\"",
+                ),
+                (
+                    "echo-only",
+                    "/usr/bin/bash -lc 'echo ./tools/run_lynette.sh'",
+                ),
+                (
+                    "lynette",
+                    "/usr/bin/bash -lc './tools/run_lynette.sh'",
+                ),
+                (
+                    "verus",
+                    "/usr/bin/bash -lc "
+                    "'cd . && ./tools/run_verus.sh candidate.rs'",
+                ),
+            ]
+            for index, (item_id, command) in enumerate(commands, start=1):
+                recorder.append_raw_line(
+                    json.dumps(
+                        {
+                            "type": "item.completed",
+                            "item": {
+                                "id": item_id,
+                                "type": "command_execution",
+                                "command": command,
+                                "status": "completed",
+                                "exit_code": 0,
+                                "aggregated_output": "",
+                            },
+                        }
+                    ),
+                    index,
+                )
+
+            rows, parse_errors = load_events(root / "normalized.jsonl")
+            self.assertEqual(parse_errors, 0)
+            verifier_rows = [row for row in rows if row["type"] == "verifier"]
+            self.assertEqual(
+                [
+                    (row["actor"], row["data"]["source_tool_call_id"])
+                    for row in verifier_rows
+                ],
+                [("lynette", "lynette"), ("verus", "verus")],
+            )
+
     def test_raw_fields_tool_output_reasoning_and_snapshots_are_lossless(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

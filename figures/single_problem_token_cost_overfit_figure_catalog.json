@@ -1,0 +1,22 @@
+{
+  "schema_version": "1",
+  "surface_class": "paper_main",
+  "source_data": "${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/single-problem-token-evolve-delegation-map-20260730/visualization/single_problem_token_cost_overfit_plot_data.csv",
+  "source_summaries": "${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/single-problem-token-evolve-delegation-map-20260730/{h0,seed,round-1,round-2,round-3,final-confirmation}/metric_summary.json and matched_final_report.json",
+  "generator": "figures/scripts/generate_single_problem_token_figure.py",
+  "style": "figures/scripts/deepscientist-academic-fixed.mplstyle",
+  "exports": [
+    "figures/single_problem_token_cost_overfit.pdf",
+    "figures/single_problem_token_cost_overfit.svg",
+    "figures/single_problem_token_cost_overfit.png"
+  ],
+  "caption": "figures/single_problem_token_cost_overfit_caption.md",
+  "main_comparison": "Single-run R6/R1-R3 skill screening followed by matched three-run H0 versus final-skill confirmation on one fixed IronKV problem.",
+  "correctness_notes": [
+    "The timed-out seed with missing terminal usage is marked invalid and has no token-height encoding.",
+    "Every screening skill has n=1 and is labeled as single-run evidence.",
+    "H0 and final confirmation each show all three verifier-safe run values.",
+    "The final favorable mean delta is explicitly labeled inconclusive because it is smaller than the H0 range."
+  ],
+  "review_note": "Visual inspection found legend/value and mean/point overlaps. The legend was moved below the screening panel, invalid-run text was shortened, repeated-run labels were moved above the observed maxima, and the final render was re-inspected."
+}

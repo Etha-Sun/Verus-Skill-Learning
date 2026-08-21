@@ -68,6 +68,69 @@ class TokenMatrixTest(unittest.TestCase):
             )
             self.assertTrue(structural["expected_tokens_to_success_is_infinite"])
 
+    def test_matrix_excludes_incomplete_skill_from_ranking(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            tasks = root / "tasks.jsonl"
+            jobs = root / "jobs.jsonl"
+            task_rows = [
+                {
+                    "task_id": f"t{i}",
+                    "final_case": f"c{i}",
+                    "h0_run_dir": f"h0-{i}",
+                }
+                for i in range(4)
+            ]
+            job_rows = [
+                {
+                    "task_id": f"t{i}",
+                    "skill_id": skill,
+                    "skill_profile": skill,
+                    "out_dir": f"{skill}-{i}",
+                }
+                for skill in ("aggressive", "conservative", "structural")
+                for i in range(4)
+            ]
+            tasks.write_text(
+                "".join(json.dumps(row) + "\n" for row in task_rows),
+                encoding="utf-8",
+            )
+            jobs.write_text(
+                "".join(json.dumps(row) + "\n" for row in job_rows),
+                encoding="utf-8",
+            )
+
+            def ledger(path: Path):
+                if path.name == "conservative-0":
+                    raise ValueError("missing terminal usage")
+                return {
+                    "run_id": path.name,
+                    "f3": True,
+                    "success": True,
+                    "primary_uncached_tokens": (
+                        1 if path.name.startswith("conservative") else 10
+                    ),
+                    "provider_total_tokens": 20,
+                }
+
+            with patch(
+                "skill_evolution_pilot.token_matrix.build_run_ledger",
+                side_effect=ledger,
+            ):
+                result = summarize_token_matrix(
+                    frozen_tasks_path=tasks,
+                    skill_jobs_path=jobs,
+                )
+            conservative = next(
+                row
+                for row in result["skill_aggregates"]
+                if row["skill_id"] == "conservative"
+            )
+            self.assertFalse(conservative["matrix_valid"])
+            self.assertEqual(conservative["valid_run_count"], 3)
+            self.assertNotEqual(result["best_skill_id"], "conservative")
+            self.assertFalse(result["all_f3"])
+
 
 if __name__ == "__main__":
     unittest.main()

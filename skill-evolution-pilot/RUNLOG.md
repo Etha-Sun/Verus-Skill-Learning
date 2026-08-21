@@ -171,3 +171,48 @@ External artifact:
 The API and Qwen agentic gates now pass. The next executable branch is the
 small-model meta-skill and `3 x 4` matrix. InfoGain remains blocked until its
 complete-proof target and scorer contract are frozen.
+
+## 2026-07-27: token design evolution R4-R6
+
+- The `tmp.txt` design ideas were compiled into the auditable, skill-only
+  hypothesis menu at `contracts/token_cost_design_brief_v1.md`.
+- R4 best: `zero-ceremony-direct`, 4/4 solved, ETtS 59,032 versus H0
+  52,350; this was a 12.76% regression.
+- R5 best: `backward-contract-frontier`, 4/4 solved, ETtS 52,013.5; this was
+  a 0.64% improvement over H0.
+- R6 best admissible: `micro-direct-kernel`, 4/4 solved, ETtS 51,881; this
+  was a 0.90% improvement over H0 but remained worse than R1 best 51,497.
+- R6 `branch-certificate-cutoff` had verifier-safe final code on all four
+  tasks, but the closest task lacked terminal usage at the 600-second
+  boundary. Its matrix is invalid for token comparison.
+- R6 total uncached input/output changed from H0 182,930/26,470 to
+  180,663/26,861. The gain came from reduced input, partly offset by output.
+- Task-level effects remained heterogeneous; no round establishes a stable or
+  held-out token-efficiency claim.
+- R6 had two batch coordinators briefly overlap, but the output-directory
+  guard prevented duplicate task execution. The canonical matrix summary was
+  rebuilt from the 12 independent run ledgers.
+
+External summaries:
+
+- `${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/token-r4-matrix-20260726/token_matrix_summary.json`
+- `${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/token-r5-matrix-20260726/token_matrix_summary.json`
+- `${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/token-r6-matrix-20260726/token_matrix_summary.json`
+
+## 2026-07-27: GPT-5.5 fidelity diagnostic and readable log
+
+- `gpt-5.5/high` solved the canonical stable-pass task in 196.07 seconds.
+- F3 passed with 100 raw events, 151 normalized events, 24 paired tool
+  calls/results, 16 file changes, 15 visible reasoning summaries, and 32
+  candidate snapshots.
+- Terminal usage: 534,397 input, 470,400 cached input, 7,605 output, and
+  2,182 reasoning-output tokens.
+- Hidden chain of thought was not exposed; only provider reasoning summaries
+  are retained.
+- The readable transcript embeds every raw and normalized JSONL line exactly
+  and leaves the canonical sources untouched.
+
+External artifacts:
+
+- `${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/gpt55-canonical-log-20260726/codex_events.raw.jsonl`
+- `${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/gpt55-canonical-log-20260726/verusage_transcript.log`

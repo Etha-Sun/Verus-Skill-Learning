@@ -1,0 +1,34 @@
+{
+  "surface_class": "paper_main",
+  "source_data": "${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/visualizations/three-objective-results-20260730/small_model_evolution.csv",
+  "source_runs": [
+    "${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/qwen-h0-r1-20260726/",
+    "${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/qwen-h0-nrkernel-retry-20260726/",
+    "${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/qwen-small-model-r1-20260726/",
+    "${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/qwen-small-model-r2-20260726/",
+    "${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/qwen-small-model-r3-20260726/"
+  ],
+  "figures": [
+    {
+      "stem": "small_model_skill_heatmap",
+      "script": "figures/scripts/generate_small_model_skill_heatmap.py",
+      "exports": [
+        "figures/small_model_skill_heatmap.pdf",
+        "figures/small_model_skill_heatmap.svg",
+        "figures/small_model_skill_heatmap.png"
+      ],
+      "comparison": "Task-level verifier-safe outcomes and provider costs for H0 and nine R1-R3 skills."
+    },
+    {
+      "stem": "small_model_round_summary",
+      "script": "figures/scripts/generate_small_model_round_summary.py",
+      "exports": [
+        "figures/small_model_round_summary.pdf",
+        "figures/small_model_round_summary.svg",
+        "figures/small_model_round_summary.png"
+      ],
+      "comparison": "Round-best complete conditions selected by solve count, then provider tokens."
+    }
+  ],
+  "review_fix": "Separated the global title from the aggregate-axis header and explicitly hatched F3-invalid runner errors."
+}

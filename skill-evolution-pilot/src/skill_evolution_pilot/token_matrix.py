@@ -33,49 +33,71 @@ def summarize_token_matrix(
         str(task["task_id"]): build_run_ledger(Path(task["h0_run_dir"]))
         for task in tasks
     }
-    by_skill: dict[str, list[tuple[dict[str, Any], dict[str, Any]]]] = defaultdict(
-        list
-    )
+    by_skill: dict[
+        str, list[tuple[dict[str, Any], dict[str, Any] | None, str | None]]
+    ] = defaultdict(list)
     for job in jobs:
         task_id = str(job["task_id"])
         if task_id not in task_ids:
             raise ValueError(f"unknown task in skill jobs: {task_id}")
-        by_skill[str(job["skill_id"])].append(
-            (job, build_run_ledger(Path(job["out_dir"])))
-        )
+        try:
+            ledger = build_run_ledger(Path(job["out_dir"]))
+            error = None
+        except ValueError as exc:
+            ledger = None
+            error = str(exc)
+        by_skill[str(job["skill_id"])].append((job, ledger, error))
     if len(by_skill) != 3:
         raise ValueError("expected exactly three skills")
     if any(
-        {str(job["task_id"]) for job, _ in rows} != task_ids
+        {str(job["task_id"]) for job, _, _ in rows} != task_ids
         for rows in by_skill.values()
     ):
         raise ValueError("every skill must cover every frozen task")
-    all_ledgers = list(h0.values()) + [
-        ledger for rows in by_skill.values() for _, ledger in rows
-    ]
-    if not all(ledger["f3"] for ledger in all_ledgers):
-        raise ValueError("all primary matrix runs must pass F3")
+    if not all(ledger["f3"] for ledger in h0.values()):
+        raise ValueError("all H0 matrix runs must pass F3")
 
     baseline = aggregate_ledgers(h0.values())
     aggregates = []
     for skill_id, rows in sorted(by_skill.items()):
-        aggregate = aggregate_ledgers(ledger for _, ledger in rows)
+        valid_ledgers = [
+            ledger
+            for _, ledger, _ in rows
+            if ledger is not None and ledger["f3"]
+        ]
+        invalid_runs = [
+            {
+                "task_id": str(job["task_id"]),
+                "error": error or "fidelity audit failed",
+            }
+            for job, ledger, error in rows
+            if ledger is None or not ledger["f3"]
+        ]
+        matrix_valid = len(valid_ledgers) == len(tasks)
+        aggregate = aggregate_ledgers(valid_ledgers) if matrix_valid else None
         aggregates.append(
             {
                 "skill_id": skill_id,
                 "skill_profile": rows[0][0]["skill_profile"],
-                **aggregate,
+                "matrix_valid": matrix_valid,
+                "valid_run_count": len(valid_ledgers),
+                "invalid_runs": invalid_runs,
+                **(aggregate or {}),
                 "delta_etts_vs_h0": (
                     None
-                    if aggregate["expected_tokens_to_success_is_infinite"]
+                    if aggregate is None
+                    or aggregate["expected_tokens_to_success_is_infinite"]
                     or baseline["expected_tokens_to_success_is_infinite"]
                     else aggregate["expected_primary_uncached_tokens_to_success"]
                     - baseline["expected_primary_uncached_tokens_to_success"]
                 ),
             }
         )
+    eligible = [row for row in aggregates if row["matrix_valid"]]
+    if not eligible:
+        raise ValueError("no skill has a complete F3-valid matrix")
     ranked = sorted(
-        aggregates,
+        eligible,
         key=lambda row: (
             row["expected_tokens_to_success_is_infinite"],
             row["expected_primary_uncached_tokens_to_success"] or 0,
@@ -98,13 +120,23 @@ def summarize_token_matrix(
                     {
                         "skill_id": skill_id,
                         "skill_profile": job["skill_profile"],
-                        "success": ledger["success"],
-                        "primary_uncached_tokens": ledger[
-                            "primary_uncached_tokens"
-                        ],
+                        "f3": bool(ledger and ledger["f3"]),
+                        "success": None if ledger is None else ledger["success"],
+                        "primary_uncached_tokens": (
+                            None
+                            if ledger is None
+                            else ledger["primary_uncached_tokens"]
+                        ),
+                        "exclusion_reason": (
+                            error
+                            if ledger is None
+                            else None
+                            if ledger["f3"]
+                            else "fidelity audit failed"
+                        ),
                     }
                     for skill_id, rows in sorted(by_skill.items())
-                    for job, ledger in rows
+                    for job, ledger, error in rows
                     if str(job["task_id"]) == task_id
                 ],
             }
@@ -114,7 +146,7 @@ def summarize_token_matrix(
         "task_count": 4,
         "skill_count": 3,
         "run_count": 12,
-        "all_f3": True,
+        "all_f3": all(row["matrix_valid"] for row in aggregates),
         "h0": baseline,
         "skill_aggregates": aggregates,
         "best_skill_id": ranked[0]["skill_id"],

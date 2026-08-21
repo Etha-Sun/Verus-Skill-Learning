@@ -236,6 +236,7 @@ def run_qwen_agentic_smoke(
     max_tokens: int = 8192,
     temperature: float = SOLVER_TEMPERATURE,
     skill_text: str | None = None,
+    provider_timeout_seconds: float = 180.0,
     client: OpenRouterClient | None = None,
 ) -> dict[str, Any]:
     if max_iters < 1:
@@ -261,7 +262,10 @@ def run_qwen_agentic_smoke(
     events_path = out_dir / "agent_events.jsonl"
     provider_io = out_dir / "provider_io.jsonl"
     log = EventLog(events_path, out_dir.name, (secret,))
-    api = client or OpenRouterClient(model=model)
+    api = client or OpenRouterClient(
+        model=model,
+        timeout_seconds=provider_timeout_seconds,
+    )
     messages: list[dict[str, Any]] = [
         {
             "role": "system",
@@ -282,10 +286,15 @@ def run_qwen_agentic_smoke(
         "temperature": temperature,
         "max_iters": max_iters,
         "max_tokens_per_request": max_tokens,
+        "provider_timeout_seconds": provider_timeout_seconds,
         "source_sha256": source_sha,
         "prompt_sha256": sha256_file(prompt_path),
         "reference_proof_visible": False,
         "prior_trace_visible": False,
+        "skill_present": skill_text is not None,
+        "skill_sha256": (
+            sha256_file(workspace / "SKILL.md") if skill_text is not None else None
+        ),
         "tool_names": [tool["function"]["name"] for tool in TOOLS],
     }
     (out_dir / "run_manifest.json").write_text(

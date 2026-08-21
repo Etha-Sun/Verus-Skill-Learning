@@ -1,0 +1,33 @@
+{
+  "rounds": [
+    "H0",
+    "R1",
+    "R2",
+    "R3"
+  ],
+  "best_skill_ids": [
+    "no summary",
+    "minimal_sufficient_rationale",
+    "contract_unification_certificate",
+    null
+  ],
+  "best_mean_post_bits_per_target_token": [
+    0.0,
+    0.21980139013333116,
+    0.20310801509647394,
+    null
+  ],
+  "three_skill_mean_post_bits_per_target_token": [
+    0.0,
+    0.21494988172260354,
+    0.1805019907092965,
+    null
+  ],
+  "r3_status": {
+    "round": "R3",
+    "round_order": "3",
+    "status": "pending",
+    "scored_pairs": "10",
+    "expected_pairs": "12"
+  }
+}

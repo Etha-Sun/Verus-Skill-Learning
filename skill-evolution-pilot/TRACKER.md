@@ -1,11 +1,12 @@
 # Skill Evolution Pilot Tracker
 
-Last updated: 2026-07-26
+Last updated: 2026-07-29
 
 ## Current state
 
-The first token round and OpenRouter/Qwen agentic fidelity gate are complete.
-The small-model skill matrix is next.
+Token evolution R1-R6 and the first OpenRouter/Qwen small-model matrix are
+complete. Full-proof InfoGain R1-R2 are scored; R3 trajectory generation is
+complete but R3 scoring and final aggregation are still outstanding.
 
 | item | status | evidence / blocker |
 |---|---|---|
@@ -24,16 +25,21 @@ The small-model skill matrix is next.
 | first token matrix | complete | 12/12 F3, 12/12 solved; best aggregate delta -853 uncached ETtS (-1.63%) |
 | token metric | implemented | uncached ETtS ledger, H0 variance, failure-aware comparison |
 | Qwen agentic fidelity | passed | five requests, 57.86 seconds, solved, F3, Verus+Lynette pass |
-| small-model metric | ready for first-round implementation | verifier-safe solve rate; API trajectory and request counts separated |
-| InfoGain target | blocked | complete proof/target span and truncation policy not frozen |
+| small-model metric | first round complete | H0 and all three skills solve the same 2/4 tasks; every skill uses more provider-reported tokens |
+| InfoGain scorer gate | passed | four complete reference proofs fit the 32,768-token context; exact repeated scores match bit-for-bit |
+| InfoGain R1-R2 | complete | 12/12 exact pre/post scores in each round, with token-level logs and aggregate summaries |
+| InfoGain R3 | scoring queued | 12/12 F3 trajectories (11 solved); a GPU-safe watcher will run the frozen 24-sequence scorer as soon as all four local GPUs are free |
 
 ## Next executable sequence
 
-1. Feed the best/worst and complete token table back to the isolated
-   token meta-agent only if the first-round iteration gate passes.
-2. Implement the isolated small-model meta-agent and freeze its three skills.
-3. Run the OpenRouter Qwen `3 skills x 4 tasks` first round.
-4. Start the InfoGain branch only after its scorer gates pass.
+1. Monitor the queued frozen-Qwen scoring of the 12 R3 InfoGain trajectories
+   (12 pre + 12 post sequences).
+2. Aggregate R1-R3 using bits and bits per target token; do not pool raw bits
+   across tasks without length normalization.
+3. Plot task-skill heatmaps and round-best trends, retaining InfoGain's status
+   as a secondary offline proxy.
+4. Decide whether another small-model round is justified by an editable
+   failure mechanism rather than by solve-rate improvement.
 
 ## Immediate stop conditions
 

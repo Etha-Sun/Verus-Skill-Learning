@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import socket
 import time
 import urllib.error
 import urllib.request
@@ -114,11 +115,27 @@ class OpenRouterClient:
     def _send(self, request: urllib.request.Request) -> bytes:
         if self.transport is not None:
             return self.transport(request, self.timeout_seconds)
+        deadline = time.monotonic() + self.timeout_seconds
         try:
             with urllib.request.urlopen(
                 request, timeout=self.timeout_seconds
             ) as response:
-                return response.read()
+                chunks = []
+                while True:
+                    remaining = deadline - time.monotonic()
+                    if remaining <= 0:
+                        raise TimeoutError("OpenRouter response exceeded total timeout")
+                    sock = getattr(
+                        getattr(getattr(response, "fp", None), "raw", None),
+                        "_sock",
+                        None,
+                    )
+                    if sock is not None:
+                        sock.settimeout(remaining)
+                    chunk = response.read(64 * 1024)
+                    if not chunk:
+                        return b"".join(chunks)
+                    chunks.append(chunk)
         except urllib.error.HTTPError as exc:
             secret = self._credential()
             body = exc.read()
@@ -132,6 +149,12 @@ class OpenRouterClient:
                 "network_or_unknown",
                 None,
                 redact_text(str(exc.reason), (self._credential(),)),
+            ) from None
+        except (TimeoutError, socket.timeout) as exc:
+            raise OpenRouterError(
+                "network_or_unknown",
+                None,
+                redact_text(str(exc), (self._credential(),)),
             ) from None
 
     def complete(

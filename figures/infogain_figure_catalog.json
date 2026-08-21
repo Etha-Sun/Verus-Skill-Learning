@@ -1,0 +1,47 @@
+{
+  "surface_class": "paper_main",
+  "source_data": [
+    "${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/visualizations/three-objective-results-20260730/infogain_task_skill.csv",
+    "${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/visualizations/three-objective-results-20260730/infogain_skill_aggregate.csv",
+    "${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/visualizations/three-objective-results-20260730/infogain_round_status.csv"
+  ],
+  "source_runs": [
+    "${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/information-gain-r1-scores-20260726/",
+    "${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/information-gain-r2-scores-20260726/",
+    "${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/information-gain-r3-trajectories-20260726/",
+    "${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/information-gain-r3-scores-20260729/"
+  ],
+  "figures": [
+    {
+      "stem": "infogain_skill_heatmap",
+      "script": "figures/scripts/generate_infogain_skill_heatmap.py",
+      "exports": [
+        "figures/infogain_skill_heatmap.pdf",
+        "figures/infogain_skill_heatmap.svg",
+        "figures/infogain_skill_heatmap.png"
+      ],
+      "comparison": "Task-level post-summary InfoGain and skill-level pre/post means for complete R1/R2 scores; R3 is explicitly pending."
+    },
+    {
+      "stem": "infogain_pre_skill_heatmap",
+      "script": "figures/scripts/generate_infogain_skill_heatmap.py --phase pre",
+      "exports": [
+        "figures/infogain_pre_skill_heatmap.pdf",
+        "figures/infogain_pre_skill_heatmap.svg",
+        "figures/infogain_pre_skill_heatmap.png"
+      ],
+      "comparison": "Task-level pre-summary InfoGain with a zero-centered signed color scale and aligned pre/post skill means; R3 is explicitly pending."
+    },
+    {
+      "stem": "infogain_round_summary",
+      "script": "figures/scripts/generate_infogain_round_summary.py",
+      "exports": [
+        "figures/infogain_round_summary.pdf",
+        "figures/infogain_round_summary.svg",
+        "figures/infogain_round_summary.png"
+      ],
+      "comparison": "Best and mean post-summary InfoGain by completed evolution round."
+    }
+  ],
+  "review_fix": "The pre-summary render reused the reviewed post layout, added a zero-centered signed palette, merged three duplicate R3 status labels into one, shortened the method note, and was re-rendered and re-inspected. All partial R3 scorer files remain excluded."
+}

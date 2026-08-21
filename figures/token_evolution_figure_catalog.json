@@ -1,0 +1,23 @@
+{
+  "schema_version": "1",
+  "surface_class": "paper_main",
+  "source_data": "${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/visualizations/token-evolution-20260729/token_evolution_heatmap_data.csv",
+  "source_summaries": "${VERUS_SKILL_RUN_ROOT}/skill-evolution-pilot/token-r{1..6}-matrix-20260726/token_matrix_summary.json",
+  "extractor": "figures/scripts/export_token_evolution_data.py",
+  "generator": "figures/scripts/generate_token_evolution_figures.py",
+  "exports": [
+    "figures/token_evolution_skill_heatmap.pdf",
+    "figures/token_evolution_skill_heatmap.svg",
+    "figures/token_evolution_skill_heatmap.png",
+    "figures/token_evolution_round_best.pdf",
+    "figures/token_evolution_round_best.svg",
+    "figures/token_evolution_round_best.png"
+  ],
+  "main_comparison": "Per-task and aggregate primary uncached token changes for every R1-R6 skill versus the matched H0 runs.",
+  "correctness_notes": [
+    "Failed runs are not colored as token savings.",
+    "Missing terminal usage is explicitly marked and excluded from aggregate ETtS.",
+    "Each condition has n=1 trajectory per task; no uncertainty is implied."
+  ],
+  "review_note": "Render inspection found the aggregate panel marker crowded its axis label. The markers were removed, the label was shortened, and the final PDF/SVG/PNG outputs were re-rendered and re-inspected."
+}
