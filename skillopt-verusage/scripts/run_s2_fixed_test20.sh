@@ -50,11 +50,7 @@ if [[ "$ACTOR_PROFILE" != "project" && "$ACTOR_PROFILE" != "cross_provider_20260
   echo "unknown actor profile: $ACTOR_PROFILE" >&2
   exit 2
 fi
-if [[ "$ACTOR_PROFILE" == "cross_provider_20260819" ]]; then
-  EVAL_VERUS_BIN="${SKILLOPT_EVAL_VERUS_BIN:-${VERUS_BIN_LEGACY:-$VERUS_BIN}}"
-else
-  EVAL_VERUS_BIN="${SKILLOPT_EVAL_VERUS_BIN:-$VERUS_BIN}"
-fi
+EVAL_VERUS_BIN="${SKILLOPT_EVAL_VERUS_BIN:-$VERUS_BIN}"
 STAMP="$(date +%Y%m%d-%H%M%S)"
 RUN_NAME="${SKILLOPT_TEST_RUN_NAME:-fixed-test20-${CONDITION}-${SKILL_VARIANT}-${STAMP}}"
 RUN_DIR="$VERUS_SKILL_RUN_ROOT/skillopt-verusage/$RUN_NAME"
@@ -169,14 +165,13 @@ case "$CONDITION" in
     PRICING_PROFILE="zai-glm-5.3-20260819"
     CONTEXT_WINDOW=1048576
     CODEX_PROVIDER_ID="glm"
+    RATE_LIMIT_FLAGS=(
+      --rate-limit-retries 12
+      --rate-limit-backoff-seconds 1
+      --rate-limit-max-backoff-seconds 30
+    )
     if [[ "$ACTOR_PROFILE" == "cross_provider_20260819" ]]; then
       ALLOWED_TOOL_FLAGS=(--allowed-tool exec_command --allowed-tool write_stdin)
-    else
-      RATE_LIMIT_FLAGS=(
-        --rate-limit-retries 12
-        --rate-limit-backoff-seconds 1
-        --rate-limit-max-backoff-seconds 30
-      )
     fi
     ;;
   qwen)
@@ -203,6 +198,27 @@ case "$CONDITION" in
 esac
 
 export "$API_KEY_ENV"
+
+ACTOR_ISOLATION_FLAGS=()
+if [[ "${SKILLOPT_ACTOR_ISOLATION:-1}" == "1" ]]; then
+  ACTOR_SCRATCH_ROOT="${VERUS_SKILL_SCRATCH_ROOT:-$(dirname "$REPO_ROOT")}"
+  ACTOR_VERUS_ROOT="${SKILLOPT_ACTOR_VERUS_ROOT:-$(dirname "$EVAL_VERUS_BIN")}"
+  if [[ -n "${SKILLOPT_ACTOR_RUST_ROOT:-}" ]]; then
+    ACTOR_RUST_ROOT="$SKILLOPT_ACTOR_RUST_ROOT"
+  else
+    ACTOR_RUST_ROOT="$(rustc --print sysroot)"
+  fi
+  ACTOR_ISOLATION_FLAGS=(
+    --actor-isolation-scratch-root "$ACTOR_SCRATCH_ROOT"
+    --actor-isolation-verus-root "$ACTOR_VERUS_ROOT"
+    --actor-isolation-rust-root "$ACTOR_RUST_ROOT"
+    --actor-isolation-forbidden-path "$REPO_ROOT"
+    --actor-isolation-forbidden-path "$SPLIT_DIR"
+  )
+elif [[ "${SKILLOPT_ACTOR_ISOLATION}" != "0" ]]; then
+  echo "SKILLOPT_ACTOR_ISOLATION must be 0 or 1" >&2
+  exit 2
+fi
 
 mkdir "$RUN_DIR"
 "$PYTHON_BIN" "$SCRIPT_DIR/prepare_codex_model_catalog.py" \
@@ -275,6 +291,7 @@ export SKILLOPT_CODEX_BRIDGE_TOKEN=local-bridge-only
   --model-context-window "$CONTEXT_WINDOW" \
   --actor-contract-profile "$ACTOR_PROFILE" \
   --codex-provider-id "$CODEX_PROVIDER_ID" \
+  "${ACTOR_ISOLATION_FLAGS[@]}" \
   "${CHECK_ONLY_FLAGS[@]}" \
   "${ITEM_FLAGS[@]}" \
   2>&1 | tee "$RUN_DIR/test.log"
