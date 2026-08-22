@@ -70,6 +70,38 @@ report verification status and strategies attempted. Do not omit failed steps.
 """
 
 
+def build_cross_provider_prompt(
+    *,
+    skill_present: bool,
+    verus_bin: Path,
+    lynette_bin: Path,
+) -> str:
+    first_rule = (
+        "- Read skill/verus-proof-repair/SKILL.md first and follow it. "
+        "Consult a file below skill/verus-proof-repair/references/ only when "
+        "the root skill explicitly routes you there."
+        if skill_present
+        else "- This is the no-skill control; no proof-repair skill is supplied."
+    )
+    return f"""Repair the Verus proof in candidate.rs.
+
+Rules:
+{first_rule}
+- input.rs is immutable and candidate.rs is the only file you may edit.
+- Do not use assume, admit, newly introduced external_body, axioms, or
+  unimplemented trusted helpers. Do not weaken or remove requires, ensures,
+  recommends, signatures, executable code, or intended specifications.
+- Diagnose with {verus_bin.resolve()} candidate.rs and iterate on the smallest proof-only edit.
+- Before finishing, require both {verus_bin.resolve()} candidate.rs and
+  {lynette_bin.resolve()} compare -t input.rs candidate.rs to exit successfully.
+- Do not search for trajectories, verified solutions, sibling task outputs, or
+  validation/test metadata. Work only from this task, local Verus/vstd
+  documentation, verifier diagnostics, and the supplied immutable skill.
+- Finish only after both checks pass. Otherwise leave the best candidate.rs and
+  state the precise blocker.
+"""
+
+
 def build_command(
     *,
     codex_bin: Path,
@@ -84,7 +116,77 @@ def build_command(
     provider_env_key: str | None = None,
     model_context_window: int | None = None,
     model_catalog_json: Path | None = None,
+    contract_profile: str = "project",
+    prompt_text: str | None = None,
 ) -> list[str]:
+    if contract_profile == "cross_provider_20260819":
+        if prompt_text is None:
+            raise ValueError("cross-provider command requires prompt text")
+        command = [
+            str(codex_bin),
+            "-a",
+            "never",
+            "exec",
+            "--ignore-user-config",
+            "--ephemeral",
+            "--json",
+            "--skip-git-repo-check",
+            "-C",
+            str(workspace),
+            "-s",
+            "workspace-write",
+            "-m",
+            model,
+        ]
+        if any(
+            value is not None
+            for value in (provider_id, provider_base_url, provider_env_key)
+        ):
+            if not all((provider_id, provider_base_url, provider_env_key)):
+                raise ValueError(
+                    "custom Codex provider requires id, base URL, and env key"
+                )
+            command.extend(
+                [
+                    "-c",
+                    f'model_provider="{provider_id}"',
+                    "-c",
+                    f'model_providers.{provider_id}.name="Codex Compatibility Bridge"',
+                    "-c",
+                    f'model_providers.{provider_id}.base_url="{provider_base_url}"',
+                    "-c",
+                    f'model_providers.{provider_id}.env_key="{provider_env_key}"',
+                    "-c",
+                    f'model_providers.{provider_id}.wire_api="responses"',
+                    "-c",
+                    f"model_providers.{provider_id}.request_max_retries=4",
+                    "-c",
+                    f"model_providers.{provider_id}.stream_max_retries=4",
+                ]
+            )
+        command.extend(
+            [
+                "-c",
+                f'model_reasoning_effort="{reasoning_effort}"',
+                "-c",
+                "model_max_output_tokens=8192",
+            ]
+        )
+        if model_context_window is not None:
+            command.extend(
+                ["-c", f"model_context_window={int(model_context_window)}"]
+            )
+        if model_catalog_json is not None:
+            command.extend(
+                [
+                    "-c",
+                    f"model_catalog_json={json.dumps(str(model_catalog_json.resolve()))}",
+                ]
+            )
+        command.append(prompt_text)
+        return command
+    if contract_profile != "project":
+        raise ValueError(f"unsupported Codex contract profile: {contract_profile}")
     disabled_capabilities = (
         "apps",
         "browser_use",
@@ -205,29 +307,32 @@ def _run_complete(
     timeout_seconds: int,
 ) -> dict[str, Any]:
     started = time.monotonic()
+    process = subprocess.Popen(
+        command,
+        cwd=cwd,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        start_new_session=True,
+    )
     try:
-        result = subprocess.run(
-            command,
-            cwd=cwd,
-            capture_output=True,
-            text=True,
-            timeout=timeout_seconds,
-            check=False,
-        )
+        stdout, stderr = process.communicate(timeout=timeout_seconds)
         return {
-            "returncode": result.returncode,
+            "returncode": process.returncode,
             "timed_out": False,
             "wall_seconds": time.monotonic() - started,
-            "stdout": result.stdout,
-            "stderr": result.stderr,
+            "stdout": stdout,
+            "stderr": stderr,
         }
-    except subprocess.TimeoutExpired as exc:
+    except subprocess.TimeoutExpired:
+        os.killpg(process.pid, signal.SIGKILL)
+        stdout, stderr = process.communicate()
         return {
             "returncode": None,
             "timed_out": True,
             "wall_seconds": time.monotonic() - started,
-            "stdout": exc.stdout or "",
-            "stderr": exc.stderr or "",
+            "stdout": stdout,
+            "stderr": stderr,
         }
 
 
@@ -292,6 +397,9 @@ def run_codex_smoke(
     provider_env_key: str | None = None,
     model_context_window: int | None = None,
     model_catalog_json: Path | None = None,
+    contract_profile: str = "project",
+    condition_skill_sha256: str | None = None,
+    stage: str = "auxiliary_dev_fidelity_smoke",
 ) -> dict[str, Any]:
     out_dir = _require_external_output(out_dir)
     codex_bin = _require_executable(codex_bin, "codex")
@@ -300,7 +408,15 @@ def run_codex_smoke(
     source = source.resolve()
     source_sha = sha256_file(source)
     workspace = out_dir / "workspace"
-    prompt = build_prompt()
+    prompt = (
+        build_cross_provider_prompt(
+            skill_present=skill_text is not None,
+            verus_bin=verus_bin,
+            lynette_bin=lynette_bin,
+        )
+        if contract_profile == "cross_provider_20260819"
+        else build_prompt()
+    )
     verus_wrapper = f"""#!/usr/bin/env bash
 set -u
 if [[ "$#" -ne 1 || "$1" != "candidate.rs" ]]; then
@@ -317,18 +433,30 @@ if [[ "$#" -ne 0 ]]; then
 fi
 exec "{lynette_bin}" compare -t input.rs candidate.rs
 """
-    prepare_solver_workspace(
-        source=source,
-        workspace=workspace,
-        task_text=prompt,
-        skill_text=skill_text,
-        extra_files={
-            "tools/run_verus.sh": verus_wrapper,
-            "tools/run_lynette.sh": lynette_wrapper,
-        },
-    )
-    (workspace / "tools" / "run_verus.sh").chmod(0o555)
-    (workspace / "tools" / "run_lynette.sh").chmod(0o555)
+    if contract_profile == "cross_provider_20260819":
+        prepare_solver_workspace(
+            source=source,
+            workspace=workspace,
+            task_text="Repair candidate.rs.\n",
+            skill_text=skill_text,
+            skill_relative_path="skill/verus-proof-repair/SKILL.md",
+            extra_files={"AGENTS.md": prompt},
+        )
+    elif contract_profile == "project":
+        prepare_solver_workspace(
+            source=source,
+            workspace=workspace,
+            task_text=prompt,
+            skill_text=skill_text,
+            extra_files={
+                "tools/run_verus.sh": verus_wrapper,
+                "tools/run_lynette.sh": lynette_wrapper,
+            },
+        )
+        (workspace / "tools" / "run_verus.sh").chmod(0o555)
+        (workspace / "tools" / "run_lynette.sh").chmod(0o555)
+    else:
+        raise ValueError(f"unsupported Codex contract profile: {contract_profile}")
     prompt_path = out_dir / "prompt.txt"
     prompt_path.write_text(prompt, encoding="utf-8")
     last_message = out_dir / "last_message.txt"
@@ -355,11 +483,13 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         provider_env_key=provider_env_key,
         model_context_window=model_context_window,
         model_catalog_json=model_catalog_json,
+        contract_profile=contract_profile,
+        prompt_text=prompt,
     )
     manifest = {
         "run_id": out_dir.name,
         "created_at": _now(),
-        "stage": "auxiliary_dev_fidelity_smoke",
+        "stage": stage,
         "model": model,
         "reasoning_effort": reasoning_effort,
         "reasoning_summary": reasoning_summary,
@@ -367,6 +497,7 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         "hide_agent_reasoning": False,
         "show_raw_agent_reasoning": show_raw_agent_reasoning,
         "timeout_seconds": timeout_seconds,
+        "contract_profile": contract_profile,
         "provider": {
             "id": provider_id,
             "base_url": provider_base_url,
@@ -386,18 +517,23 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
             else None
         ),
         "skill_bytes": len(skill_text.encode("utf-8")) if skill_text is not None else 0,
+        "condition_skill_sha256": condition_skill_sha256,
         "tools": {
             "codex": {"sha256": sha256_file(codex_bin), "version": _version(codex_bin)},
             "verus": {"sha256": sha256_file(verus_bin)},
             "lynette": {"sha256": sha256_file(lynette_bin)},
         },
         "command": [
-            "$CODEX",
-            *command[1 : command.index("-C") + 1],
-            "$WORKSPACE",
-            "--output-last-message",
-            "$LAST_MESSAGE",
-            "-",
+            "$CODEX"
+            if index == 0
+            else "$WORKSPACE"
+            if value == str(workspace)
+            else "$LAST_MESSAGE"
+            if value == str(last_message)
+            else "$PROMPT"
+            if value == prompt
+            else value
+            for index, value in enumerate(command)
         ],
         "actor_environment_keys": sorted(_codex_environment(provider_env_key)),
         "raw_log_uncompressed": True,
@@ -426,7 +562,8 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         )
         assert process.stdin is not None
         assert process.stdout is not None
-        process.stdin.write(prompt)
+        if contract_profile == "project":
+            process.stdin.write(prompt)
         process.stdin.close()
 
         def stop_process() -> None:
@@ -602,6 +739,9 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         "tool_output_truncation_marker_count": truncation_marker_count,
         "shell_edit_suspect_count": len(shell_edit_suspects),
         "shell_edit_suspects": shell_edit_suspects,
+        "shell_candidate_edits_allowed": (
+            contract_profile == "cross_provider_20260819"
+        ),
         "completed_tool_or_edit_boundaries": completed_boundaries,
         "candidate_snapshot_count": len(snapshots),
         "all_boundaries_have_candidate_snapshot": snapshot_coverage,
@@ -626,7 +766,10 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         and raw_payload_coverage
         and completed_command_payloads
         and truncation_marker_count == 0
-        and not shell_edit_suspects
+        and (
+            not shell_edit_suspects
+            or contract_profile == "cross_provider_20260819"
+        )
         and snapshot_coverage
         and snapshot_files_complete
         and input_unchanged

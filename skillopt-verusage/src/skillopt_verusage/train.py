@@ -256,6 +256,7 @@ def _adapter(cfg: dict[str, Any]) -> VeruSAGEAdapter:
             max_codex_timeout_seconds=cfg.get("max_codex_timeout_seconds", 1200),
             model_context_window=cfg.get("model_context_window", 262144),
             seed=cfg["seed"],
+            run_stage="skillopt_training_rollout",
         )
     return VeruSAGEAdapter(
         split_dir=cfg["split_dir"],

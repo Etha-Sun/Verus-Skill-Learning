@@ -9,7 +9,10 @@ from pathlib import Path
 from typing import Any
 
 from skillopt_verusage.adapter import VeruSAGEAdapter
-from skill_evolution_pilot.codex_runner import build_prompt
+from skill_evolution_pilot.codex_runner import (
+    build_cross_provider_prompt,
+    build_prompt,
+)
 from skill_evolution_pilot.workspace import sha256_file
 
 
@@ -40,6 +43,10 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
         model_context_window: int = 262144,
         fail_on_invalid: bool = True,
         seed: int = 42,
+        actor_contract_profile: str = "project",
+        condition_skill_present: bool = True,
+        codex_provider_id: str = "deepseek_bridge",
+        run_stage: str = "skillopt_actor_rollout",
     ) -> None:
         super().__init__(
             split_dir=split_dir,
@@ -69,6 +76,16 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
             self.task_retries if timeout_retries is None else int(timeout_retries)
         )
         self.model_context_window = int(model_context_window)
+        if actor_contract_profile not in {"project", "cross_provider_20260819"}:
+            raise ValueError(
+                f"unsupported actor contract profile: {actor_contract_profile}"
+            )
+        self.actor_contract_profile = actor_contract_profile
+        self.condition_skill_present = bool(condition_skill_present)
+        self.codex_provider_id = codex_provider_id
+        if not run_stage.strip():
+            raise ValueError("run_stage must be non-empty")
+        self.run_stage = run_stage
         self._codex_version = subprocess.run(
             [str(self.codex_bin), "--version"],
             capture_output=True,
@@ -112,10 +129,25 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
             and result.get("actor_reasoning_effort") == self.reasoning_effort
             and result.get("fidelity") in {"V2_TRACE", "V1_TRUNCATED"}
             and manifest.get("source_sha256") == item["source_sha256"]
-            and manifest.get("skill_sha256") == skill_sha256
+            and manifest.get("condition_skill_sha256") == skill_sha256
             and manifest.get("prompt_sha256")
-            == hashlib.sha256(build_prompt().encode("utf-8")).hexdigest()
+            == hashlib.sha256(
+                (
+                    build_cross_provider_prompt(
+                        skill_present=self.condition_skill_present,
+                        verus_bin=self.verus_bin,
+                        lynette_bin=self.lynette_bin,
+                    )
+                    if self.actor_contract_profile == "cross_provider_20260819"
+                    else build_prompt()
+                ).encode("utf-8")
+            ).hexdigest()
             and manifest.get("model") == self.actor_model
+            and manifest.get("contract_profile") == self.actor_contract_profile
+            and manifest.get("condition_skill_present")
+            == self.condition_skill_present
+            and manifest.get("codex_provider_id") == self.codex_provider_id
+            and manifest.get("stage") == self.run_stage
             and manifest.get("timeout_seconds") in allowed_timeouts
             and provider.get("base_url") == expected_provider_url
             and provider.get("wire_api") == "responses"
@@ -187,7 +219,15 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
             str(timeout_seconds),
             "--model-context-window",
             str(self.model_context_window),
+            "--actor-contract-profile",
+            self.actor_contract_profile,
+            "--codex-provider-id",
+            self.codex_provider_id,
+            "--run-stage",
+            self.run_stage,
         ]
+        if not self.condition_skill_present:
+            command.append("--condition-skill-absent")
         process: subprocess.Popen[str] | None = None
         try:
             process = subprocess.Popen(

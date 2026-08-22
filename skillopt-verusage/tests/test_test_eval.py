@@ -12,6 +12,7 @@ from skillopt_verusage.test_eval import (
     _attach_item_metadata,
     _load_skill,
     _require_run_dir,
+    _run_direct,
     _select_test_items,
     _summarize,
 )
@@ -77,6 +78,54 @@ class TestFixedTestEvalContract(unittest.TestCase):
 
     def test_common_prompt_has_no_hands_off_framework_label(self) -> None:
         self.assertNotIn("hands-off", build_prompt().lower())
+
+    def test_direct_reference_blank_propagates_profile_and_omits_skill(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            out_dir = Path(temp_dir) / "run"
+            out_dir.mkdir()
+            fake_result = {
+                "status": "UNSOLVED",
+                "timed_out": False,
+                "fidelity": {"f3": True, "input_unchanged": True},
+            }
+            with patch(
+                "skillopt_verusage.test_eval.run_codex_smoke",
+                return_value=fake_result,
+            ) as run_smoke:
+                results = _run_direct(
+                    items=[
+                        {
+                            "id": "case-a",
+                            "task_id": "AC__case_a",
+                            "project_code": "AC",
+                            "claude_failed": False,
+                            "source_path": "/sealed/case-a.rs",
+                        }
+                    ],
+                    out_dir=out_dir,
+                    skill_text="\n",
+                    skill_sha256=hashlib.sha256(b"\n").hexdigest(),
+                    model="gpt-5.6-sol",
+                    reasoning_effort="max",
+                    codex_bin=Path("/bin/true"),
+                    verus_bin=Path("/bin/true"),
+                    lynette_bin=Path("/bin/true"),
+                    workers=1,
+                    timeout_seconds=600,
+                    model_context_window=1048576,
+                    actor_contract_profile="cross_provider_20260819",
+                    condition_skill_present=False,
+                )
+            skill_file_exists = (out_dir / "skill.md").exists()
+        kwargs = run_smoke.call_args.kwargs
+        self.assertIsNone(kwargs["skill_text"])
+        self.assertEqual(kwargs["contract_profile"], "cross_provider_20260819")
+        self.assertEqual(kwargs["stage"], "formal_held_out_evaluation")
+        self.assertFalse(skill_file_exists)
+        self.assertFalse(results[0]["condition_skill_present"])
+        self.assertEqual(
+            results[0]["actor_contract_profile"], "cross_provider_20260819"
+        )
 
     def test_direct_summary_excludes_invalid_solved_rows(self) -> None:
         summary = _summarize(

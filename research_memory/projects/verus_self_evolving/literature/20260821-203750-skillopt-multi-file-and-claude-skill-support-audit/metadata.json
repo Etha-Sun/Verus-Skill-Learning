@@ -1,0 +1,14 @@
+{
+  "title": "SkillOpt multi-file and Claude skill support audit",
+  "project": "verus_self_evolving",
+  "kind": "literature",
+  "created_at": "2026-08-21T20:37:50",
+  "status": "complete",
+  "links": [
+    "https://github.com/microsoft/SkillOpt",
+    "https://github.com/microsoft/SkillOpt/issues/54",
+    "https://github.com/microsoft/SkillOpt/issues/145",
+    "https://github.com/microsoft/SkillOpt/pull/212"
+  ],
+  "raw_data_read_only": true
+}

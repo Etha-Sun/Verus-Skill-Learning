@@ -35,6 +35,7 @@ def prepare_solver_workspace(
     workspace: Path,
     task_text: str,
     skill_text: str | None = None,
+    skill_relative_path: str = "SKILL.md",
     extra_files: Mapping[str, str] | None = None,
 ) -> dict[str, object]:
     if workspace.exists() and any(workspace.iterdir()):
@@ -50,7 +51,12 @@ def prepare_solver_workspace(
     input_path.chmod(0o444)
     (workspace / "TASK.md").write_text(task_text, encoding="utf-8")
     if skill_text is not None:
-        (workspace / "SKILL.md").write_text(skill_text, encoding="utf-8")
+        skill_path = Path(skill_relative_path)
+        if skill_path.is_absolute() or ".." in skill_path.parts:
+            raise ValueError(f"skill file escapes workspace: {skill_relative_path}")
+        destination = workspace / skill_path
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(skill_text, encoding="utf-8")
 
     for relative_path, content in (extra_files or {}).items():
         path = Path(relative_path)
@@ -65,7 +71,7 @@ def prepare_solver_workspace(
         "input.rs": "immutable_task",
         "candidate.rs": "writable_candidate",
         "TASK.md": "solver_instruction",
-        "SKILL.md": "candidate_skill",
+        skill_relative_path: "candidate_skill",
     }
     manifest = {
         "schema_version": "1",
