@@ -1,0 +1,13 @@
+{
+  "title": "Vskill 0822 evaluation alignment branch",
+  "project": "verus_self_evolving",
+  "kind": "decisions",
+  "created_at": "2026-08-22T13:13:39",
+  "status": "complete",
+  "links": [
+    "skillopt-verusage/refine-logs/SKILLOPT_S1_S2_CROSS_MODEL_FINAL_REPORT_20260821.md",
+    "skillopt-verusage/refine-logs/JULY_VERUS_RESULT_AND_REGRESSION_ANALYSIS_20260821.md",
+    "CROSS_PROVIDER_EVALUATION_SETUP_AND_API_BRIDGES.md"
+  ],
+  "raw_data_read_only": true
+}

@@ -1,6 +1,6 @@
 # Current Research State
 
-Last updated: 2026-08-20
+Last updated: 2026-08-21
 
 ## Active Direction
 
@@ -23,6 +23,77 @@ GitHub root and add parallel top-level workstream directories (`refine-logs/`,
 Defer both the large `verus_skill_learning` package reorganization and the
 exact outer-workspace mirror. Promote code into `src/` only when it has a
 reusable interface and tests.
+
+## Vskill-0822 Evaluation Alignment Branch (2026-08-22)
+
+The selected integration route is a new `Vskill-0822` branch created from one
+reviewed checkpoint commit on `feature/skillopt-verusage-20260812`; the
+external Trace2Skill branch will not be merged wholesale. The bounded scope is
+to decouple verified proof outcome, completion within the 600-second budget,
+and trace fidelity; enable the existing GLM HTTP 429 backoff in the
+reference-aligned profile; add a reproducible cached/uncached input plus output
+token figure; and pin formal Verus release
+`release/0.2025.09.12.bb1f342`.
+
+Timeout candidates that pass independent Verus and Lynette validation and all
+safety checks remain solved, while `within_budget` records whether they
+completed before timeout. V0/V1/V2 controls whether a trajectory is reusable,
+not whether the independently validated proof is correct. Cached input remains
+part of cumulative input-token volume and is shown as a segment rather than
+subtracted. Before any paid rerun, compare the September 12 release with the
+VeruSAGE benchmark commit `ddc66116` in a verifier-only test-20 gate.
+
+Canonical decision:
+`research_memory/projects/verus_self_evolving/decisions/20260822-131339-vskill-0822-evaluation-alignment-branch/ENTRY.md`.
+
+## SkillOpt Multi-File Support Audit (2026-08-21)
+
+Microsoft SkillOpt `main` at `bdfdc30` still defines the core research artifact
+as one trainable Markdown string exported as `best_skill.md`. SkillOpt-Sleep
+does support loadable frontmatter-bearing `SKILL.md` files and, after merged
+PR 212, can independently consolidate, gate, stage, and adopt several existing
+skills in one night. That is multi-skill fan-out across separate `SKILL.md`
+files, not multi-file evolution within one Anthropic-style skill directory.
+
+The current resolver reads only `<root>/<name>/SKILL.md`; proposals and adoption
+each target that one exact file. No current code or open PR jointly optimizes
+`references/`, `scripts/`, or `assets/`. PR 134 evaluates one candidate
+`SKILL.md` inside a real Superpowers Claude plugin checkout but does not evolve
+the companion files. Issues 54 and 145 record explicit maintainer promises for
+whole-folder support, yet both were closed without a linked implementing PR.
+
+Canonical audit:
+`research_memory/projects/verus_self_evolving/literature/20260821-203750-skillopt-multi-file-and-claude-skill-support-audit/ENTRY.md`.
+Next action: if local work needs reference cards or helpers, define and gate a
+versioned whole-bundle manifest rather than assuming upstream fan-out supplies
+that abstraction; re-check upstream before implementation because it is active.
+
+## SkillOpt Verus Failure-Driven Idea Discovery (2026-08-21)
+
+The current failure evidence does not support a whole-document SkillOpt router:
+across nine historical monolithic candidates, the selection oracle union is
+15/20, exactly the best fixed candidate. Cross-model trajectories instead show
+that whole-skill outcomes confound invalid infrastructure, local action
+validity, actor adoption, and exposure-induced proof-search drift. The
+inspected test-20 is now diagnostic-only and cannot be used for method
+selection or confirmation.
+
+The selected Phase-0 direction is V-FACE, a deliberately narrow prospective
+evaluation/admission protocol for three frozen typed proof-action templates.
+It separates Build-only forced-edit technical validity, randomized card
+exposure ITT, and adoption telemetry. Independent novelty review rated the
+only plausible method increment PARTIAL, and four method reviews ended at
+8.00/10 with the design frozen but the empirical verdict still REVISE.
+
+Three offline pilots found zero whole-skill routing headroom, 532.94x
+structured trace compaction with complete required-ledger coverage, and only
+1/8 mechanically extractable near-miss lemma contrasts. The last result makes
+the typed action compiler the hard gate. Next action is R001-R005 only:
+inventory/contamination audit and a 30-checkpoint CPU compiler gate. Do not
+implement runtime retrieval or claim solved-rate/token gains before that gate.
+
+Canonical entry:
+`research_memory/projects/verus_self_evolving/ideas/20260821-213956-skillopt-verus-failure-driven-v-face/ENTRY.md`.
 
 ## SkillOpt on VeruSAGE Feasibility Proposal (2026-08-06)
 
@@ -2380,6 +2451,113 @@ development-only routing ablation.
 Canonical review:
 `research_memory/projects/verus_self_evolving/literature/20260819-200347-skillopt-and-skill-entropy-comparative-literature-review/ENTRY.md`.
 No raw or sealed data was read or modified.
+
+## SkillOpt S1/S2 Four-Model Held-Out Evaluation (2026-08-21)
+
+The final reference-aligned blank/S1/S2 matrix is complete on the frozen
+VeruSAGE test-20. This result supersedes the earlier worker-20 and diagnostic
+tables above. GPT-5.6 Sol scored 18/17/17, DeepSeek V4 Pro 14/14/14, GLM-5.3
+15/15/16, and Qwen3.8-27B BF16 3/5/6. Blank-to-S2 deltas are therefore -1, 0,
++1, and +3. All 240 retained main results were provider-valid with unchanged
+inputs, and every counted solve passed independent Verus and Lynette checks.
+The five historical Claude-failed tasks do not explain the positive deltas:
+GPT solved 3/2/2, DeepSeek 1/1/1, GLM 1/1/1, and Qwen 0/0/0 across
+blank/S1/S2.
+
+Score summaries hide task exchange. Qwen S1-to-S2 has three gains and two
+regressions; GLM blank-to-S1 and GPT S1-to-S2 each contain one gain and one
+regression despite tied aggregate scores. Candidate diffs support recurring
+contract-first, semantic-bridge, structural-induction, and explicit
+quantifier-antecedent mechanisms, but several transitions are not uniquely
+explained by the S1-to-S2 text delta and must retain a search-variance caveat.
+There is only one retained rollout per condition.
+
+Known metered main plus official-two API spend is USD 9.21704 for DeepSeek and
+USD 26.12293 for GLM, USD 35.33997 total; transport/error calls without
+provider usage make this a lower bound. GPT uses local quota. Qwen API cost is
+zero. Its main matrix spans 10,995.54 seconds on a shared 4-GPU TP service,
+equivalent to 12.22 service-window GPU-hours that cannot be exclusively
+attributed to the experiment. Qwen used BF16, and the shared checkpoint
+revision was unreadable from this account, so it is not an exact replication
+of the author's FP8 Qwen arm. This also deviated from the preregistered
+owned/sequential Qwen service plan; shared contention can affect progress
+under a 600-second cutoff. All 264 retained actor manifests inherited a stale
+`auxiliary_dev_fidelity_smoke` stage label even though arm-level contracts
+correctly record held-out purpose. Historical raw manifests remain unchanged;
+the generator is fixed for future formal evaluation.
+
+Fresh official-Verus two-task scores for blank/S1/S2 are GPT 2/2,2/2,2/2;
+DeepSeek 1/2,0/2,1/2; GLM 1/2,1/2,0/2; and Qwen 0/2,0/2,0/2. The targeted
+hybrid remains explicitly separate from a full official-Verus test-20 rerun.
+The GLM total covers 60 main task rollouts (USD 21.75512) plus six
+official-Verus task rollouts (USD 4.36780), not one 20-task condition. Next
+action: repeat the six Qwen transition tasks and the GLM
+`AC__vreplicaset_controller__proof__liveness__api_actions__lemma_list_pods_request_returns_ok_list_resp_containing_matching_pods`/
+`AC__vreplicaset_controller__proof__liveness__api_actions__lemma_get_then_delete_matching_pod_request_deletes_matching_pod_and_returns_ok`
+pair with multiple seeds and owned, revision-locked services before
+claiming stable cross-model transfer.
+
+A two-round independent read-only audit returned PASS after cost/runtime scope,
+Qwen protocol deviation, stale manifest stage, causal wording, and aggregator
+fail-closed issues were corrected or disclosed. The reviewer independently
+reconciled all 24 model/skill/version conditions and 264 retained results and reran 46/46 plus 80/80
+tests. Historical raw manifests were not rewritten.
+
+A focused July-Verus presentation and three-panel figure were added on
+2026-08-21. Test positions 9
+(`IR__marshal_ironsht_specific_v__impl2__lemma_serialize_injective`) and 19
+(`IR__single_delivery_model_v__impl2__send_single_cmessage`) are UNSOLVED in
+all 12 model/skill conditions apiece. They contribute zero while remaining in
+the denominator; this is not a hard-coded false or an exclusion. The only
+final no-skill-to-S2 regression is GPT-5.6 Sol on
+`AC__vreplicaset_controller__proof__liveness__resource_match__lemma_from_after_receive_ok_resp_to_send_create_pod_req`.
+Its S2 trace expands all `Step` variants and omits two existing domain lemmas,
+which is consistent with skill-conditioned search interference, while one
+rollout per condition is insufficient to separate that possibility from
+search variance or to establish a causal skill effect.
+The new figure reads directly from the frozen `per_task.csv` and compares only
+no-skill with S2. Runtime and cost average all 20 tasks; no solved-only series
+is shown. Cost bars use actual retained per-task provider billing and
+explicitly exclude archived retries. DeepSeek price periods differ across
+conditions, so those raw dollar bars are spending records rather than a
+skill-cost comparison.
+
+Canonical artifacts:
+
+- `skillopt-verusage/refine-logs/SKILLOPT_S1_S2_CROSS_MODEL_FINAL_REPORT_20260821.md`
+- `skillopt-verusage/refine-logs/JULY_VERUS_RESULT_AND_REGRESSION_ANALYSIS_20260821.md`
+- `research_memory/projects/verus_self_evolving/experiments/20260821-130358-skillopt-s1-s2-four-model-held-out-evaluation/ENTRY.md`
+- `${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/report-s1-s2-20260821/aggregate-live/`
+- `${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/report-s1-s2-20260821/figures/july_verus_cross_model_summary/`
+
+## GPT/GLM Skill Trajectory Case Study (2026-08-21)
+
+A focused audit of held-out task `0a8f681e5d0104455f3b` explains the observed
+model-dependent skill effect using only visible trajectory evidence. GPT-5.6
+Sol solves under blank/S1/S2 but takes 339.54/479.03/464.71 seconds. The skill
+arms increase cumulative input tokens from 1.420M to 2.402M/2.449M, changed
+candidate checkpoints from 8 to 14/13, and failed Verus calls from 8 to 14/13.
+S2 also delays the first edit from 98 to 154 seconds after 34 rather than 10
+pre-edit commands. The supported mechanism is redundant contract-first
+inspection plus finer verifier-guided decomposition, not the few seconds spent
+reading the skill file.
+
+GLM-5.3 changes from a 602.49-second timeout with 25 failed Verus calls to S1
+and S2 solves at 558.54 and 502.87 seconds with 12 and 13 failures. Blank's
+final proof leaves two semantic jumps open: unmarshalled-Pod metadata equality
+and Pod equality to DynamicObject `object_ref` equality. The skill-conditioned
+proofs explicitly establish the missing `metadata -> object_ref -> map key ->
+stored object` injectivity chain with named predicates and quantified
+antecedents. Because S1 already solves, the main supported ingredient is the
+shared contract/bridge/bounded-iteration core; the S2-only additions are not
+separately identified. This is one rollout per condition with no visible hidden
+reasoning, so it is mechanism evidence rather than a stable causal estimate.
+
+Durable note:
+`research_memory/projects/verus_self_evolving/notes/20260821-180041-gpt-glm-skill-trajectory-case-study/ENTRY.md`.
+Next action: run task-disjoint, repeated-seed clause ablations and test adaptive
+routing that preserves bridge guidance while capping redundant inspection for
+already-capable actors. No raw run or frozen source was modified.
 
 ## Fast Pointers
 

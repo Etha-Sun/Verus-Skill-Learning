@@ -66,3 +66,41 @@
 | 2026-08-04 17:42 | /research-refine | refine-logs/REFINEMENT_REPORT.md | implementation | latest refinement report |
 | 2026-08-04 17:42 | /research-memory | research_memory/projects/verus_self_evolving/ideas/20260804-174224-verus-retrieval-skill-system-design/ENTRY.md | memory | durable design decision and evidence boundary |
 | 2026-08-04 17:42 | /research-memory | research_memory/projects/verus_self_evolving/ideas/20260804-174224-verus-retrieval-skill-system-design/metadata.json | memory | memory-entry metadata and source links |
+| 2026-08-21 21:16 | /idea-discovery | ${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/idea-discovery-skillopt-verus-20260821_210659/pilots/pilot1_whole_skill_routing_ceiling.json | idea-discovery | negative whole-skill routing oracle ceiling pilot |
+| 2026-08-21 21:16 | /idea-discovery | ${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/idea-discovery-skillopt-verus-20260821_210659/pilots/pilot2_trace_sufficient_statistics.json | idea-discovery | 532.94x structured trace compaction pilot |
+| 2026-08-21 21:16 | /idea-discovery | ${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/idea-discovery-skillopt-verus-20260821_210659/pilots/pilot3_near_miss_constructibility.json | idea-discovery | weak 1-of-8 naive near-miss action extraction pilot |
+| 2026-08-21 21:16 | /idea-discovery | ${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/idea-discovery-skillopt-verus-20260821_210659/pilots/heldout_test_diagnostic_only.json | idea-discovery | non-selective post-hoc test pattern summary |
+| 2026-08-21 21:20 | /research-refine | refine-logs/verifier-factored-skillopt/round-0-initial-proposal_20260821_212001.md | implementation | initial V-FACE proposal before causal-identification review |
+| 2026-08-21 21:20 | /research-refine | refine-logs/verifier-factored-skillopt/round-1-review_20260821_212001.md | review | 6.10 independent method review |
+| 2026-08-21 21:20 | /research-refine | refine-logs/verifier-factored-skillopt/round-1-refinement_20260821_212001.md | implementation | typed compiler and prospective benchmark revision |
+| 2026-08-21 21:20 | /research-refine | refine-logs/verifier-factored-skillopt/round-2-review_20260821_212001.md | review | 7.10 template/admission review |
+| 2026-08-21 21:20 | /research-refine | refine-logs/verifier-factored-skillopt/round-2-refinement_20260821_212001.md | implementation | template-instance and frozen admission revision |
+| 2026-08-21 21:20 | /research-refine | refine-logs/verifier-factored-skillopt/round-3-review_20260821_212001.md | review | 7.70 final protocol issues review |
+| 2026-08-21 21:20 | /research-refine | refine-logs/verifier-factored-skillopt/round-3-refinement_20260821_212001.md | implementation | leakage, coverage, labels, and budget cleanup |
+| 2026-08-21 21:20 | /research-refine | refine-logs/verifier-factored-skillopt/round-4-review_20260821_212001.md | review | 8.00 final design audit and empirical REVISE verdict |
+| 2026-08-21 21:20 | /research-refine | refine-logs/FINAL_PROPOSAL_20260821_212001.md | implementation | timestamped clean V-FACE proposal |
+| 2026-08-21 21:20 | /research-refine | refine-logs/FINAL_PROPOSAL.md | implementation | latest clean V-FACE proposal |
+| 2026-08-21 21:20 | /research-refine | refine-logs/REVIEW_SUMMARY_20260821_212001.md | review | timestamped four-round review summary |
+| 2026-08-21 21:20 | /research-refine | refine-logs/REVIEW_SUMMARY.md | review | latest four-round review summary |
+| 2026-08-21 21:20 | /research-refine | refine-logs/REFINEMENT_REPORT_20260821_212001.md | implementation | timestamped refinement record and evidence blockers |
+| 2026-08-21 21:20 | /experiment-plan | refine-logs/EXPERIMENT_PLAN_20260821_212001.md | implementation | claim-driven V-FACE Phase-0/1 plan |
+| 2026-08-21 21:20 | /experiment-plan | refine-logs/EXPERIMENT_TRACKER_20260821_212001.md | implementation | R001-R011 gated execution tracker |
+| 2026-08-21 21:20 | /research-refine-pipeline | refine-logs/PIPELINE_SUMMARY_20260821_212001.md | implementation | integrated method and experiment handoff |
+| 2026-08-21 21:20 | /idea-discovery | idea-stage/IDEA_REPORT_20260821_212001.md | idea-discovery | full failure analysis, pilots, literature, ranked ideas, and recommendation |
+| 2026-08-21 21:20 | /idea-discovery | idea-stage/IDEA_REPORT.md | idea-discovery | latest V-FACE idea discovery report |
+| 2026-08-21 21:20 | /idea-discovery | idea-stage/IDEA_CANDIDATES_20260821_212001.md | idea-discovery | compact ranked candidate summary |
+| 2026-08-21 21:20 | /idea-discovery | idea-stage/docs/research_contract_20260821_212001.md | idea-discovery | focused V-FACE research contract |
+| 2026-08-21 21:39 | /render-html | idea-stage/IDEA_REPORT_20260821_212001.html | idea-discovery | single-file readable report view, no extra claim review |
+| 2026-08-21 21:39 | /research-memory | research_memory/projects/verus_self_evolving/ideas/20260821-213956-skillopt-verus-failure-driven-v-face/ENTRY.md | memory | durable V-FACE result, caveat, and next gate |
+| 2026-08-21 21:39 | /research-memory | research_memory/projects/verus_self_evolving/ideas/20260821-213956-skillopt-verus-failure-driven-v-face/metadata.json | memory | V-FACE memory metadata and canonical links |
+| 2026-08-21 21:20 | /idea-discovery | idea-stage/IDEA_CANDIDATES.md | idea-discovery | latest compact V-FACE candidate summary |
+| 2026-08-21 21:20 | /idea-discovery | idea-stage/docs/research_contract.md | idea-discovery | active focused V-FACE research contract |
+| 2026-08-21 21:39 | /render-html | idea-stage/IDEA_REPORT.html | idea-discovery | latest readable single-file report view |
+| 2026-08-21 21:20 | /experiment-plan | refine-logs/EXPERIMENT_PLAN.md | implementation | latest V-FACE Phase-0/1 plan |
+| 2026-08-21 21:20 | /experiment-plan | refine-logs/EXPERIMENT_TRACKER.md | implementation | latest gated V-FACE tracker |
+| 2026-08-21 21:20 | /research-refine-pipeline | refine-logs/PIPELINE_SUMMARY.md | implementation | latest integrated pipeline handoff |
+| 2026-08-21 21:20 | /research-refine | refine-logs/REFINEMENT_REPORT.md | implementation | latest refinement report |
+| 2026-08-21 21:20 | /research-refine | refine-logs/REFINE_STATE_20260821_212001.json | implementation | completed four-round V-FACE refinement state |
+| 2026-08-21 21:20 | /research-refine | refine-logs/REFINE_STATE.json | implementation | latest completed V-FACE refinement state |
+| 2026-08-21 21:39 | /research-memory | research_memory/CURRENT.md | memory | current state updated with V-FACE result and caveat |
+| 2026-08-21 21:40 | /research-memory | research_memory/INDEX.md | memory | regenerated canonical memory index |
