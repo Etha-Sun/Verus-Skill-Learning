@@ -27,6 +27,13 @@
 
 ## 主要文件
 
+- `PLAN.md` / `CHECKLIST.md`：Vskill-0822 的 Trace2Skill 选择性迁移范围与验收项。
+- `refine-logs/VSKILL_0822_TRACE2SKILL_ALIGNMENT.md`：实现差异、token/time/score
+  差距原因和剩余可比性边界。
+- `src/skillopt_verusage/trace2skill.py`：immutable candidate schedule 与 snapshot
+  lineage；promotion 继续复用本仓库 held-out gate。
+- `src/skillopt_verusage/outcome.py`：proof correctness、timeout budget、input safety
+  和 V0/V1/V2 trace fidelity 的正交计分合同。
 - `refine-logs/EXPERIMENT_PLAN.md`：claim-driven proposal、接入协议、实验矩阵、
   预算和 stop/go gate。
 - `refine-logs/EXPERIMENT_TRACKER.md`：最小可执行顺序。

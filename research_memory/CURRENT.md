@@ -46,6 +46,29 @@ VeruSAGE benchmark commit `ddc66116` in a verifier-only test-20 gate.
 Canonical decision:
 `research_memory/projects/verus_self_evolving/decisions/20260822-131339-vskill-0822-evaluation-alignment-branch/ENTRY.md`.
 
+Implementation is complete on `Vskill-0822`. The branch now contains immutable
+Trace2Skill candidate/snapshot lineage, bridge actor mount/network/seccomp
+isolation with exact resume provenance, correctness/budget/safety/fidelity
+outcome separation, GLM 429 backoff in both actor profiles, and a fail-closed
+September 12 Verus identity contract. The formal release was built and
+installed separately from the retained `ddc66116` comparator. The two known
+version-sensitive retained GPT blank candidates pass under both binaries.
+
+Model-free validation passes all 146 `skill-evolution-pilot` and
+`skillopt-verusage` tests, shell/compile checks, an end-to-end actor-isolation
+smoke, and PDF render inspection. The reviewed figure and its 12-row `n=20`
+CSV are below
+`${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/vskill-0822-integration-20260822/figures/`.
+Raw datasets and historical runs were not modified. No paid inference was run,
+so this integration does not establish score, token, or time parity. Bridge
+actors are aligned to the upstream isolation structure; GPT direct remains
+explicitly non-isolated until it has a reviewed local bridge. Next action is a
+saved `--check-only` preflight, followed by a separately approved fresh run
+rather than resuming historical results.
+
+Implementation report:
+`skillopt-verusage/refine-logs/VSKILL_0822_TRACE2SKILL_ALIGNMENT.md`.
+
 ## SkillOpt Multi-File Support Audit (2026-08-21)
 
 Microsoft SkillOpt `main` at `bdfdc30` still defines the core research artifact
