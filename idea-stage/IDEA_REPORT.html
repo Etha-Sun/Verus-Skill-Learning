@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillOpt × Verus Failure-Driven Redesign</title>
+
+<meta name="generator" content="ARIS render-html (academic, v1)">
+<meta name="aris:source-path" content="idea-stage/IDEA_REPORT.md">
+<meta name="aris:source-sha256" content="21dc8acba882d396da5243fbd10712d977358c840a72a97e09729d8927f6f6e1">
+<meta name="aris:generated-at" content="2026-08-22 02:39 UTC">
+
+<!-- MathJax 3 -->
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+
+<!-- highlight.js -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-light.min.css">
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<script>document.addEventListener('DOMContentLoaded', () => hljs.highlightAll());</script>
+
+
+<style>
+:root {
+  --bg: #fdfcf7;
+  --bg-soft: #f4f1ea;
+  --bg-code: #f8f5ec;
+  --ink: #1a1a1a;
+  --ink-soft: #4a4a4a;
+  --ink-muted: #6b6b6b;
+  --primary: #1a4a8c;
+  --primary-soft: #2d6cb8;
+  --accent: #b8390e;
+  --warn: #b45309;
+  --warn-bg: #fef3c7;
+  --info-bg: #dbeafe;
+  --good-bg: #d1fae5;
+  --good: #065f46;
+  --bad-bg: #fee2e2;
+  --bad: #991b1b;
+  --border: #d6d0c0;
+  --border-soft: #e8e3d5;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "Source Serif Pro", "Source Serif 4", "Crimson Pro", "Georgia", "Songti SC", "STSong", serif;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--bg);
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+
+.layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 48px;
+  padding: 40px 32px;
+}
+
+nav.toc {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+  font-size: 13px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  border-right: 1px solid var(--border-soft);
+  padding-right: 16px;
+}
+nav.toc h3 {
+  margin: 0 0 12px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  font-weight: 600;
+}
+nav.toc ol { list-style: none; padding: 0; margin: 0; counter-reset: toc; }
+nav.toc ol li { margin: 5px 0; counter-increment: toc; }
+nav.toc ol li::before { content: counter(toc) ". "; color: var(--ink-muted); margin-right: 4px; }
+nav.toc a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-bottom: 1px dotted transparent;
+}
+nav.toc a:hover { color: var(--primary); border-bottom-color: var(--primary); }
+nav.toc ul { list-style: none; padding-left: 14px; margin: 3px 0; font-size: 12px; }
+nav.toc ul li::before { content: "→ "; color: var(--border); }
+
+main { min-width: 0; }
+
+header.hero {
+  border-bottom: 3px double var(--primary);
+  padding-bottom: 24px;
+  margin-bottom: 32px;
+}
+header.hero .eyebrow {
+  color: var(--accent);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+header.hero h1 {
+  font-size: 32px;
+  line-height: 1.2;
+  margin: 0 0 12px;
+  color: var(--ink);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+header.hero .subtitle {
+  font-size: 16px;
+  color: var(--ink-soft);
+  margin: 0 0 8px;
+  font-style: italic;
+}
+header.hero .byline {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 0 0 20px;
+}
+header.hero .byline strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+header.hero .meta {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--ink-muted);
+  border-top: 1px solid var(--border-soft);
+  padding-top: 14px;
+}
+header.hero .meta span strong { color: var(--ink-soft); }
+header.hero .meta code {
+  font-family: "JetBrains Mono", "SF Mono", "Menlo", "Consolas", monospace;
+  font-size: 11px;
+  background: var(--bg-soft);
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid var(--border-soft);
+}
+
+h2 {
+  font-size: 24px;
+  margin: 44px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink);
+  font-weight: 700;
+}
+h2 .num { color: var(--primary); font-weight: 600; margin-right: 8px; }
+h3 { font-size: 19px; margin: 28px 0 10px; color: var(--primary); font-weight: 600; }
+h4 { font-size: 16px; margin: 20px 0 8px; color: var(--ink); font-weight: 600; }
+
+p { margin: 10px 0; }
+ul, ol { padding-left: 22px; margin: 10px 0; }
+ul li, ol li { margin: 4px 0; }
+ul li::marker { color: var(--primary); }
+
+strong { color: var(--accent); font-weight: 600; }
+em { color: var(--ink-soft); }
+
+a { color: var(--primary); }
+a:hover { color: var(--accent); }
+
+code:not(.hljs) {
+  font-family: "JetBrains Mono", "SF Mono", "Menlo", "Consolas", monospace;
+  font-size: 0.86em;
+  background: var(--bg-code);
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid var(--border-soft);
+  color: var(--accent);
+}
+
+pre {
+  background: #fafaf6;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  padding: 0;
+  overflow-x: auto;
+  border-radius: 4px;
+  margin: 14px 0;
+}
+pre code, pre code.hljs {
+  background: transparent !important;
+  display: block;
+  padding: 14px 18px !important;
+  font-size: 13px;
+  line-height: 1.55;
+  font-family: "JetBrains Mono", "SF Mono", "Menlo", monospace;
+  color: var(--ink);
+}
+pre.diagram {
+  background: #f9f6ed;
+  border-left: 4px solid var(--accent);
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+
+.callout {
+  margin: 16px 0;
+  padding: 12px 16px;
+  border-radius: 4px;
+  border-left: 4px solid;
+  font-size: 15px;
+}
+.callout-title {
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.callout-info { background: var(--info-bg); border-left-color: var(--primary); }
+.callout-info .callout-title { color: var(--primary); }
+.callout-warn { background: var(--warn-bg); border-left-color: var(--warn); }
+.callout-warn .callout-title { color: var(--warn); }
+.callout-good { background: var(--good-bg); border-left-color: var(--good); }
+.callout-good .callout-title { color: var(--good); }
+.callout-bad { background: var(--bad-bg); border-left-color: var(--bad); }
+.callout-bad .callout-title { color: var(--bad); }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 14px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+thead { background: var(--primary); color: white; }
+th, td {
+  text-align: left;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border-soft);
+  vertical-align: top;
+}
+th { font-weight: 600; font-size: 13px; letter-spacing: 0.02em; }
+tr:last-child td { border-bottom: none; }
+tbody tr:nth-child(even) { background: var(--bg-soft); }
+
+details.qa, details {
+  background: white;
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  margin: 10px 0;
+  padding: 0;
+}
+details summary {
+  cursor: pointer;
+  padding: 10px 14px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--primary);
+  list-style: none;
+  user-select: none;
+}
+details summary::-webkit-details-marker { display: none; }
+details summary::before {
+  content: "▸ ";
+  margin-right: 4px;
+  display: inline-block;
+  transition: transform 0.15s;
+}
+details[open] summary::before { transform: rotate(90deg); }
+details[open] summary { border-bottom: 1px solid var(--border-soft); }
+details > :not(summary) { padding: 10px 14px; }
+details p:first-of-type { margin-top: 8px; }
+
+mjx-container[display="true"] { margin: 12px 0 !important; }
+
+footer.aris-footer {
+  margin-top: 60px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+footer.aris-footer a { color: var(--ink-muted); border-bottom: 1px dotted var(--border); }
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; gap: 20px; padding: 20px 16px; }
+  nav.toc {
+    position: static;
+    max-height: none;
+    border-right: none;
+    border-bottom: 1px solid var(--border-soft);
+    padding-right: 0;
+    padding-bottom: 14px;
+  }
+  header.hero h1 { font-size: 24px; }
+  h2 { font-size: 20px; }
+}
+@media print {
+  nav.toc { display: none; }
+  .layout { grid-template-columns: 1fr; padding: 0; }
+  body { background: white; }
+  header.hero { border-bottom-color: var(--ink); }
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<nav class="toc">
+  <h3>Contents</h3>
+  <ol>
+<li><a href="#executive-summary">Executive Summary</a>
+</li>
+<li><a href="#evidence-boundary">Evidence Boundary</a>
+</li>
+<li><a href="#what-the-existing-experiments-actually-say">What the Existing Experiments Actually Say</a>
+<ul>
+<li><a href="#epoch-level-behavior">Epoch-level behavior</a></li>
+<li><a href="#cross-model-test-matrix">Cross-model test matrix</a></li>
+</ul>
+</li>
+<li><a href="#concrete-failure-trajectory-analysis">Concrete Failure-Trajectory Analysis</a>
+<ul>
+<li><a href="#a-knowledge-was-present-but-the-actor-did-not-realize-it">A. Knowledge was present, but the actor did not realize it</a></li>
+<li><a href="#b-exposure-changed-proof-search-control-not-just-knowledge">B. Exposure changed proof-search control, not just knowledge</a></li>
+<li><a href="#c-skill-can-supply-a-missing-composition-to-a-weaker-actor">C. Skill can supply a missing composition to a weaker actor</a></li>
+<li><a href="#d-more-generic-scaffolding-cannot-replace-domain-semantics">D. More generic scaffolding cannot replace domain semantics</a></li>
+<li><a href="#e-tooldata-validity-contaminates-learning-if-not-separated">E. Tool/data validity contaminates learning if not separated</a></li>
+</ul>
+</li>
+<li><a href="#root-cause-taxonomy">Root-Cause Taxonomy</a>
+</li>
+<li><a href="#three-offline-pilots">Three Offline Pilots</a>
+<ul>
+<li><a href="#pilot-1--whole-skill-routing-ceiling-negative">Pilot 1 — Whole-skill routing ceiling: NEGATIVE</a></li>
+<li><a href="#pilot-2--structured-trace-sufficient-statistics-positive-narrow">Pilot 2 — Structured trace sufficient statistics: POSITIVE, narrow</a></li>
+<li><a href="#pilot-3--naive-near-miss-constructibility-weak">Pilot 3 — Naive near-miss constructibility: WEAK</a></li>
+</ul>
+</li>
+<li><a href="#literature-landscape-and-novelty-boundary">Literature Landscape and Novelty Boundary</a>
+<ul>
+<li><a href="#skill-evolution-and-trajectory-learning">Skill evolution and trajectory learning</a></li>
+<li><a href="#retrieval-contracts-and-abstention">Retrieval, contracts and abstention</a></li>
+<li><a href="#attribution-and-executed-replay">Attribution and executed replay</a></li>
+<li><a href="#formal-proof-retrievalsearch">Formal proof retrieval/search</a></li>
+</ul>
+</li>
+<li><a href="#ranked-ideas">Ranked Ideas</a>
+</li>
+<li><a href="#why-v-face-wins-despite-partial-novelty">Why V-FACE Wins Despite Partial Novelty</a>
+</li>
+<li><a href="#refined-proposal-and-review">Refined Proposal and Review</a>
+</li>
+<li><a href="#recommended-next-action">Recommended Next Action</a>
+</li>
+</ol>
+</nav>
+
+<main>
+<header class="hero">
+
+  <h1>SkillOpt × Verus Failure-Driven Redesign</h1>
+
+
+  <div class="meta">
+    <span><strong>Source:</strong> <code>idea-stage/IDEA_REPORT.md</code></span>
+    <span><strong>SHA256:</strong> <code>21dc8acba882</code></span>
+    <span><strong>Rendered:</strong> 2026-08-22 02:39 UTC</span>
+
+  </div>
+</header>
+
+<h1 id="idea-discovery-report-skillopt--verus-failure-driven-redesign">Idea Discovery Report: SkillOpt × Verus Failure-Driven Redesign</h1>
+<p><strong>Direction</strong>: 基于已有 self-evolution 与多模型 test fail cases，寻找 SkillOpt 在 task-specific formal verification 中最值得做的改进 <strong>Date</strong>: 2026-08-21 <strong>Pipeline</strong>: research-lit → idea-creator → novelty-check → research-review → research-refine-pipeline <strong>Evidence status</strong>: retrospective diagnosis complete; three offline pilots complete; prospective method evidence not yet available</p>
+<h2 id="executive-summary">Executive Summary</h2>
+<p>最重要的结论不是“SkillOpt 需要更多 reference”，而是：<strong>SkillOpt 在我们场景中的首要瓶颈是错误的学习与归因单位</strong>。它把整篇 <code>SKILL.md</code> 当 action、把整条 stochastic trajectory 的最终成功当 reward，于是无法区分：规则本身是否正确、模型是否采用、额外 context 是否把搜索带偏、以及任务是否因 harness/tooling 本就无效。</p>
+<p>这解释了一个表面矛盾：S1/S2 中存在正确的 contract-first、exact predicate、extensional witness 指导，但同一模型仍可能不执行它，或因额外文本改走更长、更差的路线。已有 9 个完整 skill 候选的 selection oracle union 仍是 15/20，与最佳单体相同，直接否定了“先在完整文档之间做 router”这条近路。</p>
+<p>本轮推荐的不是一个更复杂的 retriever，而是 <strong>V-FACE</strong>：先冻结三类可执行 typed proof-action template，区分 compiler-dependent forced-edit validity、随机化 card-exposure ITT 与 adoption telemetry，用 Build-only evidence 预测独立 checkpoint 上是否应当暴露 card。独立 novelty review 只把它评为 PARTIAL；四轮方法评审从 6.1 提升到 8.0，但最终仍是 “design-frozen for Phase 0 / empirical REVISE”。真正的下一步是 30-checkpoint compiler gate；不过 gate 就停止，不继续堆 optimizer 或 retrieval。</p>
+<h2 id="evidence-boundary">Evidence Boundary</h2>
+<ul><li>已查看 test-20 的 outcome 与 trajectory，所以它现在只能作 post-hoc diagnosis，不能再作方法选择、阈值校准或 confirmatory evaluation。</li><li>已用过的 40 train + 20 selection 只作 retrospective hypothesis generation。</li><li>信息增益不是本研究主终点。</li><li>所有数值均来自现有 run artifacts；本轮没有修改 raw/sealed data，没有启动 GPU/live actor experiment。</li><li>当前不声称 V-FACE 提高 solved rate、token efficiency 或提供 causal ground truth。</li></ul>
+<h2 id="what-the-existing-experiments-actually-say">What the Existing Experiments Actually Say</h2>
+<h3 id="epoch-level-behavior">Epoch-level behavior</h3>
+<p>Self-evolution 的主要 selection 分数为：S0 13/20、E1 14/20、E2 12/20、E3 15/20、E4 14/20；slow/repair 候选为 13、13、12、14。所有 9 个候选的 oracle union 仍为 15/20。E2 slow 虽获得一个新解，却让三个 retained successes 跨过 600 秒边界；所有 observed selection transition 都与 timeout boundary 强相关。</p>
+<p>这意味着 whole-skill gate 有两个结构性缺陷：</p>
+<ol><li>不能给新增 clause/card 局部 credit；一个好 bridge 与一个坏 workflow bias 被绑在同一 acceptance decision 中。</li><li>selection 只看最终 hard count 时，会把“新解 + 多个 retained timeout”压成一个粗分数，不能形成负适用域。</li></ol>
+<p>Optimizer 输入还曾达到 1.06M 与 1.90M characters；一次外部化 trace 后降到约 341K/921K。这说明 raw trajectory flooding 本身会改变 optimizer 可用性，但压缩不是研究贡献。</p>
+<h3 id="cross-model-test-matrix">Cross-model test matrix</h3>
+<p>80 个 model×task units 的 blank/S1/S2 pattern 为：<code>SSS=46</code>、<code>UUU=24</code>、<code>SUS=3</code>、<code>SSU=1</code>、<code>USS=2</code>、<code>UUS=2</code>、<code>USU=2</code>；只有 10/80 units 改变最终状态。</p>
+<table><thead><tr><th>Actor</th><th style="text-align:right">Blank</th><th style="text-align:right">S1</th><th style="text-align:right">S2</th><th style="text-align:right">Oracle among three</th><th>Interpretation</th></tr></thead><tbody><tr><td>GPT-5.6 Sol</td><td style="text-align:right">18</td><td style="text-align:right">17</td><td style="text-align:right">17</td><td style="text-align:right">18</td><td>skill 带来一处恢复也带来一处新 regression；整体不增反降</td></tr><tr><td>DeepSeek V4 Pro</td><td style="text-align:right">14</td><td style="text-align:right">14</td><td style="text-align:right">14</td><td style="text-align:right">14</td><td>能力集合完全不变，效率方向高度异质</td></tr><tr><td>GLM-5.3</td><td style="text-align:right">15</td><td style="text-align:right">15</td><td style="text-align:right">16</td><td style="text-align:right">16</td><td>skill 补上组合性 semantic bridge，但接近 timeout</td></tr><tr><td>Qwen3.8-27B BF16</td><td style="text-align:right">3</td><td style="text-align:right">5</td><td style="text-align:right">6</td><td style="text-align:right">8</td><td>有 selective headroom，但同一 S2 也破坏 S1 的两个解</td></tr></tbody></table>
+<p>该表只支持“effect actor-conditional 且非单调”的诊断，不支持从 test 学 router。</p>
+<h2 id="concrete-failure-trajectory-analysis">Concrete Failure-Trajectory Analysis</h2>
+<h3 id="a-knowledge-was-present-but-the-actor-did-not-realize-it">A. Knowledge was present, but the actor did not realize it</h3>
+<table><thead><tr><th>Case</th><th>Exact trajectory difference</th><th>Mechanism diagnosis</th></tr></thead><tbody><tr><td>Qwen <code>AL__push_to_set_seq_to_set_insert</code></td><td>S1 仅调用一行现有 <code>lemma_push_to_set_commute</code>，clean retry 207.08s 通过；S2 写 pointwise set extensional proof，卡在 <code>push</code> membership，未回退到现有 contract</td><td>card/knowledge 可能有效；S2 failure 是 strategy selection/adoption，不应给 contract-first rule 负信用</td></tr><tr><td>GLM get/delete matching pod</td><td>blank 287.73s 用 delete/update branches + 双向 membership witnesses 通过；S1 只 assert set equality、215.98s 失败；S2 用 133 行补齐两个方向和 finite-cardinality bridge、301.53s 恢复</td><td>S1 已有 extensional guidance 但未执行；outcome label 混淆“规则缺失”与“规则未被采用”</td></tr><tr><td>Qwen <code>AL__always_to_current</code></td><td>blank 238.28s 调 <code>execution_equality</code> 通过；S1 直接 assert suffix equality，600s 失败；S2 恢复 lemma，211.32s 通过</td><td>不是新知识，而是对已有 bridge 的选择方差</td></tr><tr><td>Qwen fold-left</td><td>S1 用结构归纳 + <code>lemma_fold_left_split</code>，520.05s 通过；S2 留空/超时</td><td>S2 并未删除 induction 指导；新增文本不是单调 superset，trajectory behavior 才是实际 treatment</td></tr></tbody></table>
+<h3 id="b-exposure-changed-proof-search-control-not-just-knowledge">B. Exposure changed proof-search control, not just knowledge</h3>
+<table><thead><tr><th>Case</th><th>Exact trajectory difference</th><th>Mechanism diagnosis</th></tr></thead><tbody><tr><td>GPT <code>resource_match</code></td><td>blank 300.90s 与 S1 只处理两个困难 branch并复用 domain lemmas；S2 展开全部 <code>Step</code> variants，把 APIServer/Controller 留为 bare assertions，631.66s 超时</td><td>最强 skill-conditioned search interference；S2 甚至违背自身 representative-arm/checkpoint 规则</td></tr><tr><td>GPT temporal invariant</td><td>blank 90 行、519.19s，通过 state requirements/equivalence/<code>invariant_n!</code>；S1 改成 141 行手工 Step split 并超时；S2 用 exact <code>implies</code> + named <code>partial_spec</code>，488.79s 恢复</td><td>同一 skill lineage 既可诱发过度展开，也可促进最小 bridge；whole-document scalar credit 无法区分局部 clause</td></tr><tr><td>GPT/GLM pod listing</td><td>GPT blank/S1/S2 都成功，时间 339.54/479.03/464.71s；pre/all commands 10/26、14/34、34/56；failed Verus 8/14/13；input tokens 1.420M→2.402M/2.449M</td><td>读取 skill 本身只晚约 6–7s，主要开销来自更保守的 decomposition/micro-iteration；skill 是 workflow perturbation</td></tr><tr><td>GLM serialization injective</td><td>blank/S1 调 sibling serialization lemma 通过；S2 改走 vector injectivity，只得到 <code>to_vec().view_equal</code>，未 bridge 到 <code>self.view_equal</code></td><td>“exact/extensional”局部原则压过更早的 contract-first；策略优先级需要 exposure-level 评估</td></tr></tbody></table>
+<h3 id="c-skill-can-supply-a-missing-composition-to-a-weaker-actor">C. Skill can supply a missing composition to a weaker actor</h3>
+<p>GLM pod-listing blank 在 602.49s 留下不完整 uniqueness/cardinality proof；S1 558.54s、S2 502.87s 通过。成功链条是：equal Pod views → metadata → name/namespace/kind → ObjectRef → resource key → stored object → no-duplicates。这里 skill 的价值不是某一个 lemma 名字，而是把多个已有 contract 组合为 typed bridge chain。</p>
+<p>Qwen <code>AL__leads_to_by_borrowing_inv</code> 中 blank/S1 只实例化 premises，未显式建立 <code>p.and(inv)</code>；S2 命名 <code>p_and_inv</code> 并按 antecedent/suffix 建立局部 invariant，最终通过。这是 exact predicate + named bridge 的可信正例。</p>
+<p>Qwen <code>make_send_only_event_results</code> 的 blank 把 <code>ghost(...)</code> 当字段表达式而 type error；S1/S2 直接构造 <code>EventResults { recvs, clocks, sends, ios }</code>，115.92/166.53s 通过。有效模式是读返回 postcondition 后构造逐字段匹配的 ghost value。</p>
+<h3 id="d-more-generic-scaffolding-cannot-replace-domain-semantics">D. More generic scaffolding cannot replace domain semantics</h3>
+<p>DeepSeek 在 temporal invariant task 的 blank/S1/S2 全失败；S2 把 skeleton 从约 45 行扩到 99 行、requests 从约 30 增到 42，仍缺 domain-specific temporal implication。这反驳“再加一层通用 workflow checklist 就能解决”的想法。真正缺少的是可绑定的 domain bridge，且它是否应暴露必须按 checkpoint 判断。</p>
+<h3 id="e-tooldata-validity-contaminates-learning-if-not-separated">E. Tool/data validity contaminates learning if not separated</h3>
+<ul><li>8/40 train 与 1/20 selection tasks 因 macro/crate/wrapper incompatibility 无效，却曾以 proof failure 进入 optimizer evidence。</li><li>DeepSeek get/delete 的一次 S2 candidate 同时通过 Verus+Lynette，但 Responses stream <code>IncompleteRead</code>、无 clean terminal event；按预注册规则必须是 <code>V0_INVALID</code>，clean retry 又失败。它说明 strategy 可能有价值、运行又不具有效度，不能把 invalid success 当性能，也不能简单给 strategy 正/负信用。</li><li>Qwen <code>values_agree</code> 的 blank 把 <code>int</code> cast 放进 executable decreases，S1 又有 parser 标点错，S2 才写合法 invariant/decreases；parser/type/ghost-mode 失败需要与 semantic proof failure 分层。</li></ul>
+<h2 id="root-cause-taxonomy">Root-Cause Taxonomy</h2>
+<ol><li><strong>Compatibility contamination</strong>：无效 harness/provider/tool terminal 被当 proof evidence。</li><li><strong>Wrong credit unit</strong>：整篇文档接受/拒绝，无法定位 clause/template。</li><li><strong>Action validity uncertainty</strong>：自然语言 rule 能否在当前 state 编译成合法 proof edit 未知。</li><li><strong>Incorporation failure</strong>：有效 action 已描述，但 actor 没有执行。</li><li><strong>Exposure/control drift</strong>：额外 context 改变 decomposition、策略优先级和迭代次数。</li><li><strong>Missing domain bridge</strong>：通用规则无法合成 task-specific semantic chain。</li><li><strong>Budget-bound phase transition</strong>：大量差异由是否跨越 600s 决定，单次二元 outcome 不稳定。</li><li><strong>Actor-conditional realization</strong>：同一文本对 GPT、GLM、Qwen 的收益与干扰方向不同。</li></ol>
+<p>核心判断：1 是必须修的 hygiene；2–5 是 V-FACE 的研究对象；6 是未来 reference/card corpus 的内容来源；7–8 是评估设计约束。不能把八项都做成一个大系统。</p>
+<h2 id="three-offline-pilots">Three Offline Pilots</h2>
+<h3 id="pilot-1--whole-skill-routing-ceiling-negative">Pilot 1 — Whole-skill routing ceiling: NEGATIVE</h3>
+<ul><li>9 个 monolithic candidates，best fixed 15/20，oracle union 15/20，headroom 0。</li><li>结论：淘汰 naive whole-document router；必须生成 subdocument intervention 或新 artifact。</li></ul>
+<h3 id="pilot-2--structured-trace-sufficient-statistics-positive-narrow">Pilot 2 — Structured trace sufficient statistics: POSITIVE, narrow</h3>
+<ul><li>180 development traces；selected raw evidence 51,692,832 bytes，structured 96,996 bytes，532.94×。</li><li>outcome/timeout/fidelity/hash/Verus/Lynette fields 180/180 覆盖。</li><li>结论：可避免 million-character optimizer prompt；但 semantic judgment preservation 未证明，需 blinded raw-vs-structured audit。</li></ul>
+<h3 id="pilot-3--naive-near-miss-constructibility-weak">Pilot 3 — Naive near-miss constructibility: WEAK</h3>
+<ul><li>8 个 mixed-outcome tasks，success-only unique lemma contrast 仅 1/8，低于预注册 4/8 gate。</li><li>结论：observational whole-skill trajectories 不能自动给 clause credit；同时 action extraction 是核心可行性风险，必须先 gate。</li></ul>
+<h2 id="literature-landscape-and-novelty-boundary">Literature Landscape and Novelty Boundary</h2>
+<h3 id="skill-evolution-and-trajectory-learning">Skill evolution and trajectory learning</h3>
+<ul><li><a href="https://arxiv.org/abs/2605.23904">SkillOpt</a> 与 <a href="https://arxiv.org/abs/2507.19457">GEPA</a> 已覆盖 trajectory/reflection-driven skill or prompt evolution。</li><li><a href="https://arxiv.org/abs/2605.10999">SkillGen</a> 已用成功/失败轨迹生成 skill，并做 same-instance intervention。</li></ul>
+<h3 id="retrieval-contracts-and-abstention">Retrieval, contracts and abstention</h3>
+<ul><li><a href="https://arxiv.org/abs/2604.24594">SRA</a> 已把 retrieval/incorporation/end-task 分开，并指出 when-to-load bottleneck。</li><li><a href="https://arxiv.org/abs/2604.27283">RSCB-MC</a> 已做 risk-sensitive memory routing 与 abstention。</li><li><a href="https://arxiv.org/abs/2606.09316">Anything2Skill</a> 的 skill contract 已包含 invocation condition、contraindication、evidence 与 confidence。</li><li><a href="https://arxiv.org/abs/2608.12720">ERSkill</a> 已联合演化 retrieval skills 与 router，并有 double frontier。</li></ul>
+<p>因此“reference + router + abstain”不是新颖 thesis。</p>
+<h3 id="attribution-and-executed-replay">Attribution and executed replay</h3>
+<ul><li><a href="https://arxiv.org/abs/2606.08275">Causal Agent Replay</a> 已做 agent-step do-intervention 与 forward replay。</li><li><a href="https://arxiv.org/abs/2608.19760">Credit Without Ground Truth</a> 在 executed replay 下发现常见 step credit 接近 chance，且 causal contribution 稀疏。</li><li><a href="https://arxiv.org/abs/2608.09153">TRACE</a> 已对 prompt/skill/KB/tool 做 trajectory attribution 与 context repair。</li><li><a href="https://arxiv.org/abs/2607.20999">WML/WGSO</a> 已做 workflow node/mechanism attribution、最小 edit target 与 scoped third-party skill reuse。</li></ul>
+<p>所以不能声称“首个 causal skill optimizer”或“verifier 提供 causal ground truth”。</p>
+<h3 id="formal-proof-retrievalsearch">Formal proof retrieval/search</h3>
+<ul><li><a href="https://arxiv.org/abs/2502.05344">RAG-Verus</a> 已做 repository-level Verus retrieval。</li><li><a href="https://arxiv.org/abs/2604.05399">PROMISE</a> 已做 structural proof-state transition mining/retrieval。</li><li><a href="https://arxiv.org/abs/2306.15626">LeanDojo/ReProver</a> 与 <a href="https://arxiv.org/abs/2310.04353">COPRA</a> 已覆盖 premise retrieval 与 verifier-guided proof search。</li></ul>
+<p>因此 proof-state fingerprint 与 typed bridge retrieval 只能是系统部件。V-FACE 唯一可能的新意，是把可执行 artifact 的 forced technical validity 与 card exposure 总行为效应分开，并检验 Build evidence 能否跨 checkpoint 支持 prospective admission。</p>
+<h2 id="ranked-ideas">Ranked Ideas</h2>
+<table><thead><tr><th style="text-align:right">Rank</th><th>Idea</th><th>Local signal</th><th>Novelty</th><th>Status</th></tr></thead><tbody><tr><td style="text-align:right">1</td><td><strong>V-FACE typed artifact admission</strong></td><td>whole-router negative + compiler risk exposed</td><td>PARTIAL 5/10；review 8.0</td><td><strong>RECOMMENDED for Phase 0 only</strong></td></tr><tr><td style="text-align:right">2</td><td>Anti-Expansion Governor</td><td>GPT over-expansion、timeout boundary 强</td><td>中低；workflow control 已拥挤</td><td>BACKUP after Phase 0</td></tr><tr><td style="text-align:right">3</td><td>Typed Bridge-Chain Miner</td><td>GLM pod-listing、Qwen named bridge 正例</td><td>中低；接近 PROMISE/RAG-Verus</td><td>BACKUP content source</td></tr><tr><td style="text-align:right">4</td><td>Actor-Conditional Skill Realization</td><td>test oracle headroom mainly Qwen；GPT harm</td><td>低；像 model-specific prompting</td><td>DIAGNOSTIC ONLY</td></tr><tr><td style="text-align:right">5</td><td>Compatibility Sentinel</td><td>8/40 + 1/20 invalid contamination</td><td>工程必要、非论文创新</td><td>REQUIRED HYGIENE</td></tr><tr><td style="text-align:right">6</td><td>Negative-Utility Domain Miner</td><td>retained-success timeout 与 wrong-route cases</td><td>与 contraindication/WGSO 重叠</td><td>SUPPORTING ONLY</td></tr><tr><td style="text-align:right">7</td><td>Proof-State Delta Cards</td><td>formal representation 合理</td><td>与 PROMISE/proof-state retrieval 重叠</td><td>MERGED INTO V-FACE DSL</td></tr><tr><td style="text-align:right">8</td><td>Retain-Success Frontier Bandit</td><td>E2 negative transfer 明确</td><td>与 ERSkill double frontier/RSCB 重叠</td><td>DEFER</td></tr><tr><td style="text-align:right">9</td><td>Near-Miss Contrastive Optimizer</td><td>naive extractor 1/8</td><td>自动构造尚不可行</td><td>HALTED BY PILOT</td></tr><tr><td style="text-align:right">10</td><td>Whole-skill router / ordinary reference RAG</td><td>oracle headroom 0；prior art crowded</td><td>无</td><td>ELIMINATED</td></tr></tbody></table>
+<h2 id="why-v-face-wins-despite-partial-novelty">Why V-FACE Wins Despite Partial Novelty</h2>
+<p>V-FACE 不是分数最高的“漂亮故事”，而是唯一直接把已有轨迹中的不可辨识性变成可证伪 gate 的方案：</p>
+<ul><li>它能区分“一行 lemma 技术上有效但模型没采用”与“lemma 本身不适用”。</li><li>它不会把 forced edit 的 verifier 结果夸成 card causal effect。</li><li>它把 1/8 negative pilot 变成 stop rule：compiler 不过就不做 retrieval。</li><li>它允许最后得到有价值的 negative result：generic replay 已足够，或 formal typed evidence没有跨 checkpoint 信号。</li></ul>
+<h2 id="refined-proposal-and-review">Refined Proposal and Review</h2>
+<ul><li>Final proposal: <code>refine-logs/FINAL_PROPOSAL.md</code></li><li>Score history: <code>refine-logs/verifier-factored-skillopt/score-history.md</code></li><li>Review progression: 6.10 → 7.10 → 7.70 → 8.00</li><li>Final review verdict: <strong>REVISE empirically; design-frozen for Phase 0</strong></li><li>Novelty verdict: C1 PARTIAL 5/10；contraindication/abstention 与 checkpoint representation 单独 REJECTED。</li></ul>
+<h2 id="recommended-next-action">Recommended Next Action</h2>
+<p>先做 inventory/contamination audit，然后只实现 <code>CardTemplate → instantiate_static → execute_forced_edit</code> 的三类 compiler，运行 30-checkpoint CPU gate：≥18/30 instantiable、≥90% semantic correctness、100% Lynette fidelity、越界≤5%。</p>
+<p>不要先实现 runtime retriever。只有 compiler gate 与 prospective dry run 都通过，才接回已有的 invisible-search/top-one-injection 设计；现有 test-20 不再参与任何 decision。</p>
+
+<footer class="aris-footer">
+  Generated by <a href="https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep/blob/main/skills/render-html/SKILL.md">ARIS <code>/render-html</code></a> ·
+  source path <code>idea-stage/IDEA_REPORT.md</code> ·
+  SHA256 <code>21dc8acba882</code> ·
+  generated at 2026-08-22 02:39 UTC.
+  This is a generated view — edit the source Markdown, then re-render.
+</footer>
+</main>
+
+</div>
+</body>
+</html>
