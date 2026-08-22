@@ -9,7 +9,12 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
+from skill_evolution_pilot.actor_isolation import (
+    ActorIsolationConfig,
+    isolation_preflight,
+)
 from skill_evolution_pilot.codex_runner import (
     build_cross_provider_prompt,
     build_prompt,
@@ -19,6 +24,13 @@ from skill_evolution_pilot.workspace import sha256_file
 
 from skillopt_verusage.codex_flash_adapter import CodexDeepSeekAdapter
 from skillopt_verusage.dataloader import VeruSAGEDataLoader
+from skillopt_verusage.outcome import (
+    TRACE_COMPLETE_CLASSES,
+    fidelity_class,
+    proof_solved,
+    within_budget,
+)
+from skillopt_verusage.verus_release import require_formal_verus
 
 
 FIXED_SPLIT_SHA256 = "a71e2a3838c2222312cc2487fc35b6a24cbc924e0a917d5e9120499f0ba2b49c"
@@ -150,7 +162,6 @@ def _run_direct(
 
     def execute(item: dict[str, Any]) -> dict[str, Any]:
         task_dir = predictions / str(item["id"])
-        last_result: dict[str, Any] | None = None
         last_error = ""
         for attempt_index in range(1, 4):
             try:
@@ -188,16 +199,11 @@ def _run_direct(
                     }
                 )
                 _write_json(task_dir / "result.json", result)
-                last_result = result
-                if result["fidelity_class"] != "V0_INVALID":
-                    return result
-                last_error = "invalid Codex event stream or input-integrity judgment"
+                return result
             except Exception as error:
                 last_error = f"{type(error).__name__}: {error}"
             if attempt_index < 3 and task_dir.exists() and any(task_dir.iterdir()):
                 _archive_attempt(task_dir, attempt_index)
-        if last_result is not None:
-            return last_result
         task_dir.mkdir(parents=True, exist_ok=True)
         fallback = {
             "id": item["id"],
@@ -285,10 +291,7 @@ def _summarize(
             )
         }
         estimated_cost = 0.0
-        is_valid = lambda row: row.get("fidelity_class") in {  # noqa: E731
-            "V1_TRUNCATED",
-            "V2_TRACE",
-        }
+        trace_complete = lambda row: fidelity_class(row) in TRACE_COMPLETE_CLASSES  # noqa: E731
     else:
         usage_rows = [row.get("usage") or {} for row in results]
         retained_usage = {
@@ -311,14 +314,15 @@ def _summarize(
         else:
             usage, estimated_cost = retained_usage, retained_cost
             cost_basis = "retained task results"
-        is_valid = lambda row: row.get("fidelity") in {  # noqa: E731
-            "V1_TRUNCATED",
-            "V2_TRACE",
-        }
-    valid = sum(is_valid(row) for row in results)
-    solved = sum(is_valid(row) and row.get("status") == "SOLVED" for row in results)
+        trace_complete = lambda row: fidelity_class(row) in TRACE_COMPLETE_CLASSES  # noqa: E731
+    fidelity_counts = {
+        fidelity: sum(fidelity_class(row) == fidelity for row in results)
+        for fidelity in ("V0_INVALID", "V1_TRUNCATED", "V2_TRACE")
+    }
+    valid = sum(trace_complete(row) for row in results)
+    solved = sum(proof_solved(row) for row in results)
     summary = {
-        "status": "complete" if valid == len(results) else "complete_with_invalid_results",
+        "status": "complete",
         "finished_at": _now(),
         "model": model,
         "test_n": len(results),
@@ -326,14 +330,25 @@ def _summarize(
         "claude_failed_n": sum(bool(row.get("claude_failed")) for row in results),
         "claude_failed_solved": sum(
             bool(row.get("claude_failed"))
-            and is_valid(row)
-            and row.get("status") == "SOLVED"
+            and proof_solved(row)
             for row in results
         ),
-        "valid_results": valid,
-        "invalid_solved_excluded": sum(
-            not is_valid(row) and row.get("status") == "SOLVED" for row in results
+        "timeouts": sum(bool(row.get("timed_out")) for row in results),
+        "timeout_solved": sum(
+            bool(row.get("timed_out")) and proof_solved(row) for row in results
         ),
+        "within_budget_solved": sum(
+            within_budget(row) and proof_solved(row) for row in results
+        ),
+        "valid_results": valid,
+        "trace_complete_results": valid,
+        "trace_incomplete_results": len(results) - valid,
+        "trace_status": "complete" if valid == len(results) else "partial",
+        "fidelity_counts": fidelity_counts,
+        "v0_solved_included": sum(
+            not trace_complete(row) and proof_solved(row) for row in results
+        ),
+        "invalid_solved_excluded": 0,
         "usage": usage,
         "estimated_api_cost_usd": estimated_cost,
         "cost_basis": "local quota" if transport == "direct" else cost_basis,
@@ -371,6 +386,12 @@ def main() -> None:
     parser.add_argument("--bridge-url")
     parser.add_argument("--bridge-ledger", type=Path)
     parser.add_argument("--bridge-manifest", type=Path)
+    parser.add_argument("--actor-isolation-scratch-root", type=Path)
+    parser.add_argument("--actor-isolation-verus-root", type=Path)
+    parser.add_argument("--actor-isolation-rust-root", type=Path)
+    parser.add_argument(
+        "--actor-isolation-forbidden-path", type=Path, action="append", default=[]
+    )
     parser.add_argument("--item-id", action="append", default=[])
     parser.add_argument("--check-only", action="store_true")
     args = parser.parse_args()
@@ -382,10 +403,7 @@ def main() -> None:
     skill_text, skill_sha256 = _load_skill(
         args.skill_file, args.expected_skill_sha256
     )
-    condition_skill_present = not (
-        args.actor_contract_profile == "cross_provider_20260819"
-        and args.skill_label == "blank"
-    )
+    condition_skill_present = args.skill_label != "blank"
     prompt = (
         build_cross_provider_prompt(
             skill_present=condition_skill_present,
@@ -398,12 +416,48 @@ def main() -> None:
     for binary in (args.codex_bin, args.verus_bin, args.lynette_bin):
         if not binary.resolve().is_file():
             raise ValueError(f"required executable does not exist: {binary.resolve()}")
+    verus_identity = require_formal_verus(args.verus_bin)
+    isolation_values = (
+        args.actor_isolation_scratch_root,
+        args.actor_isolation_verus_root,
+        args.actor_isolation_rust_root,
+    )
+    if any(value is not None for value in isolation_values) and not all(
+        value is not None for value in isolation_values
+    ):
+        raise ValueError("actor isolation requires scratch, Verus, and Rust roots")
+    actor_isolation_check: dict[str, Any] = {"requested": False, "mode": "none"}
     if args.transport == "bridge":
         if not all((args.bridge_url, args.bridge_ledger, args.bridge_manifest)):
             raise ValueError("bridge transport requires URL, ledger, and manifest")
         bridge_manifest = json.loads(args.bridge_manifest.read_text(encoding="utf-8"))
         if bridge_manifest.get("fake_mode") or bridge_manifest.get("model") != args.model:
             raise ValueError("bridge manifest is fake or has the wrong model")
+        if all(value is not None for value in isolation_values):
+            bridge_port = urlparse(args.bridge_url).port
+            if bridge_port is None:
+                raise ValueError("actor isolation bridge URL requires an explicit port")
+            isolation = ActorIsolationConfig(
+                scratch_root=args.actor_isolation_scratch_root,
+                verus_root=args.actor_isolation_verus_root,
+                rust_root=args.actor_isolation_rust_root,
+                bridge_port=bridge_port,
+                forbidden_paths=tuple(args.actor_isolation_forbidden_path),
+            )
+            isolation.validate(
+                workspace=args.actor_isolation_scratch_root / ".actor-preflight",
+                codex_bin=args.codex_bin,
+                lynette_bin=args.lynette_bin,
+            )
+            host_preflight = isolation_preflight()
+            if not host_preflight["supported"]:
+                raise ValueError(f"actor isolation preflight failed: {host_preflight}")
+            actor_isolation_check = {
+                **isolation.manifest(),
+                "host_preflight": host_preflight,
+            }
+    elif any(value is not None for value in isolation_values):
+        raise ValueError("actor isolation currently requires bridge transport")
 
     check = {
         "status": "ok",
@@ -428,6 +482,8 @@ def main() -> None:
         "workers": args.workers,
         "timeout_seconds": args.timeout_seconds,
         "model_context_window": args.model_context_window,
+        "actor_isolation": actor_isolation_check,
+        "verus_identity": verus_identity,
     }
     if args.check_only:
         print(json.dumps(check, ensure_ascii=False, indent=2))
@@ -444,8 +500,9 @@ def main() -> None:
         "test_ids": [item["id"] for item in items],
         "reasoning_effort": args.reasoning_effort,
         "valid_timeout_retries": 0,
-        "invalid_harness_retries": 2,
-        "hard_metric": "independent Verus pass AND Lynette proof-only pass",
+        "runner_exception_retries": 2,
+        "fidelity_triggered_retries": 0,
+        "hard_metric": "independent Verus pass AND Lynette proof-only pass AND input safety",
         "reference_proof_visible": False,
         "prior_trajectory_visible": False,
         "cost_cap_usd": None,
@@ -494,6 +551,24 @@ def main() -> None:
             condition_skill_present=condition_skill_present,
             codex_provider_id=args.codex_provider_id,
             run_stage="formal_held_out_evaluation",
+            actor_isolation_scratch_root=(
+                str(args.actor_isolation_scratch_root)
+                if args.actor_isolation_scratch_root
+                else None
+            ),
+            actor_isolation_verus_root=(
+                str(args.actor_isolation_verus_root)
+                if args.actor_isolation_verus_root
+                else None
+            ),
+            actor_isolation_rust_root=(
+                str(args.actor_isolation_rust_root)
+                if args.actor_isolation_rust_root
+                else None
+            ),
+            actor_isolation_forbidden_paths=tuple(
+                str(path) for path in args.actor_isolation_forbidden_path
+            ),
         )
         adapter.setup({"out_root": str(run_dir)})
         results = adapter.rollout(items, skill_text, str(run_dir))

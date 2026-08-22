@@ -47,7 +47,7 @@ def _load_results(prediction_dir: Path, ordered_ids: list[str]) -> list[dict[str
         if not path.is_file():
             raise ValueError(f"missing result: {item_id}")
         result = json.loads(path.read_text(encoding="utf-8"))
-        if result.get("id") != item_id or result.get("fidelity") == "V0_INVALID":
+        if result.get("id") != item_id or "hard" not in result:
             raise ValueError(f"invalid result: {item_id}")
         results.append(result)
     return results
@@ -76,8 +76,8 @@ def _resume_partition(
             result = json.loads(result_path.read_text(encoding="utf-8"))
             manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
             if (
-                result.get("fidelity") != "V0_INVALID"
-                and result.get("id") == item["id"]
+                result.get("id") == item["id"]
+                and "hard" in result
                 and manifest.get("skill_sha256") == skill_sha256
             ):
                 complete.append(result)
