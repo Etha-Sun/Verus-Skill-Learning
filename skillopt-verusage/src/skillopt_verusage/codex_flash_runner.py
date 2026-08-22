@@ -5,7 +5,9 @@ import hashlib
 import json
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
+from skill_evolution_pilot.actor_isolation import ActorIsolationConfig
 from skill_evolution_pilot.codex_runner import (
     build_cross_provider_prompt,
     build_prompt,
@@ -13,6 +15,7 @@ from skill_evolution_pilot.codex_runner import (
 )
 from skill_evolution_pilot.workspace import sha256_file
 from skillopt_verusage.budget_guard import estimate_deepseek_cost
+from skillopt_verusage.outcome import proof_solved
 
 
 def _external_file(path: Path) -> Path:
@@ -228,6 +231,10 @@ def run_task(
     condition_skill_present: bool = True,
     codex_provider_id: str = "deepseek_bridge",
     run_stage: str = "skillopt_actor_rollout",
+    actor_isolation_scratch_root: Path | None = None,
+    actor_isolation_verus_root: Path | None = None,
+    actor_isolation_rust_root: Path | None = None,
+    actor_isolation_forbidden_paths: tuple[Path, ...] = (),
 ) -> dict[str, Any]:
     if Path(item_id).name != item_id:
         raise ValueError(f"unsafe item id: {item_id!r}")
@@ -257,6 +264,29 @@ def run_task(
     skill_text = skill_file.read_text(encoding="utf-8")
     injected_skill_text = skill_text if condition_skill_present else None
     provider_base_url = bridge_url.rstrip("/") + f"/tasks/{bridge_task_key}/v1"
+    isolation_values = (
+        actor_isolation_scratch_root,
+        actor_isolation_verus_root,
+        actor_isolation_rust_root,
+    )
+    if any(value is not None for value in isolation_values) and not all(
+        value is not None for value in isolation_values
+    ):
+        raise ValueError("actor isolation requires scratch, Verus, and Rust roots")
+    bridge_port = urlparse(bridge_url).port
+    if all(value is not None for value in isolation_values) and bridge_port is None:
+        raise ValueError("actor isolation bridge URL requires an explicit port")
+    actor_isolation = (
+        ActorIsolationConfig(
+            scratch_root=actor_isolation_scratch_root,
+            verus_root=actor_isolation_verus_root,
+            rust_root=actor_isolation_rust_root,
+            bridge_port=int(bridge_port),
+            forbidden_paths=actor_isolation_forbidden_paths,
+        )
+        if all(value is not None for value in isolation_values) and bridge_port is not None
+        else None
+    )
     result = run_codex_smoke(
         source=source,
         out_dir=out_dir,
@@ -279,6 +309,7 @@ def run_task(
             skill_text.encode("utf-8")
         ).hexdigest(),
         stage=run_stage,
+        actor_isolation=actor_isolation,
     )
     manifest_path = out_dir / "run_manifest.json"
     run_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -300,7 +331,7 @@ def run_task(
         encoding="utf-8",
     )
     validation = result["validation"]
-    hard = bool(validation["verus"]["passed"] and validation["lynette"]["passed"])
+    hard = proof_solved(result)
     raw_events = out_dir / "codex_events.raw.jsonl"
     conversation = _conversation(raw_events, validation)
     usage = _bridge_usage(bridge_ledger_path, bridge_task_key, model)
@@ -353,6 +384,9 @@ def run_task(
         "id": item_id,
         "hard": int(hard),
         "soft": float(hard),
+        "proof_solved": hard,
+        "within_budget": not bool(result.get("timed_out")),
+        "safety_passed": bool(validation.get("input_unchanged")),
         "task_type": "anvil" if directory_group == "verified-anvil" else "ironkv",
         "task_description": "Repair a Verus proof while preserving executable behavior.",
         "fail_reason": fail_reason,
@@ -425,6 +459,12 @@ def main() -> None:
     parser.add_argument("--condition-skill-absent", action="store_true")
     parser.add_argument("--codex-provider-id", default="deepseek_bridge")
     parser.add_argument("--run-stage", default="skillopt_actor_rollout")
+    parser.add_argument("--actor-isolation-scratch-root", type=Path)
+    parser.add_argument("--actor-isolation-verus-root", type=Path)
+    parser.add_argument("--actor-isolation-rust-root", type=Path)
+    parser.add_argument(
+        "--actor-isolation-forbidden-path", type=Path, action="append", default=[]
+    )
     args = parser.parse_args()
     result = run_task(
         item_id=args.item_id,
@@ -448,6 +488,10 @@ def main() -> None:
         condition_skill_present=not args.condition_skill_absent,
         codex_provider_id=args.codex_provider_id,
         run_stage=args.run_stage,
+        actor_isolation_scratch_root=args.actor_isolation_scratch_root,
+        actor_isolation_verus_root=args.actor_isolation_verus_root,
+        actor_isolation_rust_root=args.actor_isolation_rust_root,
+        actor_isolation_forbidden_paths=tuple(args.actor_isolation_forbidden_path),
     )
     print(json.dumps(result, ensure_ascii=False, indent=2))
 

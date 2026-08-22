@@ -7,6 +7,7 @@ import subprocess
 import sys
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 from skillopt_verusage.adapter import VeruSAGEAdapter
 from skill_evolution_pilot.codex_runner import (
@@ -47,6 +48,10 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
         condition_skill_present: bool = True,
         codex_provider_id: str = "deepseek_bridge",
         run_stage: str = "skillopt_actor_rollout",
+        actor_isolation_scratch_root: str | None = None,
+        actor_isolation_verus_root: str | None = None,
+        actor_isolation_rust_root: str | None = None,
+        actor_isolation_forbidden_paths: tuple[str, ...] = (),
     ) -> None:
         super().__init__(
             split_dir=split_dir,
@@ -86,6 +91,33 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
         if not run_stage.strip():
             raise ValueError("run_stage must be non-empty")
         self.run_stage = run_stage
+        isolation_values = (
+            actor_isolation_scratch_root,
+            actor_isolation_verus_root,
+            actor_isolation_rust_root,
+        )
+        if any(isolation_values) and not all(isolation_values):
+            raise ValueError(
+                "actor isolation requires scratch, Verus, and Rust roots"
+            )
+        self.actor_isolation_scratch_root = (
+            str(Path(actor_isolation_scratch_root).resolve())
+            if actor_isolation_scratch_root
+            else None
+        )
+        self.actor_isolation_verus_root = (
+            str(Path(actor_isolation_verus_root).resolve())
+            if actor_isolation_verus_root
+            else None
+        )
+        self.actor_isolation_rust_root = (
+            str(Path(actor_isolation_rust_root).resolve())
+            if actor_isolation_rust_root
+            else None
+        )
+        self.actor_isolation_forbidden_paths = tuple(
+            str(Path(path).resolve()) for path in actor_isolation_forbidden_paths
+        )
         self._codex_version = subprocess.run(
             [str(self.codex_bin), "--version"],
             capture_output=True,
@@ -95,6 +127,33 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
         )
         if self._codex_version.returncode != 0:
             raise ValueError(f"Codex CLI is not executable: {self.codex_bin}")
+        self._verus_version = subprocess.run(
+            [str(self.verus_bin), "--version"],
+            capture_output=True,
+            text=True,
+            timeout=30,
+            check=False,
+        )
+        if self._verus_version.returncode != 0:
+            raise ValueError(f"Verus is not executable: {self.verus_bin}")
+        verus_implementation = self.verus_bin.parent / "rust_verify"
+        if not verus_implementation.is_file():
+            verus_implementation = self.verus_bin
+        self._verus_implementation_sha256 = sha256_file(verus_implementation)
+
+    def _actor_isolation_matches(self, manifest: dict[str, Any]) -> bool:
+        actual = manifest.get("actor_isolation") or {}
+        if not self.actor_isolation_scratch_root:
+            return actual.get("requested") is False
+        return actual == {
+            "requested": True,
+            "mode": "trace2skill-linux-mount-network-seccomp-v1",
+            "scratch_root": self.actor_isolation_scratch_root,
+            "verus_root": self.actor_isolation_verus_root,
+            "rust_root": self.actor_isolation_rust_root,
+            "bridge_port": urlparse(self.bridge_url).port,
+            "forbidden_paths": list(self.actor_isolation_forbidden_paths),
+        }
 
     def _resume_result(
         self,
@@ -127,7 +186,11 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
             result.get("id") == task_dir.name
             and result.get("actor_model") == self.actor_model
             and result.get("actor_reasoning_effort") == self.reasoning_effort
-            and result.get("fidelity") in {"V2_TRACE", "V1_TRUNCATED"}
+            and result.get("fidelity") in {
+                "V2_TRACE",
+                "V1_TRUNCATED",
+                "V0_INVALID",
+            }
             and manifest.get("source_sha256") == item["source_sha256"]
             and manifest.get("condition_skill_sha256") == skill_sha256
             and manifest.get("prompt_sha256")
@@ -156,6 +219,10 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
             and tools.get("codex", {}).get("version", {}).get("stdout")
             == self._codex_version.stdout
             and tools.get("verus", {}).get("sha256") == sha256_file(self.verus_bin)
+            and tools.get("verus", {}).get("implementation_sha256")
+            == self._verus_implementation_sha256
+            and tools.get("verus", {}).get("version", {}).get("stdout")
+            == self._verus_version.stdout
             and tools.get("lynette", {}).get("sha256") == sha256_file(self.lynette_bin)
             and bridge.get("task_key") == task_key
             and bridge.get("config_sha256") == bridge_manifest.get("config_sha256")
@@ -165,6 +232,7 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
             and bridge.get("native_responses")
             == bridge_manifest.get("native_responses")
             and bridge.get("fake_mode") is False
+            and self._actor_isolation_matches(manifest)
             and not (result.get("timed_out") and not result.get("hard"))
         ):
             return result
@@ -228,6 +296,19 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
         ]
         if not self.condition_skill_present:
             command.append("--condition-skill-absent")
+        if self.actor_isolation_scratch_root:
+            command.extend(
+                [
+                    "--actor-isolation-scratch-root",
+                    self.actor_isolation_scratch_root,
+                    "--actor-isolation-verus-root",
+                    str(self.actor_isolation_verus_root),
+                    "--actor-isolation-rust-root",
+                    str(self.actor_isolation_rust_root),
+                ]
+            )
+            for path in self.actor_isolation_forbidden_paths:
+                command.extend(["--actor-isolation-forbidden-path", path])
         process: subprocess.Popen[str] | None = None
         try:
             process = subprocess.Popen(
@@ -298,7 +379,7 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
                 json.dumps(result, ensure_ascii=False, indent=2) + "\n",
                 encoding="utf-8",
             )
-            retry = result.get("fidelity") == "V0_INVALID" or bool(
+            retry = bool(
                 result.get("timed_out")
                 and not result.get("hard")
                 and attempt_index <= self.timeout_retries
