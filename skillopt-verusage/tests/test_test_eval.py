@@ -127,36 +127,41 @@ class TestFixedTestEvalContract(unittest.TestCase):
             results[0]["actor_contract_profile"], "cross_provider_20260819"
         )
 
-    def test_direct_summary_excludes_invalid_solved_rows(self) -> None:
+    def test_direct_summary_counts_safe_v0_solved_rows(self) -> None:
         summary = _summarize(
             [
                 {
                     "status": "SOLVED",
                     "fidelity_class": "V0_INVALID",
                     "fidelity": {"usage": {}},
+                    "proof_solved": True,
                     "claude_failed": True,
                 },
                 {
                     "status": "SOLVED",
                     "fidelity_class": "V2_TRACE",
                     "fidelity": {"usage": {}},
+                    "proof_solved": True,
                     "claude_failed": False,
                 },
             ],
             transport="direct",
             model="gpt-5.6-sol",
         )
-        self.assertEqual(summary["solved"], 1)
+        self.assertEqual(summary["solved"], 2)
         self.assertEqual(summary["valid_results"], 1)
-        self.assertEqual(summary["invalid_solved_excluded"], 1)
-        self.assertEqual(summary["claude_failed_solved"], 0)
+        self.assertEqual(summary["trace_status"], "partial")
+        self.assertEqual(summary["v0_solved_included"], 1)
+        self.assertEqual(summary["invalid_solved_excluded"], 0)
+        self.assertEqual(summary["claude_failed_solved"], 1)
 
-    def test_bridge_summary_excludes_invalid_solved_rows(self) -> None:
+    def test_bridge_summary_counts_safe_v0_solved_rows(self) -> None:
         summary = _summarize(
             [
                 {
                     "status": "SOLVED",
                     "fidelity": "V0_INVALID",
+                    "proof_solved": True,
                     "usage": {},
                     "claude_failed": False,
                 }
@@ -164,8 +169,8 @@ class TestFixedTestEvalContract(unittest.TestCase):
             transport="bridge",
             model="qwen3.8-27b",
         )
-        self.assertEqual(summary["solved"], 0)
-        self.assertEqual(summary["invalid_solved_excluded"], 1)
+        self.assertEqual(summary["solved"], 1)
+        self.assertEqual(summary["v0_solved_included"], 1)
 
     def test_bridge_summary_uses_complete_ledger_cost(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

@@ -1,3 +1,4 @@
+import hashlib
 import json
 import os
 import tempfile
@@ -10,12 +11,29 @@ from skill_evolution_pilot.codex_runner import (
     _codex_environment,
     _command_modifies_candidate,
     _run_complete,
+    _verus_tool_manifest,
     build_command,
     run_codex_smoke,
 )
 
 
 class CodexRunnerTest(unittest.TestCase):
+    def test_verus_manifest_hashes_the_real_rust_verify_implementation(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            verus = self._executable(
+                root / "verus", "#!/bin/sh\necho 'Version: test'\n"
+            )
+            implementation = self._executable(
+                root / "rust_verify", "#!/bin/sh\necho implementation\n"
+            )
+            manifest = _verus_tool_manifest(verus)
+            self.assertNotEqual(manifest["sha256"], manifest["implementation_sha256"])
+            self.assertEqual(
+                manifest["implementation_sha256"],
+                hashlib.sha256(implementation.read_bytes()).hexdigest(),
+            )
+
     def test_complete_timeout_kills_the_entire_process_group(self):
         with tempfile.TemporaryDirectory() as tmp:
             started = time.monotonic()
@@ -236,6 +254,18 @@ last.write_text("complete")
         self.assertIn("model_context_window=1048576", joined)
         self.assertIn("model_max_output_tokens=8192", joined)
         self.assertNotIn("model_reasoning_summary", joined)
+
+        isolated = build_command(
+            codex_bin=Path("/tools/codex"),
+            workspace=Path("/run/workspace"),
+            last_message=Path("/run/last.txt"),
+            model="glm-5.3",
+            reasoning_effort="max",
+            contract_profile="cross_provider_20260819",
+            prompt_text=prompt,
+            outer_isolation=True,
+        )
+        self.assertIn("-s danger-full-access", " ".join(isolated))
 
     def test_actor_environment_excludes_unrelated_credentials(self):
         with patch.dict(

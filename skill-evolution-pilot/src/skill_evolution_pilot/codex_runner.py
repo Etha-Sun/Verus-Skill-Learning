@@ -5,6 +5,7 @@ import os
 import hashlib
 import re
 import signal
+import shutil
 import subprocess
 import threading
 import time
@@ -12,7 +13,9 @@ from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
+from .actor_isolation import ActorIsolationConfig, build_isolated_actor_command
 from .codex_adapter import CodexStreamRecorder
 from .events import audit_events, load_events
 from .redaction import secret_match_count
@@ -118,6 +121,7 @@ def build_command(
     model_catalog_json: Path | None = None,
     contract_profile: str = "project",
     prompt_text: str | None = None,
+    outer_isolation: bool = False,
 ) -> list[str]:
     if contract_profile == "cross_provider_20260819":
         if prompt_text is None:
@@ -134,7 +138,7 @@ def build_command(
             "-C",
             str(workspace),
             "-s",
-            "workspace-write",
+            "danger-full-access" if outer_isolation else "workspace-write",
             "-m",
             model,
         ]
@@ -222,7 +226,7 @@ def build_command(
             for value in ("--disable", capability)
         ),
         "--sandbox",
-        "workspace-write",
+        "danger-full-access" if outer_isolation else "workspace-write",
         "--ephemeral",
         "--ignore-user-config",
         "--ignore-rules",
@@ -277,6 +281,17 @@ def _version(path: Path) -> dict[str, Any]:
         "returncode": result.returncode,
         "stdout": result.stdout,
         "stderr": result.stderr,
+    }
+
+
+def _verus_tool_manifest(path: Path) -> dict[str, Any]:
+    implementation = path.parent / "rust_verify"
+    if not implementation.is_file():
+        implementation = path
+    return {
+        "sha256": sha256_file(path),
+        "implementation_sha256": sha256_file(implementation),
+        "version": _version(path),
     }
 
 
@@ -400,6 +415,7 @@ def run_codex_smoke(
     contract_profile: str = "project",
     condition_skill_sha256: str | None = None,
     stage: str = "auxiliary_dev_fidelity_smoke",
+    actor_isolation: ActorIsolationConfig | None = None,
 ) -> dict[str, Any]:
     out_dir = _require_external_output(out_dir)
     codex_bin = _require_executable(codex_bin, "codex")
@@ -459,7 +475,11 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         raise ValueError(f"unsupported Codex contract profile: {contract_profile}")
     prompt_path = out_dir / "prompt.txt"
     prompt_path.write_text(prompt, encoding="utf-8")
-    last_message = out_dir / "last_message.txt"
+    last_message = (
+        workspace / ".actor_last_message.txt"
+        if actor_isolation is not None
+        else out_dir / "last_message.txt"
+    )
     raw_events = out_dir / "codex_events.raw.jsonl"
     normalized_events = out_dir / "agent_events.jsonl"
     stderr_path = out_dir / "codex_stderr.log"
@@ -470,7 +490,20 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         run_id=out_dir.name,
         candidate_path=workspace / "candidate.rs",
     )
-    command = build_command(
+    actor_model_catalog = model_catalog_json
+    if actor_isolation is not None:
+        if not provider_base_url:
+            raise ValueError("actor isolation requires a local provider bridge")
+        provider_url = urlparse(provider_base_url)
+        if provider_url.hostname not in {"127.0.0.1", "localhost"}:
+            raise ValueError("actor isolation provider bridge must use loopback")
+        if provider_url.port != actor_isolation.bridge_port:
+            raise ValueError("actor isolation bridge port differs from provider URL")
+        if model_catalog_json is not None:
+            actor_model_catalog = workspace / ".actor_models.json"
+            shutil.copyfile(model_catalog_json.resolve(), actor_model_catalog)
+            actor_model_catalog.chmod(0o444)
+    actor_command = build_command(
         codex_bin=codex_bin,
         workspace=workspace,
         last_message=last_message,
@@ -482,9 +515,21 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         provider_base_url=provider_base_url,
         provider_env_key=provider_env_key,
         model_context_window=model_context_window,
-        model_catalog_json=model_catalog_json,
+        model_catalog_json=actor_model_catalog,
         contract_profile=contract_profile,
         prompt_text=prompt,
+        outer_isolation=actor_isolation is not None,
+    )
+    command = (
+        build_isolated_actor_command(
+            actor_command,
+            workspace=workspace,
+            codex_bin=codex_bin,
+            lynette_bin=lynette_bin,
+            config=actor_isolation,
+        )
+        if actor_isolation is not None
+        else actor_command
     )
     manifest = {
         "run_id": out_dir.name,
@@ -520,9 +565,14 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         "condition_skill_sha256": condition_skill_sha256,
         "tools": {
             "codex": {"sha256": sha256_file(codex_bin), "version": _version(codex_bin)},
-            "verus": {"sha256": sha256_file(verus_bin)},
+            "verus": _verus_tool_manifest(verus_bin),
             "lynette": {"sha256": sha256_file(lynette_bin)},
         },
+        "actor_isolation": (
+            actor_isolation.manifest()
+            if actor_isolation is not None
+            else {"requested": False, "mode": "none"}
+        ),
         "command": [
             "$CODEX"
             if index == 0
@@ -533,8 +583,13 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
             else "$PROMPT"
             if value == prompt
             else value
-            for index, value in enumerate(command)
+            for index, value in enumerate(actor_command)
         ],
+        "launch_command": (
+            ["$ACTOR_ISOLATION", *command[1:]]
+            if actor_isolation is not None
+            else None
+        ),
         "actor_environment_keys": sorted(_codex_environment(provider_env_key)),
         "raw_log_uncompressed": True,
         "hidden_chain_of_thought_claimed": False,
@@ -586,6 +641,8 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         finally:
             timer.cancel()
     recorder.snapshot("codex_terminal")
+    if actor_isolation is not None and last_message.is_file():
+        shutil.copyfile(last_message, out_dir / "last_message.txt")
 
     candidate = workspace / "candidate.rs"
     input_path = workspace / "input.rs"
@@ -781,18 +838,23 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         "verus": final_checks["verus"],
         "lynette": final_checks["lynette"],
     }
+    timed_out_value = timed_out.is_set()
+    solved = bool(
+        final_checks["verus"]["passed"]
+        and final_checks["lynette"]["passed"]
+        and input_unchanged
+    )
     result = {
         "run_id": out_dir.name,
         "started_at": started_at,
         "finished_at": _now(),
         "wall_seconds": time.monotonic() - started,
         "codex_returncode": returncode,
-        "timed_out": timed_out.is_set(),
-        "status": (
-            "SOLVED"
-            if final_checks["verus"]["passed"] and final_checks["lynette"]["passed"]
-            else "UNSOLVED"
-        ),
+        "timed_out": timed_out_value,
+        "status": "SOLVED" if solved else "UNSOLVED",
+        "proof_solved": solved,
+        "within_budget": not timed_out_value,
+        "safety_passed": input_unchanged,
         "fidelity": fidelity,
         "validation": validation,
         "workspace_inventory": inventory(workspace),
