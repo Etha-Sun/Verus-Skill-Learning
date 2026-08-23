@@ -100,9 +100,12 @@ diagnostic because external filesystem visibility is not enforced. Three
 independent reviewers returned GO for evaluation safety, SkillOpt delivery, and
 merge readiness. The only remaining low-risk evaluator caveat is that the
 post-run bundle check rejects changes to inventoried files but does not yet
-reject newly added files. The next action is to publish the curated descendant,
-require its CI check, and make the final main-merge decision without mixing in
-the unrelated local research worktree.
+reject newly added files. Commit `d3b9dcb` was fast-forwarded from the clean
+curated descendant to `main` on 2026-08-23, and the main-readiness CI passed,
+without mixing in the unrelated local research worktree. The next evaluator
+hardening action is an exact file-set regression for post-run skill bundles;
+future held-out claims still require producer provenance and task-disjoint live
+evaluation.
 
 ## SkillOpt Multi-File Support Audit (2026-08-21)
 
