@@ -51,10 +51,10 @@ export SKILLOPT_CODEX_BRIDGE_URL="http://127.0.0.1:$BRIDGE_PORT"
 export SKILLOPT_CODEX_BRIDGE_LEDGER="$RUN_DIR/bridge_calls.jsonl"
 export SKILLOPT_CODEX_BRIDGE_MANIFEST="$RUN_DIR/bridge_manifest_epoch4_reflect_repair.json"
 
+"$REPO_ROOT/skillopt-verusage/scripts/bootstrap_skillopt.sh" >/dev/null
 "$PYTHON_BIN" -m skillopt_verusage.train --config "$E4_CONFIG" --check-only >/dev/null
 "$PYTHON_BIN" -m pytest -q \
-  "$REPO_ROOT/skillopt-verusage/SkillOpt/tests/test_reflect_path_references.py" \
-  "$REPO_ROOT/skillopt-verusage/SkillOpt/tests/test_slow_update_path_references.py" \
+  "$REPO_ROOT/skillopt-verusage/tests/test_upstream_path_references.py" \
   >/dev/null
 
 if curl -fsS --max-time 2 "$SKILLOPT_CODEX_BRIDGE_URL/health" >/dev/null 2>&1; then

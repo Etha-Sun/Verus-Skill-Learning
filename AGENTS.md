@@ -43,6 +43,11 @@ This repository is the only active development workspace. The legacy
   only reviewed compact summaries, contracts, and pointers in this repository.
 - Do not commit personal absolute paths, secrets, API credentials, raw traces,
   sealed data, meeting transcripts, token tables, or complete run directories.
+- The reviewed `fixed-claude-stratified-80-seed20260814/` benchmark fixture is
+  an explicit exception: its fixed train/val/test sources, manifests, and
+  historical split-stratification token/time fields remain tracked so every
+  method uses the same unchanged test-20. This exception does not cover run
+  outputs, provider ledgers, prompts, responses, or other token tables.
 - All newly created files and directories must use English ASCII names.
 
 ## Research Evidence Boundaries

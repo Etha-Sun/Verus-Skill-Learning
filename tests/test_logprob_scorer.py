@@ -127,7 +127,10 @@ class LogprobScorerTest(unittest.TestCase):
             self.assertFalse(_checkpoint_complete(case_dir, "different"))
 
     def test_chunked_hf_scoring_preserves_cross_chunk_next_token_boundary(self):
-        import torch
+        try:
+            import torch
+        except ImportError:
+            self.skipTest("optional torch dependency is not installed")
 
         class Tokenizer:
             def encode(self, text, add_special_tokens=False):

@@ -9,6 +9,7 @@ source "$REPO_ROOT/.env"
 : "${VERUS_BIN:?set VERUS_BIN in .env}"
 : "${LYNETTE_BIN:?set LYNETTE_BIN in .env}"
 : "${DEEPSEEK_API_KEY:?set DEEPSEEK_API_KEY in .env}"
+"$REPO_ROOT/skillopt-verusage/scripts/bootstrap_skillopt.sh" >/dev/null
 
 PYTHON_BIN="${SKILLOPT_PYTHON_BIN:-python3}"
 CODEX_CLI_BIN="${CODEX_CLI_BIN:-$(command -v codex)}"

@@ -22,3 +22,13 @@ def test_bridge_runs_enable_trace2skill_isolation_by_default() -> None:
     assert '--actor-isolation-scratch-root "$ACTOR_SCRATCH_ROOT"' in script
     assert '$(dirname "$EVAL_VERUS_BIN")' in script
     assert '$(dirname "$(dirname "$EVAL_VERUS_BIN")")' not in script
+
+
+def test_trace2skill_bundle_has_a_direct_fixed_test_handoff() -> None:
+    script = (
+        Path(__file__).resolve().parents[1] / "scripts" / "run_s2_fixed_test20.sh"
+    ).read_text(encoding="utf-8")
+    assert "{blank|s1|s2|trace2skill}" in script
+    assert 'SKILL_INPUT_FLAGS=(--skill-dir "$EXTERNAL_SKILL_PATH")' in script
+    assert "skillopt_verusage.skill_artifact" in script
+    assert 'if [[ "$SKILL_LABEL" == "blank" ]]' in script

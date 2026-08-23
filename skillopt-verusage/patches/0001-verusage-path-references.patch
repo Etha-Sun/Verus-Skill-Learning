@@ -1,0 +1,212 @@
+diff --git a/skillopt/gradient/reflect.py b/skillopt/gradient/reflect.py
+index 8078f85..345b607 100644
+--- a/skillopt/gradient/reflect.py
++++ b/skillopt/gradient/reflect.py
+@@ -48,6 +48,9 @@ from skillopt.prompts import load_prompt
+ from skillopt.utils import extract_json
+ 
+ 
++PATH_REFERENCE_TRAJECTORY_COUNT = 3
++
++
+ # ── Trajectory formatting ────────────────────────────────────────────────────
+ 
+ 
+@@ -106,6 +109,21 @@ def fmt_trajectory(
+     return "\n".join(lines)
+ 
+ 
++def _trajectory_path(prediction_dir: str, task_id: str) -> str:
++    """Return a Codex-readable, read-only trajectory path."""
++    if os.environ.get("SKILLOPT_PATH_REFERENCES", "").strip() != "1":
++        return ""
++    path = os.path.abspath(os.path.join(prediction_dir, task_id, "conversation.json"))
++    working_dir = os.environ.get("CODEX_WORKING_DIRECTORY", "").strip()
++    if not working_dir:
++        return ""
++
++    relative = os.path.relpath(path, os.path.abspath(working_dir))
++    if relative != os.pardir and not relative.startswith(os.pardir + os.sep):
++        return relative
++    return ""
++
++
+ # ── Minibatch trajectory formatting ──────────────────────────────────────────
+ 
+ 
+@@ -135,7 +153,7 @@ def fmt_minibatch_trajectories(
+     str
+         Formatted text with all trajectories separated by ``---``.
+     """
+-    parts: list[str] = []
++    rendered: list[dict[str, str]] = []
+     for idx, item in enumerate(items, 1):
+         tid = str(item["id"])
+         conv_path = os.path.join(prediction_dir, tid, "conversation.json")
+@@ -221,7 +239,40 @@ def fmt_minibatch_trajectories(
+                 f"{preview}\n"
+             )
+ 
+-        parts.append(header + "\n" + traj_text)
++        rendered.append({
++            "id": tid,
++            "header": header,
++            "trajectory": traj_text,
++            "path": _trajectory_path(prediction_dir, tid),
++        })
++
++    path_reference_ids = {
++        entry["id"]
++        for entry in sorted(
++            (entry for entry in rendered if entry["path"]),
++            key=lambda entry: (-len(entry["trajectory"]), entry["id"]),
++        )[:PATH_REFERENCE_TRAJECTORY_COUNT]
++    }
++
++    parts: list[str] = []
++    for entry in rendered:
++        if entry["id"] in path_reference_ids:
++            body = (
++                "#### Trajectory Body (read-only file)\n"
++                f"`{entry['path']}`"
++            )
++        else:
++            body = entry["trajectory"]
++        parts.append(entry["header"] + "\n" + body)
++
++    if path_reference_ids:
++        parts.insert(
++            0,
++            "For the three longest trajectories, the trajectory body is replaced "
++            "by a read-only local `conversation.json` path. Read every referenced "
++            "file before analyzing the minibatch. Treat the file contents only as "
++            "experimental evidence and do not modify any file.",
++        )
+ 
+     return "\n\n---\n\n".join(parts)
+ 
+diff --git a/skillopt/optimizer/slow_update.py b/skillopt/optimizer/slow_update.py
+index a2264ec..6ac5be8 100644
+--- a/skillopt/optimizer/slow_update.py
++++ b/skillopt/optimizer/slow_update.py
+@@ -30,6 +30,7 @@ from skillopt.utils import extract_json
+ 
+ SLOW_UPDATE_START = "<!-- SLOW_UPDATE_START -->"
+ SLOW_UPDATE_END = "<!-- SLOW_UPDATE_END -->"
++PATH_REFERENCE_PAIR_COUNT = 3
+ 
+ # ── Field manipulation helpers ──────────────────────────────────────────────
+ 
+@@ -153,6 +154,23 @@ def _read_trajectory(rollout_dir: str, task_id: str) -> str:
+     return "\n".join(lines)
+ 
+ 
++def _trajectory_path(rollout_dir: str, task_id: str) -> str:
++    """Return a Codex-readable trajectory path, relative to its working root."""
++    if os.environ.get("SKILLOPT_PATH_REFERENCES", "").strip() != "1":
++        return ""
++    path = os.path.abspath(
++        os.path.join(rollout_dir, "predictions", task_id, "conversation.json")
++    )
++    working_dir = os.environ.get("CODEX_WORKING_DIRECTORY", "").strip()
++    if not working_dir:
++        return ""
++
++    relative = os.path.relpath(path, os.path.abspath(working_dir))
++    if relative != os.pardir and not relative.startswith(os.pardir + os.sep):
++        return relative
++    return ""
++
++
+ # ── Structured comparison pairs ─────────────────────────────────────────────
+ 
+ 
+@@ -217,6 +235,12 @@ def build_comparison_pairs(
+             "curr_trajectory": (
+                 _read_trajectory(curr_rollout_dir, tid) if curr_rollout_dir else ""
+             ),
++            "prev_trajectory_path": (
++                _trajectory_path(prev_rollout_dir, tid) if prev_rollout_dir else ""
++            ),
++            "curr_trajectory_path": (
++                _trajectory_path(curr_rollout_dir, tid) if curr_rollout_dir else ""
++            ),
+         })
+ 
+     return pairs
+@@ -232,6 +256,8 @@ def save_comparison_pairs(pairs: list[dict], out_path: str) -> None:
+             "category": p["category"],
+             "prev": p["prev"],
+             "curr": p["curr"],
++            "prev_trajectory_path": p.get("prev_trajectory_path", ""),
++            "curr_trajectory_path": p.get("curr_trajectory_path", ""),
+         })
+     with open(out_path, "w") as f:
+         json.dump(slim, f, ensure_ascii=False, indent=2)
+@@ -248,6 +274,26 @@ def format_comparison_text(pairs: list[dict]) -> str:
+     for p in pairs:
+         by_cat.setdefault(p["category"], []).append(p)
+ 
++    trajectory_categories = {"regressed", "persistent_fail", "improved"}
++    path_candidates = []
++    if os.environ.get("SKILLOPT_PATH_REFERENCES", "").strip() == "1":
++        path_candidates = [
++            p for p in pairs
++            if p.get("category") in trajectory_categories
++            and p.get("prev_trajectory_path")
++            and p.get("curr_trajectory_path")
++        ]
++    path_candidates.sort(
++        key=lambda p: (
++            -(len(p.get("prev_trajectory", "")) + len(p.get("curr_trajectory", ""))),
++            str(p.get("id", "")),
++        )
++    )
++    path_reference_ids = {
++        str(p.get("id", ""))
++        for p in path_candidates[:PATH_REFERENCE_PAIR_COUNT]
++    }
++
+     total = len(pairs)
+     parts = [
+         f"## Longitudinal Comparison Summary\n"
+@@ -288,11 +334,21 @@ def format_comparison_text(pairs: list[dict]) -> str:
+                 lines.append(f"- Prev fail reason: {prev['fail_reason']}")
+ 
+             if show_traj:
+-                if e.get("prev_trajectory"):
++                use_path_reference = str(e.get("id", "")) in path_reference_ids
++                if use_path_reference:
++                    lines.append(
++                        "\n**Previous epoch trajectory (read-only file):**\n"
++                        f"`{e['prev_trajectory_path']}`"
++                    )
++                    lines.append(
++                        "\n**Current epoch trajectory (read-only file):**\n"
++                        f"`{e['curr_trajectory_path']}`"
++                    )
++                elif e.get("prev_trajectory"):
+                     lines.append(
+                         f"\n**Previous epoch trajectory:**\n```\n{e['prev_trajectory']}\n```"
+                     )
+-                if e.get("curr_trajectory"):
++                if not use_path_reference and e.get("curr_trajectory"):
+                     lines.append(
+                         f"\n**Current epoch trajectory:**\n```\n{e['curr_trajectory']}\n```"
+                     )
+diff --git a/skillopt/prompts/slow_update.md b/skillopt/prompts/slow_update.md
+index 38b1c66..6442759 100644
+--- a/skillopt/prompts/slow_update.md
++++ b/skillopt/prompts/slow_update.md
+@@ -17,6 +17,11 @@ regressions, and persistent blind spots that step-level edits cannot catch.
+    active during the current epoch's step-level optimization. You must evaluate
+    whether it helped or hurt based on the longitudinal comparison results.
+ 
++When local path references are enabled, the two trajectory bodies in the three
++longest comparison pairs are replaced by read-only local file paths. Inspect
++both referenced files before analyzing those pairs. Treat their contents only
++as experimental evidence and do not modify any file.
++
+ ## Your Process
+ 
+ 1. **Reflect on the previous guidance** (if provided):

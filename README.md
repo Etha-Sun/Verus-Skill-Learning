@@ -22,6 +22,7 @@ atlas-verusage-reproduction/             public-safe ATLAS adapter source
 refine-logs/                              experiment plans, audits, and reports
 research_memory/                          durable public research context
 idea-stage/                               focused research contracts
+fixed-claude-stratified-80-seed20260814/  reviewed frozen benchmark fixture
 ```
 
 The workstream directories are kept side by side so trace analysis,
@@ -30,6 +31,12 @@ without forcing all research artifacts into the Python package. They are
 public-safe snapshots: raw datasets, full run directories, caches, model/API
 responses, meeting transcripts, large trace-derived artifacts, and personal
 absolute paths are excluded.
+
+The tracked `fixed-claude-stratified-80-seed20260814/` fixture is the narrow
+exception to the external-data rule. It keeps the shared split and test-20
+byte-for-byte stable across methods. Treat it as read-only; it is a recurring
+benchmark, not a sealed effectiveness test, and no run output or provider
+ledger belongs there.
 
 ## Select Your Local Data Source
 

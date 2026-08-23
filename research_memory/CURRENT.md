@@ -1,6 +1,6 @@
 # Current Research State
 
-Last updated: 2026-08-21
+Last updated: 2026-08-23
 
 ## Active Direction
 
@@ -68,6 +68,41 @@ rather than resuming historical results.
 
 Implementation report:
 `skillopt-verusage/refine-logs/VSKILL_0822_TRACE2SKILL_ALIGNMENT.md`.
+
+## Fixed Test Handoff And Main Readiness (2026-08-23)
+
+The fixed test-20 evaluator now accepts either one Markdown skill or a complete
+Trace2Skill-style bundle rooted at `SKILL.md`. Bundle contents and executable
+bits are inventoried, the content tree uses the Trace2Skill lineage hash,
+symlinks are rejected, the artifact is frozen into the run directory, and
+supplied skill files must remain unchanged for a solve to count. This is a
+final-artifact evaluation handoff; it does not migrate Trace2Skill construction
+or add intermediate-candidate promotion.
+
+The 60-second host grace now applies only to actor shutdown. An actor that
+ignores SIGINT is force-killed after 15 seconds, while a completed-actor marker
+allows the independent Verus and Lynette checks to finish without being cut off
+by that grace period. A timeout candidate still counts as solved when both
+final checks and input/skill safety pass, with `within_budget=false` recorded
+separately.
+
+Microsoft SkillOpt is fixed at commit
+`9639719632daecacd1baaa47fe781f3c0253600a`. A tracked patch and bootstrap
+verify the complete patched Git tree
+`7e207482b0bf0238b21e13976f6f9da5f130072c`, including autocrlf and hidden-index
+change defenses. Local trajectory path references are enabled only for the
+read-only Codex optimizer; API optimizers retain inline trajectories.
+
+The clean main-readiness suite passes 240 offline tests. No paid inference was
+run and no raw dataset or historical run was modified. The tracked test-20 is
+a recurring benchmark rather than a sealed test; direct GPT runs are explicitly
+diagnostic because external filesystem visibility is not enforced. Three
+independent reviewers returned GO for evaluation safety, SkillOpt delivery, and
+merge readiness. The only remaining low-risk evaluator caveat is that the
+post-run bundle check rejects changes to inventoried files but does not yet
+reject newly added files. The next action is to publish the curated descendant,
+require its CI check, and make the final main-merge decision without mixing in
+the unrelated local research worktree.
 
 ## SkillOpt Multi-File Support Audit (2026-08-21)
 

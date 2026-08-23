@@ -351,6 +351,32 @@ def _run_complete(
         }
 
 
+def _interrupt_then_kill_process_group(
+    process: subprocess.Popen[str],
+    timed_out: threading.Event,
+    *,
+    grace_seconds: float = 15.0,
+) -> None:
+    """Stop an actor process group even while the caller is blocked on stdout."""
+
+    timed_out.set()
+    try:
+        os.killpg(process.pid, signal.SIGINT)
+    except ProcessLookupError:
+        return
+    deadline = time.monotonic() + grace_seconds
+    while time.monotonic() < deadline:
+        try:
+            os.killpg(process.pid, 0)
+        except ProcessLookupError:
+            return
+        time.sleep(0.05)
+    try:
+        os.killpg(process.pid, signal.SIGKILL)
+    except ProcessLookupError:
+        pass
+
+
 def _usage_from_rows(rows: list[dict[str, Any]]) -> dict[str, Any] | None:
     for row in reversed(rows):
         raw = row.get("data", {}).get("raw_codex_event", {})
@@ -407,6 +433,7 @@ def run_codex_smoke(
     show_raw_agent_reasoning: bool = True,
     timeout_seconds: int = 600,
     skill_text: str | None = None,
+    skill_dir: Path | None = None,
     provider_id: str | None = None,
     provider_base_url: str | None = None,
     provider_env_key: str | None = None,
@@ -423,10 +450,19 @@ def run_codex_smoke(
     lynette_bin = _require_executable(lynette_bin, "lynette")
     source = source.resolve()
     source_sha = sha256_file(source)
+    if skill_text is not None and skill_dir is not None:
+        raise ValueError("skill_text and skill_dir are mutually exclusive")
+    resolved_skill_dir = skill_dir.resolve() if skill_dir is not None else None
+    skill_entrypoint_text = (
+        (resolved_skill_dir / "SKILL.md").read_text(encoding="utf-8")
+        if resolved_skill_dir is not None
+        else skill_text
+    )
+    skill_present = skill_entrypoint_text is not None
     workspace = out_dir / "workspace"
     prompt = (
         build_cross_provider_prompt(
-            skill_present=skill_text is not None,
+            skill_present=skill_present,
             verus_bin=verus_bin,
             lynette_bin=lynette_bin,
         )
@@ -450,29 +486,41 @@ fi
 exec "{lynette_bin}" compare -t input.rs candidate.rs
 """
     if contract_profile == "cross_provider_20260819":
-        prepare_solver_workspace(
+        workspace_manifest = prepare_solver_workspace(
             source=source,
             workspace=workspace,
             task_text="Repair candidate.rs.\n",
             skill_text=skill_text,
+            skill_source_dir=resolved_skill_dir,
             skill_relative_path="skill/verus-proof-repair/SKILL.md",
             extra_files={"AGENTS.md": prompt},
+            filesystem_visibility_enforced=actor_isolation is not None,
         )
     elif contract_profile == "project":
-        prepare_solver_workspace(
+        workspace_manifest = prepare_solver_workspace(
             source=source,
             workspace=workspace,
             task_text=prompt,
             skill_text=skill_text,
+            skill_source_dir=resolved_skill_dir,
             extra_files={
                 "tools/run_verus.sh": verus_wrapper,
                 "tools/run_lynette.sh": lynette_wrapper,
             },
+            filesystem_visibility_enforced=actor_isolation is not None,
         )
         (workspace / "tools" / "run_verus.sh").chmod(0o555)
         (workspace / "tools" / "run_lynette.sh").chmod(0o555)
     else:
         raise ValueError(f"unsupported Codex contract profile: {contract_profile}")
+    expected_skill_files = {
+        str(row["relative_path"]): {
+            "sha256": str(row["sha256"]),
+            "executable": bool(row["executable"]),
+        }
+        for row in workspace_manifest["files"]
+        if row["role"] == "candidate_skill"
+    }
     prompt_path = out_dir / "prompt.txt"
     prompt_path.write_text(prompt, encoding="utf-8")
     last_message = (
@@ -555,13 +603,24 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         },
         "source_sha256": source_sha,
         "prompt_sha256": sha256_file(prompt_path),
-        "skill_present": skill_text is not None,
+        "skill_present": skill_present,
+        "skill_source_kind": (
+            "directory"
+            if resolved_skill_dir is not None
+            else "file"
+            if skill_entrypoint_text is not None
+            else "absent"
+        ),
         "skill_sha256": (
-            hashlib.sha256(skill_text.encode("utf-8")).hexdigest()
-            if skill_text is not None
+            hashlib.sha256(skill_entrypoint_text.encode("utf-8")).hexdigest()
+            if skill_entrypoint_text is not None
             else None
         ),
-        "skill_bytes": len(skill_text.encode("utf-8")) if skill_text is not None else 0,
+        "skill_bytes": (
+            len(skill_entrypoint_text.encode("utf-8"))
+            if skill_entrypoint_text is not None
+            else 0
+        ),
         "condition_skill_sha256": condition_skill_sha256,
         "tools": {
             "codex": {"sha256": sha256_file(codex_bin), "version": _version(codex_bin)},
@@ -622,9 +681,7 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         process.stdin.close()
 
         def stop_process() -> None:
-            if process.poll() is None:
-                timed_out.set()
-                os.killpg(process.pid, signal.SIGINT)
+            _interrupt_then_kill_process_group(process, timed_out)
 
         timer = threading.Timer(timeout_seconds, stop_process)
         timer.start()
@@ -640,14 +697,31 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
                 returncode = None
         finally:
             timer.cancel()
+            timer.join(timeout=16)
     recorder.snapshot("codex_terminal")
     if actor_isolation is not None and last_message.is_file():
         shutil.copyfile(last_message, out_dir / "last_message.txt")
+    actor_wall_seconds = time.monotonic() - started
+    (out_dir / "actor_phase_complete.json").write_text(
+        json.dumps(
+            {
+                "finished_at": _now(),
+                "wall_seconds": actor_wall_seconds,
+                "timed_out": timed_out.is_set(),
+                "returncode": returncode,
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
 
     candidate = workspace / "candidate.rs"
     input_path = workspace / "input.rs"
     candidate_sha = sha256_file(candidate)
     final_checks = {}
+    final_validation_started = time.monotonic()
     for actor, tool_id, check_command in (
         (
             "verus",
@@ -696,6 +770,7 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
             data={"passed": passed, **check},
         )
         final_checks[actor] = {"passed": passed, **check}
+    final_validation_wall_seconds = time.monotonic() - final_validation_started
 
     rows, parse_errors = load_events(normalized_events)
     event_audit = audit_events(rows, parse_errors)
@@ -744,6 +819,14 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         for row in reasoning_items
     )
     input_unchanged = sha256_file(input_path) == source_sha
+    skill_unchanged = all(
+        (workspace / relative).is_file()
+        and not (workspace / relative).is_symlink()
+        and sha256_file(workspace / relative) == expected["sha256"]
+        and bool((workspace / relative).stat().st_mode & 0o111)
+        == expected["executable"]
+        for relative, expected in expected_skill_files.items()
+    )
     snapshot_coverage = expected_boundaries.issubset(observed_boundaries)
     snapshot_files_complete = all(
         (out_dir / row["data"]["snapshot"]).is_file()
@@ -830,10 +913,12 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         and snapshot_coverage
         and snapshot_files_complete
         and input_unchanged
+        and skill_unchanged
         and fidelity["raw_event_count"] > 0
     )
     validation = {
         "input_unchanged": input_unchanged,
+        "skill_unchanged": skill_unchanged,
         "candidate_sha256": candidate_sha,
         "verus": final_checks["verus"],
         "lynette": final_checks["lynette"],
@@ -843,18 +928,21 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         final_checks["verus"]["passed"]
         and final_checks["lynette"]["passed"]
         and input_unchanged
+        and skill_unchanged
     )
     result = {
         "run_id": out_dir.name,
         "started_at": started_at,
         "finished_at": _now(),
         "wall_seconds": time.monotonic() - started,
+        "actor_wall_seconds": actor_wall_seconds,
+        "final_validation_wall_seconds": final_validation_wall_seconds,
         "codex_returncode": returncode,
         "timed_out": timed_out_value,
         "status": "SOLVED" if solved else "UNSOLVED",
         "proof_solved": solved,
         "within_budget": not timed_out_value,
-        "safety_passed": input_unchanged,
+        "safety_passed": input_unchanged and skill_unchanged,
         "fidelity": fidelity,
         "validation": validation,
         "workspace_inventory": inventory(workspace),

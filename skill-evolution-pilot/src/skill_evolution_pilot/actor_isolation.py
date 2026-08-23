@@ -75,6 +75,12 @@ FORBIDDEN_ACTOR_SYSCALLS = (
 )
 
 
+def _tool_root_reexposes_scratch(tool_root: Path, scratch_root: Path) -> bool:
+    """Return whether rebinding a tool root would reveal the hidden scratch tree."""
+
+    return tool_root == scratch_root or tool_root in scratch_root.parents
+
+
 @dataclass(frozen=True)
 class ActorIsolationConfig:
     scratch_root: Path
@@ -93,7 +99,9 @@ class ActorIsolationConfig:
             (self.rust_root, "Rust root"),
         ):
             resolved = path.resolve()
-            if resolved in {Path("/"), Path("/home"), scratch}:
+            if resolved == Path("/home") or _tool_root_reexposes_scratch(
+                resolved, scratch
+            ):
                 raise ValueError(f"{label} is too broad for actor isolation: {resolved}")
             if not resolved.is_dir():
                 raise ValueError(f"{label} is not a directory: {resolved}")
@@ -492,11 +500,12 @@ def _run_outer(args: argparse.Namespace) -> int:
     codex_bin = args.codex_bin.resolve()
     if not workspace.is_dir() or not verus_root.is_dir() or not rust_root.is_dir():
         raise ValueError("workspace, Verus root, and Rust root must be directories")
-    if verus_root in {Path("/"), Path("/home"), scratch_root} or rust_root in {
-        Path("/"),
-        Path("/home"),
-        scratch_root,
-    }:
+    if (
+        verus_root == Path("/home")
+        or rust_root == Path("/home")
+        or _tool_root_reexposes_scratch(verus_root, scratch_root)
+        or _tool_root_reexposes_scratch(rust_root, scratch_root)
+    ):
         raise ValueError("Verus and Rust roots must not expose a hidden root")
     if not lynette_bin.is_file() or not codex_bin.is_file():
         raise ValueError("Lynette and Codex must be files")

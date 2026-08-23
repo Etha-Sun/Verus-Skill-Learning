@@ -332,11 +332,17 @@ def main() -> None:
     if formal_epoch:
         _validate_fresh_formal_run(cfg)
     if cfg.get("optimizer_backend") == "openai_compatible":
+        os.environ.pop("SKILLOPT_PATH_REFERENCES", None)
         _configure_deepseek(cfg)
     elif cfg.get("optimizer_backend") == "codex_exec":
+        if cfg.get("codex_exec_sandbox") != "read-only":
+            raise RuntimeError(
+                "trajectory path references require codex_exec_sandbox=read-only"
+            )
         os.environ.pop("DEEPSEEK_API_KEY", None)
         os.environ["SKILLOPT_CODEX_BRIDGE_TOKEN"] = "local-bridge-only"
         os.environ["CODEX_WORKING_DIRECTORY"] = str(Path(cfg["out_root"]).resolve())
+        os.environ["SKILLOPT_PATH_REFERENCES"] = "1"
         _install_prompt_free_codex_ledger(
             Path(cfg["out_root"]) / "optimizer_calls.jsonl"
         )

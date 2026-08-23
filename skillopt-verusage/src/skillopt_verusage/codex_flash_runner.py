@@ -16,6 +16,7 @@ from skill_evolution_pilot.codex_runner import (
 from skill_evolution_pilot.workspace import sha256_file
 from skillopt_verusage.budget_guard import estimate_deepseek_cost
 from skillopt_verusage.outcome import proof_solved
+from skillopt_verusage.skill_artifact import load_skill_artifact
 
 
 def _external_file(path: Path) -> Path:
@@ -215,7 +216,9 @@ def run_task(
     expected_source_sha256: str,
     directory_group: str,
     out_dir: Path,
-    skill_file: Path,
+    skill_file: Path | None,
+    skill_dir: Path | None = None,
+    expected_skill_sha256: str | None = None,
     codex_bin: Path,
     verus_bin: Path,
     lynette_bin: Path,
@@ -245,7 +248,11 @@ def run_task(
         raise ValueError(f"source is outside allowed unverified data: {source}")
     if sha256_file(source) != expected_source_sha256:
         raise ValueError(f"stale source hash: {source}")
-    skill_file = _external_file(skill_file)
+    if (skill_file is None) == (skill_dir is None):
+        raise ValueError("exactly one of skill_file or skill_dir is required")
+    skill_source = skill_file if skill_file is not None else skill_dir
+    assert skill_source is not None
+    skill_artifact = load_skill_artifact(skill_source, expected_skill_sha256)
     bridge_manifest_path = _external_file(bridge_manifest_path)
     bridge_manifest = json.loads(bridge_manifest_path.read_text(encoding="utf-8"))
     if bridge_manifest.get("fake_mode"):
@@ -261,8 +268,15 @@ def run_task(
         "responses_to_chat_completions",
     }:
         raise ValueError(f"unsupported bridge protocol: {protocol!r}")
-    skill_text = skill_file.read_text(encoding="utf-8")
-    injected_skill_text = skill_text if condition_skill_present else None
+    skill_text = skill_artifact.entrypoint_text
+    injected_skill_text = (
+        skill_text
+        if condition_skill_present and skill_artifact.source_dir is None
+        else None
+    )
+    injected_skill_dir = (
+        skill_artifact.source_dir if condition_skill_present else None
+    )
     provider_base_url = bridge_url.rstrip("/") + f"/tasks/{bridge_task_key}/v1"
     isolation_values = (
         actor_isolation_scratch_root,
@@ -299,15 +313,14 @@ def run_task(
         show_raw_agent_reasoning=True,
         timeout_seconds=timeout_seconds,
         skill_text=injected_skill_text,
+        skill_dir=injected_skill_dir,
         provider_id=codex_provider_id,
         provider_base_url=provider_base_url,
         provider_env_key="SKILLOPT_CODEX_BRIDGE_TOKEN",
         model_context_window=model_context_window,
         model_catalog_json=model_catalog_path,
         contract_profile=actor_contract_profile,
-        condition_skill_sha256=hashlib.sha256(
-            skill_text.encode("utf-8")
-        ).hexdigest(),
+        condition_skill_sha256=skill_artifact.artifact_sha256,
         stage=run_stage,
         actor_isolation=actor_isolation,
     )
@@ -386,7 +399,7 @@ def run_task(
         "soft": float(hard),
         "proof_solved": hard,
         "within_budget": not bool(result.get("timed_out")),
-        "safety_passed": bool(validation.get("input_unchanged")),
+        "safety_passed": bool(result.get("safety_passed")),
         "task_type": "anvil" if directory_group == "verified-anvil" else "ironkv",
         "task_description": "Repair a Verus proof while preserving executable behavior.",
         "fail_reason": fail_reason,
@@ -404,7 +417,8 @@ def run_task(
         "actor_contract_profile": actor_contract_profile,
         "bridge_task_key": bridge_task_key,
         "source_sha256": expected_source_sha256,
-        "skill_sha256": hashlib.sha256(skill_text.encode("utf-8")).hexdigest(),
+        "skill_sha256": skill_artifact.artifact_sha256,
+        "skill_artifact": skill_artifact.manifest(),
         "usage": usage,
         "codex_terminal": terminal,
         "provider_valid": provider_valid,
@@ -439,7 +453,10 @@ def main() -> None:
     parser.add_argument("--expected-source-sha256", required=True)
     parser.add_argument("--directory-group", required=True)
     parser.add_argument("--out-dir", type=Path, required=True)
-    parser.add_argument("--skill-file", type=Path, required=True)
+    skill_group = parser.add_mutually_exclusive_group(required=True)
+    skill_group.add_argument("--skill-file", type=Path)
+    skill_group.add_argument("--skill-dir", type=Path)
+    parser.add_argument("--expected-skill-sha256")
     parser.add_argument("--codex-bin", type=Path, required=True)
     parser.add_argument("--verus-bin", type=Path, required=True)
     parser.add_argument("--lynette-bin", type=Path, required=True)
@@ -473,6 +490,8 @@ def main() -> None:
         directory_group=args.directory_group,
         out_dir=args.out_dir,
         skill_file=args.skill_file,
+        skill_dir=args.skill_dir,
+        expected_skill_sha256=args.expected_skill_sha256,
         codex_bin=args.codex_bin,
         verus_bin=args.verus_bin,
         lynette_bin=args.lynette_bin,

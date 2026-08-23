@@ -120,7 +120,7 @@ class TestFixedTestEvalContract(unittest.TestCase):
         kwargs = run_smoke.call_args.kwargs
         self.assertIsNone(kwargs["skill_text"])
         self.assertEqual(kwargs["contract_profile"], "cross_provider_20260819")
-        self.assertEqual(kwargs["stage"], "formal_held_out_evaluation")
+        self.assertEqual(kwargs["stage"], "fixed_test20_evaluation")
         self.assertFalse(skill_file_exists)
         self.assertFalse(results[0]["condition_skill_present"])
         self.assertEqual(

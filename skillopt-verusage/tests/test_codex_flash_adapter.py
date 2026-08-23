@@ -4,10 +4,18 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from skillopt_verusage.codex_flash_adapter import CodexDeepSeekAdapter
+from skillopt_verusage.codex_flash_adapter import (
+    FINAL_VALIDATION_WATCHDOG_SECONDS,
+    HOST_WATCHDOG_GRACE_SECONDS,
+    CodexDeepSeekAdapter,
+)
 
 
 class CodexFlashAdapterTest(unittest.TestCase):
+    def test_host_watchdog_grace_is_60_seconds(self) -> None:
+        self.assertEqual(HOST_WATCHDOG_GRACE_SECONDS, 60)
+        self.assertGreaterEqual(FINAL_VALIDATION_WATCHDOG_SECONDS, 2 * 120)
+
     def test_isolation_resume_requires_exact_provenance(self) -> None:
         adapter = object.__new__(CodexDeepSeekAdapter)
         adapter.bridge_url = "http://127.0.0.1:18083"

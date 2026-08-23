@@ -1,7 +1,8 @@
 # Execution Prompt: SkillOpt With Codex-Flash Actor And GPT-5.6 Sol Optimizer
 
 You are taking over the SkillOpt-on-Verus experiment in
-`/zp_vegeta/scratch_sb/ycsun/Verus-Skill-Learning`. Work autonomously until the
+`${REPO_ROOT}`. Resolve this and other machine-local paths from
+`.agent-context.local.md`. Work autonomously until the
 authorized stopping condition is reached. Do not silently substitute a
 different agent harness.
 
@@ -58,14 +59,14 @@ fresh ephemeral `codex exec` session with the same frozen target contract:
 
 Do not use any of the following as the target harness:
 
-- `/zp_vegeta/scratch_sb/ycsun/RL-verus-1129/autoverus/verusage`;
+- `${LEGACY_VERUSAGE_ROOT}`;
 - GitHub Copilot CLI;
 - the old Verus Copilot action/repair scaffold;
 - direct one-shot DeepSeek patch generation outside Codex;
 - the current Pro retrieval proxy.
 
 The external GitHub Copilot BYOK adapter at
-`/zp_vegeta/scratch_sb/ycsun/RL-verus-0209/agentic-pipeline/scripts/copilot/byok_adapter.py`
+`${COPILOT_BYOK_ADAPTER}`
 may be read only for protocol ideas. It cannot be reported as the Codex actor.
 
 ## Phase 0: Finish And Quarantine The Active Mismatch Run

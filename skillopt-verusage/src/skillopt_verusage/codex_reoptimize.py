@@ -353,6 +353,7 @@ def optimize(
         approval_policy="never",
     )
     os.environ["CODEX_WORKING_DIRECTORY"] = str(out_dir)
+    os.environ["SKILLOPT_PATH_REFERENCES"] = "1"
     ledger_path = out_dir / "optimizer_calls.jsonl"
     _install_prompt_free_codex_ledger(ledger_path)
     reset_token_tracker()

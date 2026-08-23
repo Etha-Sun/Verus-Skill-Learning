@@ -1,7 +1,9 @@
 import hashlib
 import json
 import os
+import subprocess
 import tempfile
+import threading
 import time
 import unittest
 from pathlib import Path
@@ -10,6 +12,7 @@ from unittest.mock import patch
 from skill_evolution_pilot.codex_runner import (
     _codex_environment,
     _command_modifies_candidate,
+    _interrupt_then_kill_process_group,
     _run_complete,
     _verus_tool_manifest,
     build_command,
@@ -45,6 +48,21 @@ class CodexRunnerTest(unittest.TestCase):
             self.assertTrue(result["timed_out"])
             self.assertIsNone(result["returncode"])
             self.assertLess(time.monotonic() - started, 5)
+
+    def test_actor_timeout_force_kills_a_process_that_ignores_sigint(self):
+        process = subprocess.Popen(
+            ["bash", "-c", "trap '' INT; sleep 30 & wait"],
+            start_new_session=True,
+            text=True,
+        )
+        timed_out = threading.Event()
+        started = time.monotonic()
+        _interrupt_then_kill_process_group(
+            process, timed_out, grace_seconds=0.2
+        )
+        process.wait(timeout=2)
+        self.assertTrue(timed_out.is_set())
+        self.assertLess(time.monotonic() - started, 2)
 
     def test_shell_edit_audit_allows_read_only_commands_and_stderr_merge(self):
         self.assertFalse(
@@ -174,6 +192,7 @@ last.write_text("complete")
             self.assertEqual(raw_rows[-1]["usage"]["reasoning_output_tokens"], 3)
             self.assertTrue((out_dir / "visibility_manifest.json").is_file())
             self.assertTrue((out_dir / "validation.json").is_file())
+            self.assertTrue((out_dir / "actor_phase_complete.json").is_file())
             self.assertTrue((out_dir / "snapshots").is_dir())
             manifest = json.loads(
                 (out_dir / "run_manifest.json").read_text(encoding="utf-8")

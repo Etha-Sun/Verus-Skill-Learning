@@ -30,6 +30,7 @@ from skillopt_verusage.outcome import (
     proof_solved,
     within_budget,
 )
+from skillopt_verusage.skill_artifact import SkillArtifact, load_skill_artifact
 from skillopt_verusage.verus_release import require_formal_verus
 
 
@@ -112,14 +113,13 @@ def _select_test_items(
     return [item for item in items if str(item["id"]) in requested]
 
 
-def _load_skill(skill_file: Path, expected_sha256: str) -> tuple[str, str]:
-    skill_text = skill_file.read_text(encoding="utf-8")
-    skill_sha256 = hashlib.sha256(skill_text.encode("utf-8")).hexdigest()
-    if skill_sha256 != expected_sha256:
-        raise ValueError(
-            f"skill hash mismatch: expected {expected_sha256}, got {skill_sha256}"
-        )
-    return skill_text, skill_sha256
+def _load_skill_artifact(path: Path, expected_sha256: str) -> SkillArtifact:
+    return load_skill_artifact(path, expected_sha256)
+
+
+def _load_skill(path: Path, expected_sha256: str) -> tuple[str, str]:
+    artifact = _load_skill_artifact(path, expected_sha256)
+    return artifact.entrypoint_text, artifact.artifact_sha256
 
 
 def _local_fidelity(result: dict[str, Any]) -> str:
@@ -143,6 +143,7 @@ def _run_direct(
     items: list[dict[str, Any]],
     out_dir: Path,
     skill_text: str,
+    skill_dir: Path | None = None,
     skill_sha256: str,
     model: str,
     reasoning_effort: str,
@@ -176,11 +177,16 @@ def _run_direct(
                     reasoning_summary="detailed",
                     show_raw_agent_reasoning=True,
                     timeout_seconds=timeout_seconds,
-                    skill_text=skill_text if condition_skill_present else None,
+                    skill_text=(
+                        skill_text
+                        if condition_skill_present and skill_dir is None
+                        else None
+                    ),
+                    skill_dir=skill_dir if condition_skill_present else None,
                     model_context_window=model_context_window,
                     contract_profile=actor_contract_profile,
                     condition_skill_sha256=skill_sha256,
-                    stage="formal_held_out_evaluation",
+                    stage="fixed_test20_evaluation",
                 )
                 result.update(
                     {
@@ -352,6 +358,26 @@ def _summarize(
         "usage": usage,
         "estimated_api_cost_usd": estimated_cost,
         "cost_basis": "local quota" if transport == "direct" else cost_basis,
+        "usage_scope": (
+            "retained task attempts; archived direct attempts are not included"
+            if transport == "direct"
+            else "complete bridge ledger including archived attempts"
+            if bridge_ledger is not None
+            else "retained task attempts"
+        ),
+        "archived_attempt_usage_included": bool(
+            transport == "bridge" and bridge_ledger is not None
+        ),
+        "retained_task_wall_seconds_sum": sum(
+            float(row.get("wall_seconds", 0.0) or 0.0) for row in results
+        ),
+        "retained_actor_wall_seconds_sum": sum(
+            float(row.get("actor_wall_seconds", 0.0) or 0.0) for row in results
+        ),
+        "retained_final_validation_wall_seconds_sum": sum(
+            float(row.get("final_validation_wall_seconds", 0.0) or 0.0)
+            for row in results
+        ),
     }
     if transport == "bridge" and bridge_ledger is not None:
         summary["retained_task_estimated_api_cost_usd"] = retained_cost
@@ -365,7 +391,9 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--run-dir", type=Path)
     parser.add_argument("--split-dir", type=Path, required=True)
-    parser.add_argument("--skill-file", type=Path, required=True)
+    skill_group = parser.add_mutually_exclusive_group(required=True)
+    skill_group.add_argument("--skill-file", type=Path)
+    skill_group.add_argument("--skill-dir", type=Path)
     parser.add_argument("--skill-label", required=True)
     parser.add_argument("--expected-skill-sha256", required=True)
     parser.add_argument("--codex-bin", type=Path, required=True)
@@ -400,9 +428,13 @@ def main() -> None:
     os.chdir(split_dir.parent)
     items, split_manifest = _load_test_items(split_dir)
     items = _select_test_items(items, args.item_id)
-    skill_text, skill_sha256 = _load_skill(
-        args.skill_file, args.expected_skill_sha256
-    )
+    skill_path = args.skill_file if args.skill_file is not None else args.skill_dir
+    assert skill_path is not None
+    skill_artifact = _load_skill_artifact(skill_path, args.expected_skill_sha256)
+    skill_text = skill_artifact.entrypoint_text
+    skill_sha256 = skill_artifact.artifact_sha256
+    if args.skill_dir is not None and args.skill_label == "blank":
+        raise ValueError("a skill bundle cannot use the reserved blank label")
     condition_skill_present = args.skill_label != "blank"
     prompt = (
         build_cross_provider_prompt(
@@ -472,7 +504,8 @@ def main() -> None:
         "version_sensitive_item_scoring": "included unchanged; selected verifier outcome counts toward solved denominator",
         "skill_label": args.skill_label,
         "skill_sha256": skill_sha256,
-        "skill_bytes": len(skill_text.encode("utf-8")),
+        "skill_bytes": int(skill_artifact.manifest()["total_bytes"]),
+        "skill_artifact": skill_artifact.manifest(),
         "prompt_sha256": hashlib.sha256(prompt.encode("utf-8")).hexdigest(),
         "transport": args.transport,
         "model": args.model,
@@ -492,19 +525,39 @@ def main() -> None:
         raise ValueError("--run-dir is required unless --check-only is used")
     run_dir = _require_run_dir(args.run_dir)
     run_dir.mkdir(parents=True, exist_ok=True)
+    execution_skill_dir: Path | None = None
+    if skill_artifact.source_dir is not None:
+        frozen_skill_dir = run_dir / "condition_skill"
+        shutil.copytree(skill_artifact.source_dir, frozen_skill_dir)
+        execution_skill_dir = _load_skill_artifact(
+            frozen_skill_dir, skill_sha256
+        ).source_dir
     contract = {
         **check,
         "created_at": _now(),
         "status": "RUNNING",
-        "purpose": "one-pass held-out test evaluation under the fixed baseline contract",
+        "purpose": "one-pass recurring test-20 evaluation under the fixed baseline contract",
         "test_ids": [item["id"] for item in items],
         "reasoning_effort": args.reasoning_effort,
         "valid_timeout_retries": 0,
         "runner_exception_retries": 2,
         "fidelity_triggered_retries": 0,
-        "hard_metric": "independent Verus pass AND Lynette proof-only pass AND input safety",
-        "reference_proof_visible": False,
-        "prior_trajectory_visible": False,
+        "hard_metric": "independent Verus pass AND Lynette proof-only pass AND input/skill safety",
+        "reference_proof_injected": False,
+        "prior_trajectory_injected": False,
+        "filesystem_visibility_enforced": bool(
+            actor_isolation_check.get("requested")
+        ),
+        "leakage_scope": (
+            "actor filesystem allowlist enforced"
+            if actor_isolation_check.get("requested")
+            else "prompt/workspace inputs controlled; external filesystem reads not enforced"
+        ),
+        "claim_scope": (
+            "leakage-controlled recurring benchmark"
+            if actor_isolation_check.get("requested")
+            else "diagnostic recurring benchmark; not leakage-safe"
+        ),
         "cost_cap_usd": None,
         "raw_data_read_only": True,
     }
@@ -515,6 +568,7 @@ def main() -> None:
             items=items,
             out_dir=run_dir,
             skill_text=skill_text,
+            skill_dir=execution_skill_dir,
             skill_sha256=skill_sha256,
             model=args.model,
             reasoning_effort=args.reasoning_effort,
@@ -550,7 +604,7 @@ def main() -> None:
             actor_contract_profile=args.actor_contract_profile,
             condition_skill_present=condition_skill_present,
             codex_provider_id=args.codex_provider_id,
-            run_stage="formal_held_out_evaluation",
+            run_stage="fixed_test20_evaluation",
             actor_isolation_scratch_root=(
                 str(args.actor_isolation_scratch_root)
                 if args.actor_isolation_scratch_root
@@ -568,6 +622,11 @@ def main() -> None:
             ),
             actor_isolation_forbidden_paths=tuple(
                 str(path) for path in args.actor_isolation_forbidden_path
+            ),
+            condition_skill_dir=(
+                str(execution_skill_dir)
+                if execution_skill_dir is not None
+                else None
             ),
         )
         adapter.setup({"out_root": str(run_dir)})

@@ -4,8 +4,10 @@
 
 ## 当前状态
 
-- 上游源码已 clone 到 `SkillOpt/`。
-- 固定上游 commit：`9639719632daecacd1baaa47fe781f3c0253600a`。
+- 上游源码通过 `scripts/bootstrap_skillopt.sh` clone 到 ignored `SkillOpt/`。
+- 固定上游 commit：`9639719632daecacd1baaa47fe781f3c0253600a`；bootstrap
+  应用 reviewed path-reference patch，并校验 patched Git tree
+  `7e207482b0bf0238b21e13976f6f9da5f130072c`。
 - 已在 `src/skillopt_verusage/` 实现最小接入层：frozen split loader、
   DeepSeek skill-injection proxy、隔离 VeruSAGE runner、独立 Verus/Lynette
   final judge 和自定义 SkillOpt launcher。
@@ -32,6 +34,8 @@
   差距原因和剩余可比性边界。
 - `src/skillopt_verusage/trace2skill.py`：immutable candidate schedule 与 snapshot
   lineage；promotion 继续复用本仓库 held-out gate。
+- `TRACE2SKILL_EVALUATION_HANDOFF.md`：Trace2Skill 单文件或多文件 skill bundle
+  接入固定 test-20 evaluator 的最小交付协议。
 - `src/skillopt_verusage/outcome.py`：proof correctness、timeout budget、input safety
   和 V0/V1/V2 trace fidelity 的正交计分合同。
 - `refine-logs/EXPERIMENT_PLAN.md`：claim-driven proposal、接入协议、实验矩阵、
@@ -46,6 +50,20 @@
 - `tests/`：模型无关 guard 和 central skill injection 测试。
 - `SkillOpt/`：只用于审计和运行的 Microsoft SkillOpt 上游 checkout。
 
+从 fresh clone 准备依赖：
+
+```bash
+skillopt-verusage/scripts/bootstrap_skillopt.sh
+```
+
+脚本只接受干净的 pinned checkout 或精确匹配 reviewed patch 的 checkout；遇到
+其他 staged、tracked 或 untracked 修改会 fail closed。test-20 与 Epoch-4 launcher
+都会在运行前调用这一检查。补丁源位于
+`patches/0001-verusage-path-references.patch`，相应回归测试属于父仓库测试集。
+所有 fixed-80 launcher 也会先运行 bootstrap。轨迹路径压缩是显式 opt-in：仅本仓库
+的 `codex_exec` + `read-only` optimizer 设置 `SKILLOPT_PATH_REFERENCES=1`；
+OpenAI-compatible optimizer 保留完整 inline trajectory，不会收到无法读取的本地路径。
+
 外部运行指针：
 
 - split：`${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/split-100-seed42-20260806`
@@ -57,7 +75,10 @@
 
 - 原始数据和 sealed 数据保持只读。
 - 完整 VeruSAGE/SkillOpt rollout、prompt、response、token ledger、临时 workspace
-  和 split manifest 只能写到 `${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/`。
+  只能写到 `${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/`。
+- 父仓库已审核的 `fixed-claude-stratified-80-seed20260814/` 是窄例外：为保证
+  所有方法使用完全相同的 test-20，其固定 source、split manifest 及用于历史分层
+  的 token/time 字段继续 tracked 且只读；它不是 sealed test，也不容纳运行账本。
 - 本目录只保留代码、测试、配置模板、hash、proposal 和审核后的紧凑摘要。
 
 ## GLM API 配置
@@ -80,6 +101,18 @@ launcher 会把 sourced `.env` 中的密钥显式 export 给 bridge，因此带�
 ```bash
 skillopt-verusage/scripts/run_s2_fixed_test20.sh glm {blank|s2}
 ```
+
+Trace2Skill 或其他外部方法不需要迁入训练代码。其最终产物只要是一个 Markdown
+文件，或包含根 `SKILL.md` 的完整 skill bundle，即可使用同一 evaluator：
+
+```bash
+skillopt-verusage/scripts/run_s2_fixed_test20.sh \
+  glm trace2skill /absolute/path/to/verus-proof-repair
+```
+
+bundle 的全部普通文件会按原相对路径复制到隔离 task workspace；symlink 会被
+拒绝。launcher 在任何模型调用前计算并冻结与 candidate lineage 相同口径的 tree
+hash。完整约束和交付检查见 `TRACE2SKILL_EVALUATION_HANDOFF.md`。
 
 远程 API arm 可以在启动时设为 20 个 actor task 并发：
 

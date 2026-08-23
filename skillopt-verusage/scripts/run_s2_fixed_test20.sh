@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ "$#" -lt 1 || "$#" -gt 2 ]]; then
-  echo "usage: $0 {gpt|deepseek|glm|qwen} {blank|s1|s2}" >&2
+if [[ "$#" -lt 1 || "$#" -gt 3 ]]; then
+  echo "usage: $0 {gpt|deepseek|glm|qwen} {blank|s1|s2|trace2skill} [skill-file-or-dir]" >&2
   exit 2
 fi
 
 CONDITION="$1"
 SKILL_VARIANT="${2:-s2}"
+EXTERNAL_SKILL_PATH="${3:-}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 source "$REPO_ROOT/.env"
@@ -15,28 +16,65 @@ source "$REPO_ROOT/.env"
 : "${VERUS_SKILL_RUN_ROOT:?set VERUS_SKILL_RUN_ROOT in .env}"
 : "${VERUS_BIN:?set VERUS_BIN in .env}"
 : "${LYNETTE_BIN:?set LYNETTE_BIN in .env}"
+"$REPO_ROOT/skillopt-verusage/scripts/bootstrap_skillopt.sh" >/dev/null
 
 PYTHON_BIN="${SKILLOPT_PYTHON_BIN:-python3}"
 CODEX_CLI_BIN="${CODEX_CLI_BIN:-$(command -v codex)}"
 SPLIT_DIR="$REPO_ROOT/fixed-claude-stratified-80-seed20260814"
+SKILL_LABEL="$SKILL_VARIANT"
+SKILL_INPUT_FLAGS=()
 case "$SKILL_VARIANT" in
   blank)
     SKILL_FILE="$REPO_ROOT/skillopt-verusage/skills/blank.md"
     EXPECTED_SKILL_SHA256="01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    SKILL_INPUT_FLAGS=(--skill-file "$SKILL_FILE")
     ;;
   s1)
     SKILL_FILE="${SKILLOPT_S1_SKILL_FILE:-$VERUS_SKILL_RUN_ROOT/skillopt-verusage/codex-pro-fixed80-e1-600s-20260817-1916/steps/step_0001/candidate_skill.md}"
     EXPECTED_SKILL_SHA256="fb4584310c22fcd030b7a2def19ccbf4777046e15d3ca136a55c477c7a8065ab"
+    SKILL_INPUT_FLAGS=(--skill-file "$SKILL_FILE")
     ;;
   s2)
     SKILL_FILE="${SKILLOPT_S2_SKILL_FILE:-$VERUS_SKILL_RUN_ROOT/skillopt-verusage/codex-pro-fixed80-e1-600s-20260817-1916/best_skill.md}"
     EXPECTED_SKILL_SHA256="1549611562e38c6dcb75d0b18bdf081434c431c5d7d6659a3411f8cbc540d96e"
+    SKILL_INPUT_FLAGS=(--skill-file "$SKILL_FILE")
+    ;;
+  trace2skill)
+    if [[ -z "$EXTERNAL_SKILL_PATH" ]]; then
+      echo "trace2skill requires a SKILL.md file or skill bundle directory" >&2
+      exit 2
+    fi
+    SKILL_LABEL="${SKILLOPT_EXTERNAL_SKILL_LABEL:-trace2skill}"
+    if ! [[ "$SKILL_LABEL" =~ ^[A-Za-z0-9._-]+$ ]]; then
+      echo "SKILLOPT_EXTERNAL_SKILL_LABEL contains unsafe characters" >&2
+      exit 2
+    fi
+    if [[ "$SKILL_LABEL" == "blank" ]]; then
+      echo "SKILLOPT_EXTERNAL_SKILL_LABEL must not disable skill injection" >&2
+      exit 2
+    fi
+    EXPECTED_SKILL_SHA256="$(
+      PYTHONPATH="$REPO_ROOT/skillopt-verusage/src" \
+        "$PYTHON_BIN" -m skillopt_verusage.skill_artifact "$EXTERNAL_SKILL_PATH"
+    )"
+    if [[ -d "$EXTERNAL_SKILL_PATH" ]]; then
+      SKILL_INPUT_FLAGS=(--skill-dir "$EXTERNAL_SKILL_PATH")
+    elif [[ -f "$EXTERNAL_SKILL_PATH" ]]; then
+      SKILL_INPUT_FLAGS=(--skill-file "$EXTERNAL_SKILL_PATH")
+    else
+      echo "trace2skill artifact does not exist: $EXTERNAL_SKILL_PATH" >&2
+      exit 2
+    fi
     ;;
   *)
     echo "unknown skill variant: $SKILL_VARIANT" >&2
     exit 2
     ;;
 esac
+if [[ "$SKILL_VARIANT" != "trace2skill" && -n "$EXTERNAL_SKILL_PATH" ]]; then
+  echo "the third argument is only valid for trace2skill" >&2
+  exit 2
+fi
 : "${SKILLOPT_MODEL_CATALOG_PATH:?set SKILLOPT_MODEL_CATALOG_PATH in .env}"
 BASE_CATALOG="$SKILLOPT_MODEL_CATALOG_PATH"
 if [[ -n "${SKILLOPT_ACTOR_PROFILE:-}" ]]; then
@@ -52,7 +90,7 @@ if [[ "$ACTOR_PROFILE" != "project" && "$ACTOR_PROFILE" != "cross_provider_20260
 fi
 EVAL_VERUS_BIN="${SKILLOPT_EVAL_VERUS_BIN:-$VERUS_BIN}"
 STAMP="$(date +%Y%m%d-%H%M%S)"
-RUN_NAME="${SKILLOPT_TEST_RUN_NAME:-fixed-test20-${CONDITION}-${SKILL_VARIANT}-${STAMP}}"
+RUN_NAME="${SKILLOPT_TEST_RUN_NAME:-fixed-test20-${CONDITION}-${SKILL_LABEL}-${STAMP}}"
 RUN_DIR="$VERUS_SKILL_RUN_ROOT/skillopt-verusage/$RUN_NAME"
 BRIDGE_PORT="${SKILLOPT_BRIDGE_PORT:-18083}"
 BRIDGE_URL="http://127.0.0.1:$BRIDGE_PORT"
@@ -98,8 +136,8 @@ if [[ "$CONDITION" == "gpt" ]]; then
   exec "$PYTHON_BIN" -m skillopt_verusage.test_eval \
     --run-dir "$RUN_DIR" \
     --split-dir "$SPLIT_DIR" \
-    --skill-file "$SKILL_FILE" \
-    --skill-label "$SKILL_VARIANT" \
+    "${SKILL_INPUT_FLAGS[@]}" \
+    --skill-label "$SKILL_LABEL" \
     --expected-skill-sha256 "$EXPECTED_SKILL_SHA256" \
     --codex-bin "$CODEX_CLI_BIN" \
     --verus-bin "$EVAL_VERUS_BIN" \
@@ -274,8 +312,8 @@ export SKILLOPT_CODEX_BRIDGE_TOKEN=local-bridge-only
 "$PYTHON_BIN" -m skillopt_verusage.test_eval \
   --run-dir "$RUN_DIR" \
   --split-dir "$SPLIT_DIR" \
-  --skill-file "$SKILL_FILE" \
-  --skill-label "$SKILL_VARIANT" \
+  "${SKILL_INPUT_FLAGS[@]}" \
+  --skill-label "$SKILL_LABEL" \
   --expected-skill-sha256 "$EXPECTED_SKILL_SHA256" \
   --codex-bin "$CODEX_CLI_BIN" \
   --verus-bin "$EVAL_VERUS_BIN" \

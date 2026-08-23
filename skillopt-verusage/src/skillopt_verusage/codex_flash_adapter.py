@@ -15,6 +15,25 @@ from skill_evolution_pilot.codex_runner import (
     build_prompt,
 )
 from skill_evolution_pilot.workspace import sha256_file
+from skillopt_verusage.skill_artifact import load_skill_artifact
+
+
+HOST_WATCHDOG_GRACE_SECONDS = 60
+FINAL_VALIDATION_WATCHDOG_SECONDS = 270
+
+
+def _load_completed_result(path: Path) -> dict[str, Any] | None:
+    if not path.is_file():
+        return None
+    try:
+        result = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    if not isinstance(result, dict) or result.get("schema_version") != "1":
+        return None
+    if not isinstance(result.get("validation"), dict):
+        return None
+    return result
 
 
 class CodexDeepSeekAdapter(VeruSAGEAdapter):
@@ -52,6 +71,7 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
         actor_isolation_verus_root: str | None = None,
         actor_isolation_rust_root: str | None = None,
         actor_isolation_forbidden_paths: tuple[str, ...] = (),
+        condition_skill_dir: str | None = None,
     ) -> None:
         super().__init__(
             split_dir=split_dir,
@@ -65,7 +85,9 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
             minibatch_size=minibatch_size,
             edit_budget=edit_budget,
             task_retries=task_retries,
-            task_timeout_seconds=max_codex_timeout_seconds + 120,
+            task_timeout_seconds=(
+                max_codex_timeout_seconds + HOST_WATCHDOG_GRACE_SECONDS
+            ),
             fail_on_invalid=fail_on_invalid,
             seed=seed,
         )
@@ -118,6 +140,16 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
         self.actor_isolation_forbidden_paths = tuple(
             str(Path(path).resolve()) for path in actor_isolation_forbidden_paths
         )
+        self.condition_skill_dir: Path | None = None
+        self.condition_skill_sha256: str | None = None
+        self.condition_skill_manifest: dict[str, object] | None = None
+        if condition_skill_dir is not None:
+            artifact = load_skill_artifact(Path(condition_skill_dir))
+            if artifact.source_dir is None:
+                raise ValueError("condition_skill_dir must be a skill bundle directory")
+            self.condition_skill_dir = artifact.source_dir
+            self.condition_skill_sha256 = artifact.artifact_sha256
+            self.condition_skill_manifest = artifact.manifest()
         self._codex_version = subprocess.run(
             [str(self.codex_bin), "--version"],
             capture_output=True,
@@ -193,6 +225,10 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
             }
             and manifest.get("source_sha256") == item["source_sha256"]
             and manifest.get("condition_skill_sha256") == skill_sha256
+            and (
+                self.condition_skill_manifest is None
+                or result.get("skill_artifact") == self.condition_skill_manifest
+            )
             and manifest.get("prompt_sha256")
             == hashlib.sha256(
                 (
@@ -263,8 +299,6 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
             item["directory_group"],
             "--out-dir",
             str(task_dir),
-            "--skill-file",
-            str(skill_file),
             "--codex-bin",
             str(self.codex_bin),
             "--verus-bin",
@@ -294,6 +328,14 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
             "--run-stage",
             self.run_stage,
         ]
+        if getattr(self, "condition_skill_dir", None) is not None:
+            command.extend(["--skill-dir", str(self.condition_skill_dir)])
+        else:
+            command.extend(["--skill-file", str(skill_file)])
+        expected_skill_sha256 = getattr(self, "condition_skill_sha256", None)
+        if expected_skill_sha256 is None:
+            expected_skill_sha256 = hashlib.sha256(skill_file.read_bytes()).hexdigest()
+        command.extend(["--expected-skill-sha256", expected_skill_sha256])
         if not self.condition_skill_present:
             command.append("--condition-skill-absent")
         if self.actor_isolation_scratch_root:
@@ -310,6 +352,7 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
             for path in self.actor_isolation_forbidden_paths:
                 command.extend(["--actor-isolation-forbidden-path", path])
         process: subprocess.Popen[str] | None = None
+        stderr = ""
         try:
             process = subprocess.Popen(
                 command,
@@ -320,20 +363,37 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
             )
             with self._process_lock:
                 self._active_processes.add(process)
-            _, stderr = process.communicate(timeout=timeout_seconds + 120)
+            _, stderr = process.communicate(
+                timeout=timeout_seconds + HOST_WATCHDOG_GRACE_SECONDS
+            )
             result_path = task_dir / "result.json"
-            if result_path.is_file():
-                return json.loads(result_path.read_text(encoding="utf-8"))
+            result = _load_completed_result(result_path)
+            if result is not None:
+                return result
             return self._fallback_result(
                 item,
                 task_dir,
                 f"Codex runner exit={process.returncode}: {stderr[-2000:]}",
             )
         except subprocess.TimeoutExpired:
-            if process is not None:
+            actor_complete = task_dir / "actor_phase_complete.json"
+            if process is not None and actor_complete.is_file():
+                try:
+                    _, stderr = process.communicate(
+                        timeout=FINAL_VALIDATION_WATCHDOG_SECONDS
+                    )
+                except subprocess.TimeoutExpired:
+                    self._terminate_process(process)
+            elif process is not None:
                 self._terminate_process(process)
+            completed = _load_completed_result(task_dir / "result.json")
+            if completed is not None:
+                return completed
             return self._fallback_result(
-                item, task_dir, "Codex runner exceeded host watchdog"
+                item,
+                task_dir,
+                "Codex runner exceeded host watchdog: " + stderr[-1000:],
+                timed_out=True,
             )
         finally:
             if process is not None:
@@ -347,7 +407,9 @@ class CodexDeepSeekAdapter(VeruSAGEAdapter):
         skill_file: Path,
     ) -> dict[str, Any]:
         task_dir = prediction_dir / item["id"]
-        skill_sha = hashlib.sha256(skill_file.read_bytes()).hexdigest()
+        skill_sha = getattr(self, "condition_skill_sha256", None) or hashlib.sha256(
+            skill_file.read_bytes()
+        ).hexdigest()
         resumed = self._resume_result(
             task_dir,
             item=item,

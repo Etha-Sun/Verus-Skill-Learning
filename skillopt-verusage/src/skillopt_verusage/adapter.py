@@ -118,6 +118,8 @@ class VeruSAGEAdapter(EnvAdapter):
         item: dict[str, Any],
         task_dir: Path,
         reason: str,
+        *,
+        timed_out: bool = False,
     ) -> dict[str, Any]:
         task_dir.mkdir(parents=True, exist_ok=True)
         result = {
@@ -129,6 +131,9 @@ class VeruSAGEAdapter(EnvAdapter):
             "fail_reason": reason,
             "n_turns": 0,
             "fidelity": "V0_INVALID",
+            "proof_solved": False,
+            "timed_out": timed_out,
+            "within_budget": not timed_out,
         }
         (task_dir / "conversation.json").write_text(
             json.dumps(
@@ -229,7 +234,9 @@ class VeruSAGEAdapter(EnvAdapter):
         except subprocess.TimeoutExpired:
             if process is not None:
                 self._terminate_process(process)
-            return self._fallback_result(item, task_dir, "task subprocess timed out")
+            return self._fallback_result(
+                item, task_dir, "task subprocess timed out", timed_out=True
+            )
         finally:
             if process is not None:
                 with self._process_lock:

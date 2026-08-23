@@ -41,6 +41,9 @@ legacy trajectories. The existing local selection gate remains authoritative.
 5. Add a verifier release contract/preflight and a data-driven two-panel token
    figure exporter/generator.
 6. Add focused unit tests plus model-free smoke checks.
+7. Accept a Trace2Skill final skill file or complete `SKILL.md` bundle through
+   the same fixed test evaluator, without importing the producer's training
+   implementation.
 
 ## Verification Tiers
 
