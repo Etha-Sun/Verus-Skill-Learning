@@ -9,13 +9,16 @@ common evaluator under `skillopt-verusage/`.
 ## Producer
 
 The production runtime is self-contained under `vendor/trace2skill_verus/`.
-Its `react_agent/` and `skill_evolver/` components are migrated from the
-repository snapshot at commit
+Its prompt-driven `skill_evolver/` runtime is migrated from the repository
+snapshot at commit
 `92a1e8ab55d79b0831f251bbd9b9e61e1562bc9e`, path
 `trace2skill_verusage_baseline_test/code/`. The four frozen Verus prompts and
 neutral Verus seed are part of the integration, so execution does not clone or
 download Trace2Skill source code at runtime. The verified runtime tree is
-`6ed310dc4673bbfdb58dfa0fb3281051b604c00d6455e4cb3cd9664aadf27b14`.
+`e8ef9e77436b0641f0e65b3bc216f202e05235021103a2b7a956009638f88adf`.
+The runtime keeps only the thin model client needed to execute skill-generation
+prompts. The deprecated ReAct task-solving harness is excluded; produced skills
+are consumed and evaluated through the shared Codex CLI harness.
 
 Only the native global MAP/REDUCE construction path is exposed. The custom
 semantic REDUCE/router, semantic-v4, M_core, candidate-gate, and legacy

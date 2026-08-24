@@ -1,9 +1,4 @@
-"""
-LLM client abstractions for the ReAct agent.
-
-This module provides a simple interface to interact with LLMs,
-with a default implementation for OpenAI-compatible APIs.
-"""
+"""LLM clients used by the prompt-driven Trace2Skill producer."""
 
 from __future__ import annotations
 
@@ -452,7 +447,7 @@ class OpenAIClient(LLMClient):
         Delegates to the synchronous ``chat()`` method to avoid creating an
         ``AsyncOpenAI`` / ``httpx.AsyncClient`` whose cleanup can raise
         ``RuntimeError('Event loop is closed')`` after ``asyncio.run()``
-        tears down the loop.  The ReAct loop is sequential, so true async
+        tears down the loop.  The Trace2Skill generation call is sequential, so true async
         I/O provides no concurrency benefit here.
         """
         return self.chat(messages, settings, return_reasoning)

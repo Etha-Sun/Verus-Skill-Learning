@@ -22,7 +22,7 @@ from datetime import datetime
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from react_agent.models import Message, ModelSettings, OpenAIClient
+from skill_evolver.model_clients import Message, ModelSettings, OpenAIClient
 from skill_evolver.prompt_loader import load_prompt_template
 
 

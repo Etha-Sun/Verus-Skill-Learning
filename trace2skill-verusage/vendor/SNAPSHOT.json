@@ -7,8 +7,9 @@
     "skill_evolver"
   ],
   "source_components_tree_sha256": "d1070a82fc0d4197591c2cc72da216b8dd54f4800c52e46fe91a03b9611226d7",
-  "integrated_runtime_tree_sha256": "6ed310dc4673bbfdb58dfa0fb3281051b604c00d6455e4cb3cd9664aadf27b14",
+  "integrated_runtime_tree_sha256": "e8ef9e77436b0641f0e65b3bc216f202e05235021103a2b7a956009638f88adf",
   "reviewed_transformations": [
+    "extract the generation-only model client into skill_evolver and exclude the deprecated ReAct task harness",
     "overlay the four frozen Verus construction prompts",
     "expose the repository-local skill validator through TRACE2SKILL_QUICK_VALIDATE_SCRIPT",
     "remove the custom semantic REDUCE/router module and prompts",
@@ -16,6 +17,7 @@
   ],
   "excluded_experiment_components": [
     "verus_agent legacy evaluation harness",
+    "react_agent task-solving harness",
     "semantic_reduce_evolving_agent",
     "semantic-v4",
     "M_core",

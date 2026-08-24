@@ -23,7 +23,7 @@ from pathlib import Path
 
 from tqdm import tqdm
 
-from react_agent.models import Message, ModelSettings, OpenAIClient
+from skill_evolver.model_clients import Message, ModelSettings, OpenAIClient
 from skill_evolver.prompt_loader import load_prompt_template
 from skill_evolver.skill_evolving_agent import (
     MODIFICATION_STRATEGIES_SECTION,

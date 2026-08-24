@@ -12,7 +12,7 @@ import shutil
 import sys
 from pathlib import Path
 
-from react_agent.models import ApiChatClient, OpenAIClient
+from skill_evolver.model_clients import ApiChatClient, OpenAIClient
 from skill_evolver.parallel_success_evolving_agent import (
     CombinedParallelSkillEvolver,
     normalize_mixed_patterns,

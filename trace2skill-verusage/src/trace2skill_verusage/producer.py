@@ -18,7 +18,7 @@ SCHEMA_VERSION = "trace2skill-verus-producer-v1"
 SOURCE_SNAPSHOT_COMMIT = "92a1e8ab55d79b0831f251bbd9b9e61e1562bc9e"
 SOURCE_SNAPSHOT_PATH = "trace2skill_verusage_baseline_test/code"
 VERUS_RUNTIME_TREE_SHA256 = (
-    "6ed310dc4673bbfdb58dfa0fb3281051b604c00d6455e4cb3cd9664aadf27b14"
+    "e8ef9e77436b0641f0e65b3bc216f202e05235021103a2b7a956009638f88adf"
 )
 OFFICIAL_RECORDS_SHA256 = (
     "4151b9c4ca39ca98628f33bc0355a7f49d509e28a18258482d66f935733d8466"
@@ -51,6 +51,7 @@ PROMPT_PATHS = {
     ),
 }
 EXCLUDED_EXPERIMENT_PATHS = (
+    "react_agent",
     "skill_evolver/semantic_reduce_evolving_agent.py",
     "skill_evolver/prompts/semantic_reduce_evolving_agent",
 )
@@ -158,7 +159,7 @@ def verify_runtime(
 ) -> dict[str, Any]:
     runtime = runtime_root.resolve()
     required = (
-        "react_agent/models.py",
+        "skill_evolver/model_clients.py",
         "skill_evolver/parallel_evolving_agent.py",
         "skill_evolver/parallel_success_evolving_agent.py",
         "skill_evolver/run_parallel_combined_skill_evolution.py",
