@@ -110,18 +110,28 @@ evaluation.
 ## Trace2Skill Shared Evaluator Integration (2026-08-23)
 
 The selected integration does not cherry-pick the old Trace2Skill experiment
-commit. A clean branch from `origin/main` publishes only the frozen ten-file
-native official skill bundle, four construction prompts, sanitized producer
-provenance, documentation, and a thin launcher. The launcher delegates to the
-main fixed-test entry point, so provider invocation, timeout, token accounting,
-isolation, and scoring remain common with SkillOpt; only construction logic
-differs.
+commit. A clean branch from `origin/main` separates the method producer from
+evaluation. The official Trace2Skill MAP/REDUCE core is bootstrapped at pinned
+commit `3d0b52a`, receives a reviewed two-file Verus compatibility patch and
+four-prompt overlay, and is verified as patched Git tree
+`2acce50aada3759a9a853ebaab68579627e02978`. The repository also publishes
+the neutral seed, producer adapter, frozen ten-file native official skill
+bundle, sanitized provenance, documentation, and a thin evaluation launcher.
+Raw training trajectories and normalized analysis records remain external
+read-only inputs.
+
+The evaluation launcher delegates to the main fixed-test entry point, so
+provider invocation, timeout, token accounting, isolation, and scoring remain
+common with SkillOpt; only construction logic differs.
 
 The artifact is byte-identical to commit `92a1e8a`: entry-point SHA-256
 `40de0d04f2f4e2b05a0d8187439251f2e381b2f4675c2ef44247519acf9452bd`
 and shared `skill-tree-v1` SHA-256
 `195ab1294871689873e3bd6d9d2dbfb0a89a0d13b2ea0bdd1f7d716d826437c2`.
-Main readiness passes 242 tests with one skip. GPT check-only validates the
+The zero-network producer preflight validates the historical 40-record input
+(11 error, 29 success, 160 memory items), neutral seed, four prompts, and
+patched upstream tree against the original run manifest. Main readiness passes
+253 tests with one optional-Torch skip. GPT evaluator check-only validates the
 frozen split and formal Verus `release/0.2025.09.12.bb1f342`. A one-item
 pre-merge GPT smoke solved 1/1 with zero timeout and complete V2 trace fidelity.
 

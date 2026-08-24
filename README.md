@@ -24,7 +24,7 @@ research_memory/                          durable public research context
 idea-stage/                               focused research contracts
 fixed-claude-stratified-80-seed20260814/  reviewed frozen benchmark fixture
 skillopt-verusage/                        shared evaluator and SkillOpt handoff
-trace2skill-verusage/                     frozen Trace2Skill baseline and adapter
+trace2skill-verusage/                     pinned Trace2Skill producer, baseline, and adapter
 ```
 
 The workstream directories are kept side by side so trace analysis,

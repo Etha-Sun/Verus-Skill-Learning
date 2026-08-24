@@ -1,9 +1,53 @@
-# Trace2Skill baseline integration
+# Trace2Skill producer and baseline integration
 
-This directory publishes the frozen Trace2Skill baseline artifact that is used by
-the repository's shared fixed-test evaluator.  Trace2Skill and SkillOpt differ in
-how they construct a skill; model launch, token accounting, timeouts, isolation,
-and scoring are owned by the common evaluator under `skillopt-verusage/`.
+This directory makes the Verus Trace2Skill method reproducible and publishes
+the frozen baseline used by the repository's shared fixed-test evaluator.
+Trace2Skill and SkillOpt retain different skill-construction pipelines; model
+launch, token accounting, timeouts, isolation, and scoring are owned by the
+common evaluator under `skillopt-verusage/`.
+
+## Producer
+
+The core MAP/REDUCE implementation is bootstrapped from the official
+[Qwen-Applications/Trace2Skill](https://github.com/Qwen-Applications/Trace2Skill)
+repository at commit
+`3d0b52a140f002a512930252b613c49048f7d5ac`. Like the SkillOpt integration,
+the upstream checkout is ignored by Git. A reviewed compatibility patch,
+the four frozen Verus prompts, and the neutral Verus seed produce the verified
+tree `2acce50aada3759a9a853ebaab68579627e02978`.
+
+Prepare or verify the pinned runtime:
+
+```bash
+python3 -m pip install -e '.[test,trace2skill]'
+trace2skill-verusage/scripts/bootstrap_trace2skill.sh
+```
+
+The producer consumes normalized Trace2Skill analysis records derived from
+training trajectories. Raw trajectories and generated model responses remain
+outside Git. For the published native official baseline, the wrapper requires
+the exact 40-record input hash recorded in `PROVENANCE.json`.
+
+Run the zero-network producer preflight:
+
+```bash
+trace2skill-verusage/scripts/run_native_official_producer.sh \
+  --check-only /absolute/path/to/combined_records.json
+```
+
+After reviewing the preflight, execute the construction under the external run
+root:
+
+```bash
+trace2skill-verusage/scripts/run_native_official_producer.sh \
+  --execute /absolute/path/to/combined_records.json
+```
+
+The execution uses the historical native global configuration: combined
+failure/success records, batch size 1, merge batch size 5, four MAP workers,
+five merge levels, JSON patches, translation enabled, and up to three
+verification-fix rounds. Credentials are read from the named environment
+variable and are never placed in the command or manifest.
 
 ## Frozen baseline
 
@@ -24,7 +68,7 @@ The older experiment documentation reported a different legacy tree hash for
 the same files.  New unified evaluations use the repository's
 `skill-tree-v1` contract and the hash above.
 
-## Run
+## Evaluate
 
 From the repository root:
 

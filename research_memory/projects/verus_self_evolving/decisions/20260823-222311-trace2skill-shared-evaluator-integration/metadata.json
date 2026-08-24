@@ -7,6 +7,8 @@
   "links": [
     "trace2skill-verusage/README.md",
     "trace2skill-verusage/baselines/native-official-20260819/PROVENANCE.json",
+    "trace2skill-verusage/scripts/bootstrap_trace2skill.sh",
+    "trace2skill-verusage/src/trace2skill_verusage/producer.py",
     "skillopt-verusage/TRACE2SKILL_EVALUATION_HANDOFF.md"
   ],
   "raw_data_read_only": true

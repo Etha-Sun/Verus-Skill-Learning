@@ -3,6 +3,12 @@
   "label": "native-official-20260819",
   "source_repository_commit": "92a1e8ab55d79b0831f251bbd9b9e61e1562bc9e",
   "upstream_trace2skill_commit": "3d0b52a140f002a512930252b613c49048f7d5ac",
+  "producer_runtime": {
+    "bootstrap": "scripts/bootstrap_trace2skill.sh",
+    "upstream_commit": "3d0b52a140f002a512930252b613c49048f7d5ac",
+    "patched_tree_id": "2acce50aada3759a9a853ebaab68579627e02978",
+    "module": "skill_evolver.run_parallel_combined_skill_evolution"
+  },
   "artifact": {
     "entry_point": "skill/verus-proof-repair/SKILL.md",
     "entry_point_sha256": "40de0d04f2f4e2b05a0d8187439251f2e381b2f4675c2ef44247519acf9452bd",
@@ -12,13 +18,13 @@
     "total_bytes": 39562
   },
   "construction_input": {
-    "records_sha256": "4151b9c4f6d7f6dc6c67e731273be31b4e55620fa349d7ad9cfbd914aa2d8466",
+    "records_sha256": "4151b9c4ca39ca98628f33bc0355a7f49d509e28a18258482d66f935733d8466",
     "record_count": 40,
     "successful_record_count": 29,
     "error_record_count": 11,
     "trajectory_item_count": 160,
     "held_out_inputs_used": false,
-    "neutral_seed_sha256": "f67322cdf60a0e0fe4463c16267773ddc3bafc56dd7c51e82834a07f90a0a7a2"
+    "neutral_seed_sha256": "f67322cd47bc25f993f92788767b58047c11a6863d0d7a6ba987f5dff163d7a2"
   },
   "construction": {
     "model": "deepseek-v4-pro",
