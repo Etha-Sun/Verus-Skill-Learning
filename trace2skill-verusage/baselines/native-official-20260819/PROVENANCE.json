@@ -6,7 +6,7 @@
   "producer_runtime": {
     "bootstrap": "scripts/bootstrap_trace2skill.sh",
     "upstream_commit": "3d0b52a140f002a512930252b613c49048f7d5ac",
-    "patched_tree_id": "2acce50aada3759a9a853ebaab68579627e02978",
+    "patched_tree_id": "b015929acebda3f6400dcb830d75f1f778971147",
     "module": "skill_evolver.run_parallel_combined_skill_evolution"
   },
   "artifact": {

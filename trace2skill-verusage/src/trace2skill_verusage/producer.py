@@ -16,7 +16,7 @@ from typing import Any, Mapping
 
 SCHEMA_VERSION = "trace2skill-verus-producer-v1"
 UPSTREAM_COMMIT = "3d0b52a140f002a512930252b613c49048f7d5ac"
-PATCHED_TREE_ID = "2acce50aada3759a9a853ebaab68579627e02978"
+PATCHED_TREE_ID = "b015929acebda3f6400dcb830d75f1f778971147"
 OFFICIAL_RECORDS_SHA256 = (
     "4151b9c4ca39ca98628f33bc0355a7f49d509e28a18258482d66f935733d8466"
 )
@@ -68,7 +68,7 @@ REVIEWED_FILE_SHA256 = {
         "2c7b98116eec761bc485f1287f2d1ab7604aec642e591e5273b2ab34929724b7"
     ),
     "skill_evolver/skill_evolving_agent.py": (
-        "569ea05e668eac8246dfc3ab424dc063507687ef37ddfb0eab3a6d195180339b"
+        "acde25b9352ba4bd1fc0756f2770229afffeba0c04b74bbd6e9115a38bee3f2b"
     ),
 }
 

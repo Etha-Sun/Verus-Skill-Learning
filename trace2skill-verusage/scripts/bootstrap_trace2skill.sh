@@ -13,7 +13,7 @@ upstream_url="https://github.com/Qwen-Applications/Trace2Skill.git"
 upstream_commit="3d0b52a140f002a512930252b613c49048f7d5ac"
 patch_path="$repo_root/trace2skill-verusage/patches/0001-verus-native-official-producer.patch"
 config_root="$repo_root/trace2skill-verusage/baselines/native-official-20260819/configuration"
-expected_patched_tree_id="2acce50aada3759a9a853ebaab68579627e02978"
+expected_patched_tree_id="b015929acebda3f6400dcb830d75f1f778971147"
 
 modified_paths=(
   "skill_evolver/prompts/parallel_evolving_agent/translation_system_prompt.txt"
@@ -27,7 +27,7 @@ expected_sha256=(
   "bb925b81873aed35af89bc9a1116ec5e70f4a1eb01371db91023e0115e9ad91a"
   "4bdafecb8340e6023517dda14c8de5da669ab8b20ef10f09beac9f8f77d436ca"
   "2c7b98116eec761bc485f1287f2d1ab7604aec642e591e5273b2ab34929724b7"
-  "569ea05e668eac8246dfc3ab424dc063507687ef37ddfb0eab3a6d195180339b"
+  "acde25b9352ba4bd1fc0756f2770229afffeba0c04b74bbd6e9115a38bee3f2b"
 )
 
 if [[ ! -e "$target" ]]; then

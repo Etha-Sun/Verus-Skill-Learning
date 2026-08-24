@@ -14,7 +14,7 @@ repository at commit
 `3d0b52a140f002a512930252b613c49048f7d5ac`. Like the SkillOpt integration,
 the upstream checkout is ignored by Git. A reviewed compatibility patch,
 the four frozen Verus prompts, and the neutral Verus seed produce the verified
-tree `2acce50aada3759a9a853ebaab68579627e02978`.
+tree `b015929acebda3f6400dcb830d75f1f778971147`.
 
 Prepare or verify the pinned runtime:
 

@@ -29,15 +29,7 @@ diff --git a/skill_evolver/skill_evolving_agent.py b/skill_evolver/skill_evolvin
 index 66f8523..816877f 100644
 --- a/skill_evolver/skill_evolving_agent.py
 +++ b/skill_evolver/skill_evolving_agent.py
-@@ -14,6 +14,7 @@ import difflib
- import json
- import logging
- import os
-+import os
- import re
- import shutil
- import subprocess
-@@ -56,7 +57,12 @@ _PATCH_OP_ALIASES = {
+@@ -56,7 +56,12 @@ _PATCH_OP_ALIASES = {
      "deleteFile": "delete_file",
  }
  

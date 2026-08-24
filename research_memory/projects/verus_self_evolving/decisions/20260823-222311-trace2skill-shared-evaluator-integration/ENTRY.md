@@ -42,7 +42,7 @@ scoring while retaining different skill-construction logic.
   and 1,418 reasoning tokens. The ignored diagnostic run is
   `${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/premerge-trace2skill-gpt-smoke-20260823/`.
 - Producer upstream is pinned at `3d0b52a`; the reviewed Verus runtime tree is
-  `2acce50aada3759a9a853ebaab68579627e02978`. The neutral seed tree is
+  `b015929acebda3f6400dcb830d75f1f778971147`. The neutral seed tree is
   `f67322cd47bc25f993f92788767b58047c11a6863d0d7a6ba987f5dff163d7a2`.
 
 ## Risk

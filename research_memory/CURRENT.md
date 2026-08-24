@@ -114,7 +114,7 @@ commit. A clean branch from `origin/main` separates the method producer from
 evaluation. The official Trace2Skill MAP/REDUCE core is bootstrapped at pinned
 commit `3d0b52a`, receives a reviewed two-file Verus compatibility patch and
 four-prompt overlay, and is verified as patched Git tree
-`2acce50aada3759a9a853ebaab68579627e02978`. The repository also publishes
+`b015929acebda3f6400dcb830d75f1f778971147`. The repository also publishes
 the neutral seed, producer adapter, frozen ten-file native official skill
 bundle, sanitized provenance, documentation, and a thin evaluation launcher.
 Raw training trajectories and normalized analysis records remain external
