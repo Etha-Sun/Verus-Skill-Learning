@@ -107,6 +107,32 @@ hardening action is an exact file-set regression for post-run skill bundles;
 future held-out claims still require producer provenance and task-disjoint live
 evaluation.
 
+## Trace2Skill Shared Evaluator Integration (2026-08-23)
+
+The selected integration does not cherry-pick the old Trace2Skill experiment
+commit. A clean branch from `origin/main` publishes only the frozen ten-file
+native official skill bundle, four construction prompts, sanitized producer
+provenance, documentation, and a thin launcher. The launcher delegates to the
+main fixed-test entry point, so provider invocation, timeout, token accounting,
+isolation, and scoring remain common with SkillOpt; only construction logic
+differs.
+
+The artifact is byte-identical to commit `92a1e8a`: entry-point SHA-256
+`40de0d04f2f4e2b05a0d8187439251f2e381b2f4675c2ef44247519acf9452bd`
+and shared `skill-tree-v1` SHA-256
+`195ab1294871689873e3bd6d9d2dbfb0a89a0d13b2ea0bdd1f7d716d826437c2`.
+Main readiness passes 242 tests with one skip. GPT check-only validates the
+frozen split and formal Verus `release/0.2025.09.12.bb1f342`. A one-item
+pre-merge GPT smoke solved 1/1 with zero timeout and complete V2 trace fidelity.
+
+This smoke is diagnostic, not a formal rerun: it covers only direct GPT, which
+remains non-isolated, and does not establish four-provider parity. The next
+action is PR review and merge; only then should a separately approved formal
+four-provider test-20 rerun start.
+
+Canonical decision:
+`research_memory/projects/verus_self_evolving/decisions/20260823-222311-trace2skill-shared-evaluator-integration/ENTRY.md`.
+
 ## SkillOpt Multi-File Support Audit (2026-08-21)
 
 Microsoft SkillOpt `main` at `bdfdc30` still defines the core research artifact

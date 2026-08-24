@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "label": "native-official-20260819",
+  "source_repository_commit": "92a1e8ab55d79b0831f251bbd9b9e61e1562bc9e",
+  "upstream_trace2skill_commit": "3d0b52a140f002a512930252b613c49048f7d5ac",
+  "artifact": {
+    "entry_point": "skill/verus-proof-repair/SKILL.md",
+    "entry_point_sha256": "40de0d04f2f4e2b05a0d8187439251f2e381b2f4675c2ef44247519acf9452bd",
+    "skill_tree_hash_contract": "skill-tree-v1",
+    "skill_tree_sha256": "195ab1294871689873e3bd6d9d2dbfb0a89a0d13b2ea0bdd1f7d716d826437c2",
+    "file_count": 10,
+    "total_bytes": 39562
+  },
+  "construction_input": {
+    "records_sha256": "4151b9c4f6d7f6dc6c67e731273be31b4e55620fa349d7ad9cfbd914aa2d8466",
+    "record_count": 40,
+    "successful_record_count": 29,
+    "error_record_count": 11,
+    "trajectory_item_count": 160,
+    "held_out_inputs_used": false,
+    "neutral_seed_sha256": "f67322cdf60a0e0fe4463c16267773ddc3bafc56dd7c51e82834a07f90a0a7a2"
+  },
+  "construction": {
+    "model": "deepseek-v4-pro",
+    "temperature": 0.6,
+    "seed": null,
+    "workers": 4,
+    "batch_size": 1,
+    "merge_batch_size": 5,
+    "levels": 5,
+    "max_skill_lines": 500,
+    "max_reference_files": 5,
+    "max_verification_rounds": 3,
+    "patch_protocol": "json",
+    "patch_markers": "bracket",
+    "translation_skipped": false,
+    "self_fix_enabled": true,
+    "domain_adaptation": "vocabulary_only",
+    "estimated_llm_calls": 65,
+    "map_patch_count": 40,
+    "applied_file_edit_count": 9
+  },
+  "configuration_sha256": {
+    "map_system_prompt.txt": "4bdafecb8340e6023517dda14c8de5da669ab8b20ef10f09beac9f8f77d436ca",
+    "merge_system_prompt.txt": "c9b707e3dafacd96536c92fe43b78507d3b20e6b6d1552d67e61d3b5377e706f",
+    "translation_system_prompt.txt": "3870a22f3cd2ff066220393f6e991c7c2858c0f67e1e90601408920b4084802e",
+    "verification_system_prompt.txt": "bb925b81873aed35af89bc9a1116ec5e70f4a1eb01371db91023e0115e9ad91a"
+  }
+}
