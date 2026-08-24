@@ -31,7 +31,6 @@ model="${TRACE2SKILL_MODEL:-deepseek-v4-pro}"
 base_url="${TRACE2SKILL_BASE_URL:-${DEEPSEEK_BASE_URL:-}}"
 api_key_env="${TRACE2SKILL_API_KEY_ENV:-DEEPSEEK_API_KEY}"
 
-bash "$script_dir/bootstrap_trace2skill.sh" >/dev/null
 flags=()
 if [[ "$mode" == "--check-only" ]]; then
   flags=(--check-only)
@@ -42,7 +41,7 @@ exec python3 -m trace2skill_verusage.producer \
   --records "$records" \
   --output-dir "$output_dir" \
   --run-root "$VERUS_SKILL_RUN_ROOT" \
-  --upstream-root "$repo_root/trace2skill-verusage/Trace2Skill" \
+  --runtime-root "$repo_root/trace2skill-verusage/vendor/trace2skill_verus" \
   --model "$model" \
   --base-url "$base_url" \
   --api-key-env "$api_key_env" \

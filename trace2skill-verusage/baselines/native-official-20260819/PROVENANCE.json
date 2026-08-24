@@ -3,10 +3,26 @@
   "label": "native-official-20260819",
   "source_repository_commit": "92a1e8ab55d79b0831f251bbd9b9e61e1562bc9e",
   "upstream_trace2skill_commit": "3d0b52a140f002a512930252b613c49048f7d5ac",
-  "producer_runtime": {
-    "bootstrap": "scripts/bootstrap_trace2skill.sh",
+  "historical_construction_runtime": {
     "upstream_commit": "3d0b52a140f002a512930252b613c49048f7d5ac",
-    "patched_tree_id": "b015929acebda3f6400dcb830d75f1f778971147",
+    "tracked_worktree_clean": true,
+    "domain_adaptation": "vocabulary-only spreadsheet-to-Verus MAP substitutions"
+  },
+  "integrated_producer_runtime": {
+    "source_snapshot_commit": "92a1e8ab55d79b0831f251bbd9b9e61e1562bc9e",
+    "source_snapshot_path": "trace2skill_verusage_baseline_test/code",
+    "runtime_tree_sha256": "6ed310dc4673bbfdb58dfa0fb3281051b604c00d6455e4cb3cd9664aadf27b14",
+    "vendored_components": [
+      "react_agent",
+      "skill_evolver"
+    ],
+    "excluded_experimental_components": [
+      "semantic_reduce_evolving_agent",
+      "semantic-v4",
+      "M_core",
+      "candidate_gate",
+      "legacy_evaluation_bridges"
+    ],
     "module": "skill_evolver.run_parallel_combined_skill_evolution"
   },
   "artifact": {

@@ -1,1 +1,1 @@
-"""Verus adapters for the pinned Trace2Skill producer."""
+"""Adapters for the vendored Verus Trace2Skill producer."""

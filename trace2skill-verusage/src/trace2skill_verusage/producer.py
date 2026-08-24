@@ -15,8 +15,11 @@ from typing import Any, Mapping
 
 
 SCHEMA_VERSION = "trace2skill-verus-producer-v1"
-UPSTREAM_COMMIT = "3d0b52a140f002a512930252b613c49048f7d5ac"
-PATCHED_TREE_ID = "b015929acebda3f6400dcb830d75f1f778971147"
+SOURCE_SNAPSHOT_COMMIT = "92a1e8ab55d79b0831f251bbd9b9e61e1562bc9e"
+SOURCE_SNAPSHOT_PATH = "trace2skill_verusage_baseline_test/code"
+VERUS_RUNTIME_TREE_SHA256 = (
+    "6ed310dc4673bbfdb58dfa0fb3281051b604c00d6455e4cb3cd9664aadf27b14"
+)
 OFFICIAL_RECORDS_SHA256 = (
     "4151b9c4ca39ca98628f33bc0355a7f49d509e28a18258482d66f935733d8466"
 )
@@ -24,7 +27,7 @@ OFFICIAL_NEUTRAL_SEED_SHA256 = (
     "f67322cd47bc25f993f92788767b58047c11a6863d0d7a6ba987f5dff163d7a2"
 )
 WORKSTREAM_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_UPSTREAM_ROOT = WORKSTREAM_ROOT / "Trace2Skill"
+DEFAULT_RUNTIME_ROOT = WORKSTREAM_ROOT / "vendor" / "trace2skill_verus"
 DEFAULT_SEED_DIR = (
     WORKSTREAM_ROOT / "producer" / "neutral-seed" / "verus-proof-repair"
 )
@@ -47,30 +50,10 @@ PROMPT_PATHS = {
         "bb925b81873aed35af89bc9a1116ec5e70f4a1eb01371db91023e0115e9ad91a",
     ),
 }
-REVIEWED_MODIFIED_PATHS = (
-    "skill_evolver/prompts/parallel_evolving_agent/translation_system_prompt.txt",
-    "skill_evolver/prompts/parallel_evolving_agent/verification_system_prompt.txt",
-    "skill_evolver/prompts/skill_evolving_agent/system_prompt_base.txt",
-    "skill_evolver/run_parallel_skill_evolution.py",
-    "skill_evolver/skill_evolving_agent.py",
+EXCLUDED_EXPERIMENT_PATHS = (
+    "skill_evolver/semantic_reduce_evolving_agent.py",
+    "skill_evolver/prompts/semantic_reduce_evolving_agent",
 )
-REVIEWED_FILE_SHA256 = {
-    "skill_evolver/prompts/parallel_evolving_agent/translation_system_prompt.txt": (
-        "3870a22f3cd2ff066220393f6e991c7c2858c0f67e1e90601408920b4084802e"
-    ),
-    "skill_evolver/prompts/parallel_evolving_agent/verification_system_prompt.txt": (
-        "bb925b81873aed35af89bc9a1116ec5e70f4a1eb01371db91023e0115e9ad91a"
-    ),
-    "skill_evolver/prompts/skill_evolving_agent/system_prompt_base.txt": (
-        "4bdafecb8340e6023517dda14c8de5da669ab8b20ef10f09beac9f8f77d436ca"
-    ),
-    "skill_evolver/run_parallel_skill_evolution.py": (
-        "2c7b98116eec761bc485f1287f2d1ab7604aec642e591e5273b2ab34929724b7"
-    ),
-    "skill_evolver/skill_evolving_agent.py": (
-        "acde25b9352ba4bd1fc0756f2770229afffeba0c04b74bbd6e9115a38bee3f2b"
-    ),
-}
 
 
 def utc_now() -> str:
@@ -168,43 +151,27 @@ def require_output_below_run_root(output_dir: Path, run_root: Path) -> Path:
     return output
 
 
-def git_output(root: Path, *args: str) -> str:
-    result = subprocess.run(
-        ["git", "-C", str(root), *args],
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-    return result.stdout.strip()
-
-
 def verify_runtime(
-    upstream_root: Path,
+    runtime_root: Path,
     seed_dir: Path,
     validator: Path,
 ) -> dict[str, Any]:
-    upstream = upstream_root.resolve()
-    if not (upstream / ".git").is_dir():
-        raise ValueError("pinned Trace2Skill checkout is missing; run bootstrap first")
-    actual_commit = git_output(upstream, "rev-parse", "HEAD")
-    if actual_commit != UPSTREAM_COMMIT:
-        raise ValueError(
-            f"upstream commit mismatch: expected {UPSTREAM_COMMIT}, got {actual_commit}"
-        )
-    if git_output(upstream, "diff", "--cached", "--name-only"):
-        raise ValueError("pinned Trace2Skill checkout has staged changes")
-    if git_output(upstream, "ls-files", "--others", "--exclude-standard"):
-        raise ValueError("pinned Trace2Skill checkout has untracked files")
-    changed_paths = tuple(git_output(upstream, "diff", "--name-only").splitlines())
-    if changed_paths != REVIEWED_MODIFIED_PATHS:
-        raise ValueError(
-            "pinned Trace2Skill checkout has unexpected modified paths: "
-            f"{changed_paths}"
-        )
-    for relative, expected in REVIEWED_FILE_SHA256.items():
-        actual = sha256_file(upstream / relative)
-        if actual != expected:
-            raise ValueError(f"reviewed runtime file hash mismatch: {relative}: {actual}")
+    runtime = runtime_root.resolve()
+    required = (
+        "react_agent/models.py",
+        "skill_evolver/parallel_evolving_agent.py",
+        "skill_evolver/parallel_success_evolving_agent.py",
+        "skill_evolver/run_parallel_combined_skill_evolution.py",
+    )
+    for relative in required:
+        if not (runtime / relative).is_file():
+            raise ValueError(f"vendored Verus Trace2Skill runtime is missing: {relative}")
+    for relative in EXCLUDED_EXPERIMENT_PATHS:
+        if (runtime / relative).exists():
+            raise ValueError(f"excluded experimental Trace2Skill path is present: {relative}")
+    runtime_hash = hash_skill_tree(runtime)
+    if runtime_hash != VERUS_RUNTIME_TREE_SHA256:
+        raise ValueError(f"vendored Verus Trace2Skill runtime hash mismatch: {runtime_hash}")
     if not validator.resolve().is_file():
         raise ValueError(f"skill validator is missing: {validator.resolve()}")
     seed_hash = hash_skill_tree(seed_dir)
@@ -212,23 +179,24 @@ def verify_runtime(
         raise ValueError(f"neutral seed hash mismatch: {seed_hash}")
     prompt_hashes: dict[str, str] = {}
     for name, (relative, expected) in PROMPT_PATHS.items():
-        actual = sha256_file(upstream / relative)
+        actual = sha256_file(runtime / relative)
         if actual != expected:
             raise ValueError(f"{name} prompt hash mismatch: {actual}")
         prompt_hashes[name] = actual
     return {
-        "upstream_commit": actual_commit,
-        "patched_tree_id": PATCHED_TREE_ID,
-        "reviewed_modified_paths": list(changed_paths),
+        "source_snapshot_commit": SOURCE_SNAPSHOT_COMMIT,
+        "source_snapshot_path": SOURCE_SNAPSHOT_PATH,
+        "runtime_tree_sha256": runtime_hash,
+        "excluded_experiment_paths": list(EXCLUDED_EXPERIMENT_PATHS),
         "neutral_seed_sha256": seed_hash,
         "prompt_sha256": prompt_hashes,
         "validator": str(validator.resolve()),
     }
 
 
-def build_upstream_command(
+def build_runtime_command(
     *,
-    upstream_root: Path,
+    runtime_root: Path,
     error_json: Path,
     success_json: Path,
     working_skill: Path,
@@ -294,7 +262,7 @@ def preflight(
     records_path: Path,
     output_dir: Path,
     run_root: Path,
-    upstream_root: Path,
+    runtime_root: Path,
     seed_dir: Path,
     validator: Path,
     expected_records_sha256: str | None,
@@ -307,7 +275,7 @@ def preflight(
         expected_sha256=expected_records_sha256,
     )
     output = require_output_below_run_root(output_dir, run_root)
-    runtime = verify_runtime(upstream_root, seed_dir, validator)
+    runtime = verify_runtime(runtime_root, seed_dir, validator)
     check = {
         "schema_version": SCHEMA_VERSION,
         "status": "ok",
@@ -345,7 +313,7 @@ def execute(
     records: list[dict[str, Any]],
     check: dict[str, Any],
     output_dir: Path,
-    upstream_root: Path,
+    runtime_root: Path,
     seed_dir: Path,
     validator: Path,
     model: str,
@@ -388,8 +356,8 @@ def execute(
     shutil.copytree(seed_dir, working_skill)
     output_skill = run_dir / "final_skill" / "verus-proof-repair"
     output_skill.parent.mkdir()
-    command = build_upstream_command(
-        upstream_root=upstream_root,
+    command = build_runtime_command(
+        runtime_root=runtime_root,
         error_json=error_json,
         success_json=success_json,
         working_skill=working_skill,
@@ -419,7 +387,7 @@ def execute(
     write_json(run_dir / "run_manifest.json", manifest)
 
     env = os.environ.copy()
-    python_paths = [str(upstream_root.resolve()), str(upstream_root.resolve() / "src")]
+    python_paths = [str(runtime_root.resolve())]
     if env.get("PYTHONPATH"):
         python_paths.append(env["PYTHONPATH"])
     env["PYTHONPATH"] = os.pathsep.join(python_paths)
@@ -459,7 +427,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--records", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--run-root", type=Path, required=True)
-    parser.add_argument("--upstream-root", type=Path, default=DEFAULT_UPSTREAM_ROOT)
+    parser.add_argument("--runtime-root", type=Path, default=DEFAULT_RUNTIME_ROOT)
     parser.add_argument("--seed-dir", type=Path, default=DEFAULT_SEED_DIR)
     parser.add_argument("--validator", type=Path, default=DEFAULT_VALIDATOR)
     parser.add_argument("--model", default="deepseek-v4-pro")
@@ -476,7 +444,7 @@ def main() -> None:
         records_path=args.records,
         output_dir=args.output_dir,
         run_root=args.run_root,
-        upstream_root=args.upstream_root,
+        runtime_root=args.runtime_root,
         seed_dir=args.seed_dir,
         validator=args.validator,
         expected_records_sha256=args.expected_records_sha256,
@@ -491,7 +459,7 @@ def main() -> None:
         records=records,
         check=check,
         output_dir=args.output_dir,
-        upstream_root=args.upstream_root,
+        runtime_root=args.runtime_root,
         seed_dir=args.seed_dir,
         validator=args.validator,
         model=args.model,

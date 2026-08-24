@@ -4,11 +4,13 @@
 
 Integrate the Trace2Skill method and frozen native official baseline from
 feature state `92a1e8a` through a clean branch created from `origin/main`.
-Mirror the SkillOpt dependency pattern: bootstrap the official Trace2Skill
-producer at pinned commit `3d0b52a`, apply a reviewed Verus compatibility
-patch and prompt overlay, and verify the patched Git tree. Publish the neutral
-seed, final ten-file skill bundle, sanitized provenance, producer adapter, and
-a thin evaluation launcher. The evaluation launcher delegates to
+Vendor the reviewed Verus Trace2Skill `react_agent/` and `skill_evolver/`
+runtime from the `92a1e8a` feature-state snapshot, apply the frozen Verus
+prompt overlay, and verify the complete runtime tree. Exclude the custom
+semantic REDUCE/router, semantic-v4, M_core, candidate gate, and legacy
+evaluation bridges. Publish the neutral seed, final ten-file skill bundle,
+sanitized provenance, producer adapter, and a thin evaluation launcher. The
+evaluation launcher delegates to
 `skillopt-verusage/scripts/run_s2_fixed_test20.sh`, so Trace2Skill and
 SkillOpt share model invocation, timeout, token accounting, isolation, and
 scoring while retaining different skill-construction logic.
@@ -41,8 +43,10 @@ scoring while retaining different skill-construction logic.
   Shared accounting recorded 217,049 input, 167,424 cached input, 3,450 output,
   and 1,418 reasoning tokens. The ignored diagnostic run is
   `${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/premerge-trace2skill-gpt-smoke-20260823/`.
-- Producer upstream is pinned at `3d0b52a`; the reviewed Verus runtime tree is
-  `b015929acebda3f6400dcb830d75f1f778971147`. The neutral seed tree is
+- Producer source is the `92a1e8a` snapshot; the reviewed Verus runtime tree is
+  `6ed310dc4673bbfdb58dfa0fb3281051b604c00d6455e4cb3cd9664aadf27b14`.
+  The historical frozen artifact records official upstream base `3d0b52a`.
+  The neutral seed tree is
   `f67322cd47bc25f993f92788767b58047c11a6863d0d7a6ba987f5dff163d7a2`.
 
 ## Risk

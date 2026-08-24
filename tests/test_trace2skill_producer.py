@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -13,11 +14,13 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "trace2skill-verusage" / "src"))
 
 from trace2skill_verusage.producer import (
+    EXCLUDED_EXPERIMENT_PATHS,
     OFFICIAL_NEUTRAL_SEED_SHA256,
     OFFICIAL_RECORDS_SHA256,
-    PATCHED_TREE_ID,
-    UPSTREAM_COMMIT,
-    build_upstream_command,
+    SOURCE_SNAPSHOT_COMMIT,
+    SOURCE_SNAPSHOT_PATH,
+    VERUS_RUNTIME_TREE_SHA256,
+    build_runtime_command,
     execute,
     hash_skill_tree,
     load_records,
@@ -60,7 +63,16 @@ def write_records(path: Path, rows: list[dict[str, object]]) -> str:
 
 def test_producer_constants_match_published_provenance() -> None:
     provenance = json.loads(PROVENANCE.read_text(encoding="utf-8"))
-    assert provenance["upstream_trace2skill_commit"] == UPSTREAM_COMMIT
+    snapshot = json.loads(
+        (WORKSTREAM / "vendor" / "SNAPSHOT.json").read_text(encoding="utf-8")
+    )
+    runtime = provenance["integrated_producer_runtime"]
+    assert runtime["source_snapshot_commit"] == SOURCE_SNAPSHOT_COMMIT
+    assert runtime["source_snapshot_path"] == SOURCE_SNAPSHOT_PATH
+    assert runtime["runtime_tree_sha256"] == VERUS_RUNTIME_TREE_SHA256
+    assert snapshot["source_repository_commit"] == SOURCE_SNAPSHOT_COMMIT
+    assert snapshot["source_path"] == SOURCE_SNAPSHOT_PATH
+    assert snapshot["integrated_runtime_tree_sha256"] == VERUS_RUNTIME_TREE_SHA256
     assert provenance["construction_input"]["records_sha256"] == OFFICIAL_RECORDS_SHA256
     assert (
         provenance["construction_input"]["neutral_seed_sha256"]
@@ -102,11 +114,11 @@ def test_output_must_stay_below_run_root(tmp_path: Path) -> None:
         require_output_below_run_root(tmp_path / "outside", run_root)
 
 
-def test_upstream_command_has_native_official_contract_and_no_secret(
+def test_runtime_command_has_native_global_contract_and_no_secret(
     tmp_path: Path,
 ) -> None:
-    command = build_upstream_command(
-        upstream_root=tmp_path / "upstream",
+    command = build_runtime_command(
+        runtime_root=tmp_path / "runtime",
         error_json=tmp_path / "error.json",
         success_json=tmp_path / "success.json",
         working_skill=tmp_path / "working",
@@ -124,7 +136,7 @@ def test_upstream_command_has_native_official_contract_and_no_secret(
     assert "--api-key" not in command
 
 
-def test_model_free_preflight_verifies_bootstrapped_runtime(tmp_path: Path) -> None:
+def test_model_free_preflight_verifies_vendored_runtime(tmp_path: Path) -> None:
     records_path = tmp_path / "records.json"
     digest = write_records(
         records_path,
@@ -135,7 +147,7 @@ def test_model_free_preflight_verifies_bootstrapped_runtime(tmp_path: Path) -> N
         records_path=records_path,
         output_dir=run_root / "candidate",
         run_root=run_root,
-        upstream_root=WORKSTREAM / "Trace2Skill",
+        runtime_root=WORKSTREAM / "vendor" / "trace2skill_verus",
         seed_dir=WORKSTREAM / "producer" / "neutral-seed" / "verus-proof-repair",
         validator=WORKSTREAM / "tools" / "quick_validate.py",
         expected_records_sha256=digest,
@@ -145,8 +157,8 @@ def test_model_free_preflight_verifies_bootstrapped_runtime(tmp_path: Path) -> N
     )
     assert check["status"] == "ok"
     assert check["network_requests"] == 0
-    assert check["runtime"]["upstream_commit"] == UPSTREAM_COMMIT
-    assert check["runtime"]["patched_tree_id"] == PATCHED_TREE_ID
+    assert check["runtime"]["source_snapshot_commit"] == SOURCE_SNAPSHOT_COMMIT
+    assert check["runtime"]["runtime_tree_sha256"] == VERUS_RUNTIME_TREE_SHA256
     assert check["configuration"]["api_key_configured"] is False
 
 
@@ -198,7 +210,7 @@ def test_model_free_execute_writes_external_manifest_without_secret(
             "configuration": {},
         },
         output_dir=run_dir,
-        upstream_root=WORKSTREAM / "Trace2Skill",
+        runtime_root=WORKSTREAM / "vendor" / "trace2skill_verus",
         seed_dir=WORKSTREAM / "producer" / "neutral-seed" / "verus-proof-repair",
         validator=WORKSTREAM / "tools" / "quick_validate.py",
         model="deepseek-v4-pro",
@@ -235,9 +247,37 @@ def test_validator_accepts_published_skills(skill_dir: Path) -> None:
     assert "Skill is valid" in result.stdout
 
 
-def test_bootstrap_contract_pins_reviewed_upstream_and_tree() -> None:
-    script = (WORKSTREAM / "scripts" / "bootstrap_trace2skill.sh").read_text()
-    assert UPSTREAM_COMMIT in script
-    assert PATCHED_TREE_ID in script
-    assert "git clone --no-checkout" in script
-    assert "changes outside the reviewed producer patch" in script
+def test_vendored_runtime_is_pinned_and_excludes_custom_semantic_reduce() -> None:
+    runtime = WORKSTREAM / "vendor" / "trace2skill_verus"
+    assert hash_skill_tree(runtime) == VERUS_RUNTIME_TREE_SHA256
+    for relative in EXCLUDED_EXPERIMENT_PATHS:
+        assert not (runtime / relative).exists()
+    combined_runner = (
+        runtime / "skill_evolver" / "run_parallel_combined_skill_evolution.py"
+    ).read_text(encoding="utf-8")
+    assert "SemanticReduceParallelSkillEvolver" not in combined_runner
+    assert "--reduce-strategy" not in combined_runner
+
+
+def test_vendored_native_combined_cli_imports_without_external_checkout() -> None:
+    runtime = WORKSTREAM / "vendor" / "trace2skill_verus"
+    env = os.environ.copy()
+    env["PYTHONDONTWRITEBYTECODE"] = "1"
+    env["PYTHONPATH"] = str(runtime)
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "skill_evolver.run_parallel_combined_skill_evolution",
+            "--help",
+        ],
+        cwd=REPO_ROOT,
+        env=env,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stderr
+    assert "--error-json" in result.stdout
+    assert "--success-json" in result.stdout
+    assert "--reduce-strategy" not in result.stdout

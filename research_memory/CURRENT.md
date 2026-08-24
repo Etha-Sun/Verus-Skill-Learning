@@ -110,14 +110,17 @@ evaluation.
 ## Trace2Skill Shared Evaluator Integration (2026-08-23)
 
 The selected integration does not cherry-pick the old Trace2Skill experiment
-commit. A clean branch from `origin/main` separates the method producer from
-evaluation. The official Trace2Skill MAP/REDUCE core is bootstrapped at pinned
-commit `3d0b52a`, receives a reviewed two-file Verus compatibility patch and
-four-prompt overlay, and is verified as patched Git tree
-`b015929acebda3f6400dcb830d75f1f778971147`. The repository also publishes
-the neutral seed, producer adapter, frozen ten-file native official skill
-bundle, sanitized provenance, documentation, and a thin evaluation launcher.
-Raw training trajectories and normalized analysis records remain external
+commit wholesale. A clean branch from `origin/main` separates the method
+producer from evaluation. The production `react_agent/` and `skill_evolver/`
+runtime is vendored from the reviewed `92a1e8a` feature-state snapshot under
+`trace2skill_verusage_baseline_test/code/`, receives the four frozen Verus
+prompts, and is verified as tree
+`6ed310dc4673bbfdb58dfa0fb3281051b604c00d6455e4cb3cd9664aadf27b14`.
+The custom semantic REDUCE/router, semantic-v4, M_core, candidate gate, and
+legacy evaluation bridges are excluded. The repository also publishes the
+neutral seed, producer adapter, frozen ten-file native official skill bundle,
+sanitized provenance, documentation, and a thin evaluation launcher. Raw
+training trajectories and normalized analysis records remain external
 read-only inputs.
 
 The evaluation launcher delegates to the main fixed-test entry point, so
