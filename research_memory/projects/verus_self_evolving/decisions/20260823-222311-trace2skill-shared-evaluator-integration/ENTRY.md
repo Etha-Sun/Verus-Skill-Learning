@@ -4,11 +4,13 @@
 
 Integrate the Trace2Skill method and frozen native official baseline from
 feature state `92a1e8a` through a clean branch created from `origin/main`.
-Vendor the reviewed Verus Trace2Skill `react_agent/` and `skill_evolver/`
-runtime from the `92a1e8a` feature-state snapshot, apply the frozen Verus
-prompt overlay, and verify the complete runtime tree. Exclude the custom
-semantic REDUCE/router, semantic-v4, M_core, candidate gate, and legacy
-evaluation bridges. Publish the neutral seed, final ten-file skill bundle,
+Vendor the reviewed, prompt-driven Verus Trace2Skill `skill_evolver/`
+runtime from the `92a1e8a` feature-state snapshot, retain only its thin
+generation model client, apply the frozen Verus prompt overlay, and verify the
+complete runtime tree. Exclude the deprecated `react_agent/` task-solving
+harness, custom semantic REDUCE/router, semantic-v4, M_core, candidate gate,
+and legacy evaluation bridges. Publish the neutral seed, final ten-file skill
+bundle,
 sanitized provenance, producer adapter, and a thin evaluation launcher. The
 evaluation launcher delegates to
 `skillopt-verusage/scripts/run_s2_fixed_test20.sh`, so Trace2Skill and
@@ -35,7 +37,7 @@ scoring while retaining different skill-construction logic.
 - Shared `skill-tree-v1` SHA-256:
   `195ab1294871689873e3bd6d9d2dbfb0a89a0d13b2ea0bdd1f7d716d826437c2`;
   10 files and 39,562 bytes.
-- Main readiness: 253 passed, 1 optional-Torch skip.
+- Main readiness: 254 passed, 1 optional-Torch skip.
 - GPT check-only validated the fixed test and split hashes, the artifact
   inventory, and formal Verus `release/0.2025.09.12.bb1f342`.
 - One-item pre-merge GPT smoke on `59a26eebc3ccdb67c916`: 1/1 solved,
@@ -44,7 +46,7 @@ scoring while retaining different skill-construction logic.
   and 1,418 reasoning tokens. The ignored diagnostic run is
   `${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/premerge-trace2skill-gpt-smoke-20260823/`.
 - Producer source is the `92a1e8a` snapshot; the reviewed Verus runtime tree is
-  `6ed310dc4673bbfdb58dfa0fb3281051b604c00d6455e4cb3cd9664aadf27b14`.
+  `e8ef9e77436b0641f0e65b3bc216f202e05235021103a2b7a956009638f88adf`.
   The historical frozen artifact records official upstream base `3d0b52a`.
   The neutral seed tree is
   `f67322cd47bc25f993f92788767b58047c11a6863d0d7a6ba987f5dff163d7a2`.

@@ -111,14 +111,17 @@ evaluation.
 
 The selected integration does not cherry-pick the old Trace2Skill experiment
 commit wholesale. A clean branch from `origin/main` separates the method
-producer from evaluation. The production `react_agent/` and `skill_evolver/`
-runtime is vendored from the reviewed `92a1e8a` feature-state snapshot under
+producer from evaluation. The prompt-driven `skill_evolver/` runtime is
+vendored from the reviewed `92a1e8a` feature-state snapshot under
 `trace2skill_verusage_baseline_test/code/`, receives the four frozen Verus
 prompts, and is verified as tree
-`6ed310dc4673bbfdb58dfa0fb3281051b604c00d6455e4cb3cd9664aadf27b14`.
-The custom semantic REDUCE/router, semantic-v4, M_core, candidate gate, and
-legacy evaluation bridges are excluded. The repository also publishes the
-neutral seed, producer adapter, frozen ten-file native official skill bundle,
+`e8ef9e77436b0641f0e65b3bc216f202e05235021103a2b7a956009638f88adf`.
+Only the thin model client required by skill-generation prompts is retained.
+The deprecated `react_agent/` task-solving harness, custom semantic
+REDUCE/router, semantic-v4, M_core, candidate gate, and legacy evaluation
+bridges are excluded; produced skills are evaluated through the shared Codex
+CLI harness. The repository also publishes the neutral seed, producer adapter,
+frozen ten-file native official skill bundle,
 sanitized provenance, documentation, and a thin evaluation launcher. Raw
 training trajectories and normalized analysis records remain external
 read-only inputs.
@@ -133,9 +136,9 @@ and shared `skill-tree-v1` SHA-256
 `195ab1294871689873e3bd6d9d2dbfb0a89a0d13b2ea0bdd1f7d716d826437c2`.
 The zero-network producer preflight validates the historical 40-record input
 (11 error, 29 success, 160 memory items), neutral seed, four prompts, and
-patched upstream tree against the original run manifest. Main readiness passes
-253 tests with one optional-Torch skip. GPT evaluator check-only validates the
-frozen split and formal Verus `release/0.2025.09.12.bb1f342`. A one-item
+integrated producer tree against the recorded runtime contract. Main readiness
+passes 254 tests with one optional-Torch skip. GPT evaluator check-only
+validates the frozen split and formal Verus `release/0.2025.09.12.bb1f342`. A one-item
 pre-merge GPT smoke solved 1/1 with zero timeout and complete V2 trace fidelity.
 
 This smoke is diagnostic, not a formal rerun: it covers only direct GPT, which
