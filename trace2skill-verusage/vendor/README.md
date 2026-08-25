@@ -17,3 +17,5 @@ evaluator under `skillopt-verusage/`.
 
 See `SNAPSHOT.json` for the source and deterministic tree hashes. Trace2Skill
 originates from Qwen-Applications and is described upstream as Apache-2.0.
+The vendor-scoped license and modification record are in `LICENSE` and
+`THIRD_PARTY_NOTICES.md`; they do not license the repository as a whole.

@@ -1,3 +1,6 @@
+# Derived from Qwen-Applications/Trace2Skill under Apache-2.0.
+# Modified for Verus-Skill-Learning in 2026; see ../../THIRD_PARTY_NOTICES.md.
+
 """
 Parallel Skill Evolving Agent — map-reduce pipeline for skill evolution.
 
@@ -28,12 +31,12 @@ from skill_evolver.prompt_loader import load_prompt_template
 from skill_evolver.skill_evolving_agent import (
     MODIFICATION_STRATEGIES_SECTION,
     PROMPT_VARIANTS,
-    PROTECTED_FILES,
     SYSTEM_PROMPT_BASE,
     FileEdit,
     FileDiff,
     SkillEvolver,
     compute_unified_diff,
+    validate_skill_relative_path,
     _strip_think,
 )
 
@@ -465,10 +468,9 @@ class ParallelSkillEvolver:
             )
 
         # Build base prompt with error record section
-        base = SYSTEM_PROMPT_BASE.format(
-            modification_strategies_section=MODIFICATION_STRATEGIES_SECTION,
-            error_record_section=section,
-        )
+        base = SYSTEM_PROMPT_BASE.replace(
+            "{modification_strategies_section}", MODIFICATION_STRATEGIES_SECTION
+        ).replace("{error_record_section}", section)
 
         # Replace the Output Format section with patch format
         # The base prompt has "## Output Format\n\n..." through the end
@@ -2845,6 +2847,11 @@ class ParallelSkillEvolver:
         supported: list[PatchEdit] = []
         for edit in edits:
             edit.op = _PATCH_OP_ALIASES.get(edit.op, edit.op)
+            try:
+                validate_skill_relative_path(edit.file)
+            except ValueError as exc:
+                log.warning("Dropping translated edit with invalid path: %s", exc)
+                continue
             if edit.op not in _SUPPORTED_PATCH_OPS:
                 log.warning(
                     "Dropping translated edit for %s in %s due to unsupported op %r",

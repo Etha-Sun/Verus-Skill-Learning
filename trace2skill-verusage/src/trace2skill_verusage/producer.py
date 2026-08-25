@@ -8,6 +8,7 @@ import json
 import os
 import shutil
 import subprocess
+import sys
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -18,7 +19,7 @@ SCHEMA_VERSION = "trace2skill-verus-producer-v1"
 SOURCE_SNAPSHOT_COMMIT = "92a1e8ab55d79b0831f251bbd9b9e61e1562bc9e"
 SOURCE_SNAPSHOT_PATH = "trace2skill_verusage_baseline_test/code"
 VERUS_RUNTIME_TREE_SHA256 = (
-    "e8ef9e77436b0641f0e65b3bc216f202e05235021103a2b7a956009638f88adf"
+    "8a80dd6a9fbf8298310a3a241697bd8098bc0e3a6e228d13c402139aa3301a9e"
 )
 OFFICIAL_RECORDS_SHA256 = (
     "4151b9c4ca39ca98628f33bc0355a7f49d509e28a18258482d66f935733d8466"
@@ -309,6 +310,37 @@ def preflight(
     return records, check
 
 
+def validate_final_skill(validator: Path, skill_dir: Path) -> dict[str, Any]:
+    """Run the repository validator and return a manifest-safe result."""
+    try:
+        result = subprocess.run(
+            [sys.executable, str(validator.resolve()), str(skill_dir.resolve())],
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+    except subprocess.TimeoutExpired:
+        return {
+            "status": "failed",
+            "returncode": None,
+            "message": "validation timed out",
+        }
+    except OSError as exc:
+        return {
+            "status": "failed",
+            "returncode": None,
+            "message": f"validation error: {exc}",
+        }
+
+    message = result.stdout.strip() or result.stderr.strip()
+    return {
+        "status": "passed" if result.returncode == 0 else "failed",
+        "returncode": result.returncode,
+        "message": message,
+    }
+
+
 def execute(
     *,
     records: list[dict[str, Any]],
@@ -405,15 +437,28 @@ def execute(
             check=False,
             text=True,
         )
-    manifest["finished_at"] = utc_now()
     manifest["returncode"] = result.returncode
     if result.returncode != 0:
+        manifest["finished_at"] = utc_now()
         manifest["status"] = "failed"
         write_json(run_dir / "run_manifest.json", manifest)
         raise RuntimeError(
             f"Trace2Skill producer failed; inspect {run_dir / 'producer.log'}"
         )
+
+    final_validation = validate_final_skill(validator, output_skill)
+    manifest["final_validation"] = final_validation
+    if final_validation["status"] != "passed":
+        manifest["finished_at"] = utc_now()
+        manifest["status"] = "failed"
+        write_json(run_dir / "run_manifest.json", manifest)
+        raise RuntimeError(
+            "Trace2Skill producer returned an invalid final skill; "
+            f"inspect {run_dir / 'run_manifest.json'}"
+        )
+
     final_hash = hash_skill_tree(output_skill)
+    manifest["finished_at"] = utc_now()
     manifest["status"] = "complete"
     manifest["final_skill"] = {
         "path": "final_skill/verus-proof-repair",

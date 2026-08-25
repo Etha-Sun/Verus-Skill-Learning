@@ -1,3 +1,6 @@
+# Derived from Qwen-Applications/Trace2Skill under Apache-2.0.
+# Modified for Verus-Skill-Learning in 2026; see ../../THIRD_PARTY_NOTICES.md.
+
 """
 Skill Evolving Agent — iteratively improves a skill from error analysis data.
 
@@ -38,7 +41,6 @@ log = logging.getLogger(__name__)
 # Data structures
 # ---------------------------------------------------------------------------
 
-PROTECTED_FILES = {"LICENSE.txt", "recalc.py"}
 _REFERENCE_PATH_PATTERN = re.compile(r"references/[\w.\-]+\.md")
 _SUPPORTED_PATCH_OPS = {
     "insert_after",
@@ -55,6 +57,48 @@ _PATCH_OP_ALIASES = {
     "createFile": "create",
     "deleteFile": "delete_file",
 }
+
+
+def validate_skill_relative_path(relative_path: str) -> Path:
+    """Return a canonical allowed skill path or raise ValueError."""
+    if not isinstance(relative_path, str) or not relative_path:
+        raise ValueError("skill edit path must be a non-empty string")
+
+    candidate = Path(relative_path)
+    if candidate.is_absolute() or candidate.as_posix() != relative_path:
+        raise ValueError(
+            f"skill edit path must be canonical and relative: {relative_path}"
+        )
+    if any(part in {"", ".", ".."} for part in candidate.parts):
+        raise ValueError(
+            f"skill edit path contains an unsafe component: {relative_path}"
+        )
+
+    is_skill_md = candidate == Path("SKILL.md")
+    is_reference = (
+        len(candidate.parts) == 2
+        and candidate.parts[0] == "references"
+        and candidate.suffix == ".md"
+    )
+    if not (is_skill_md or is_reference):
+        raise ValueError(
+            "skill edits may target only SKILL.md or references/*.md: "
+            f"{relative_path}"
+        )
+    return candidate
+
+
+def resolve_skill_target(skill_dir: str | Path, relative_path: str) -> Path:
+    """Resolve an allowed target and ensure symlinks cannot escape skill_dir."""
+    root = Path(skill_dir).resolve()
+    candidate = validate_skill_relative_path(relative_path)
+    target = (root / candidate).resolve()
+    if target == root or root not in target.parents:
+        raise ValueError(
+            f"skill edit target escapes the skill directory: {relative_path}"
+        )
+    return target
+
 
 QUICK_VALIDATE_SCRIPT = Path(
     os.environ.get(
@@ -393,10 +437,9 @@ def build_system_prompt(variant: str = "skill") -> str:
             f"Unknown prompt variant {variant!r}. "
             f"Choose from: {', '.join(PROMPT_VARIANTS)}"
         )
-    base = SYSTEM_PROMPT_BASE.format(
-        modification_strategies_section=MODIFICATION_STRATEGIES_SECTION,
-        error_record_section=section,
-    )
+    base = SYSTEM_PROMPT_BASE.replace(
+        "{modification_strategies_section}", MODIFICATION_STRATEGIES_SECTION
+    ).replace("{error_record_section}", section)
     output_format_marker = "## Output Format"
     idx = base.find(output_format_marker)
     if idx == -1:
@@ -895,14 +938,15 @@ class SkillEvolver:
             return False, f"Validation error: {e}"
 
     def apply_edits(self, edits: list[FileEdit]) -> None:
-        """Write edits to disk. Validate paths, reject protected files."""
+        """Write edits to disk after resolving each target inside the skill tree."""
         if self.dry_run:
             for edit in edits:
+                validate_skill_relative_path(edit.relative_path)
                 log.info("[DRY RUN] %s %s", edit.action, edit.relative_path)
             return
 
         for edit in edits:
-            target = self.skill_dir / edit.relative_path
+            target = resolve_skill_target(self.skill_dir, edit.relative_path)
 
             if edit.action == "delete":
                 if target.exists():
@@ -937,7 +981,7 @@ class SkillEvolver:
 
         # Write snapshot files
         for rel_path, content in snapshot.items():
-            target = self.skill_dir / rel_path
+            target = resolve_skill_target(self.skill_dir, rel_path)
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(content, encoding="utf-8")
 
@@ -970,17 +1014,10 @@ class SkillEvolver:
         supported: list[PatchEdit] = []
         for edit in edits:
             edit.op = _PATCH_OP_ALIASES.get(edit.op, edit.op)
-            if not edit.file:
-                log.warning("Dropping patch edit with empty file path")
-                continue
-            if edit.file in PROTECTED_FILES:
-                log.warning("Dropping patch edit for protected file: %s", edit.file)
-                continue
-            if ".." in edit.file or os.path.isabs(edit.file):
-                log.warning("Dropping patch edit with unsafe path: %s", edit.file)
-                continue
-            if edit.file != "SKILL.md" and not edit.file.startswith("references/"):
-                log.warning("Dropping patch edit outside allowed directories: %s", edit.file)
+            try:
+                validate_skill_relative_path(edit.file)
+            except ValueError as exc:
+                log.warning("Dropping patch edit with invalid path: %s", exc)
                 continue
             if edit.op not in _SUPPORTED_PATCH_OPS:
                 log.warning(

@@ -171,17 +171,31 @@ def test_model_free_execute_writes_external_manifest_without_secret(
     secret = "producer-secret-must-not-be-recorded"
     monkeypatch.setenv("TEST_TRACE2SKILL_API_KEY", secret)
 
+    validator_path = WORKSTREAM / "tools" / "quick_validate.py"
+    original_run = subprocess.run
+
     def fake_run(
         command: list[str],
         *,
-        cwd: Path,
-        env: dict[str, str],
-        stdout: object,
-        stderr: object,
-        check: bool,
-        text: bool,
+        cwd: Path | None = None,
+        env: dict[str, str] | None = None,
+        stdout: object = None,
+        stderr: object = None,
+        check: bool = False,
+        text: bool = True,
+        capture_output: bool = False,
+        timeout: int | None = None,
     ) -> subprocess.CompletedProcess[str]:
+        if len(command) > 1 and Path(command[1]).resolve() == validator_path.resolve():
+            return original_run(
+                command,
+                check=check,
+                capture_output=capture_output,
+                text=text,
+                timeout=timeout,
+            )
         assert cwd == run_dir
+        assert env is not None
         assert env["OPENAI_API_KEY"] == secret
         assert secret not in " ".join(command)
         working = run_dir / "working_skill" / "verus-proof-repair"
@@ -219,6 +233,7 @@ def test_model_free_execute_writes_external_manifest_without_secret(
     )
     stored = (run_dir / "run_manifest.json").read_text(encoding="utf-8")
     assert manifest["status"] == "complete"
+    assert manifest["final_validation"]["status"] == "passed"
     assert secret not in stored
     assert "source.json" not in stored
     assert (run_dir / "inputs" / "error_records.json").is_file()
@@ -281,3 +296,104 @@ def test_vendored_native_combined_cli_imports_without_external_checkout() -> Non
     assert "--error-json" in result.stdout
     assert "--success-json" in result.stdout
     assert "--reduce-strategy" not in result.stdout
+
+
+def test_execute_marks_invalid_final_skill_failed(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    rows = [record("error", "error-1"), record("success", "success-1")]
+    run_dir = tmp_path / "runs" / "invalid-candidate"
+    validator_path = WORKSTREAM / "tools" / "quick_validate.py"
+    original_run = subprocess.run
+    monkeypatch.setenv("TEST_TRACE2SKILL_API_KEY", "test-secret")
+
+    def fake_run(
+        command: list[str],
+        *,
+        cwd: Path | None = None,
+        env: dict[str, str] | None = None,
+        stdout: object = None,
+        stderr: object = None,
+        check: bool = False,
+        text: bool = True,
+        capture_output: bool = False,
+        timeout: int | None = None,
+    ) -> subprocess.CompletedProcess[str]:
+        if len(command) > 1 and Path(command[1]).resolve() == validator_path.resolve():
+            return original_run(
+                command,
+                check=check,
+                capture_output=capture_output,
+                text=text,
+                timeout=timeout,
+            )
+        final = run_dir / "final_skill" / "verus-proof-repair"
+        final.mkdir()
+        (final / "SKILL.md").write_text("# Missing frontmatter\n", encoding="utf-8")
+        return subprocess.CompletedProcess(command, 0)
+
+    import trace2skill_verusage.producer as producer_module
+
+    monkeypatch.setattr(producer_module.subprocess, "run", fake_run)
+    with pytest.raises(RuntimeError, match="invalid final skill"):
+        execute(
+            records=rows,
+            check={
+                "schema_version": "trace2skill-verus-producer-v1",
+                "status": "ok",
+                "records": {
+                    "path": str(tmp_path / "source.json"),
+                    "sha256": "b" * 64,
+                    "record_count": 2,
+                    "error_record_count": 1,
+                    "success_record_count": 1,
+                    "item_count": 2,
+                },
+                "runtime": {},
+                "configuration": {},
+            },
+            output_dir=run_dir,
+            runtime_root=WORKSTREAM / "vendor" / "trace2skill_verus",
+            seed_dir=WORKSTREAM / "producer" / "neutral-seed" / "verus-proof-repair",
+            validator=validator_path,
+            model="deepseek-v4-pro",
+            base_url="https://example.invalid/v1",
+            api_key_env="TEST_TRACE2SKILL_API_KEY",
+        )
+
+    manifest = json.loads((run_dir / "run_manifest.json").read_text(encoding="utf-8"))
+    assert manifest["status"] == "failed"
+    assert manifest["returncode"] == 0
+    assert manifest["final_validation"]["status"] == "failed"
+    assert manifest["final_validation"]["returncode"] == 1
+    assert "final_skill" not in manifest
+
+
+def test_vendored_license_and_modification_notices_are_complete() -> None:
+    vendor = WORKSTREAM / "vendor"
+    license_text = (vendor / "LICENSE").read_text(encoding="utf-8")
+    notices = (vendor / "THIRD_PARTY_NOTICES.md").read_text(encoding="utf-8")
+    snapshot = json.loads((vendor / "SNAPSHOT.json").read_text(encoding="utf-8"))
+
+    assert "Apache License" in license_text
+    assert "Version 2.0, January 2004" in license_text
+    assert snapshot["license_file"] == "LICENSE"
+    assert snapshot["third_party_notices"] == "THIRD_PARTY_NOTICES.md"
+    assert "Qwen-Applications/Trace2Skill" in notices
+    assert "3d0b52a140f002a512930252b613c49048f7d5ac" in notices
+
+    modified_python = [
+        "__init__.py",
+        "model_clients.py",
+        "parallel_evolving_agent.py",
+        "parallel_success_evolving_agent.py",
+        "run_parallel_combined_skill_evolution.py",
+        "run_parallel_skill_evolution.py",
+        "skill_evolving_agent.py",
+    ]
+    source_root = vendor / "trace2skill_verus" / "skill_evolver"
+    for relative_path in modified_python:
+        text = (source_root / relative_path).read_text(encoding="utf-8")
+        assert "Modified for Verus-Skill-Learning in 2026" in text
+        assert relative_path in notices

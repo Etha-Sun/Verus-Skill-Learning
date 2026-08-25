@@ -1,3 +1,6 @@
+# Derived from Qwen-Applications/Trace2Skill under Apache-2.0.
+# Modified for Verus-Skill-Learning in 2026; see ../../THIRD_PARTY_NOTICES.md.
+
 """LLM clients used by the prompt-driven Trace2Skill producer."""
 
 from __future__ import annotations

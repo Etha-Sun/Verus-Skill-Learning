@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Derived from Qwen-Applications/Trace2Skill under Apache-2.0.
+# Modified for Verus-Skill-Learning in 2026; see ../../THIRD_PARTY_NOTICES.md.
+
 """
 CLI runner for combined error+success parallel skill evolution.
 """

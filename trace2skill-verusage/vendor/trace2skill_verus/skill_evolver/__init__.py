@@ -1,3 +1,6 @@
+# Derived from Qwen-Applications/Trace2Skill under Apache-2.0.
+# Modified for Verus-Skill-Learning in 2026; see ../../THIRD_PARTY_NOTICES.md.
+
 """
 Skill Evolver — iteratively improves agent skills from error analysis data.
 """

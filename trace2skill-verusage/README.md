@@ -15,7 +15,7 @@ snapshot at commit
 `trace2skill_verusage_baseline_test/code/`. The four frozen Verus prompts and
 neutral Verus seed are part of the integration, so execution does not clone or
 download Trace2Skill source code at runtime. The verified runtime tree is
-`e8ef9e77436b0641f0e65b3bc216f202e05235021103a2b7a956009638f88adf`.
+`8a80dd6a9fbf8298310a3a241697bd8098bc0e3a6e228d13c402139aa3301a9e`.
 The runtime keeps only the thin model client needed to execute skill-generation
 prompts. The deprecated ReAct task-solving harness is excluded; produced skills
 are consumed and evaluated through the shared Codex CLI harness.

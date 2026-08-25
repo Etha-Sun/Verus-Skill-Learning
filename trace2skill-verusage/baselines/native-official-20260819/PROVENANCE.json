@@ -11,7 +11,7 @@
   "integrated_producer_runtime": {
     "source_snapshot_commit": "92a1e8ab55d79b0831f251bbd9b9e61e1562bc9e",
     "source_snapshot_path": "trace2skill_verusage_baseline_test/code",
-    "runtime_tree_sha256": "e8ef9e77436b0641f0e65b3bc216f202e05235021103a2b7a956009638f88adf",
+    "runtime_tree_sha256": "8a80dd6a9fbf8298310a3a241697bd8098bc0e3a6e228d13c402139aa3301a9e",
     "vendored_components": [
       "skill_evolver"
     ],
