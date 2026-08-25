@@ -217,6 +217,26 @@ class TestFixedTestEvalContract(unittest.TestCase):
         self.assertAlmostEqual(summary["estimated_api_cost_usd"], 0.3)
         self.assertAlmostEqual(summary["archived_or_replaced_attempt_cost_usd"], 0.2)
 
+    def test_bridge_summary_allows_no_request_ledger(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            missing_ledger = Path(temp_dir) / "never-created.jsonl"
+            summary = _summarize(
+                [
+                    {
+                        "status": "UNSOLVED",
+                        "fidelity": "V0_INVALID",
+                        "proof_solved": False,
+                        "usage": {},
+                        "claude_failed": False,
+                    }
+                ],
+                transport="bridge",
+                model="deepseek-v4-pro",
+                bridge_ledger=missing_ledger,
+            )
+        self.assertEqual(summary["usage"]["requests"], 0)
+        self.assertEqual(summary["estimated_api_cost_usd"], 0.0)
+
 
 if __name__ == "__main__":
     unittest.main()
