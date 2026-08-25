@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "source_repository_commit": "92a1e8ab55d79b0831f251bbd9b9e61e1562bc9e",
+  "source_path": "trace2skill_verusage_baseline_test/code",
+  "source_components": [
+    "react_agent",
+    "skill_evolver"
+  ],
+  "source_components_tree_sha256": "d1070a82fc0d4197591c2cc72da216b8dd54f4800c52e46fe91a03b9611226d7",
+  "integrated_runtime_tree_sha256": "8a80dd6a9fbf8298310a3a241697bd8098bc0e3a6e228d13c402139aa3301a9e",
+  "reviewed_transformations": [
+    "extract the generation-only model client into skill_evolver and exclude the deprecated ReAct task harness",
+    "overlay the four frozen Verus construction prompts",
+    "expose the repository-local skill validator through TRACE2SKILL_QUICK_VALIDATE_SCRIPT",
+    "remove the custom semantic REDUCE/router module and prompts",
+    "lock the combined producer entry point to native global REDUCE",
+    "render named prompt placeholders without interpreting literal JSON examples",
+    "restrict LLM-authored file edits to resolved paths within the skill directory"
+  ],
+  "excluded_experiment_components": [
+    "verus_agent legacy evaluation harness",
+    "react_agent task-solving harness",
+    "semantic_reduce_evolving_agent",
+    "semantic-v4",
+    "M_core",
+    "candidate gate",
+    "actor matrix",
+    "provider-specific evaluation bridges",
+    "historical results and raw trajectories"
+  ],
+  "license_file": "LICENSE",
+  "third_party_notices": "THIRD_PARTY_NOTICES.md",
+  "upstream_project": "Qwen-Applications/Trace2Skill",
+  "upstream_license": "Apache-2.0"
+}

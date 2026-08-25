@@ -1,0 +1,15 @@
+{
+  "title": "Trace2Skill shared evaluator integration",
+  "project": "verus_self_evolving",
+  "kind": "decisions",
+  "created_at": "2026-08-23T22:23:11",
+  "status": "complete",
+  "links": [
+    "trace2skill-verusage/README.md",
+    "trace2skill-verusage/baselines/native-official-20260819/PROVENANCE.json",
+    "trace2skill-verusage/vendor/trace2skill_verus/skill_evolver/run_parallel_combined_skill_evolution.py",
+    "trace2skill-verusage/src/trace2skill_verusage/producer.py",
+    "skillopt-verusage/TRACE2SKILL_EVALUATION_HANDOFF.md"
+  ],
+  "raw_data_read_only": true
+}

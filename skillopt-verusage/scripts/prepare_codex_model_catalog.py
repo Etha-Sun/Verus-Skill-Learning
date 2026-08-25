@@ -5,6 +5,30 @@ import json
 from pathlib import Path
 
 
+def normalize_model_entry(entry: dict) -> dict:
+    """Fill fields required by the pinned Codex custom-catalog schema.
+
+    The remote models cache can omit fields that the local Codex binary
+    requires when parsing an explicit ``model_catalog_json``. Keep upstream
+    capabilities when present and use conservative bridge defaults otherwise.
+    """
+    normalized = dict(entry)
+    defaults = {
+        "prefer_websockets": False,
+        "supports_parallel_tool_calls": False,
+        "auto_compact_token_limit": None,
+        "reasoning_summary_format": "experimental",
+        "minimal_client_version": "0.144.0",
+        "available_in_plans": [],
+        "supports_reasoning_summaries": True,
+    }
+    for key, value in defaults.items():
+        normalized.setdefault(key, value)
+    normalized["tool_mode"] = "direct"
+    normalized["use_responses_lite"] = False
+    return normalized
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", type=Path, required=True)
@@ -26,7 +50,7 @@ def main() -> None:
         raise ValueError(
             f"expected one {args.template_slug!r} template, found {len(templates)}"
         )
-    entry = dict(templates[0])
+    entry = normalize_model_entry(templates[0])
     entry.update(
         {
             "slug": args.slug,

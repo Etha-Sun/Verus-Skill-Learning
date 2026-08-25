@@ -113,3 +113,33 @@ def test_isolation_rejects_tool_root_that_contains_scratch(tmp_path: Path) -> No
             lynette_bin=tool,
             config=config,
         )
+
+
+def test_isolation_rejects_actor_home_as_tool_root(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    actor_home = tmp_path / "home" / "actor"
+    actor_home.mkdir(parents=True)
+    monkeypatch.setenv("HOME", str(actor_home))
+    scratch = tmp_path / "scratch"
+    workspace = scratch / "workspace"
+    workspace.mkdir(parents=True)
+    rust_root = tmp_path / "rust"
+    rust_root.mkdir()
+    tool = tmp_path / "tool"
+    tool.write_text("#!/bin/sh\n", encoding="utf-8")
+    tool.chmod(0o755)
+    config = ActorIsolationConfig(
+        scratch_root=scratch,
+        verus_root=actor_home,
+        rust_root=rust_root,
+        bridge_port=18080,
+    )
+    with pytest.raises(ValueError, match="too broad"):
+        build_isolated_actor_command(
+            [str(tool)],
+            workspace=workspace,
+            codex_bin=tool,
+            lynette_bin=tool,
+            config=config,
+        )

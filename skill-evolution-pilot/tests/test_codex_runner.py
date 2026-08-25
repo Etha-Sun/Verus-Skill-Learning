@@ -199,6 +199,46 @@ last.write_text("complete")
             )
             self.assertEqual(manifest["stage"], "formal_held_out_evaluation")
 
+    def test_codex_startup_failure_without_stdout_is_audited(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            run_root = root / "run-root"
+            run_root.mkdir()
+            source = root / "source.rs"
+            source.write_text("fn task() {}\n", encoding="utf-8")
+            tools = root / "tools"
+            tools.mkdir()
+            codex = self._executable(
+                tools / "codex",
+                "#!/usr/bin/env bash\n"
+                "if [[ \"${1:-}\" == \"--version\" ]]; then echo fake; exit 0; fi\n"
+                "echo startup-failed >&2\n"
+                "exit 1\n",
+            )
+            verus = self._executable(
+                tools / "verus", "#!/usr/bin/env bash\nexit 1\n"
+            )
+            lynette = self._executable(
+                tools / "lynette", "#!/usr/bin/env bash\nexit 0\n"
+            )
+            with patch.dict(
+                os.environ,
+                {"VERUS_SKILL_RUN_ROOT": str(run_root)},
+                clear=False,
+            ):
+                result = run_codex_smoke(
+                    source=source,
+                    out_dir=run_root / "startup-failure",
+                    codex_bin=codex,
+                    verus_bin=verus,
+                    lynette_bin=lynette,
+                    timeout_seconds=30,
+                )
+        self.assertEqual(result["codex_returncode"], 1)
+        self.assertEqual(result["status"], "UNSOLVED")
+        self.assertEqual(result["fidelity"]["raw_event_count"], 0)
+        self.assertFalse(result["fidelity"]["f3"])
+
     def test_command_explicitly_requests_reasoning_summary_and_raw_events(self):
         command = build_command(
             codex_bin=Path("/tools/codex"),

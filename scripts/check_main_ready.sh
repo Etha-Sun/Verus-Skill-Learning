@@ -12,7 +12,7 @@ export PYTHONPATH="$REPO_ROOT/src:$REPO_ROOT/skill-evolution-pilot/src:$REPO_ROO
 
 while IFS= read -r script; do
   bash -n "$script"
-done < <(find "$REPO_ROOT/scripts" "$REPO_ROOT/skillopt-verusage/scripts" -type f -name '*.sh' -print)
+done < <(find "$REPO_ROOT/scripts" "$REPO_ROOT/skillopt-verusage/scripts" "$REPO_ROOT/trace2skill-verusage/scripts" -type f -name '*.sh' -print)
 
 "$PYTHON_BIN" -m pytest -q \
   "$REPO_ROOT/tests" \

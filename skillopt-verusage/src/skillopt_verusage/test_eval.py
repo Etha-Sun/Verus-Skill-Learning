@@ -258,7 +258,8 @@ def _attach_item_metadata(
 
 def _bridge_ledger_usage(path: Path) -> tuple[dict[str, int], float]:
     attempts = []
-    for line in path.read_text(encoding="utf-8").splitlines():
+    ledger_text = path.read_text(encoding="utf-8") if path.is_file() else ""
+    for line in ledger_text.splitlines():
         if line.strip():
             attempts.extend(json.loads(line).get("attempts") or [])
     usage = {

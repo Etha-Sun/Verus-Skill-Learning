@@ -774,11 +774,8 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
 
     rows, parse_errors = load_events(normalized_events)
     event_audit = audit_events(rows, parse_errors)
-    raw_rows = [
-        json.loads(line)
-        for line in raw_events.read_text(encoding="utf-8").splitlines()
-        if line
-    ]
+    raw_text = raw_events.read_text(encoding="utf-8") if raw_events.is_file() else ""
+    raw_rows = [json.loads(line) for line in raw_text.splitlines() if line]
     completed_raw_items = [
         row
         for row in raw_rows

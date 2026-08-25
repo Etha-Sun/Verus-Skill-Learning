@@ -22,7 +22,7 @@ jobs:
         run: skillopt-verusage/scripts/bootstrap_skillopt.sh
       - name: Install test dependencies
         run: |
-          python -m pip install -e ".[test]"
+          python -m pip install -e ".[test,trace2skill]"
           python -m pip install -e "skillopt-verusage/SkillOpt"
       - name: Run offline main-readiness checks
         run: scripts/check_main_ready.sh

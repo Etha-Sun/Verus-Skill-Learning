@@ -23,6 +23,8 @@ refine-logs/                              experiment plans, audits, and reports
 research_memory/                          durable public research context
 idea-stage/                               focused research contracts
 fixed-claude-stratified-80-seed20260814/  reviewed frozen benchmark fixture
+skillopt-verusage/                        shared evaluator and SkillOpt handoff
+trace2skill-verusage/                     vendored Verus Trace2Skill producer, baseline, and adapter
 ```
 
 The workstream directories are kept side by side so trace analysis,
@@ -88,6 +90,17 @@ Run the data-free test suite:
 ```bash
 PYTHONPATH=src python3 -m unittest discover -s tests -v
 ```
+
+Evaluate the frozen Trace2Skill baseline through the same model launch,
+accounting, timeout, isolation, and scoring path used by SkillOpt:
+
+```bash
+SKILLOPT_CHECK_ONLY=1 \
+  trace2skill-verusage/scripts/run_native_official_fixed_test20.sh gpt
+```
+
+See [the Trace2Skill baseline handoff](trace2skill-verusage/README.md) for the
+four-provider commands and frozen artifact provenance.
 
 ## Data Safety
 

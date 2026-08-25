@@ -75,10 +75,10 @@ FORBIDDEN_ACTOR_SYSCALLS = (
 )
 
 
-def _tool_root_reexposes_scratch(tool_root: Path, scratch_root: Path) -> bool:
-    """Return whether rebinding a tool root would reveal the hidden scratch tree."""
+def _tool_root_reexposes_hidden_root(tool_root: Path, hidden_root: Path) -> bool:
+    """Return whether rebinding a tool root would reveal a hidden tree."""
 
-    return tool_root == scratch_root or tool_root in scratch_root.parents
+    return tool_root == hidden_root or tool_root in hidden_root.parents
 
 
 @dataclass(frozen=True)
@@ -91,6 +91,7 @@ class ActorIsolationConfig:
 
     def validate(self, *, workspace: Path, codex_bin: Path, lynette_bin: Path) -> None:
         scratch = self.scratch_root.resolve()
+        actor_home = Path(os.environ.get("HOME", "/home/codex")).resolve()
         if scratch == Path("/"):
             raise ValueError("actor isolation scratch root must not be /")
         _strict_child(workspace, scratch, "workspace")
@@ -99,8 +100,10 @@ class ActorIsolationConfig:
             (self.rust_root, "Rust root"),
         ):
             resolved = path.resolve()
-            if resolved == Path("/home") or _tool_root_reexposes_scratch(
-                resolved, scratch
+            if (
+                resolved == Path("/home")
+                or _tool_root_reexposes_hidden_root(resolved, scratch)
+                or _tool_root_reexposes_hidden_root(resolved, actor_home)
             ):
                 raise ValueError(f"{label} is too broad for actor isolation: {resolved}")
             if not resolved.is_dir():
@@ -491,8 +494,11 @@ def _run_network_child(args: argparse.Namespace) -> int:
 
 def _run_outer(args: argparse.Namespace) -> int:
     scratch_root = args.scratch_root.resolve()
+    actor_home = Path(os.environ.get("HOME", "/home/codex")).resolve()
     if scratch_root == Path("/"):
         raise ValueError("scratch root must not be /")
+    if actor_home == Path("/home") or Path("/home") not in actor_home.parents:
+        raise ValueError(f"actor HOME must be below /home: {actor_home}")
     workspace = _strict_child(args.workspace, scratch_root, "workspace")
     verus_root = args.verus_root.resolve()
     rust_root = args.rust_root.resolve()
@@ -503,8 +509,10 @@ def _run_outer(args: argparse.Namespace) -> int:
     if (
         verus_root == Path("/home")
         or rust_root == Path("/home")
-        or _tool_root_reexposes_scratch(verus_root, scratch_root)
-        or _tool_root_reexposes_scratch(rust_root, scratch_root)
+        or _tool_root_reexposes_hidden_root(verus_root, scratch_root)
+        or _tool_root_reexposes_hidden_root(rust_root, scratch_root)
+        or _tool_root_reexposes_hidden_root(verus_root, actor_home)
+        or _tool_root_reexposes_hidden_root(rust_root, actor_home)
     ):
         raise ValueError("Verus and Rust roots must not expose a hidden root")
     if not lynette_bin.is_file() or not codex_bin.is_file():
@@ -547,9 +555,6 @@ def _run_outer(args: argparse.Namespace) -> int:
         _bind(staged["codex"], isolated_codex, read_only=True)
         _bind(staged["runner"], isolated_runner, read_only=True)
 
-        actor_home = Path(os.environ.get("HOME", "/home/codex"))
-        if actor_home == Path("/home") or Path("/home") not in actor_home.parents:
-            raise ValueError(f"actor HOME must be below /home: {actor_home}")
         (actor_home / ".codex").mkdir(parents=True, exist_ok=True)
         for path in reversed(staged_mounts):
             _run_umount(path)
