@@ -240,11 +240,9 @@ export "$API_KEY_ENV"
 ACTOR_ISOLATION_FLAGS=()
 if [[ "${SKILLOPT_ACTOR_ISOLATION:-1}" == "1" ]]; then
   ACTOR_SCRATCH_ROOT="${VERUS_SKILL_SCRATCH_ROOT:-$(dirname "$REPO_ROOT")}"
-  ACTOR_VERUS_ROOT="${SKILLOPT_ACTOR_VERUS_ROOT:-$(dirname "$(dirname "$EVAL_VERUS_BIN")")}"
+  ACTOR_VERUS_ROOT="${SKILLOPT_ACTOR_VERUS_ROOT:-$(dirname "$EVAL_VERUS_BIN")}"
   if [[ -n "${SKILLOPT_ACTOR_RUST_ROOT:-}" ]]; then
     ACTOR_RUST_ROOT="$SKILLOPT_ACTOR_RUST_ROOT"
-  elif [[ -n "${CARGO_HOME:-}" && -d "$(dirname "$CARGO_HOME")/rustup" ]]; then
-    ACTOR_RUST_ROOT="$(dirname "$CARGO_HOME")"
   else
     ACTOR_RUST_ROOT="$(rustc --print sysroot)"
   fi

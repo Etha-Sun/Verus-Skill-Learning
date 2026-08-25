@@ -20,10 +20,11 @@ def test_bridge_runs_enable_trace2skill_isolation_by_default() -> None:
     ).read_text(encoding="utf-8")
     assert '${SKILLOPT_ACTOR_ISOLATION:-1}' in script
     assert '--actor-isolation-scratch-root "$ACTOR_SCRATCH_ROOT"' in script
-    assert '$(dirname "$(dirname "$EVAL_VERUS_BIN")")' in script
+    assert '$(dirname "$EVAL_VERUS_BIN")' in script
+    assert '$(dirname "$(dirname "$EVAL_VERUS_BIN")")' not in script
     assert '--actor-isolation-verus-root "$ACTOR_VERUS_ROOT"' in script
-    assert '$(dirname "$CARGO_HOME")/rustup' in script
-    assert 'ACTOR_RUST_ROOT="$(dirname "$CARGO_HOME")"' in script
+    assert 'ACTOR_RUST_ROOT="$(rustc --print sysroot)"' in script
+    assert '$(dirname "$CARGO_HOME")' not in script
     assert '--actor-isolation-rust-root "$ACTOR_RUST_ROOT"' in script
 
 
