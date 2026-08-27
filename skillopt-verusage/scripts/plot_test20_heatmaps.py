@@ -301,7 +301,7 @@ def _display_model(model: str) -> str:
     return model
 
 
-def _wrap_problem_name(name: str, width: int = 58) -> str:
+def _wrap_problem_name(name: str, width: int = 46) -> str:
     parts = re.sub(r"(_+)", r"\1 ", name).split()
     lines: list[str] = []
     current = ""
@@ -362,8 +362,8 @@ def _save_combined_heatmap(dataset: dict[str, Any], path: Path) -> None:
         for outcome_row, token_row in zip(outcomes, tokens)
     ]
     with plt.style.context(_style()):
-        fig, ax = plt.subplots(figsize=(13.5, 14.5))
-        fig.subplots_adjust(left=0.53, right=0.96, top=0.87, bottom=0.05)
+        fig, ax = plt.subplots(figsize=(12.0, 14.5))
+        fig.subplots_adjust(left=0.41, right=0.97, top=0.87, bottom=0.05)
         ax.imshow(colors, aspect="auto")
         _configure_axis(ax, dataset)
         for y, (outcome_row, token_row) in enumerate(zip(outcomes, tokens)):

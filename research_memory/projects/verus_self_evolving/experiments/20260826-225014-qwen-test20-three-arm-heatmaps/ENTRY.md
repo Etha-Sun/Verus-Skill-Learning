@@ -14,6 +14,7 @@ run.
 - token cost: complete bridge-ledger input plus output tokens, including
   retries and archived or post-deadline attempts
 - order: unchanged fixed test-20 task order
+- surface: `internal_review`
 - raw datasets, model checkpoint, run ledgers, and task results: read-only
 
 ## Commands
@@ -32,7 +33,9 @@ The combined heatmap reconciles to Blank/S2/Trace2Skill outcomes of 5/20,
 8,991,255 respectively. Red/green hue encodes fail/pass, while depth within
 each hue encodes token cost; every cell also prints its outcome and token
 value. A render-inspect pass confirmed that exact VerusAGE problem names wrap
-at underscore boundaries without clipping or overlap.
+at underscore boundaries without clipping or overlap. A follow-up compacted
+the left label region from 53% to 41% of the canvas and tightened wrapping from
+58 to 46 characters per line.
 
 ## Evidence
 
