@@ -1,6 +1,6 @@
 # Current Research State
 
-Last updated: 2026-08-23
+Last updated: 2026-08-26
 
 ## Active Direction
 
@@ -11,6 +11,16 @@ namespace: stable trace contracts belong below all workstreams, while
 self-evolution is an experiment/orchestration layer that may consume trace
 analysis, learned skills, and evaluation. Information gain remains a secondary
 offline artifact ranking and diagnosis signal, not the main system endpoint.
+
+## Qwen Test-20 Three-Arm Heatmaps (2026-08-26)
+
+The latest Qwen3.8 1200-second blank/S2/Trace2Skill result now has aligned
+20-by-3 pass/fail and complete-ledger token-cost heatmaps. They reconcile to
+5/20, 7/20, and 6/20 solved and 9,412,193, 8,588,155, and 8,991,255 tokens.
+The reusable command accepts one comparison folder and writes both PNGs plus
+the plotted CSV below that run folder. This is visualization of the existing
+descriptive rollout, not additional method-effect evidence. Canonical entry:
+`research_memory/projects/verus_self_evolving/experiments/20260826-225014-qwen-test20-three-arm-heatmaps/ENTRY.md`.
 
 Repository asset audit:
 

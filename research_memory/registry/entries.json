@@ -1,5 +1,13 @@
 [
   {
+    "created_at": "2026-08-26T22:50:14",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Qwen test20 three arm heatmaps",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/experiments/20260826-225014-qwen-test20-three-arm-heatmaps/ENTRY.md"
+  },
+  {
     "created_at": "2026-08-23T22:23:11",
     "project": "verus_self_evolving",
     "kind": "decisions",

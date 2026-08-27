@@ -81,6 +81,22 @@ OpenAI-compatible optimizer 保留完整 inline trajectory，不会收到无法�
   的 token/time 字段继续 tracked 且只读；它不是 sealed test，也不容纳运行账本。
 - 本目录只保留代码、测试、配置模板、hash、proposal 和审核后的紧凑摘要。
 
+## Test-20 三臂热力图
+
+给一个包含三臂结果的文件夹即可生成逐题 pass/fail 和 token cost 两张 PNG：
+
+```bash
+python3 skillopt-verusage/scripts/plot_test20_heatmaps.py \
+  runs/skillopt-verusage/qwen38-three-arm-budget1200-20260826
+```
+
+输入文件夹可以包含一个带 `tasks`、`run_order` 的 `*matrix.json`（使用最后三臂），
+也可以直接包含三个完整 run 子目录（每个都有 `summary.json` 和
+`per_task.json`）。默认输出到
+`INPUT_DIR/figures/three_arm_heatmaps/`；若存在 `bridge_calls.jsonl`，token cost
+使用包含重试和 archived attempts 的完整 bridge ledger，否则使用逐题记录的
+input + output token。
+
 ## GLM API 配置
 
 固定 test-20 launcher 通过 Z.AI 的通用 OpenAI-compatible API 调用 GLM。
