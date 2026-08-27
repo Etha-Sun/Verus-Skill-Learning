@@ -10,8 +10,8 @@ from typing import Any
 
 
 EXPECTED_TASKS = 20
-OUTCOME_COLORS = ("#D3A095", "#5C8F83")
-TOKEN_COLORS = ("#F7F3EC", "#B7CEC7", "#356F78")
+FAIL_COLORS = ("#F8EEEB", "#963C35")
+PASS_COLORS = ("#ECF4F0", "#286451")
 
 
 def _read_json(path: Path) -> Any:
@@ -301,11 +301,29 @@ def _display_model(model: str) -> str:
     return model
 
 
+def _wrap_problem_name(name: str, width: int = 58) -> str:
+    parts = re.sub(r"(_+)", r"\1 ", name).split()
+    lines: list[str] = []
+    current = ""
+    for part in parts:
+        if current and len(current) + len(part) > width:
+            lines.append(current)
+            current = part
+        else:
+            current += part
+    if current:
+        lines.append(current)
+    return "\n".join(lines)
+
+
 def _configure_axis(ax: Any, dataset: dict[str, Any]) -> None:
     ax.set_xticks(range(3), _column_labels(dataset))
     ax.xaxis.tick_top()
     ax.tick_params(axis="x", length=0, pad=8)
-    ax.set_yticks(range(EXPECTED_TASKS), [task["name"] for task in dataset["tasks"]])
+    ax.set_yticks(
+        range(EXPECTED_TASKS),
+        [_wrap_problem_name(task["name"]) for task in dataset["tasks"]],
+    )
     ax.tick_params(axis="y", length=0, pad=7)
     ax.set_xticks([0.5, 1.5], minor=True)
     ax.set_yticks([index + 0.5 for index in range(EXPECTED_TASKS - 1)], minor=True)
@@ -315,86 +333,79 @@ def _configure_axis(ax: Any, dataset: dict[str, Any]) -> None:
         spine.set_visible(False)
 
 
-def _title(dataset: dict[str, Any], suffix: str) -> tuple[str, str]:
+def _title(dataset: dict[str, Any]) -> tuple[str, str]:
     budget = (
         f" · {dataset['budget_seconds']} s per task" if dataset["budget_seconds"] else ""
     )
     return (
-        f"{_display_model(dataset['model'])}: {suffix}",
+        f"{_display_model(dataset['model'])}: per-task outcome and token cost",
         f"Fixed test-{EXPECTED_TASKS}{budget}",
     )
 
 
-def _save_outcome_heatmap(dataset: dict[str, Any], path: Path) -> None:
-    import matplotlib.pyplot as plt
-    from matplotlib.colors import BoundaryNorm, ListedColormap
-
-    values = [[int(value) for value in row] for row in _matrix(dataset, "solved")]
-    with plt.style.context(_style()):
-        fig, ax = plt.subplots(figsize=(19.0, 10.8))
-        fig.subplots_adjust(left=0.76, right=0.96, top=0.86, bottom=0.06)
-        image = ax.imshow(
-            values,
-            cmap=ListedColormap(OUTCOME_COLORS),
-            norm=BoundaryNorm((-0.5, 0.5, 1.5), 2),
-            aspect="auto",
-        )
-        image.set_clim(-0.5, 1.5)
-        _configure_axis(ax, dataset)
-        for y, row in enumerate(values):
-            for x, value in enumerate(row):
-                ax.text(
-                    x,
-                    y,
-                    "PASS" if value else "FAIL",
-                    ha="center",
-                    va="center",
-                    color="white" if value else "#482B27",
-                    fontsize=8.2,
-                    fontweight="bold",
-                )
-        title, subtitle = _title(dataset, "per-task outcomes")
-        fig.suptitle(title, x=0.31, y=0.965, ha="left", fontsize=14, fontweight="bold")
-        fig.text(0.31, 0.925, subtitle + " · independently verified proof outcome", color="#5F6368")
-        fig.savefig(path)
-        plt.close(fig)
-
-
-def _save_token_heatmap(dataset: dict[str, Any], path: Path) -> None:
+def _save_combined_heatmap(dataset: dict[str, Any], path: Path) -> None:
     import matplotlib.pyplot as plt
     from matplotlib.colors import LinearSegmentedColormap, Normalize
-    from matplotlib.ticker import FuncFormatter
+    from matplotlib.patches import Patch
 
-    values = _matrix(dataset, "total_tokens")
-    maximum = max(value for row in values for value in row)
+    outcomes = _matrix(dataset, "solved")
+    tokens = _matrix(dataset, "total_tokens")
+    maximum = max(value for row in tokens for value in row)
     norm = Normalize(vmin=0, vmax=maximum)
-    cmap = LinearSegmentedColormap.from_list("token_cost", TOKEN_COLORS)
+    fail_cmap = LinearSegmentedColormap.from_list("fail_cost", FAIL_COLORS)
+    pass_cmap = LinearSegmentedColormap.from_list("pass_cost", PASS_COLORS)
+    colors = [
+        [
+            (pass_cmap if solved else fail_cmap)(norm(token))
+            for solved, token in zip(outcome_row, token_row)
+        ]
+        for outcome_row, token_row in zip(outcomes, tokens)
+    ]
     with plt.style.context(_style()):
-        fig, ax = plt.subplots(figsize=(19.0, 10.8))
-        fig.subplots_adjust(left=0.76, right=0.93, top=0.86, bottom=0.08)
-        image = ax.imshow(values, cmap=cmap, norm=norm, aspect="auto")
+        fig, ax = plt.subplots(figsize=(13.5, 14.5))
+        fig.subplots_adjust(left=0.53, right=0.96, top=0.87, bottom=0.05)
+        ax.imshow(colors, aspect="auto")
         _configure_axis(ax, dataset)
-        for y, row in enumerate(values):
-            for x, value in enumerate(row):
+        for y, (outcome_row, token_row) in enumerate(zip(outcomes, tokens)):
+            for x, (solved, token) in enumerate(zip(outcome_row, token_row)):
+                red, green, blue, _ = colors[y][x]
+                luminance = 0.2126 * red + 0.7152 * green + 0.0722 * blue
                 ax.text(
                     x,
                     y,
-                    _format_tokens(value),
+                    f"{'PASS' if solved else 'FAIL'}\n{_format_tokens(token)}",
                     ha="center",
                     va="center",
-                    color="white" if norm(value) >= 0.58 else "#273436",
-                    fontsize=8.0,
+                    color="white" if luminance < 0.56 else "#2F3333",
+                    fontsize=8.1,
                     fontweight="bold",
+                    linespacing=1.18,
                 )
-        colorbar = fig.colorbar(image, ax=ax, fraction=0.035, pad=0.045)
-        colorbar.set_label("Total tokens per task")
-        colorbar.ax.yaxis.set_major_formatter(
-            FuncFormatter(lambda value, _: _format_tokens(int(value)))
+        title, subtitle = _title(dataset)
+        fig.suptitle(
+            title,
+            x=0.04,
+            y=0.975,
+            ha="left",
+            fontsize=14,
+            fontweight="bold",
         )
-        colorbar.outline.set_linewidth(0.5)
-        title, subtitle = _title(dataset, "per-task token cost")
-        fig.suptitle(title, x=0.31, y=0.965, ha="left", fontsize=14, fontweight="bold")
-        fig.text(0.31, 0.925, subtitle + f" · {dataset['token_scope']}", color="#5F6368")
+        fig.text(
+            0.04,
+            0.943,
+            subtitle + " · red = fail, green = pass; darker = more tokens",
+            color="#5F6368",
+        )
+        fig.text(0.04, 0.922, dataset["token_scope"], color="#5F6368")
+        fig.legend(
+            handles=(
+                Patch(facecolor=fail_cmap(0.55), label="FAIL"),
+                Patch(facecolor=pass_cmap(0.55), label="PASS"),
+            ),
+            loc="upper right",
+            bbox_to_anchor=(0.955, 0.967),
+            ncol=2,
+        )
         fig.savefig(path)
         plt.close(fig)
 
@@ -417,7 +428,7 @@ def _write_csv(dataset: dict[str, Any], path: Path) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Plot pass/fail and token-cost heatmaps for a three-arm test-20 folder."
+        description="Plot a combined outcome/token-cost heatmap for a three-arm test-20 folder."
     )
     parser.add_argument("input_dir", type=Path)
     parser.add_argument(
@@ -429,11 +440,9 @@ def main() -> None:
     dataset = load_dataset(args.input_dir)
     output_dir = (args.output_dir or args.input_dir / "figures" / "three_arm_heatmaps").resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
-    outcome_path = output_dir / "pass_fail_heatmap.png"
-    token_path = output_dir / "token_cost_heatmap.png"
+    combined_path = output_dir / "combined_heatmap.png"
     csv_path = output_dir / "heatmap_data.csv"
-    _save_outcome_heatmap(dataset, outcome_path)
-    _save_token_heatmap(dataset, token_path)
+    _save_combined_heatmap(dataset, combined_path)
     _write_csv(dataset, csv_path)
     print(
         json.dumps(
@@ -442,8 +451,7 @@ def main() -> None:
                 "model": dataset["model"],
                 "tasks": len(dataset["tasks"]),
                 "arms": [arm["label"] for arm in dataset["arms"]],
-                "pass_fail_png": str(outcome_path),
-                "token_cost_png": str(token_path),
+                "combined_png": str(combined_path),
                 "data_csv": str(csv_path),
             },
             indent=2,

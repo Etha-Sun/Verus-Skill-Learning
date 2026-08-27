@@ -2,8 +2,8 @@
 
 ## Objective
 
-Create a reusable folder-to-figure command and render aligned per-task outcome
-and token-cost heatmaps for the latest complete Qwen fixed-test20 three-arm
+Create a reusable folder-to-figure command and render a combined per-task
+outcome/token-cost heatmap for the latest complete Qwen fixed-test20 three-arm
 run.
 
 ## Context And Contract
@@ -27,21 +27,19 @@ MPLCONFIGDIR=/tmp/mpl-test20-heatmaps \
 
 ## Results
 
-The pass/fail heatmap reconciles to Blank 5/20, S2 7/20, and Trace2Skill
-6/20. The token heatmap reconciles to 9,412,193, 8,588,155, and 8,991,255
-complete-ledger tokens respectively. Both figures use the same 20 rows and
-three columns. A render-inspect-revise pass aligned the title with the data,
-preserved all exact VerusAGE problem names, and replaced scientific colorbar
-notation with direct `k`/`M` labels.
+The combined heatmap reconciles to Blank/S2/Trace2Skill outcomes of 5/20,
+7/20, and 6/20 and complete-ledger token totals of 9,412,193, 8,588,155, and
+8,991,255 respectively. Red/green hue encodes fail/pass, while depth within
+each hue encodes token cost; every cell also prints its outcome and token
+value. A render-inspect pass confirmed that exact VerusAGE problem names wrap
+at underscore boundaries without clipping or overlap.
 
 ## Evidence
 
 - reusable script: `skillopt-verusage/scripts/plot_test20_heatmaps.py`
 - tests: `skillopt-verusage/tests/test_plot_test20_heatmaps.py`
-- pass/fail PNG:
-  `runs/skillopt-verusage/qwen38-three-arm-budget1200-20260826/figures/three_arm_heatmaps/pass_fail_heatmap.png`
-- token-cost PNG:
-  `runs/skillopt-verusage/qwen38-three-arm-budget1200-20260826/figures/three_arm_heatmaps/token_cost_heatmap.png`
+- combined PNG:
+  `runs/skillopt-verusage/qwen38-three-arm-budget1200-20260826/figures/three_arm_heatmaps/combined_heatmap.png`
 - plotted data:
   `runs/skillopt-verusage/qwen38-three-arm-budget1200-20260826/figures/three_arm_heatmaps/heatmap_data.csv`
 

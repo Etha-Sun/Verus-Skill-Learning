@@ -82,3 +82,16 @@ def test_child_run_input_rejects_incomplete_run(tmp_path: Path) -> None:
 
     with pytest.raises(ValueError, match="not complete"):
         _module().load_dataset(tmp_path)
+
+
+def test_problem_name_wraps_at_underscore_boundaries_without_changing_name() -> None:
+    name = (
+        "AC__vreplicaset_controller__proof__liveness__"
+        "lemma_get_then_delete_matching_pod_and_returns_ok"
+    )
+
+    wrapped = _module()._wrap_problem_name(name, width=34)
+
+    assert "\n" in wrapped
+    assert wrapped.replace("\n", "") == name
+    assert max(map(len, wrapped.splitlines())) <= 34

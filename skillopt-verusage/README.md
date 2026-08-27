@@ -83,7 +83,7 @@ OpenAI-compatible optimizer 保留完整 inline trajectory，不会收到无法�
 
 ## Test-20 三臂热力图
 
-给一个包含三臂结果的文件夹即可生成逐题 pass/fail 和 token cost 两张 PNG：
+给一个包含三臂结果的文件夹即可生成一张逐题 outcome/token cost PNG：
 
 ```bash
 python3 skillopt-verusage/scripts/plot_test20_heatmaps.py \
@@ -93,9 +93,11 @@ python3 skillopt-verusage/scripts/plot_test20_heatmaps.py \
 输入文件夹可以包含一个带 `tasks`、`run_order` 的 `*matrix.json`（使用最后三臂），
 也可以直接包含三个完整 run 子目录（每个都有 `summary.json` 和
 `per_task.json`）。默认输出到
-`INPUT_DIR/figures/three_arm_heatmaps/`；若存在 `bridge_calls.jsonl`，token cost
-使用包含重试和 archived attempts 的完整 bridge ledger，否则使用逐题记录的
-input + output token。
+`INPUT_DIR/figures/three_arm_heatmaps/combined_heatmap.png`。红/绿表示
+fail/pass，同一色系越深表示 token cost 越高，格内同时显示结果和 token 数值；
+长题目名会在下划线边界自动换行。若存在 `bridge_calls.jsonl`，token cost 使用
+包含重试和 archived attempts 的完整 bridge ledger，否则使用逐题记录的 input +
+output token。
 
 ## GLM API 配置
 
