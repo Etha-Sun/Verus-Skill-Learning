@@ -42,6 +42,7 @@ def main() -> None:
     parser.add_argument("--task-id", required=True)
     parser.add_argument("--step", required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--title", default="Verifier-gated trajectory progress")
     args = parser.parse_args()
 
     output = args.output.resolve()
@@ -76,11 +77,11 @@ def main() -> None:
         linewidth=1.8,
         zorder=3,
     )
-    patch_axis.set_ylim(0.65, 1.02)
-    patch_axis.set_yticks([0.7, 0.8, 0.9, 1.0])
+    patch_axis.set_ylim(-0.02, 1.02)
+    patch_axis.set_yticks([0.0, 0.25, 0.5, 0.75, 1.0])
     patch_axis.set_ylabel("Patch F1", fontsize=12, fontweight="bold")
     patch_axis.set_title(
-        "Verifier-gated trajectory progress",
+        args.title,
         fontsize=13,
         fontweight="bold",
         pad=10,

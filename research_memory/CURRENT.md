@@ -12,6 +12,25 @@ self-evolution is an experiment/orchestration layer that may consume trace
 analysis, learned skills, and evaluation. Information gain remains a secondary
 offline artifact ranking and diagnosis signal, not the main system endpoint.
 
+## Anvil Borrowing Proof Progress Figure (2026-09-08)
+
+The verifier-gated progress example now uses the fixed-test20 Anvil task
+`AL__leads_to_by_borrowing_inv` (`4e372e`), specifically the GLM-5.3 S2
+trajectory. Sixteen distinct candidate hashes have exact snapshot and Verus
+result anchors. The curve shows an empty-body proof failure, alternating syntax
+and proof failures while the actor temporarily proves a stronger nested-suffix
+claim, and a final transition to a verified helper-chain proof. Patch F1 is
+hindsight-only and is plotted above the categorical verifier tier 0/1/2.
+
+This example is for qualitative explanation only because it is part of the
+fixed test-20. It must not enter train-only metric selection, threshold tuning,
+or augmentation. GLM Trace remains the efficient mechanism example, but its
+two distinct verifier-anchored states are too sparse for a process figure.
+Generated figure:
+`/zp_vegeta/scratch_sb/ycsun/Verus-Skill-Learning-Runs/skillopt-verusage/trajectory-progress-anvil-borrowing-20260908-v1/figures/verifier_gated_patch_f1_glm_s2.png`.
+No raw trajectory or benchmark file was modified. Next action is to retain this
+as an explanatory case while keeping metric validation train-only.
+
 ## Verifier-Gated Patch-F1 Progress Metric (2026-09-08)
 
 The provisional offline progress metric is now
