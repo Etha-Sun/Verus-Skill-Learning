@@ -33,10 +33,11 @@ USAGE_LINE_RE = re.compile(
     r"([0-9.]+[kKmM]?)\s+input,\s+"
     r"([0-9.]+[kKmM]?)\s+output,\s+"
     r"([0-9.]+[kKmM]?)\s+cache read"
+    r"(?:,\s+[0-9.]+[kKmM]?\s+cache write)?"
     r"(?:\s+\(Est\.[^)]*\))?\s*$",
     re.MULTILINE,
 )
-PREMIUM_RE = re.compile(r"Total usage est:\s*([0-9.]+)\s+Premium requests")
+PREMIUM_RE = re.compile(r"Total usage est:\s*([0-9.]+)\s+Premium requests?")
 DURATION_RE = re.compile(r"Total duration \((API|wall)\):\s*([^\n]+)")
 CURRENT_USAGE_RE = re.compile(
     r"^\s*Tokens\s+↑\s*([0-9.]+[kKmM]?)\s*•\s*"

@@ -91,6 +91,24 @@ Run the data-free test suite:
 PYTHONPATH=src python3 -m unittest discover -s tests -v
 ```
 
+Normalize either legacy Sonnet 4.5 terminal logs or recent structured runs to
+the shared `verus-trajectory-v1` schema:
+
+```bash
+PYTHONPATH=src python3 -m verus_self_evolve.trajectory_parsers sonnet45 \
+  --log "${VERUS_SKILL_DATA_ROOT}/claude_sonnet_gpt5/verified-ironkv/results-sonnet45/TASK.log" \
+  --output "${VERUS_SKILL_RUN_ROOT}/trajectory-parser/TASK.json"
+
+PYTHONPATH=src python3 -m verus_self_evolve.trajectory_parsers structured \
+  --prediction-dir "${VERUS_SKILL_RUN_ROOT}/RUN/predictions/TASK_ID" \
+  --output "${VERUS_SKILL_RUN_ROOT}/trajectory-parser/TASK_ID.json"
+```
+
+The Sonnet adapter marks intermediate code reconstruction as partial because
+terminal diffs may be rendered or collapsed. The structured adapter uses exact
+candidate snapshots and checks their hashes against the event stream. Both are
+read-only and refuse to write output inside the source trace directory.
+
 Evaluate the frozen Trace2Skill baseline through the same model launch,
 accounting, timeout, isolation, and scoring path used by SkillOpt:
 

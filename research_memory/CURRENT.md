@@ -1,6 +1,6 @@
 # Current Research State
 
-Last updated: 2026-08-27
+Last updated: 2026-09-08
 
 ## Active Direction
 
@@ -11,6 +11,33 @@ namespace: stable trace contracts belong below all workstreams, while
 self-evolution is an experiment/orchestration layer that may consume trace
 analysis, learned skills, and evaluation. Information gain remains a secondary
 offline artifact ranking and diagnosis signal, not the main system endpoint.
+
+## Dual Trajectory Parser Branch (2026-09-08)
+
+The latest `origin/main` was fetched at `01d2f0b`. Because the original `main`
+worktree contains user changes, the trajectory work is isolated on
+`feature/trajectory-progress-parsers-20260908` rather than switching or merging
+that worktree. Two adapters now emit one `verus-trajectory-v1` record: legacy
+Sonnet 4.5 terminal logs retain exact input/final source but explicitly mark
+intermediate edits partial, while recent structured runs retain exact candidate
+snapshots and validate their hashes against events. The parser does not yet
+assign a progress score.
+
+The readable corpus audit found 258 standard Sonnet 4.5 logs and 1,399 recent
+structured prediction directories in the external SkillOpt run tree, plus 217
+in the current ignored run tree. Real smoke parses succeeded and are stored at
+`${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/trajectory-parser-smoke-20260908-v3/`.
+Focused tests pass 12/12; the broader repository suite has 113 passes and two
+pre-existing vendored-runtime hash failures. Raw inputs were not modified.
+
+Caveat: the current machine-local `VERUS_SKILL_RUN_ROOT` points inside the
+repository and must be redirected to the external run root before production
+outputs are generated. Next action: freeze the schema on a stratified audit
+sample, quantify missingness by format, and only then design the progress
+representation.
+
+Canonical decision:
+`research_memory/projects/verus_self_evolving/decisions/20260908-042154-dual-trajectory-parser-branch-and-data-contract/ENTRY.md`.
 
 ## Qwen Test-20 Three-Arm Heatmaps (2026-08-26)
 

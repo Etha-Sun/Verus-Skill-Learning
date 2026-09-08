@@ -42,6 +42,20 @@ class HandsOffM0Test(unittest.TestCase):
         self.assertEqual(usage["totals"]["uncached_total_tokens"], 15_582)
         self.assertEqual(usage["wall_seconds"], 29)
 
+    def test_usage_parser_accepts_cache_write_field(self):
+        usage = parse_copilot_usage(
+            "Total usage est: 1 Premium request\n"
+            "Usage by model:\n"
+            "    claude-sonnet-4.5 1.8m input, 36.5k output, "
+            "1.7m cache read, 48.9k cache write (Est. 1 Premium request)\n"
+        )
+        self.assertTrue(usage["available"])
+        self.assertEqual(usage["premium_requests"], 1)
+        self.assertEqual(usage["totals"]["input_tokens"], 1_800_000)
+        self.assertEqual(usage["totals"]["output_tokens"], 36_500)
+        self.assertEqual(usage["totals"]["cache_read_tokens"], 1_700_000)
+        self.assertEqual(usage["totals"]["uncached_total_tokens"], 136_500)
+
     def test_task_normalization_removes_project_prefix(self):
         self.assertEqual(normalize_task_id("MA__foo__bar_verified"), "foo_bar")
 

@@ -1,5 +1,13 @@
 [
   {
+    "created_at": "2026-09-08T04:21:54",
+    "project": "verus_self_evolving",
+    "kind": "decisions",
+    "title": "Dual trajectory parser branch and data contract",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/decisions/20260908-042154-dual-trajectory-parser-branch-and-data-contract/ENTRY.md"
+  },
+  {
     "created_at": "2026-08-26T22:50:14",
     "project": "verus_self_evolving",
     "kind": "experiments",

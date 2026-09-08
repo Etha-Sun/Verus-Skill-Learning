@@ -1,0 +1,12 @@
+{
+  "title": "Dual trajectory parser branch and data contract",
+  "project": "verus_self_evolving",
+  "kind": "decisions",
+  "created_at": "2026-09-08T04:21:54",
+  "status": "complete",
+  "links": [
+    "src/verus_self_evolve/trajectory_parsers.py",
+    "tests/test_trajectory_parsers.py"
+  ],
+  "raw_data_read_only": true
+}
