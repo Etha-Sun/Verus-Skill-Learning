@@ -12,6 +12,38 @@ self-evolution is an experiment/orchestration layer that may consume trace
 analysis, learned skills, and evaluation. Information gain remains a secondary
 offline artifact ranking and diagnosis signal, not the main system endpoint.
 
+## Verifier-Gated Patch-F1 Progress Metric (2026-09-08)
+
+The provisional offline progress metric is now
+`lexicographic(verifier_tier, patch_f1)`. Verifier tier is the hard semantic
+gate (`compile failure or unparsed < proof failure < verified`); patch F1 then
+compares a checkpoint's normalized added/deleted lines with one known verified
+patch. The verified reference is hindsight-only and must never enter a live
+actor or held-out prompt.
+
+The fixed-80 train-only audit read 160 exact structured runs without modifying
+them. It evaluated 427 verifier checkpoints from 99 solved trajectories. Patch
+F1 has macro Spearman 0.964 against checkpoint order, a unique terminal maximum
+in 96.97% of trajectories, and median curve Spearman 0.954 when a different
+valid proof for the same task is used as reference. In leave-one-run-out
+terminal discrimination it reaches AUC 0.889 on 99 solved and 19 eligible
+unsolved runs; whole-file similarity reaches only 0.520. The verifier tier
+correctly marks all 100 fail-to-pass and all four pass-to-fail boundaries,
+including one IronKV regression that patch F1 alone misorders.
+
+The focused progress/parser suite passes 19/19. The full root suite has 120
+passes and two pre-existing Trace2Skill vendored-runtime hash failures; this
+metric work does not modify the vendor tree.
+
+This establishes a descriptive metric, not a causal reward. Absolute patch F1
+is reference-dependent, compiler failures and unparsed Verus output are still
+combined, and legacy Sonnet logs require exact intermediate reconstruction
+before scoring. Next action is a small blind human-label agreement audit before
+using the metric for augmentation or router training.
+
+Canonical entry:
+`research_memory/projects/verus_self_evolving/experiments/20260908-091848-verifier-gated-patch-f1-progress-metric-audit/ENTRY.md`.
+
 ## Dual Trajectory Parser Branch (2026-09-08)
 
 The latest `origin/main` was fetched at `01d2f0b`. Because the original `main`

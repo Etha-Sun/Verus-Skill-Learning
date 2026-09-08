@@ -109,6 +109,20 @@ terminal diffs may be rendered or collapsed. The structured adapter uses exact
 candidate snapshots and checks their hashes against the event stream. Both are
 read-only and refuse to write output inside the source trace directory.
 
+Audit the provisional offline progress metric on exact fixed-80 train
+rollouts:
+
+```bash
+PYTHONPATH=src python3 scripts/audit_trajectory_progress.py \
+  --steps-root "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/RUN/steps" \
+  --output-dir "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/PROGRESS_AUDIT"
+```
+
+The selected metric is the lexicographic pair `(verifier tier, patch F1)`.
+Patch F1 compares checkpoint edits with a known verified patch, so it is a
+hindsight-only analysis signal and must not expose the verified reference to a
+live actor or held-out evaluation prompt.
+
 Evaluate the frozen Trace2Skill baseline through the same model launch,
 accounting, timeout, isolation, and scoring path used by SkillOpt:
 

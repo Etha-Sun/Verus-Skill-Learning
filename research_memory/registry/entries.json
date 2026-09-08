@@ -1,5 +1,13 @@
 [
   {
+    "created_at": "2026-09-08T09:18:48",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Verifier gated patch F1 progress metric audit",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/experiments/20260908-091848-verifier-gated-patch-f1-progress-metric-audit/ENTRY.md"
+  },
+  {
     "created_at": "2026-09-08T04:21:54",
     "project": "verus_self_evolving",
     "kind": "decisions",

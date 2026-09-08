@@ -1,0 +1,13 @@
+{
+  "title": "Verifier gated patch F1 progress metric audit",
+  "project": "verus_self_evolving",
+  "kind": "experiments",
+  "created_at": "2026-09-08T09:18:48",
+  "status": "complete",
+  "links": [
+    "src/verus_self_evolve/trajectory_progress.py",
+    "scripts/audit_trajectory_progress.py",
+    "tests/test_trajectory_progress.py"
+  ],
+  "raw_data_read_only": true
+}
