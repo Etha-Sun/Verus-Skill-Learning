@@ -61,6 +61,20 @@ PYTHONPATH=src python3 scripts/audit_trajectory_progress.py \
 - summary: `summary.json`, SHA-256
   `bf3752075ec9161652ad9c5591a2dad477fd0ae5f578a3da39fb014b9387aa68`
 
+### Durable figure
+
+- source data:
+  `${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/trajectory-progress-audit-fixed80-train-20260908-v1/checkpoint_metrics.csv`
+- generating script:
+  `figures/scripts/plot_trajectory_progress_two_panel.py`
+- final PNG:
+  `${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/trajectory-progress-audit-fixed80-train-20260908-v1/figures/verifier_gated_patch_f1_ironkv_regression_v2.png`
+- surface class: `connector_milestone`
+- main claim: patch similarity can rise during a real verifier regression, so
+  continuous patch progress must remain subordinate to the 0/1/2 verifier tier
+- self-review revision: tightened the Patch-F1 axis, moved the legend outside
+  the data region, and directly annotated the tier-2 to tier-1 regression
+
 ## Results
 
 The reader accepted 160 complete structured train runs: 101 solved and 59
