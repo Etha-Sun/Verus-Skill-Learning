@@ -1,6 +1,6 @@
 # Current Research State
 
-Last updated: 2026-09-08
+Last updated: 2026-09-09
 
 ## Active Direction
 
@@ -11,6 +11,38 @@ namespace: stable trace contracts belong below all workstreams, while
 self-evolution is an experiment/orchestration layer that may consume trace
 analysis, learned skills, and evaluation. Information gain remains a secondary
 offline artifact ranking and diagnosis signal, not the main system endpoint.
+
+## Output-Token Proof Coverage And Greedy Pruning Pilot (2026-09-09)
+
+The fixed-test20 Anvil `AL__leads_to_by_borrowing_inv` GLM-5.3 S2 trajectory
+now has a call-level progress audit: every actual verifier invocation is a
+point, repeated candidate hashes remain separate, and the x-axis is cumulative
+complete-ledger output tokens only. The y-axis is normalized target-proof line
+coverage of a greedily verifier-pruned final proof, replacing Patch F1 for this
+view. Eighteen verifier calls cover 16 unique code states; the first success is
+call 16 at 14,474 of 15,379 output tokens, followed by two validation calls and
+905 additional tokens.
+
+Source-order fixed-point pruning tests added proof lines and balanced blocks by
+fresh Verus calls. It removes 12/22 nonblank target-proof lines (54.5%) while
+the retained proof passes fresh Verus and Lynette. Seven removable lines are
+assertions (58.3%); the other five comprise two let bindings, two control-flow
+lines, and one block delimiter. Five pre-success stagnation spans have positive
+token spend with unchanged coverage and verifier tier; the longest is calls
+9--12 (2,561 tokens, 70% coverage, tier 1). The line metric is hindsight-only,
+does not measure semantic equivalence, and the greedy proof is not guaranteed
+globally minimal. Ledger/token alignment uses structured function-call count
+deltas because the ledger has no timestamps.
+
+The formal output, rendered figure, 18 exact call-indexed sources, pruning
+trials, and dual-verifier logs are under
+`/zp_vegeta/scratch_sb/ycsun/Verus-Skill-Learning-Runs/skillopt-verusage/trajectory-progress-anvil-borrowing-outputtokens-pruned-20260908-v1/`.
+No raw trace or benchmark file was modified. Next action is a train-only
+stratified human-agreement audit; this fixed-test20 example must not be used to
+tune the metric.
+
+Canonical entry:
+`research_memory/projects/verus_self_evolving/experiments/20260908-215823-verifier-call-output-token-proof-coverage-and-greedy-pruning-pilot/ENTRY.md`.
 
 ## Anvil Borrowing Proof Progress Figure (2026-09-08)
 

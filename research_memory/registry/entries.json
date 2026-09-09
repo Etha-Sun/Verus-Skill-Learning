@@ -1,5 +1,13 @@
 [
   {
+    "created_at": "2026-09-08T21:58:23",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Verifier-call output-token proof coverage and greedy pruning pilot",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/experiments/20260908-215823-verifier-call-output-token-proof-coverage-and-greedy-pruning-pilot/ENTRY.md"
+  },
+  {
     "created_at": "2026-09-08T09:18:48",
     "project": "verus_self_evolving",
     "kind": "experiments",
