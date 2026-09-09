@@ -28,6 +28,10 @@ or augmentation. GLM Trace remains the efficient mechanism example, but its
 two distinct verifier-anchored states are too sparse for a process figure.
 Generated figure:
 `/zp_vegeta/scratch_sb/ycsun/Verus-Skill-Learning-Runs/skillopt-verusage/trajectory-progress-anvil-borrowing-20260908-v1/figures/verifier_gated_patch_f1_glm_s2.png`.
+The 16 exact code states and their checkpoint/event/tier/Patch-F1 manifest are
+stored beside the figure under
+`figures/verifier_gated_patch_f1_glm_s2_states/`; all 16 exported source hashes
+match their raw snapshot hashes.
 No raw trajectory or benchmark file was modified. Next action is to retain this
 as an explanatory case while keeping metric validation train-only.
 
