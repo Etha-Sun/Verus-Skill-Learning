@@ -12,6 +12,27 @@ self-evolution is an experiment/orchestration layer that may consume trace
 analysis, learned skills, and evaluation. Information gain remains a secondary
 offline artifact ranking and diagnosis signal, not the main system endpoint.
 
+## Active Qwen3.8 Unified 128k Rerun (2026-09-11)
+
+All six recurring fixed-test20 diagnostic tasks are being rerun from their
+original unverified sources with the accepted S2 artifact, Qwen3.8-27B BF16,
+TP=4, four concurrent actors, a 262,144-token context, and a hard limit of
+128,000 completion tokens per task. A task stops earlier when it verifies. The
+formal run is under
+`${EXTERNAL_RUN_ROOT}/skillopt-verusage/qwen38-s2-scaling6-rerun-14400s-128k-20260911-retry1/`.
+
+The first launch was intentionally aborted after its first verifier calls
+revealed that the isolated rustup compatibility shim did not set the Rust
+dynamic-library path. That aborted diagnostic is retained under the same run
+name without the `-retry1` suffix and must not be counted as a formal rerun.
+Commit `25b95dc` adds the narrow rustup interface and dynamic-library path;
+28 focused runner/evaluation tests pass. In the formal retry, isolated Verus
+has already executed without the prior rustup or `librustc_driver` failures,
+and all four GPUs reached full utilization. This remains a recurring-test
+scaling diagnostic, not fresh held-out validation or causal evidence for S2.
+Next action is to monitor until each task verifies or reaches 128k, then audit
+independent Verus, Lynette, provider usage, and any late in-flight tokens.
+
 ## Qwen3.8 Six-Task Long-Budget Scaling Diagnostic (2026-09-10)
 
 A six-task recurring fixed-test20 diagnostic completed with the accepted S2
