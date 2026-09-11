@@ -12,26 +12,31 @@ self-evolution is an experiment/orchestration layer that may consume trace
 analysis, learned skills, and evaluation. Information gain remains a secondary
 offline artifact ranking and diagnosis signal, not the main system endpoint.
 
-## Active Qwen3.8 Unified 128k Rerun (2026-09-11)
+## Qwen3.8 Unified 128k Rerun (2026-09-11)
 
-All six recurring fixed-test20 diagnostic tasks are being rerun from their
-original unverified sources with the accepted S2 artifact, Qwen3.8-27B BF16,
-TP=4, four concurrent actors, a 262,144-token context, and a hard limit of
-128,000 completion tokens per task. A task stops earlier when it verifies. The
-formal run is under
-`${EXTERNAL_RUN_ROOT}/skillopt-verusage/qwen38-s2-scaling6-rerun-14400s-128k-20260911-retry1/`.
+The six-task recurring fixed-test20 rerun completed with the accepted S2
+artifact, Qwen3.8-27B BF16, TP=4, four concurrent actors, a 262,144-token
+context, and a 128,000 completion-token limit per task. It solved 3/6:
+`AL__leads_to_by_borrowing_inv` at 110,204 tokens,
+`IR__marshal_v__impl3__lemma_serialize_injective` at 11,862, and
+`IR__delegation_map_v__impl4__empty_key_range_is_consistent` at 35,693.
+List-pods, shortcut, and send exhausted 128k unsolved. All solved candidates
+passed independent Verus and Lynette.
 
-The first launch was intentionally aborted after its first verifier calls
-revealed that the isolated rustup compatibility shim did not set the Rust
-dynamic-library path. That aborted diagnostic is retained under the same run
-name without the `-retry1` suffix and must not be counted as a formal rerun.
-Commit `25b95dc` adds the narrow rustup interface and dynamic-library path;
-28 focused runner/evaluation tests pass. In the formal retry, isolated Verus
-has already executed without the prior rustup or `librustc_driver` failures,
-and all four GPUs reached full utilization. This remains a recurring-test
-scaling diagnostic, not fresh held-out validation or causal evidence for S2.
-Next action is to monitor until each task verifies or reaches 128k, then audit
-independent Verus, Lynette, provider usage, and any late in-flight tokens.
+The full ledger records 244 requests and 541,759 completion tokens. Five tasks
+are V2-valid; send is V0/provider-invalid because one upstream request timed
+out without usage, although its final candidate safely passed Lynette and
+independently failed Verus. The prior 64k run solved only shortcut, which
+regressed here, so the 3/6 versus 1/6 difference is neither monotone nor a clean
+token-scaling estimate. Two new sub-64k solves also followed a verifier
+environment repair. The formal run is under
+`${EXTERNAL_RUN_ROOT}/skillopt-verusage/qwen38-s2-scaling6-rerun-14400s-128k-20260911-retry1/`;
+the aborted environment diagnostic without the `-retry1` suffix is not a
+formal result. Next action is checkpoint reconstruction plus fixed-environment
+repeats before making a scaling claim.
+
+Canonical entry:
+`research_memory/projects/verus_self_evolving/experiments/20260911-103213-qwen3-8-six-task-unified-128k-rerun/ENTRY.md`.
 
 ## Qwen3.8 Six-Task Long-Budget Scaling Diagnostic (2026-09-10)
 

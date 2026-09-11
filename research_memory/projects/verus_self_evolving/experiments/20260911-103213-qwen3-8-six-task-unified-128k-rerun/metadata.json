@@ -1,0 +1,9 @@
+{
+  "title": "Qwen3.8 six-task unified 128k rerun",
+  "project": "verus_self_evolving",
+  "kind": "experiments",
+  "created_at": "2026-09-11T10:32:13",
+  "status": "complete",
+  "links": [],
+  "raw_data_read_only": true
+}

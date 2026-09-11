@@ -1,5 +1,13 @@
 [
   {
+    "created_at": "2026-09-11T10:32:13",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Qwen3.8 six-task unified 128k rerun",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/experiments/20260911-103213-qwen3-8-six-task-unified-128k-rerun/ENTRY.md"
+  },
+  {
     "created_at": "2026-09-10T22:26:09",
     "project": "verus_self_evolving",
     "kind": "experiments",
