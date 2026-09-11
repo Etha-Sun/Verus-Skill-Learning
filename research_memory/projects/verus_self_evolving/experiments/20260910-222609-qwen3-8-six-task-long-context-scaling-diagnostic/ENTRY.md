@@ -46,7 +46,12 @@ bash skillopt-verusage/scripts/run_s2_fixed_test20.sh qwen s2
 
 ## Results
 
-Pending live execution.
+The check-only preflight matched all six requested IDs, the accepted S2 hash,
+four workers, 3,600 seconds, 64,000 completion tokens per task, the 262,144
+context window, actor isolation, and the formal Verus release. The live run
+started successfully. An initial inference sample showed 100% utilization on
+all four L40S GPUs at about 40.9/46.1 GB allocated per GPU; the bridge ledger
+contained metered requests for all four initially scheduled tasks.
 
 ## Interpretation
 

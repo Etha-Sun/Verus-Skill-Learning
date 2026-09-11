@@ -1,6 +1,6 @@
 # Current Research State
 
-Last updated: 2026-09-09
+Last updated: 2026-09-10
 
 ## Active Direction
 
@@ -11,6 +11,32 @@ namespace: stable trace contracts belong below all workstreams, while
 self-evolution is an experiment/orchestration layer that may consume trace
 analysis, learned skills, and evaluation. Information gain remains a secondary
 offline artifact ranking and diagnosis signal, not the main system endpoint.
+
+## Qwen3.8 Six-Task Long-Budget Scaling Diagnostic (2026-09-10)
+
+A diagnostic run is active on six selected recurring fixed-test20 tasks: two
+with late, unstable prior success and four that were consistently unsolved or
+stagnating. It uses the accepted S2 artifact with Qwen3.8-27B BF16, TP=4, four
+concurrent actors, a 262,144-token context, 3,600 seconds per task, and a new
+hard cap of 64,000 cumulative completion tokens per task. The bridge terminates
+a task cleanly at the token cap so independent Verus and Lynette validation
+still runs; the cap and termination are recorded in the bridge and result
+manifests. Fixed analysis thresholds are 8k/16k/32k/64k completion tokens and
+600/1,200/2,400/3,600 seconds.
+
+The check-only preflight matched exactly six test IDs, the frozen S2 hash,
+actor isolation, the formal Verus release, and the intended budgets. The live
+run is under
+`${EXTERNAL_RUN_ROOT}/skillopt-verusage/qwen38-s2-scaling6-3600s-64k-20260910/`;
+its initial four-worker sample drove all four L40S GPUs to 100% utilization.
+This is a recurring-test diagnostic, not fresh held-out validation and not a
+causal estimate of S2 benefit. One selected task is known Verus-version
+sensitive and must be marked in analysis. Next action is to monitor completion,
+reconstruct threshold-level verifier progress, and single-worker-repeat any
+changed outcome before stronger claims.
+
+Canonical entry:
+`research_memory/projects/verus_self_evolving/experiments/20260910-222609-qwen3-8-six-task-long-context-scaling-diagnostic/ENTRY.md`.
 
 ## Output-Token Proof Coverage And Greedy Pruning Pilot (2026-09-09)
 
