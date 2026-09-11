@@ -36,3 +36,13 @@ def test_trace2skill_bundle_has_a_direct_fixed_test_handoff() -> None:
     assert 'SKILL_INPUT_FLAGS=(--skill-dir "$EXTERNAL_SKILL_PATH")' in script
     assert "skillopt_verusage.skill_artifact" in script
     assert 'if [[ "$SKILL_LABEL" == "blank" ]]' in script
+
+
+def test_scaling_budget_and_external_run_root_are_explicit_overrides() -> None:
+    script = (
+        Path(__file__).resolve().parents[1] / "scripts" / "run_s2_fixed_test20.sh"
+    ).read_text(encoding="utf-8")
+    assert 'SKILLOPT_RUN_ROOT_OVERRIDE' in script
+    assert 'SKILLOPT_TEST_TIMEOUT_SECONDS' in script
+    assert 'SKILLOPT_TEST_MAX_COMPLETION_TOKENS' in script
+    assert '--max-task-completion-tokens "$SKILLOPT_TEST_MAX_COMPLETION_TOKENS"' in script

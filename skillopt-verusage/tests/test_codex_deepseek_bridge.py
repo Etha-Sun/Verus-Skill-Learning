@@ -357,6 +357,88 @@ class CodexDeepSeekBridgeTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "exact diagnostic"):
                 forward_responses(config, {"input": []})
 
+    def test_per_task_completion_budget_stops_without_an_upstream_request(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            ledger = Path(tmp) / "bridge.jsonl"
+            config = BridgeConfig(
+                model="qwen3.8-27b",
+                upstream_base_url="http://127.0.0.1:8000/v1",
+                api_key="local",
+                ledger_path=ledger,
+                max_output_tokens=8,
+                retry_output_tokens=20,
+                request_timeout_seconds=1,
+                expected_upstream_model="qwen3.8-27b",
+                chat_profile="qwen38",
+                pricing_profile="local-zero",
+                fake_reply="continue",
+                max_task_completion_tokens=3,
+            )
+            for _ in range(3):
+                forward_responses(config, {"input": []}, task_id="task-a")
+            events, record = forward_responses(
+                config, {"input": []}, task_id="task-a"
+            )
+            self.assertEqual(config.task_completion_tokens["task-a"], 3)
+            self.assertEqual(record["attempts"], [])
+            self.assertEqual(record["budget_termination"]["consumed"], 3)
+            self.assertIn(
+                "budget is exhausted",
+                events[-1]["response"]["output"][0]["content"][0]["text"],
+            )
+            forward_responses(config, {"input": []}, task_id="task-b")
+            self.assertEqual(config.task_completion_tokens["task-b"], 1)
+
+    def test_per_task_completion_budget_clamps_expanded_retry(self) -> None:
+        config = BridgeConfig(
+            model="qwen3.8-27b",
+            upstream_base_url="http://127.0.0.1:8000/v1",
+            api_key="local",
+            ledger_path=None,
+            max_output_tokens=8,
+            retry_output_tokens=20,
+            request_timeout_seconds=1,
+            expected_upstream_model="qwen3.8-27b",
+            chat_profile="qwen38",
+            pricing_profile="local-zero",
+            max_task_completion_tokens=10,
+        )
+
+        def truncated(_config, request):
+            used = int(request["max_tokens"])
+            return (
+                {
+                    "model": "qwen3.8-27b",
+                    "choices": [
+                        {
+                            "message": {"role": "assistant", "content": "partial"},
+                            "finish_reason": "length",
+                        }
+                    ],
+                    "usage": {
+                        "prompt_tokens": 1,
+                        "completion_tokens": used,
+                        "total_tokens": used + 1,
+                    },
+                },
+                {"rate_limit_retries": 0, "rate_limit_sleep_seconds": 0.0},
+            )
+
+        with patch(
+            "skillopt_verusage.codex_deepseek_bridge._post_chat",
+            side_effect=truncated,
+        ) as post_chat:
+            events, record = forward_responses(
+                config, {"input": []}, task_id="task-a"
+            )
+        self.assertEqual(post_chat.call_count, 2)
+        self.assertEqual(
+            [attempt["max_tokens"] for attempt in record["attempts"]], [8, 2]
+        )
+        self.assertEqual(config.task_completion_tokens["task-a"], 10)
+        self.assertEqual(record["budget_termination"]["consumed"], 10)
+        self.assertEqual(events[-1]["response"]["status"], "completed")
+
     def test_transport_error_does_not_trigger_expanded_output_retry(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             ledger = Path(tmp) / "bridge.jsonl"

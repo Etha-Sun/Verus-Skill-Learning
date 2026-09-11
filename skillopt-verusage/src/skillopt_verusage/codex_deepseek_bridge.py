@@ -485,8 +485,10 @@ class BridgeConfig:
     fake_reply: str | None = None
     fake_tool_name: str | None = None
     fake_tool_arguments: str = "{}"
+    max_task_completion_tokens: int | None = None
     allowed_tool_names: frozenset[str] = frozenset({"exec_command", "write_stdin"})
     reasoning_by_call: dict[str, str] = field(default_factory=dict)
+    task_completion_tokens: dict[str, int] = field(default_factory=dict)
     state_lock: threading.Lock = field(default_factory=threading.Lock)
     config_sha256: str | None = None
     ledger_lock: threading.Lock = field(default_factory=threading.Lock)
@@ -783,6 +785,33 @@ def forward_responses(
     started = time.monotonic()
     attempts: list[dict[str, Any]] = []
     observed_upstream_model = ""
+    budget_termination: dict[str, Any] | None = None
+
+    def budget_stop_payload(consumed: int, limit: int) -> dict[str, Any]:
+        return {
+            "id": f"chatcmpl-budget-{uuid.uuid4().hex}",
+            "model": config.model,
+            "choices": [
+                {
+                    "index": 0,
+                    "message": {
+                        "role": "assistant",
+                        "content": (
+                            "The experiment's per-task cumulative output-token "
+                            f"budget is exhausted ({consumed}/{limit}). Stop now "
+                            "without further tool calls and leave the best candidate "
+                            "unchanged."
+                        ),
+                    },
+                    "finish_reason": "stop",
+                }
+            ],
+            "usage": {
+                "prompt_tokens": 0,
+                "completion_tokens": 0,
+                "total_tokens": 0,
+            },
+        }
 
     def write_record() -> dict[str, Any]:
         record = {
@@ -816,6 +845,7 @@ def forward_responses(
                 if isinstance(tool, dict)
             ],
             "attempts": attempts,
+            "budget_termination": budget_termination,
             "wall_seconds": time.monotonic() - started,
         }
         with config.ledger_lock:
@@ -827,6 +857,21 @@ def forward_responses(
     )
     final_payload: dict[str, Any] | None = None
     for retry_index, output_tokens in enumerate(requested_budgets):
+        if config.max_task_completion_tokens is not None and task_id is not None:
+            with config.state_lock:
+                consumed = int(config.task_completion_tokens.get(task_id, 0))
+            remaining = config.max_task_completion_tokens - consumed
+            if remaining <= 0:
+                budget_termination = {
+                    "kind": "max_task_completion_tokens",
+                    "limit": config.max_task_completion_tokens,
+                    "consumed": consumed,
+                }
+                final_payload = budget_stop_payload(
+                    consumed, config.max_task_completion_tokens
+                )
+                break
+            output_tokens = min(output_tokens, remaining)
         chat_request["max_tokens"] = output_tokens
         reserve = (
             estimate_deepseek_request_upper_bound(output_tokens, config.model)
@@ -853,6 +898,18 @@ def forward_responses(
                     f"expected {expected_upstream_model!r}"
                 )
             usage = _usage(candidate.get("usage"))
+            if usage["completion_tokens"] > output_tokens:
+                raise RuntimeError(
+                    "chat completion exceeded its output-token allowance: "
+                    f"used={usage['completion_tokens']} allowed={output_tokens}"
+                )
+            task_consumed: int | None = None
+            if config.max_task_completion_tokens is not None and task_id is not None:
+                with config.state_lock:
+                    task_consumed = int(
+                        config.task_completion_tokens.get(task_id, 0)
+                    ) + usage["completion_tokens"]
+                    config.task_completion_tokens[task_id] = task_consumed
             if config.budget_guard and reservation_id:
                 config.budget_guard.settle(
                     reservation_id,
@@ -888,6 +945,19 @@ def forward_responses(
             )
             if upstream_finish_reason != "length":
                 final_payload = candidate
+                break
+            if (
+                task_consumed is not None
+                and task_consumed >= config.max_task_completion_tokens
+            ):
+                budget_termination = {
+                    "kind": "max_task_completion_tokens",
+                    "limit": config.max_task_completion_tokens,
+                    "consumed": task_consumed,
+                }
+                final_payload = budget_stop_payload(
+                    task_consumed, config.max_task_completion_tokens
+                )
                 break
         except Exception as error:
             if config.budget_guard and reservation_id:
@@ -1036,6 +1106,7 @@ def main() -> None:
     parser.add_argument("--ledger-path", type=Path)
     parser.add_argument("--max-output-tokens", type=int, default=32768)
     parser.add_argument("--retry-output-tokens", type=int, default=131072)
+    parser.add_argument("--max-task-completion-tokens", type=int)
     parser.add_argument("--request-timeout-seconds", type=int, default=1800)
     parser.add_argument("--rate-limit-retries", type=int, default=0)
     parser.add_argument("--rate-limit-backoff-seconds", type=float, default=1.0)
@@ -1076,6 +1147,15 @@ def main() -> None:
         help="Codex function tool exposed to DeepSeek (repeatable)",
     )
     args = parser.parse_args()
+    if (
+        args.max_task_completion_tokens is not None
+        and args.max_task_completion_tokens <= 0
+    ):
+        raise ValueError("--max-task-completion-tokens must be positive")
+    if args.native_responses and args.max_task_completion_tokens is not None:
+        raise ValueError(
+            "--max-task-completion-tokens is supported only by the translated bridge"
+        )
     api_key = os.environ.get(args.api_key_env, "")
     if not api_key and args.fake_reply is None:
         raise RuntimeError(f"{args.api_key_env} is not set")
@@ -1128,6 +1208,7 @@ def main() -> None:
         fake_reply=args.fake_reply,
         fake_tool_name=args.fake_tool_name,
         fake_tool_arguments=args.fake_tool_arguments,
+        max_task_completion_tokens=args.max_task_completion_tokens,
         allowed_tool_names=frozenset(
             args.allowed_tool or ["apply_patch", "exec_command", "write_stdin"]
         ),
@@ -1138,6 +1219,7 @@ def main() -> None:
         "upstream_base_url": config.upstream_base_url,
         "max_output_tokens": config.max_output_tokens,
         "retry_output_tokens": config.retry_output_tokens,
+        "max_task_completion_tokens": config.max_task_completion_tokens,
         "request_timeout_seconds": config.request_timeout_seconds,
         "rate_limit_retries": config.rate_limit_retries,
         "rate_limit_backoff_seconds": config.rate_limit_backoff_seconds,

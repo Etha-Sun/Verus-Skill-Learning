@@ -94,6 +94,30 @@ class CodexFlashRunnerTests(unittest.TestCase):
             self.assertEqual(usage["incomplete_requests"], 1)
             self.assertEqual(usage["error_requests"], 1)
 
+    def test_bridge_usage_records_output_token_budget_termination(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            ledger = Path(tmp) / "ledger.jsonl"
+            ledger.write_text(
+                json.dumps(
+                    {
+                        "task_id": "wanted",
+                        "attempts": [],
+                        "budget_termination": {
+                            "kind": "max_task_completion_tokens",
+                            "limit": 64000,
+                            "consumed": 64000,
+                        },
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            usage = _bridge_usage(ledger, "wanted")
+            self.assertTrue(usage["output_token_budget_exhausted"])
+            self.assertEqual(usage["budget_terminations"], 1)
+            self.assertEqual(usage["max_task_completion_tokens"], 64000)
+            self.assertEqual(usage["completion_tokens_at_budget_termination"], 64000)
+
     def test_fidelity_fails_closed_on_terminal_or_provider_failure(self) -> None:
         base = {
             "codex_returncode": 0,

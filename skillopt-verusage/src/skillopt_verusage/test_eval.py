@@ -341,6 +341,9 @@ def _summarize(
             for row in results
         ),
         "timeouts": sum(bool(row.get("timed_out")) for row in results),
+        "output_token_budget_exhausted": sum(
+            bool(row.get("output_token_budget_exhausted")) for row in results
+        ),
         "timeout_solved": sum(
             bool(row.get("timed_out")) and proof_solved(row) for row in results
         ),
@@ -423,6 +426,10 @@ def main() -> None:
     )
     parser.add_argument("--item-id", action="append", default=[])
     parser.add_argument("--check-only", action="store_true")
+    parser.add_argument(
+        "--purpose",
+        default="one-pass recurring test-20 evaluation under the fixed baseline contract",
+    )
     args = parser.parse_args()
 
     split_dir = args.split_dir.resolve()
@@ -460,12 +467,16 @@ def main() -> None:
     ):
         raise ValueError("actor isolation requires scratch, Verus, and Rust roots")
     actor_isolation_check: dict[str, Any] = {"requested": False, "mode": "none"}
+    max_task_completion_tokens: int | None = None
     if args.transport == "bridge":
         if not all((args.bridge_url, args.bridge_ledger, args.bridge_manifest)):
             raise ValueError("bridge transport requires URL, ledger, and manifest")
         bridge_manifest = json.loads(args.bridge_manifest.read_text(encoding="utf-8"))
         if bridge_manifest.get("fake_mode") or bridge_manifest.get("model") != args.model:
             raise ValueError("bridge manifest is fake or has the wrong model")
+        max_task_completion_tokens = bridge_manifest.get(
+            "max_task_completion_tokens"
+        )
         if all(value is not None for value in isolation_values):
             bridge_port = urlparse(args.bridge_url).port
             if bridge_port is None:
@@ -515,6 +526,7 @@ def main() -> None:
         "codex_provider_id": args.codex_provider_id,
         "workers": args.workers,
         "timeout_seconds": args.timeout_seconds,
+        "max_task_completion_tokens": max_task_completion_tokens,
         "model_context_window": args.model_context_window,
         "actor_isolation": actor_isolation_check,
         "verus_identity": verus_identity,
@@ -537,7 +549,7 @@ def main() -> None:
         **check,
         "created_at": _now(),
         "status": "RUNNING",
-        "purpose": "one-pass recurring test-20 evaluation under the fixed baseline contract",
+        "purpose": args.purpose,
         "test_ids": [item["id"] for item in items],
         "reasoning_effort": args.reasoning_effort,
         "valid_timeout_retries": 0,

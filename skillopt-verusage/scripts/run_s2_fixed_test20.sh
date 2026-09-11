@@ -13,6 +13,14 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 source "$REPO_ROOT/.env"
 
+if [[ -n "${SKILLOPT_RUN_ROOT_OVERRIDE:-}" ]]; then
+  if [[ "$SKILLOPT_RUN_ROOT_OVERRIDE" != /* ]]; then
+    echo "SKILLOPT_RUN_ROOT_OVERRIDE must be an absolute path" >&2
+    exit 2
+  fi
+  VERUS_SKILL_RUN_ROOT="$SKILLOPT_RUN_ROOT_OVERRIDE"
+fi
+
 : "${VERUS_SKILL_RUN_ROOT:?set VERUS_SKILL_RUN_ROOT in .env}"
 : "${VERUS_BIN:?set VERUS_BIN in .env}"
 : "${LYNETTE_BIN:?set LYNETTE_BIN in .env}"
@@ -111,6 +119,22 @@ if ! [[ "$WORKERS" =~ ^[1-9][0-9]*$ ]]; then
   echo "SKILLOPT_TEST_WORKERS must be a positive integer" >&2
   exit 2
 fi
+TIMEOUT_SECONDS="${SKILLOPT_TEST_TIMEOUT_SECONDS:-600}"
+if ! [[ "$TIMEOUT_SECONDS" =~ ^[1-9][0-9]*$ ]]; then
+  echo "SKILLOPT_TEST_TIMEOUT_SECONDS must be a positive integer" >&2
+  exit 2
+fi
+PURPOSE="${SKILLOPT_TEST_PURPOSE:-one-pass recurring test-20 evaluation under the fixed baseline contract}"
+TASK_TOKEN_BUDGET_FLAGS=()
+if [[ -n "${SKILLOPT_TEST_MAX_COMPLETION_TOKENS:-}" ]]; then
+  if ! [[ "$SKILLOPT_TEST_MAX_COMPLETION_TOKENS" =~ ^[1-9][0-9]*$ ]]; then
+    echo "SKILLOPT_TEST_MAX_COMPLETION_TOKENS must be a positive integer" >&2
+    exit 2
+  fi
+  TASK_TOKEN_BUDGET_FLAGS=(
+    --max-task-completion-tokens "$SKILLOPT_TEST_MAX_COMPLETION_TOKENS"
+  )
+fi
 ITEM_FLAGS=()
 CHECK_ONLY_FLAGS=()
 if [[ "${SKILLOPT_CHECK_ONLY:-0}" == "1" ]]; then
@@ -146,7 +170,8 @@ if [[ "$CONDITION" == "gpt" ]]; then
     --model gpt-5.6-sol \
     --reasoning-effort max \
     --workers "$WORKERS" \
-    --timeout-seconds 600 \
+    --timeout-seconds "$TIMEOUT_SECONDS" \
+    --purpose "$PURPOSE" \
     --model-context-window "$GPT_CONTEXT_WINDOW" \
     --actor-contract-profile "$ACTOR_PROFILE" \
     --codex-provider-id openai \
@@ -279,6 +304,7 @@ mkdir "$RUN_DIR"
   --pricing-profile "$PRICING_PROFILE" \
   --max-output-tokens "$MAX_OUTPUT_TOKENS" \
   --retry-output-tokens "$RETRY_OUTPUT_TOKENS" \
+  "${TASK_TOKEN_BUDGET_FLAGS[@]}" \
   --request-timeout-seconds "$REQUEST_TIMEOUT_SECONDS" \
   --expected-upstream-model "$MODEL" \
   --ledger-path "$RUN_DIR/bridge_calls.jsonl" \
@@ -325,7 +351,8 @@ export SKILLOPT_CODEX_BRIDGE_TOKEN=local-bridge-only
   --model "$MODEL" \
   --reasoning-effort "$REASONING_EFFORT" \
   --workers "$WORKERS" \
-  --timeout-seconds 600 \
+  --timeout-seconds "$TIMEOUT_SECONDS" \
+  --purpose "$PURPOSE" \
   --model-context-window "$CONTEXT_WINDOW" \
   --actor-contract-profile "$ACTOR_PROFILE" \
   --codex-provider-id "$CODEX_PROVIDER_ID" \

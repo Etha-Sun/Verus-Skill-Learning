@@ -46,6 +46,10 @@ def _bridge_usage(
         "unknown_cost_requests": 0,
         "price_bands": {},
         "upstream_models": [],
+        "budget_terminations": 0,
+        "output_token_budget_exhausted": False,
+        "max_task_completion_tokens": None,
+        "completion_tokens_at_budget_termination": None,
     }
     if not path.is_file():
         return totals
@@ -55,6 +59,14 @@ def _bridge_usage(
         record = json.loads(line)
         if record.get("task_id") != task_key:
             continue
+        budget_termination = record.get("budget_termination")
+        if isinstance(budget_termination, dict):
+            totals["budget_terminations"] += 1
+            totals["output_token_budget_exhausted"] = True
+            totals["max_task_completion_tokens"] = budget_termination.get("limit")
+            totals["completion_tokens_at_budget_termination"] = (
+                budget_termination.get("consumed")
+            )
         upstream_model = str(record.get("upstream_model") or "")
         if upstream_model and upstream_model not in totals["upstream_models"]:
             totals["upstream_models"].append(upstream_model)
@@ -336,6 +348,9 @@ def run_task(
         "chat_profile": bridge_manifest.get("chat_profile"),
         "pricing_profile": bridge_manifest.get("pricing_profile"),
         "model_catalog_sha256": bridge_manifest.get("model_catalog_sha256"),
+        "max_task_completion_tokens": bridge_manifest.get(
+            "max_task_completion_tokens"
+        ),
     }
     run_manifest["condition_skill_present"] = condition_skill_present
     run_manifest["codex_provider_id"] = codex_provider_id
@@ -422,6 +437,9 @@ def run_task(
         "usage": usage,
         "codex_terminal": terminal,
         "provider_valid": provider_valid,
+        "output_token_budget_exhausted": bool(
+            usage.get("output_token_budget_exhausted")
+        ),
     }
     (out_dir / "conversation.json").write_text(
         json.dumps(conversation, ensure_ascii=False, indent=2) + "\n",
