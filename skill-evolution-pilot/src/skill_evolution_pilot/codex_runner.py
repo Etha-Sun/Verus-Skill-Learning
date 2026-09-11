@@ -315,6 +315,34 @@ def _codex_environment(provider_env_key: str | None) -> dict[str, str]:
     return {key: value for key, value in os.environ.items() if key in allowed}
 
 
+def _isolated_rustup_shim(rust_root: Path) -> str:
+    """Provide the narrow rustup interface used by the Verus launcher."""
+    toolchain = rust_root.name
+    return f"""#!/usr/bin/env bash
+set -eu
+case "${{1:-}}" in
+  run)
+    [[ "$#" -ge 3 ]] || exit 2
+    shift 2
+    export LD_LIBRARY_PATH="{rust_root}/lib${{LD_LIBRARY_PATH:+:${{LD_LIBRARY_PATH}}}}"
+    exec "$@"
+    ;;
+  toolchain)
+    [[ "${{2:-}}" == "list" ]] || exit 2
+    echo "{toolchain} (active, default)"
+    ;;
+  which)
+    [[ "$#" -eq 2 ]] || exit 2
+    echo "{rust_root}/bin/$2"
+    ;;
+  *)
+    echo "isolated rustup supports: run, toolchain list, which" >&2
+    exit 2
+    ;;
+esac
+"""
+
+
 def _run_complete(
     command: list[str],
     *,
@@ -486,6 +514,11 @@ fi
 exec "{lynette_bin}" compare -t input.rs candidate.rs
 """
     if contract_profile == "cross_provider_20260819":
+        extra_files = {"AGENTS.md": prompt}
+        if actor_isolation is not None:
+            extra_files["tools/rustup"] = _isolated_rustup_shim(
+                actor_isolation.rust_root
+            )
         workspace_manifest = prepare_solver_workspace(
             source=source,
             workspace=workspace,
@@ -493,26 +526,33 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
             skill_text=skill_text,
             skill_source_dir=resolved_skill_dir,
             skill_relative_path="skill/verus-proof-repair/SKILL.md",
-            extra_files={"AGENTS.md": prompt},
+            extra_files=extra_files,
             filesystem_visibility_enforced=actor_isolation is not None,
         )
     elif contract_profile == "project":
+        extra_files = {
+            "tools/run_verus.sh": verus_wrapper,
+            "tools/run_lynette.sh": lynette_wrapper,
+        }
+        if actor_isolation is not None:
+            extra_files["tools/rustup"] = _isolated_rustup_shim(
+                actor_isolation.rust_root
+            )
         workspace_manifest = prepare_solver_workspace(
             source=source,
             workspace=workspace,
             task_text=prompt,
             skill_text=skill_text,
             skill_source_dir=resolved_skill_dir,
-            extra_files={
-                "tools/run_verus.sh": verus_wrapper,
-                "tools/run_lynette.sh": lynette_wrapper,
-            },
+            extra_files=extra_files,
             filesystem_visibility_enforced=actor_isolation is not None,
         )
         (workspace / "tools" / "run_verus.sh").chmod(0o555)
         (workspace / "tools" / "run_lynette.sh").chmod(0o555)
     else:
         raise ValueError(f"unsupported Codex contract profile: {contract_profile}")
+    if actor_isolation is not None:
+        (workspace / "tools" / "rustup").chmod(0o555)
     expected_skill_files = {
         str(row["relative_path"]): {
             "sha256": str(row["sha256"]),
@@ -661,6 +701,15 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
     started_at = _now()
     started = time.monotonic()
     timed_out = threading.Event()
+    actor_environment = _codex_environment(provider_env_key)
+    if actor_isolation is not None:
+        actor_environment["PATH"] = os.pathsep.join(
+            (
+                str(workspace / "tools"),
+                str(actor_isolation.rust_root / "bin"),
+                actor_environment.get("PATH", ""),
+            )
+        )
     process: subprocess.Popen[str]
     with stderr_path.open("w", encoding="utf-8") as stderr_handle:
         process = subprocess.Popen(
@@ -672,7 +721,7 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
             text=True,
             bufsize=1,
             start_new_session=True,
-            env=_codex_environment(provider_env_key),
+            env=actor_environment,
         )
         assert process.stdin is not None
         assert process.stdout is not None

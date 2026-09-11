@@ -12,6 +12,7 @@ from unittest.mock import patch
 from skill_evolution_pilot.codex_runner import (
     _codex_environment,
     _command_modifies_candidate,
+    _isolated_rustup_shim,
     _interrupt_then_kill_process_group,
     _run_complete,
     _verus_tool_manifest,
@@ -21,6 +22,28 @@ from skill_evolution_pilot.codex_runner import (
 
 
 class CodexRunnerTest(unittest.TestCase):
+    def test_isolated_rustup_shim_runs_the_requested_command(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            rust_root = root / "toolchains" / "1.88.0-test"
+            rust_root.mkdir(parents=True)
+            shim = self._executable(root / "rustup", _isolated_rustup_shim(rust_root))
+            result = subprocess.run(
+                [str(shim), "run", rust_root.name, "/bin/echo", "ready"],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(result.returncode, 0)
+            self.assertEqual(result.stdout, "ready\n")
+            environment = subprocess.run(
+                [str(shim), "run", rust_root.name, "/usr/bin/env"],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertIn(f"LD_LIBRARY_PATH={rust_root}/lib", environment.stdout)
+
     def test_verus_manifest_hashes_the_real_rust_verify_implementation(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
