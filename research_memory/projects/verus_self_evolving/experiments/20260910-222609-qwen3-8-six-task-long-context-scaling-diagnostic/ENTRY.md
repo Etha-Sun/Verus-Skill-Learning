@@ -48,18 +48,49 @@ bash skillopt-verusage/scripts/run_s2_fixed_test20.sh qwen s2
 
 The check-only preflight matched all six requested IDs, the accepted S2 hash,
 four workers, 3,600 seconds, 64,000 completion tokens per task, the 262,144
-context window, actor isolation, and the formal Verus release. The live run
-started successfully. An initial inference sample showed 100% utilization on
-all four L40S GPUs at about 40.9/46.1 GB allocated per GPU; the bridge ledger
-contained metered requests for all four initially scheduled tasks.
+context window, actor isolation, and the formal Verus release. The run finished
+at `2026-09-11T05:15:02Z` with one solve in six selected tasks. All six retained
+results were provider-valid and passed input/skill safety plus Lynette; only
+`AL__leads_to_shortcut_temp` also passed independent Verus.
+
+| task | result | stop | actor s | retained-result output tokens | complete-ledger output tokens |
+|---|---|---|---:|---:|---:|
+| `AL__leads_to_shortcut_temp` | solved | verified | 2,552 | 62,247 | 62,247 |
+| `IR__delegation_map_v__impl4__empty_key_range_is_consistent` | unsolved | 3,600 s | 3,600 | 37,515 | 55,171 |
+| `AL__leads_to_by_borrowing_inv` | unsolved | 3,600 s | 3,600 | 27,740 | 41,694 |
+| `AC__vreplicaset_controller__proof__liveness__api_actions__lemma_list_pods_request_returns_ok_list_resp_containing_matching_pods` | unsolved | 3,600 s | 3,600 | 35,330 | 35,763 |
+| `IR__marshal_v__impl3__lemma_serialize_injective` | unsolved | 3,600 s | 3,600 | 24,685 | 41,522 |
+| `IR__single_delivery_model_v__impl2__send_single_cmessage` | unsolved | 64k cap | 2,587 | 64,000 | 64,000 |
+
+The complete bridge ledger contains 239 upstream attempts and 300,397 output
+tokens with zero provider errors. Retained result usage sums to 251,517 output
+tokens. The 48,880-token difference comes from in-flight upstream generations
+that completed after four timed-out Codex actors had already been stopped and
+their result usage captured. These tokens are real compute cost but did not
+enter the retained proof trajectories. For timed-out tasks, exact consumed
+usage still requires event/ledger alignment, so retained-result usage is an
+upper bound rather than a proven exact consumed count. Fidelity is four `V1_TRUNCATED` plus two
+`V2_TRACE`; no result is `V0_INVALID`.
 
 ## Interpretation
 
-Pending. Cross-budget comparisons will remain descriptive because prior runs
-used one sample per condition and showed material run-to-run variance.
+The long budget did not solve any of the four consistently hard/stagnating
+tasks. Of the two tasks chosen for unstable prior success, only
+`AL__leads_to_shortcut_temp` solved again, and it needed 62,247 retained-result
+output tokens and about 42.5 minutes. The other, `empty_key_range_is_consistent`,
+timed out unsolved. More search therefore did not monotonically recover prior
+successes. This remains descriptive: there is one concurrent sample per task,
+and prior runs already showed run-to-run variance.
+
+For progress reconstruction, event-aligned consumed usage must be distinguished from
+complete-ledger compute. Late in-flight generations after timeout are not valid
+trajectory checkpoints even though they correctly belong in total GPU/token
+accounting.
 
 ## Next Action
 
-Run the frozen six-task diagnostic, reconstruct verifier progress at the fixed
-token/time thresholds, then decide whether any changed outcome merits a
-single-worker repeat.
+Reconstruct verifier progress at the frozen token/time thresholds using only
+actor-consumed requests and exact snapshots. Then single-worker-repeat the
+solved shortcut task and the regressed delegation-map task before making a
+stability claim. Separately harden timeout cancellation/accounting so future
+summaries expose consumed and late in-flight output as first-class fields.

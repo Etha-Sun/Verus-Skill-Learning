@@ -1,6 +1,6 @@
 # Current Research State
 
-Last updated: 2026-09-10
+Last updated: 2026-09-11
 
 ## Active Direction
 
@@ -14,26 +14,30 @@ offline artifact ranking and diagnosis signal, not the main system endpoint.
 
 ## Qwen3.8 Six-Task Long-Budget Scaling Diagnostic (2026-09-10)
 
-A diagnostic run is active on six selected recurring fixed-test20 tasks: two
-with late, unstable prior success and four that were consistently unsolved or
-stagnating. It uses the accepted S2 artifact with Qwen3.8-27B BF16, TP=4, four
-concurrent actors, a 262,144-token context, 3,600 seconds per task, and a new
-hard cap of 64,000 cumulative completion tokens per task. The bridge terminates
-a task cleanly at the token cap so independent Verus and Lynette validation
-still runs; the cap and termination are recorded in the bridge and result
-manifests. Fixed analysis thresholds are 8k/16k/32k/64k completion tokens and
-600/1,200/2,400/3,600 seconds.
+A six-task recurring fixed-test20 diagnostic completed with the accepted S2
+artifact, Qwen3.8-27B BF16, TP=4, four concurrent actors, a 262,144-token
+context, 3,600 seconds per task, and 64,000 cumulative completion tokens per
+task. It solved 1/6: `AL__leads_to_shortcut_temp` verified after 2,552 seconds
+and 62,247 retained-result output tokens. Four tasks timed out unsolved, and
+`IR__single_delivery_model_v__impl2__send_single_cmessage` exhausted 64k
+unsolved after 2,587 seconds. The other unstable prior success,
+`empty_key_range_is_consistent`, regressed to a 3,600-second failure. None of
+the four consistently hard/stagnating tasks solved.
 
-The check-only preflight matched exactly six test IDs, the frozen S2 hash,
-actor isolation, the formal Verus release, and the intended budgets. The live
-run is under
+All six results are provider-valid and safety/Lynette-valid: four are
+`V1_TRUNCATED`, two are `V2_TRACE`, and none is `V0_INVALID`. The complete
+bridge ledger records 300,397 output tokens with zero provider errors, while
+retained result usage sums to 251,517. The 48,880-token difference is late
+in-flight generation completed after four actors timed out; it counts as real
+compute but not as consumed trajectory progress. Retained-result usage is only
+an upper bound on consumed usage for timed-out tasks until events and ledger
+calls are aligned. The run is under
 `${EXTERNAL_RUN_ROOT}/skillopt-verusage/qwen38-s2-scaling6-3600s-64k-20260910/`;
-its initial four-worker sample drove all four L40S GPUs to 100% utilization.
-This is a recurring-test diagnostic, not fresh held-out validation and not a
-causal estimate of S2 benefit. One selected task is known Verus-version
-sensitive and must be marked in analysis. Next action is to monitor completion,
-reconstruct threshold-level verifier progress, and single-worker-repeat any
-changed outcome before stronger claims.
+the dedicated vLLM service remains loaded but idle. This is not fresh held-out
+validation or a causal estimate of S2 benefit. Next action is actor-consumed
+threshold reconstruction followed by single-worker repeats of the solved
+shortcut and regressed delegation-map cases; timeout accounting should expose
+late in-flight output separately.
 
 Canonical entry:
 `research_memory/projects/verus_self_evolving/experiments/20260910-222609-qwen3-8-six-task-long-context-scaling-diagnostic/ENTRY.md`.

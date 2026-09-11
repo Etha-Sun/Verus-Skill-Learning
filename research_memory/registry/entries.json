@@ -4,7 +4,7 @@
     "project": "verus_self_evolving",
     "kind": "experiments",
     "title": "Qwen3.8 six-task long-context scaling diagnostic",
-    "status": "running",
+    "status": "complete",
     "path": "projects/verus_self_evolving/experiments/20260910-222609-qwen3-8-six-task-long-context-scaling-diagnostic/ENTRY.md"
   },
   {
