@@ -12,6 +12,16 @@ self-evolution is an experiment/orchestration layer that may consume trace
 analysis, learned skills, and evaluation. Information gain remains a secondary
 offline artifact ranking and diagnosis signal, not the main system endpoint.
 
+## Active Qwen3.8 128k Pass@3 Repeats (2026-09-11)
+
+Two additional full six-task 128k rollouts are scheduled sequentially under
+the same model, S2, frozen sources, actor isolation, context, and verifier
+contract as the completed first formal rollout. Together the three attempts
+will report per-task successes out of three, empirical pass@1 over 18
+task-attempts, and pass@3 as the fraction of six tasks solved at least once.
+The 64k run and aborted environment diagnostic are excluded. Canonical plan:
+`research_memory/projects/verus_self_evolving/experiments/20260911-201338-qwen3-8-six-task-128k-pass-at-3-repeats/PLAN.md`.
+
 ## Qwen3.8 Unified 128k Rerun (2026-09-11)
 
 The six-task recurring fixed-test20 rerun completed with the accepted S2

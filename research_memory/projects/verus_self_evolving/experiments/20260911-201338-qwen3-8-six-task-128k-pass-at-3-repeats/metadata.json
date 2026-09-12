@@ -1,0 +1,9 @@
+{
+  "title": "Qwen3.8 six-task 128k pass at 3 repeats",
+  "project": "verus_self_evolving",
+  "kind": "experiments",
+  "created_at": "2026-09-11T20:13:38",
+  "status": "draft",
+  "links": [],
+  "raw_data_read_only": true
+}
