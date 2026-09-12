@@ -1,5 +1,13 @@
 [
   {
+    "created_at": "2026-09-11T20:13:38",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Qwen3.8 six-task 128k pass at 3 repeats",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/experiments/20260911-201338-qwen3-8-six-task-128k-pass-at-3-repeats/ENTRY.md"
+  },
+  {
     "created_at": "2026-09-11T10:32:13",
     "project": "verus_self_evolving",
     "kind": "experiments",

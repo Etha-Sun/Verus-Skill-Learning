@@ -31,18 +31,55 @@ done
 - repeat 2: `${EXTERNAL_RUN_ROOT}/skillopt-verusage/qwen38-s2-scaling6-rerun2-14400s-128k-20260911/`
 - repeat 3: `${EXTERNAL_RUN_ROOT}/skillopt-verusage/qwen38-s2-scaling6-rerun3-14400s-128k-20260911/`
 - aggregate: `${EXTERNAL_RUN_ROOT}/skillopt-verusage/qwen38-s2-scaling6-128k-pass3-20260911/`
+- aggregate metrics: `pass_at_3_summary.json`
+- scaling data: `figures/pass_at_1_pass_at_3_scaling.csv`
+- final figure: `figures/qwen38_pass_at_1_pass_at_3_vs_output_tokens_final.png`
+  and `.pdf`
+- generating script: `figures/scripts/plot_pass_at_3_scaling.py`
 
 ## Results
 
-Repeat 2 launched at 2026-09-11 20:14 local time. Initial health check:
-four actors active, four GPUs at 100%, seven provider requests, 991 completion
-tokens, zero provider errors, and no isolated Verus environment error.
+All three formal 128k attempts completed. Repeat solve counts were 3/6, 3/6,
+and 5/6, for 11 valid solves among 18 launched task-attempts. Five of six
+tasks solved at least once, so the operational pass@3 is **5/6 = 83.3%**.
+Empirical pass@1 is 11/18 = 61.1% over all launched attempts, or 11/17 =
+64.7% when the one provider-invalid failure is excluded.
+
+| task | successes / 3 | output tokens by attempt | solved at least once |
+|---|---:|---|---|
+| `AL__leads_to_by_borrowing_inv` | 3/3 | 110,204; 9,870; 22,560 | yes |
+| `IR__marshal_v__impl3__lemma_serialize_injective` | 3/3 | 11,862; 70,854; 54,486 | yes |
+| `IR__delegation_map_v__impl4__empty_key_range_is_consistent` | 3/3 | 35,693; 28,258; 43,262 | yes |
+| `AC__...lemma_list_pods_request_returns_ok_list_resp_containing_matching_pods` | 1/3 | 128,000; 128,000; 114,873 | yes |
+| `AL__leads_to_shortcut_temp` | 1/3 | 128,000; 128,000; 45,839 | yes |
+| `IR__single_delivery_model_v__impl2__send_single_cmessage` | 0/3 | 128,000; 128,000; 128,000 | no |
+
+Across the three runs, the bridge recorded 731 requests and 1,443,761
+completion tokens. Repeats 2 and 3 are fully V2-valid with no provider errors.
+Attempt 1 has the previously recorded unmetered provider timeout on send, so
+there are 17 fully valid task traces. Every counted solve passed independent
+Verus and Lynette.
+
+The durable internal-review scaling figure plots operational pass@1 and
+pass@3 as step functions of per-task cumulative completion-token budget. At
+64k they are 44.4% and 66.7%; at 128k they are 61.1% and 83.3%. Successful
+terminal token counts are used as conservative solve thresholds rather than
+claiming exact first-verification tokens. During self-review, the title was
+made descriptive, markers were restricted to actual curve jumps, and the
+copied Matplotlib style was corrected for the installed parser before final
+PNG/PDF export.
 
 ## Interpretation
 
-Pending both added repeats.
+The data support strong task-level variance: three tasks are stable 3/3,
+list-pods and shortcut are 1/3, and send is 0/3. The six-task operational
+pass@3 is 83.3%, but a strict three-valid-attempt claim is not fully closed
+because send attempt 1 is provider-invalid. This does not inflate pass@3—the
+invalid attempt is a failure—but it prevents calling the underlying trace set
+fully valid.
 
 ## Next Action
 
-Finish repeat 2, automatically run repeat 3, then validate and aggregate all
-18 task-attempt outcomes.
+For publication-grade reporting, run one replacement attempt for send only;
+otherwise report 83.3% with the explicit 17/18-valid caveat. Analyze verifier
+progress for the 1/3 tasks before increasing the budget further.

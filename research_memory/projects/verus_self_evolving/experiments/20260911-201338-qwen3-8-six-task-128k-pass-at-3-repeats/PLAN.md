@@ -51,3 +51,4 @@
 | Time | Change | Reason | Impact |
 |---|---|---|---|
 | 2026-09-11 | Initial contract frozen | User requested two more runs and pass@3 | Establishes three-attempt comparator |
+| 2026-09-12 | Added pass-rate scaling figure | User requested pass@1/pass@3 versus output tokens | Adds a conservative terminal-token visualization; metrics unchanged |

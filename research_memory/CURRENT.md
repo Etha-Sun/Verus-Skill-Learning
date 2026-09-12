@@ -12,15 +12,21 @@ self-evolution is an experiment/orchestration layer that may consume trace
 analysis, learned skills, and evaluation. Information gain remains a secondary
 offline artifact ranking and diagnosis signal, not the main system endpoint.
 
-## Active Qwen3.8 128k Pass@3 Repeats (2026-09-11)
+## Qwen3.8 128k Pass@3 Result (2026-09-12)
 
-Two additional full six-task 128k rollouts are scheduled sequentially under
-the same model, S2, frozen sources, actor isolation, context, and verifier
-contract as the completed first formal rollout. Together the three attempts
-will report per-task successes out of three, empirical pass@1 over 18
-task-attempts, and pass@3 as the fraction of six tasks solved at least once.
-The 64k run and aborted environment diagnostic are excluded. Canonical plan:
-`research_memory/projects/verus_self_evolving/experiments/20260911-201338-qwen3-8-six-task-128k-pass-at-3-repeats/PLAN.md`.
+Three formal six-task 128k rollouts completed with solve counts 3/6, 3/6, and
+5/6. Across them, borrowing, marshal injectivity, and delegation consistency
+solve 3/3; list-pods and shortcut solve 1/3; send solves 0/3. Thus five of six
+tasks solve at least once and operational pass@3 is 83.3%. Empirical pass@1 is
+11/18 = 61.1% across launched attempts. Every counted solve passes independent
+Verus and Lynette.
+
+Repeats 2 and 3 are fully V2-valid. The existing attempt-1 send failure has one
+unmetered provider timeout, leaving 17/18 fully valid traces; it cannot inflate
+pass@3 but means a strict three-valid-attempt report requires one replacement
+send run. The three runs used 731 provider requests and 1,443,761 completion
+tokens. Canonical entry:
+`research_memory/projects/verus_self_evolving/experiments/20260911-201338-qwen3-8-six-task-128k-pass-at-3-repeats/ENTRY.md`.
 
 ## Qwen3.8 Unified 128k Rerun (2026-09-11)
 

@@ -15,14 +15,15 @@
 ## Main run
 
 - [x] Repeat 2 launched and healthy
-- [ ] Repeat 2 complete
-- [ ] Repeat 3 launched and healthy
-- [ ] Repeat 3 complete
+- [x] Repeat 2 complete
+- [x] Repeat 3 launched and healthy
+- [x] Repeat 3 complete
 
 ## Validation and closeout
 
-- [ ] Eighteen task-attempt outcomes reconciled
-- [ ] Every counted solve passes Verus and Lynette
-- [ ] Invalid/provider-incomplete attempts identified
-- [ ] Per-task successes/3, empirical pass@1, and pass@3 recorded
-- [ ] CURRENT and index updated; next action explicit
+- [x] Eighteen task-attempt outcomes reconciled
+- [x] Every counted solve passes Verus and Lynette
+- [x] Invalid/provider-incomplete attempts identified
+- [x] Per-task successes/3, empirical pass@1, and pass@3 recorded
+- [x] Pass@1/pass@3 token-scaling figure rendered, inspected, and revised
+- [x] CURRENT and index updated; next action explicit
