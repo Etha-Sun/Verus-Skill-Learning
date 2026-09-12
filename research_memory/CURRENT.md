@@ -1,6 +1,6 @@
 # Current Research State
 
-Last updated: 2026-09-11
+Last updated: 2026-09-12
 
 ## Active Direction
 
@@ -27,6 +27,14 @@ pass@3 but means a strict three-valid-attempt report requires one replacement
 send run. The three runs used 731 provider requests and 1,443,761 completion
 tokens. Canonical entry:
 `research_memory/projects/verus_self_evolving/experiments/20260911-201338-qwen3-8-six-task-128k-pass-at-3-repeats/ENTRY.md`.
+
+On the same six task IDs, the historical final-aligned GLM-5.3 S2 run solves
+5/6 using 43,031 completion tokens. Qwen solves 3/6, 3/6, and 5/6 using
+541,759, 492,982, and 409,020 tokens; both models miss send and cover the same
+other five tasks at least once. This is descriptive rather than controlled:
+the runs differ in tokenizer/provider, prompt hash, actor environment,
+reasoning setting, and budget. The compact comparison table is stored beside
+the Qwen aggregate as `glm53_qwen38_six_task_comparison.md` and `.csv`.
 
 ## Qwen3.8 Unified 128k Rerun (2026-09-11)
 

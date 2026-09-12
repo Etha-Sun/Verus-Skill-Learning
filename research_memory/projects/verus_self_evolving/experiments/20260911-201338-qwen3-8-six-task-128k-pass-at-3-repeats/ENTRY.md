@@ -36,6 +36,7 @@ done
 - final figure: `figures/qwen38_pass_at_1_pass_at_3_vs_output_tokens_final.png`
   and `.pdf`
 - generating script: `figures/scripts/plot_pass_at_3_scaling.py`
+- GLM/Qwen six-task table: `glm53_qwen38_six_task_comparison.md` and `.csv`
 
 ## Results
 
@@ -68,6 +69,14 @@ claiming exact first-verification tokens. During self-review, the title was
 made descriptive, markers were restricted to actual curve jumps, and the
 copied Matplotlib style was corrected for the installed parser before final
 PNG/PDF export.
+
+The historical GLM-5.3 S2 run solves 5/6 of these same task IDs using 43,031
+completion tokens across the six retained results. Qwen's three runs solve
+3/6, 3/6, and 5/6 using 541,759, 492,982, and 409,020 completion tokens. Both
+models cover the same five tasks at least once and miss send. This is only a
+descriptive comparison: GLM has one 600-second run, while Qwen has three
+14,400-second runs with a 128k per-task completion cap; provider tokenizers,
+prompt hashes, actor environments, and reasoning settings also differ.
 
 ## Interpretation
 
