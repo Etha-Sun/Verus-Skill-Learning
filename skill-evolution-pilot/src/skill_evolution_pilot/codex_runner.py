@@ -443,6 +443,10 @@ def run_codex_smoke(
     condition_skill_sha256: str | None = None,
     stage: str = "auxiliary_dev_fidelity_smoke",
     actor_isolation: ActorIsolationConfig | None = None,
+    initial_candidate_source: Path | None = None,
+    reference_proof_source: Path | None = None,
+    continuation_instructions: str | None = None,
+    reference_kind: str = "original_final",
 ) -> dict[str, Any]:
     out_dir = _require_external_output(out_dir)
     codex_bin = _require_executable(codex_bin, "codex")
@@ -469,6 +473,41 @@ def run_codex_smoke(
         if contract_profile == "cross_provider_20260819"
         else build_prompt()
     )
+    if initial_candidate_source is None and reference_proof_source is not None:
+        raise ValueError("reference requires a checkpoint")
+    if initial_candidate_source is not None:
+        if contract_profile != "project":
+            raise ValueError("continuation pilot requires project profile")
+        prompt = prompt.replace("from scratch", "from the supplied checkpoint")
+        if reference_proof_source is None:
+            prompt += """
+
+Continuation experiment:
+- candidate.rs starts at a saved checkpoint; input.rs is the original task.
+- No reference solution is supplied. Continue from the checkpoint, give a
+  brief repair plan, then actually edit candidate.rs and validate it.
+- Run ./tools/run_verus.sh candidate.rs and ./tools/run_lynette.sh.
+- Preserve all original specifications. Only candidate.rs may be edited.
+- Use task files and installed library definitions; do not search for prior
+  solutions, historical trajectories, or external answer files.
+"""
+        else:
+            prompt += """
+
+    Continuation experiment:
+    - candidate.rs starts at a saved checkpoint; input.rs is the original task.
+    - reference_final.rs is a read-only, previously verified final proof supplied
+      explicitly for this experiment. You may read it as guidance.
+    - Compare the checkpoint with this reference, give a brief repair plan, then
+      actually edit candidate.rs and validate it. Record attempted strategies.
+    - Run ./tools/run_verus.sh candidate.rs and ./tools/run_lynette.sh.
+    - Preserve all original specifications. Only candidate.rs may be edited.
+    - A different verified proof is acceptable; report how your approach differs.
+    """
+    if continuation_instructions is not None:
+        if initial_candidate_source is None:
+            raise ValueError("continuation instructions require a checkpoint")
+        prompt += "\n" + continuation_instructions + "\n"
     verus_wrapper = f"""#!/usr/bin/env bash
 set -u
 if [[ "$#" -ne 1 || "$1" != "candidate.rs" ]]; then
@@ -513,6 +552,20 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         (workspace / "tools" / "run_lynette.sh").chmod(0o555)
     else:
         raise ValueError(f"unsupported Codex contract profile: {contract_profile}")
+    if initial_candidate_source is not None:
+        shutil.copyfile(initial_candidate_source, workspace / "candidate.rs")
+        if reference_proof_source is not None:
+            shutil.copyfile(reference_proof_source, workspace / "reference_final.rs")
+            (workspace / "reference_final.rs").chmod(0o444)
+        else:
+            assert not (workspace / "reference_final.rs").exists()
+        (out_dir / "continuation_contract.json").write_text(json.dumps({
+            "checkpoint_sha256": sha256_file(initial_candidate_source),
+            "reference_sha256": sha256_file(reference_proof_source) if reference_proof_source else None,
+            "baseline_sha256": source_sha,
+            "reference_kind": reference_kind if reference_proof_source else "none",
+            "hindsight_guided": reference_proof_source is not None,
+        }, indent=2) + "\n")
     expected_skill_files = {
         str(row["relative_path"]): {
             "sha256": str(row["sha256"]),

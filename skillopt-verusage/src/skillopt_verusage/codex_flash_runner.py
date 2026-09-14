@@ -234,6 +234,10 @@ def run_task(
     condition_skill_present: bool = True,
     codex_provider_id: str = "deepseek_bridge",
     run_stage: str = "skillopt_actor_rollout",
+    initial_candidate_source: Path | None = None,
+    reference_proof_source: Path | None = None,
+    continuation_instructions: str | None = None,
+    reference_kind: str = "original_final",
     actor_isolation_scratch_root: Path | None = None,
     actor_isolation_verus_root: Path | None = None,
     actor_isolation_rust_root: Path | None = None,
@@ -323,6 +327,10 @@ def run_task(
         condition_skill_sha256=skill_artifact.artifact_sha256,
         stage=run_stage,
         actor_isolation=actor_isolation,
+        initial_candidate_source=initial_candidate_source,
+        reference_proof_source=reference_proof_source,
+        continuation_instructions=continuation_instructions,
+        reference_kind=reference_kind,
     )
     manifest_path = out_dir / "run_manifest.json"
     run_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))

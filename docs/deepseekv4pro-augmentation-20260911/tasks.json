@@ -1,0 +1,80 @@
+{
+  "IR": {
+    "id": "3a77a3e4e72edf600e2a",
+    "task_id": "IR__verus_extra__set_map_union",
+    "project_code": "IR",
+    "directory_group": "verified-ironkv",
+    "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-ironkv/unverified/IR__verus_extra__set_map_union.rs",
+    "source_sha256": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+    "extractor_sha256": "642f76ab5774df0685f1268cccf49802cee9ef1f9649c012ea38dae45331ab0e",
+    "checkpoints": [
+      {
+        "ordinal": 1,
+        "event_index": 24,
+        "candidate_sha256": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+        "source_file": "proofs/IR/checkpoint_01.rs",
+        "continue": true
+      },
+      {
+        "ordinal": 2,
+        "event_index": 33,
+        "candidate_sha256": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+        "source_file": "proofs/IR/checkpoint_02.rs",
+        "continue": true
+      },
+      {
+        "ordinal": 3,
+        "event_index": 40,
+        "candidate_sha256": "2a70fccc9015cc86f388213b51be57765ddb4226e6228c3fcc2133a9e90f2c8a",
+        "source_file": "proofs/IR/checkpoint_03.rs",
+        "continue": true
+      },
+      {
+        "ordinal": 4,
+        "event_index": 48,
+        "candidate_sha256": "e23ccebcbfeb5f9426e3a80c4d2b9b5ed171fe544735f67b3f2801cff4986798",
+        "source_file": "proofs/IR/checkpoint_04.rs",
+        "continue": true
+      },
+      {
+        "ordinal": 5,
+        "event_index": 55,
+        "candidate_sha256": "2e8d4902aeff38f279a32441c1c93304129198270934bcdf027a54fd5a7f4321",
+        "source_file": "proofs/IR/checkpoint_05.rs",
+        "continue": true
+      },
+      {
+        "ordinal": 6,
+        "event_index": 63,
+        "candidate_sha256": "0ae8ba48626d43217adb6d18047e844d172be545c3ec8912c7cb5f4ff5ec8de9",
+        "source_file": "proofs/IR/checkpoint_06.rs",
+        "continue": true
+      }
+    ]
+  },
+  "AL": {
+    "id": "6fc5661ffaeee1c57342",
+    "task_id": "AL__tla_exists_and_equality",
+    "project_code": "AL",
+    "directory_group": "verified-anvil",
+    "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AL__tla_exists_and_equality.rs",
+    "source_sha256": "48dfdba27e40620bbc4f2d96ce65258472ffd456be2c193c018160c21a8ccae3",
+    "extractor_sha256": "642f76ab5774df0685f1268cccf49802cee9ef1f9649c012ea38dae45331ab0e",
+    "checkpoints": [
+      {
+        "ordinal": 1,
+        "event_index": 18,
+        "candidate_sha256": "48dfdba27e40620bbc4f2d96ce65258472ffd456be2c193c018160c21a8ccae3",
+        "source_file": "proofs/AL/checkpoint_01.rs",
+        "continue": true
+      },
+      {
+        "ordinal": 2,
+        "event_index": 27,
+        "candidate_sha256": "3e69b4105195739f35a18ec0965c1d0e0e7b799f6b450dc9e6579cd7aba51bdb",
+        "source_file": "proofs/AL/checkpoint_02.rs",
+        "continue": true
+      }
+    ]
+  }
+}
