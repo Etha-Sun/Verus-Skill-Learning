@@ -1,5 +1,13 @@
 [
   {
+    "created_at": "2026-09-14T06:59:46",
+    "project": "verus_self_evolving",
+    "kind": "ideas",
+    "title": "Counterfactual grouped trace augmentation and oracle rescue hints",
+    "status": "active",
+    "path": "projects/verus_self_evolving/ideas/20260914-065946-counterfactual-grouped-trace-augmentation-and-oracle-rescue-hints/ENTRY.md"
+  },
+  {
     "created_at": "2026-09-08T21:58:23",
     "project": "verus_self_evolving",
     "kind": "experiments",

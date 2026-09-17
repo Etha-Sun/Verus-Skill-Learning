@@ -1,11 +1,33 @@
 # Current Research State
 
+## Counterfactual grouped trace augmentation and oracle rescue hints (2026-09-14)
+
+The proposed eight-trace augmentation plan is a conditional GO for a bounded
+train-only pilot, but batch grouping, obfuscation, rerunning, and hindsight
+hints must not be changed in one confounded experiment. The selected route is
+to create same-checkpoint control/rescue pairs: a teacher may see a known final
+proof and emit a bounded non-code strategy hint, while the executor sees only
+the frozen prefix and hint. Any deployable hint policy must later use observable
+prefix/verifier/history features and remain final-proof-blind.
+
+Final-proof similarity remains a verifier-gated, hindsight-only label; it is
+not an online trigger or primary endpoint. Eight is an engineering batch size,
+not an independent sample count. Obfuscation diagnoses surface-cue dependence
+but alpha-renaming alone does not establish memorization. The first gate is a
+matched four-arm rescue pilot on at least eight independent train task groups:
+no hint, generic stall notice, prefix-only critic, and bounded oracle hint,
+with dual-verifier solve and total cost to first pass as primary outcomes.
+Universal trace recoverability is not assumed.
+
+Canonical assessment:
+`research_memory/projects/verus_self_evolving/ideas/20260914-065946-counterfactual-grouped-trace-augmentation-and-oracle-rescue-hints/ENTRY.md`.
+
 ## Two-task DeepSeek augmentation publication
 
 Reviewed report and core code: [docs/deepseekv4pro-augmentation-20260911](../docs/deepseekv4pro-augmentation-20260911/README.md). Three arms each have IR6 + AL2 continuations, all 24 final Verus/Lynette passes. No-F IR shows library-lemma reuse and quantifier rewriting versus the original witness route. Reference arms mainly retain the original strategy. Isolation differs across historical arms; pruned IR CP3 access issue remains unresolved. Training export and downstream SkillOpt benefit remain untested. Next: prepare audited optimizer inputs and evaluate grouped sampling under matched budgets. Only reviewed summaries, figures, selected proof code and contracts published; raw traces/ledgers and credentials stay external.
 
 
-Last updated: 2026-09-09
+Last updated: 2026-09-14
 
 ## Active Direction
 
