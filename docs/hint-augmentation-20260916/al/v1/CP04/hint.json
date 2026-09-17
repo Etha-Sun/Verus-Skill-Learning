@@ -1,0 +1,27 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "d1340f03d115600b5143d5276ac1f30f21970082f17de33f37cbba085bee6e0c",
+  "hint_text": "The backward direction is failing because after assuming the concatenations are equal, Verus has not derived either length equality or pointwise prefix equality. The sequence-equality macro cannot close until those facts are available. Next objective: derive len(s1) == len(s2). Equality of the concatenated sequences gives equality of their lengths; express each concatenated length as a sum and cancel the common len(suffix). Then prove the prefixes agree pointwise: for an arbitrary valid index i of s1, compare the concatenated sequences at i and use the concatenation index property on each side to reduce this to s1[i] == s2[i]. Finally close with sequence extensionality rather than the macro. Check by rerunning Verus: the length assertion should pass, and the pointwise/extensionality step should establish the backward implication. If an index-unfolding assertion fails, expose that concatenation index fact before using it in the pointwise proof.",
+  "evidence_refs": [
+    {
+      "source_id": "event:48",
+      "observation": "The checkpoint diagnostic shows both len(s1) == len(s2) and the sequence-equality macro fail in the backward branch."
+    },
+    {
+      "source_id": "event:61",
+      "observation": "A later attempt that added concatenated length equalities still failed at the sequence-equality macro, showing pointwise prefix facts were also missing."
+    },
+    {
+      "source_id": "final_proof",
+      "observation": "The verified final proof establishes concatenated length equality, cancels suffix length, proves pointwise prefix equality via concatenation indexing, and closes with sequence extensionality."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The final proof passes both Verus and Lynette in this environment."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "The hint describes the logical repair strategy but leaves exact syntax and available lemma/assertion forms for the solver to determine."
+  ]
+}

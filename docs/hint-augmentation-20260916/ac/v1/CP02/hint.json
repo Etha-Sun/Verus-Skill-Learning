@@ -1,0 +1,28 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "16247238179ed015bfc0a306031d2cb040126ee48125b9d8e40d575cd35d89ac",
+  "hint_text": "At this checkpoint the immediate error is missing quantifier triggers, not a missing proof fact. The first forall assertion over resp_msg is intended to establish the quantified precondition needed by leads_to_exists_intro, but Verus cannot infer a trigger and therefore cannot instantiate that assertion against the rule. Add an explicit trigger on the quantified entailment term spec.entails(p_resp(resp_msg).leads_to(q_mid)); apply the analogous trigger to the later forall over req_msg using p_req. Re-run Verus after this change. If it advances to assertion failures on p.entails(tla_exists(p_resp)) or q_mid.entails(tla_exists(p_req)), the next objective is not to add assumptions: unfold the existential temporal predicate at the current ClusterState, name a concrete in-flight Message witness, and use that witness to satisfy the tla_exists predicate rather than trying to discharge the existential directly.",
+  "evidence_refs": [
+    {
+      "source_id": "event:77",
+      "observation": "Verus reports a trigger inference failure at the first forall over resp_msg, not a failed postcondition or mathematical assertion."
+    },
+    {
+      "source_id": "snapshot:16247238179ed015bfc0a306031d2cb040126ee48125b9d8e40d575cd35d89ac",
+      "observation": "The checkpoint's first assert forall over resp_msg lacks an explicit trigger, and the later analogous req_msg forall is also unannotated."
+    },
+    {
+      "source_id": "event:83",
+      "observation": "After trigger annotations were added, Verus stopped reporting the trigger inference error and instead failed the two existential entailment assertions p.entails(tla_exists(p_resp)) and q_mid.entails(tla_exists(p_req))."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The later verified proof uses explicit triggers on both forall entailments and then choose-based Message witnesses to discharge the tla_exists entailments; this shows the subsequent strategy, not that the current checkpoint passed."
+    }
+  ],
+  "relation_to_original": "original_next_action",
+  "limitations": [
+    "The prediction of subsequent assertion failures is based on later trajectory diagnostics and may differ on rerun.",
+    "Final validation success is reference evidence for the later strategy only; it does not validate the current failing checkpoint."
+  ]
+}

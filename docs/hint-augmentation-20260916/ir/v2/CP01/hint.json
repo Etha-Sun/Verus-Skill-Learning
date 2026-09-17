@@ -1,0 +1,32 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+  "hint_text": "The current failure is a bare proof body: Verus cannot discharge the set-equality postcondition without proof steps. The next objective is to reduce the set equality to membership equivalence: for arbitrary x, x is in (s1+s2).map(f) exactly when x is in s1.map(f)+s2.map(f). Prove each implication separately. For left-to-right, unfold map and union membership to obtain a domain element a with f(a)=x and a in s1 or a in s2; split that disjunction and show the witness places x in the corresponding image. For right-to-left, if x belongs to either image, extract a witness from s1 or s2, then show that same a belongs to s1+s2 and maps to x. Use Verus's choose mechanism to eliminate existential map-membership hypotheses, but place it under an explicit case split so the existence assumption is available. Look for a vstd set-extensionality helper to assert equality from membership equivalence. If you use that helper, avoid adding a separate top-level import: a later state with one made Lynette report different generated Rust, while using the full path passed. Check with run_verus.sh, then run_lynette.sh.",
+  "evidence_refs": [
+    {
+      "source_id": "event:24",
+      "observation": "Verus reports the empty proof body fails the set_map_union postcondition."
+    },
+    {
+      "source_id": "snapshot:3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+      "observation": "The checkpoint source has no extra top-level import or structural change; only the proof body is empty."
+    },
+    {
+      "source_id": "event:67",
+      "observation": "A later state using a top-level helper import was observed to produce Lynette 'Files are different'."
+    },
+    {
+      "source_id": "final_proof",
+      "observation": "The final verified proof discharges the goal via membership extensionality and choose-witness case reasoning."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The final full-path form passes both Verus and Lynette."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "The compatibility reminder is based on a Lynette failure observed only for a later state with a top-level helper import; the final passing state does not prove the import was the sole cause, and the current checkpoint has no such import.",
+    "The final proof is used as hindsight evidence for one supported strategy, not as an assertion that it is the only valid approach."
+  ]
+}

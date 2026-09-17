@@ -1,0 +1,24 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "60d0be0ba96b30331d55e0a185e4201f2db0eb064617f627aa6a739ed7c2b1e1",
+  "hint_text": "The current failure is the backward direction of the biconditional: under the assumption that s1 + suffix == s2 + suffix, the direct assertion s1 == s2 is too strong for Verus to derive automatically. The next proof objective is to establish the two facts needed for sequence equality of s1 and s2: equal lengths and matching elements at every valid prefix index. From equality of the concatenated sequences, first derive equality of their lengths, then unwind the length relationship of sequence concatenation to conclude that s1.len() and s2.len() agree. After that, for an arbitrary index i in the prefix range, use the equality of the concatenations at i and the fact that indexing a concatenation before the boundary of the left operand selects the left operand's element. This gives pointwise equality on the prefixes, after which sequence extensionality should close the goal. Re-run Verus after this reasoning; the diagnostic should progress from the failed assertion to any remaining unfoldings before Lynette is checked.",
+  "evidence_refs": [
+    {
+      "source_id": "event:28",
+      "observation": "Verus reports the backward branch fails at the direct assertion s1 == s2."
+    },
+    {
+      "source_id": "snapshot:60d0be0ba96b30331d55e0a185e4201f2db0eb064617f627aa6a739ed7c2b1e1",
+      "observation": "The checkpoint has forward and backward branch assertions, but no length or element-wise reasoning to support the backward implication."
+    },
+    {
+      "source_id": "final_proof",
+      "observation": "The final verified proof closes the backward direction by deriving equal lengths and pointwise prefix equality, then using sequence extensionality."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "The final proof is one known working strategy; other valid ways to unfold concatenation may also work.",
+    "The hint deliberately does not prescribe exact assertion spellings or code edits."
+  ]
+}

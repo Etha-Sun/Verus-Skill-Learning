@@ -1,0 +1,26 @@
+{
+  "status": "SOLVED",
+  "timed_out": false,
+  "wall_seconds": 300.44071036577225,
+  "validation": {
+    "input_unchanged": true,
+    "skill_unchanged": true,
+    "candidate_sha256": "9892e13cdf9bc85042560d12fae8bd78561556947819e5059c5996a6524df64f",
+    "verus": {
+      "passed": true,
+      "returncode": 0,
+      "timed_out": false,
+      "wall_seconds": 1.6593204657547176,
+      "stdout": "verification results:: 1 verified, 0 errors\n",
+      "stderr": "warning: `#[is_variant]` is deprecated - use `->` or `matches` instead: https://verus-lang.github.io/verus/guide/datatypes_enum.html\n   --> ${EXPERIMENT_ROOT}/initial-skill-three-task/ac/v2/runs/bcf0292578550cb38451/CP01/workspace/candidate.rs:331:1\n    |\n331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\n\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n    --> ${EXPERIMENT_ROOT}/initial-skill-three-task/ac/v2/runs/bcf0292578550cb38451/CP01/workspace/candidate.rs:4997:9\n     |\n4997 |         assert forall |ex: Execution<ClusterState>|\n     |         ^^^^^^\n     |\n     = help: If you didn't mean to assume the antecedent, we're very curious to hear why! To tell us, please open an issue on the Verus issue tracker on github with the title `Don't always make assert forall assume the antecedent`. If no one opens such an issue, we'll soon change the behavior of Verus to always assume the antecedent of the outermost implication\n\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n    --> ${EXPERIMENT_ROOT}/initial-skill-three-task/ac/v2/runs/bcf0292578550cb38451/CP01/workspace/candidate.rs:5015:9\n     |\n5015 |         assert forall |ex: Execution<ClusterState>|\n     |         ^^^^^^\n     |\n     = help: If you didn't mean to assume the antecedent, we're very curious to hear why! To tell us, please open an issue on the Verus issue tracker on github with the title `Don't always make assert forall assume the antecedent`. If no one opens such an issue, we'll soon change the behavior of Verus to always assume the antecedent of the outermost implication\n\nnote: automatically chose triggers for this expression:\n    --> ${EXPERIMENT_ROOT}/initial-skill-three-task/ac/v2/runs/bcf0292578550cb38451/CP01/workspace/candidate.rs:5003:32\n     |\n5003 |                   let resp_msg = choose |resp_msg: Message| {\n     |  ________________________________^\n5004 | |                     &&& s.in_flight().contains(resp_msg)\n5005 | |                     &&& resp_msg_matches_req_msg(resp_msg, msg)\n5006 | |                     &&& resp_msg_is_ok_list_resp_containing_matching_pods(s, vrs, resp_msg)\n5007 | |                 };\n     | |_________________^\n\nnote:   trigger 1 of 1:\n    --> ${EXPERIMENT_ROOT}/initial-skill-three-task/ac/v2/runs/bcf0292578550cb38451/CP01/workspace/candidate.rs:5005:25\n     |\n5005 |                     &&& resp_msg_matches_req_msg(resp_msg, msg)\n     |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nnote: Verus printed one or more automatically chosen quantifier triggers\n      because it had low confidence in the chosen triggers.\n      To suppress these messages, do one of the following:\n        (1) manually annotate a single desired trigger using #[trigger]\n            (example: forall|i: int, j: int| f(i) && #[trigger] g(i) && #[trigger] h(j)),\n        (2) manually annotate multiple desired triggers using #![trigger ...]\n            (example: forall|i: int| #![trigger f(i)] #![trigger g(i)] f(i) && g(i)),\n        (3) accept the automatically chosen trigger using #![auto]\n            (example: forall|i: int, j: int| #![auto] f(i) && g(i) && h(j))\n        (4) use the --triggers-mode silent command-line option to suppress all printing of triggers.\n      (Note: triggers are used by the underlying SMT theorem prover to instantiate quantifiers;\n      the theorem prover instantiates a quantifier whenever some expression matches the\n      pattern specified by one of the quantifier's triggers.)\n    --> ${EXPERIMENT_ROOT}/initial-skill-three-task/ac/v2/runs/bcf0292578550cb38451/CP01/workspace/candidate.rs:5003:32\n     |\n5003 |                   let resp_msg = choose |resp_msg: Message| {\n     |  ________________________________^\n5004 | |                     &&& s.in_flight().contains(resp_msg)\n5005 | |                     &&& resp_msg_matches_req_msg(resp_msg, msg)\n5006 | |                     &&& resp_msg_is_ok_list_resp_containing_matching_pods(s, vrs, resp_msg)\n5007 | |                 };\n     | |_________________^\n\nwarning: 3 warnings emitted\n\n"
+    },
+    "lynette": {
+      "passed": true,
+      "returncode": 0,
+      "timed_out": false,
+      "wall_seconds": 0.05384789872914553,
+      "stdout": "",
+      "stderr": ""
+    }
+  }
+}

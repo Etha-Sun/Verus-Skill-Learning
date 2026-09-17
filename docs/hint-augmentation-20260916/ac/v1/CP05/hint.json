@@ -1,0 +1,28 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "1702f33894745bc23fc78fc1094baa37d9fc69fd65b2097a11da93ff9698b58d",
+  "hint_text": "The remaining failure is the embedding from an anonymous existential in the hypothesis p into the tla_exists family p_resp. You know exists_resp_in_flight_at_after_list_pods_step holds at state s, so there is some in-flight message satisfying the matching-response and ok-list-response conditions. Verus does not automatically infer the stronger predicate resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step for that same message. Next objective: after unfolding p for an arbitrary execution, explicitly assert the existential over the primitive in-flight/matching/ok-list-response conditions, then name that existential witness and use it to prove the stronger concrete list-response predicate. That gives tla_exists(p_resp) a witness and closes the first entailment assertion. Apply the same named-witness pattern to the analogous q_mid to tla_exists(p_req) step, where the pending create request is the witness. Rerun Verus; the two current assertion failures should disappear. Avoid adding trigger-only workarounds before establishing the named witnesses.",
+  "evidence_refs": [
+    {
+      "source_id": "event:100",
+      "observation": "The selected checkpoint's Verus diagnostic reports an assertion failure for p.entails(tla_exists(p_resp)) and for the existential assertion that a resp_msg satisfies resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step."
+    },
+    {
+      "source_id": "snapshot:1702f33894745bc23fc78fc1094baa37d9fc69fd65b2097a11da93ff9698b58d",
+      "observation": "The checkpoint body uses implies in the per-execution entailment proof but does not yet bind any existential witness before asserting the concrete message predicates."
+    },
+    {
+      "source_id": "snapshot:4d57461caca28fab290030b2ff89239a231df4804f628e97b73828324b92a7fa",
+      "observation": "The later verified proof introduces named choose witnesses for the list response and the create request before proving the concrete in-flight predicates used by the tla_exists families."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The final proof with named witnesses passes both independent Verus and independent Lynette validation."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "The current diagnostic focuses on the first p to tla_exists(p_resp) step; the analogous q_mid to tla_exists(p_req) step likely needs the same repair.",
+    "This hint is grounded in the original later verified repair rather than independently validated alternative proof strategies."
+  ]
+}

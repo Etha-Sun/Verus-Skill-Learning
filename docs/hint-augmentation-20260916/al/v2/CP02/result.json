@@ -1,0 +1,26 @@
+{
+  "status": "SOLVED",
+  "timed_out": false,
+  "wall_seconds": 101.75854595005512,
+  "validation": {
+    "input_unchanged": true,
+    "skill_unchanged": true,
+    "candidate_sha256": "e0a497972007facd03336737c04723102f153146da9adb7e766bb28608eea81f",
+    "verus": {
+      "passed": true,
+      "returncode": 0,
+      "timed_out": false,
+      "wall_seconds": 0.3786670849658549,
+      "stdout": "verification results:: 1 verified, 0 errors\n",
+      "stderr": ""
+    },
+    "lynette": {
+      "passed": true,
+      "returncode": 0,
+      "timed_out": false,
+      "wall_seconds": 0.003359250258654356,
+      "stdout": "",
+      "stderr": ""
+    }
+  }
+}

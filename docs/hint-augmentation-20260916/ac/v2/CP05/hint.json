@@ -1,0 +1,27 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "1702f33894745bc23fc78fc1094baa37d9fc69fd65b2097a11da93ff9698b58d",
+  "hint_text": "The current failure is in proving `p.entails(tla_exists(p_resp))`. The antecedent `p` provides `exists_resp_in_flight_at_after_list_pods_step(vrs, controller_id)(s)` and `num_diff_pods_is(vrs, diff)(s)`, while the goal is an existential over a response satisfying `resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step`. Verus does not automatically connect these because the target predicate bundles several conditions under one named spec function; the current proof asserts the bundled existential directly without naming a witness.\n\nNext objective: extract the response already asserted by `exists_resp_in_flight_at_after_list_pods_step` as an explicit in-flight response whose `resp_msg_matches_req_msg` and `resp_msg_is_ok_list_resp_containing_matching_pods` conditions hold, then prove that this same response satisfies `resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step`. The required step and diff facts are already available from `p`; after that, `p_resp(resp_msg).satisfied_by(ex)` follows and discharges `tla_exists(p_resp)`. The same witness-naming approach will likely be needed later for `q_mid.entails(tla_exists(p_req))`. Check by rerunning Verus; the expected change is that the failing existential assertions disappear, possibly leaving only trigger notes.",
+  "evidence_refs": [
+    {
+      "source_id": "event:100",
+      "observation": "Verus failure at this checkpoint: assertion failures in the proof of `p.entails(tla_exists(p_resp))`, including the direct existential assertion over `resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step`."
+    },
+    {
+      "source_id": "snapshot:1702f33894745bc23fc78fc1094baa37d9fc69fd65b2097a11da93ff9698b58d",
+      "observation": "The checkpoint proof body asserts the target existential directly from `p` without extracting an explicit response witness."
+    },
+    {
+      "source_id": "final_proof",
+      "observation": "The later verified proof extracts an in-flight response witness from the concrete conditions in `exists_resp_in_flight_at_after_list_pods_step`, then asserts the specific `resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step` fact before showing `p_resp` holds."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The later proof passes both Verus and Lynette, supporting the witness-extraction repair as a verified solution for this task."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "This checkpoint has a Verus diagnostic only; no Lynette result is recorded for this exact checkpoint. Verus also notes that not all errors in the function may have been reported, so the analogous `q_mid` existential may fail after the first block is fixed."
+  ]
+}

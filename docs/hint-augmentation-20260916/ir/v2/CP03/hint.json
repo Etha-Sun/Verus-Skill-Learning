@@ -1,0 +1,35 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "2a70fccc9015cc86f388213b51be57765ddb4226e6228c3fcc2133a9e90f2c8a",
+  "hint_text": "The current failure is not just a missing import: the extensionality branch asserts a pointwise Boolean equality of the two membership predicates, and Verus cannot unfold map/union membership through that single assertion. Prove the pointwise membership equivalence as two separate implication directions. In each direction, once the membership antecedent is in context, expose the existential witness behind the relevant map membership and case-split on the union or image side that produced it. For left-to-right, a witness in the union is either in s1 or s2, and each case proves membership in the corresponding image. For right-to-left, split whether the witness originates from s1 or s2, then lift it back into the union before showing membership in the mapped union. Run Verus after this change; the failing Boolean equality should be replaced by a provable pointwise equivalence. Compatibility: the current added top-level macro import may affect Lynette; a later verified state with that import failed the comparison, while the final proof used a fully qualified macro path and passed, so avoid keeping that extra top-level import and rerun Lynette.",
+  "evidence_refs": [
+    {
+      "source_id": "event:40",
+      "observation": "The current checkpoint fails Verus on a single Boolean equality between the two membership predicates."
+    },
+    {
+      "source_id": "event:54",
+      "observation": "A later choose-based attempt without explicit antecedent case splits could not prove witness existence."
+    },
+    {
+      "source_id": "event:62",
+      "observation": "A later version with explicit antecedent case splits passed Verus."
+    },
+    {
+      "source_id": "event:67",
+      "observation": "A later verified state with the top-level macro import failed Lynette with 'Files are different'."
+    },
+    {
+      "source_id": "event:88",
+      "observation": "After removing the top-level import and using the fully qualified macro invocation, Lynette exited 0."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "Final proof passes both Verus and Lynette."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "The Lynette failure was observed on a later verified state with the same top-level import, not directly on the current checkpoint; the causal role of the import is inferred from source difference and later cleanup, not proven by a failing check on this exact state."
+  ]
+}

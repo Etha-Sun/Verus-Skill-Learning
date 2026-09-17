@@ -1,0 +1,39 @@
+{
+  "checkpoints": [
+    {
+      "event_index": 24,
+      "candidate_sha256": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+      "continue": true
+    },
+    {
+      "event_index": 33,
+      "candidate_sha256": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+      "continue": true
+    },
+    {
+      "event_index": 40,
+      "candidate_sha256": "2a70fccc9015cc86f388213b51be57765ddb4226e6228c3fcc2133a9e90f2c8a",
+      "continue": true
+    },
+    {
+      "event_index": 48,
+      "candidate_sha256": "e23ccebcbfeb5f9426e3a80c4d2b9b5ed171fe544735f67b3f2801cff4986798",
+      "continue": true
+    },
+    {
+      "event_index": 55,
+      "candidate_sha256": "2e8d4902aeff38f279a32441c1c93304129198270934bcdf027a54fd5a7f4321",
+      "continue": true
+    },
+    {
+      "event_index": 63,
+      "candidate_sha256": "0ae8ba48626d43217adb6d18047e844d172be545c3ec8912c7cb5f4ff5ec8de9",
+      "continue": true
+    },
+    {
+      "event_index": 85,
+      "candidate_sha256": "259626824a4f932dbe5c714b5d34985d700fa26787eda49fb7f1300d086fe563",
+      "continue": false
+    }
+  ]
+}

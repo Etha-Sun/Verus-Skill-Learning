@@ -1,0 +1,37 @@
+{
+  "task_id": "bcf0292578550cb38451",
+  "task_name": "AC__vreplicaset_controller__proof__liveness__resource_match__lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp",
+  "extractor_sha256": "642f76ab5774df0685f1268cccf49802cee9ef1f9649c012ea38dae45331ab0e",
+  "checkpoints": [
+    {
+      "ordinal": 1,
+      "event_index": 19,
+      "checkpoint_sha256": "75e24ed1c3598e35dfecc597918242b87a63afc052eacd3a58d3759083998f34"
+    },
+    {
+      "ordinal": 2,
+      "event_index": 77,
+      "checkpoint_sha256": "16247238179ed015bfc0a306031d2cb040126ee48125b9d8e40d575cd35d89ac"
+    },
+    {
+      "ordinal": 3,
+      "event_index": 84,
+      "checkpoint_sha256": "844fc8829737d9f4bff3e2a8b920edacbf7ab92ae9616326fd990a81737351fe"
+    },
+    {
+      "ordinal": 4,
+      "event_index": 92,
+      "checkpoint_sha256": "0963082db4e15ee70a098a78f23e8849b06e4a2b49d3dda62432b863a34d6363"
+    },
+    {
+      "ordinal": 5,
+      "event_index": 100,
+      "checkpoint_sha256": "1702f33894745bc23fc78fc1094baa37d9fc69fd65b2097a11da93ff9698b58d"
+    },
+    {
+      "ordinal": 6,
+      "event_index": 123,
+      "checkpoint_sha256": "adb44d379710c7cba2b4ba708dd75575c003f4af7b824fc0eedeb4932142a016"
+    }
+  ]
+}

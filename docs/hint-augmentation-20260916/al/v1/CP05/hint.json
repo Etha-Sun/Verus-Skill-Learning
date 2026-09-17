@@ -1,0 +1,27 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "47af552b63723b319867c9ccc3ba5aca4049602bdca7c2132294bf0e63b37d4e",
+  "hint_text": "The current failure is a method-resolution problem, not a missing proof obligation: the guessed Seq helpers for concatenation length/index do not exist in this vstd version. Replace that approach by using the built-in facts about Seq concatenation directly. The mathematical facts needed are that concatenation length is the sum of component lengths, and for an index below the prefix length, the concatenated value equals the prefix value at that index. In the backward direction, first derive equal lengths from the assumed equality of concatenated sequences, then decompose the lengths to conclude the prefixes have equal length. Then prove pointwise equality for each valid index by exposing the prefix-index simplification on both sides and matching them through the concatenation equality. Finally close with sequence extensionality. Remove the now-unnecessary seq_lib import if no library helpers remain. Re-run Verus: success should first eliminate the E0599 method errors, then verify the postcondition.",
+  "evidence_refs": [
+    {
+      "source_id": "event:55",
+      "observation": "Verus reports E0599 for lemma_seq_add_len and lemma_seq_add_index, showing those guessed helper methods do not exist."
+    },
+    {
+      "source_id": "snapshot:47af552b63723b319867c9ccc3ba5aca4049602bdca7c2132294bf0e63b37d4e",
+      "observation": "The checkpoint uses vstd::seq_lib solely to invoke the nonexistent concatenation helpers."
+    },
+    {
+      "source_id": "snapshot:0545d14072735e4060ce6040818c7932dc35cf557136050dc3ba8a427289c239",
+      "observation": "The verified final proof establishes the needed facts directly without any seq_lib helper calls or import."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The direct-facts formulation passes both Verus and Lynette."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "The hint identifies the verified direct-facts strategy from later evidence, but the continuation solver must still formulate assertions that Verus accepts for the current code state."
+  ]
+}

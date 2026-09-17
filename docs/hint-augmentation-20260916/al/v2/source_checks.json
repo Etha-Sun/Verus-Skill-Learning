@@ -1,0 +1,273 @@
+[
+  {
+    "cp": 1,
+    "skill_read_events": [
+      33
+    ],
+    "edit_events": [
+      59,
+      67,
+      75
+    ],
+    "checks": [
+      {
+        "event": 17,
+        "command": "/bin/bash -c './tools/run_verus.sh candidate.rs'",
+        "exit": 1,
+        "diagnostic": "error: postcondition not satisfied\n8 | pub proof fn seq_equal_preserved_by_add<A>(s1: Seq<A>, s2: Seq<A>, suffix: Seq<A>)\n  | ---------------------------------------------------------------------------------- at the end of the function body\n9 |     ensures s1 == s2 <==> s1 + suffix == s2 + suffix\n  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition\nverification results:: 0 verified, 1 errors\nerror: aborting due to 1 previous error"
+      },
+      {
+        "event": 61,
+        "command": "/bin/bash -c './tools/run_verus.sh candidate.rs'",
+        "exit": 1,
+        "diagnostic": "error[E0425]: cannot find value `group_seq_axioms` in this scope\n15 |         broadcast use group_seq_axioms;\n   |                       ^^^^^^^^^^^^^^^^ not found in this scope\nerror: aborting due to 1 previous error"
+      },
+      {
+        "event": 69,
+        "command": "/bin/bash -c './tools/run_verus.sh candidate.rs'",
+        "exit": 1,
+        "diagnostic": "warning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n24 |         assert forall|i: int| 0 <= i < s1.len() ==> s1[i] == s2[i] by {\n   |         ^^^^^^\n8 | pub proof fn seq_equal_preserved_by_add<A>(s1: Seq<A>, s2: Seq<A>, suffix: Seq<A>)\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n25 |             assert(left[i] == right[i]);\n   |                    ^^^^^^^\n62 |             0 <= i < self.len(),\n   |             ------------------- recommendation not met\n25 |             assert(left[i] == right[i]);\n   |                               ^^^^^^^^\n62 |             0 <= i < self.len(),\n   |             ------------------- recommendation not met\nerror: assertion failed\n26 |             assert(left[i] == s1[i]);\n   |                    ^^^^^^^^^^^^^^^^ assertion failed\nerror: assertion failed\n27 |             assert(right[i] == s2[i]);\n   |                    ^^^^^^^^^^^^^^"
+      },
+      {
+        "event": 77,
+        "command": "/bin/bash -c './tools/run_verus.sh candidate.rs'",
+        "exit": 0,
+        "diagnostic": "verification results:: 1 verified, 0 errors"
+      },
+      {
+        "event": 82,
+        "command": "/bin/bash -c ./tools/run_lynette.sh",
+        "exit": 0,
+        "diagnostic": ""
+      }
+    ],
+    "danger_additions": [],
+    "passed": true,
+    "final_sha256": "62ee1614e6b34e5d3cfdc6ac2f13ce6bf7c9e9e166f9cfbfe88bf5c756e5d31b"
+  },
+  {
+    "cp": 2,
+    "skill_read_events": [
+      14
+    ],
+    "edit_events": [
+      32
+    ],
+    "checks": [
+      {
+        "event": 26,
+        "command": "/bin/bash -c './tools/run_verus.sh candidate.rs'",
+        "exit": 1,
+        "diagnostic": "error: assertion failed\n15 |         assert(s1 == s2);\n   |                ^^^^^^^^ assertion failed\nverification results:: 0 verified, 1 errors\nerror: aborting due to 1 previous error"
+      },
+      {
+        "event": 34,
+        "command": "/bin/bash -c './tools/run_verus.sh candidate.rs'",
+        "exit": 0,
+        "diagnostic": "verification results:: 1 verified, 0 errors"
+      },
+      {
+        "event": 39,
+        "command": "/bin/bash -c ./tools/run_lynette.sh",
+        "exit": 0,
+        "diagnostic": ""
+      }
+    ],
+    "danger_additions": [],
+    "passed": true,
+    "final_sha256": "e0a497972007facd03336737c04723102f153146da9adb7e766bb28608eea81f"
+  },
+  {
+    "cp": 3,
+    "skill_read_events": [
+      5
+    ],
+    "edit_events": [
+      35
+    ],
+    "checks": [
+      {
+        "event": 37,
+        "command": "/bin/bash -c './tools/run_verus.sh candidate.rs'",
+        "exit": 0,
+        "diagnostic": "verification results:: 1 verified, 0 errors"
+      },
+      {
+        "event": 42,
+        "command": "/bin/bash -c ./tools/run_lynette.sh",
+        "exit": 0,
+        "diagnostic": ""
+      }
+    ],
+    "danger_additions": [],
+    "passed": true,
+    "final_sha256": "d0dec7b181a59ba1f1352efbbe869ea3a1445118ac38931c58c3c04172d302cc"
+  },
+  {
+    "cp": 4,
+    "skill_read_events": [
+      6
+    ],
+    "edit_events": [
+      69,
+      77,
+      90
+    ],
+    "checks": [
+      {
+        "event": 23,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 1,
+        "diagnostic": "9 | pub proof fn seq_equal_preserved_by_add<A>(s1: Seq<A>, s2: Seq<A>, suffix: Seq<A>)\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nerror: assertion failed\n16 |         assert(s1.len() == s2.len());\n   |                ^^^^^^^^^^^^^^^^^^^^ assertion failed\nerror: assertion failed\n17 |         assert_seqs_equal!(s1, s2);\n   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\nverification results:: 0 verified, 1 errors\nerror: aborting due to 2 previous errors"
+      },
+      {
+        "event": 71,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 1,
+        "diagnostic": "warning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n23 |         assert forall|i: int| 0 <= i < s1.len() ==> s1[i] == s2[i] by {\n   |         ^^^^^^\n9 | pub proof fn seq_equal_preserved_by_add<A>(s1: Seq<A>, s2: Seq<A>, suffix: Seq<A>)\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n24 |             assert(left[i] == right[i]);\n   |                    ^^^^^^^\n62 |             0 <= i < self.len(),\n   |             ------------------- recommendation not met\n24 |             assert(left[i] == right[i]);\n   |                               ^^^^^^^^\n62 |             0 <= i < self.len(),\n   |             ------------------- recommendation not met\nerror: assertion failed\n25 |             assert(left[i] == s1[i]);\n   |                    ^^^^^^^^^^^^^^^^ assertion failed\nerror: assertion failed\n26 |             assert(right[i] == s2[i]);\n   |                    ^^^^^^^^^^^^^^"
+      },
+      {
+        "event": 79,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 0,
+        "diagnostic": "verification results:: 1 verified, 0 errors"
+      },
+      {
+        "event": 84,
+        "command": "/bin/bash -lc ./tools/run_lynette.sh",
+        "exit": 1,
+        "diagnostic": "Files are different"
+      },
+      {
+        "event": 92,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 0,
+        "diagnostic": "verification results:: 1 verified, 0 errors"
+      },
+      {
+        "event": 96,
+        "command": "/bin/bash -lc ./tools/run_lynette.sh",
+        "exit": 0,
+        "diagnostic": ""
+      }
+    ],
+    "danger_additions": [],
+    "passed": true,
+    "final_sha256": "4bba64d248374c09465dfbc66eba147f47ac8af676f9647c8988eb002668e11b"
+  },
+  {
+    "cp": 5,
+    "skill_read_events": [
+      6
+    ],
+    "edit_events": [
+      22
+    ],
+    "checks": [
+      {
+        "event": 9,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 1,
+        "diagnostic": "error[E0599]: no method named `lemma_seq_add_len` found for struct `vstd::seq::Seq` in the current scope\n16 |         s1.lemma_seq_add_len(suffix);\n   |            ^^^^^^^^^^^^^^^^^\nerror[E0599]: no method named `lemma_seq_add_len` found for struct `vstd::seq::Seq` in the current scope\n17 |         s2.lemma_seq_add_len(suffix);\n   |            ^^^^^^^^^^^^^^^^^\nerror[E0599]: no method named `lemma_seq_add_index` found for struct `vstd::seq::Seq` in the current scope\n22 |             s1.lemma_seq_add_index(suffix, i);\n   |                ^^^^^^^^^^^^^^^^^^^ method not found in `Seq<A>`\nerror[E0599]: no method named `lemma_seq_add_index` found for struct `vstd::seq::Seq` in the current scope\n23 |             s2.lemma_seq_add_index(suffix, i);\n   |                ^^^^^^^^^^^^^^^^^^^ method not found in `Seq<A>`\nerror: aborting due to 4 previous errors"
+      },
+      {
+        "event": 24,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 0,
+        "diagnostic": "verification results:: 1 verified, 0 errors"
+      },
+      {
+        "event": 29,
+        "command": "/bin/bash -lc ./tools/run_lynette.sh",
+        "exit": 0,
+        "diagnostic": ""
+      }
+    ],
+    "danger_additions": [],
+    "passed": true,
+    "final_sha256": "2fb81b14f2c5a2e7cb742b8edddd8b9e88f5361b68d477b3bdddea38e322dda7"
+  },
+  {
+    "cp": 6,
+    "skill_read_events": [
+      8
+    ],
+    "edit_events": [
+      42,
+      59
+    ],
+    "checks": [
+      {
+        "event": 11,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 1,
+        "diagnostic": "error: assertion failed\n19 |         assert_seqs_equal!(s1, s2);\n   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\nverification results:: 0 verified, 1 errors\nerror: aborting due to 1 previous error"
+      },
+      {
+        "event": 44,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 0,
+        "diagnostic": "verification results:: 1 verified, 0 errors"
+      },
+      {
+        "event": 49,
+        "command": "/bin/bash -lc ./tools/run_lynette.sh",
+        "exit": 1,
+        "diagnostic": "Files are different"
+      },
+      {
+        "event": 61,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 0,
+        "diagnostic": "verification results:: 1 verified, 0 errors"
+      },
+      {
+        "event": 65,
+        "command": "/bin/bash -lc ./tools/run_lynette.sh",
+        "exit": 0,
+        "diagnostic": ""
+      }
+    ],
+    "danger_additions": [],
+    "passed": true,
+    "final_sha256": "043affb92de7c99669398f556e034b1b3d3ddc30f0273bc822542b035931133e"
+  },
+  {
+    "cp": 7,
+    "skill_read_events": [
+      17
+    ],
+    "edit_events": [
+      31
+    ],
+    "checks": [
+      {
+        "event": 20,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 0,
+        "diagnostic": "verification results:: 1 verified, 0 errors"
+      },
+      {
+        "event": 24,
+        "command": "/bin/bash -lc ./tools/run_lynette.sh",
+        "exit": 1,
+        "diagnostic": "Files are different"
+      },
+      {
+        "event": 33,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 0,
+        "diagnostic": "verification results:: 1 verified, 0 errors"
+      },
+      {
+        "event": 37,
+        "command": "/bin/bash -lc ./tools/run_lynette.sh",
+        "exit": 0,
+        "diagnostic": ""
+      }
+    ],
+    "danger_additions": [],
+    "passed": true,
+    "final_sha256": "0545d14072735e4060ce6040818c7932dc35cf557136050dc3ba8a427289c239"
+  }
+]

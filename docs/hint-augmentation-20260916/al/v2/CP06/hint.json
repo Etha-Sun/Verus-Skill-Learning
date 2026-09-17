@@ -1,0 +1,28 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "be4722b8e8360dfc957facb1c1631c9abaf0a85581611c3a3d47cd7c17c64a15",
+  "hint_text": "The current failure is no longer about lengths: the length assertions before line 19 are accepted, but the macro cannot close sequence equality because it lacks the pointwise fact that s1[i] == s2[i] for every prefix index i. Next prove that for every i with 0 <= i < s1.len(), the two prefixes agree at i. From the branch hypothesis s1 + suffix == s2 + suffix, you can compare the concatenated sequences at index i; since i lies in the prefix range, the concatenation at i equals the corresponding prefix element for both s1 and s2. Then use sequence extensionality to conclude s1 == s2 from that pointwise equality. Re-run Verus and expect the macro failure to disappear. If the new proof no longer uses the seq_lib import, clean it up before Lynette; the final validated state has no such extra import, but there is no recorded Lynette result for the current import-bearing state.",
+  "evidence_refs": [
+    {
+      "source_id": "event:62",
+      "observation": "Verus reports assertion failure inside assert_seqs_equal!(s1, s2) after the length equality assertions are already accepted."
+    },
+    {
+      "source_id": "snapshot:be4722b8e8360dfc957facb1c1631c9abaf0a85581611c3a3d47cd7c17c64a15",
+      "observation": "Checkpoint uses assert_seqs_equal! and has an added vstd::seq_lib import."
+    },
+    {
+      "source_id": "snapshot:bde5e64835453eeaa53b2e00f06529efd071877d1d3cf54cd991fd50cfb13e02",
+      "observation": "A later candidate proves pointwise prefix equality from the concatenation equality and then applies sequence extensionality; Verus accepts it."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The final cleaned candidate without the seq_lib import passes both Verus and Lynette, but no Lynette check was recorded for the current import-bearing checkpoint."
+    }
+  ],
+  "relation_to_original": "original_next_action",
+  "limitations": [
+    "No recorded Lynette run exists for the current extra-import checkpoint, so import cleanup is only a potential compatibility risk, not an observed Lynette failure.",
+    "The later direct pointwise proof verifies, but this hint does not guarantee the solver's exact formulation will be accepted."
+  ]
+}

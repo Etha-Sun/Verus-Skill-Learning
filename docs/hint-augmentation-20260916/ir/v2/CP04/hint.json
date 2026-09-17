@@ -1,0 +1,36 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "e23ccebcbfeb5f9426e3a80c4d2b9b5ed171fe544735f67b3f2801cff4986798",
+  "hint_text": "The current Verus error is not yet about the set-equality proof itself: a choose expression is applying #[trigger] to a compound membership condition, which Verus does not accept as a valid trigger. First make the choose condition syntactically valid by removing that trigger annotation or moving it to a legal subterm. After that, do not rely on the implication proof block to supply the existential membership hypothesis; Verus needs an explicit case split on the antecedent before choosing an existential witness. In each direction, branch on the relevant membership fact, then choose the witness for the contains predicate and propagate it through set union and image membership. For the forward direction, split on mapped-union membership, obtain a witness in the union, and then case on which set contains that witness. For the reverse direction, split on union-image membership, then on which image contains x. Re-run Verus after each change to see whether the choose existence conditions and postcondition close. Compatibility reminder: the current extra top-level assert_sets_equal import is a likely Lynette difference risk; later evidence showed an imported-macro version failing Lynette while the fully qualified macro path passed, so plan to remove that import before final Lynette.",
+  "evidence_refs": [
+    {
+      "source_id": "event:48",
+      "observation": "Verus rejects the compound choose trigger annotation, reporting that the trigger must be a function call, field access, or arithmetic operator."
+    },
+    {
+      "source_id": "snapshot:e23ccebcbfeb5f9426e3a80c4d2b9b5ed171fe544735f67b3f2801cff4986798",
+      "observation": "The checkpoint contains a top-level assert_sets_equal import and choose triggers wrapping conjunctions."
+    },
+    {
+      "source_id": "event:54",
+      "observation": "After removing those triggers, Verus could not prove the choose expressions have witnesses under the implication proof blocks, and assertions failed."
+    },
+    {
+      "source_id": "event:62",
+      "observation": "A later state with explicit antecedent case splits and trigger removal passed Verus with 1 verified, 0 errors."
+    },
+    {
+      "source_id": "event:67",
+      "observation": "A later Verus-passing source that retained the top-level assert_sets_equal import failed Lynette with Files are different."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The final source using the fully qualified macro path passed both Verus and Lynette."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "The top-level macro import compatibility concern is inferred from a later Verus-passing state that failed Lynette, not from a Lynette run on this exact checkpoint.",
+    "Removing the invalid trigger annotations alone was insufficient in the recorded trajectory; explicit case splits before choosing witnesses were also necessary."
+  ]
+}

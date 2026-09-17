@@ -1,0 +1,24 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "0963082db4e15ee70a098a78f23e8849b06e4a2b49d3dda62432b863a34d6363",
+  "hint_text": "The current failures are proof-context failures, not missing mathematical facts. The verifier warns that the spec-level implication in `assert forall` does not assume its antecedent inside the proof body. In the two entailment proofs, the body tries to use the assumptions `p.satisfied_by(ex)` and `q_mid.satisfied_by(ex)` to prove the corresponding conjuncts, but those assumptions are not available. Rewrite the outer implication in each `assert forall` to the constructive implication form that makes the antecedent available (`implies`). After that, the component assertions should be discharged.\n\nThe next expected obstacle is the existential goal for `tla_exists`: Verus will not synthesize the message witness from the expanded predicate alone. Explicitly assert the existential over an in-flight response or request matching the expanded conditions, name a witness using `choose`, and then assert the corresponding `..._is_the_...` predicate for that witness. Check with Verus; the target is `verification results:: 1 verified, 0 errors`, then run Lynette.",
+  "evidence_refs": [
+    {
+      "source_id": "event:92",
+      "observation": "Verus reports assertion failures at the two component assertions and warns that `==>` in assert forall does not assume its antecedent inside the body."
+    },
+    {
+      "source_id": "event:99",
+      "observation": "After the implication antecedent becomes available, the component assertions no longer fail; the remaining failure is the existential tla_exists witness goal."
+    },
+    {
+      "source_id": "event:110",
+      "observation": "A later verifier run shows the explicit choose-witness strategy closes the proof with 1 verified, 0 errors."
+    }
+  ],
+  "relation_to_original": "original_next_action",
+  "limitations": [
+    "The witness-extraction step must match the expanded in-flight and response/request predicates; the exact formulation may need adjustment.",
+    "The final original proof still emits low-confidence trigger notes, but verification passes."
+  ]
+}

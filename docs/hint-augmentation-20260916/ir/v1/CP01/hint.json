@@ -1,0 +1,31 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+  "hint_text": "The empty body gives Verus no proof of the set equality. Prove it by set extensionality: for an arbitrary element x, show x is in (s1 + s2).map(f) exactly when x is in s1.map(f) + s2.map(f). Work one implication at a time. In each direction, make the membership hypothesis active with an explicit case split before eliminating the existential witness; otherwise choose cannot prove that the witness exists. For image membership, the witness is an a with a in s1 + s2 and f(a) == x; split on whether a lies in s1 or s2 to conclude membership in the corresponding image union. In the reverse direction, split on which image supplies the witness. Invoke the vstd set-extensionality mechanism by full path rather than adding a top-level import, because an added import can change generated Rust and fail the Lynette comparison. Check with run_verus after this, then run_lynette.",
+  "evidence_refs": [
+    {
+      "source_id": "event:24",
+      "observation": "The empty function body fails the required postcondition."
+    },
+    {
+      "source_id": "event:39",
+      "observation": "A single direct membership equivalence assertion failed; SMT did not distribute the existential over union membership on its own."
+    },
+    {
+      "source_id": "event:54",
+      "observation": "Using choose under an implication without first case-splitting on the antecedent failed to prove witness existence."
+    },
+    {
+      "source_id": "event:67",
+      "observation": "Adding a top-level import for the extensionality macro made Lynette report 'Files are different'."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The final proof using full-path set extensionality and explicit case splits passed both Verus and Lynette."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "The solver may still need to adjust exact proof ordering or witness formulation for current tool diagnostics."
+  ]
+}

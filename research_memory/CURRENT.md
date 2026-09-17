@@ -1,5 +1,46 @@
 # Current Research State
 
+## 0916 core experiment publication
+
+Reviewed package: [Hint augmentation with initial skill](../docs/hint-augmentation-20260916/README.md). Includes both hint configurations, three paired reports, detailed audits, information-value review, 38 compact results, checkpoints/final proofs, portable launch/plot scripts and offline tests. 36 final dual passes; meaningful failures retained. Success rate is not marginal information yield; v1's verified AC helper decomposition and v2's failed generic-helper attempt are complementary. Full raw runs and credentials remain external. Publication validates proof/prompt hashes, links and five boundary tests; no new API calls or downstream optimizer claims. Next: team review and representative batch construction.
+
+
+Optimizer-perspective marginal information review completed: external initial-skill-three-task/INFORMATION_VALUE_AUDIT.md and 38 information_value_labels.json entries distinguish new verified strategies, informative failures and repetition relative to original traces. v1 adds a verified AC state-helper decomposition; v2 contributes a failed generic-helper contrast. IR library examples largely duplicate one theme; AL mostly repeats baseline. Success rate is not information yield. Manual evidence-based judgement only, no optimizer training or raw-data modifications. Next: review topic granularity and assemble representative contrast batches.
+
+
+Reading update: external initial-skill-three-task/{ir,ac,al}/REPORT.md now pairs both detailed audits by checkpoint. v2 has an evidence-based compatibility addition; all 19 paired hint texts differ, not necessarily their mathematical strategy. Relative file links and anchors validated in all nine reports. Raw data unchanged.
+
+
+## Initial-skill matched rerun: semantic audit complete
+
+Report revision: all six reports now explain the original proof, per-checkpoint proof dependencies, observed hint contribution and matched-version comparisons. Long failed repairs use stage tables; AL v1 CP1 includes the exact unjustified branch. All 38 entries and evidence links checked; raw traces, figures and prior blank experiments unchanged.
+
+All 38 continuations completed and were reviewed against checkpoint code, fresh hints, source diffs and recorded tools; 36 final dual pass. AC v1 CP1 and AC v2 CP3 timed out with unresolved proof obligations, while Lynette passed. AC v1 CP2 screen false positive was resumed unchanged and passed. All actors demonstrably read the original initial skill. Six reviewed reports, original automatic evidence and structured audit records are in external augment-v2-20260916/initial-skill-three-task/{ir,ac,al}/{v1,v2}/analysis. Figures retained. AL v1 CP1 began with unjustified assertions; preserve failure labels rather than treating these as valid proof steps. Successful endpoints are candidates for labeled format export, not evidence of downstream skill benefit. Fresh hint sampling confounds skill comparisons. Next: user review, then format export; detailed old/new hint stability comparison remains pending. No raw data modified or additional model/verifier calls made during audit.
+
+
+## Hint v2 three-task semantic audit complete (2026-09-17)
+
+All 19 continuations manually reviewed against recorded source diffs, hints and tool feedback; 18 final dual pass, AC CP1 timed out with unresolved temporal existential bridges. External augment-v2-20260916/hint-v2-three-task/{ir,ac,al}/analysis/REPORT.md now contains per-checkpoint v1 comparisons; AUTO_EVIDENCE.md preserves automatic evidence, semantic_audit.json protects reviewed prose from regeneration. Actor output changed IR -35.9%, AL -44.8%, AC +11.8%; no causal or downstream skill claim. AC CP1 hint contained no compatibility warning. Raw data unchanged, no new model/verifier calls. Next: user review, then labeled trace-format export; failed AC CP1 excluded from successful samples.
+
+## AC/AL hint continuation process audit complete
+
+All 6 AC and 7 AL final candidates passed Verus/Lynette; external ac-al-expansion/{ac,al}/analysis/REPORT.md now records each checkpoint problem, hint, actual uptake/deviation and diagnostics, with evidence links and purple-only plots. AL CP6 temporarily emptied the proof to diagnose Lynette and skipped Verus for that edit; retain raw history but label/filter that segment for training. No matched control or downstream skill-benefit claim. Raw data unchanged; no new model calls. Next: user review, then evidence-based optimizer export.
+
+## Generated Hint: IR audit complete; AC/AL expansion running (2026-09-16)
+
+IR six continuations passed dual validation; checkpoint-level hint uptake audit and four-arm token plot are in external augment-v2-20260916/analysis/quality-audit. User authorized one AC and one AL task from fixed train40 step_0001: all 6 AC and 7 AL nonterminal checkpoints, frozen Yuechun extractor. Same prompts, model, actor budget and isolation. AC uses verified lossless baseline-relative snapshot encoding to fit complete evidence; no source/event truncation. External ac-al-expansion/{ac,al} runs background batches, then exports evidence and hint-only figures; per-checkpoint semantic audit remains required. Five boundary/encoding tests pass. No downstream SkillOpt benefit claimed; raw sources untouched.
+
+
+## IR Generated-Hint smoke launched (2026-09-16)
+
+User authorized all six original IR checkpoints. New script skillopt-verusage/scripts/run_hint_augmentation.py prepares complete original evidence, generates one DeepSeek V4 Pro logic hint, and projects hint_text only into the existing isolated actor. Four boundary tests and live local isolation preflight passed. CP1 hint generated; actor started. External artifacts/status: augment-v2-20260916/{CURRENT.md,status.json,supervisor_status.json,hint-private/,runs/}. Supervisor runs CP2-6 only after CP1 dual-validation and isolation checks pass. No optimizer run or skill-utility claim. Raw originals unchanged; secrets and ledgers remain external.
+
+
+## Generated-hint augmentation design (2026-09-16)
+
+The active worktree now tracks feat/deepseekv4pro-augmentation-20260911. Detailed design, prompts, schema and status live under the external run root: augment-v2-20260916/{Plan.md,HINT_AGENT_DESIGN.md,CURRENT.md,prompts/}. DeepSeek V4 Pro generates one hindsight-informed hint from the original train-40 trajectory and verified F; the isolated continuation actor receives only the checkpoint/task and hint text. Frozen Yuechun extraction remains unchanged. Goal: useful same-task SkillOpt minibatch material, not mandatory novel strategies. Design only: no API calls, hint outputs, or optimizer benefit evidence. Next: offline input/contract checks, then a separately executed smoke. Raw data unchanged.
+
+
 ## Two-task DeepSeek augmentation publication
 
 Reviewed report and core code: [docs/deepseekv4pro-augmentation-20260911](../docs/deepseekv4pro-augmentation-20260911/README.md). Three arms each have IR6 + AL2 continuations, all 24 final Verus/Lynette passes. No-F IR shows library-lemma reuse and quantifier rewriting versus the original witness route. Reference arms mainly retain the original strategy. Isolation differs across historical arms; pruned IR CP3 access issue remains unresolved. Training export and downstream SkillOpt benefit remain untested. Next: prepare audited optimizer inputs and evaluate grouped sampling under matched budgets. Only reviewed summaries, figures, selected proof code and contracts published; raw traces/ledgers and credentials stay external.
@@ -2808,3 +2849,8 @@ already-capable actors. No raw run or frozen source was modified.
   `research_memory/projects/verus_self_evolving/meetings/20260704-103108-kexin-new-project-3-information-gain-skills/ENTRY.md`
 - InfoGain-RAG literature mapping:
   `research_memory/projects/verus_self_evolving/literature/20260704-103229-infogain-rag-reference-for-proof-rationale-reward/ENTRY.md`
+
+
+2026-09-16：用户授权Hint v2三题IR6/AC6/AL7后台运行，输出 /zp_vegeta/scratch_sb/xinyueh/verus_skill_runs/augment-v2-20260916/hint-v2-three-task。独立报告与两组/五组对比图自动生成；人工语义审计仍待完成。冻结prompt_dir支持已加入runner，旧默认不变。
+
+2026-09-17: Hint v2 IR/AL resumed remaining eight continuations after audited literal_call false positives. Hash-bound manual approvals preserve original screening evidence; gate tamper checks pass. AC complete 5/6 dual pass (CP1 timeout). Original data untouched; semantic audit pending.

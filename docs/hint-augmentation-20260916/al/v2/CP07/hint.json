@@ -1,0 +1,28 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "bde5e64835453eeaa53b2e00f06529efd071877d1d3cf54cd991fd50cfb13e02",
+  "hint_text": "The proof body now verifies in Verus; do not add further proof steps. The remaining issue is compatibility/cleanup: this checkpoint has an extra top-level vstd::seq_lib import that is absent from input.rs, and Verus reports it as unused. Since the task requires both Verus and Lynette checks, first restore the import surface to match input.rs while keeping the verified proof body unchanged. Then run Verus again to confirm no warning or error, and run Lynette. The fact that a cleaned version with the same proof body later passed both checks supports this cleanup direction, but this checkpoint itself has only been checked by Verus; if Lynette reports an issue with the extra import, that failure would be specific to this state. Do not add assumptions or new lemmas.",
+  "evidence_refs": [
+    {
+      "source_id": "event:69",
+      "observation": "Verus verified the checkpoint with 1 verified, 0 errors but emitted an unused import warning for vstd::seq_lib::*."
+    },
+    {
+      "source_id": "snapshot:bde5e64835453eeaa53b2e00f06529efd071877d1d3cf54cd991fd50cfb13e02",
+      "observation": "The checkpoint source contains a top-level use vstd::seq_lib::* import not present in the original input.rs."
+    },
+    {
+      "source_id": "snapshot:0545d14072735e4060ce6040818c7932dc35cf557136050dc3ba8a427289c239",
+      "observation": "The final source removes the unused vstd::seq_lib import while keeping the same proof body as the checkpoint."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The final source with the import removed passes both independent Verus and Lynette validation."
+    }
+  ],
+  "relation_to_original": "validation_or_compatibility",
+  "limitations": [
+    "No Lynette diagnostic was recorded for this checkpoint, so the extra import is a potential compatibility risk rather than an observed failure.",
+    "Later cleanup followed by successful Lynette does not prove that the checkpoint with the extra import would have failed Lynette."
+  ]
+}

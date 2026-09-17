@@ -1,0 +1,31 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "0ae8ba48626d43217adb6d18047e844d172be545c3ec8912c7cb5f4ff5ec8de9",
+  "hint_text": "Verus already verifies this checkpoint, so the remaining issue is the proof-only compatibility check, not further mathematical proof. The current candidate adds a top-level macro import for set extensionality; with exactly this source, Lynette compare against input.rs was observed to fail with 'Files are different'. Repair this by avoiding that added top-level import and invoking the macro through its qualified module path at the use site instead. After the minimal change, rerun Verus to confirm it still reports 1 verified, 0 errors, then rerun Lynette and confirm it no longer reports 'Files are different' and exits successfully. Do not change the function signature, specification, or executable behavior; the proof body can remain logically unchanged. If Lynette still reports a difference, inspect the generated-Rust comparison rather than weakening or assuming the proof goal.",
+  "evidence_refs": [
+    {
+      "source_id": "event:63",
+      "observation": "Verus reported 1 verified, 0 errors for this checkpoint."
+    },
+    {
+      "source_id": "event:67",
+      "observation": "Lynette compare reported 'Files are different' and exited 1 for this exact checkpoint."
+    },
+    {
+      "source_id": "snapshot:0ae8ba48626d43217adb6d18047e844d172be545c3ec8912c7cb5f4ff5ec8de9",
+      "observation": "The checkpoint contains an added top-level `use vstd::assert_sets_equal;` and an unqualified macro invocation."
+    },
+    {
+      "source_id": "snapshot:259626824a4f932dbe5c714b5d34985d700fa26787eda49fb7f1300d086fe563",
+      "observation": "The later verified candidate removes the top-level macro import and invokes the macro through its qualified module path."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The later qualified-path candidate passes independent Verus and Lynette checks; this supports, but does not alone prove, that the import was the sole cause."
+    }
+  ],
+  "relation_to_original": "validation_or_compatibility",
+  "limitations": [
+    "The Lynette failure is observed for this checkpoint; the causal explanation that the top-level import changes generated Rust is inferred from the source difference and later successful validation, not from a standalone Lynette cause diagnostic."
+  ]
+}

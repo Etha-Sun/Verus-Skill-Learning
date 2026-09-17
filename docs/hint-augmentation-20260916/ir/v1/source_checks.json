@@ -1,0 +1,207 @@
+[
+  {
+    "cp": 1,
+    "skill_read_events": [
+      18
+    ],
+    "edit_events": [
+      73
+    ],
+    "checks": [
+      {
+        "event": 21,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 1,
+        "diagnostic": "error: postcondition not satisfied\n5 | pub proof fn set_map_union<A, B>(s1: Set<A>, s2: Set<A>, f: spec_fn(A) -> B)\n  | ---------------------------------------------------------------------------- at the end of the function body\n6 |     ensures\n7 |         (s1 + s2).map(f) == s1.map(f) + s2.map(f),\n  |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition\nverification results:: 0 verified, 1 errors\nerror: aborting due to 1 previous error"
+      },
+      {
+        "event": 75,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 0,
+        "diagnostic": "verification results:: 1 verified, 0 errors"
+      },
+      {
+        "event": 80,
+        "command": "/bin/bash -lc ./tools/run_lynette.sh",
+        "exit": 0,
+        "diagnostic": ""
+      }
+    ],
+    "danger_additions": [],
+    "passed": true,
+    "final_sha256": "d8d1db99ac31a866b0dc524c764cf8753f9a7f6e7819942b9e3f0d943a4d937e"
+  },
+  {
+    "cp": 2,
+    "skill_read_events": [
+      11
+    ],
+    "edit_events": [
+      27,
+      53
+    ],
+    "checks": [
+      {
+        "event": 20,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 1,
+        "diagnostic": "error: cannot find macro `assert_sets_equal` in this scope\n9 |     assert_sets_equal!((s1 + s2).map(f), s1.map(f) + s2.map(f), x => {\n  |     ^^^^^^^^^^^^^^^^^\nerror: aborting due to 1 previous error"
+      },
+      {
+        "event": 29,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 1,
+        "diagnostic": "error: assertion failed\n10 |         assert(((s1 + s2).map(f)).contains(x) == (s1.map(f) + s2.map(f)).contains(x));\n   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\nverification results:: 0 verified, 1 errors\nerror: aborting due to 1 previous error"
+      },
+      {
+        "event": 55,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 0,
+        "diagnostic": "verification results:: 1 verified, 0 errors"
+      },
+      {
+        "event": 60,
+        "command": "/bin/bash -lc ./tools/run_lynette.sh",
+        "exit": 0,
+        "diagnostic": ""
+      }
+    ],
+    "danger_additions": [],
+    "passed": true,
+    "final_sha256": "d8d1db99ac31a866b0dc524c764cf8753f9a7f6e7819942b9e3f0d943a4d937e"
+  },
+  {
+    "cp": 3,
+    "skill_read_events": [
+      18
+    ],
+    "edit_events": [
+      31
+    ],
+    "checks": [
+      {
+        "event": 25,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 1,
+        "diagnostic": "error: assertion failed\n11 |         assert(((s1 + s2).map(f)).contains(x) == (s1.map(f) + s2.map(f)).contains(x));\n   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\nverification results:: 0 verified, 1 errors\nerror: aborting due to 1 previous error"
+      },
+      {
+        "event": 33,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 0,
+        "diagnostic": "verification results:: 1 verified, 0 errors"
+      },
+      {
+        "event": 38,
+        "command": "/bin/bash -lc ./tools/run_lynette.sh",
+        "exit": 0,
+        "diagnostic": ""
+      }
+    ],
+    "danger_additions": [],
+    "passed": true,
+    "final_sha256": "8462d53cfe73099f156fceb4a834559250385569585be937ec2bf6c6fe6f933a"
+  },
+  {
+    "cp": 4,
+    "skill_read_events": [
+      15
+    ],
+    "edit_events": [
+      78
+    ],
+    "checks": [
+      {
+        "event": 21,
+        "command": "/bin/bash -c './tools/run_verus.sh candidate.rs'",
+        "exit": 1,
+        "diagnostic": "error: trigger must be a function call, a field access, or arithmetic operator\n12 |             let a = choose |a: A| #[trigger] ((s1 + s2).contains(a) && f(a) == x);\n   |                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nerror: aborting due to 1 previous error"
+      },
+      {
+        "event": 80,
+        "command": "/bin/bash -c './tools/run_verus.sh candidate.rs'",
+        "exit": 0,
+        "diagnostic": "verification results:: 1 verified, 0 errors"
+      },
+      {
+        "event": 85,
+        "command": "/bin/bash -c ./tools/run_lynette.sh",
+        "exit": 0,
+        "diagnostic": ""
+      }
+    ],
+    "danger_additions": [],
+    "passed": true,
+    "final_sha256": "707c695ab86846c8fef9b2d822e0e7db8b40b09b661740666b550aea7b741f53"
+  },
+  {
+    "cp": 5,
+    "skill_read_events": [
+      6
+    ],
+    "edit_events": [
+      43
+    ],
+    "checks": [
+      {
+        "event": 13,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 1,
+        "diagnostic": "6 | pub proof fn set_map_union<A, B>(s1: Set<A>, s2: Set<A>, f: spec_fn(A) -> B)\n  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n12 |             let a = choose |a: A| ((s1 + s2).contains(a) && f(a) == x);\n   |                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nerror: assertion failed\n13 |             assert((s1 + s2).contains(a) && f(a) == x);\n   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\n30 |                 let a = choose |a: A| (s2.contains(a) && f(a) == x);\n   |                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nerror: assertion failed\n31 |                 assert(s2.contains(a) && f(a) == x);\n   |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\nverification results:: 0 verified, 1 errors\nerror: aborting due to 2 previous errors"
+      },
+      {
+        "event": 45,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 0,
+        "diagnostic": "verification results:: 1 verified, 0 errors"
+      },
+      {
+        "event": 50,
+        "command": "/bin/bash -lc ./tools/run_lynette.sh",
+        "exit": 0,
+        "diagnostic": ""
+      }
+    ],
+    "danger_additions": [],
+    "passed": true,
+    "final_sha256": "d8d1db99ac31a866b0dc524c764cf8753f9a7f6e7819942b9e3f0d943a4d937e"
+  },
+  {
+    "cp": 6,
+    "skill_read_events": [
+      5
+    ],
+    "edit_events": [
+      21
+    ],
+    "checks": [
+      {
+        "event": 11,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 0,
+        "diagnostic": "verification results:: 1 verified, 0 errors"
+      },
+      {
+        "event": 15,
+        "command": "/bin/bash -lc ./tools/run_lynette.sh",
+        "exit": 1,
+        "diagnostic": "Files are different"
+      },
+      {
+        "event": 23,
+        "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+        "exit": 0,
+        "diagnostic": "verification results:: 1 verified, 0 errors"
+      },
+      {
+        "event": 27,
+        "command": "/bin/bash -lc ./tools/run_lynette.sh",
+        "exit": 0,
+        "diagnostic": ""
+      }
+    ],
+    "danger_additions": [],
+    "passed": true,
+    "final_sha256": "259626824a4f932dbe5c714b5d34985d700fa26787eda49fb7f1300d086fe563"
+  }
+]

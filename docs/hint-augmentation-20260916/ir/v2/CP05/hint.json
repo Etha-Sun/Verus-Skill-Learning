@@ -1,0 +1,36 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "2e8d4902aeff38f279a32441c1c93304129198270934bcdf027a54fd5a7f4321",
+  "hint_text": "Your current proof has the right set-extensionality structure, but the `choose` expressions are introduced before their existence assumptions are available. In an implication assertion, the antecedent is not automatically assumed inside the `by` proof block; the diagnostics at both failing chooses reflect exactly that missing witness-existence context. First case-split on `((s1 + s2).map(f)).contains(x)` before choosing a witness from the union map in the left-to-right direction. In the reverse direction, case-split first on `(s1.map(f) + s2.map(f)).contains(x)`, then split within that case on which image contains `x` before choosing the corresponding `s1` or `s2` witness. This should make the existing membership-propagation assertions discharge. After Verus passes, check compatibility: the extra top-level `use vstd::assert_sets_equal;` differs from the original input, and a later verified version with that import was observed to fail Lynette. Verify with `./tools/run_lynette.sh` and consider invoking the macro through its module path instead of adding that top-level import.",
+  "evidence_refs": [
+    {
+      "source_id": "event:55",
+      "observation": "Current checkpoint diagnostic reports choose existence failures at lines 12 and 30, followed by assertion failures."
+    },
+    {
+      "source_id": "snapshot:2e8d4902aeff38f279a32441c1c93304129198270934bcdf027a54fd5a7f4321",
+      "observation": "Checkpoint source has no explicit case split on either implication antecedent before the chooses."
+    },
+    {
+      "source_id": "snapshot:0ae8ba48626d43217adb6d18047e844d172be545c3ec8912c7cb5f4ff5ec8de9",
+      "observation": "Later state adds explicit case splits on the two application antecedents and retains the top-level assert_sets_equal import."
+    },
+    {
+      "source_id": "event:67",
+      "observation": "Lynette was observed to fail with 'Files are different' on that later verified state with the top-level import."
+    },
+    {
+      "source_id": "final_proof",
+      "observation": "Final verified source invokes assert_sets_equal through its module path and does not add the extra top-level import."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "Final proof passes both Verus and Lynette."
+    }
+  ],
+  "relation_to_original": "original_next_action",
+  "limitations": [
+    "The Lynette compatibility concern is based on an observed failure for a later verified snapshot with the same top-level import, not on a recorded Lynette run for this exact checkpoint.",
+    "The proposed logical repair is supported by the original trajectory but was not independently rerun here."
+  ]
+}

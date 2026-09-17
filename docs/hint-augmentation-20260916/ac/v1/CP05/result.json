@@ -1,0 +1,26 @@
+{
+  "status": "SOLVED",
+  "timed_out": false,
+  "wall_seconds": 236.67327629681677,
+  "validation": {
+    "input_unchanged": true,
+    "skill_unchanged": true,
+    "candidate_sha256": "1dea5758d4dc314184b99f61d31d076df23ab9bc8a5455063068498c7c75302a",
+    "verus": {
+      "passed": true,
+      "returncode": 0,
+      "timed_out": false,
+      "wall_seconds": 1.7350503080524504,
+      "stdout": "verification results:: 3 verified, 0 errors\n",
+      "stderr": "warning: `#[is_variant]` is deprecated - use `->` or `matches` instead: https://verus-lang.github.io/verus/guide/datatypes_enum.html\n   --> ${EXPERIMENT_ROOT}/initial-skill-three-task/ac/v1/runs/bcf0292578550cb38451/CP05/workspace/candidate.rs:331:1\n    |\n331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\n\nwarning: 1 warning emitted\n\n"
+    },
+    "lynette": {
+      "passed": true,
+      "returncode": 0,
+      "timed_out": false,
+      "wall_seconds": 0.05608639493584633,
+      "stdout": "",
+      "stderr": ""
+    }
+  }
+}

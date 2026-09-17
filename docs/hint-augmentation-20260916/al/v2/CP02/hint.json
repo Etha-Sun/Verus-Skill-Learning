@@ -1,0 +1,23 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "60d0be0ba96b30331d55e0a185e4201f2db0eb064617f627aa6a739ed7c2b1e1",
+  "hint_text": "The forward direction is already accepted. The remaining gap is the backward direction: from equality of the concatenated sequences, Verus cannot directly conclude s1 == s2 by a raw equality assertion. Prove sequence equality by extensionality instead. First establish that s1 and s2 have equal lengths by combining the fact that equal sequences have equal length with the relation between a concatenation length and the lengths of its parts, then cancel the common suffix length. Next, for an arbitrary valid index i of s1, show s1[i] == s2[i]. The equal concatenated sequences have equal values at i, and because i is within the prefix length, each concatenation's value at i reduces to the corresponding prefix element. With equal lengths and pointwise equality for all valid indices, conclude sequence equality via extensionality. Re-run Verus; the previous raw equality failure should be replaced by verification success or by a more local length/index failure rather than the original assertion failure. Keep the function signature and specification unchanged.",
+  "evidence_refs": [
+    {
+      "source_id": "event:28",
+      "observation": "Verus reports that the current checkpoint fails specifically on the backward-direction raw assertion s1 == s2."
+    },
+    {
+      "source_id": "snapshot:60d0be0ba96b30331d55e0a185e4201f2db0eb064617f627aa6a739ed7c2b1e1",
+      "observation": "The checkpoint source shows the forward conditional was accepted, while the backward conditional contains only the failing raw equality assertion."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The original final proof with the same signature passed both Verus and Lynette, using length and pointwise prefix equality followed by extensionality rather than a direct raw equality assertion."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "No compatibility concern is supported for this checkpoint: its top-level imports and signature match the original input and the cleaned final proof, apart from proof-body changes."
+  ]
+}

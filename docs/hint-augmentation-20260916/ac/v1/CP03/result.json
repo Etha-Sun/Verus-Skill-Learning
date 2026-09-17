@@ -1,0 +1,26 @@
+{
+  "status": "SOLVED",
+  "timed_out": false,
+  "wall_seconds": 174.78793328488246,
+  "validation": {
+    "input_unchanged": true,
+    "skill_unchanged": true,
+    "candidate_sha256": "388127ba9cd0c49e882e105415ca11087308bbbea9bccab48d7df21aad5fbdbd",
+    "verus": {
+      "passed": true,
+      "returncode": 0,
+      "timed_out": false,
+      "wall_seconds": 1.6642100419849157,
+      "stdout": "verification results:: 1 verified, 0 errors\n",
+      "stderr": "warning: `#[is_variant]` is deprecated - use `->` or `matches` instead: https://verus-lang.github.io/verus/guide/datatypes_enum.html\n   --> ${EXPERIMENT_ROOT}/initial-skill-three-task/ac/v1/runs/bcf0292578550cb38451/CP03/workspace/candidate.rs:331:1\n    |\n331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\n\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n    --> ${EXPERIMENT_ROOT}/initial-skill-three-task/ac/v1/runs/bcf0292578550cb38451/CP03/workspace/candidate.rs:4983:5\n     |\n4983 |     assert forall |ex: Execution<ClusterState>| #[trigger] p.satisfied_by(ex) ==>\n     |     ^^^^^^\n     |\n     = help: If you didn't mean to assume the antecedent, we're very curious to hear why! To tell us, please open an issue on the Verus issue tracker on github with the title `Don't always make assert forall assume the antecedent`. If no one opens such an issue, we'll soon change the behavior of Verus to always assume the antecedent of the outermost implication\n\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n    --> ${EXPERIMENT_ROOT}/initial-skill-three-task/ac/v1/runs/bcf0292578550cb38451/CP03/workspace/candidate.rs:5012:5\n     |\n5012 |     assert forall |ex: Execution<ClusterState>| #[trigger] q_mid.satisfied_by(ex) ==>\n     |     ^^^^^^\n     |\n     = help: If you didn't mean to assume the antecedent, we're very curious to hear why! To tell us, please open an issue on the Verus issue tracker on github with the title `Don't always make assert forall assume the antecedent`. If no one opens such an issue, we'll soon change the behavior of Verus to always assume the antecedent of the outermost implication\n\nwarning: 3 warnings emitted\n\n"
+    },
+    "lynette": {
+      "passed": true,
+      "returncode": 0,
+      "timed_out": false,
+      "wall_seconds": 0.055121676065027714,
+      "stdout": "",
+      "stderr": ""
+    }
+  }
+}

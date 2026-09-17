@@ -1,0 +1,36 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "2e8d4902aeff38f279a32441c1c93304129198270934bcdf027a54fd5a7f4321",
+  "hint_text": "Your current failure is not the set equality itself: both choose expressions fail because their existential hypotheses are not available. In the first direction, the block proves an implication, but Verus does not automatically assume the antecedent (s1 + s2).map(f).contains(x) inside that block, so choose cannot establish a witness satisfying (s1 + s2).contains(a) && f(a) == x. The next objective is to make that membership hypothesis explicit before eliminating the existential. Put the witness elimination inside a branch guarded by the map-membership condition. Similarly, for the converse, guard on (s1.map(f) + s2.map(f)).contains(x) and then distinguish which image supplies the witness before choosing from s2. This should eliminate the cannot-prove-exists choose notes. After Verus passes, run Lynette; the current top-level use vstd::assert_sets_equal may be reported as a source difference, so prefer a fully qualified macro invocation instead.",
+  "evidence_refs": [
+    {
+      "source_id": "event:55",
+      "observation": "Verus reports cannot-prove-exists recommendataions at both choose sites and the following assertions fail."
+    },
+    {
+      "source_id": "snapshot:2e8d4902aeff38f279a32441c1c93304129198270934bcdf027a54fd5a7f4321",
+      "observation": "Checkpoint has no branch guarding the implication antecedents before the choose expressions."
+    },
+    {
+      "source_id": "event:57",
+      "observation": "The original actor identified that implication antecedents are not assumed in proof blocks and proposed explicit case splits."
+    },
+    {
+      "source_id": "snapshot:0ae8ba48626d43217adb6d18047e844d172be545c3ec8912c7cb5f4ff5ec8de9",
+      "observation": "Intermediate version with explicit antecedent branches verifies under Verus but still has the top-level assert_sets_equal import."
+    },
+    {
+      "source_id": "event:67",
+      "observation": "Lynette reports 'Files are different' when the top-level assert_sets_equal import is present."
+    },
+    {
+      "source_id": "snapshot:259626824a4f932dbe5c714b5d34985d700fa26787eda49fb7f1300d086fe563",
+      "observation": "Final proof uses a fully qualified macro invocation without the extra top-level import and passes both validators."
+    }
+  ],
+  "relation_to_original": "original_next_action",
+  "limitations": [
+    "event:57 is an actor explanation rather than a verifier diagnostic; the source snapshots and later Verus result provide stronger evidence.",
+    "The Lynette compatibility warning addresses a downstream issue not visible in the current Verus diagnostic."
+  ]
+}

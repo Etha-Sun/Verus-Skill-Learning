@@ -1,0 +1,29 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "844fc8829737d9f4bff3e2a8b920edacbf7ab92ae9616326fd990a81737351fe",
+  "hint_text": "Your two remaining failures are the semantic entailments `p.entails(tla_exists(p_resp))` and `q_mid.entails(tla_exists(p_req))`. The surrounding `leads_to` composition is already present; Verus sees the bundled existential state predicates but cannot automatically choose a message witness satisfying the stronger per-message predicate used by `tla_exists`. Next, prove each entailment by expanding it over an arbitrary execution and naming the witness explicitly from the head state. For the first: from `p`'s list-response existential, select the response that is in flight, matches the pending list request, and carries the OK-list-pods payload; then establish the concrete condition `resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step` and conclude `p_resp(resp_msg)` holds on that execution. For the second: from `q_mid`'s create-request conditions, select the message that is the controller's pending create-pod request and satisfies `AfterCreatePod(d)`; then establish the concrete request predicate and `p_req(req_msg)`. Re-run Verus after both expansions. If you write `assert forall`, use `implies` for the antecedent. The deprecation warning is pre-existing and not the blocker.",
+  "evidence_refs": [
+    {
+      "source_id": "event:84",
+      "observation": "Verus reports the checkpoint's only errors as the two assertion failures: `p.entails(tla_exists(p_resp))` and `q_mid.entails(tla_exists(p_req))`."
+    },
+    {
+      "source_id": "snapshot:844fc8829737d9f4bff3e2a8b920edacbf7ab92ae9616326fd990a81737351fe",
+      "observation": "The checkpoint defines the intermediate temporal predicates but still asserts the two existential entailments directly, without explicit message-witness extraction."
+    },
+    {
+      "source_id": "event:111",
+      "observation": "A later repair that expands the entailments and names the `resp_msg` and `req_msg` witnesses explicitly is verified by Verus with 0 errors."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The final source with explicit witness proof passes both Verus and Lynette."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "No Lynette observation exists for checkpoint 844fc8829737d9f4bff3e2a8b920edacbf7ab92ae9616326fd990a81737351fe; the final passing Lynette result does not establish that this checkpoint itself passed Lynette.",
+    "The checkpoint differs from the input only inside the proof body, so no structural compatibility concern is supported.",
+    "The suggested witness strategy is supported by a later verified repair, not by a verifier run on this exact checkpoint."
+  ]
+}

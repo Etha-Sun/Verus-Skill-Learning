@@ -1,0 +1,36 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "2a70fccc9015cc86f388213b51be57765ddb4226e6228c3fcc2133a9e90f2c8a",
+  "hint_text": "Verus is failing the single equality inside the set-extensionality macro because it cannot automatically relate the existential membership condition of (s1 + s2).map(f) to the disjunctive membership condition of s1.map(f) + s2.map(f). The next proof objective is to discharge the extensionality argument as two separate implications. For left-to-right, when x is in the left image, unfold that membership to obtain a witness a in s1 + s2 with f(a) = x, then split on whether a lies in s1 or s2 and use the corresponding image membership to prove x is in the right union. For right-to-left, assume x is in the right union and split on which image witnesses it, then reuse that witness to prove x is in the left image. Important: put the antecedent into context with an explicit case split before using choose; otherwise Verus cannot prove the witness exists. Also avoid the extra top-level import for the extensionality macro in the final candidate, because it changes generated Rust compared with input.rs; call the macro by an absolute path instead.",
+  "evidence_refs": [
+    {
+      "source_id": "event:40",
+      "observation": "Verus fails the current direct boolean equality assertion at line 11."
+    },
+    {
+      "source_id": "snapshot:2a70fccc9015cc86f388213b51be57765ddb4226e6228c3fcc2133a9e90f2c8a",
+      "observation": "Checkpoint has a top-level macro import and a single equality inside assert_sets_equal."
+    },
+    {
+      "source_id": "event:54",
+      "observation": "A later direct choose attempt fails because the witness existence condition cannot be proved without an explicit antecedent case split."
+    },
+    {
+      "source_id": "event:62",
+      "observation": "The later version with separate implication directions and explicit antecedent splits verifies."
+    },
+    {
+      "source_id": "event:67",
+      "observation": "Lynette rejects the candidate with the extra top-level import because generated Rust differs."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The final proof, using an absolute macro path and no extra import, passes both Verus and Lynette."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "The hint synthesizes the later successful strategy but does not guarantee exact syntactic choices at this checkpoint.",
+    "The continuation solver still needs to determine the precise Verus syntax for implication proof blocks and witness handling."
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "844fc8829737d9f4bff3e2a8b920edacbf7ab92ae9616326fd990a81737351fe",
+  "hint_text": "The remaining two failures are witness-introduction goals for `tla_exists`, not complex temporal-reasoning gaps. The high-level composition structure is already present. For `p.entails(tla_exists(p_resp))`, reason over an arbitrary execution whose head satisfies `p`. That head gives `exists_resp_in_flight_at_after_list_pods_step`, whose definition already contains an existential response message with the in-flight, response-match, and OK-list-response conditions. Bind that existing response message as a named witness, then show it satisfies the exact pointwise predicate behind `p_resp`; the `num_diff_pods_is` part follows from `p`. For `q_mid.entails(tla_exists(p_req))`, do the analogous step: the head satisfying `q_mid` gives `pending_req_in_flight_at_after_create_pod_step`, whose definition contains the pending in-flight create request and the `AfterCreatePod(d)` step. Bind that request as the witness and show it satisfies the pointwise predicate behind `p_req`. After these witness introductions, the existing exists-intro and leads-to-trans rules should close the main goal. Re-run Verus: the two previously failing entailments should pass, leaving only any pre-existing trigger notes.",
+  "evidence_refs": [
+    {
+      "source_id": "event:84",
+      "observation": "The checkpoint Verus run fails only at the assertions `p.entails(tla_exists(p_resp))` and `q_mid.entails(tla_exists(p_req))` after the earlier trigger-inference issue was addressed."
+    },
+    {
+      "source_id": "event:110",
+      "observation": "A later candidate that expands the two entailments and explicitly binds existential witnesses succeeds under Verus."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The final candidate passes both Verus and Lynette; this validates the later repair, not the current failing checkpoint."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "The later success shows explicit witness extraction was sufficient in the original trajectory, but does not guarantee the same proof shape is required or will be accepted without adjustment."
+  ]
+}

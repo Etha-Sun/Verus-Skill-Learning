@@ -1,0 +1,28 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+  "hint_text": "The immediate blocker is a macro-scope error: the set-equality macro is not in scope, so Verus stops before checking the proof. Make the macro reachable, but avoid adding a new top-level import just for it if possible; a recorded attempt with that import passed Verus but failed Lynette's generated-Rust comparison, while a qualified vstd-path invocation later passed both. After it compiles, the current single membership-equality assertion is insufficient. The next proof objective is set extensionality by proving the two membership directions separately for an arbitrary x. For x in (s1 + s2).map(f), explicitly assume/branch on that antecedent, extract a witness a with f(a)=x and a in s1 or s2, then case split on which set contains a and rebuild membership in the corresponding image. Prove the reverse direction similarly, branching on whether x comes from s1.map(f) or s2.map(f). Run Verus after the logical change and run Lynette to check generated-Rust equivalence.",
+  "evidence_refs": [
+    {
+      "source_id": "event:33",
+      "observation": "Current checkpoint fails because assert_sets_equal macro is not in scope."
+    },
+    {
+      "source_id": "event:39",
+      "observation": "In the following imported-macro state, the body's single membership equality assertion failed."
+    },
+    {
+      "source_id": "event:68",
+      "observation": "A later state with an added top-level import passed Verus but Lynette compare reported Files are different."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The final qualified-path proof passed both Verus and Lynette."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "The Lynette top-level-import hazard is observed only for the later imported-macro state, not directly for this checkpoint.",
+    "The current checkpoint has not yet had Lynette run."
+  ]
+}

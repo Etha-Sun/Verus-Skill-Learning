@@ -1,0 +1,27 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "d45b86c8803e19a97def4d07a48b44552448aa2ad87d740ec3c7c7738437fd77",
+  "hint_text": "The Verus diagnostic is a name-resolution failure: the proof calls two guessed vstd::seq_lib lemmas for concatenation length and indexing, but those names do not exist. Do not hunt for similarly named helpers. In the branch where s1 + suffix == s2 + suffix, prove the needed facts directly from sequence concatenation. First derive s1.len() == s2.len(): equality of the concatenated sequences gives equal lengths, and concatenation length is the sum of component lengths. Then prove pointwise prefix equality: for any valid index i < s1.len(), the equality of the concatenated sequences gives equal values at i, and concatenation indexing gives those values as s1[i] and s2[i]. Equal lengths plus pointwise equality support extensional equality s1 == s2. Remove the unresolved helper calls, re-run Verus, and use any remaining assertion failure to identify whether those concatenation facts need a more explicit proof or available library statement.",
+  "evidence_refs": [
+    {
+      "source_id": "event:36",
+      "observation": "Verus reports E0425 cannot find function lemma_seq_add_len and lemma_seq_add_index."
+    },
+    {
+      "source_id": "snapshot:d45b86c8803e19a97def4d07a48b44552448aa2ad87d740ec3c7c7738437fd77",
+      "observation": "The checkpoint body calls those nonexistent helper lemmas in the backward direction."
+    },
+    {
+      "source_id": "final_proof",
+      "observation": "A later verified state removes those helper calls and uses direct concatenation length and indexing facts."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The final state passes both Verus and Lynette."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "Verus may require explicit assertions rather than silently unfolding the concatenation facts; if the direct facts are not accepted, inspect the available vstd sequence API rather than guessing lemma names."
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "46127e70fa8f86814c5f02cd29467c51f8cea7fe2e1f7aca193dc422d18e07f6",
+  "hint_text": "The empty proof body gives Verus nothing to establish the biconditional, so the postcondition is completely unproved. Split the proof into two implications. Forward: from s1 == s2, derive equality of s1 + suffix and s2 + suffix by congruence, since appending the same suffix preserves equality. Backward: start from s1 + suffix == s2 + suffix. First derive equal concatenation lengths, use the fact that concatenation length is the sum of component lengths, cancel suffix length, and obtain s1.len() == s2.len(). Then show the prefixes agree pointwise: for every index in s1's range, relate indexing into a concatenation at an index below the first sequence's length to indexing into the first sequence, so equality of the concatenations yields equality of corresponding prefix elements. Finish by sequence extensionality: equal lengths plus pointwise equality imply s1 == s2. Run Verus after the edit; the backward direction should fail if length cancellation or prefix index unfolding is missing. This checkpoint has no structural difference from input.rs requiring a separate compatibility fix.",
+  "evidence_refs": [
+    {
+      "source_id": "event:21",
+      "observation": "The checkpoint's empty body produced a Verus postcondition-not-satisfied error."
+    },
+    {
+      "source_id": "event:27",
+      "observation": "A later attempted direct assert of s1 == s2 under concatenation equality failed, showing the backward direction needs more than an immediate assertion."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The final verified proof, using length cancellation, pointwise prefix equality, and sequence extensionality, passes Verus and Lynette."
+    },
+    {
+      "source_id": "final_proof",
+      "observation": "The final proof body establishes the backward direction by deriving equal lengths and pointwise prefix equality from equal concatenations."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "No recorded Lynette check exists for this exact checkpoint; compatibility risk is not supported by the evidence."
+  ]
+}

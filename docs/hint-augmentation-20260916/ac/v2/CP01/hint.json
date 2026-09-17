@@ -1,0 +1,24 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "75e24ed1c3598e35dfecc597918242b87a63afc052eacd3a58d3759083998f34",
+  "hint_text": "The remaining failure is the empty body of lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp: Verus reports the final leads-to postcondition is not satisfied. The requires are already sufficient, and the two external-body lemmas already cover the message-level transitions: a specific OK list-pods response leads to a pending create-pod request, and a specific create-pod request leads to an OK create-pod response. The next proof objective is to connect those single-message lemmas to the lemma's existentially quantified initial and final state predicates. Introduce temporal intermediate predicates for the specific response message and the specific request message, instantiate the two external lemmas for arbitrary messages, and lift them with leads_to_exists_intro. Then prove the two existential-state entailments by selecting the existing in-flight message with a choose witness and reasserting the exact single-message predicate; avoid leaving the existential witness for the SMT solver to synthesize. Chain the resulting leads-to facts with leads_to_trans. Run Verus and check that the previously failing postcondition at the bottom of the target lemma disappears, then run Lynette.",
+  "evidence_refs": [
+    {
+      "source_id": "event:25",
+      "observation": "A Verus rerun of this identical checkpoint reports 'postcondition not satisfied' for lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp."
+    },
+    {
+      "source_id": "snapshot:75e24ed1c3598e35dfecc597918242b87a63afc052eacd3a58d3759083998f34",
+      "observation": "This checkpoint is identical to input.rs and the target proof body is empty."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The final verified candidate proves the target lemma with proof-only code inside the previously empty body and passes both Verus and Lynette."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "The actionable Verus diagnostic is from event:25 rather than the incomplete event:19 payload; both correspond to the same checkpoint hash.",
+    "No compatibility concern is supported for this checkpoint because it is identical to input.rs and the final proof only changed the target proof body."
+  ]
+}

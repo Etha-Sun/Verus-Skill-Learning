@@ -1,0 +1,32 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "e23ccebcbfeb5f9426e3a80c4d2b9b5ed171fe544735f67b3f2801cff4986798",
+  "hint_text": "The current failure is a trigger-syntax rejection: #[trigger] is attached to the whole existentially quantified condition involving a union membership and f(a) == x, but Verus triggers must be a function call, field access, or arithmetic operator. The immediate objective is to make each choose expression syntactically legal by removing that invalid trigger annotation. After that, the proof still has a logical gap: choose must establish that a witness exists, and inside the implication proof blocks the antecedent is not automatically assumed. Before selecting a witness, case-split explicitly on the relevant image-membership hypothesis so its existential witness is available. Then propagate that witness through the union and image definitions. For the image-of-union to union-of-images direction, split on whether the witness lies in s1 or s2; for the reverse direction, split on which image contains the value. Also keep the set-equality macro invocation fully qualified rather than adding a new top-level import to avoid deghosting differences later. Re-run Verus after the change; once it passes, run the comparison check.",
+  "evidence_refs": [
+    {
+      "source_id": "event:48",
+      "observation": "The checkpoint Verus diagnostic rejects the #[trigger] annotation on a Boolean conjunction, so the current blocker is syntactic."
+    },
+    {
+      "source_id": "event:54",
+      "observation": "After the trigger annotation was removed, Verus reported choose existence assertion failures, showing that the implication antecedents were not in scope."
+    },
+    {
+      "source_id": "event:62",
+      "observation": "Explicit case splits placed the membership hypotheses in context, after which the strengthened proof verified under Verus with the top-level import still present."
+    },
+    {
+      "source_id": "event:67",
+      "observation": "Lynette reported 'Files are different' while the top-level macro import remained, indicating that import created generated-file incompatibility."
+    },
+    {
+      "source_id": "event:84",
+      "observation": "Using a fully qualified macro invocation produced a combined Verus/Lynette command success in the later original trajectory."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "The checkpoint itself records only the trigger-syntax error; the further choose-witness and Lynette-compatibility issues are hindsight from later original trajectory events.",
+    "This hint describes a likely repair direction, not a guarantee that the next edit will pass both validators."
+  ]
+}

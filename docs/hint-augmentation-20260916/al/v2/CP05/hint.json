@@ -1,0 +1,31 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "47af552b63723b319867c9ccc3ba5aca4049602bdca7c2132294bf0e63b37d4e",
+  "hint_text": "The checkpoint currently fails at name resolution, not at the target logical obligation: the calls to lemma_seq_add_len and lemma_seq_add_index are not available in this Verus version, so no proof progress is being made. Instead proceed directly with the built-in concatenation facts: under the hypothesis that s1 + suffix equals s2 + suffix, first obtain that their lengths are equal and that the length of a concatenation is the sum of component lengths, hence s1 and s2 have equal length. Then, for any index i in the prefix range, use the fact that indexing the concatenation at i yields the original prefix element for both sides; this gives pointwise equality of s1 and s2. Close by sequence extensionality. After removing the nonexistent lemma calls, rerun Verus; success would be 1 verified, 0 errors. The extra seq_lib import is currently only an unused-import warning in Verus, but remove it once it is no longer used and run Lynette on the cleaned candidate rather than assuming it is safe.",
+  "evidence_refs": [
+    {
+      "source_id": "event:55",
+      "observation": "Verus reports E0599 that lemma_seq_add_len and lemma_seq_add_index are not methods on Seq, plus an unused import warning."
+    },
+    {
+      "source_id": "snapshot:47af552b63723b319867c9ccc3ba5aca4049602bdca7c2132294bf0e63b37d4e",
+      "observation": "Checkpoint still contains the nonexistent method calls and the extra vstd::seq_lib import."
+    },
+    {
+      "source_id": "snapshot:0545d14072735e4060ce6040818c7932dc35cf557136050dc3ba8a427289c239",
+      "observation": "Final verified source avoids those method calls and drops the seq_lib import while proving the same postcondition."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "Final source passes both Verus and Lynette."
+    },
+    {
+      "source_id": "original_task",
+      "observation": "Original input.rs did not include the extra vstd::seq_lib import."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "No Lynette failure was recorded for the current checkpoint; the import-related compatibility reminder is an untested potential risk inferred from later cleanup and final success."
+  ]
+}

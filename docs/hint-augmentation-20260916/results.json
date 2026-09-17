@@ -1,0 +1,800 @@
+[
+  {
+    "project": "ir",
+    "version": "v1",
+    "checkpoint": 1,
+    "passed": true,
+    "actor_output_tokens": 9201,
+    "hint_usage": {
+      "prompt_tokens": 38098,
+      "completion_tokens": 2058,
+      "prompt_cache_hit_tokens": 38016,
+      "prompt_cache_miss_tokens": 82,
+      "reasoning_tokens": 1543,
+      "total_tokens": 40156
+    },
+    "source_edit_count": 1,
+    "skill_read_events": [
+      18
+    ],
+    "checkpoint_sha256": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+    "final_sha256": "d8d1db99ac31a866b0dc524c764cf8753f9a7f6e7819942b9e3f0d943a4d937e"
+  },
+  {
+    "project": "ir",
+    "version": "v1",
+    "checkpoint": 2,
+    "passed": true,
+    "actor_output_tokens": 8408,
+    "hint_usage": {
+      "prompt_tokens": 38101,
+      "completion_tokens": 3017,
+      "prompt_cache_hit_tokens": 38016,
+      "prompt_cache_miss_tokens": 85,
+      "reasoning_tokens": 2414,
+      "total_tokens": 41118
+    },
+    "source_edit_count": 2,
+    "skill_read_events": [
+      11
+    ],
+    "checkpoint_sha256": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+    "final_sha256": "d8d1db99ac31a866b0dc524c764cf8753f9a7f6e7819942b9e3f0d943a4d937e"
+  },
+  {
+    "project": "ir",
+    "version": "v1",
+    "checkpoint": 3,
+    "passed": true,
+    "actor_output_tokens": 6449,
+    "hint_usage": {
+      "prompt_tokens": 38085,
+      "completion_tokens": 3218,
+      "prompt_cache_hit_tokens": 38016,
+      "prompt_cache_miss_tokens": 69,
+      "reasoning_tokens": 2588,
+      "total_tokens": 41303
+    },
+    "source_edit_count": 1,
+    "skill_read_events": [
+      18
+    ],
+    "checkpoint_sha256": "2a70fccc9015cc86f388213b51be57765ddb4226e6228c3fcc2133a9e90f2c8a",
+    "final_sha256": "8462d53cfe73099f156fceb4a834559250385569585be937ec2bf6c6fe6f933a"
+  },
+  {
+    "project": "ir",
+    "version": "v1",
+    "checkpoint": 4,
+    "passed": true,
+    "actor_output_tokens": 16649,
+    "hint_usage": {
+      "prompt_tokens": 38427,
+      "completion_tokens": 2835,
+      "prompt_cache_hit_tokens": 38400,
+      "prompt_cache_miss_tokens": 27,
+      "reasoning_tokens": 2239,
+      "total_tokens": 41262
+    },
+    "source_edit_count": 1,
+    "skill_read_events": [
+      15
+    ],
+    "checkpoint_sha256": "e23ccebcbfeb5f9426e3a80c4d2b9b5ed171fe544735f67b3f2801cff4986798",
+    "final_sha256": "707c695ab86846c8fef9b2d822e0e7db8b40b09b661740666b550aea7b741f53"
+  },
+  {
+    "project": "ir",
+    "version": "v1",
+    "checkpoint": 5,
+    "passed": true,
+    "actor_output_tokens": 7167,
+    "hint_usage": {
+      "prompt_tokens": 38986,
+      "completion_tokens": 2232,
+      "prompt_cache_hit_tokens": 38912,
+      "prompt_cache_miss_tokens": 74,
+      "reasoning_tokens": 1548,
+      "total_tokens": 41218
+    },
+    "source_edit_count": 1,
+    "skill_read_events": [
+      6
+    ],
+    "checkpoint_sha256": "2e8d4902aeff38f279a32441c1c93304129198270934bcdf027a54fd5a7f4321",
+    "final_sha256": "d8d1db99ac31a866b0dc524c764cf8753f9a7f6e7819942b9e3f0d943a4d937e"
+  },
+  {
+    "project": "ir",
+    "version": "v1",
+    "checkpoint": 6,
+    "passed": true,
+    "actor_output_tokens": 3076,
+    "hint_usage": {
+      "prompt_tokens": 38300,
+      "completion_tokens": 2848,
+      "prompt_cache_hit_tokens": 38272,
+      "prompt_cache_miss_tokens": 28,
+      "reasoning_tokens": 2255,
+      "total_tokens": 41148
+    },
+    "source_edit_count": 1,
+    "skill_read_events": [
+      5
+    ],
+    "checkpoint_sha256": "0ae8ba48626d43217adb6d18047e844d172be545c3ec8912c7cb5f4ff5ec8de9",
+    "final_sha256": "259626824a4f932dbe5c714b5d34985d700fa26787eda49fb7f1300d086fe563"
+  },
+  {
+    "project": "ir",
+    "version": "v2",
+    "checkpoint": 1,
+    "passed": true,
+    "actor_output_tokens": 8635,
+    "hint_usage": {
+      "prompt_tokens": 38545,
+      "completion_tokens": 3538,
+      "prompt_cache_hit_tokens": 38528,
+      "prompt_cache_miss_tokens": 17,
+      "reasoning_tokens": 2882,
+      "total_tokens": 42083
+    },
+    "source_edit_count": 2,
+    "skill_read_events": [
+      17
+    ],
+    "checkpoint_sha256": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+    "final_sha256": "d8d1db99ac31a866b0dc524c764cf8753f9a7f6e7819942b9e3f0d943a4d937e"
+  },
+  {
+    "project": "ir",
+    "version": "v2",
+    "checkpoint": 2,
+    "passed": true,
+    "actor_output_tokens": 7313,
+    "hint_usage": {
+      "prompt_tokens": 38548,
+      "completion_tokens": 3027,
+      "prompt_cache_hit_tokens": 38528,
+      "prompt_cache_miss_tokens": 20,
+      "reasoning_tokens": 2595,
+      "total_tokens": 41575
+    },
+    "source_edit_count": 2,
+    "skill_read_events": [
+      9
+    ],
+    "checkpoint_sha256": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+    "final_sha256": "ac9fefd12e3ced9a2d4c4d217de256f0e8f02d7d77923128fc5a8476a88dc674"
+  },
+  {
+    "project": "ir",
+    "version": "v2",
+    "checkpoint": 3,
+    "passed": true,
+    "actor_output_tokens": 10562,
+    "hint_usage": {
+      "prompt_tokens": 38532,
+      "completion_tokens": 2477,
+      "prompt_cache_hit_tokens": 38528,
+      "prompt_cache_miss_tokens": 4,
+      "reasoning_tokens": 1890,
+      "total_tokens": 41009
+    },
+    "source_edit_count": 1,
+    "skill_read_events": [
+      21
+    ],
+    "checkpoint_sha256": "2a70fccc9015cc86f388213b51be57765ddb4226e6228c3fcc2133a9e90f2c8a",
+    "final_sha256": "d8d1db99ac31a866b0dc524c764cf8753f9a7f6e7819942b9e3f0d943a4d937e"
+  },
+  {
+    "project": "ir",
+    "version": "v2",
+    "checkpoint": 4,
+    "passed": true,
+    "actor_output_tokens": 14265,
+    "hint_usage": {
+      "prompt_tokens": 38874,
+      "completion_tokens": 2993,
+      "prompt_cache_hit_tokens": 38784,
+      "prompt_cache_miss_tokens": 90,
+      "reasoning_tokens": 2373,
+      "total_tokens": 41867
+    },
+    "source_edit_count": 3,
+    "skill_read_events": [
+      22
+    ],
+    "checkpoint_sha256": "e23ccebcbfeb5f9426e3a80c4d2b9b5ed171fe544735f67b3f2801cff4986798",
+    "final_sha256": "d8015a56473c5f66e95e63d0f25dc2c3ee9683e7ac5b9f0229f9b6c2f2d84eaa"
+  },
+  {
+    "project": "ir",
+    "version": "v2",
+    "checkpoint": 5,
+    "passed": true,
+    "actor_output_tokens": 6281,
+    "hint_usage": {
+      "prompt_tokens": 39433,
+      "completion_tokens": 3476,
+      "prompt_cache_hit_tokens": 39424,
+      "prompt_cache_miss_tokens": 9,
+      "reasoning_tokens": 2788,
+      "total_tokens": 42909
+    },
+    "source_edit_count": 2,
+    "skill_read_events": [
+      12
+    ],
+    "checkpoint_sha256": "2e8d4902aeff38f279a32441c1c93304129198270934bcdf027a54fd5a7f4321",
+    "final_sha256": "c4152fb470bfcdd42b40635abfe7b4dd8cca827a322f0feef7d4b24d293011f3"
+  },
+  {
+    "project": "ir",
+    "version": "v2",
+    "checkpoint": 6,
+    "passed": true,
+    "actor_output_tokens": 3601,
+    "hint_usage": {
+      "prompt_tokens": 38747,
+      "completion_tokens": 2605,
+      "prompt_cache_hit_tokens": 38656,
+      "prompt_cache_miss_tokens": 91,
+      "reasoning_tokens": 2019,
+      "total_tokens": 41352
+    },
+    "source_edit_count": 1,
+    "skill_read_events": [
+      12
+    ],
+    "checkpoint_sha256": "0ae8ba48626d43217adb6d18047e844d172be545c3ec8912c7cb5f4ff5ec8de9",
+    "final_sha256": "259626824a4f932dbe5c714b5d34985d700fa26787eda49fb7f1300d086fe563"
+  },
+  {
+    "project": "ac",
+    "version": "v1",
+    "checkpoint": 1,
+    "passed": false,
+    "actor_output_tokens": 36977,
+    "hint_usage": {
+      "prompt_tokens": 234418,
+      "completion_tokens": 2537,
+      "prompt_cache_hit_tokens": 234368,
+      "prompt_cache_miss_tokens": 50,
+      "reasoning_tokens": 1957,
+      "total_tokens": 236955
+    },
+    "source_edit_count": 18,
+    "skill_read_events": [
+      19
+    ],
+    "checkpoint_sha256": "75e24ed1c3598e35dfecc597918242b87a63afc052eacd3a58d3759083998f34",
+    "final_sha256": "17e337dff1596235771e1a04a7f9fa9ea0933bf033ad52c7954672422ad11df6"
+  },
+  {
+    "project": "ac",
+    "version": "v1",
+    "checkpoint": 2,
+    "passed": true,
+    "actor_output_tokens": 24777,
+    "hint_usage": {
+      "prompt_tokens": 235493,
+      "completion_tokens": 3012,
+      "prompt_cache_hit_tokens": 235392,
+      "prompt_cache_miss_tokens": 101,
+      "reasoning_tokens": 2430,
+      "total_tokens": 238505
+    },
+    "source_edit_count": 7,
+    "skill_read_events": [
+      9
+    ],
+    "checkpoint_sha256": "16247238179ed015bfc0a306031d2cb040126ee48125b9d8e40d575cd35d89ac",
+    "final_sha256": "7f2dcf830db1077b48df08cfcc7cd720e293ca55b8758a581b6c7ad8d4c3adb2"
+  },
+  {
+    "project": "ac",
+    "version": "v1",
+    "checkpoint": 3,
+    "passed": true,
+    "actor_output_tokens": 10609,
+    "hint_usage": {
+      "prompt_tokens": 235823,
+      "completion_tokens": 2477,
+      "prompt_cache_hit_tokens": 235776,
+      "prompt_cache_miss_tokens": 47,
+      "reasoning_tokens": 1934,
+      "total_tokens": 238300
+    },
+    "source_edit_count": 2,
+    "skill_read_events": [
+      11
+    ],
+    "checkpoint_sha256": "844fc8829737d9f4bff3e2a8b920edacbf7ab92ae9616326fd990a81737351fe",
+    "final_sha256": "388127ba9cd0c49e882e105415ca11087308bbbea9bccab48d7df21aad5fbdbd"
+  },
+  {
+    "project": "ac",
+    "version": "v1",
+    "checkpoint": 4,
+    "passed": true,
+    "actor_output_tokens": 16692,
+    "hint_usage": {
+      "prompt_tokens": 236868,
+      "completion_tokens": 2724,
+      "prompt_cache_hit_tokens": 236800,
+      "prompt_cache_miss_tokens": 68,
+      "reasoning_tokens": 2227,
+      "total_tokens": 239592
+    },
+    "source_edit_count": 5,
+    "skill_read_events": [
+      8
+    ],
+    "checkpoint_sha256": "0963082db4e15ee70a098a78f23e8849b06e4a2b49d3dda62432b863a34d6363",
+    "final_sha256": "9743ea157b5b0cb9ba1425de01406e3dc7dad446b505d3f998f6990c15949b99"
+  },
+  {
+    "project": "ac",
+    "version": "v1",
+    "checkpoint": 5,
+    "passed": true,
+    "actor_output_tokens": 13864,
+    "hint_usage": {
+      "prompt_tokens": 236222,
+      "completion_tokens": 2250,
+      "prompt_cache_hit_tokens": 236160,
+      "prompt_cache_miss_tokens": 62,
+      "reasoning_tokens": 1606,
+      "total_tokens": 238472
+    },
+    "source_edit_count": 2,
+    "skill_read_events": [
+      15
+    ],
+    "checkpoint_sha256": "1702f33894745bc23fc78fc1094baa37d9fc69fd65b2097a11da93ff9698b58d",
+    "final_sha256": "1dea5758d4dc314184b99f61d31d076df23ab9bc8a5455063068498c7c75302a"
+  },
+  {
+    "project": "ac",
+    "version": "v1",
+    "checkpoint": 6,
+    "passed": true,
+    "actor_output_tokens": 3758,
+    "hint_usage": {
+      "prompt_tokens": 236290,
+      "completion_tokens": 2848,
+      "prompt_cache_hit_tokens": 236288,
+      "prompt_cache_miss_tokens": 2,
+      "reasoning_tokens": 2324,
+      "total_tokens": 239138
+    },
+    "source_edit_count": 1,
+    "skill_read_events": [
+      16
+    ],
+    "checkpoint_sha256": "adb44d379710c7cba2b4ba708dd75575c003f4af7b824fc0eedeb4932142a016",
+    "final_sha256": "4d57461caca28fab290030b2ff89239a231df4804f628e97b73828324b92a7fa"
+  },
+  {
+    "project": "ac",
+    "version": "v2",
+    "checkpoint": 1,
+    "passed": true,
+    "actor_output_tokens": 16735,
+    "hint_usage": {
+      "prompt_tokens": 234865,
+      "completion_tokens": 3336,
+      "prompt_cache_hit_tokens": 234752,
+      "prompt_cache_miss_tokens": 113,
+      "reasoning_tokens": 2775,
+      "total_tokens": 238201
+    },
+    "source_edit_count": 5,
+    "skill_read_events": [
+      11
+    ],
+    "checkpoint_sha256": "75e24ed1c3598e35dfecc597918242b87a63afc052eacd3a58d3759083998f34",
+    "final_sha256": "9892e13cdf9bc85042560d12fae8bd78561556947819e5059c5996a6524df64f"
+  },
+  {
+    "project": "ac",
+    "version": "v2",
+    "checkpoint": 2,
+    "passed": true,
+    "actor_output_tokens": 11723,
+    "hint_usage": {
+      "prompt_tokens": 235940,
+      "completion_tokens": 2699,
+      "prompt_cache_hit_tokens": 235904,
+      "prompt_cache_miss_tokens": 36,
+      "reasoning_tokens": 2094,
+      "total_tokens": 238639
+    },
+    "source_edit_count": 5,
+    "skill_read_events": [
+      11
+    ],
+    "checkpoint_sha256": "16247238179ed015bfc0a306031d2cb040126ee48125b9d8e40d575cd35d89ac",
+    "final_sha256": "208a552c7a9cc67ede60ae3db1f8855cc992770b122772e8ef19c3a3c71032f7"
+  },
+  {
+    "project": "ac",
+    "version": "v2",
+    "checkpoint": 3,
+    "passed": false,
+    "actor_output_tokens": 33852,
+    "hint_usage": {
+      "prompt_tokens": 236270,
+      "completion_tokens": 3437,
+      "prompt_cache_hit_tokens": 236160,
+      "prompt_cache_miss_tokens": 110,
+      "reasoning_tokens": 2734,
+      "total_tokens": 239707
+    },
+    "source_edit_count": 11,
+    "skill_read_events": [
+      11
+    ],
+    "checkpoint_sha256": "844fc8829737d9f4bff3e2a8b920edacbf7ab92ae9616326fd990a81737351fe",
+    "final_sha256": "dd5c040068162d7a14a5e442ffd781d1e84ae4520e808e43b57903ca5190976c"
+  },
+  {
+    "project": "ac",
+    "version": "v2",
+    "checkpoint": 4,
+    "passed": true,
+    "actor_output_tokens": 13338,
+    "hint_usage": {
+      "prompt_tokens": 237315,
+      "completion_tokens": 2693,
+      "prompt_cache_hit_tokens": 237312,
+      "prompt_cache_miss_tokens": 3,
+      "reasoning_tokens": 2051,
+      "total_tokens": 240008
+    },
+    "source_edit_count": 4,
+    "skill_read_events": [
+      12
+    ],
+    "checkpoint_sha256": "0963082db4e15ee70a098a78f23e8849b06e4a2b49d3dda62432b863a34d6363",
+    "final_sha256": "342156fbb27638936227b59812c4d74ae8cd3bc4cddde8f7026dd80309aac714"
+  },
+  {
+    "project": "ac",
+    "version": "v2",
+    "checkpoint": 5,
+    "passed": true,
+    "actor_output_tokens": 11692,
+    "hint_usage": {
+      "prompt_tokens": 236669,
+      "completion_tokens": 3130,
+      "prompt_cache_hit_tokens": 236544,
+      "prompt_cache_miss_tokens": 125,
+      "reasoning_tokens": 2398,
+      "total_tokens": 239799
+    },
+    "source_edit_count": 2,
+    "skill_read_events": [
+      15
+    ],
+    "checkpoint_sha256": "1702f33894745bc23fc78fc1094baa37d9fc69fd65b2097a11da93ff9698b58d",
+    "final_sha256": "50a00d31ac7f908719cc6932e4b1fb40424045cdd0828d5289f8161f4b143809"
+  },
+  {
+    "project": "ac",
+    "version": "v2",
+    "checkpoint": 6,
+    "passed": true,
+    "actor_output_tokens": 2838,
+    "hint_usage": {
+      "prompt_tokens": 236737,
+      "completion_tokens": 2467,
+      "prompt_cache_hit_tokens": 236672,
+      "prompt_cache_miss_tokens": 65,
+      "reasoning_tokens": 2022,
+      "total_tokens": 239204
+    },
+    "source_edit_count": 1,
+    "skill_read_events": [
+      11
+    ],
+    "checkpoint_sha256": "adb44d379710c7cba2b4ba708dd75575c003f4af7b824fc0eedeb4932142a016",
+    "final_sha256": "4d57461caca28fab290030b2ff89239a231df4804f628e97b73828324b92a7fa"
+  },
+  {
+    "project": "al",
+    "version": "v1",
+    "checkpoint": 1,
+    "passed": true,
+    "actor_output_tokens": 11474,
+    "hint_usage": {
+      "prompt_tokens": 34740,
+      "completion_tokens": 2138,
+      "prompt_cache_hit_tokens": 34688,
+      "prompt_cache_miss_tokens": 52,
+      "reasoning_tokens": 1632,
+      "total_tokens": 36878
+    },
+    "source_edit_count": 3,
+    "skill_read_events": [
+      14
+    ],
+    "checkpoint_sha256": "46127e70fa8f86814c5f02cd29467c51f8cea7fe2e1f7aca193dc422d18e07f6",
+    "final_sha256": "66f5b687b6b524d20efd2dd49aea9987047c69111ab742951a6b3c89687ee672"
+  },
+  {
+    "project": "al",
+    "version": "v1",
+    "checkpoint": 2,
+    "passed": true,
+    "actor_output_tokens": 8816,
+    "hint_usage": {
+      "prompt_tokens": 34662,
+      "completion_tokens": 1754,
+      "prompt_cache_hit_tokens": 34560,
+      "prompt_cache_miss_tokens": 102,
+      "reasoning_tokens": 1245,
+      "total_tokens": 36416
+    },
+    "source_edit_count": 1,
+    "skill_read_events": [
+      17
+    ],
+    "checkpoint_sha256": "60d0be0ba96b30331d55e0a185e4201f2db0eb064617f627aa6a739ed7c2b1e1",
+    "final_sha256": "0278b0418b55ae1c227ffada45574a718b2b0c604505dec49d2137fafa917ecf"
+  },
+  {
+    "project": "al",
+    "version": "v1",
+    "checkpoint": 3,
+    "passed": true,
+    "actor_output_tokens": 6950,
+    "hint_usage": {
+      "prompt_tokens": 35734,
+      "completion_tokens": 2141,
+      "prompt_cache_hit_tokens": 35712,
+      "prompt_cache_miss_tokens": 22,
+      "reasoning_tokens": 1686,
+      "total_tokens": 37875
+    },
+    "source_edit_count": 3,
+    "skill_read_events": [
+      18
+    ],
+    "checkpoint_sha256": "d45b86c8803e19a97def4d07a48b44552448aa2ad87d740ec3c7c7738437fd77",
+    "final_sha256": "e35e13db93cf605a672d4253c740a8623381e71a300ef9282f2fa41d39e42a20"
+  },
+  {
+    "project": "al",
+    "version": "v1",
+    "checkpoint": 4,
+    "passed": true,
+    "actor_output_tokens": 15920,
+    "hint_usage": {
+      "prompt_tokens": 35114,
+      "completion_tokens": 2190,
+      "prompt_cache_hit_tokens": 35072,
+      "prompt_cache_miss_tokens": 42,
+      "reasoning_tokens": 1694,
+      "total_tokens": 37304
+    },
+    "source_edit_count": 5,
+    "skill_read_events": [
+      6
+    ],
+    "checkpoint_sha256": "d1340f03d115600b5143d5276ac1f30f21970082f17de33f37cbba085bee6e0c",
+    "final_sha256": "215fbc0f339ae96bbbab3c220cfc0267ffa70655d9b0ac78315a62c301ace712"
+  },
+  {
+    "project": "al",
+    "version": "v1",
+    "checkpoint": 5,
+    "passed": true,
+    "actor_output_tokens": 8039,
+    "hint_usage": {
+      "prompt_tokens": 35724,
+      "completion_tokens": 2798,
+      "prompt_cache_hit_tokens": 35712,
+      "prompt_cache_miss_tokens": 12,
+      "reasoning_tokens": 2261,
+      "total_tokens": 38522
+    },
+    "source_edit_count": 1,
+    "skill_read_events": [
+      11
+    ],
+    "checkpoint_sha256": "47af552b63723b319867c9ccc3ba5aca4049602bdca7c2132294bf0e63b37d4e",
+    "final_sha256": "90b6fb61791114400f2811f26746f6aacded332c79765ce0808f0b2794b20c50"
+  },
+  {
+    "project": "al",
+    "version": "v1",
+    "checkpoint": 6,
+    "passed": true,
+    "actor_output_tokens": 10382,
+    "hint_usage": {
+      "prompt_tokens": 34872,
+      "completion_tokens": 1771,
+      "prompt_cache_hit_tokens": 34816,
+      "prompt_cache_miss_tokens": 56,
+      "reasoning_tokens": 1262,
+      "total_tokens": 36643
+    },
+    "source_edit_count": 3,
+    "skill_read_events": [
+      21
+    ],
+    "checkpoint_sha256": "be4722b8e8360dfc957facb1c1631c9abaf0a85581611c3a3d47cd7c17c64a15",
+    "final_sha256": "ea9a05583201de1b9652847e37007661f3192fd8b103604d2213256ea76f3d76"
+  },
+  {
+    "project": "al",
+    "version": "v1",
+    "checkpoint": 7,
+    "passed": true,
+    "actor_output_tokens": 3718,
+    "hint_usage": {
+      "prompt_tokens": 34873,
+      "completion_tokens": 1595,
+      "prompt_cache_hit_tokens": 34816,
+      "prompt_cache_miss_tokens": 57,
+      "reasoning_tokens": 1204,
+      "total_tokens": 36468
+    },
+    "source_edit_count": 1,
+    "skill_read_events": [
+      15
+    ],
+    "checkpoint_sha256": "bde5e64835453eeaa53b2e00f06529efd071877d1d3cf54cd991fd50cfb13e02",
+    "final_sha256": "0545d14072735e4060ce6040818c7932dc35cf557136050dc3ba8a427289c239"
+  },
+  {
+    "project": "al",
+    "version": "v2",
+    "checkpoint": 1,
+    "passed": true,
+    "actor_output_tokens": 9994,
+    "hint_usage": {
+      "prompt_tokens": 35187,
+      "completion_tokens": 1684,
+      "prompt_cache_hit_tokens": 35072,
+      "prompt_cache_miss_tokens": 115,
+      "reasoning_tokens": 1165,
+      "total_tokens": 36871
+    },
+    "source_edit_count": 3,
+    "skill_read_events": [
+      33
+    ],
+    "checkpoint_sha256": "46127e70fa8f86814c5f02cd29467c51f8cea7fe2e1f7aca193dc422d18e07f6",
+    "final_sha256": "62ee1614e6b34e5d3cfdc6ac2f13ce6bf7c9e9e166f9cfbfe88bf5c756e5d31b"
+  },
+  {
+    "project": "al",
+    "version": "v2",
+    "checkpoint": 2,
+    "passed": true,
+    "actor_output_tokens": 5967,
+    "hint_usage": {
+      "prompt_tokens": 35109,
+      "completion_tokens": 2441,
+      "prompt_cache_hit_tokens": 35072,
+      "prompt_cache_miss_tokens": 37,
+      "reasoning_tokens": 1923,
+      "total_tokens": 37550
+    },
+    "source_edit_count": 1,
+    "skill_read_events": [
+      14
+    ],
+    "checkpoint_sha256": "60d0be0ba96b30331d55e0a185e4201f2db0eb064617f627aa6a739ed7c2b1e1",
+    "final_sha256": "e0a497972007facd03336737c04723102f153146da9adb7e766bb28608eea81f"
+  },
+  {
+    "project": "al",
+    "version": "v2",
+    "checkpoint": 3,
+    "passed": true,
+    "actor_output_tokens": 6053,
+    "hint_usage": {
+      "prompt_tokens": 36181,
+      "completion_tokens": 3165,
+      "prompt_cache_hit_tokens": 36096,
+      "prompt_cache_miss_tokens": 85,
+      "reasoning_tokens": 2563,
+      "total_tokens": 39346
+    },
+    "source_edit_count": 1,
+    "skill_read_events": [
+      5
+    ],
+    "checkpoint_sha256": "d45b86c8803e19a97def4d07a48b44552448aa2ad87d740ec3c7c7738437fd77",
+    "final_sha256": "d0dec7b181a59ba1f1352efbbe869ea3a1445118ac38931c58c3c04172d302cc"
+  },
+  {
+    "project": "al",
+    "version": "v2",
+    "checkpoint": 4,
+    "passed": true,
+    "actor_output_tokens": 13508,
+    "hint_usage": {
+      "prompt_tokens": 35561,
+      "completion_tokens": 4578,
+      "prompt_cache_hit_tokens": 35456,
+      "prompt_cache_miss_tokens": 105,
+      "reasoning_tokens": 4028,
+      "total_tokens": 40139
+    },
+    "source_edit_count": 3,
+    "skill_read_events": [
+      6
+    ],
+    "checkpoint_sha256": "d1340f03d115600b5143d5276ac1f30f21970082f17de33f37cbba085bee6e0c",
+    "final_sha256": "4bba64d248374c09465dfbc66eba147f47ac8af676f9647c8988eb002668e11b"
+  },
+  {
+    "project": "al",
+    "version": "v2",
+    "checkpoint": 5,
+    "passed": true,
+    "actor_output_tokens": 5575,
+    "hint_usage": {
+      "prompt_tokens": 36171,
+      "completion_tokens": 3154,
+      "prompt_cache_hit_tokens": 36096,
+      "prompt_cache_miss_tokens": 75,
+      "reasoning_tokens": 2553,
+      "total_tokens": 39325
+    },
+    "source_edit_count": 1,
+    "skill_read_events": [
+      6
+    ],
+    "checkpoint_sha256": "47af552b63723b319867c9ccc3ba5aca4049602bdca7c2132294bf0e63b37d4e",
+    "final_sha256": "2fb81b14f2c5a2e7cb742b8edddd8b9e88f5361b68d477b3bdddea38e322dda7"
+  },
+  {
+    "project": "al",
+    "version": "v2",
+    "checkpoint": 6,
+    "passed": true,
+    "actor_output_tokens": 8819,
+    "hint_usage": {
+      "prompt_tokens": 35319,
+      "completion_tokens": 3069,
+      "prompt_cache_hit_tokens": 35200,
+      "prompt_cache_miss_tokens": 119,
+      "reasoning_tokens": 2513,
+      "total_tokens": 38388
+    },
+    "source_edit_count": 2,
+    "skill_read_events": [
+      8
+    ],
+    "checkpoint_sha256": "be4722b8e8360dfc957facb1c1631c9abaf0a85581611c3a3d47cd7c17c64a15",
+    "final_sha256": "043affb92de7c99669398f556e034b1b3d3ddc30f0273bc822542b035931133e"
+  },
+  {
+    "project": "al",
+    "version": "v2",
+    "checkpoint": 7,
+    "passed": true,
+    "actor_output_tokens": 4225,
+    "hint_usage": {
+      "prompt_tokens": 35320,
+      "completion_tokens": 2032,
+      "prompt_cache_hit_tokens": 35200,
+      "prompt_cache_miss_tokens": 120,
+      "reasoning_tokens": 1485,
+      "total_tokens": 37352
+    },
+    "source_edit_count": 1,
+    "skill_read_events": [
+      17
+    ],
+    "checkpoint_sha256": "bde5e64835453eeaa53b2e00f06529efd071877d1d3cf54cd991fd50cfb13e02",
+    "final_sha256": "0545d14072735e4060ce6040818c7932dc35cf557136050dc3ba8a427289c239"
+  }
+]

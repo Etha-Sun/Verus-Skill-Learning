@@ -1,0 +1,39 @@
+{
+  "checkpoints": [
+    {
+      "event_index": 19,
+      "candidate_sha256": "75e24ed1c3598e35dfecc597918242b87a63afc052eacd3a58d3759083998f34",
+      "continue": true
+    },
+    {
+      "event_index": 77,
+      "candidate_sha256": "16247238179ed015bfc0a306031d2cb040126ee48125b9d8e40d575cd35d89ac",
+      "continue": true
+    },
+    {
+      "event_index": 84,
+      "candidate_sha256": "844fc8829737d9f4bff3e2a8b920edacbf7ab92ae9616326fd990a81737351fe",
+      "continue": true
+    },
+    {
+      "event_index": 92,
+      "candidate_sha256": "0963082db4e15ee70a098a78f23e8849b06e4a2b49d3dda62432b863a34d6363",
+      "continue": true
+    },
+    {
+      "event_index": 100,
+      "candidate_sha256": "1702f33894745bc23fc78fc1094baa37d9fc69fd65b2097a11da93ff9698b58d",
+      "continue": true
+    },
+    {
+      "event_index": 111,
+      "candidate_sha256": "4d57461caca28fab290030b2ff89239a231df4804f628e97b73828324b92a7fa",
+      "continue": false
+    },
+    {
+      "event_index": 123,
+      "candidate_sha256": "adb44d379710c7cba2b4ba708dd75575c003f4af7b824fc0eedeb4932142a016",
+      "continue": true
+    }
+  ]
+}

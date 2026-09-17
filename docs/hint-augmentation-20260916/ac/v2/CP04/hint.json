@@ -1,0 +1,28 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "0963082db4e15ee70a098a78f23e8849b06e4a2b49d3dda62432b863a34d6363",
+  "hint_text": "Verus is not assuming the antecedent of the two `assert forall` implications because they are written with `==>`. Consequently, inside the proof of `p.entails(tla_exists(p_resp))`, the antecedents `exists_resp_in_flight_at_after_list_pods_step(...)` and `num_diff_pods_is(...)` are not available, so those assertions fail. Change these proof-local implications to Verus's logical `implies` so the antecedent is assumed. Then use the assumed `p` to name a concrete response message satisfying the in-flight/response-match/ok-list-response conditions, and show that same message satisfies `resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step`, giving the `tla_exists(p_resp)` witness. Apply the same pattern to the later `q_mid.entails(tla_exists(p_req))`: name the concrete create-request message from `pending_req_in_flight_at_after_create_pod_step` and prove the stronger per-message predicate. Run Verus after the implication fix; any next failures should point to the witness-extraction step.",
+  "evidence_refs": [
+    {
+      "source_id": "event:92",
+      "observation": "Verus reports failures at the two assertions for p's conjuncts and warns that `==>` in `assert forall` does not assume the antecedent."
+    },
+    {
+      "source_id": "snapshot:0963082db4e15ee70a098a78f23e8849b06e4a2b49d3dda62432b863a34d6363",
+      "observation": "The checkpoint proof uses `==>` in the relevant assert-forall implications, so the antecedents are not available in the proof bodies."
+    },
+    {
+      "source_id": "event:99",
+      "observation": "After switching to `implies`, Verus no longer fails on the two p conjuncts, but instead fails on the existential witness assertion for the list response."
+    },
+    {
+      "source_id": "snapshot:4d57461caca28fab290030b2ff89239a231df4804f628e97b73828324b92a7fa",
+      "observation": "The final verified proof uses `implies` and chooses concrete response/request messages to close both existential entailments."
+    }
+  ],
+  "relation_to_original": "original_next_action",
+  "limitations": [
+    "No Lynette run is recorded for this checkpoint, so only the observed Verus proof failure is being diagnosed.",
+    "The witness-extraction part is supported by the later verified snapshot rather than by the current checkpoint's diagnostic."
+  ]
+}

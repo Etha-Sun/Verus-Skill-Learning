@@ -1,0 +1,29 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "adb44d379710c7cba2b4ba708dd75575c003f4af7b824fc0eedeb4932142a016",
+  "hint_text": "The current failure is syntactic, not a proof gap: Verus rejects two `#![auto]` trigger annotations inside `choose` witness expressions with `cannot find attribute auto in this scope`. These annotations were added only to quiet low-confidence trigger notes; in this Verus version, that annotation form is not accepted inside `choose` closures. The proof immediately before that change already verified the lemma with `1 verified, 0 errors`, producing only informational trigger notes on the two witness selections and the pre-existing `#[is_variant]` deprecation warning. Therefore, the next objective is to restore that verified structure by removing the two invalid `#![auto]` annotations while keeping the surrounding existential-witness extraction and leads-to composition unchanged. Re-run Verus and expect it to return to `1 verified, 0 errors` with only the same informational notes and warning; then re-run Lynette, which should still pass. Do not modify specifications, behavior, or the existing proof strategy.",
+  "evidence_refs": [
+    {
+      "source_id": "event:123",
+      "observation": "Verus diagnostic for the checkpoint reports two `cannot find attribute auto in this scope` errors inside the choose witness expressions, making the immediate failure invalid trigger-annotation syntax."
+    },
+    {
+      "source_id": "event:111",
+      "observation": "The immediately preceding candidate without those annotations verified with `verification results:: 1 verified, 0 errors`, showing the surrounding proof structure was already sound."
+    },
+    {
+      "source_id": "event:120",
+      "observation": "Lynette compare exited 0 on this checkpoint, so proof-only safety comparison is not the current blocker."
+    },
+    {
+      "source_id": "event:134",
+      "observation": "After the next edit removed the invalid annotations, Verus again reported `1 verified, 0 errors`."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The final candidate independently passed Verus and Lynette without the invalid `#![auto]` annotations in the two choose expressions."
+    }
+  ],
+  "relation_to_original": "original_next_action",
+  "limitations": []
+}

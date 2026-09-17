@@ -1,0 +1,899 @@
+[
+  {
+    "cp": 1,
+    "prefix": 2202,
+    "history": [
+      {
+        "event": 24,
+        "sha": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+        "tokens": 2202,
+        "score": 0.0,
+        "tier": 1
+      }
+    ],
+    "arms": {
+      "generated_hint": {
+        "cp": 1,
+        "history": [
+          {
+            "event": 24,
+            "sha": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+            "tokens": 2202,
+            "score": 0.0,
+            "tier": 1
+          }
+        ],
+        "prefix": 2202,
+        "scores": [
+          {
+            "event": 22,
+            "tokens": 3953,
+            "score": 0.0,
+            "tier": 1
+          },
+          {
+            "event": 76,
+            "tokens": 10468,
+            "score": 0.0,
+            "tier": 2
+          }
+        ],
+        "actor_output_tokens": 9201,
+        "hint_usage": {
+          "prompt_tokens": 38098,
+          "completion_tokens": 2058,
+          "prompt_cache_hit_tokens": 38016,
+          "prompt_cache_miss_tokens": 82,
+          "reasoning_tokens": 1543,
+          "total_tokens": 40156
+        },
+        "passed": true,
+        "total_path_output_tokens": 11403
+      },
+      "hint_v2": {
+        "cp": 1,
+        "history": [
+          {
+            "event": 24,
+            "sha": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+            "tokens": 2202,
+            "score": 0.0,
+            "tier": 1
+          }
+        ],
+        "prefix": 2202,
+        "scores": [
+          {
+            "event": 24,
+            "tokens": 4175,
+            "score": 0.0,
+            "tier": 1
+          },
+          {
+            "event": 66,
+            "tokens": 9334,
+            "score": 0.0,
+            "tier": 0
+          },
+          {
+            "event": 74,
+            "tokens": 9858,
+            "score": 0.0,
+            "tier": 2
+          }
+        ],
+        "actor_output_tokens": 8635,
+        "hint_usage": {
+          "prompt_tokens": 38545,
+          "completion_tokens": 3538,
+          "prompt_cache_hit_tokens": 38528,
+          "prompt_cache_miss_tokens": 17,
+          "reasoning_tokens": 2882,
+          "total_tokens": 42083
+        },
+        "passed": true,
+        "total_path_output_tokens": 10837
+      }
+    }
+  },
+  {
+    "cp": 2,
+    "prefix": 3892,
+    "history": [
+      {
+        "event": 24,
+        "sha": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+        "tokens": 2202,
+        "score": 0.0,
+        "tier": 1
+      },
+      {
+        "event": 33,
+        "sha": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+        "tokens": 3892,
+        "score": 0.0588235294117647,
+        "tier": 0
+      }
+    ],
+    "arms": {
+      "generated_hint": {
+        "cp": 2,
+        "history": [
+          {
+            "event": 24,
+            "sha": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+            "tokens": 2202,
+            "score": 0.0,
+            "tier": 1
+          },
+          {
+            "event": 33,
+            "sha": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+            "tokens": 3892,
+            "score": 0.0588235294117647,
+            "tier": 0
+          }
+        ],
+        "prefix": 3892,
+        "scores": [
+          {
+            "event": 21,
+            "tokens": 5672,
+            "score": 0.0588235294117647,
+            "tier": 0
+          },
+          {
+            "event": 30,
+            "tokens": 7008,
+            "score": 0.1176470588235294,
+            "tier": 1
+          },
+          {
+            "event": 56,
+            "tokens": 11408,
+            "score": 0.0,
+            "tier": 2
+          }
+        ],
+        "actor_output_tokens": 8408,
+        "hint_usage": {
+          "prompt_tokens": 38101,
+          "completion_tokens": 3017,
+          "prompt_cache_hit_tokens": 38016,
+          "prompt_cache_miss_tokens": 85,
+          "reasoning_tokens": 2414,
+          "total_tokens": 41118
+        },
+        "passed": true,
+        "total_path_output_tokens": 12300
+      },
+      "hint_v2": {
+        "cp": 2,
+        "history": [
+          {
+            "event": 24,
+            "sha": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+            "tokens": 2202,
+            "score": 0.0,
+            "tier": 1
+          },
+          {
+            "event": 33,
+            "sha": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+            "tokens": 3892,
+            "score": 0.0588235294117647,
+            "tier": 0
+          }
+        ],
+        "prefix": 3892,
+        "scores": [
+          {
+            "event": 13,
+            "tokens": 4936,
+            "score": 0.0588235294117647,
+            "tier": 0
+          },
+          {
+            "event": 22,
+            "tokens": 5798,
+            "score": 0.1176470588235294,
+            "tier": 1
+          },
+          {
+            "event": 51,
+            "tokens": 10208,
+            "score": 0.0,
+            "tier": 2
+          }
+        ],
+        "actor_output_tokens": 7313,
+        "hint_usage": {
+          "prompt_tokens": 38548,
+          "completion_tokens": 3027,
+          "prompt_cache_hit_tokens": 38528,
+          "prompt_cache_miss_tokens": 20,
+          "reasoning_tokens": 2595,
+          "total_tokens": 41575
+        },
+        "passed": true,
+        "total_path_output_tokens": 11205
+      }
+    }
+  },
+  {
+    "cp": 3,
+    "prefix": 4131,
+    "history": [
+      {
+        "event": 24,
+        "sha": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+        "tokens": 2202,
+        "score": 0.0,
+        "tier": 1
+      },
+      {
+        "event": 33,
+        "sha": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+        "tokens": 3892,
+        "score": 0.0588235294117647,
+        "tier": 0
+      },
+      {
+        "event": 40,
+        "sha": "2a70fccc9015cc86f388213b51be57765ddb4226e6228c3fcc2133a9e90f2c8a",
+        "tokens": 4131,
+        "score": 0.05714285714285715,
+        "tier": 1
+      }
+    ],
+    "arms": {
+      "generated_hint": {
+        "cp": 3,
+        "history": [
+          {
+            "event": 24,
+            "sha": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+            "tokens": 2202,
+            "score": 0.0,
+            "tier": 1
+          },
+          {
+            "event": 33,
+            "sha": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+            "tokens": 3892,
+            "score": 0.0588235294117647,
+            "tier": 0
+          },
+          {
+            "event": 40,
+            "sha": "2a70fccc9015cc86f388213b51be57765ddb4226e6228c3fcc2133a9e90f2c8a",
+            "tokens": 4131,
+            "score": 0.05714285714285715,
+            "tier": 1
+          }
+        ],
+        "prefix": 4131,
+        "scores": [
+          {
+            "event": 26,
+            "tokens": 6214,
+            "score": 0.05714285714285715,
+            "tier": 1
+          },
+          {
+            "event": 34,
+            "tokens": 9688,
+            "score": 0.8064516129032258,
+            "tier": 2
+          }
+        ],
+        "actor_output_tokens": 6449,
+        "hint_usage": {
+          "prompt_tokens": 38085,
+          "completion_tokens": 3218,
+          "prompt_cache_hit_tokens": 38016,
+          "prompt_cache_miss_tokens": 69,
+          "reasoning_tokens": 2588,
+          "total_tokens": 41303
+        },
+        "passed": true,
+        "total_path_output_tokens": 10580
+      },
+      "hint_v2": {
+        "cp": 3,
+        "history": [
+          {
+            "event": 24,
+            "sha": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+            "tokens": 2202,
+            "score": 0.0,
+            "tier": 1
+          },
+          {
+            "event": 33,
+            "sha": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+            "tokens": 3892,
+            "score": 0.0588235294117647,
+            "tier": 0
+          },
+          {
+            "event": 40,
+            "sha": "2a70fccc9015cc86f388213b51be57765ddb4226e6228c3fcc2133a9e90f2c8a",
+            "tokens": 4131,
+            "score": 0.05714285714285715,
+            "tier": 1
+          }
+        ],
+        "prefix": 4131,
+        "scores": [
+          {
+            "event": 25,
+            "tokens": 6155,
+            "score": 0.05714285714285715,
+            "tier": 1
+          },
+          {
+            "event": 82,
+            "tokens": 13688,
+            "score": 0.0,
+            "tier": 2
+          }
+        ],
+        "actor_output_tokens": 10562,
+        "hint_usage": {
+          "prompt_tokens": 38532,
+          "completion_tokens": 2477,
+          "prompt_cache_hit_tokens": 38528,
+          "prompt_cache_miss_tokens": 4,
+          "reasoning_tokens": 1890,
+          "total_tokens": 41009
+        },
+        "passed": true,
+        "total_path_output_tokens": 14693
+      }
+    }
+  },
+  {
+    "cp": 4,
+    "prefix": 9286,
+    "history": [
+      {
+        "event": 24,
+        "sha": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+        "tokens": 2202,
+        "score": 0.0,
+        "tier": 1
+      },
+      {
+        "event": 33,
+        "sha": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+        "tokens": 3892,
+        "score": 0.0588235294117647,
+        "tier": 0
+      },
+      {
+        "event": 40,
+        "sha": "2a70fccc9015cc86f388213b51be57765ddb4226e6228c3fcc2133a9e90f2c8a",
+        "tokens": 4131,
+        "score": 0.05714285714285715,
+        "tier": 1
+      },
+      {
+        "event": 48,
+        "sha": "e23ccebcbfeb5f9426e3a80c4d2b9b5ed171fe544735f67b3f2801cff4986798",
+        "tokens": 9286,
+        "score": 0.7796610169491526,
+        "tier": 0
+      }
+    ],
+    "arms": {
+      "generated_hint": {
+        "cp": 4,
+        "history": [
+          {
+            "event": 24,
+            "sha": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+            "tokens": 2202,
+            "score": 0.0,
+            "tier": 1
+          },
+          {
+            "event": 33,
+            "sha": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+            "tokens": 3892,
+            "score": 0.0588235294117647,
+            "tier": 0
+          },
+          {
+            "event": 40,
+            "sha": "2a70fccc9015cc86f388213b51be57765ddb4226e6228c3fcc2133a9e90f2c8a",
+            "tokens": 4131,
+            "score": 0.05714285714285715,
+            "tier": 1
+          },
+          {
+            "event": 48,
+            "sha": "e23ccebcbfeb5f9426e3a80c4d2b9b5ed171fe544735f67b3f2801cff4986798",
+            "tokens": 9286,
+            "score": 0.7796610169491526,
+            "tier": 0
+          }
+        ],
+        "prefix": 9286,
+        "scores": [
+          {
+            "event": 22,
+            "tokens": 11217,
+            "score": 0.7796610169491526,
+            "tier": 0
+          },
+          {
+            "event": 81,
+            "tokens": 24843,
+            "score": 0.6969696969696969,
+            "tier": 2
+          }
+        ],
+        "actor_output_tokens": 16649,
+        "hint_usage": {
+          "prompt_tokens": 38427,
+          "completion_tokens": 2835,
+          "prompt_cache_hit_tokens": 38400,
+          "prompt_cache_miss_tokens": 27,
+          "reasoning_tokens": 2239,
+          "total_tokens": 41262
+        },
+        "passed": true,
+        "total_path_output_tokens": 25935
+      },
+      "hint_v2": {
+        "cp": 4,
+        "history": [
+          {
+            "event": 24,
+            "sha": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+            "tokens": 2202,
+            "score": 0.0,
+            "tier": 1
+          },
+          {
+            "event": 33,
+            "sha": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+            "tokens": 3892,
+            "score": 0.0588235294117647,
+            "tier": 0
+          },
+          {
+            "event": 40,
+            "sha": "2a70fccc9015cc86f388213b51be57765ddb4226e6228c3fcc2133a9e90f2c8a",
+            "tokens": 4131,
+            "score": 0.05714285714285715,
+            "tier": 1
+          },
+          {
+            "event": 48,
+            "sha": "e23ccebcbfeb5f9426e3a80c4d2b9b5ed171fe544735f67b3f2801cff4986798",
+            "tokens": 9286,
+            "score": 0.7796610169491526,
+            "tier": 0
+          }
+        ],
+        "prefix": 9286,
+        "scores": [
+          {
+            "event": 26,
+            "tokens": 11514,
+            "score": 0.7796610169491526,
+            "tier": 0
+          },
+          {
+            "event": 73,
+            "tokens": 18678,
+            "score": 0.7796610169491526,
+            "tier": 1
+          },
+          {
+            "event": 81,
+            "tokens": 20915,
+            "score": 0.84375,
+            "tier": 2
+          },
+          {
+            "event": 94,
+            "tokens": 22641,
+            "score": 0.8888888888888888,
+            "tier": 2
+          }
+        ],
+        "actor_output_tokens": 14265,
+        "hint_usage": {
+          "prompt_tokens": 38874,
+          "completion_tokens": 2993,
+          "prompt_cache_hit_tokens": 38784,
+          "prompt_cache_miss_tokens": 90,
+          "reasoning_tokens": 2373,
+          "total_tokens": 41867
+        },
+        "passed": true,
+        "total_path_output_tokens": 23551
+      }
+    }
+  },
+  {
+    "cp": 5,
+    "prefix": 9612,
+    "history": [
+      {
+        "event": 24,
+        "sha": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+        "tokens": 2202,
+        "score": 0.0,
+        "tier": 1
+      },
+      {
+        "event": 33,
+        "sha": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+        "tokens": 3892,
+        "score": 0.0588235294117647,
+        "tier": 0
+      },
+      {
+        "event": 40,
+        "sha": "2a70fccc9015cc86f388213b51be57765ddb4226e6228c3fcc2133a9e90f2c8a",
+        "tokens": 4131,
+        "score": 0.05714285714285715,
+        "tier": 1
+      },
+      {
+        "event": 48,
+        "sha": "e23ccebcbfeb5f9426e3a80c4d2b9b5ed171fe544735f67b3f2801cff4986798",
+        "tokens": 9286,
+        "score": 0.7796610169491526,
+        "tier": 0
+      },
+      {
+        "event": 55,
+        "sha": "2e8d4902aeff38f279a32441c1c93304129198270934bcdf027a54fd5a7f4321",
+        "tokens": 9612,
+        "score": 0.8813559322033899,
+        "tier": 1
+      }
+    ],
+    "arms": {
+      "generated_hint": {
+        "cp": 5,
+        "history": [
+          {
+            "event": 24,
+            "sha": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+            "tokens": 2202,
+            "score": 0.0,
+            "tier": 1
+          },
+          {
+            "event": 33,
+            "sha": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+            "tokens": 3892,
+            "score": 0.0588235294117647,
+            "tier": 0
+          },
+          {
+            "event": 40,
+            "sha": "2a70fccc9015cc86f388213b51be57765ddb4226e6228c3fcc2133a9e90f2c8a",
+            "tokens": 4131,
+            "score": 0.05714285714285715,
+            "tier": 1
+          },
+          {
+            "event": 48,
+            "sha": "e23ccebcbfeb5f9426e3a80c4d2b9b5ed171fe544735f67b3f2801cff4986798",
+            "tokens": 9286,
+            "score": 0.7796610169491526,
+            "tier": 0
+          },
+          {
+            "event": 55,
+            "sha": "2e8d4902aeff38f279a32441c1c93304129198270934bcdf027a54fd5a7f4321",
+            "tokens": 9612,
+            "score": 0.8813559322033899,
+            "tier": 1
+          }
+        ],
+        "prefix": 9612,
+        "scores": [
+          {
+            "event": 14,
+            "tokens": 10812,
+            "score": 0.8813559322033899,
+            "tier": 1
+          },
+          {
+            "event": 46,
+            "tokens": 15946,
+            "score": 0.0,
+            "tier": 2
+          }
+        ],
+        "actor_output_tokens": 7167,
+        "hint_usage": {
+          "prompt_tokens": 38986,
+          "completion_tokens": 2232,
+          "prompt_cache_hit_tokens": 38912,
+          "prompt_cache_miss_tokens": 74,
+          "reasoning_tokens": 1548,
+          "total_tokens": 41218
+        },
+        "passed": true,
+        "total_path_output_tokens": 16779
+      },
+      "hint_v2": {
+        "cp": 5,
+        "history": [
+          {
+            "event": 24,
+            "sha": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+            "tokens": 2202,
+            "score": 0.0,
+            "tier": 1
+          },
+          {
+            "event": 33,
+            "sha": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+            "tokens": 3892,
+            "score": 0.0588235294117647,
+            "tier": 0
+          },
+          {
+            "event": 40,
+            "sha": "2a70fccc9015cc86f388213b51be57765ddb4226e6228c3fcc2133a9e90f2c8a",
+            "tokens": 4131,
+            "score": 0.05714285714285715,
+            "tier": 1
+          },
+          {
+            "event": 48,
+            "sha": "e23ccebcbfeb5f9426e3a80c4d2b9b5ed171fe544735f67b3f2801cff4986798",
+            "tokens": 9286,
+            "score": 0.7796610169491526,
+            "tier": 0
+          },
+          {
+            "event": 55,
+            "sha": "2e8d4902aeff38f279a32441c1c93304129198270934bcdf027a54fd5a7f4321",
+            "tokens": 9612,
+            "score": 0.8813559322033899,
+            "tier": 1
+          }
+        ],
+        "prefix": 9612,
+        "scores": [
+          {
+            "event": 16,
+            "tokens": 10895,
+            "score": 0.8813559322033899,
+            "tier": 1
+          },
+          {
+            "event": 24,
+            "tokens": 13396,
+            "score": 0.9374999999999999,
+            "tier": 2
+          },
+          {
+            "event": 41,
+            "tokens": 15004,
+            "score": 0.9841269841269841,
+            "tier": 2
+          }
+        ],
+        "actor_output_tokens": 6281,
+        "hint_usage": {
+          "prompt_tokens": 39433,
+          "completion_tokens": 3476,
+          "prompt_cache_hit_tokens": 39424,
+          "prompt_cache_miss_tokens": 9,
+          "reasoning_tokens": 2788,
+          "total_tokens": 42909
+        },
+        "passed": true,
+        "total_path_output_tokens": 15893
+      }
+    }
+  },
+  {
+    "cp": 6,
+    "prefix": 12673,
+    "history": [
+      {
+        "event": 24,
+        "sha": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+        "tokens": 2202,
+        "score": 0.0,
+        "tier": 1
+      },
+      {
+        "event": 33,
+        "sha": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+        "tokens": 3892,
+        "score": 0.0588235294117647,
+        "tier": 0
+      },
+      {
+        "event": 40,
+        "sha": "2a70fccc9015cc86f388213b51be57765ddb4226e6228c3fcc2133a9e90f2c8a",
+        "tokens": 4131,
+        "score": 0.05714285714285715,
+        "tier": 1
+      },
+      {
+        "event": 48,
+        "sha": "e23ccebcbfeb5f9426e3a80c4d2b9b5ed171fe544735f67b3f2801cff4986798",
+        "tokens": 9286,
+        "score": 0.7796610169491526,
+        "tier": 0
+      },
+      {
+        "event": 55,
+        "sha": "2e8d4902aeff38f279a32441c1c93304129198270934bcdf027a54fd5a7f4321",
+        "tokens": 9612,
+        "score": 0.8813559322033899,
+        "tier": 1
+      },
+      {
+        "event": 63,
+        "sha": "0ae8ba48626d43217adb6d18047e844d172be545c3ec8912c7cb5f4ff5ec8de9",
+        "tokens": 12673,
+        "score": 0.9523809523809523,
+        "tier": 2
+      }
+    ],
+    "arms": {
+      "generated_hint": {
+        "cp": 6,
+        "history": [
+          {
+            "event": 24,
+            "sha": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+            "tokens": 2202,
+            "score": 0.0,
+            "tier": 1
+          },
+          {
+            "event": 33,
+            "sha": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+            "tokens": 3892,
+            "score": 0.0588235294117647,
+            "tier": 0
+          },
+          {
+            "event": 40,
+            "sha": "2a70fccc9015cc86f388213b51be57765ddb4226e6228c3fcc2133a9e90f2c8a",
+            "tokens": 4131,
+            "score": 0.05714285714285715,
+            "tier": 1
+          },
+          {
+            "event": 48,
+            "sha": "e23ccebcbfeb5f9426e3a80c4d2b9b5ed171fe544735f67b3f2801cff4986798",
+            "tokens": 9286,
+            "score": 0.7796610169491526,
+            "tier": 0
+          },
+          {
+            "event": 55,
+            "sha": "2e8d4902aeff38f279a32441c1c93304129198270934bcdf027a54fd5a7f4321",
+            "tokens": 9612,
+            "score": 0.8813559322033899,
+            "tier": 1
+          },
+          {
+            "event": 63,
+            "sha": "0ae8ba48626d43217adb6d18047e844d172be545c3ec8912c7cb5f4ff5ec8de9",
+            "tokens": 12673,
+            "score": 0.9523809523809523,
+            "tier": 2
+          }
+        ],
+        "prefix": 12673,
+        "scores": [
+          {
+            "event": 12,
+            "tokens": 13770,
+            "score": 0.9523809523809523,
+            "tier": 2
+          },
+          {
+            "event": 24,
+            "tokens": 14970,
+            "score": 1.0,
+            "tier": 2
+          }
+        ],
+        "actor_output_tokens": 3076,
+        "hint_usage": {
+          "prompt_tokens": 38300,
+          "completion_tokens": 2848,
+          "prompt_cache_hit_tokens": 38272,
+          "prompt_cache_miss_tokens": 28,
+          "reasoning_tokens": 2255,
+          "total_tokens": 41148
+        },
+        "passed": true,
+        "total_path_output_tokens": 15749
+      },
+      "hint_v2": {
+        "cp": 6,
+        "history": [
+          {
+            "event": 24,
+            "sha": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+            "tokens": 2202,
+            "score": 0.0,
+            "tier": 1
+          },
+          {
+            "event": 33,
+            "sha": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+            "tokens": 3892,
+            "score": 0.0588235294117647,
+            "tier": 0
+          },
+          {
+            "event": 40,
+            "sha": "2a70fccc9015cc86f388213b51be57765ddb4226e6228c3fcc2133a9e90f2c8a",
+            "tokens": 4131,
+            "score": 0.05714285714285715,
+            "tier": 1
+          },
+          {
+            "event": 48,
+            "sha": "e23ccebcbfeb5f9426e3a80c4d2b9b5ed171fe544735f67b3f2801cff4986798",
+            "tokens": 9286,
+            "score": 0.7796610169491526,
+            "tier": 0
+          },
+          {
+            "event": 55,
+            "sha": "2e8d4902aeff38f279a32441c1c93304129198270934bcdf027a54fd5a7f4321",
+            "tokens": 9612,
+            "score": 0.8813559322033899,
+            "tier": 1
+          },
+          {
+            "event": 63,
+            "sha": "0ae8ba48626d43217adb6d18047e844d172be545c3ec8912c7cb5f4ff5ec8de9",
+            "tokens": 12673,
+            "score": 0.9523809523809523,
+            "tier": 2
+          }
+        ],
+        "prefix": 12673,
+        "scores": [
+          {
+            "event": 20,
+            "tokens": 14286,
+            "score": 0.9523809523809523,
+            "tier": 2
+          },
+          {
+            "event": 33,
+            "tokens": 15458,
+            "score": 1.0,
+            "tier": 2
+          }
+        ],
+        "actor_output_tokens": 3601,
+        "hint_usage": {
+          "prompt_tokens": 38747,
+          "completion_tokens": 2605,
+          "prompt_cache_hit_tokens": 38656,
+          "prompt_cache_miss_tokens": 91,
+          "reasoning_tokens": 2019,
+          "total_tokens": 41352
+        },
+        "passed": true,
+        "total_path_output_tokens": 16274
+      }
+    }
+  }
+]

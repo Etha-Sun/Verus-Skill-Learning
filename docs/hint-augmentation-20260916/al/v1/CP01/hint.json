@@ -1,0 +1,27 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "46127e70fa8f86814c5f02cd29467c51f8cea7fe2e1f7aca193dc422d18e07f6",
+  "hint_text": "Current failure is an unproved postcondition in an empty body. The target is an equivalence, so the next objective is to prove the two implications separately. For the forward direction, if s1 == s2, append the same suffix to both sides and close the concatenation equality by congruence. The backward direction is the real gap: from s1 + suffix == s2 + suffix, do not immediately assert s1 == s2; that fails. Instead derive equality stepwise. First use equality of the concatenations to obtain equal lengths, then reason from the length behavior of sequence append to conclude s1.len() == s2.len(). Then prove extensional equality of s1 and s2: for any index in s1's range, the corresponding concatenated indices are equal by assumption, and because the index is below s1.len(), those values reduce to s1[i] and s2[i]. Equal lengths plus pointwise equality should close sequence equality. Run Verus after establishing each direction to identify the remaining subgoal.",
+  "evidence_refs": [
+    {
+      "source_id": "event:21",
+      "observation": "Verus reports the empty body fails the postcondition, with no proof for the equivalence."
+    },
+    {
+      "source_id": "event:27",
+      "observation": "A later attempt asserting s1 == s2 directly from the concatenated equality failed, showing the backward direction needs length and index reasoning."
+    },
+    {
+      "source_id": "final_proof",
+      "observation": "The final verified proof proves the forward direction by append congruence and the backward direction via equal lengths and pointwise sequence extensionality."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The final proof with this logical structure passed both Verus and Lynette."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "The hint gives the logical structure from the later success but not the exact Verus proof syntax; the solver must still find accepted assertions and confirm them with diagnostics."
+  ]
+}

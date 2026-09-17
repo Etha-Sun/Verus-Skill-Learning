@@ -1,0 +1,309 @@
+{
+  "method": "manual marginal information audit relative to original traces; not an optimizer training run",
+  "records": [
+    {
+      "task": "ir",
+      "version": "v1",
+      "cp": 1,
+      "topics": "K1",
+      "assessment": "库定理直接覆盖目标；保留一个代表",
+      "evidence": "ir/v1/analysis/REPORT.md#cp1"
+    },
+    {
+      "task": "ir",
+      "version": "v2",
+      "cp": 1,
+      "topics": "K1+E1",
+      "assessment": "同一库策略，另有自由函数→方法API修复",
+      "evidence": "ir/v2/analysis/REPORT.md#cp1"
+    },
+    {
+      "task": "ir",
+      "version": "v1",
+      "cp": 2,
+      "topics": "K1/R",
+      "assessment": "先修宏再转库；库策略重复",
+      "evidence": "ir/v1/analysis/REPORT.md#cp2"
+    },
+    {
+      "task": "ir",
+      "version": "v2",
+      "cp": 2,
+      "topics": "K1/R",
+      "assessment": "同一宏→库路径，重复",
+      "evidence": "ir/v2/analysis/REPORT.md#cp2"
+    },
+    {
+      "task": "ir",
+      "version": "v1",
+      "cp": 3,
+      "topics": "R",
+      "assessment": "双向见证与导入清理，原轨迹已有",
+      "evidence": "ir/v1/analysis/REPORT.md#cp3"
+    },
+    {
+      "task": "ir",
+      "version": "v2",
+      "cp": 3,
+      "topics": "K1",
+      "assessment": "库策略重复；与v1同起点形成路线对照",
+      "evidence": "ir/v2/analysis/REPORT.md#cp3"
+    },
+    {
+      "task": "ir",
+      "version": "v1",
+      "cp": 4,
+      "topics": "R",
+      "assessment": "合并修trigger、前提及导入，主要是精简",
+      "evidence": "ir/v1/analysis/REPORT.md#cp4"
+    },
+    {
+      "task": "ir",
+      "version": "v2",
+      "cp": 4,
+      "topics": "R",
+      "assessment": "原有三层修复重复，试错更多不等于增量",
+      "evidence": "ir/v2/analysis/REPORT.md#cp4"
+    },
+    {
+      "task": "ir",
+      "version": "v1",
+      "cp": 5,
+      "topics": "K1",
+      "assessment": "再次复用同一库定理",
+      "evidence": "ir/v1/analysis/REPORT.md#cp5"
+    },
+    {
+      "task": "ir",
+      "version": "v2",
+      "cp": 5,
+      "topics": "R",
+      "assessment": "原见证前提修复与导入清理重复",
+      "evidence": "ir/v2/analysis/REPORT.md#cp5"
+    },
+    {
+      "task": "ir",
+      "version": "v1",
+      "cp": 6,
+      "topics": "R",
+      "assessment": "数学已过，仅宏引用兼容修复",
+      "evidence": "ir/v1/analysis/REPORT.md#cp6"
+    },
+    {
+      "task": "ir",
+      "version": "v2",
+      "cp": 6,
+      "topics": "R",
+      "assessment": "同类兼容修复，原trace已有",
+      "evidence": "ir/v2/analysis/REPORT.md#cp6"
+    },
+    {
+      "task": "ac",
+      "version": "v1",
+      "cp": 1,
+      "topics": "F1",
+      "assessment": "失败：helper合同未闭合、主链缺口未补完",
+      "evidence": "ac/v1/analysis/REPORT.md#cp1"
+    },
+    {
+      "task": "ac",
+      "version": "v2",
+      "cp": 1,
+      "topics": "K2/R",
+      "assessment": "成功：完整主链，直接复用pending请求作见证",
+      "evidence": "ac/v2/analysis/REPORT.md#cp1"
+    },
+    {
+      "task": "ac",
+      "version": "v1",
+      "cp": 2,
+      "topics": "E2+K2/R",
+      "assessment": "量词局部声明／表达重构后修复，核心见证路线已有",
+      "evidence": "ac/v1/analysis/REPORT.md#cp2"
+    },
+    {
+      "task": "ac",
+      "version": "v2",
+      "cp": 2,
+      "topics": "K2/R",
+      "assessment": "直接pending见证；前提与语法修复主要重复",
+      "evidence": "ac/v2/analysis/REPORT.md#cp2"
+    },
+    {
+      "task": "ac",
+      "version": "v1",
+      "cp": 3,
+      "topics": "B1",
+      "assessment": "用if保护见证，替代原implies修复形式",
+      "evidence": "ac/v1/analysis/REPORT.md#cp3"
+    },
+    {
+      "task": "ac",
+      "version": "v2",
+      "cp": 3,
+      "topics": "F1",
+      "assessment": "失败：额外泛型helper及其调用合同未闭合",
+      "evidence": "ac/v2/analysis/REPORT.md#cp3"
+    },
+    {
+      "task": "ac",
+      "version": "v1",
+      "cp": 4,
+      "topics": "K2/R",
+      "assessment": "直接pending请求作见证；其余桥接原已有",
+      "evidence": "ac/v1/analysis/REPORT.md#cp4"
+    },
+    {
+      "task": "ac",
+      "version": "v2",
+      "cp": 4,
+      "topics": "K2/R",
+      "assessment": "同类直接pending见证与桥接",
+      "evidence": "ac/v2/analysis/REPORT.md#cp4"
+    },
+    {
+      "task": "ac",
+      "version": "v1",
+      "cp": 5,
+      "topics": "K3",
+      "assessment": "两个状态见证helper均验证，再在主链实例化",
+      "evidence": "ac/v1/analysis/REPORT.md#cp5"
+    },
+    {
+      "task": "ac",
+      "version": "v2",
+      "cp": 5,
+      "topics": "K2/R",
+      "assessment": "内联两桥接，直接pending见证",
+      "evidence": "ac/v2/analysis/REPORT.md#cp5"
+    },
+    {
+      "task": "ac",
+      "version": "v1",
+      "cp": 6,
+      "topics": "R",
+      "assessment": "删非法auto属性，原trace已做过",
+      "evidence": "ac/v1/analysis/REPORT.md#cp6"
+    },
+    {
+      "task": "ac",
+      "version": "v2",
+      "cp": 6,
+      "topics": "R",
+      "assessment": "同类属性修复，无新经验",
+      "evidence": "ac/v2/analysis/REPORT.md#cp6"
+    },
+    {
+      "task": "al",
+      "version": "v1",
+      "cp": 1,
+      "topics": "E3",
+      "assessment": "错误else分支→正确逆向前提；新增具体反例",
+      "evidence": "al/v1/analysis/REPORT.md#cp1"
+    },
+    {
+      "task": "al",
+      "version": "v2",
+      "cp": 1,
+      "topics": "R/B2",
+      "assessment": "长度索引主线已有，量词前提经验跨题已有",
+      "evidence": "al/v2/analysis/REPORT.md#cp1"
+    },
+    {
+      "task": "al",
+      "version": "v1",
+      "cp": 2,
+      "topics": "R",
+      "assessment": "完整长度／索引正例，原F已含",
+      "evidence": "al/v1/analysis/REPORT.md#cp2"
+    },
+    {
+      "task": "al",
+      "version": "v2",
+      "cp": 2,
+      "topics": "R",
+      "assessment": "同一主线紧凑复现",
+      "evidence": "al/v2/analysis/REPORT.md#cp2"
+    },
+    {
+      "task": "al",
+      "version": "v1",
+      "cp": 3,
+      "topics": "R",
+      "assessment": "删错误API、补事实、清导入均已有",
+      "evidence": "al/v1/analysis/REPORT.md#cp3"
+    },
+    {
+      "task": "al",
+      "version": "v2",
+      "cp": 3,
+      "topics": "R",
+      "assessment": "一次完成已有修复，清楚但不新增策略",
+      "evidence": "al/v2/analysis/REPORT.md#cp3"
+    },
+    {
+      "task": "al",
+      "version": "v1",
+      "cp": 4,
+      "topics": "R/B2",
+      "assessment": "broadcast名称／导入／前提混合返工",
+      "evidence": "al/v1/analysis/REPORT.md#cp4"
+    },
+    {
+      "task": "al",
+      "version": "v2",
+      "cp": 4,
+      "topics": "R/B2",
+      "assessment": "同类前提与导入修复",
+      "evidence": "al/v2/analysis/REPORT.md#cp4"
+    },
+    {
+      "task": "al",
+      "version": "v1",
+      "cp": 5,
+      "topics": "R",
+      "assessment": "替换不可用方法与清理导入已有",
+      "evidence": "al/v1/analysis/REPORT.md#cp5"
+    },
+    {
+      "task": "al",
+      "version": "v2",
+      "cp": 5,
+      "topics": "R",
+      "assessment": "同类一次成功，信息重复",
+      "evidence": "al/v2/analysis/REPORT.md#cp5"
+    },
+    {
+      "task": "al",
+      "version": "v1",
+      "cp": 6,
+      "topics": "R",
+      "assessment": "宏内索引事实及导入修复已有",
+      "evidence": "al/v1/analysis/REPORT.md#cp6"
+    },
+    {
+      "task": "al",
+      "version": "v2",
+      "cp": 6,
+      "topics": "R",
+      "assessment": "同类数学＋兼容修复",
+      "evidence": "al/v2/analysis/REPORT.md#cp6"
+    },
+    {
+      "task": "al",
+      "version": "v1",
+      "cp": 7,
+      "topics": "R",
+      "assessment": "已正确主体，只删导入",
+      "evidence": "al/v1/analysis/REPORT.md#cp7"
+    },
+    {
+      "task": "al",
+      "version": "v2",
+      "cp": 7,
+      "topics": "R",
+      "assessment": "同类兼容诊断",
+      "evidence": "al/v2/analysis/REPORT.md#cp7"
+    }
+  ]
+}

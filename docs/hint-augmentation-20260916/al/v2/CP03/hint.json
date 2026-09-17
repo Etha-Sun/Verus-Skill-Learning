@@ -1,0 +1,27 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "d45b86c8803e19a97def4d07a48b44552448aa2ad87d740ec3c7c7738437fd77",
+  "hint_text": "Verus is currently blocked before proof verification by unresolved helper names: the calls for concatenation length and concatenation indexing are not present in this version's vstd::seq_lib. Do not keep guessing alternate helper names. Establish the needed mathematics directly: equality of the concatenations implies their lengths are equal, which yields equal lengths for s1 and s2; and for any index within the first operand's range, the concatenation at that index equals the corresponding prefix element. Use those facts to prove pointwise equality of s1 and s2, then close by sequence extensionality. Re-run Verus to confirm the name-resolution errors disappear and any remaining diagnostic is a proof obligation rather than API misuse. The added vstd::seq_lib import is not in the original input and may become unused after removing those calls; run Lynette afterward, but do not assume the import itself caused a compatibility failure without a Lynette diagnostic.",
+  "evidence_refs": [
+    {
+      "source_id": "event:36",
+      "observation": "Verus reports E0425 for lemma_seq_add_len and lemma_seq_add_index, so the checkpoint is blocked by unresolved lemma names."
+    },
+    {
+      "source_id": "snapshot:d45b86c8803e19a97def4d07a48b44552448aa2ad87d740ec3c7c7738437fd77",
+      "observation": "The checkpoint adds use vstd::seq_lib::* and calls those nonexistent lemmas."
+    },
+    {
+      "source_id": "snapshot:0545d14072735e4060ce6040818c7932dc35cf557136050dc3ba8a427289c239",
+      "observation": "The final verified proof derives the length and prefix-index facts directly without those helper lemmas and without the seq_lib import."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The final cleaned proof passes both Verus and Lynette, but this does not validate the earlier checkpoint."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "No Lynette failure was observed for checkpoint d45b86c8803e19a97def4d07a48b44552448aa2ad87d740ec3c7c7738437fd77; the extra seq_lib import is only a potential compatibility risk. Final success after removing it does not prove that this checkpoint would fail Lynette."
+  ]
+}

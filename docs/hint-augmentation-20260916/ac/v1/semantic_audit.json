@@ -1,0 +1,471 @@
+{
+  "status": "source_and_tool_process_audited_pending_user_review",
+  "audited_at": "2026-09-17T11:30:00.493050+00:00",
+  "summary": "两版均5/6，但失败点不同：v1 CP1、v2 CP3，均约600秒actor超时且最终Verus失败、Lynette通过。v1 CP2筛查误报已补跑成功。核心难点是将状态层消息存在性落实到temporal family见证，不能把失败笼统归为兼容提醒。",
+  "checkpoints": [
+    {
+      "cp": 1,
+      "title": "长时间构造辅助引理，两个桥接未闭合",
+      "problem": "空主体，需组合两条已有消息级leads-to组件引理，并与整体存在状态谓词衔接。",
+      "hint_assessment": "提示两阶段组合和两处存在见证桥接，数学方向正确。没有虚构顶层导入问题。",
+      "actor_evidence": "76建立主链但未补起始集合谓词到具体响应family的桥接；78 trigger失败，83修trigger。94／97起引理并调用，99非法含lambda trigger；104／111／121语法改写仍失败；129／135拆状态函数，137作用域失败；142／158／165／175／182／189／196／203反复修请求见证及entailment；211再抽辅助引理，213仍失败，约602秒超时。宿主最终：0 verified, 3 errors；请求helper后置条件、调用前提、主目标等均未闭合，Lynette通过。",
+      "judgement": "真实失败而非筛查误报。hint方向合理但actor没有完成提示要求；不得作为成功增广，保留失败对照及已验证的局部修复。",
+      "source_check": {
+        "cp": 1,
+        "skill_read_events": [
+          19
+        ],
+        "edit_events": [
+          76,
+          83,
+          94,
+          97,
+          104,
+          111,
+          121,
+          129,
+          135,
+          142,
+          158,
+          165,
+          175,
+          182,
+          189,
+          196,
+          203,
+          211
+        ],
+        "checks": [
+          {
+            "event": 37,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nerror: postcondition not satisfied\n4904 | / pub proof fn lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp(\n4905 | |     vrs: VReplicaSetView, spec: TempPred<ClusterState>, cluster: Cluster, controller_id: int, diff: int\n4906 | | )\n     | |_- at the end of the function body\n4935 | /         spec.entails(\n4936 | |             lift_state(\n4937 | |                 |s: ClusterState| {\n4938 | |                     &&& exists_resp_in_flight_at_after_list_pods_step(vrs, controller_id)(s)\n4949 | |         ),\n     | |_________^ failed this postcondition\nverification results:: 0 verified, 1 errors\nerror: aborting due to 1 previous error; 1 warning emitted"
+          },
+          {
+            "event": 78,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nerror: Could not automatically infer triggers for this quantifer.  Use #[trigger] annotations to manually mark trigger terms instead.\n4975 |     assert forall |resp_msg: Message| spec.entails(list_resp_to_pending(resp_msg).leads_to(pending)) by {\n     |     ^^^^^^\nerror: aborting due to 1 previous error; 1 warning emitted"
+          },
+          {
+            "event": 85,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\n4904 | / pub proof fn lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp(\n4905 | |     vrs: VReplicaSetView, spec: TempPred<ClusterState>, cluster: Cluster, controller_id: int, diff: int\n4906 | | )\n     | |_^\nerror: postcondition not satisfied\n4904 | / pub proof fn lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp(\n4905 | |     vrs: VReplicaSetView, spec: TempPred<ClusterState>, cluster: Cluster, controller_id: int, diff: int\n4906 | | )\n     | |_- at the end of the function body\n4935 | /         spec.entails(\n4936 | |             lift_state(\n4937 | |                 |s: ClusterState| {\n4938 | |                     &&& exists_resp_in_flight_at_after_list_pods_step(vrs, controller_id)(s)\n4949 | |         ),\n     | |_________^ failed this postcondition\nerror: assertion failed\n4985 |     assert(pending.entails(exists_req));\n     |            "
+          },
+          {
+            "event": 99,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n4924 |     assert forall |ex: Execution<ClusterState>|\n     |     ^^^^^^\nerror: triggers cannot contain let/forall/exists/lambda/choose\n4926 | /             |s: ClusterState| {\n4927 | |                 &&& pending_req_in_flight_at_after_create_pod_step(vrs, controller_id, step_diff)(s)\n4928 | |                 &&& num_diff_pods_is(vrs, diff)(s)\n4929 | |             }\n     | |_____________^\nerror: aborting due to 1 previous error; 2 warnings emitted"
+          },
+          {
+            "event": 106,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": ""
+          },
+          {
+            "event": 113,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": ""
+          },
+          {
+            "event": 123,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": ""
+          },
+          {
+            "event": 137,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nerror[E0425]: cannot find value `s` in this scope\n4943 |         let req_msg = s.ongoing_reconciles(controller_id)[vrs.object_ref()].pending_req_msg->0;\n     |                       ^ not found in this scope\nerror[E0425]: cannot find value `s` in this scope\n4944 |         assert(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff)(s));\n     |                                                                                       ^ not found in this scope\nerror: aborting due to 2 previous errors; 1 warning emitted"
+          },
+          {
+            "event": 144,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n4942 |     assert forall |s: ClusterState| #[trigger] pending_create_req_with_num_diff(vrs, controller_id, step_diff, diff)(s) ==> exists |req_m...\n     |     ^^^^^^\n4934 | / pub proof fn lemma_pending_req_entails_exists_req(\n4935 | |     vrs: VReplicaSetView, controller_id: int, step_diff: nat, diff: int\n4936 | | )\n     | |_^\nerror: postcondition not satisfied\n4934 | / pub proof fn lemma_pending_req_entails_exists_req(\n4935 | |     vrs: VReplicaSetView, controller_id: int, step_diff: nat, diff: int\n4936 | | )\n     | |_- at the end of the function body\n4937 |       ensures\n4938 | /         lift_state(pending_create_req_with_num_diff(vrs, controller_id, step_diff, diff)).entails(\n4939 | |             tla_exists(|req_msg: Message| lift_state"
+          },
+          {
+            "event": 160,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n4942 |     assert forall |s: ClusterState| #[trigger] pending_create_req_with_num_diff(vrs, controller_id, step_diff, diff)(s) ==> exists |req_m...\n     |     ^^^^^^\nerror: postcondition not satisfied\n4934 | / pub proof fn lemma_pending_req_entails_exists_req(\n4935 | |     vrs: VReplicaSetView, controller_id: int, step_diff: nat, diff: int\n4936 | | )\n     | |_- at the end of the function body\n4937 |       ensures\n4938 | /         lift_state(pending_create_req_with_num_diff(vrs, controller_id, step_diff, diff)).entails(\n4939 | |             tla_exists(|req_msg: Message| lift_state(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff)))\n4940 | |         ),\n     | |_________^ failed this postcondition\n4951 | / pub proof fn le"
+          },
+          {
+            "event": 167,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n4942 |     assert forall |s: ClusterState| #[trigger] pending_create_req_with_num_diff(vrs, controller_id, step_diff, diff)(s) ==> exists |req_m...\n     |     ^^^^^^\nerror: assertion failed\n4948 | ...rt(lift_state(pending_create_req_with_num_diff(vrs, controller_id, step_diff, diff)).entails(tla_exists(|req_msg: Message| lift_state(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff)))));\n     |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\n4952 | / pub proof fn lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp(\n4953 | |     v"
+          },
+          {
+            "event": 177,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n4942 |     assert forall |ex: Execution<ClusterState>| #[trigger] lift_state(pending_create_req_with_num_diff(vrs, controller_id, step_diff, dif...\n     |     ^^^^^^\nerror: assertion failed\n4942 | ...>| #[trigger] lift_state(pending_create_req_with_num_diff(vrs, controller_id, step_diff, diff)).satisfied_by(ex) ==> tla_exists(|req_msg: Message| lift_state(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff))).satisfied_by(ex) by {\n     |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\n4952 | / pub proof fn"
+          },
+          {
+            "event": 184,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n4942 |     assert forall |ex: Execution<ClusterState>| #[trigger] lift_state(pending_create_req_with_num_diff(vrs, controller_id, step_diff, dif...\n     |     ^^^^^^\nerror: assertion failed\n4947 | ...rt(tla_exists(|req_msg: Message| lift_state(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff))).satisfied_by(ex));\n     |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\n4953 | / pub proof fn lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp(\n4954 | |     vrs: VReplicaSetView, spec: TempPred<ClusterState>, cluster: Cluster, controller_id: int, diff: int\n4955 | | )\n     | |_^\nerror: postcondition not sa"
+          },
+          {
+            "event": 191,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n4942 |     assert forall |ex: Execution<ClusterState>| #[trigger] lift_state(pending_create_req_with_num_diff(vrs, controller_id, step_diff, dif...\n     |     ^^^^^^\nerror: assertion failed\n4948 | ...rt(tla_exists(|req_msg: Message| lift_state(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff))).satisfied_by(ex));\n     |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\n4954 | / pub proof fn lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp(\n4955 | |     vrs: VReplicaSetView, spec: TempPred<ClusterState>, cluster: Cluster, controller_id: int, diff: int\n4956 | | )\n     | |_^\nerror: postcondition not sa"
+          },
+          {
+            "event": 198,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n4942 |     assert forall |ex: Execution<ClusterState>| #[trigger] lift_state(pending_create_req_with_num_diff(vrs, controller_id, step_diff, dif...\n     |     ^^^^^^\nerror: assertion failed\n4949 | ...rt(tla_exists(|req_msg: Message| lift_state(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff))).satisfied_by(ex));\n     |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\n4955 | / pub proof fn lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp(\n4956 | |     vrs: VReplicaSetView, spec: TempPred<ClusterState>, cluster: Cluster, controller_id: int, diff: int\n4957 | | )\n     | |_^\nerror: postcondition not sa"
+          },
+          {
+            "event": 205,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n4942 |     assert forall |ex: Execution<ClusterState>| #[trigger] lift_state(pending_create_req_with_num_diff(vrs, controller_id, step_diff, dif...\n     |     ^^^^^^\nerror: assertion failed\n4949 | ...rt(tla_exists(|req_msg: Message| lift_state(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff))).satisfied_by(ex) == exists |req_msg: Message| lift_state(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff)).satisfied_by(ex));\n     |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion f"
+          },
+          {
+            "event": 213,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n4958 |     assert forall |ex: Execution<ClusterState>| #[trigger] lift_state(pending_create_req_with_num_diff(vrs, controller_id, step_diff, dif...\n     |     ^^^^^^\nerror: postcondition not satisfied\n4934 | / pub proof fn lemma_pending_req_state_has_witness(\n4935 | |     ex: Execution<ClusterState>, vrs: VReplicaSetView, controller_id: int, step_diff: nat, diff: int\n4936 | | )\n     | |_- at the end of the function body\n4940 |           tla_exists(|req_msg: Message| lift_state(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff))).satisfied_by(ex),\n     |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition\ner"
+          }
+        ],
+        "danger_additions": [],
+        "passed": false,
+        "final_sha256": "17e337dff1596235771e1a04a7f9fa9ea0933bf033ad52c7954672422ad11df6"
+      },
+      "training_status": "failed_control_not_success_training",
+      "proof_dependency_analysis": "第一版主链已有两个消息级组件的组合，但起始整体P尚未连到具体响应family；后面大量时间又集中在请求侧pending到tla_exists的helper上。将一条桥接抽成requires/ensures并不自动证明它，仍要在调用处满足前提、在helper体中完成temporal family实例化。结尾这些责任仍未闭合，主目标自然不能借助它们通过。",
+      "hint_observed_contribution": "hint实际已经提示两处桥接，不存在“只让actor证明请求侧”的限制。actor自行偏向helper重构及量词语法试错，没有完成整个提示。失败不能归于Lynette误报，也不能断言提示数学路线错误；更准确的是规划方向正确、执行闭合失败。",
+      "matched_version_comparison": "v2 CP1在主体内按两个execution展开分别补见证后成功，没有陷入本点长时间helper改写。相同起点一次成败差异，不能单独归为skill或版本能力。",
+      "original_event": 19,
+      "final_verus_pass": false,
+      "final_lynette_pass": true,
+      "stage_table_markdown": "| 阶段／事件 | 实际尝试与诊断 | 还未解决的义务 |\n|---|---|---|\n| 76–85：先立主链 | 引入组件组合，补量词trigger后仍有后置条件／pending桥接失败 | 起始P到响应family尚缺桥接，请求侧也不能直接assert |\n| 94–144：拆helper与状态函数 | 先遇含lambda的非法trigger，再遇量词语法和变量作用域问题 | 只是改变表达／模块划分，没有证明temporal existential |\n| 158–205：反复改请求侧 | 加分支、直接entailment、family实例和存在断言，仍未验证通过 | 已知状态事实尚未成为所需时序结论，主链不完整 |\n| 211–最终：再抽helper | 新helper及调用仍失败，约602秒结束 | helper后置条件、调用前提及主目标均有未闭合错误；Lynette通过不能补足Verus证明 |\n"
+    },
+    {
+      "cp": 2,
+      "title": "补跑通过，literal_call是筛查误报",
+      "problem": "forall缺trigger，随后两处存在见证桥接失败。",
+      "hint_assessment": "明确标出量词entailment作为trigger并提示两处见证；含较具体表达式而非整段proof。筛查命中不是数学错误，放行记录保留。",
+      "actor_evidence": "37加trigger，40两断言失败；61拆状态函数及见证proof，64触发器失败；77补trigger，80失败；86改closure，89失败；101改implies但仍有局部遮蔽／桥接问题，104失败；110去多余局部声明并直接响应见证，113只剩请求；119补请求见证，122／127双通过。",
+      "judgement": "提示预告准确，actor最终落实但绕路较多；不能把筛查误报计作失败。保留原hint不重生成，补跑结果是本点正式结果。",
+      "source_check": {
+        "cp": 2,
+        "skill_read_events": [
+          9
+        ],
+        "edit_events": [
+          37,
+          61,
+          77,
+          86,
+          101,
+          110,
+          119
+        ],
+        "checks": [
+          {
+            "event": 18,
+            "command": "/bin/bash -c './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nerror: Could not automatically infer triggers for this quantifer.  Use #[trigger] annotations to manually mark trigger terms instead.\n4983 |     assert forall |resp_msg: Message| spec.entails(p_resp(resp_msg).leads_to(q_mid)) by {\n     |     ^^^^^^\nerror: aborting due to 1 previous error; 1 warning emitted"
+          },
+          {
+            "event": 40,
+            "command": "/bin/bash -c './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\n4904 | / pub proof fn lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp(\n4905 | |     vrs: VReplicaSetView, spec: TempPred<ClusterState>, cluster: Cluster, controller_id: int, diff: int\n4906 | | )\n     | |_^\nerror: assertion failed\n4988 |     assert(p.entails(tla_exists(p_resp)));\n     |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\nerror: assertion failed\n4997 |     assert(q_mid.entails(tla_exists(p_req)));\n     |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\nverification results:: 0 verified, 1 errors\nerror: aborting due to 2 previous errors; 1 warning emitted"
+          },
+          {
+            "event": 64,
+            "command": "/bin/bash -c './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n4987 |         assert forall |s: ClusterState| p_state(s) ==> exists |resp_msg: Message| #[trigger] p_resp_state(resp_msg, s) by {\n     |         ^^^^^^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n5000 |         assert forall |ex: Execution<ClusterState>| p.satisfied_by(ex) ==> tla_exists(p_resp).satisfied_by(ex) by {\n     |         ^^^^^^\nerror: Could not automatically infer triggers for this quantifer.  Use #[trigger] annotations to manually mark trigger terms instead.\n4987 |         assert forall |s: ClusterState| p_state(s) ==> exists |resp_msg: Message| #[trigger] p_resp_state(resp_msg, s) by {\n     |         ^^^^^^\nerror: aborting due to 1 previ"
+          },
+          {
+            "event": 80,
+            "command": "/bin/bash -c './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n4987 |         assert forall |s: ClusterState| #[trigger] p_state(s) ==> exists |resp_msg: Message| #[trigger] p_resp_state(resp_msg, s) by {\n     |         ^^^^^^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n5000 |         assert forall |ex: Execution<ClusterState>| #[trigger] p.satisfied_by(ex) ==> tla_exists(p_resp).satisfied_by(ex) by {\n     |         ^^^^^^\n4904 | / pub proof fn lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp(\n4905 | |     vrs: VReplicaSetView, spec: TempPred<ClusterState>, cluster: Cluster, controller_id: int, diff: int\n4906 | | )\n     | |_^\nerror: assertion failed\n4981 |     assert forall |resp_msg: Message| #"
+          },
+          {
+            "event": 89,
+            "command": "/bin/bash -c './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n4992 |         assert forall |s: ClusterState| #[trigger] p_state(s) ==> exists |resp_msg: Message| #[trigger] p_resp_state(resp_msg, s) by {\n     |         ^^^^^^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n5005 |         assert forall |ex: Execution<ClusterState>| #[trigger] p.satisfied_by(ex) ==> tla_exists(p_resp).satisfied_by(ex) by {\n     |         ^^^^^^\n4904 | / pub proof fn lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp(\n4905 | |     vrs: VReplicaSetView, spec: TempPred<ClusterState>, cluster: Cluster, controller_id: int, diff: int\n4906 | | )\n     | |_^\nerror: assertion failed\n4992 |         assert forall |s: ClusterState|"
+          },
+          {
+            "event": 104,
+            "command": "/bin/bash -c './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\n4904 | / pub proof fn lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp(\n4905 | |     vrs: VReplicaSetView, spec: TempPred<ClusterState>, cluster: Cluster, controller_id: int, diff: int\n4906 | | )\n     | |_^\nerror: assertion failed\n4992 |         assert forall |s: ClusterState| #[trigger] p_state(s) implies exists |resp_msg: Message| #[trigger] p_resp_state(resp_msg, s) by {\n     |                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\n5010 |                 let resp_msg = choose |resp_msg: Message| #[trigger] p_resp_state(resp_msg, s);\n     |                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^\nerror: assertion failed\n5011 |                 assert(p_resp_state(resp_msg, s));\n     |                        ^^^^^^^^^^^^^"
+          },
+          {
+            "event": 113,
+            "command": "/bin/bash -c './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nerror: assertion failed\n5014 |     assert(q_mid.entails(tla_exists(p_req)));\n     |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\nverification results:: 0 verified, 1 errors\nerror: aborting due to 1 previous error; 1 warning emitted"
+          },
+          {
+            "event": 122,
+            "command": "/bin/bash -c './tools/run_verus.sh candidate.rs'",
+            "exit": 0,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nverification results:: 1 verified, 0 errors"
+          },
+          {
+            "event": 127,
+            "command": "/bin/bash -c ./tools/run_lynette.sh",
+            "exit": 0,
+            "diagnostic": ""
+          }
+        ],
+        "danger_additions": [],
+        "passed": true,
+        "final_sha256": "7f2dcf830db1077b48df08cfcc7cd720e293ca55b8758a581b6c7ad8d4c3adb2"
+      },
+      "training_status": "eligible_after_formatting_with_failed_steps_labeled",
+      "proof_dependency_analysis": "trigger修复只让量词被接纳；两条高层entailment仍需实际见证。中间把状态谓词拆开后，又在量词proof体声明同名局部s/ex，造成证明对象与原量词上下文脱节；仅换implies不能替代移除这些多余声明。后面回到给定execution的head取响应，再取pending请求，才真正把两侧family连接完成。",
+      "hint_observed_contribution": "literal_call筛查命中较具体数学表达式属于既有人工放行，不是actor的证明错误。提示预告了正确的下一层，但actor在实现时引入额外变量／closure复杂性，故不能说它提前避开了失败。",
+      "matched_version_comparison": "v2也经历前提和assert语法修复，但没有本点长链的状态函数重构，输出明显较少；终点依然同一种见证组合策略。",
+      "original_event": 77,
+      "final_verus_pass": true,
+      "final_lynette_pass": true
+    },
+    {
+      "cp": 3,
+      "title": "见证路线正确，第一次缺前提",
+      "problem": "主链已存在，两个entailment断言未闭合。",
+      "hint_assessment": "指出在满足源谓词的execution上选择已有消息，数学判断正确。",
+      "actor_evidence": "56补两个forall见证，但==>未把前提带入proof体，58失败；64给两个主体增加对应if前提保护，66／71双通过。",
+      "judgement": "合理的上下文修复；失败起于actor未落实“满足源谓词”的局部条件。",
+      "source_check": {
+        "cp": 3,
+        "skill_read_events": [
+          11
+        ],
+        "edit_events": [
+          56,
+          64
+        ],
+        "checks": [
+          {
+            "event": 14,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\n4904 | / pub proof fn lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp(\n4905 | |     vrs: VReplicaSetView, spec: TempPred<ClusterState>, cluster: Cluster, controller_id: int, diff: int\n4906 | | )\n     | |_^\nerror: assertion failed\n4988 |     assert(p.entails(tla_exists(p_resp)));\n     |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\nerror: assertion failed\n4997 |     assert(q_mid.entails(tla_exists(p_req)));\n     |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\nverification results:: 0 verified, 1 errors\nerror: aborting due to 2 previous errors; 1 warning emitted"
+          },
+          {
+            "event": 58,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n4983 |     assert forall |ex: Execution<ClusterState>| #[trigger] p.satisfied_by(ex) ==>\n     |     ^^^^^^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n5009 |     assert forall |ex: Execution<ClusterState>| #[trigger] q_mid.satisfied_by(ex) ==>\n     |     ^^^^^^\n4904 | / pub proof fn lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp(\n4905 | |     vrs: VReplicaSetView, spec: TempPred<ClusterState>, cluster: Cluster, controller_id: int, diff: int\n4906 | | )\n     | |_^\n4986 |         let msg = s.ongoing_reconciles(controller_id)[vrs.object_ref()].pending_req_msg->0;\n     |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+          },
+          {
+            "event": 66,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 0,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n4983 |     assert forall |ex: Execution<ClusterState>| #[trigger] p.satisfied_by(ex) ==>\n     |     ^^^^^^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n5012 |     assert forall |ex: Execution<ClusterState>| #[trigger] q_mid.satisfied_by(ex) ==>\n     |     ^^^^^^\nverification results:: 1 verified, 0 errors"
+          },
+          {
+            "event": 71,
+            "command": "/bin/bash -lc ./tools/run_lynette.sh",
+            "exit": 0,
+            "diagnostic": ""
+          }
+        ],
+        "danger_additions": [],
+        "passed": true,
+        "final_sha256": "388127ba9cd0c49e882e105415ca11087308bbbea9bccab48d7df21aad5fbdbd"
+      },
+      "training_status": "eligible_after_formatting_with_failed_steps_labeled",
+      "proof_dependency_analysis": "choose需要源状态前提来保证存在消息；最初forall虽写了==>，proof体没有自动取得前件，因此不能无条件用head中的消息。加if后，选响应和请求都处于相应源谓词成立的分支，family实例才能有根据。这个if不是缩小原定理要求：它正对应要证明的蕴含前件。",
+      "hint_observed_contribution": "hint要求“在满足P/Q的execution上”推理，actor第一次未忠实编码这一条件，第二次才完成。提示数学正确，首个实现不正确；报告不把后者当合理已证事实。",
+      "matched_version_comparison": "v2 CP3另造专用／泛型桥接后超时，本版就地增加前提保护已成功。说明相同可行提示可以引出差异很大的实现路径。",
+      "original_event": 84,
+      "final_verus_pass": true,
+      "final_lynette_pass": true
+    },
+    {
+      "cp": 4,
+      "title": "提示只解决第一层，剩余见证靠actor补齐",
+      "problem": "forall ==>导致proof体无前提；修后还有存在桥接。",
+      "hint_assessment": "准确指出implies，但“之后component assertions应解决”不足以覆盖剩余两处见证义务，提示不完整。",
+      "actor_evidence": "44改implies，46仍两失败；52直接choose强谓词，54失败；60重述existential，62失败；83改从原始in-flight/matching/OK条件取响应见证，85仍有未闭合义务；94补pending请求和family实例，96／100双通过。",
+      "judgement": "不是完全误报，而是只诊断当前一层。最终两桥接合理；不能把所有后续进展归给hint。",
+      "source_check": {
+        "cp": 4,
+        "skill_read_events": [
+          8
+        ],
+        "edit_events": [
+          44,
+          52,
+          60,
+          83,
+          94
+        ],
+        "checks": [
+          {
+            "event": 14,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n4989 |         assert forall |ex: Execution<ClusterState>| #[trigger] p.satisfied_by(ex) ==> tla_exists(p_resp).satisfied_by(ex) by {\n     |         ^^^^^^\nwarning: using ==> in `assert forall` does not currently assume the antecedent in the body; consider using `implies` instead of `==>`\n5005 |         assert forall |ex: Execution<ClusterState>| #[trigger] q_mid.satisfied_by(ex) ==> tla_exists(p_req).satisfied_by(ex) by {\n     |         ^^^^^^\n4904 | / pub proof fn lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp(\n4905 | |     vrs: VReplicaSetView, spec: TempPred<ClusterState>, cluster: Cluster, controller_id: int, diff: int\n4906 | | )\n     | |_^\nerror: assertion failed\n4991 |             assert(exists_resp_in_flight_at_"
+          },
+          {
+            "event": 46,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\n4904 | / pub proof fn lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp(\n4905 | |     vrs: VReplicaSetView, spec: TempPred<ClusterState>, cluster: Cluster, controller_id: int, diff: int\n4906 | | )\n     | |_^\nerror: assertion failed\n4989 |         assert forall |ex: Execution<ClusterState>| #[trigger] p.satisfied_by(ex) implies tla_exists(p_resp).satisfied_by(ex) by {\n     |                                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\nerror: assertion failed\n4993 |             assert(exists |resp_msg: Message| resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step(vrs, controller_id, resp_msg)(s));\n     |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\nverificatio"
+          },
+          {
+            "event": 54,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\n4904 | / pub proof fn lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp(\n4905 | |     vrs: VReplicaSetView, spec: TempPred<ClusterState>, cluster: Cluster, controller_id: int, diff: int\n4906 | | )\n     | |_^\n4993 | ... |resp_msg: Message| resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step(vrs, controller_id, resp_msg)(s);\n     |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nerror: assertion failed\n4994 |             assert(resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step(vrs, controller_id, resp_msg)(s));\n     |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\nerror: assertion failed\n5012 | ...rt(exists |req_msg: Message| req_msg_is_the_in_flight_create_request_at_after_create_pod_step("
+          },
+          {
+            "event": 62,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\n4904 | / pub proof fn lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp(\n4905 | |     vrs: VReplicaSetView, spec: TempPred<ClusterState>, cluster: Cluster, controller_id: int, diff: int\n4906 | | )\n     | |_^\nerror: assertion failed\n4993 |             assert(exists |resp_msg: Message| resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step(vrs, controller_id, resp_msg)(s));\n     |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\nerror: assertion failed\n5013 | ...rt(exists |req_msg: Message| req_msg_is_the_in_flight_create_request_at_after_create_pod_step(vrs, controller_id, req_msg, d)(s));\n     |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\nve"
+          },
+          {
+            "event": 85,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\n4904 | / pub proof fn lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp(\n4905 | |     vrs: VReplicaSetView, spec: TempPred<ClusterState>, cluster: Cluster, controller_id: int, diff: int\n4906 | | )\n     | |_^\nerror: assertion failed\n5021 |         assert forall |ex: Execution<ClusterState>| #[trigger] q_mid.satisfied_by(ex) implies tla_exists(p_req).satisfied_by(ex) by {\n     |                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\nerror: assertion failed\n5025 | ...rt(exists |req_msg: Message| req_msg_is_the_in_flight_create_request_at_after_create_pod_step(vrs, controller_id, req_msg, d)(s));\n     |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\nverification result"
+          },
+          {
+            "event": 96,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 0,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nverification results:: 1 verified, 0 errors"
+          },
+          {
+            "event": 100,
+            "command": "/bin/bash -lc ./tools/run_lynette.sh",
+            "exit": 0,
+            "diagnostic": ""
+          }
+        ],
+        "danger_additions": [],
+        "passed": true,
+        "final_sha256": "9743ea157b5b0cb9ba1425de01406e3dc7dad446b505d3f998f6990c15949b99"
+      },
+      "training_status": "eligible_after_formatting_with_failed_steps_labeled",
+      "proof_dependency_analysis": "改implies恢复源状态假设，只能让已有事实进入上下文，并不能自动把打包存在谓词转换成目标强消息谓词。直接choose目标强谓词等于先要求证明尚未建立的存在性，因此重写assert仍无帮助。必须回到已知的in-flight/matching/OK条件选响应，随后建立family；请求侧也要明确取pending消息，才能闭合主链。",
+      "hint_observed_contribution": "hint对前提问题判断正确，但说后续component断言应解决过于乐观，缺少下一层桥接提醒。actor后来补见证是有价值的自行推进，不能全部算作hint已明确指导的内容。",
+      "matched_version_comparison": "v2 CP4同时提示前提与两侧见证，actor少了本版直接choose强谓词的试错；不过也需多轮才完全实例化。",
+      "original_event": 92,
+      "final_verus_pass": true,
+      "final_lynette_pass": true
+    },
+    {
+      "cp": 5,
+      "title": "把两个见证抽成有证明体的辅助引理",
+      "problem": "整体存在状态到具体消息family未桥接。",
+      "hint_assessment": "提示按底层条件命名见证，并处理响应、请求两侧。",
+      "actor_evidence": "68新增两个有requires/ensures和完整proof体的消息见证引理；71在主证明调用并实例化family；74 Verus报告3 verified,0 errors，79 Lynette通过。",
+      "judgement": "较有价值的证明分解样本；不是新增external_body公理。数学核心仍是见证桥接，只是模块化方式不同。",
+      "source_check": {
+        "cp": 5,
+        "skill_read_events": [
+          15
+        ],
+        "edit_events": [
+          68,
+          71
+        ],
+        "checks": [
+          {
+            "event": 18,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\n4904 | / pub proof fn lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp(\n4905 | |     vrs: VReplicaSetView, spec: TempPred<ClusterState>, cluster: Cluster, controller_id: int, diff: int\n4906 | | )\n     | |_^\nerror: assertion failed\n4989 |         assert forall |ex: Execution<ClusterState>| #[trigger] p.satisfied_by(ex) implies tla_exists(p_resp).satisfied_by(ex) by {\n     |                                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\nerror: assertion failed\n4993 |             assert(exists |resp_msg: Message| resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step(vrs, controller_id, resp_msg)(s));\n     |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed\nverificatio"
+          },
+          {
+            "event": 74,
+            "command": "/bin/bash -lc './tools/run_verus.sh candidate.rs'",
+            "exit": 0,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nverification results:: 3 verified, 0 errors"
+          },
+          {
+            "event": 79,
+            "command": "/bin/bash -lc ./tools/run_lynette.sh",
+            "exit": 0,
+            "diagnostic": ""
+          }
+        ],
+        "danger_additions": [],
+        "passed": true,
+        "final_sha256": "1dea5758d4dc314184b99f61d31d076df23ab9bc8a5455063068498c7c75302a"
+      },
+      "training_status": "eligible_after_formatting_with_failed_steps_labeled",
+      "proof_dependency_analysis": "两个helper把“从状态条件取出具体消息”单独做成可验证合同：响应helper展开匹配和OK列表内容，请求helper取pending请求并核对来源／类型／阶段。主函数再用helper的存在结论选择消息，证明对应family在execution成立。这样分层隔开状态推理与时序组合，但没有跳过任何合同证明。",
+      "hint_observed_contribution": "helper这一模块化组织由actor选择，hint只要求命名见证及建立强谓词。两者数学一致，最后3 verified表明新增helper也在本次验证范围，不能将它们误认作新增未证明公理。",
+      "matched_version_comparison": "v2 CP5在主函数里直接写两侧见证，没有抽helper；两者可对比证明分解方式，但不是不同控制器进展定理。",
+      "original_event": 100,
+      "final_verus_pass": true,
+      "final_lynette_pass": true
+    },
+    {
+      "cp": 6,
+      "title": "只回退非法auto属性",
+      "problem": "choose内部两处#![auto]不能识别；此前证明已经验证。",
+      "hint_assessment": "正确区分trigger notes与错误，要求仅删非法属性。",
+      "actor_evidence": "31删除两处属性，33／38双通过，未为清除提示继续改正确证明。",
+      "judgement": "具体语法修复而非新数学路径，适合诊断纠错材料。",
+      "source_check": {
+        "cp": 6,
+        "skill_read_events": [
+          16
+        ],
+        "edit_events": [
+          31
+        ],
+        "checks": [
+          {
+            "event": 22,
+            "command": "/bin/bash -c './tools/run_verus.sh candidate.rs'",
+            "exit": 1,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\nerror: cannot find attribute `auto` in this scope\n4999 |                 #![auto]\n     |                    ^^^^\nerror: cannot find attribute `auto` in this scope\n5029 |                 #![auto]\n     |                    ^^^^\nerror: aborting due to 2 previous errors; 1 warning emitted"
+          },
+          {
+            "event": 33,
+            "command": "/bin/bash -c './tools/run_verus.sh candidate.rs'",
+            "exit": 0,
+            "diagnostic": "331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\n4998 |               let resp_msg = choose |resp_msg: Message| {\n     |  ____________________________^\n4999 | |                 &&& s.in_flight().contains(resp_msg)\n5000 | |                 &&& resp_msg_matches_req_msg(resp_msg, s.ongoing_reconciles(controller_id)[vrs.object_ref()].pending_req_msg->0)\n5001 | |                 &&& resp_msg_is_ok_list_resp_containing_matching_pods(s, vrs, resp_msg)\n5002 | |             };\n     | |_____________^\n5001 |                 &&& resp_msg_is_ok_list_resp_containing_matching_pods(s, vrs, resp_msg)\n     |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n5027 |               let req_msg = choose |req_msg: Message| {\n     |  ___________________________^\n5028 | |                 &&& s.in_flight().contains(req_msg)\n5029 | |                 &&& Cluster::pending_req_msg_is(controller_id, s, vrs.object"
+          },
+          {
+            "event": 38,
+            "command": "/bin/bash -c ./tools/run_lynette.sh",
+            "exit": 0,
+            "diagnostic": ""
+          }
+        ],
+        "danger_additions": [],
+        "passed": true,
+        "final_sha256": "4d57461caca28fab290030b2ff89239a231df4804f628e97b73828324b92a7fa"
+      },
+      "training_status": "eligible_after_formatting_with_failed_steps_labeled",
+      "proof_dependency_analysis": "原轨迹为消除低置信trigger提示加了choose内部auto属性，反而引发解析错误。删掉两处非法标注保留原见证、前提和leads-to链，所以是恢复此前正确代码，不是重新解决存在桥接。剩余trigger notes不妨碍验证，不需为了“输出干净”继续破坏证明。",
+      "hint_observed_contribution": "提示相当具体且直接被采纳；它展示的是区分warning/note与error、避免过度修复的价值，不能当作新数学策略发现。",
+      "matched_version_comparison": "v2同样只删两处属性，差异主要在输出长度与运行时间。",
+      "original_event": 123,
+      "final_verus_pass": true,
+      "final_lynette_pass": true
+    }
+  ],
+  "report_revision": "detailed_semantic_review",
+  "revised_at": "2026-09-17T11:45:48.294342+00:00"
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "bde5e64835453eeaa53b2e00f06529efd071877d1d3cf54cd991fd50cfb13e02",
+  "hint_text": "The mathematical proof in this checkpoint is already accepted by Verus: the recorded run reports 1 verified, 0 errors. Do not add more sequence reasoning unless a later check exposes a new failure. The remaining issue is a warning for an unused `vstd::seq_lib` import. Remove that unused import since the current proof does not call any `seq_lib` helpers; then rerun Verus and confirm clean verification. Also run the Lynette comparison, because Verus success alone does not establish proof-only safety/spec preservation. If Lynette reports a mismatch, classify its diagnostic before changing the proof.",
+  "evidence_refs": [
+    {
+      "source_id": "event:69",
+      "observation": "Verus reports the checkpoint is verified with 0 errors but emits a warning that the vstd::seq_lib import is unused."
+    },
+    {
+      "source_id": "final_proof",
+      "observation": "The final verified proof has the same proof body as the checkpoint but without the unused vstd::seq_lib import."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The final candidate passes both Verus and Lynette after the unused import is removed."
+    }
+  ],
+  "relation_to_original": "validation_or_compatibility",
+  "limitations": [
+    "This checkpoint has no recorded Lynette result, so current Lynette status is unknown until the solver runs it.",
+    "The hint assumes the unused import is the only remaining cleanup issue unless Lynette reports otherwise."
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "d1340f03d115600b5143d5276ac1f30f21970082f17de33f37cbba085bee6e0c",
+  "hint_text": "In the backward direction, start from the concatenation equality and derive that the concatenated values have the same length. Then unfold the length of each concatenation into prefix length plus suffix length, cancel the common suffix length, and only then conclude the prefix lengths are equal. The current first failure arises because this length argument is skipped. Next, prove the prefixes agree pointwise: for an arbitrary prefix index, compare the concatenated values at that index and unfold both concatenation index accesses to reduce them to the corresponding prefix elements. After that, close under sequence extensionality. The sequence-library equality macro cannot supply these missing index-shift and length facts, so establish them before invoking it or switch to explicit extensionality. Re-run Verus and expect the remaining failures to resolve. Compatibility note: this state adds a sequence-library import relative to the input; if it becomes unused after restructuring, remove it before the final Lynette check, but no Lynette failure is observed for the current state.",
+  "evidence_refs": [
+    {
+      "source_id": "event:48",
+      "observation": "Verus failed on the two backward-direction assertions under s1 + suffix == s2 + suffix."
+    },
+    {
+      "source_id": "snapshot:d1340f03d115600b5143d5276ac1f30f21970082f17de33f37cbba085bee6e0c",
+      "observation": "Current checkpoint includes an added sequence-library import and uses the sequence equality macro."
+    },
+    {
+      "source_id": "original_task",
+      "observation": "Original input has no sequence-library import."
+    },
+    {
+      "source_id": "event:69",
+      "observation": "A later candidate using explicit concatenation-length unfolding and pointwise prefix reasoning passed Verus."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "Final proof, with the sequence-library import removed, passed both Verus and Lynette."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "The compatibility note about the added sequence-library import is only a conditional potential risk: no Lynette check was recorded for the current state, so later cleanup does not establish that this state would fail Lynette."
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "adb44d379710c7cba2b4ba708dd75575c003f4af7b824fc0eedeb4932142a016",
+  "hint_text": "The proof itself is already complete; the current blocker is a Verus syntax/attribute error, not a missing logical fact. The two `auto` attributes just added to the witness-choosing `choose` bodies are not recognized in this Verus version, as the diagnostic reports. Remove only those two annotations and keep the surrounding `choose`/witness extraction proof structure unchanged. That restores the earlier state which Verus accepted with zero errors; the remaining low-confidence quantifier trigger notes are informational, not failures. After the removal, rerun Verus first: expect verification to pass with zero errors and possibly the same trigger notes. Then rerun Lynette to confirm the edit remains proof-only. No structural compatibility concern is supported here; the same proof-only change was accepted by Lynette after restoring that state.",
+  "evidence_refs": [
+    {
+      "source_id": "event:123",
+      "observation": "Checkpoint Verus failure: cannot find attribute `auto` in the two choose bodies, aborting."
+    },
+    {
+      "source_id": "snapshot:4d57461caca28fab290030b2ff89239a231df4804f628e97b73828324b92a7fa",
+      "observation": "The immediately preceding candidate omits the two auto annotations and contains the same witness-choosing proof structure."
+    },
+    {
+      "source_id": "event:134",
+      "observation": "After reverting to the no-auto state, Verus exits 0 with only warning/trigger notes."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "Final candidate passes both Verus and Lynette with the no-auto proof body."
+    }
+  ],
+  "relation_to_original": "original_next_action",
+  "limitations": []
+}

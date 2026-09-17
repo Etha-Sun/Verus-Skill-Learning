@@ -1,0 +1,31 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+  "hint_text": "The current blocker is name resolution: the `assert_sets_equal` macro is not in scope under the prelude. First make the invocation resolve through vstd, preferably by qualifying the macro path rather than adding a top-level `use`, because the Lynette comparison is sensitive to extra generated Rust from imports. Re-run Verus to confirm resolution. The next proof objective is to establish extensional equality of the two set images for an arbitrary x. The current single membership equivalence is unlikely to be automatic: the SMT solver will not unfold the existential in `map` and union on its own. Work in two directions. For `(s1+s2).map(f)` containing x, expose a witness a with f(a)=x and a in s1+s2; split whether a is in s1 or s2 and conclude x lies in the corresponding image, then use union membership. For the reverse direction, split which image contains x and use that witness to show membership in the union image. Keep the witness-existence hypotheses explicit before eliminating them so the solver can use them. Check with Verus for assertion/postcondition satisfaction, then run Lynette.",
+  "evidence_refs": [
+    {
+      "source_id": "event:33",
+      "observation": "Verus diagnostic at the checkpoint reports that the macro `assert_sets_equal` cannot be found in scope."
+    },
+    {
+      "source_id": "snapshot:187c955f3b79278464893b35318f850cfe56845bfd171f35d8ceb924239f2cec",
+      "observation": "Checkpoint code contains an unqualified `assert_sets_equal` invocation and a direct two-way membership equality assertion."
+    },
+    {
+      "source_id": "event:39",
+      "observation": "After adding a top-level import, the same direct membership equality assertion failed."
+    },
+    {
+      "source_id": "event:67",
+      "observation": "A top-level import caused Lynette to report 'Files are different'."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "Final candidate uses a qualified macro path and passes independent Verus and Lynette checks."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "The assertion failure after import was observed with a top-level `use`; full-path invocation with the same inner assertion was not separately tested before the final proof, so the inner assertion is expected but not directly observed to fail under full-path resolution."
+  ]
+}

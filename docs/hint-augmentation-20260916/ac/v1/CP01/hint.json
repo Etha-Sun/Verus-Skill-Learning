@@ -1,0 +1,28 @@
+{
+  "schema_version": "hint-v1",
+  "checkpoint_sha256": "75e24ed1c3598e35dfecc597918242b87a63afc052eacd3a58d3759083998f34",
+  "hint_text": "The checkpoint has an empty proof body for lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp, so its final leads-to postcondition is unproved. The next objective is to prove the body as a temporal chain using the two already-trusted component lemmas: first from a specific in-flight list response to a pending create request, then from that specific create request to an OK create response. Introduce an intermediate state predicate for the pending create request, and use existential-introduction and transitivity rules. The main difficulty is proving the two existential liftings: the existential list-response predicate must entail the existential over response-specific predicates, and the pending-create predicate must entail the existential over request-specific predicates. Expand these entailments over executions, choose a witness message from the existential hypothesis, and prove the stronger message-specific predicate for that witness. When writing the quantified implication, ensure the antecedent is available as an assumption. Re-run Verus; success is indicated by the postcondition error disappearing.",
+  "evidence_refs": [
+    {
+      "source_id": "event:25",
+      "observation": "Verus reports postcondition failure for the target lemma, whose body is empty at this checkpoint."
+    },
+    {
+      "source_id": "snapshot:75e24ed1c3598e35dfecc597918242b87a63afc052eacd3a58d3759083998f34",
+      "observation": "Checkpoint snapshot contains only the empty body plus the two trusted helper lemmas and temporal rules."
+    },
+    {
+      "source_id": "snapshot:4d57461caca28fab290030b2ff89239a231df4804f628e97b73828324b92a7fa",
+      "observation": "The later verified proof composes the helper lemmas and explicitly expands the existential entailments to choose message witnesses."
+    },
+    {
+      "source_id": "final_validation",
+      "observation": "The final proof passed both Verus and Lynette, supporting the strategy but not validating this earlier state directly."
+    }
+  ],
+  "relation_to_original": "later_verified_repair",
+  "limitations": [
+    "The selected checkpoint diagnostic is truncated; the full postcondition failure appears only in a later Verus run.",
+    "The hint describes the verified strategy, but the continuation solver may still need local adjustments for quantifier triggers or witness choice."
+  ]
+}
