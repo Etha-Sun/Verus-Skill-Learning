@@ -1,5 +1,8 @@
 # Hint-guided checkpoint augmentation: initial skill, v1 / v2
 
+**2026-09-18更新：** [完整hint内容核对与teacher／actor用量](HINT_CONTENT_COMPARISON.md)。19对hint逐字比较，38条actor输入一致性核对通过。纠正AC v1 CP4、v2 CP5的旧评述：两者第二段均有后续见证提醒，不能判为提示遗漏。v2 teacher输出增加20.6%，actor输出减少12.5%，合计输出减少6.8%；不含输入费用，不是总账单或因果结论。
+
+
 本实验的目标是：为同题生成可比较的成功／失败经历，与原trace一起组织到SkillOpt minibatch，让optimizer提炼适用条件明确、非重复的经验。**成功率不是有效信息率；典型失败也可有价值，多条相似成功则可能只贡献一个经验主题。** 本包发布0916的hint agent配置，以及装备原initial skill的IR／AC／AL三题双版本实验；不包含此前blank小实验。
 
 ## 核心结果与阅读入口

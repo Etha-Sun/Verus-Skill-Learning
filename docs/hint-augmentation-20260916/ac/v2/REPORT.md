@@ -146,7 +146,7 @@ Your two remaining failures are the semantic entailments `p.entails(tla_exists(p
 
 **客观起点（原trace事件92）。** forall缺前提，之后需具体消息见证。
 
-**Hint作何判断。** 同时覆盖implies和两侧见证，比本轮v1 CP4的提示完整。
+**Hint作何判断。** 同时覆盖implies和两侧见证；v1全文第二段也有该预告，两版主要差别是表达具体程度，不能称v2才覆盖完整义务。
 
 **实际编辑与验证顺序。** 49改implies，51仍失败；70按底层条件构造响应见证，72仍失败；78补响应family与tla_exists实例，80仍失败；86补pending请求各性质及family，88／93双通过。
 
@@ -154,7 +154,7 @@ Your two remaining failures are the semantic entailments `p.entails(tla_exists(p
 
 **Hint究竟起了什么作用。** hint明确给出前提和见证两层，actor方向一致，但响应family直到下一轮才显式补上。两次响应侧编辑并不代表hint提了两个不同策略，而是同一桥接分步落实。
 
-**同起点两版对照。** v1 CP4的提示只充分解释前提层，本版提示更完整；观察到少一些直接猜强谓词的尝试，但仍不能据此证明稳定提速。 见[另一版CP4](../v1/REPORT.md#cp4)。
+**同起点两版对照。** v1全文也包含见证提醒。v2更明确串起P/Q与相应消息见证；观察到较少直接猜强谓词的尝试，但不能从本次执行差异证明提示增量的因果作用。 见[另一版CP4](../v1/REPORT.md#cp4)。
 
 **语义审计结论。** 每次修改有明确目标，最终对应hint要求；首次失败仍在，不能写成提前避开。
 
@@ -169,21 +169,21 @@ Verus is not assuming the antecedent of the two `assert forall` implications bec
 [起点源码](../checkpoints/CP04.rs) · [hint原文件](CP04/hint.json) · [全部修改与工具反馈](CP04/PROCESS.md) · [最终源码](CP04/final.rs) · [最终验证](CP04/result.json)
 
 <a id="cp5"></a>
-### CP5：hint只点响应侧，actor自行补请求侧
+### CP5：响应侧展开更具体，也提醒了请求侧
 
 **客观起点（原trace事件100）。** 起点两处断言失败。
 
-**Hint作何判断。** hint正文只诊断响应侧，逻辑正确但覆盖不全；没有把请求侧也提示了。
+**Hint作何判断。** 全文第二段明确要求取响应见证、建立具体谓词及family.satisfied_by，并提醒q_mid到tla_exists(p_req)也很可能需要同样处理。覆盖两侧，但请求侧措辞较条件化；旧审计仅据首段判为遗漏请求侧，现纠正。
 
-**实际编辑与验证顺序。** 55完整补响应见证和family实例，57仍失败；63自行补请求源、in-flight、类型及family，65／70双通过。
+**实际编辑与验证顺序。** 55完整补响应见证和family实例，57仍失败；63补请求源、in-flight、类型及family，65／70双通过。请求侧修复与hint后段提醒相符，具体直接取pending消息由actor实现。
 
 **为什么这些修改有效，或仍然失败。** 响应侧从实际in-flight/matching/OK条件取见证，再逐项恢复强消息谓词和family实例，这一链合理。请求侧不必机械再写choose：pending消息已经由源状态指定，只要验证阶段、in-flight、来源及请求类型，就能作为同一存在目标的见证。两种取见证方式都不添加新假设。
 
-**Hint究竟起了什么作用。** 实际hint仅指出响应侧，没有给出请求侧方案；actor在响应编辑后仍失败，随后自行补请求。应评价为局部正确且不完整的指导，不应把第二次修复也写成逐条照提示执行。
+**Hint究竟起了什么作用。** hint全文已预告请求侧，因此actor第二次修复与提示方向对应；提示没有规定helper还是内联，也没有提供全部请求代码，具体实现选择仍由actor完成。
 
-**同起点两版对照。** v1 CP5提示同时覆盖两侧且actor抽了两个helper；本版内联完成两侧，证明分解方式不同。 见[另一版CP5](../v1/REPORT.md#cp5)。
+**同起点两版对照。** 两版都提醒两侧见证。v1强调两侧都需命名见证并抽出helper；v2更显式写响应family在execution上的实例，actor内联完成。区别是展开粒度及证明分解，而非有没有请求侧提醒。 见[另一版CP5](../v1/REPORT.md#cp5)。
 
-**语义审计结论。** 有用但不完整的hint。actor解决第二侧的行为不能计作该hint的直接采纳。
+**语义审计结论。** 有用的两侧桥接提示，响应侧较详细、请求侧较简略。第二次修复可以视为响应了提示中的请求侧预告，不能再判为完全未被提示的自行推进。
 
 **最终检查边界。** 宿主Verus=通过，Lynette=通过；该结论对应链接中的最终candidate hash，不用中途通过替代终点检查。
 

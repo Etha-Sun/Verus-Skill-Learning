@@ -141,21 +141,21 @@ The remaining two failures are witness-introduction goals for `tla_exists`, not 
 [起点源码](../checkpoints/CP03.rs) · [hint原文件](CP03/hint.json) · [全部修改与工具反馈](CP03/PROCESS.md) · [最终源码](CP03/final.rs) · [最终验证](CP03/result.json)
 
 <a id="cp4"></a>
-### CP4：提示只解决第一层，剩余见证靠actor补齐
+### CP4：前提与见证两层均有提示，actor延迟落实
 
 **客观起点（原trace事件92）。** forall ==>导致proof体无前提；修后还有存在桥接。
 
-**Hint作何判断。** 准确指出implies，但“之后component assertions应解决”不足以覆盖剩余两处见证义务，提示不完整。
+**Hint作何判断。** 全文第一段要求implies引入前提，第二段明确预告tla_exists的存在见证问题，要求对响应或请求按底层条件命名见证并建立具体消息谓词。旧审计漏读第二段，不能称提示只覆盖第一层。
 
 **实际编辑与验证顺序。** 44改implies，46仍两失败；52直接choose强谓词，54失败；60重述existential，62失败；83改从原始in-flight/matching/OK条件取响应见证，85仍有未闭合义务；94补pending请求和family实例，96／100双通过。
 
 **为什么这些修改有效，或仍然失败。** 改implies恢复源状态假设，只能让已有事实进入上下文，并不能自动把打包存在谓词转换成目标强消息谓词。直接choose目标强谓词等于先要求证明尚未建立的存在性，因此重写assert仍无帮助。必须回到已知的in-flight/matching/OK条件选响应，随后建立family；请求侧也要明确取pending消息，才能闭合主链。
 
-**Hint究竟起了什么作用。** hint对前提问题判断正确，但说后续component断言应解决过于乐观，缺少下一层桥接提醒。actor后来补见证是有价值的自行推进，不能全部算作hint已明确指导的内容。
+**Hint究竟起了什么作用。** 完整hint已明确预告存在桥接。actor先修implies，随后数轮才从底层消息条件落实见证，属于延迟落实而非自行发现未提示的问题。第一段的component assertions应解决只宜解释为前提相关断言，不能截掉第二段后作整体判断。
 
-**同起点两版对照。** v2 CP4同时提示前提与两侧见证，actor少了本版直接choose强谓词的试错；不过也需多轮才完全实例化。 见[另一版CP4](../v2/REPORT.md#cp4)。
+**同起点两版对照。** 两版都覆盖前提和响应／请求见证；v2把源谓词到具体见证的对应写得更紧凑明确。actor少了一些直接choose强谓词的试错，但不是v2独有第二层数学目标。 见[另一版CP4](../v2/REPORT.md#cp4)。
 
-**语义审计结论。** 不是完全误报，而是只诊断当前一层。最终两桥接合理；不能把所有后续进展归给hint。
+**语义审计结论。** 两层提示均有依据；actor直接choose强谓词及重述存在断言的绕路，不能归因为hint未提醒见证。最终修复合理，仍需区分提示采纳与actor的具体实现选择。
 
 **最终检查边界。** 宿主Verus=通过，Lynette=通过；该结论对应链接中的最终candidate hash，不用中途通过替代终点检查。
 

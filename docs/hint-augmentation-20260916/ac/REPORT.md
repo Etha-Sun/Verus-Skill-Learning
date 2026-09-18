@@ -1,5 +1,8 @@
 # AC：Initial skill + Hint v1 / v2 逐checkpoint对照
 
+[今日完整hint内容核对及AC审计纠错](../HINT_CONTENT_COMPARISON.md)。完整hint原文是判断提示覆盖范围的依据，不能只取首段。
+
+
 [原trace＋两版增广：去重后的信息增量审计](../INFORMATION_VALUE_AUDIT.md)。有效材料包括可解释的失败；成功率不等于新增信息量。
 
 
@@ -257,7 +260,7 @@ Your two remaining failures are the semantic entailments `p.entails(tla_exists(p
 <a id="cp4"></a>
 ## CP4：同一起点，两版如何处理
 
-**直接对照。** v2 CP4同时提示前提与两侧见证，actor少了本版直接choose强谓词的试错；不过也需多轮才完全实例化。
+**直接对照。** 两版都覆盖前提和响应／请求见证；v2把源谓词到具体见证的对应写得更紧凑明确。actor少了一些直接choose强谓词的试错，但不是v2独有第二层数学目标。
 
 | 版本 | Actor输出token | 源码变化次数 | 最终双通过 |
 |---|---:|---:|---|
@@ -265,21 +268,21 @@ Your two remaining failures are the semantic entailments `p.entails(tla_exists(p
 | v2 | 13,338 | 4 | 通过 |
 
 <a id="v1-cp4"></a>
-### v1：提示只解决第一层，剩余见证靠actor补齐
+### v1：前提与见证两层均有提示，actor延迟落实
 
 **客观起点（原trace事件92）。** forall ==>导致proof体无前提；修后还有存在桥接。
 
-**Hint作何判断。** 准确指出implies，但“之后component assertions应解决”不足以覆盖剩余两处见证义务，提示不完整。
+**Hint作何判断。** 全文第一段要求implies引入前提，第二段明确预告tla_exists的存在见证问题，要求对响应或请求按底层条件命名见证并建立具体消息谓词。旧审计漏读第二段，不能称提示只覆盖第一层。
 
 **实际编辑与验证顺序。** 44改implies，46仍两失败；52直接choose强谓词，54失败；60重述existential，62失败；83改从原始in-flight/matching/OK条件取响应见证，85仍有未闭合义务；94补pending请求和family实例，96／100双通过。
 
 **为什么这些修改有效，或仍然失败。** 改implies恢复源状态假设，只能让已有事实进入上下文，并不能自动把打包存在谓词转换成目标强消息谓词。直接choose目标强谓词等于先要求证明尚未建立的存在性，因此重写assert仍无帮助。必须回到已知的in-flight/matching/OK条件选响应，随后建立family；请求侧也要明确取pending消息，才能闭合主链。
 
-**Hint究竟起了什么作用。** hint对前提问题判断正确，但说后续component断言应解决过于乐观，缺少下一层桥接提醒。actor后来补见证是有价值的自行推进，不能全部算作hint已明确指导的内容。
+**Hint究竟起了什么作用。** 完整hint已明确预告存在桥接。actor先修implies，随后数轮才从底层消息条件落实见证，属于延迟落实而非自行发现未提示的问题。第一段的component assertions应解决只宜解释为前提相关断言，不能截掉第二段后作整体判断。
 
-**同起点两版对照。** v2 CP4同时提示前提与两侧见证，actor少了本版直接choose强谓词的试错；不过也需多轮才完全实例化。 见[另一版CP4](v2/REPORT.md#cp4)。
+**同起点两版对照。** 两版都覆盖前提和响应／请求见证；v2把源谓词到具体见证的对应写得更紧凑明确。actor少了一些直接choose强谓词的试错，但不是v2独有第二层数学目标。 见[另一版CP4](v2/REPORT.md#cp4)。
 
-**语义审计结论。** 不是完全误报，而是只诊断当前一层。最终两桥接合理；不能把所有后续进展归给hint。
+**语义审计结论。** 两层提示均有依据；actor直接choose强谓词及重述存在断言的绕路，不能归因为hint未提醒见证。最终修复合理，仍需区分提示采纳与actor的具体实现选择。
 
 **最终检查边界。** 宿主Verus=通过，Lynette=通过；该结论对应链接中的最终candidate hash，不用中途通过替代终点检查。
 
@@ -299,7 +302,7 @@ The next expected obstacle is the existential goal for `tla_exists`: Verus will 
 
 **客观起点（原trace事件92）。** forall缺前提，之后需具体消息见证。
 
-**Hint作何判断。** 同时覆盖implies和两侧见证，比本轮v1 CP4的提示完整。
+**Hint作何判断。** 同时覆盖implies和两侧见证；v1全文第二段也有该预告，两版主要差别是表达具体程度，不能称v2才覆盖完整义务。
 
 **实际编辑与验证顺序。** 49改implies，51仍失败；70按底层条件构造响应见证，72仍失败；78补响应family与tla_exists实例，80仍失败；86补pending请求各性质及family，88／93双通过。
 
@@ -307,7 +310,7 @@ The next expected obstacle is the existential goal for `tla_exists`: Verus will 
 
 **Hint究竟起了什么作用。** hint明确给出前提和见证两层，actor方向一致，但响应family直到下一轮才显式补上。两次响应侧编辑并不代表hint提了两个不同策略，而是同一桥接分步落实。
 
-**同起点两版对照。** v1 CP4的提示只充分解释前提层，本版提示更完整；观察到少一些直接猜强谓词的尝试，但仍不能据此证明稳定提速。 见[另一版CP4](v1/REPORT.md#cp4)。
+**同起点两版对照。** v1全文也包含见证提醒。v2更明确串起P/Q与相应消息见证；观察到较少直接猜强谓词的尝试，但不能从本次执行差异证明提示增量的因果作用。 见[另一版CP4](v1/REPORT.md#cp4)。
 
 **语义审计结论。** 每次修改有明确目标，最终对应hint要求；首次失败仍在，不能写成提前避开。
 
@@ -360,21 +363,21 @@ The remaining failure is the embedding from an anonymous existential in the hypo
 
 
 <a id="v2-cp5"></a>
-### v2：hint只点响应侧，actor自行补请求侧
+### v2：响应侧展开更具体，也提醒了请求侧
 
 **客观起点（原trace事件100）。** 起点两处断言失败。
 
-**Hint作何判断。** hint正文只诊断响应侧，逻辑正确但覆盖不全；没有把请求侧也提示了。
+**Hint作何判断。** 全文第二段明确要求取响应见证、建立具体谓词及family.satisfied_by，并提醒q_mid到tla_exists(p_req)也很可能需要同样处理。覆盖两侧，但请求侧措辞较条件化；旧审计仅据首段判为遗漏请求侧，现纠正。
 
-**实际编辑与验证顺序。** 55完整补响应见证和family实例，57仍失败；63自行补请求源、in-flight、类型及family，65／70双通过。
+**实际编辑与验证顺序。** 55完整补响应见证和family实例，57仍失败；63补请求源、in-flight、类型及family，65／70双通过。请求侧修复与hint后段提醒相符，具体直接取pending消息由actor实现。
 
 **为什么这些修改有效，或仍然失败。** 响应侧从实际in-flight/matching/OK条件取见证，再逐项恢复强消息谓词和family实例，这一链合理。请求侧不必机械再写choose：pending消息已经由源状态指定，只要验证阶段、in-flight、来源及请求类型，就能作为同一存在目标的见证。两种取见证方式都不添加新假设。
 
-**Hint究竟起了什么作用。** 实际hint仅指出响应侧，没有给出请求侧方案；actor在响应编辑后仍失败，随后自行补请求。应评价为局部正确且不完整的指导，不应把第二次修复也写成逐条照提示执行。
+**Hint究竟起了什么作用。** hint全文已预告请求侧，因此actor第二次修复与提示方向对应；提示没有规定helper还是内联，也没有提供全部请求代码，具体实现选择仍由actor完成。
 
-**同起点两版对照。** v1 CP5提示同时覆盖两侧且actor抽了两个helper；本版内联完成两侧，证明分解方式不同。 见[另一版CP5](v1/REPORT.md#cp5)。
+**同起点两版对照。** 两版都提醒两侧见证。v1强调两侧都需命名见证并抽出helper；v2更显式写响应family在execution上的实例，actor内联完成。区别是展开粒度及证明分解，而非有没有请求侧提醒。 见[另一版CP5](v1/REPORT.md#cp5)。
 
-**语义审计结论。** 有用但不完整的hint。actor解决第二侧的行为不能计作该hint的直接采纳。
+**语义审计结论。** 有用的两侧桥接提示，响应侧较详细、请求侧较简略。第二次修复可以视为响应了提示中的请求侧预告，不能再判为完全未被提示的自行推进。
 
 **最终检查边界。** 宿主Verus=通过，Lynette=通过；该结论对应链接中的最终candidate hash，不用中途通过替代终点检查。
 

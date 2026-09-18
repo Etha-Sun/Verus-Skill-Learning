@@ -1,0 +1,171 @@
+{
+  "method": "Full hint_text read and exact actor input consistency check, manual semantic comparison",
+  "totals": {
+    "v1": {
+      "h": 46443,
+      "r": 36049,
+      "a": 222926,
+      "w": 2745
+    },
+    "v2": {
+      "h": 56001,
+      "r": 44851,
+      "a": 194976,
+      "w": 2907
+    }
+  },
+  "records": [
+    {
+      "task": "ir",
+      "cp": 1,
+      "classification": "数学覆盖基本相同",
+      "content_difference": "两版都有外延性、双方向、成员前提和choose；v2逆向传播略展开。v1已有全限定宏提醒。",
+      "observed_behavior": "两版actor都转库定理，均未实现hint的手写路线；v2还猜错一次API。",
+      "actor_output_change_percent": -6.1515052711661795
+    },
+    {
+      "task": "ir",
+      "cp": 2,
+      "classification": "数学覆盖基本相同",
+      "content_difference": "两版都预告宏解析之后的两方向见证；v2主要细化兼容证据。",
+      "observed_behavior": "两版同样修宏后转库，不能从省token推定多了数学目标。",
+      "actor_output_change_percent": -13.023311132255
+    },
+    {
+      "task": "ir",
+      "cp": 3,
+      "classification": "数学覆盖基本相同",
+      "content_difference": "两版都有双方向见证及前提保护；v2的兼容措辞更谨慎。",
+      "observed_behavior": "v1手写，v2转库且token更多，说明同类hint可引出不同路径。",
+      "actor_output_change_percent": 63.77732981857653
+    },
+    {
+      "task": "ir",
+      "cp": 4,
+      "classification": "数学覆盖基本相同",
+      "content_difference": "两版都有trigger→存在前提→双方向传播。v2额外允许将trigger移至合法子项，并建议逐步检查，不是新增证明义务。",
+      "observed_behavior": "v1合并修复，v2分三层报错；v2少token却多修改，不能称数学更完整解释了提速。",
+      "actor_output_change_percent": -14.31917832902877
+    },
+    {
+      "task": "ir",
+      "cp": 5,
+      "classification": "数学覆盖基本相同",
+      "content_difference": "两版均要求先分成员条件再choose；v2的兼容证据更明确。",
+      "observed_behavior": "v1转库，v2补原见证，不同执行选择影响token。",
+      "actor_output_change_percent": -12.362215710897173
+    },
+    {
+      "task": "ir",
+      "cp": 6,
+      "classification": "无新数学义务",
+      "content_difference": "两版都只修兼容，v2明确同一源码已观察到失败。",
+      "observed_behavior": "两版同类修复，v2输出更多。",
+      "actor_output_change_percent": 17.067620286085816
+    },
+    {
+      "task": "ac",
+      "cp": 1,
+      "classification": "操作指向更具体",
+      "content_difference": "v1已含两组件、两存在桥接、execution和前提；v2显式要求两个消息family、逐消息实例化，点名leads_to_exists_intro与leads_to_trans。不是v1遗漏核心数学义务。",
+      "observed_behavior": "v2按内联两桥接完成，v1在helper及请求侧绕路超时；支持具体化可能有帮助，但无独立控制。",
+      "actor_output_change_percent": -54.74213700408362
+    },
+    {
+      "task": "ac",
+      "cp": 2,
+      "classification": "桥接表达更具体",
+      "content_difference": "v1有trigger和两侧见证；v2更明确“execution→head state→具体消息谓词→tla_exists”。v1的trigger表达反而更具体。",
+      "observed_behavior": "v2少做状态函数／局部声明重构，路径更直接；仍先犯前提和语法错误。",
+      "actor_output_change_percent": -52.68595875206845
+    },
+    {
+      "task": "ac",
+      "cp": 3,
+      "classification": "数学相同，语法提示更具体",
+      "content_difference": "两版均详细列两见证。v2额外明确assert forall使用implies；v1已经要求head满足源谓词。",
+      "observed_behavior": "v2泛型化后失败并多耗token；更多具体指导没有保证执行更好。",
+      "actor_output_change_percent": 219.08756715995855
+    },
+    {
+      "task": "ac",
+      "cp": 4,
+      "classification": "数学覆盖相同，表达更集中",
+      "content_difference": "v1第二段已预告见证；v2将P/Q与响应／请求的对应串成更紧凑的链。没有“v2补上v1遗漏一层”的证据。",
+      "observed_behavior": "v2少了直接choose强谓词等试错；差异可与表达集中相关，但不能由遗漏数学目标解释。",
+      "actor_output_change_percent": -20.09345794392523
+    },
+    {
+      "task": "ac",
+      "cp": 5,
+      "classification": "响应family连接更显式",
+      "content_difference": "两版均提醒两侧；v2明确p_resp(resp_msg).satisfied_by(ex)，请求侧用likely条件提醒，v1对此更肯定。",
+      "observed_behavior": "v1抽两个helper，v2内联两侧。少token与实现组织有关；两者均双通过。",
+      "actor_output_change_percent": -15.666474321985003
+    },
+    {
+      "task": "ac",
+      "cp": 6,
+      "classification": "无新数学义务",
+      "content_difference": "两版都只删非法auto、保留已过证明，v2文本更短并说明无支持的兼容风险。",
+      "observed_behavior": "相同一次修复，v2输出少；不是更多数学规划。",
+      "actor_output_change_percent": -24.48110697179351
+    },
+    {
+      "task": "al",
+      "cp": 1,
+      "classification": "数学覆盖基本相同",
+      "content_difference": "两版都有双向分解、长度消去、索引还原、外延性；v1还明确提醒不要立即assert s1==s2。v2新增当前无结构问题的界定。",
+      "observed_behavior": "v1仍写了错误else，v2没有；不能说v1没给正确数学计划。",
+      "actor_output_change_percent": -12.898727557957123
+    },
+    {
+      "task": "al",
+      "cp": 2,
+      "classification": "数学覆盖基本相同",
+      "content_difference": "两版完整覆盖等长和逐点相等；v2收尾要求规格不变。",
+      "observed_behavior": "两版都一次修改双通过；token差异不是增加数学义务带来的明显结果。",
+      "actor_output_change_percent": -32.316243194192374
+    },
+    {
+      "task": "al",
+      "cp": 3,
+      "classification": "数学相同，新增兼容审查",
+      "content_difference": "两版已说清不用猜API、直接长度及索引证明；v2主要新增导入差异与检查证据边界。",
+      "observed_behavior": "v2一次补齐并删导入，v1分多轮；支持兼容／修复范围组织有帮助，而非数学目标新增。",
+      "actor_output_change_percent": -12.906474820143888
+    },
+    {
+      "task": "al",
+      "cp": 4,
+      "classification": "数学相同，选择空间更宽",
+      "content_difference": "两版都有长度消去和索引事实。v1说用外延性而非宏；v2允许补事实后继续用宏或改显式外延性，另加导入提醒。",
+      "observed_behavior": "不是v2约束一律更紧；数学执行仍有==>返工，兼容也未提前完全避免。",
+      "actor_output_change_percent": -15.150753768844217
+    },
+    {
+      "task": "al",
+      "cp": 5,
+      "classification": "数学与清理目标基本相同",
+      "content_difference": "v1已明确去无用导入；v2强调Lynette并有未经充分证实的unused-warning措辞。长度／索引目标无新增。",
+      "observed_behavior": "两版都一次修复；不能把v2少token归结为新加清导入建议。",
+      "actor_output_change_percent": -30.650578430153008
+    },
+    {
+      "task": "al",
+      "cp": 6,
+      "classification": "数学相同，新增兼容提醒",
+      "content_difference": "两版均只缺逐点索引；v2补清理导入的条件提醒，没有新增数学事实。",
+      "observed_behavior": "v2少一轮broadcast名称错误，但仍Lynette失败后清导入；部分API差异不由hint直接指定。",
+      "actor_output_change_percent": -15.05490271623965
+    },
+    {
+      "task": "al",
+      "cp": 7,
+      "classification": "无新数学义务",
+      "content_difference": "两版均数学已过、去无用导入并双检查；v2把输入差异及当前/历史证据区分得更细。",
+      "observed_behavior": "v2先复现Lynette失败且输出更多；不是更多数学推导。",
+      "actor_output_change_percent": 13.636363636363647
+    }
+  ]
+}

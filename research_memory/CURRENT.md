@@ -1,5 +1,8 @@
 # Current Research State
 
+Hint-content audit: 19 full pairs read and 38 actor hint inputs matched exactly. Corrected earlier truncated-paragraph assessments: initial-skill AC v1 CP4 already warns of witness extraction; AC v2 CP5 already mentions the request bridge. Local and publication-copy reports corrected; the 2026-09-18 update publishes HINT_CONTENT_COMPARISON.md and its structured records. External HINT_CONTENT_COMPARISON.md records broadly similar mathematics, some more explicit AC operations, and teacher output increase (46443 to 56001) versus actor decrease (222926 to 194976). No causal compute-transfer or billing claim. No raw trace edits or new API calls.
+
+
 ## 0916 core experiment publication
 
 Reviewed package: [Hint augmentation with initial skill](../docs/hint-augmentation-20260916/README.md). Includes both hint configurations, three paired reports, detailed audits, information-value review, 38 compact results, checkpoints/final proofs, portable launch/plot scripts and offline tests. 36 final dual passes; meaningful failures retained. Success rate is not marginal information yield; v1's verified AC helper decomposition and v2's failed generic-helper attempt are complementary. Full raw runs and credentials remain external. Publication validates proof/prompt hashes, links and five boundary tests; no new API calls or downstream optimizer claims. Next: team review and representative batch construction.

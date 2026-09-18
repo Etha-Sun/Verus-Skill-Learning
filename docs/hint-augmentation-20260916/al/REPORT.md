@@ -1,5 +1,8 @@
 # AL：Initial skill + Hint v1 / v2 逐checkpoint对照
 
+[今日完整hint内容核对及AC审计纠错](../HINT_CONTENT_COMPARISON.md)。完整hint原文是判断提示覆盖范围的依据，不能只取首段。
+
+
 [原trace＋两版增广：去重后的信息增量审计](../INFORMATION_VALUE_AUDIT.md)。有效材料包括可解释的失败；成功率不等于新增信息量。
 
 
