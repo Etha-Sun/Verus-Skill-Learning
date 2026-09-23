@@ -1,0 +1,19 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -5026,7 +5026,15 @@
+             let s = ex.head();
+             assert(pending_req_in_flight_at_after_create_pod_step(vrs, controller_id, d)(s));
+             assert(num_diff_pods_is(vrs, diff)(s));
+-            assert(exists |req_msg: Message| req_msg_is_the_in_flight_create_request_at_after_create_pod_step(vrs, controller_id, req_msg, d)(s));
++            let pending_req_msg = s.ongoing_reconciles(controller_id)[vrs.object_ref()].pending_req_msg->0;
++            assert(at_vrs_step_with_vrs(vrs, controller_id, VReplicaSetRecStepView::AfterCreatePod(d))(s));
++            assert(Cluster::pending_req_msg_is(controller_id, s, vrs.object_ref(), pending_req_msg));
++            assert(s.in_flight().contains(pending_req_msg));
++            assert(pending_req_msg.src == HostId::Controller(controller_id, vrs.object_ref()));
++            assert(req_msg_is_create_matching_pod_req(vrs, pending_req_msg));
++            assert(req_msg_is_the_in_flight_create_request_at_after_create_pod_step(vrs, controller_id, pending_req_msg, d)(s));
++            assert(p_req(pending_req_msg).satisfied_by(ex));
++            assert(tla_exists(p_req).satisfied_by(ex));
+         };
+     };
+     entails_implies_leads_to(spec, q_mid, tla_exists(p_req));

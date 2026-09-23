@@ -39,3 +39,7 @@ AC v1 CP1与v2 CP3是真实超时未解，最终Verus失败、Lynette通过；�
 - 完整原轨迹、原始模型请求／对话、provider账本、凭据、完整运行目录留在外部数据区；个人路径已脱敏。报告中未发布的旧材料明确标注，不保留坏链接。
 
 [复现与文件说明](REPRODUCIBILITY.md) · [38条信息分类](information_value_labels.json) · [文件来源校验](publication_provenance.json)
+
+## Full recorded actor traces
+
+[Browse all 38 continuations](traces/README.md): complete structured/raw events, recorded conversation and tool outputs, actor prompts, and intermediate code snapshots. Personal host paths are redacted; source hashes are preserved. Includes the two failed continuations. See archive notes for prefix and training-format boundaries.

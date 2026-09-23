@@ -1,0 +1,53 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -4948,7 +4948,46 @@
+             )
+         ),
+ {
+-}
+-
+-
+-}
++    let step_diff = (abs(diff) - 1) as nat;
++
++    let list_resp_to_pending = |resp_msg: Message| lift_state(|s: ClusterState| {
++        &&& resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step(vrs, controller_id, resp_msg)(s)
++        &&& num_diff_pods_is(vrs, diff)(s)
++    });
++
++    let pending = lift_state(|s: ClusterState| {
++        &&& pending_req_in_flight_at_after_create_pod_step(vrs, controller_id, step_diff)(s)
++        &&& num_diff_pods_is(vrs, diff)(s)
++    });
++
++    let req_to_ok = |req_msg: Message| lift_state(|s: ClusterState| {
++        &&& req_msg_is_the_in_flight_create_request_at_after_create_pod_step(vrs, controller_id, req_msg, step_diff)(s)
++        &&& num_diff_pods_is(vrs, diff)(s)
++    });
++
++    let exists_req = tla_exists(req_to_ok);
++
++    let ok = lift_state(|s: ClusterState| {
++        &&& exists_ok_resp_in_flight_at_after_create_pod_step(vrs, controller_id, step_diff)(s)
++        &&& num_diff_pods_is(vrs, diff + 1)(s)
++    });
++
++    assert forall |resp_msg: Message| spec.entails(list_resp_to_pending(resp_msg).leads_to(pending)) by {
++        lemma_from_after_receive_list_pods_resp_to_send_create_pod_req(vrs, spec, cluster, controller_id, resp_msg, diff);
++    }
++    leads_to_exists_intro(spec, list_resp_to_pending, pending);
++
++    assert forall |req_msg: Message| spec.entails(req_to_ok(req_msg).leads_to(ok)) by {
++        lemma_from_after_send_create_pod_req_to_receive_ok_resp(vrs, spec, cluster, controller_id, req_msg, diff);
++    }
++    leads_to_exists_intro(spec, req_to_ok, ok);
++
++    assert(pending.entails(exists_req));
++    entails_implies_leads_to(spec, pending, exists_req);
++
++    leads_to_trans(spec, pending, exists_req, ok);
++    leads_to_trans(spec, tla_exists(list_resp_to_pending), pending, ok);
++}
++
++
++}

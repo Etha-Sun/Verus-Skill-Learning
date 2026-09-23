@@ -1,0 +1,11 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -12,7 +12,7 @@
+         assert(s1 + suffix == s2 + suffix);
+     }
+     if s1 + suffix == s2 + suffix {
+-        broadcast use group_seq_axioms;
++        broadcast use vstd::seq::group_seq_axioms;
+ 
+         let left = s1 + suffix;
+         let right = s2 + suffix;

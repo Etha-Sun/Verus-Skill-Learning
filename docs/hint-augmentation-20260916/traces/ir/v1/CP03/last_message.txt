@@ -1,0 +1,14 @@
+Both checks pass.
+
+Status:
+- `./tools/run_verus.sh candidate.rs`: `1 verified, 0 errors`
+- `./tools/run_lynette.sh`: exit code `0` (no safety mismatch reported)
+
+Strategy:
+- The initial checkpoint failed on one assertion inside `assert_sets_equal!`, because Verus could not automatically connect the existential membership of `(s1 + s2).map(f)` with the disjunctive membership of `s1.map(f) + s2.map(f)`.
+- I replaced that single equality with two implications:
+  - Left-to-right: assumed membership in `(s1 + s2).map(f)`, chose a witness `a` in `s1 + s2` with `f(a) == x`, split on `s1.contains(a)` vs `s2.contains(a)`, and derived membership in the corresponding image and then the union.
+  - Right-to-left: assumed membership in `s1.map(f) + s2.map(f)`, split on which image contains `x`, chose the corresponding witness, and reused it to establish membership in `(s1 + s2).map(f)`.
+- Removed the extra top-level `assert_sets_equal` import and called the macro by absolute path as `vstd::assert_sets_equal!`, keeping generated code closer to `input.rs`.
+
+No `assume`, `admit`, `external_body`, or other verification bypass was used. Specifications and executable behavior are unchanged; only the proof body was edited in `candidate.rs`.

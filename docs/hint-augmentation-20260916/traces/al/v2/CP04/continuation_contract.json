@@ -1,0 +1,7 @@
+{
+  "checkpoint_sha256": "d1340f03d115600b5143d5276ac1f30f21970082f17de33f37cbba085bee6e0c",
+  "reference_sha256": null,
+  "baseline_sha256": "46127e70fa8f86814c5f02cd29467c51f8cea7fe2e1f7aca193dc422d18e07f6",
+  "reference_kind": "none",
+  "hindsight_guided": false
+}

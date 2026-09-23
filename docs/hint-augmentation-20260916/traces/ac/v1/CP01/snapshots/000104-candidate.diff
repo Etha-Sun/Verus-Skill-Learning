@@ -1,0 +1,32 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -4921,23 +4921,13 @@
+             )
+         ),
+ {
+-    assert forall |ex: Execution<ClusterState>|
+-        #[trigger] lift_state(
+-            |s: ClusterState| {
+-                &&& pending_req_in_flight_at_after_create_pod_step(vrs, controller_id, step_diff)(s)
+-                &&& num_diff_pods_is(vrs, diff)(s)
+-            }
+-        ).satisfied_by(ex)
+-        ==> tla_exists(
+-            |req_msg: Message| lift_state(
+-                |s: ClusterState| {
+-                    &&& req_msg_is_the_in_flight_create_request_at_after_create_pod_step(vrs, controller_id, req_msg, step_diff)(s)
+-                    &&& num_diff_pods_is(vrs, diff)(s)
+-                }
+-            )
+-        ).satisfied_by(ex)
++    assert forall |s: ClusterState|
++        #[trigger] pending_req_in_flight_at_after_create_pod_step(vrs, controller_id, step_diff)(s)
++        &&& num_diff_pods_is(vrs, diff)(s)
++        ==> exists |req_msg: Message|
++            req_msg_is_the_in_flight_create_request_at_after_create_pod_step(vrs, controller_id, req_msg, step_diff)(s)
++            &&& num_diff_pods_is(vrs, diff)(s)
+     by {
+-        let s = ex.head();
+         let req_msg = s.ongoing_reconciles(controller_id)[vrs.object_ref()].pending_req_msg->0;
+         assert(req_msg_is_the_in_flight_create_request_at_after_create_pod_step(vrs, controller_id, req_msg, step_diff)(s));
+         assert(num_diff_pods_is(vrs, diff)(s));

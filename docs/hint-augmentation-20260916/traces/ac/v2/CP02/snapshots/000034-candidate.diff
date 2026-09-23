@@ -1,0 +1,20 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -4980,7 +4980,7 @@
+         }
+     );
+ 
+-    assert forall |resp_msg: Message| spec.entails(p_resp(resp_msg).leads_to(q_mid)) by {
++    assert forall |resp_msg: Message| #[trigger] spec.entails(p_resp(resp_msg).leads_to(q_mid)) by {
+         lemma_from_after_receive_list_pods_resp_to_send_create_pod_req(vrs, spec, cluster, controller_id, resp_msg, diff);
+     };
+     leads_to_exists_intro(spec, p_resp, q_mid);
+@@ -4989,7 +4989,7 @@
+     entails_implies_leads_to(spec, p, tla_exists(p_resp));
+     leads_to_trans(spec, p, tla_exists(p_resp), q_mid);
+ 
+-    assert forall |req_msg: Message| spec.entails(p_req(req_msg).leads_to(r)) by {
++    assert forall |req_msg: Message| #[trigger] spec.entails(p_req(req_msg).leads_to(r)) by {
+         lemma_from_after_send_create_pod_req_to_receive_ok_resp(vrs, spec, cluster, controller_id, req_msg, diff);
+     };
+     leads_to_exists_intro(spec, p_req, r);

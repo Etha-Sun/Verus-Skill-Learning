@@ -1,0 +1,16 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -4953,7 +4953,12 @@
+         &&& resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step(vrs, controller_id, resp_msg)(s)
+         &&& num_diff_pods_is(vrs, diff)(s)
+     };
+-    let p_resp = |resp_msg: Message| lift_state(|s: ClusterState| p_resp_state(resp_msg, s));
++    let p_resp = |resp_msg: Message| lift_state(
++        |s: ClusterState| {
++            &&& resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step(vrs, controller_id, resp_msg)(s)
++            &&& num_diff_pods_is(vrs, diff)(s)
++        }
++    );
+     let q_mid = lift_state(
+         |s: ClusterState| {
+             &&& pending_req_in_flight_at_after_create_pod_step(vrs, controller_id, d)(s)

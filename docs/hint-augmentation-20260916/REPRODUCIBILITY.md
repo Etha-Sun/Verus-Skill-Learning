@@ -1,6 +1,6 @@
 # Runtime and reproducibility
 
-This is a reviewed publication of the 0916 initial-skill experiment, not a complete raw-run archive. Reports and plots are inspectable without API access. Re-running requires authorized access to the original step_0001 prediction directories, their original raw/structured events and snapshots, plus compatible local tooling. The three original trajectories are not bundled; complete hindsight input cannot be reconstructed from only the published final proofs and selected diffs.
+This is a reviewed publication of the 0916 initial-skill experiment, now supplemented by [all 38 recorded actor continuations](traces/README.md). It is not a complete original-teacher or runtime-installation archive. Reports and plots are inspectable without API access. Re-running requires authorized access to the original step_0001 prediction directories, their original raw/structured events and snapshots, plus compatible local tooling. The three original trajectories are not bundled; complete hindsight input cannot be reconstructed from only the published final proofs and selected diffs.
 
 ## Frozen inputs
 
@@ -55,7 +55,7 @@ python3 docs/hint-augmentation-20260916/scripts/compare_versions.py "$V2_RUN_ROO
 
 These are path-portable copies of the actual scripts, not replacements for the checkpoint extractor. They preserve an existing semantic_audit.json report by writing refreshed auto evidence separately. The published comparison.json files retain the plot coordinates; raw ledgers remain external. Output tokens include reasoning once; attribution includes original prefix cost, but the actor did not replay that prefix. The hint generation cost is separate. Patch F1 is reference similarity, not a universal measure of correctness.
 
-The published PROCESS.md files contain all captured source changes plus abbreviated checker feedback, not full tool histories. Final result.json retains complete final host diagnostics with paths redacted. The original unredacted sources remain external. Code/source hashes are preserved; publication_provenance.json distinguishes exact copies from path-portable adaptations.
+The published PROCESS.md files contain all captured source changes plus abbreviated checker feedback, not full tool histories; the complete recorded actor tool histories are now available in `traces/`. Final result.json retains complete final host diagnostics with paths redacted. The original unredacted sources remain external. Code/source hashes are preserved; publication_provenance.json distinguishes exact copies from path-portable adaptations.
 
 ## Checks for this publication
 

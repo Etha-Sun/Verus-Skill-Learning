@@ -1,0 +1,21 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -4985,7 +4985,17 @@
+     };
+     leads_to_exists_intro(spec, p_resp, q_mid);
+ 
+-    assert(p.entails(tla_exists(p_resp)));
++    assert(p.entails(tla_exists(p_resp))) by {
++        assert forall |ex: Execution<ClusterState>| p.satisfied_by(ex) ==> tla_exists(p_resp).satisfied_by(ex) by {
++            let s = ex.head();
++            let resp_msg = choose |resp_msg: Message| {
++                &&& #[trigger] s.in_flight().contains(resp_msg)
++                &&& resp_msg_matches_req_msg(resp_msg, s.ongoing_reconciles(controller_id)[vrs.object_ref()].pending_req_msg->0)
++                &&& resp_msg_is_ok_list_resp_containing_matching_pods(s, vrs, resp_msg)
++            };
++            assert(p_resp(resp_msg).satisfied_by(ex));
++        };
++    }
+     entails_implies_leads_to(spec, p, tla_exists(p_resp));
+     leads_to_trans(spec, p, tla_exists(p_resp), q_mid);
+ 

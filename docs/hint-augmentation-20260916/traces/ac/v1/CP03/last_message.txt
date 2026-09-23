@@ -1,0 +1,16 @@
+Verification status: passing.
+
+`./tools/run_verus.sh candidate.rs` reports `1 verified, 0 errors`. `./tools/run_lynette.sh` exits successfully with code 0.
+
+The repair targeted the two remaining proof obligations in `lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp`:
+
+- `p.entails(tla_exists(p_resp))`
+- `q_mid.entails(tla_exists(p_req))`
+
+Strategies attempted:
+
+1. Direct assertions for the two entailments failed; Verus could not instantiate the existential witness in `tla_exists`.
+2. First witness-introduction attempt with `choose` and `assert forall ... ==>` failed because Verus did not assume the implication antecedent inside the body, so the `choose` conditions could not be established.
+3. Final strategy used an `assert forall` block that branches on the antecedent with `if`, extracts the execution head, asserts the relevant source predicate, then uses `choose` to bind the response/request message already guaranteed by `exists_resp_in_flight_at_after_list_pods_step` and `pending_req_in_flight_at_after_create_pod_step`. This made the witness predicate concrete and closed both entailments.
+
+Only proof/ghost reasoning was added in candidate.rs. No specifications, executable behavior, requires, ensures, or decreases were changed.

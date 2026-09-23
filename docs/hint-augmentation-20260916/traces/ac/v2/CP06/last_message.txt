@@ -1,0 +1,3 @@
+STEP_CHECK: After removing the two `#![auto]` inner attributes, `./tools/run_verus.sh candidate.rs` reports `verification results:: 1 verified, 0 errors`. The only remaining output is the pre-existing `#[is_variant]` deprecation warning and two informational low-confidence trigger notes for the `choose` bodies; there are no verification errors. `./tools/run_lynette.sh` also exits successfully, confirming the change is proof-only with no executable/behavioral divergence.
+
+The repair is complete. The sole obstruction was the unrecognized `auto` attribute, not a missing logical fact. No further proof obligations remain.

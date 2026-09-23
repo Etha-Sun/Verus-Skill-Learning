@@ -1,0 +1,20 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -4989,7 +4989,7 @@
+     leads_to_exists_intro(spec, p_resp, q_mid);
+ 
+     assert(p.entails(tla_exists(p_resp))) by {
+-        assert forall |s: ClusterState| #[trigger] p_state(s) ==> exists |resp_msg: Message| #[trigger] p_resp_state(resp_msg, s) by {
++        assert forall |s: ClusterState| #[trigger] p_state(s) implies exists |resp_msg: Message| #[trigger] p_resp_state(resp_msg, s) by {
+             let s: ClusterState;
+             if p_state(s) {
+                 let pending_msg = s.ongoing_reconciles(controller_id)[vrs.object_ref()].pending_req_msg->0;
+@@ -5002,7 +5002,7 @@
+                 assert(exists |resp_msg: Message| #[trigger] p_resp_state(resp_msg, s));
+             }
+         };
+-        assert forall |ex: Execution<ClusterState>| #[trigger] p.satisfied_by(ex) ==> tla_exists(p_resp).satisfied_by(ex) by {
++        assert forall |ex: Execution<ClusterState>| #[trigger] p.satisfied_by(ex) implies tla_exists(p_resp).satisfied_by(ex) by {
+             let ex: Execution<ClusterState>;
+             if p.satisfied_by(ex) {
+                 let s = ex.head();

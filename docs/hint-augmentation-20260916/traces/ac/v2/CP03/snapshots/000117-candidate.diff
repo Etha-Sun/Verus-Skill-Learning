@@ -1,0 +1,12 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -2891,6 +2891,9 @@
+         let a = choose |a: A| #[trigger] a_to_state_pred(a)(s);
+         assert(a_to_state_pred(a)(s));
+         assert(lift_state(a_to_state_pred(a)).satisfied_by(ex));
++        assert(exists |a: A| lift_state(a_to_state_pred(a)).satisfied_by(ex)) by {
++            assert(lift_state(a_to_state_pred(a)).satisfied_by(ex));
++        };
+         assert(tla_exists(|a: A| lift_state(a_to_state_pred(a))).satisfied_by(ex));
+     };
+ }

@@ -1,0 +1,11 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -5009,6 +5009,8 @@
+             assert(msg.src == HostId::Controller(controller_id, vrs.object_ref()));
+             assert(req_msg_is_list_pods_req(vrs, msg));
+             assert(resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step(vrs, controller_id, resp_msg)(s));
++            assert(p_resp(resp_msg).satisfied_by(ex));
++            assert(tla_exists(p_resp).satisfied_by(ex));
+         };
+     };
+     entails_implies_leads_to(spec, p, tla_exists(p_resp));

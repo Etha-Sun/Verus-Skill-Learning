@@ -1,0 +1,29 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -2873,6 +2873,26 @@
+ 
+ pub open spec fn valid<T>(temp_pred: TempPred<T>) -> bool {
+     forall |ex: Execution<T>| temp_pred.satisfied_by(ex)
++}
++
++pub proof fn lemma_lift_state_exists_entails_tla_exists<T, A>(
++    state_pred: StatePred<T>,
++    a_to_state_pred: spec_fn(A) -> StatePred<T>
++)
++    requires forall |s: T| #[trigger] state_pred(s) ==> exists |a: A| a_to_state_pred(a)(s),
++    ensures lift_state(state_pred).entails(tla_exists(|a: A| lift_state(a_to_state_pred(a)))),
++{
++    assert forall |ex: Execution<T>|
++        #[trigger] lift_state(state_pred).satisfied_by(ex)
++        implies tla_exists(|a: A| lift_state(a_to_state_pred(a))).satisfied_by(ex)
++    by {
++        let s = ex.head();
++        assert(state_pred(s));
++        let a = choose |a: A| #[trigger] a_to_state_pred(a)(s);
++        assert(a_to_state_pred(a)(s));
++        assert(lift_state(a_to_state_pred(a)).satisfied_by(ex));
++        assert(tla_exists(|a: A| lift_state(a_to_state_pred(a))).satisfied_by(ex));
++    };
+ }
+ 
+ 

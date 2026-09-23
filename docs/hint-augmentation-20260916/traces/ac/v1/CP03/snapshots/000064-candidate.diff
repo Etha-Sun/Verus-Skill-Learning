@@ -1,0 +1,56 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -4982,14 +4982,17 @@
+ 
+     assert forall |ex: Execution<ClusterState>| #[trigger] p.satisfied_by(ex) ==>
+         tla_exists(p_resp).satisfied_by(ex) by {
+-        let s = ex.head();
+-        let msg = s.ongoing_reconciles(controller_id)[vrs.object_ref()].pending_req_msg->0;
+-        let resp_witness = choose |resp_msg: Message| {
+-            &&& #[trigger] s.in_flight().contains(resp_msg)
+-            &&& resp_msg_matches_req_msg(resp_msg, msg)
+-            &&& resp_msg_is_ok_list_resp_containing_matching_pods(s, vrs, resp_msg)
+-        };
+-        assert(p_resp(resp_witness).satisfied_by(ex));
++        if p.satisfied_by(ex) {
++            let s = ex.head();
++            assert(exists_resp_in_flight_at_after_list_pods_step(vrs, controller_id)(s));
++            let msg = s.ongoing_reconciles(controller_id)[vrs.object_ref()].pending_req_msg->0;
++            let resp_witness = choose |resp_msg: Message| {
++                &&& #[trigger] s.in_flight().contains(resp_msg)
++                &&& resp_msg_matches_req_msg(resp_msg, msg)
++                &&& resp_msg_is_ok_list_resp_containing_matching_pods(s, vrs, resp_msg)
++            };
++            assert(p_resp(resp_witness).satisfied_by(ex));
++        }
+     };
+ 
+     assert forall |resp_msg: Message| #[trigger] spec.entails(p_resp(resp_msg).leads_to(q_mid)) by {
+@@ -5008,15 +5011,18 @@
+ 
+     assert forall |ex: Execution<ClusterState>| #[trigger] q_mid.satisfied_by(ex) ==>
+         tla_exists(p_req).satisfied_by(ex) by {
+-        let s = ex.head();
+-        let msg = s.ongoing_reconciles(controller_id)[vrs.object_ref()].pending_req_msg->0;
+-        let req_witness = choose |req_msg: Message| {
+-            &&& #[trigger] s.in_flight().contains(req_msg)
+-            &&& Cluster::pending_req_msg_is(controller_id, s, vrs.object_ref(), req_msg)
+-            &&& req_msg.src == HostId::Controller(controller_id, vrs.object_ref())
+-            &&& req_msg_is_create_matching_pod_req(vrs, req_msg)
+-        };
+-        assert(p_req(req_witness).satisfied_by(ex));
++        if q_mid.satisfied_by(ex) {
++            let s = ex.head();
++            assert(pending_req_in_flight_at_after_create_pod_step(vrs, controller_id, d)(s));
++            let msg = s.ongoing_reconciles(controller_id)[vrs.object_ref()].pending_req_msg->0;
++            let req_witness = choose |req_msg: Message| {
++                &&& #[trigger] s.in_flight().contains(req_msg)
++                &&& Cluster::pending_req_msg_is(controller_id, s, vrs.object_ref(), req_msg)
++                &&& req_msg.src == HostId::Controller(controller_id, vrs.object_ref())
++                &&& req_msg_is_create_matching_pod_req(vrs, req_msg)
++            };
++            assert(p_req(req_witness).satisfied_by(ex));
++        }
+     };
+ 
+     assert(q_mid.entails(tla_exists(p_req)));

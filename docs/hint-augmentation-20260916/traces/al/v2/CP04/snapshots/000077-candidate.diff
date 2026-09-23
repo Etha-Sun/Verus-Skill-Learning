@@ -1,0 +1,11 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -20,7 +20,7 @@
+         assert(right.len() == s2.len() + suffix.len());
+         assert(s1.len() + suffix.len() == s2.len() + suffix.len());
+         assert(s1.len() == s2.len());
+-        assert forall|i: int| 0 <= i < s1.len() ==> s1[i] == s2[i] by {
++        assert forall|i: int| 0 <= i < s1.len() implies s1[i] == s2[i] by {
+             assert(left[i] == right[i]);
+             assert(left[i] == s1[i]);
+             assert(right[i] == s2[i]);

@@ -1,0 +1,158 @@
+{
+  "run_id": "CP01",
+  "started_at": "2026-09-17T09:36:07.092926+00:00",
+  "finished_at": "2026-09-17T09:39:05.377466+00:00",
+  "wall_seconds": 178.2845408716239,
+  "actor_wall_seconds": 177.8926084418781,
+  "final_validation_wall_seconds": 0.3737421710975468,
+  "codex_returncode": 0,
+  "timed_out": false,
+  "status": "SOLVED",
+  "proof_solved": true,
+  "within_budget": true,
+  "safety_passed": true,
+  "fidelity": "V2_TRACE",
+  "validation": {
+    "input_unchanged": true,
+    "skill_unchanged": true,
+    "candidate_sha256": "d8d1db99ac31a866b0dc524c764cf8753f9a7f6e7819942b9e3f0d943a4d937e",
+    "verus": {
+      "passed": true,
+      "returncode": 0,
+      "timed_out": false,
+      "wall_seconds": 0.36954816430807114,
+      "stdout": "verification results:: 1 verified, 0 errors\n",
+      "stderr": ""
+    },
+    "lynette": {
+      "passed": true,
+      "returncode": 0,
+      "timed_out": false,
+      "wall_seconds": 0.002664322964847088,
+      "stdout": "",
+      "stderr": ""
+    }
+  },
+  "workspace_inventory": [
+    {
+      "relative_path": ".actor_codex",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "executable": false
+    },
+    {
+      "relative_path": ".actor_isolation.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "executable": false
+    },
+    {
+      "relative_path": ".actor_last_message.txt",
+      "size_bytes": 1162,
+      "sha256": "c2cf775dd34fd5b045d8b01468095f813ccbd88a0afe49f04f313cc042f4f4ea",
+      "executable": false
+    },
+    {
+      "relative_path": ".actor_models.json",
+      "size_bytes": 76079,
+      "sha256": "b459a6e438d6a9939d01fd0dbb4693f165ed732bc8e4fd58d7145d9d94bd49a4",
+      "executable": false
+    },
+    {
+      "relative_path": "SKILL.md",
+      "size_bytes": 838,
+      "sha256": "96a557582ff423d159aa97698d3ea1eb55bd07af59cbfd3a518d86326a40df40",
+      "executable": false
+    },
+    {
+      "relative_path": "TASK.md",
+      "size_bytes": 5550,
+      "sha256": "4e2b24242efb3bb4d37ac43857d44aacfff5692eb9d57dfd770c6727eba96003",
+      "executable": false
+    },
+    {
+      "relative_path": "candidate.rs",
+      "size_bytes": 241,
+      "sha256": "d8d1db99ac31a866b0dc524c764cf8753f9a7f6e7819942b9e3f0d943a4d937e",
+      "executable": false
+    },
+    {
+      "relative_path": "input.rs",
+      "size_bytes": 202,
+      "sha256": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+      "executable": false
+    },
+    {
+      "relative_path": "tools/run_lynette.sh",
+      "size_bytes": 244,
+      "sha256": "2437b90f13ef0839670cfc07e6cdd4ceac749e76d2df72edc5cb443b97fb38e4",
+      "executable": true
+    },
+    {
+      "relative_path": "tools/run_verus.sh",
+      "size_bytes": 285,
+      "sha256": "79c5cf1797f15946773174506c0bef3bedb73f42e6696f7d92837af895880318",
+      "executable": true
+    }
+  ],
+  "schema_version": "1",
+  "id": "3a77a3e4e72edf600e2a",
+  "hard": 1,
+  "soft": 1.0,
+  "task_type": "ironkv",
+  "task_description": "Repair a Verus proof while preserving executable behavior.",
+  "fail_reason": "",
+  "n_turns": 24,
+  "actor_model": "deepseek-v4-pro",
+  "actor_harness": "codex-cli-native-responses",
+  "actor_reasoning_effort": "high",
+  "actor_contract_profile": "project",
+  "bridge_task_key": "hint-v1-cp1-3a77a3e4e72edf600e2a",
+  "source_sha256": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+  "skill_sha256": "96a557582ff423d159aa97698d3ea1eb55bd07af59cbfd3a518d86326a40df40",
+  "skill_artifact": {
+    "source_kind": "file",
+    "entrypoint": "initial.md",
+    "entrypoint_sha256": "96a557582ff423d159aa97698d3ea1eb55bd07af59cbfd3a518d86326a40df40",
+    "artifact_sha256": "96a557582ff423d159aa97698d3ea1eb55bd07af59cbfd3a518d86326a40df40",
+    "hash_kind": "skill-markdown-text-sha256",
+    "file_count": 1,
+    "total_bytes": 838,
+    "files": [
+      {
+        "relative_path": "initial.md",
+        "size_bytes": 838,
+        "sha256": "96a557582ff423d159aa97698d3ea1eb55bd07af59cbfd3a518d86326a40df40",
+        "executable": false
+      }
+    ]
+  },
+  "usage": {
+    "requests": 21,
+    "metered_requests": 21,
+    "unmetered_requests": 0,
+    "error_requests": 0,
+    "completed_requests": 21,
+    "incomplete_requests": 0,
+    "unknown_status_requests": 0,
+    "prompt_tokens": 484226,
+    "prompt_cache_hit_tokens": 465664,
+    "prompt_cache_miss_tokens": 18562,
+    "completion_tokens": 8635,
+    "reasoning_tokens": 1011,
+    "estimated_cost_usd": 0.07918565600000001,
+    "unknown_cost_requests": 0,
+    "price_bands": {
+      "peak": 21
+    },
+    "upstream_models": [
+      "deepseek-v4-pro"
+    ]
+  },
+  "codex_terminal": {
+    "completed": 1,
+    "failed": 0,
+    "errors": 0
+  },
+  "provider_valid": true
+}

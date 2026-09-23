@@ -1,0 +1,15 @@
+Verification status: both checks pass.
+
+Final `candidate.rs` has:
+
+- Verus: `1 verified, 0 errors`
+- Lynette: exit code 0, no output
+
+Strategies attempted:
+
+1. Baseline run confirmed the checkpoint failed only at `assert_seqs_equal!(s1, s2)`.
+2. Added the macro's pointwise proof block, using the branch assumption `s1 + suffix == s2 + suffix` to derive equality at each prefix index, then unfolding concatenation indexing with `axiom_seq_add_index1` to obtain `s1[i] == s2[i]`.
+3. First attempted edit used an unqualified `broadcast use group_seq_axioms;`, which failed because that group was not in scope. Fixed by using the full path `vstd::seq::group_seq_axioms`; Verus then passed.
+4. Lynette initially reported `Files are different`. The remaining non-proof source difference was the extra `use vstd::seq_lib::*;` import. Removed it and invoked the macro as `vstd::seq_lib::assert_seqs_equal!`; Verus still passed, and Lynette then passed.
+
+Sources consulted: the task/skill files and installed `vstd` definitions in `seq.rs` and `seq_lib.rs`, specifically the sequence extensionality axiom and concatenation indexing axioms.

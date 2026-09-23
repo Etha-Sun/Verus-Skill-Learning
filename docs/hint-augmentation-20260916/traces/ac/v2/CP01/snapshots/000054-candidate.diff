@@ -1,0 +1,68 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -4948,7 +4948,61 @@
+             )
+         ),
+ {
+-}
+-
+-
+-}
++    let n: nat = (abs(diff) - 1) as nat;
++
++    let init = lift_state(|s: ClusterState| {
++        &&& exists_resp_in_flight_at_after_list_pods_step(vrs, controller_id)(s)
++        &&& num_diff_pods_is(vrs, diff)(s)
++    });
++    let final = lift_state(|s: ClusterState| {
++        &&& exists_ok_resp_in_flight_at_after_create_pod_step(vrs, controller_id, n)(s)
++        &&& num_diff_pods_is(vrs, diff + 1)(s)
++    });
++    let pending_create = lift_state(|s: ClusterState| {
++        &&& pending_req_in_flight_at_after_create_pod_step(vrs, controller_id, n)(s)
++        &&& num_diff_pods_is(vrs, diff)(s)
++    });
++
++    let specific_resp = |resp_msg: Message| lift_state(|s: ClusterState| {
++        &&& resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step(vrs, controller_id, resp_msg)(s)
++        &&& num_diff_pods_is(vrs, diff)(s)
++    });
++    let specific_req = |req_msg: Message| lift_state(|s: ClusterState| {
++        &&& req_msg_is_the_in_flight_create_request_at_after_create_pod_step(vrs, controller_id, req_msg, n)(s)
++        &&& num_diff_pods_is(vrs, diff)(s)
++    });
++
++    let exists_resp = tla_exists(specific_resp);
++    let exists_req = tla_exists(specific_req);
++
++    assert forall |resp_msg: Message| spec.entails(
++        specific_resp(resp_msg).leads_to(pending_create)
++    ) by {
++        lemma_from_after_receive_list_pods_resp_to_send_create_pod_req(
++            vrs, spec, cluster, controller_id, resp_msg, diff
++        );
++    };
++    leads_to_exists_intro::<ClusterState, Message>(spec, specific_resp, pending_create);
++
++    assert forall |req_msg: Message| spec.entails(
++        specific_req(req_msg).leads_to(final)
++    ) by {
++        lemma_from_after_send_create_pod_req_to_receive_ok_resp(
++            vrs, spec, cluster, controller_id, req_msg, diff
++        );
++    };
++    leads_to_exists_intro::<ClusterState, Message>(spec, specific_req, final);
++
++    assert(init.entails(exists_resp));
++    entails_implies_leads_to(spec, init, exists_resp);
++
++    assert(pending_create.entails(exists_req));
++    entails_implies_leads_to(spec, pending_create, exists_req);
++
++    leads_to_trans(spec, init, exists_resp, pending_create);
++    leads_to_trans(spec, init, pending_create, exists_req);
++    leads_to_trans(spec, init, exists_req, final);
++}
++
++
++}

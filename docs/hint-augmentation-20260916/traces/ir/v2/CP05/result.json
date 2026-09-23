@@ -1,0 +1,158 @@
+{
+  "run_id": "CP05",
+  "started_at": "2026-09-17T09:53:10.665841+00:00",
+  "finished_at": "2026-09-17T09:55:01.054452+00:00",
+  "wall_seconds": 110.38861091528088,
+  "actor_wall_seconds": 109.98355478420854,
+  "final_validation_wall_seconds": 0.3949900767765939,
+  "codex_returncode": 0,
+  "timed_out": false,
+  "status": "SOLVED",
+  "proof_solved": true,
+  "within_budget": true,
+  "safety_passed": true,
+  "fidelity": "V2_TRACE",
+  "validation": {
+    "input_unchanged": true,
+    "skill_unchanged": true,
+    "candidate_sha256": "c4152fb470bfcdd42b40635abfe7b4dd8cca827a322f0feef7d4b24d293011f3",
+    "verus": {
+      "passed": true,
+      "returncode": 0,
+      "timed_out": false,
+      "wall_seconds": 0.39038531854748726,
+      "stdout": "verification results:: 1 verified, 0 errors\n",
+      "stderr": ""
+    },
+    "lynette": {
+      "passed": true,
+      "returncode": 0,
+      "timed_out": false,
+      "wall_seconds": 0.0031291437335312366,
+      "stdout": "",
+      "stderr": ""
+    }
+  },
+  "workspace_inventory": [
+    {
+      "relative_path": ".actor_codex",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "executable": false
+    },
+    {
+      "relative_path": ".actor_isolation.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "executable": false
+    },
+    {
+      "relative_path": ".actor_last_message.txt",
+      "size_bytes": 1524,
+      "sha256": "8b0a7ea449ab721011e93a6d598045c4b2ba830ba086e7de9fb8625d9e8097b6",
+      "executable": false
+    },
+    {
+      "relative_path": ".actor_models.json",
+      "size_bytes": 76079,
+      "sha256": "b459a6e438d6a9939d01fd0dbb4693f165ed732bc8e4fd58d7145d9d94bd49a4",
+      "executable": false
+    },
+    {
+      "relative_path": "SKILL.md",
+      "size_bytes": 838,
+      "sha256": "96a557582ff423d159aa97698d3ea1eb55bd07af59cbfd3a518d86326a40df40",
+      "executable": false
+    },
+    {
+      "relative_path": "TASK.md",
+      "size_bytes": 5529,
+      "sha256": "d33fcc5fea965825982e8f8208694b6f277da6243982b7a4680c0427d757a652",
+      "executable": false
+    },
+    {
+      "relative_path": "candidate.rs",
+      "size_bytes": 1732,
+      "sha256": "c4152fb470bfcdd42b40635abfe7b4dd8cca827a322f0feef7d4b24d293011f3",
+      "executable": false
+    },
+    {
+      "relative_path": "input.rs",
+      "size_bytes": 202,
+      "sha256": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+      "executable": false
+    },
+    {
+      "relative_path": "tools/run_lynette.sh",
+      "size_bytes": 244,
+      "sha256": "2437b90f13ef0839670cfc07e6cdd4ceac749e76d2df72edc5cb443b97fb38e4",
+      "executable": true
+    },
+    {
+      "relative_path": "tools/run_verus.sh",
+      "size_bytes": 285,
+      "sha256": "79c5cf1797f15946773174506c0bef3bedb73f42e6696f7d92837af895880318",
+      "executable": true
+    }
+  ],
+  "schema_version": "1",
+  "id": "3a77a3e4e72edf600e2a",
+  "hard": 1,
+  "soft": 1.0,
+  "task_type": "ironkv",
+  "task_description": "Repair a Verus proof while preserving executable behavior.",
+  "fail_reason": "",
+  "n_turns": 11,
+  "actor_model": "deepseek-v4-pro",
+  "actor_harness": "codex-cli-native-responses",
+  "actor_reasoning_effort": "high",
+  "actor_contract_profile": "project",
+  "bridge_task_key": "hint-v1-cp5-3a77a3e4e72edf600e2a",
+  "source_sha256": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+  "skill_sha256": "96a557582ff423d159aa97698d3ea1eb55bd07af59cbfd3a518d86326a40df40",
+  "skill_artifact": {
+    "source_kind": "file",
+    "entrypoint": "initial.md",
+    "entrypoint_sha256": "96a557582ff423d159aa97698d3ea1eb55bd07af59cbfd3a518d86326a40df40",
+    "artifact_sha256": "96a557582ff423d159aa97698d3ea1eb55bd07af59cbfd3a518d86326a40df40",
+    "hash_kind": "skill-markdown-text-sha256",
+    "file_count": 1,
+    "total_bytes": 838,
+    "files": [
+      {
+        "relative_path": "initial.md",
+        "size_bytes": 838,
+        "sha256": "96a557582ff423d159aa97698d3ea1eb55bd07af59cbfd3a518d86326a40df40",
+        "executable": false
+      }
+    ]
+  },
+  "usage": {
+    "requests": 11,
+    "metered_requests": 11,
+    "unmetered_requests": 0,
+    "error_requests": 0,
+    "completed_requests": 11,
+    "incomplete_requests": 0,
+    "unknown_status_requests": 0,
+    "prompt_tokens": 175105,
+    "prompt_cache_hit_tokens": 169856,
+    "prompt_cache_miss_tokens": 5249,
+    "completion_tokens": 6281,
+    "reasoning_tokens": 2026,
+    "estimated_cost_usd": 0.039275104,
+    "unknown_cost_requests": 0,
+    "price_bands": {
+      "peak": 11
+    },
+    "upstream_models": [
+      "deepseek-v4-pro"
+    ]
+  },
+  "codex_terminal": {
+    "completed": 1,
+    "failed": 0,
+    "errors": 0
+  },
+  "provider_valid": true
+}

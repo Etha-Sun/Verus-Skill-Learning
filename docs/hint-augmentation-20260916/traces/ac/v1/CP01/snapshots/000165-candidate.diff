@@ -1,0 +1,10 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -4945,6 +4945,7 @@
+             assert(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff)(s));
+         }
+     };
++    assert(lift_state(pending_create_req_with_num_diff(vrs, controller_id, step_diff, diff)).entails(tla_exists(|req_msg: Message| lift_state(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff)))));
+ }
+ 
+ 

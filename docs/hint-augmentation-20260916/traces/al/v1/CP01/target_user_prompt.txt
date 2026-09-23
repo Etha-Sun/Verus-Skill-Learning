@@ -1,0 +1,22 @@
+Solve the Verus proof task in candidate.rs from scratch.
+
+Visibility and editing rules:
+- Treat input.rs as immutable and edit only candidate.rs.
+- Read TASK.md. Read SKILL.md only if it exists.
+- Do not inspect files outside this workspace, repository history, prior runs,
+  reference proofs, environment variables, credentials, or network resources.
+- Make every code edit through the Codex file-edit/patch tool. Do not modify
+  candidate.rs with shell redirection, sed, perl, Python, cp, mv, or a generated
+  editing script.
+
+Proof rules:
+- Preserve executable behavior, signatures, requires, ensures, and decreases.
+- Add or edit proof-only assertions, lemmas, invariants, triggers, and proof blocks.
+- Never use assume, admit, external_body, new axioms, or verification bypasses.
+- Run `./tools/run_verus.sh` after edits and use its complete diagnostics.
+- Run `./tools/run_lynette.sh` before finishing.
+- Continue exploration until both checks pass or useful
+  approaches are exhausted.
+
+Leave the complete best candidate in candidate.rs. In the final response,
+report verification status and strategies attempted. Do not omit failed steps.

@@ -1,0 +1,16 @@
+Verification status: both checks pass.
+
+- `./tools/run_verus.sh candidate.rs`: `1 verified, 0 errors`
+- `./tools/run_lynette.sh`: exit code 0
+
+What changed in `candidate.rs`: I repaired only the backward direction of the biconditional. The checkpoint initially failed on the direct `assert(s1 == s2)` under `s1 + suffix == s2 + suffix`. I activated `vstd::seq::group_seq_axioms` and used the sequence add/extensionality axioms:
+
+1. From `s1 + suffix == s2 + suffix`, derive equality of the concatenated lengths.
+2. Rewrite each concatenated length as `prefix.len() + suffix.len()`, then cancel the shared suffix length to establish `s1.len() == s2.len()`.
+3. For an arbitrary index `i` with `0 <= i < s1.len()`, use `axiom_seq_add_index1` to show:
+   - `(s1 + suffix)[i] == s1[i]`
+   - `(s2 + suffix)[i] == s2[i]`
+   - hence `s1[i] == s2[i]`
+4. Apply `axiom_seq_ext_equal` to obtain `s1 =~= s2`, then close `s1 == s2`.
+
+The original signature, specification, and executable behavior were preserved. No assumptions, admits, or verification bypasses were introduced. The only failed intermediate state was the supplied checkpoint itself, with the assertion failure at line 15; the subsequent single proof edit resolved it.

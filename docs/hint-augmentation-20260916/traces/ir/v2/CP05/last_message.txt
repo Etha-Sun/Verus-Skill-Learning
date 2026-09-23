@@ -1,0 +1,18 @@
+Verification succeeded.
+
+Current status:
+
+- `./tools/run_verus.sh candidate.rs` → `verification results:: 1 verified, 0 errors`
+- `./tools/run_lynette.sh` → passes with no differences reported
+
+The final proof is in [candidate.rs](/REDACTED/USER_WORKSPACE/verus_skill_runs/augment-v2-20260916/initial-skill-three-task/ir/v2/runs/3a77a3e4e72edf600e2a/CP05/workspace/candidate.rs).
+
+Strategies attempted:
+
+1. Inspected the checkpoint and ran Verus. The original proof failed because both `choose` witnesses were introduced before their existence hypotheses were assumed: the left-to-right direction chose from `(s1 + s2).map(f)` without branching on its membership, and the reverse direction chose from `s2.map(f)` without first establishing that `x` was in `s2.map(f)`.
+
+2. Restructured the proof so each direction first case-splits on the relevant map-membership hypothesis. The reverse direction additionally splits on whether `x` comes from `s1.map(f)` or `s2.map(f)` before choosing the corresponding witness. This gave the verifier the necessary witness-existence facts, and Verus passed.
+
+3. Ran Lynette and got `Files are different` while the checkpoint still had the extra top-level `use vstd::assert_sets_equal;`. I removed that import and invoked the macro as `vstd::assert_sets_equal!`, preserving verification while restoring compatibility with `input.rs`. Lynette then passed.
+
+No assumptions, admissions, axioms, or verification bypasses were introduced, and all original specifications were preserved.

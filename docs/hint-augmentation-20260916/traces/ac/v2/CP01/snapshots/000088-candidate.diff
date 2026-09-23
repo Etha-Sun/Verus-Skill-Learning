@@ -1,0 +1,21 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -5011,7 +5011,17 @@
+     }
+     entails_implies_leads_to(spec, init, exists_resp);
+ 
+-    assert(pending_create.entails(exists_req));
++    assert(pending_create.entails(exists_req)) by {
++        assert forall |ex: Execution<ClusterState>|
++            pending_create.satisfied_by(ex) ==> exists_req.satisfied_by(ex)
++        by {
++            if pending_create.satisfied_by(ex) {
++                let s = ex.head();
++                let req_msg = s.ongoing_reconciles(controller_id)[vrs.object_ref()].pending_req_msg->0;
++                assert(specific_req(req_msg).satisfied_by(ex));
++            }
++        };
++    }
+     entails_implies_leads_to(spec, pending_create, exists_req);
+ 
+     leads_to_trans(spec, init, exists_resp, pending_create);

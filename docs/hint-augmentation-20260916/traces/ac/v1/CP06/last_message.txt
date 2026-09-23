@@ -1,0 +1,13 @@
+Verification status: passing.
+
+`./tools/run_verus.sh candidate.rs` now reports `1 verified, 0 errors`. `./tools/run_lynette.sh` exits successfully with no output.
+
+Strategies attempted:
+
+1. Established the baseline diagnostic: the checkpoint failed only with two syntactic errors, `cannot find attribute auto in this scope`, at the `#![auto]` annotations inside the two `choose` witness closures near lines 4999 and 5029.
+2. Inspected the surrounding proof and confirmed the surrounding existential-witness extraction, witness assertions, and leads-to composition were already in place and unchanged.
+3. Removed the two invalid `#![auto]` lines. This was the only edit made.
+4. Re-ran Verus: `1 verified, 0 errors`. The only remaining diagnostics are the pre-existing `#[is_variant]` deprecation warning and informational automatic-trigger notes on the two witness selections.
+5. Re-ran Lynette successfully.
+
+No specifications, executable behavior, signatures, `requires`, `ensures`, or `decreases` clauses were changed. No assumptions, admissions, axioms, or verification bypasses were introduced.

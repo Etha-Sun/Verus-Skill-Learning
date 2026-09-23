@@ -1,0 +1,11 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -17,7 +17,7 @@
+         assert(s1.len() + suffix.len() == s2.len() + suffix.len());
+         assert(s1.len() == s2.len());
+         assert_seqs_equal!(s1, s2, i => {
+-            broadcast use group_seq_axioms;
++            broadcast use vstd::seq::group_seq_axioms;
+             assert((s1 + suffix)[i] == (s2 + suffix)[i]);
+             assert((s1 + suffix)[i] == s1[i]);
+             assert((s2 + suffix)[i] == s2[i]);

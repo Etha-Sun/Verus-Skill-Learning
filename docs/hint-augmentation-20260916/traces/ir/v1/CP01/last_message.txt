@@ -1,0 +1,28 @@
+Both checks pass.
+
+Verification status:
+- `./tools/run_verus.sh candidate.rs`: `1 verified, 0 errors`
+- `./tools/run_lynette.sh`: exit code 0, no comparison violations
+
+What I changed in [candidate.rs](/REDACTED/USER_WORKSPACE/verus_skill_runs/augment-v2-20260916/initial-skill-three-task/ir/v1/runs/3a77a3e4e72edf600e2a/CP01/workspace/candidate.rs:5):
+
+The checkpoint had an empty proof body, and Verus reported only the postcondition failure:
+
+```
+(s1 + s2).map(f) == s1.map(f) + s2.map(f)
+```
+
+I inspected the installed vstd set definitions and found the existing proof lemma `Set::lemma_map_union_commute`, which states exactly this fact in extensional-equality form. The one-line proof invokes it:
+
+```rust
+s1.lemma_map_union_commute(s2, f);
+```
+
+Verus accepted this as discharging the `==` postcondition for the ext-equal `Set` type, and Lynette reported no safety mismatch.
+
+Strategies attempted:
+1. Ran the supplied Verus wrapper on the untouched checkpoint to establish the actual obligation.
+2. Inspected `vstd/set.rs` and `vstd/set_lib.rs` for the set API and the map/union lemma.
+3. Invoked the existing vstd lemma rather than re-proving membership by hand, since it is the narrowest proof-only addition and directly establishes the required equality.
+
+No `assume`, `admit`, `external_body`, axioms, specification changes, or signature changes were introduced.

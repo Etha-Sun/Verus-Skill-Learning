@@ -1,0 +1,28 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -2882,19 +2882,20 @@
+     requires forall |s: T| #[trigger] state_pred(s) ==> exists |a: A| #[trigger] a_to_state_pred(a)(s),
+     ensures lift_state(state_pred).entails(tla_exists(|a: A| lift_state(a_to_state_pred(a)))),
+ {
++    let a_to_temp_pred = |a: A| lift_state(a_to_state_pred(a));
+     assert forall |ex: Execution<T>|
+         #[trigger] lift_state(state_pred).satisfied_by(ex)
+-        implies tla_exists(|a: A| lift_state(a_to_state_pred(a))).satisfied_by(ex)
++        implies tla_exists(a_to_temp_pred).satisfied_by(ex)
+     by {
+         let s = ex.head();
+         assert(state_pred(s));
+         let a = choose |a: A| #[trigger] a_to_state_pred(a)(s);
+         assert(a_to_state_pred(a)(s));
+-        assert(lift_state(a_to_state_pred(a)).satisfied_by(ex));
+-        assert(exists |a: A| #[trigger] lift_state(a_to_state_pred(a)).satisfied_by(ex)) by {
+-            assert(lift_state(a_to_state_pred(a)).satisfied_by(ex));
++        assert(a_to_temp_pred(a).satisfied_by(ex));
++        assert(exists |a: A| #[trigger] a_to_temp_pred(a).satisfied_by(ex)) by {
++            assert(a_to_temp_pred(a).satisfied_by(ex));
+         };
+-        assert(tla_exists(|a: A| lift_state(a_to_state_pred(a))).satisfied_by(ex));
++        assert(tla_exists(a_to_temp_pred).satisfied_by(ex));
+     };
+ }
+ 

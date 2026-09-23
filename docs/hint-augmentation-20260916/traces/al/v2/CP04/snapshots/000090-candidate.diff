@@ -1,0 +1,8 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -1,5 +1,4 @@
+ use vstd::prelude::*;
+-use vstd::seq_lib::*;
+ 
+ fn main() {}
+ 

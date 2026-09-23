@@ -1,0 +1,26 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -4993,7 +4993,22 @@
+     };
+     leads_to_exists_intro::<ClusterState, Message>(spec, specific_req, final_pred);
+ 
+-    assert(init.entails(exists_resp));
++    assert(init.entails(exists_resp)) by {
++        assert forall |ex: Execution<ClusterState>|
++            init.satisfied_by(ex) ==> exists_resp.satisfied_by(ex)
++        by {
++            if init.satisfied_by(ex) {
++                let s = ex.head();
++                let msg = s.ongoing_reconciles(controller_id)[vrs.object_ref()].pending_req_msg->0;
++                let resp_msg = choose |resp_msg: Message| {
++                    &&& s.in_flight().contains(resp_msg)
++                    &&& resp_msg_matches_req_msg(resp_msg, msg)
++                    &&& resp_msg_is_ok_list_resp_containing_matching_pods(s, vrs, resp_msg)
++                };
++                assert(specific_resp(resp_msg).satisfied_by(ex));
++            }
++        };
++    }
+     entails_implies_leads_to(spec, init, exists_resp);
+ 
+     assert(pending_create.entails(exists_req));

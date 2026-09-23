@@ -1,0 +1,158 @@
+{
+  "run_id": "CP02",
+  "started_at": "2026-09-17T09:50:02.206833+00:00",
+  "finished_at": "2026-09-17T09:57:30.787963+00:00",
+  "wall_seconds": 448.5811343821697,
+  "actor_wall_seconds": 446.82346506696194,
+  "final_validation_wall_seconds": 1.711832812987268,
+  "codex_returncode": 0,
+  "timed_out": false,
+  "status": "SOLVED",
+  "proof_solved": true,
+  "within_budget": true,
+  "safety_passed": true,
+  "fidelity": "V2_TRACE",
+  "validation": {
+    "input_unchanged": true,
+    "skill_unchanged": true,
+    "candidate_sha256": "7f2dcf830db1077b48df08cfcc7cd720e293ca55b8758a581b6c7ad8d4c3adb2",
+    "verus": {
+      "passed": true,
+      "returncode": 0,
+      "timed_out": false,
+      "wall_seconds": 1.655502824112773,
+      "stdout": "verification results:: 1 verified, 0 errors\n",
+      "stderr": "warning: `#[is_variant]` is deprecated - use `->` or `matches` instead: https://verus-lang.github.io/verus/guide/datatypes_enum.html\n   --> /REDACTED/USER_WORKSPACE/verus_skill_runs/augment-v2-20260916/initial-skill-three-task/ac/v1/runs/bcf0292578550cb38451/CP02/workspace/candidate.rs:331:1\n    |\n331 | / #[is_variant]\n332 | | pub enum BuiltinControllersStep {\n333 | |     RunGarbageCollector,\n334 | | }\n    | |_^\n\nwarning: 1 warning emitted\n\n"
+    },
+    "lynette": {
+      "passed": true,
+      "returncode": 0,
+      "timed_out": false,
+      "wall_seconds": 0.05466322926804423,
+      "stdout": "",
+      "stderr": ""
+    }
+  },
+  "workspace_inventory": [
+    {
+      "relative_path": ".actor_codex",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "executable": false
+    },
+    {
+      "relative_path": ".actor_isolation.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "executable": false
+    },
+    {
+      "relative_path": ".actor_last_message.txt",
+      "size_bytes": 1897,
+      "sha256": "e251679919e4d8965e688785ca4d0b86956a82b1f123e912e9d8526c665263eb",
+      "executable": false
+    },
+    {
+      "relative_path": ".actor_models.json",
+      "size_bytes": 76079,
+      "sha256": "b459a6e438d6a9939d01fd0dbb4693f165ed732bc8e4fd58d7145d9d94bd49a4",
+      "executable": false
+    },
+    {
+      "relative_path": "SKILL.md",
+      "size_bytes": 838,
+      "sha256": "96a557582ff423d159aa97698d3ea1eb55bd07af59cbfd3a518d86326a40df40",
+      "executable": false
+    },
+    {
+      "relative_path": "TASK.md",
+      "size_bytes": 5354,
+      "sha256": "12309d17eeb07a3a07ef37ebbcebdb2a16d08b0daa07b2eef7ec57597b3ffd23",
+      "executable": false
+    },
+    {
+      "relative_path": "candidate.rs",
+      "size_bytes": 190976,
+      "sha256": "7f2dcf830db1077b48df08cfcc7cd720e293ca55b8758a581b6c7ad8d4c3adb2",
+      "executable": false
+    },
+    {
+      "relative_path": "input.rs",
+      "size_bytes": 187530,
+      "sha256": "75e24ed1c3598e35dfecc597918242b87a63afc052eacd3a58d3759083998f34",
+      "executable": false
+    },
+    {
+      "relative_path": "tools/run_lynette.sh",
+      "size_bytes": 244,
+      "sha256": "2437b90f13ef0839670cfc07e6cdd4ceac749e76d2df72edc5cb443b97fb38e4",
+      "executable": true
+    },
+    {
+      "relative_path": "tools/run_verus.sh",
+      "size_bytes": 285,
+      "sha256": "79c5cf1797f15946773174506c0bef3bedb73f42e6696f7d92837af895880318",
+      "executable": true
+    }
+  ],
+  "schema_version": "1",
+  "id": "bcf0292578550cb38451",
+  "hard": 1,
+  "soft": 1.0,
+  "task_type": "anvil",
+  "task_description": "Repair a Verus proof while preserving executable behavior.",
+  "fail_reason": "",
+  "n_turns": 33,
+  "actor_model": "deepseek-v4-pro",
+  "actor_harness": "codex-cli-native-responses",
+  "actor_reasoning_effort": "high",
+  "actor_contract_profile": "project",
+  "bridge_task_key": "hint-v1-cp2-bcf0292578550cb38451",
+  "source_sha256": "75e24ed1c3598e35dfecc597918242b87a63afc052eacd3a58d3759083998f34",
+  "skill_sha256": "96a557582ff423d159aa97698d3ea1eb55bd07af59cbfd3a518d86326a40df40",
+  "skill_artifact": {
+    "source_kind": "file",
+    "entrypoint": "initial.md",
+    "entrypoint_sha256": "96a557582ff423d159aa97698d3ea1eb55bd07af59cbfd3a518d86326a40df40",
+    "artifact_sha256": "96a557582ff423d159aa97698d3ea1eb55bd07af59cbfd3a518d86326a40df40",
+    "hash_kind": "skill-markdown-text-sha256",
+    "file_count": 1,
+    "total_bytes": 838,
+    "files": [
+      {
+        "relative_path": "initial.md",
+        "size_bytes": 838,
+        "sha256": "96a557582ff423d159aa97698d3ea1eb55bd07af59cbfd3a518d86326a40df40",
+        "executable": false
+      }
+    ]
+  },
+  "usage": {
+    "requests": 28,
+    "metered_requests": 28,
+    "unmetered_requests": 0,
+    "error_requests": 0,
+    "completed_requests": 28,
+    "incomplete_requests": 0,
+    "unknown_status_requests": 0,
+    "prompt_tokens": 1289043,
+    "prompt_cache_hit_tokens": 1252736,
+    "prompt_cache_miss_tokens": 36307,
+    "completion_tokens": 24777,
+    "reasoning_tokens": 12648,
+    "estimated_cost_usd": 0.20116254400000005,
+    "unknown_cost_requests": 0,
+    "price_bands": {
+      "peak": 28
+    },
+    "upstream_models": [
+      "deepseek-v4-pro"
+    ]
+  },
+  "codex_terminal": {
+    "completed": 1,
+    "failed": 0,
+    "errors": 0
+  },
+  "provider_valid": true
+}

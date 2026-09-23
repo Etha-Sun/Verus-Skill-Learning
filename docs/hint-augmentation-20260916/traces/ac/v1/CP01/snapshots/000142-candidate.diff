@@ -1,0 +1,11 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -4939,7 +4939,7 @@
+             tla_exists(|req_msg: Message| lift_state(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff)))
+         ),
+ {
+-    assert(forall |s: ClusterState| #[trigger] pending_create_req_with_num_diff(vrs, controller_id, step_diff, diff)(s) ==> exists |req_msg: Message| req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff)(s)) by {
++    assert forall |s: ClusterState| #[trigger] pending_create_req_with_num_diff(vrs, controller_id, step_diff, diff)(s) ==> exists |req_msg: Message| req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff)(s) by {
+         let req_msg = s.ongoing_reconciles(controller_id)[vrs.object_ref()].pending_req_msg->0;
+         assert(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff)(s));
+     };

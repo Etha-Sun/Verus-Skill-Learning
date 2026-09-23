@@ -1,0 +1,42 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -4931,6 +4931,22 @@
+ 	}
+ 
+ 
++pub proof fn lemma_pending_req_state_has_witness(
++    ex: Execution<ClusterState>, vrs: VReplicaSetView, controller_id: int, step_diff: nat, diff: int
++)
++    requires
++        lift_state(pending_create_req_with_num_diff(vrs, controller_id, step_diff, diff)).satisfied_by(ex),
++    ensures
++        tla_exists(|req_msg: Message| lift_state(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff))).satisfied_by(ex),
++{
++    let s = ex.head();
++    let req_msg = s.ongoing_reconciles(controller_id)[vrs.object_ref()].pending_req_msg->0;
++    assert(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff)(s));
++    assert(lift_state(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff)).satisfied_by(ex));
++    assert(exists |req_msg: Message| lift_state(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff)).satisfied_by(ex));
++}
++
++
+ pub proof fn lemma_pending_req_entails_exists_req(
+     vrs: VReplicaSetView, controller_id: int, step_diff: nat, diff: int
+ )
+@@ -4940,15 +4956,7 @@
+         ),
+ {
+     assert forall |ex: Execution<ClusterState>| #[trigger] lift_state(pending_create_req_with_num_diff(vrs, controller_id, step_diff, diff)).satisfied_by(ex) ==> tla_exists(|req_msg: Message| lift_state(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff))).satisfied_by(ex) by {
+-        if lift_state(pending_create_req_with_num_diff(vrs, controller_id, step_diff, diff)).satisfied_by(ex) {
+-            let s = ex.head();
+-            let req_msg = s.ongoing_reconciles(controller_id)[vrs.object_ref()].pending_req_msg->0;
+-            assert(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff)(s));
+-            assert(lift_state(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff)).satisfied_by(ex));
+-            assert(exists |req_msg: Message| lift_state(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff)).satisfied_by(ex));
+-            assert(tla_exists(|req_msg: Message| lift_state(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff))).satisfied_by(ex) == exists |req_msg: Message| lift_state(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff)).satisfied_by(ex));
+-            assert(tla_exists(|req_msg: Message| lift_state(req_create_with_num_diff(vrs, controller_id, req_msg, step_diff, diff))).satisfied_by(ex));
+-        }
++        lemma_pending_req_state_has_witness(ex, vrs, controller_id, step_diff, diff);
+     };
+ }
+ 

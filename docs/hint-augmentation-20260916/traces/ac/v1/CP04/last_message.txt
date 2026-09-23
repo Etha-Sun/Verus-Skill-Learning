@@ -1,0 +1,25 @@
+Verification status: both checks pass.
+
+`./tools/run_verus.sh candidate.rs` reports:
+
+`verification results:: 1 verified, 0 errors`
+
+with only the pre-existing deprecation warning for `#[is_variant]`.
+
+`./tools/run_lynette.sh` completed with exit code 0 and no diagnostics.
+
+Repair summary:
+
+The checkpoint had one failing proof function, `lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp`. The work was confined to its proof body.
+
+Strategies attempted:
+
+1. Replaced the two outer `==>` implications in `assert forall` with `implies`. This removed the warning that the antecedent was not assumed and made the state facts available inside the quantified proof bodies.
+
+2. For the first entailment, initially tried asserting the stronger existential over `resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step` and naming a witness with `choose`. That failed because Verus could not derive the stronger existential directly from the aggregate `exists_resp_in_flight_at_after_list_pods_step`.
+
+3. Changed that step to assert and choose the exact inner expanded existential: the message is in flight, matches the pending list request, and carries the matching pods response. Then asserted each expanded condition and the corresponding `..._is_the_...` predicate. This discharged the first quantified consequent.
+
+4. For the second entailment, used the concrete pending request already named by `pending_req_in_flight_at_after_create_pod_step`, `s.ongoing_reconciles(controller_id)[vrs.object_ref()].pending_req_msg->0`, asserted `req_msg_is_the_in_flight_create_request_at_after_create_pod_step`, and then discharged `p_req(req_msg)` and `tla_exists(p_req)`.
+
+No executable code, signatures, specifications, `requires`, `ensures`, or `decreases` clauses were changed. No `assume`, `admit`, `external_body`, or other verification bypass was introduced. Sources used were the task files, the supplied skill, the checkpoint, the generated hint, and the actual Verus diagnostics.

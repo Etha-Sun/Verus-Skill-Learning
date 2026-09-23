@@ -1,0 +1,19 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -1,5 +1,4 @@
+ use vstd::prelude::*;
+-use vstd::assert_sets_equal;
+ fn main() {}
+ verus! {
+ 
+@@ -7,9 +6,7 @@
+     ensures
+         (s1 + s2).map(f) == s1.map(f) + s2.map(f),
+ {
+-    assert_sets_equal!((s1 + s2).map(f), s1.map(f) + s2.map(f), x => {
+-        assert(((s1 + s2).map(f)).contains(x) == (s1.map(f) + s2.map(f)).contains(x));
+-    });
++    s1.lemma_map_union_commute(s2, f);
+ }
+ 
+ } // verus!

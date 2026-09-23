@@ -1,0 +1,18 @@
+Verification status: both checks pass.
+
+Final results:
+- `./tools/run_verus.sh candidate.rs` → `1 verified, 0 errors` (one pre-existing `is_variant` deprecation warning only).
+- `./tools/run_lynette.sh` → exit code 0.
+
+Strategies attempted:
+1. Established the checkpoint diagnostics: two `assert forall` implications using `==>` failed because Verus does not assume the antecedent in that form.
+2. Replaced those two proof-local implications with `implies`.
+3. In `p.entails(tla_exists(p_resp))`, extracted the list-response witness from the inner existential with `choose`, asserted its in-flight/match/ok-list-response facts, asserted the common `AfterListPods` facts, and packaged the witness as `p_resp(resp_msg)` to prove `tla_exists(p_resp)`.
+4. In `q_mid.entails(tla_exists(p_req))`, used the pending create-request message already named by `pending_req_in_flight_at_after_create_pod_step` as the concrete witness, proved the stronger per-message predicate, and closed `tla_exists(p_req)`.
+
+Failed/intermediate steps observed:
+- The initial `==>` assertions failed on `exists_resp_in_flight_at_after_list_pods_step` and `num_diff_pods_is`.
+- After changing to `implies`, the first witness existential assertion still failed until the witness was explicitly extracted and combined into the corresponding lifted predicate.
+- The second request-witness existential assertion failed until replaced by the direct pending-request witness proof.
+
+No specification, signature, requires, ensures, decreases, or executable behavior was changed. No external sources were consulted.

@@ -1,0 +1,62 @@
+[
+  {
+    "relative_path": ".actor_codex",
+    "size_bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "executable": false
+  },
+  {
+    "relative_path": ".actor_isolation.py",
+    "size_bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "executable": false
+  },
+  {
+    "relative_path": ".actor_last_message.txt",
+    "size_bytes": 1704,
+    "sha256": "093ffb7d7768a9829ad5b23b19f7a7a90dcb6c04872d10b000892e10acccbd4c",
+    "executable": false
+  },
+  {
+    "relative_path": ".actor_models.json",
+    "size_bytes": 76079,
+    "sha256": "b459a6e438d6a9939d01fd0dbb4693f165ed732bc8e4fd58d7145d9d94bd49a4",
+    "executable": false
+  },
+  {
+    "relative_path": "SKILL.md",
+    "size_bytes": 838,
+    "sha256": "96a557582ff423d159aa97698d3ea1eb55bd07af59cbfd3a518d86326a40df40",
+    "executable": false
+  },
+  {
+    "relative_path": "TASK.md",
+    "size_bytes": 5321,
+    "sha256": "ba4e961ad0a2823d8a73b3f77b09551cdb3a6dafe037c4dfc937f77c7cd96b99",
+    "executable": false
+  },
+  {
+    "relative_path": "candidate.rs",
+    "size_bytes": 687,
+    "sha256": "043affb92de7c99669398f556e034b1b3d3ddc30f0273bc822542b035931133e",
+    "executable": false
+  },
+  {
+    "relative_path": "input.rs",
+    "size_bytes": 190,
+    "sha256": "46127e70fa8f86814c5f02cd29467c51f8cea7fe2e1f7aca193dc422d18e07f6",
+    "executable": false
+  },
+  {
+    "relative_path": "tools/run_lynette.sh",
+    "size_bytes": 244,
+    "sha256": "2437b90f13ef0839670cfc07e6cdd4ceac749e76d2df72edc5cb443b97fb38e4",
+    "executable": true
+  },
+  {
+    "relative_path": "tools/run_verus.sh",
+    "size_bytes": 285,
+    "sha256": "79c5cf1797f15946773174506c0bef3bedb73f42e6696f7d92837af895880318",
+    "executable": true
+  }
+]

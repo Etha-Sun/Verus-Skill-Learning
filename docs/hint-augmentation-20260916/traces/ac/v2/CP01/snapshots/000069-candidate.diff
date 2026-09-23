@@ -1,0 +1,20 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -4975,7 +4975,7 @@
+     let exists_resp = tla_exists(specific_resp);
+     let exists_req = tla_exists(specific_req);
+ 
+-    assert forall |resp_msg: Message| spec.entails(
++    assert forall |resp_msg: Message| #[trigger] spec.entails(
+         specific_resp(resp_msg).leads_to(pending_create)
+     ) by {
+         lemma_from_after_receive_list_pods_resp_to_send_create_pod_req(
+@@ -4984,7 +4984,7 @@
+     };
+     leads_to_exists_intro::<ClusterState, Message>(spec, specific_resp, pending_create);
+ 
+-    assert forall |req_msg: Message| spec.entails(
++    assert forall |req_msg: Message| #[trigger] spec.entails(
+         specific_req(req_msg).leads_to(final_pred)
+     ) by {
+         lemma_from_after_send_create_pod_req_to_receive_ok_resp(

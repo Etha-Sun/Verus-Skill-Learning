@@ -1,0 +1,24 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -4826,8 +4826,8 @@
+         ),
+ {
+     assert forall |s: ClusterState|
+-        #[trigger] exists_resp_in_flight_at_after_list_pods_step(vrs, controller_id)(s),
+-        #[trigger] num_diff_pods_is(vrs, diff)(s)
++        #[trigger] exists_resp_in_flight_at_after_list_pods_step(vrs, controller_id)(s)
++        && num_diff_pods_is(vrs, diff)(s)
+         implies exists |resp_msg: Message|
+             resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step(vrs, controller_id, resp_msg)(s)
+             && num_diff_pods_is(vrs, diff)(s)
+@@ -4877,8 +4877,8 @@
+         ),
+ {
+     assert forall |s: ClusterState|
+-        #[trigger] pending_req_in_flight_at_after_create_pod_step(vrs, controller_id, d)(s),
+-        #[trigger] num_diff_pods_is(vrs, diff)(s)
++        #[trigger] pending_req_in_flight_at_after_create_pod_step(vrs, controller_id, d)(s)
++        && num_diff_pods_is(vrs, diff)(s)
+         implies exists |req_msg: Message|
+             req_msg_is_the_in_flight_create_request_at_after_create_pod_step(vrs, controller_id, req_msg, d)(s)
+             && num_diff_pods_is(vrs, diff)(s)

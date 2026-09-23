@@ -1,0 +1,18 @@
+Verification succeeded.
+
+Status:
+- `./tools/run_verus.sh candidate.rs` — `1 verified, 0 errors`
+- `./tools/run_lynette.sh` — passed with no output
+
+Strategies attempted:
+
+1. Baseline `candidate.rs` failed to compile with four `E0425` errors for nonexistent names `lemma_seq_add_len` and `lemma_seq_add_index`.
+2. Removed both unresolved helper calls while keeping the local proof assertions. Verus then isolated the first remaining obligation: the length-arithmetic assertion failed.
+3. Split the length reasoning into explicit, verifiable facts:
+   - equality of concatenated sequences gives equal lengths;
+   - `(s + suffix).len() == s.len() + suffix.len()` for each side;
+   - therefore the component lengths match after cancellation.
+   This allowed the existing pointwise-prefix and extensional-equality assertions to verify.
+4. `run_lynette.sh` initially reported `Files are different` because `candidate.rs` still had an extra `use vstd::seq_lib::*;` import. That import was no longer needed, so I removed it. Lynette then passed.
+
+The final proof preserves the original signature and specification and uses only local proof assertions; no `assume`, `admit`, `external_body`, or new axioms were introduced. No external references or prior solutions were consulted.

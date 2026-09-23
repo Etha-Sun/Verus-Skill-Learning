@@ -1,0 +1,30 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -5038,9 +5038,11 @@
+     assert(p.entails(tla_exists(p_resp))) by {
+         assert forall |ex: Execution<ClusterState>| #[trigger] p.satisfied_by(ex) implies tla_exists(p_resp).satisfied_by(ex) by {
+             let s = ex.head();
+-            assert(exists_resp_in_flight_at_after_list_pods_step(vrs, controller_id)(s));
+             assert(num_diff_pods_is(vrs, diff)(s));
+-            assert(exists |resp_msg: Message| resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step(vrs, controller_id, resp_msg)(s));
++            lemma_exists_list_resp_has_concrete_witness(vrs, controller_id, s);
++            let resp_msg = choose |resp_msg: Message| resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step(vrs, controller_id, resp_msg)(s);
++            assert(p_resp(resp_msg).satisfied_by(ex));
++            assert(tla_exists(p_resp).satisfied_by(ex));
+         };
+     };
+     entails_implies_leads_to(spec, p, tla_exists(p_resp));
+@@ -5054,9 +5056,11 @@
+     assert(q_mid.entails(tla_exists(p_req))) by {
+         assert forall |ex: Execution<ClusterState>| #[trigger] q_mid.satisfied_by(ex) implies tla_exists(p_req).satisfied_by(ex) by {
+             let s = ex.head();
+-            assert(pending_req_in_flight_at_after_create_pod_step(vrs, controller_id, d)(s));
+             assert(num_diff_pods_is(vrs, diff)(s));
+-            assert(exists |req_msg: Message| req_msg_is_the_in_flight_create_request_at_after_create_pod_step(vrs, controller_id, req_msg, d)(s));
++            lemma_pending_req_has_concrete_witness(vrs, controller_id, d, s);
++            let req_msg = choose |req_msg: Message| req_msg_is_the_in_flight_create_request_at_after_create_pod_step(vrs, controller_id, req_msg, d)(s);
++            assert(p_req(req_msg).satisfied_by(ex));
++            assert(tla_exists(p_req).satisfied_by(ex));
+         };
+     };
+     entails_implies_leads_to(spec, q_mid, tla_exists(p_req));

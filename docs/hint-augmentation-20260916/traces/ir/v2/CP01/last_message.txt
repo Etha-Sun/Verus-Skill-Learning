@@ -1,0 +1,12 @@
+Verification status: both required checks pass.
+
+- `./tools/run_verus.sh candidate.rs` → `verification results:: 1 verified, 0 errors`
+- `./tools/run_lynette.sh` → exit 0
+
+Strategies attempted:
+
+1. Initial diagnostic confirmed the only failure was the bare postcondition: `(s1 + s2).map(f) == s1.map(f) + s2.map(f)`.
+2. First attempted to call the installed set-library lemma as `vstd::set_lib::lemma_map_union_commute(s1, s2, f)`. This failed with `E0425`, since the lemma is an inherent `Set` method rather than a module-level function.
+3. Corrected the invocation to `s1.lemma_map_union_commute(s2, f)`. This matched the installed `vstd::set_lib` lemma whose postcondition is exactly the required map/union commutation, and Verus discharged the function postcondition.
+
+Final [candidate.rs](/REDACTED/USER_WORKSPACE/verus_skill_runs/augment-v2-20260916/initial-skill-three-task/ir/v2/runs/3a77a3e4e72edf600e2a/CP01/workspace/candidate.rs) contains only a proof-only lemma call added to the body; the original signature, `requires`/`ensures`, and executable behavior are preserved. No `assume`, `admit`, `external_body`, or new axioms were introduced.

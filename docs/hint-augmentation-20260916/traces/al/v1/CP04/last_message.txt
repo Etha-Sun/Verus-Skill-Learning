@@ -1,0 +1,23 @@
+Verification status: passed.
+
+Final `candidate.rs` verifies with `./tools/run_verus.sh candidate.rs` (`1 verified, 0 errors`) and passes `./tools/run_lynette.sh` (exit 0).
+
+What the proof establishes:
+
+Forward direction: from `s1 == s2`, assert `s1 + suffix == s2 + suffix`.
+
+Backward direction: from `s1 + suffix == s2 + suffix`, use the installed `vstd::seq` axioms locally:
+
+- `axiom_seq_add_len` gives `(x + suffix).len() == x.len() + suffix.len()`, so equality of the concatenations plus cancellation of `suffix.len()` yields `s1.len() == s2.len()`.
+- For each valid index `i`, `axiom_seq_add_index1` rewrites `(s1 + suffix)[i] == s1[i]` and `(s2 + suffix)[i] == s2[i]`; comparing the equal concatenations gives pointwise `s1[i] == s2[i]`.
+- Extensionality via `axiom_seq_ext_equal` closes `s1 =~= s2`, then `s1 == s2`.
+
+Strategies attempted and failed/intermediate changes:
+
+- The checkpoint used `assert(s1.len() == s2.len())` and `assert_seqs_equal!` directly. Verus failed both because the add-length and add-index axioms were not exposed.
+- Added explicit length/index axiom assertions with `assert_seqs_equal!` and a top-level `use vstd::seq::group_seq_axioms;`. Verus passed, but Lynette reported a difference because that top-level import survived deghosting relative to `input.rs`.
+- Moved the axiom import inside the proof function. Verus still passed, but Lynette still failed because `use vstd::seq_lib::*;` remained at the top of the checkpoint candidate.
+- Removed `use vstd::seq_lib::*;` and replaced `assert_seqs_equal!` with a direct extensionality proof. The first version used `==>` in `assert forall`, and Verus correctly warned that it does not assume the antecedent in the body; index assertions then failed on missing range hypotheses.
+- Switched that quantifier to `implies`, which supplied `0 <= i < s1.len()` in the body. This resolved the remaining index obligations and allowed both checks to pass.
+
+No assumptions, admits, axioms added, or executable/specification changes were introduced. Sources consulted: `TASK.md`, `SKILL.md`, and the installed `vstd::seq`/`vstd::seq_lib` library definitions.

@@ -1,0 +1,18 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -5104,6 +5104,7 @@
+     };
+     leads_to_exists_intro(spec, p_resp, q_mid);
+ 
++    lemma_list_resp_exists_entails_concrete_list_resp(vrs, controller_id, diff);
+     assert(p.entails(tla_exists(p_resp)));
+     entails_implies_leads_to(spec, p, tla_exists(p_resp));
+     leads_to_trans(spec, p, tla_exists(p_resp), q_mid);
+@@ -5113,6 +5114,7 @@
+     };
+     leads_to_exists_intro(spec, p_req, r);
+ 
++    lemma_pending_create_req_entails_concrete_create_req(vrs, controller_id, diff, d);
+     assert(q_mid.entails(tla_exists(p_req)));
+     entails_implies_leads_to(spec, q_mid, tla_exists(p_req));
+     leads_to_trans(spec, p, q_mid, tla_exists(p_req));

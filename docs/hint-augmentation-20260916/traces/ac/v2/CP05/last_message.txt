@@ -1,0 +1,19 @@
+Verification complete.
+
+Status:
+- `./tools/run_verus.sh candidate.rs` passes: `1 verified, 0 errors` (only a pre-existing `#[is_variant]` deprecation warning and automatic-trigger notes).
+- `./tools/run_lynette.sh` passes (exit 0).
+
+Strategies attempted:
+1. Established the initial checkpoint diagnostics: both existential obligations inside the proof failed because the named target predicates hid the underlying witnesses.
+2. For `p.entails(tla_exists(p_resp))`, extracted an explicit response witness from the existential inside `exists_resp_in_flight_at_after_list_pods_step`, asserted its in-flight/matching/ok-list-response facts and the shared AfterListPods state facts, then reused that witness to discharge `p_resp`.
+3. For `q_mid.entails(tla_exists(p_req))`, used the pending reconcile message already named by `pending_req_in_flight_at_after_create_pod_step` as the direct witness, asserted its concrete constituent facts, and reused it to discharge `p_req`.
+
+Established dependencies:
+- `p.entails(tla_exists(p_resp))` follows by naming the response already guaranteed by `exists_resp_in_flight_at_after_list_pods_step`.
+- `q_mid.entails(tla_exists(p_req))` follows by naming the pending request already guaranteed by `pending_req_in_flight_at_after_create_pod_step`.
+- The remaining `leads_to` composition via `entails_implies_leads_to` and `leads_to_trans` then verifies with the existing external-body lemmas.
+
+Unresolved limitations:
+- The file still emits a pre-existing deprecation warning for `#[is_variant]` and low-confidence automatic trigger notes on the witness-extraction quantifier. These do not affect verification.
+- No other sources were consulted; work used only the supplied checkpoint, `TASK.md`, `SKILL.md`, and the installed Verus/Lynette tooling.

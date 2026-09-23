@@ -1,0 +1,11 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -5026,7 +5026,7 @@
+     }
+     leads_to_exists_intro(spec, req_to_ok, ok);
+ 
+-    assert(pending.entails(exists_req));
++    lemma_pending_req_entails_exists_req(vrs, controller_id, step_diff, diff);
+     entails_implies_leads_to(spec, pending, exists_req);
+ 
+     leads_to_trans(spec, pending, exists_req, ok);

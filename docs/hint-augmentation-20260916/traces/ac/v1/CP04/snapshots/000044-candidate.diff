@@ -1,0 +1,20 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -4986,7 +4986,7 @@
+     leads_to_exists_intro(spec, p_resp, q_mid);
+ 
+     assert(p.entails(tla_exists(p_resp))) by {
+-        assert forall |ex: Execution<ClusterState>| #[trigger] p.satisfied_by(ex) ==> tla_exists(p_resp).satisfied_by(ex) by {
++        assert forall |ex: Execution<ClusterState>| #[trigger] p.satisfied_by(ex) implies tla_exists(p_resp).satisfied_by(ex) by {
+             let s = ex.head();
+             assert(exists_resp_in_flight_at_after_list_pods_step(vrs, controller_id)(s));
+             assert(num_diff_pods_is(vrs, diff)(s));
+@@ -5002,7 +5002,7 @@
+     leads_to_exists_intro(spec, p_req, r);
+ 
+     assert(q_mid.entails(tla_exists(p_req))) by {
+-        assert forall |ex: Execution<ClusterState>| #[trigger] q_mid.satisfied_by(ex) ==> tla_exists(p_req).satisfied_by(ex) by {
++        assert forall |ex: Execution<ClusterState>| #[trigger] q_mid.satisfied_by(ex) implies tla_exists(p_req).satisfied_by(ex) by {
+             let s = ex.head();
+             assert(pending_req_in_flight_at_after_create_pod_step(vrs, controller_id, d)(s));
+             assert(num_diff_pods_is(vrs, diff)(s));

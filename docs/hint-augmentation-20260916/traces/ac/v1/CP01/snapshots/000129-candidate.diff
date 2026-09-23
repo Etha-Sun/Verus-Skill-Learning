@@ -1,0 +1,39 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -4624,6 +4624,36 @@
+ }
+ 
+ 
++pub open spec fn pending_create_req_with_num_diff(
++    vrs: VReplicaSetView, controller_id: int, step_diff: nat, diff: int
++) -> StatePred<ClusterState> {
++    |s: ClusterState| {
++        &&& pending_req_in_flight_at_after_create_pod_step(vrs, controller_id, step_diff)(s)
++        &&& num_diff_pods_is(vrs, diff)(s)
++    }
++}
++
++
++pub open spec fn req_create_with_num_diff(
++    vrs: VReplicaSetView, controller_id: int, req_msg: Message, step_diff: nat, diff: int
++) -> StatePred<ClusterState> {
++    |s: ClusterState| {
++        &&& req_msg_is_the_in_flight_create_request_at_after_create_pod_step(vrs, controller_id, req_msg, step_diff)(s)
++        &&& num_diff_pods_is(vrs, diff)(s)
++    }
++}
++
++
++pub open spec fn list_resp_with_num_diff(
++    vrs: VReplicaSetView, controller_id: int, resp_msg: Message, diff: int
++) -> StatePred<ClusterState> {
++    |s: ClusterState| {
++        &&& resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step(vrs, controller_id, resp_msg)(s)
++        &&& num_diff_pods_is(vrs, diff)(s)
++    }
++}
++
++
+ // File: controllers/vreplicaset_controller/trusted/liveness_theorem.rs
+ pub open spec fn matching_pods(vrs: VReplicaSetView, resources: StoredState) -> Set<DynamicObjectView> {
+     resources.values().filter(|obj: DynamicObjectView| owned_selector_match_is(vrs, obj))

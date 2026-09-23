@@ -1,0 +1,41 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -4954,7 +4954,7 @@
+         &&& exists_resp_in_flight_at_after_list_pods_step(vrs, controller_id)(s)
+         &&& num_diff_pods_is(vrs, diff)(s)
+     });
+-    let final = lift_state(|s: ClusterState| {
++    let final_pred = lift_state(|s: ClusterState| {
+         &&& exists_ok_resp_in_flight_at_after_create_pod_step(vrs, controller_id, n)(s)
+         &&& num_diff_pods_is(vrs, diff + 1)(s)
+     });
+@@ -4985,13 +4985,13 @@
+     leads_to_exists_intro::<ClusterState, Message>(spec, specific_resp, pending_create);
+ 
+     assert forall |req_msg: Message| spec.entails(
+-        specific_req(req_msg).leads_to(final)
++        specific_req(req_msg).leads_to(final_pred)
+     ) by {
+         lemma_from_after_send_create_pod_req_to_receive_ok_resp(
+             vrs, spec, cluster, controller_id, req_msg, diff
+         );
+     };
+-    leads_to_exists_intro::<ClusterState, Message>(spec, specific_req, final);
++    leads_to_exists_intro::<ClusterState, Message>(spec, specific_req, final_pred);
+ 
+     assert(init.entails(exists_resp));
+     entails_implies_leads_to(spec, init, exists_resp);
+@@ -5001,8 +5001,8 @@
+ 
+     leads_to_trans(spec, init, exists_resp, pending_create);
+     leads_to_trans(spec, init, pending_create, exists_req);
+-    leads_to_trans(spec, init, exists_req, final);
+-}
+-
+-
+-}
++    leads_to_trans(spec, init, exists_req, final_pred);
++}
++
++
++}

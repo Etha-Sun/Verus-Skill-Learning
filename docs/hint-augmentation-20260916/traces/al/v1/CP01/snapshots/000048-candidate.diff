@@ -1,0 +1,10 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -22,7 +22,6 @@
+         assert(forall|i: int| 0 <= i < s1.len() ==> (s2 + suffix)[i] == s2[i]);
+         assert(forall|i: int| 0 <= i < s1.len() ==> s1[i] == s2[i]);
+ 
+-        assert(s1.ext_equal(s2));
+         assert(s1 == s2);
+     }
+ }

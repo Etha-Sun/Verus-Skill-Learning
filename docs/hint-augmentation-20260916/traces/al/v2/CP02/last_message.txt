@@ -1,0 +1,21 @@
+Verification succeeded.
+
+Status:
+- `./tools/run_verus.sh candidate.rs`: `1 verified, 0 errors`
+- `./tools/run_lynette.sh`: completed successfully (exit code 0)
+
+What I changed:
+- Kept the forward direction unchanged.
+- Replaced the failing backward `assert(s1 == s2)` with an extensional proof:
+  - Introduced `a = s1 + suffix` and `b = s2 + suffix`.
+  - Derived `a.len() == b.len()` from the equality hypothesis.
+  - Used `Seq::add` length facts to get `s1.len() == s2.len()`.
+  - Proved pointwise equality for every valid index of `s1` by reducing `a[i]` to `s1[i]` and `b[i]` to `s2[i]`, then using `a[i] == b[i]`.
+  - Concluded `s1 == s2` with `assert(s1 =~= s2)`.
+
+Attempts and diagnostics:
+- The checkpoint’s original backward branch failed with `assertion failed` on `assert(s1 == s2)`.
+- After the extensional proof edit, Verus accepted the entire file with no errors.
+- No assumptions, admits, axioms, or specification changes were introduced.
+
+Final proof is in `candidate.rs`.

@@ -1,0 +1,22 @@
+Verification status: both checks pass.
+
+`./tools/run_verus.sh candidate.rs` reports `1 verified, 0 errors`. `./tools/run_lynette.sh` exits successfully with no output.
+
+The final proof in `candidate.rs` establishes the equivalence by proving each implication:
+
+1. If `s1 == s2`, congruence gives `s1 + suffix == s2 + suffix`.
+2. If `s1 + suffix == s2 + suffix`, the proof derives:
+   - equal concatenation lengths;
+   - `(s1 + suffix).len() == s1.len() + suffix.len()` and the same for `s2`;
+   - therefore `s1.len() == s2.len()`;
+   - pointwise equality at every index below `s1.len()`;
+   - therefore `s1 == s2`.
+
+Attempts along the way:
+
+- The supplied checkpoint was an empty body, failing the postcondition.
+- A first attempt put the backward implication in the `else` branch of `if s1 == s2`; this was incorrect because that branch provides `s1 != s2`, not the concatenation equality hypothesis.
+- A second attempt used `s1.ext_equal(s2)`, which failed to compile because that method is not available for `vstd::seq::Seq` in this prelude.
+- Removing `ext_equal` and relying on equal lengths plus pointwise index equality succeeded; the built-in sequence extensionality closed `s1 == s2`.
+
+No specifications or executable behavior were changed, and no external sources were consulted.

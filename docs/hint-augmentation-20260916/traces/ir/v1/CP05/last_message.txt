@@ -1,0 +1,28 @@
+Verification status: both checks pass.
+
+`./tools/run_verus.sh candidate.rs` reports:
+
+```text
+verification results:: 1 verified, 0 errors
+```
+
+`./tools/run_lynette.sh` exits successfully with no reported source differences.
+
+What I changed:
+
+The checkpoint attempted a manual `assert_sets_equal!` proof. Its two `choose` expressions failed because the existential membership hypotheses were asserted inside implication blocks but were not actually in scope at the `choose` sites. Rather than repairing those manual witness eliminations, I replaced the body with the installed library lemma:
+
+```rust
+s1.lemma_map_union_commute(s2, f);
+```
+
+This lemma already proves the required map/union equality, so the manual proof and the unused `use vstd::assert_sets_equal;` import were removed.
+
+Strategies attempted:
+
+- Ran the original checkpoint and established the exact failures: two `cannot prove that there exists values that satisfy the condition of the choose expression` diagnostics.
+- Identified the relevant installed vstd lemma `Set::lemma_map_union_commute`.
+- Replaced the failing manual proof with that lemma call and verified it directly.
+- Ran Lynette, which passed.
+
+No specifications, signatures, `requires`, `ensures`, or `decreases` clauses were changed, and no verification bypasses were introduced.

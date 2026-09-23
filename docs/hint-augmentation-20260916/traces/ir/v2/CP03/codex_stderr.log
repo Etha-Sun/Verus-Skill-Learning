@@ -1,0 +1,1 @@
+2026-09-17T09:44:58.547127Z ERROR codex_core::tools::router: error=exec_command failed for `/bin/bash -lc "sed -n '650,880p' \"/REDACTED/USER_WORKSPACE/verus_skill_runs/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/set.rs\""`: CreateProcess { message: "Rejected(\"Failed to create unified exec process: No such file or directory (os error 2)\")" }

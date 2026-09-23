@@ -1,0 +1,17 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -4972,12 +4972,12 @@
+         &&& num_diff_pods_is(vrs, diff + 1)(s)
+     });
+ 
+-    assert forall |resp_msg: Message| spec.entails(list_resp_to_pending(resp_msg).leads_to(pending)) by {
++    assert forall |resp_msg: Message| #[trigger] spec.entails(list_resp_to_pending(resp_msg).leads_to(pending)) by {
+         lemma_from_after_receive_list_pods_resp_to_send_create_pod_req(vrs, spec, cluster, controller_id, resp_msg, diff);
+     }
+     leads_to_exists_intro(spec, list_resp_to_pending, pending);
+ 
+-    assert forall |req_msg: Message| spec.entails(req_to_ok(req_msg).leads_to(ok)) by {
++    assert forall |req_msg: Message| #[trigger] spec.entails(req_to_ok(req_msg).leads_to(ok)) by {
+         lemma_from_after_send_create_pod_req_to_receive_ok_resp(vrs, spec, cluster, controller_id, req_msg, diff);
+     }
+     leads_to_exists_intro(spec, req_to_ok, ok);

@@ -1,0 +1,29 @@
+Verification status: passing.
+
+`./tools/run_verus.sh candidate.rs` reports:
+
+```text
+verification results:: 1 verified, 0 errors
+```
+
+`./tools/run_lynette.sh` exits successfully with no output.
+
+Final candidate body:
+
+```rust
+pub proof fn set_map_union<A, B>(s1: Set<A>, s2: Set<A>, f: spec_fn(A) -> B)
+    ensures
+        (s1 + s2).map(f) == s1.map(f) + s2.map(f),
+{
+    s1.lemma_map_union_commute(s2, f);
+}
+```
+
+Strategies attempted:
+
+1. Ran baseline diagnostics. The checkpoint failed with `cannot find macro assert_sets_equal in this scope`.
+2. Qualified the macro as `vstd::assert_sets_equal!`. Verus then resolved the macro, but the inner extensional-equality assertion still failed.
+3. Replaced the manual macro proof with the installed vstd lemma `Set::lemma_map_union_commute`, whose ensures clause is exactly the map/union commutation fact. This call discharged the postcondition and Verus passed.
+4. Ran Lynette; the proof-only comparison passed.
+
+No assumptions, admits, external bodies, or new axioms were introduced, and the original signature and specification were preserved.

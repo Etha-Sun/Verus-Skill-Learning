@@ -1,0 +1,57 @@
+{
+  "schema_version": "1",
+  "workspace": "$WORKSPACE",
+  "files": [
+    {
+      "relative_path": "SKILL.md",
+      "size_bytes": 838,
+      "sha256": "96a557582ff423d159aa97698d3ea1eb55bd07af59cbfd3a518d86326a40df40",
+      "executable": false,
+      "role": "candidate_skill"
+    },
+    {
+      "relative_path": "TASK.md",
+      "size_bytes": 5543,
+      "sha256": "bf5197836e75a97d8acf76222e2e1b12da47149cee7cde4876abf9af8048ab6f",
+      "executable": false,
+      "role": "solver_instruction"
+    },
+    {
+      "relative_path": "candidate.rs",
+      "size_bytes": 202,
+      "sha256": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+      "executable": false,
+      "role": "writable_candidate"
+    },
+    {
+      "relative_path": "input.rs",
+      "size_bytes": 202,
+      "sha256": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+      "executable": false,
+      "role": "immutable_task"
+    },
+    {
+      "relative_path": "tools/run_lynette.sh",
+      "size_bytes": 244,
+      "sha256": "2437b90f13ef0839670cfc07e6cdd4ceac749e76d2df72edc5cb443b97fb38e4",
+      "executable": false,
+      "role": "allowlisted_tool"
+    },
+    {
+      "relative_path": "tools/run_verus.sh",
+      "size_bytes": 285,
+      "sha256": "79c5cf1797f15946773174506c0bef3bedb73f42e6696f7d92837af895880318",
+      "executable": false,
+      "role": "allowlisted_tool"
+    }
+  ],
+  "input_sha256": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+  "initial_candidate_sha256": "3b1299a2717c6a4a8b39c18b60d72c99950cc6f44bc4c279564be8257223e42d",
+  "reference_proof_visible": false,
+  "prior_trace_visible": false,
+  "reference_proof_injected": false,
+  "prior_trace_injected": false,
+  "filesystem_visibility_enforced": true,
+  "visibility_scope": "allowlisted workspace and external filesystem",
+  "credential_visible": false
+}

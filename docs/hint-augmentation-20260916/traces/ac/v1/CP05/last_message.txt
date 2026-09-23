@@ -1,0 +1,22 @@
+Verification status: both checks pass.
+
+- `./tools/run_verus.sh candidate.rs` → `3 verified, 0 errors` (one pre-existing deprecation warning).
+- `./tools/run_lynette.sh` → exit code 0.
+
+The checkpoint failed on two entailment assertions in `lemma_from_after_receive_list_pods_resp_to_receive_create_pod_resp`:
+
+- `p -> tla_exists(p_resp)`
+- `q_mid -> tla_exists(p_req)`
+
+The root cause matched the supplied hint: Verus would not lift the anonymous existential witness inside `exists_resp_in_flight_at_after_list_pods_step` into the concrete `resp_msg_is_the_in_flight_list_resp_at_after_list_pods_step` predicate, and similarly would not name the pending request witness for `q_mid -> tla_exists(p_req)`.
+
+What I changed in [candidate.rs](/REDACTED/USER_WORKSPACE/verus_skill_runs/augment-v2-20260916/initial-skill-three-task/ac/v1/runs/bcf0292578550cb38451/CP05/workspace/candidate.rs):
+
+- Added `lemma_exists_list_resp_has_concrete_witness`, which:
+  - unfolds the primitive in-flight/matching/ok-list-response existential from the list-pods-response predicate,
+  - names that witness with `choose`,
+  - reassembles the non-existential conditions plus the named witness into the concrete list-response predicate.
+- Added `lemma_pending_req_has_concrete_witness`, which names the already-determined pending request from the controller state and reassembles it into the concrete create-request predicate.
+- Updated the two failing entailment proof blocks to call those lemmas, choose the resulting witness, and use it to satisfy `tla_exists`.
+
+No executable code, signatures, `requires`, `ensures`, or `decreases` were changed. No `assume`, `admit`, `external_body`, or new axioms were introduced.

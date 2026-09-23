@@ -1,0 +1,11 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -6,7 +6,7 @@
+     ensures
+         (s1 + s2).map(f) == s1.map(f) + s2.map(f),
+ {
+-    vstd::set_lib::lemma_map_union_commute(s1, s2, f);
++    s1.lemma_map_union_commute(s2, f);
+ }
+ 
+ } // verus!

@@ -1,0 +1,12 @@
+--- previous-candidate.rs
++++ candidate.rs
+@@ -13,6 +13,9 @@
+         assert(s1 + suffix == s2 + suffix);
+     }
+     if s1 + suffix == s2 + suffix {
++        assert((s1 + suffix).len() == (s2 + suffix).len());
++        assert((s1 + suffix).len() == s1.len() + suffix.len());
++        assert((s2 + suffix).len() == s2.len() + suffix.len());
+         assert(s1.len() + suffix.len() == s2.len() + suffix.len());
+         assert(s1.len() == s2.len());
+         assert forall |i: int| 0 <= i < s1.len() implies #[trigger] s1[i] == s2[i] by {
