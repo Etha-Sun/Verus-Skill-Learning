@@ -36,6 +36,30 @@ selection gate and a weighting-matched baseline.
 
 ## Fixed published-hint replay
 
+The reviewed historical trace archive is now available at Git commit
+`76f75dae6a0ad791e22aea5dab44ede0e820c3c0`. Prefer it to live replay. Keep the
+raw archive outside this implementation branch, validate its bundled manifest,
+and adapt each project/version to the exporter layout:
+
+```bash
+python3 skillopt-verusage/scripts/adapt_published_hint_traces.py \
+  --trace-archive-root "$TRACE_ARCHIVE_ROOT" \
+  --publication-project-root docs/hint-augmentation-20260916/ir \
+  --output-root "$VERUS_SKILL_RUN_ROOT/recorded-hints/ir/v1" \
+  --project IR --version v1 \
+  --source-git-commit 76f75dae6a0ad791e22aea5dab44ede0e820c3c0
+```
+
+Repeat for IR/AC/AL and v1/v2. The adapter verifies the archive manifest,
+event count, every file hash, snapshot references, initial skill, checkpoint
+source, and exact fixed hint. It records that neither hint generation nor a
+trajectory rerun occurred. The reviewed archive has 38 complete runs and 36
+dual-verifier passes; AC v1 CP01 and AC v2 CP03 are preserved unsuccessful
+branches.
+
+Use live replay below only if the reviewed trace archive becomes unavailable
+or fails validation.
+
 When the reviewed compact publication is present but the historical v1/v2 raw
 runs are unavailable, replay only the continuation actors. Do not regenerate
 the interventions. Copy `published_hint_replay_config.example.json` to six

@@ -1,5 +1,32 @@
 # Current Research State
 
+## Complete historical hint traces recovered from Git (2026-09-22)
+
+After the fixed-hint replay implementation was prepared, a colleague published
+the complete recorded hint continuations at commit
+`76f75dae6a0ad791e22aea5dab44ede0e820c3c0` on
+`origin/feat/deepseekv4pro-augmentation-20260911`. The archive has all 38
+IR/AC/AL v1/v2 runs, 2,543 files, complete structured and raw event streams,
+conversations, run manifests, source snapshots/diffs, workspace sources, hint
+contracts, and validation records. Its bundled file/hash/snapshot validator
+passes. An independent cross-check found 38/38 checkpoint, initial-skill, and
+fixed-hint identities consistent with the compact publication. It preserves
+36 dual-verifier passes and the two historical unsuccessful branches, AC v1
+CP01 and AC v2 CP03. The logs have personal host paths redacted but recorded
+messages and source bytes are complete.
+
+Therefore no hint continuation will be rerun. The new offline
+`adapt_published_hint_traces.py` verifies the archive and materializes six
+external exporter-compatible roots while recording that no hint generation or
+trajectory rerun occurred. All six real archive adaptations passed, and a
+three-task integration export with synthetic original-prefix metadata plus the
+real 38 hint and 19 no-hint branches produced 3 tasks, 19 checkpoints, and 57
+branches. Nineteen focused tests and six subtests pass. The implementation
+branch intentionally does not merge the raw trace commit. This host still
+lacks the three complete original train trajectories, so the real prefix/suffix
+packet export and SkillOpt call must run on Vegeta or after those originals are
+transferred. The fixed-hint live replay remains fallback code only.
+
 ## Fixed published-hint continuation replay ready (2026-09-22)
 
 The user authorized rebuilding the missing complete v1/v2 continuation traces

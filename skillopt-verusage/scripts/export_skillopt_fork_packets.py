@@ -36,6 +36,7 @@ OPTIONAL_AUDIT_FILES = (
     "continuation_contract.json",
     "condition_contract.json",
     "hint_contract.json",
+    "recorded_trace_provenance.json",
 )
 
 
@@ -200,6 +201,18 @@ def copy_branch(
             shutil.copyfile(replay_source, destination / "published_hint_replay.json")
             branch["hint_source"] = "reviewed published intervention replay"
             branch["hint_generation_api_called_in_current_run"] = False
+        recorded_source = private / "recorded_trace_provenance.json"
+        if recorded_source.is_file():
+            recorded = load_json(recorded_source)
+            if recorded.get("trajectory_rerun_in_current_run") is not False:
+                raise ValueError(f"invalid recorded trace provenance CP{ordinal:02d}")
+            if recorded.get("hint_generation_api_called_in_current_run") is not False:
+                raise ValueError(f"invalid recorded hint provenance CP{ordinal:02d}")
+            shutil.copyfile(recorded_source, destination / "recorded_trace_provenance.json")
+            branch["hint_source"] = "reviewed historical recorded intervention"
+            branch["hint_generation_api_called_in_current_run"] = False
+            branch["trajectory_rerun_in_current_run"] = False
+            branch["source_git_commit"] = recorded.get("source_git_commit")
     else:
         contract = load_json(branch_run(root, task_id, ordinal) / "condition_contract.json")
         if contract.get("condition") != "matched_no_hint":

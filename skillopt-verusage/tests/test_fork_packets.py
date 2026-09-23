@@ -15,6 +15,13 @@ spec = importlib.util.spec_from_file_location(
 m = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(m)
 
+adapter_spec = importlib.util.spec_from_file_location(
+    "adapt_published_hint_traces",
+    ROOT / "scripts/adapt_published_hint_traces.py",
+)
+adapter = importlib.util.module_from_spec(adapter_spec)
+adapter_spec.loader.exec_module(adapter)
+
 
 def write(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -43,6 +50,100 @@ def complete_trace(root, events, candidate="checkpoint\n"):
 
 
 class ForkPacketTests(unittest.TestCase):
+    def test_adapts_hash_verified_recorded_hint_archive_without_rerun(self):
+        checkpoint = "checkpoint\n"
+        digest = hashlib.sha256(checkpoint.encode()).hexdigest()
+        event = {
+            "event_index": 0,
+            "actor": "codex",
+            "type": "snapshot",
+            "candidate_sha256": digest,
+            "data": {"snapshot": "snapshots/000001-candidate.rs"},
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            archive = base / "archive"
+            source = archive / "ir/v1/CP01"
+            complete_trace(source, [event])
+            write(
+                source / "hint_contract.json",
+                {
+                    "checkpoint_sha256": digest,
+                    "actor_skill_sha256": adapter.INITIAL_SKILL_SHA256,
+                },
+            )
+            write(source / "hint.txt", "fixed advice")
+            write(
+                source / "validation.json",
+                {"verus": {"passed": True}, "lynette": {"passed": True}},
+            )
+            file_rows = []
+            for path in sorted(source.rglob("*")):
+                if path.is_file():
+                    file_rows.append(
+                        {
+                            "path": str(path.relative_to(source)),
+                            "published_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+                        }
+                    )
+            run = {
+                "task": "ir",
+                "version": "v1",
+                "checkpoint": "CP01",
+                "task_id": "task-id",
+                "event_count": 1,
+                "files": file_rows,
+            }
+            dummy = {
+                "task": "unused",
+                "version": "unused",
+                "checkpoint": "unused",
+                "task_id": "unused",
+                "event_count": 0,
+                "files": [],
+            }
+            write(archive / "manifest.json", {"runs": [run, *([dummy] * 37)]})
+            publication = base / "publication/ir"
+            write(
+                publication / "selection_manifest.json",
+                {
+                    "checkpoints": [
+                        {
+                            "event_index": 7,
+                            "candidate_sha256": digest,
+                            "continue": True,
+                        }
+                    ]
+                },
+            )
+            write(
+                publication / "v1/CP01/hint.json",
+                {"checkpoint_sha256": digest, "hint_text": "fixed advice"},
+            )
+            run_root = base / "run-root"
+            output = run_root / "adapted"
+            with mock.patch.dict(os.environ, {"VERUS_SKILL_RUN_ROOT": str(run_root)}):
+                result = adapter.adapt(
+                    trace_archive_root=archive,
+                    publication_project_root=publication,
+                    output_root=output,
+                    project="IR",
+                    version="v1",
+                    source_git_commit="trace-commit",
+                )
+
+            self.assertEqual(result["run_count"], 1)
+            self.assertEqual(result["dual_verifier_pass_count"], 1)
+            self.assertEqual(
+                (output / "hint-private/task-id/CP01/checkpoint.rs").read_text(),
+                checkpoint,
+            )
+            provenance = json.loads(
+                (output / "runs/task-id/CP01/recorded_trace_provenance.json").read_text()
+            )
+            self.assertFalse(provenance["trajectory_rerun_in_current_run"])
+            self.assertFalse(provenance["hint_generation_api_called_in_current_run"])
+
     def test_exports_complete_task_group_with_explicit_visibility(self):
         checkpoint = "checkpoint\n"
         digest = hashlib.sha256(checkpoint.encode()).hexdigest()
