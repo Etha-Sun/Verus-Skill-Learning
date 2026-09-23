@@ -1,5 +1,156 @@
 # Current Research State
 
+## Fixed published-hint continuation replay ready (2026-09-22)
+
+The user authorized rebuilding the missing complete v1/v2 continuation traces
+before packet export and deferred the ordinary train-40 SkillOpt comparison.
+The three complete original runs were found read-only on Vegeta and the reviewed
+repository publication contains all 19 checkpoints plus 38 fixed interventions
+(IR 6, AC 6, AL 7 for each of v1/v2). The runner now has explicit offline
+`seed-published-hints` and live `run-published-hints` modes. They verify the
+prepared original event/hash selection, load the exact reviewed hint, bind the
+AC v1 CP2 manual screen exception to exact hint/screen/audit hashes, reject any
+hint-provider call artifact, deny the actor access to the publication and
+original/reference/private roots, and record replay provenance in each run and
+exported packet. Six task/version roots can share a USD 5 budget state. The
+plan is six CP01 pilot continuations, then the remaining 32 if trace completeness
+and isolation pass. These are new continuation samples, not recovered 0916 raw
+runs. No live DeepSeek or SkillOpt call was made on this host.
+
+The user supplied the prior first-stage ordinary train-40 SkillOpt result at
+`skillopt-verusage/skills/baselines/train40-stage1-skill-001.md` (SHA-256
+`6d7deeba5d8754b9fac85ca42e64d178ac8ad9edd44c492db43c9bd776998a1a`). It is
+reference-only; `skills/initial.md` remains the augmentation seed. After the
+augmented card candidate exists, compare retained/new/removed guidance,
+triggers, actions, validation, avoid-when boundaries, and fork evidence, with an
+independent Astra evidence audit. Do not infer solved-rate or token benefit from
+the textual difference. Eighteen focused tests and six subtests pass. Raw and
+sealed data remain unmodified; live outputs must remain below the external run
+root.
+
+## Cross-server SkillOpt fork-packet handoff (2026-09-22)
+
+The historical original/v1/v2 complete runs are still unavailable on this
+host (`/zp_vegeta` is absent), so no fork packet or SkillOpt optimizer call was
+made here. A cross-server handoff is prepared below the external
+`skillopt-fork-no-hint-20260919/` run root: `NEW_SERVER_HANDOFF.md`, a repository
+patch for staged but uncommitted implementation changes, and a 6.7 MB archive
+containing the 19 existing no-hint recorded trajectories and source snapshots.
+No no-hint or hint rollout was rerun for this handoff. The packet exporter now
+copies and hash-checks every source snapshot/diff referenced by a trajectory;
+16 focused tests passed. On the historical-data server, transfer those two
+artifacts, locate the three original and six v1/v2 complete roots, export the
+task-grouped packets, run the hint-visible SkillOpt diagnostic, and manually
+audit card evidence. The no-hint archive and patches remain outside the
+repository; raw benchmark and historical runs remain read-only.
+
+## Matched no-hint continuation arm complete (2026-09-19)
+
+The train-only no-hint control completed for all 19 reviewed checkpoints: IR
+6/6, AC 6/6, and AL 7/7 are provider-valid `V2_TRACE` results with unchanged
+checkpoint inputs, the initial skill, DeepSeek V4 Pro/high, a 600-second limit,
+no teacher hint, and no historical prefix. Every terminal candidate passed the
+input/skill safety audit and independent Verus plus Lynette validation. The
+provider ledger has 457 metered requests, no error or unmetered request, and
+USD 2.246749 estimated spend. Complete no-hint traces are external below
+`${VERUS_SKILL_RUN_ROOT}/skillopt-fork-no-hint-20260919/`; its reviewed
+aggregate is `summary.json`. The compact repository review is
+`docs/skillopt-fork-packets-20260918/NO_HINT_RESULTS_20260919.md`.
+
+The compact historical reports show hint v1 and v2 at 18/19 each, versus
+19/19 no-hint. This single-sample result does not establish a harmful or useful
+hint effect. The exact historical Verus release was rebuilt, but the no-hint
+runtime used Codex CLI 0.153.0 instead of 0.146.1 and a different rebuilt
+Lynette binary. Five of 19 no-hint endpoints exactly match a v1 or v2 endpoint;
+the remaining source differences do not establish distinct proof strategies.
+AC CP6 independently diagnosed and removed the two invalid `#![auto]` lines,
+showing that this late repair did not require the teacher hint in this sample.
+
+Next action: mount or identify the complete historical original, v1, and v2 run
+directories, then export task-grouped fork packets and run the hint-visible
+SkillOpt diagnostic. Do not reconstruct complete histories from the compact
+publication. Raw benchmark data and the reviewed publication remained read-only.
+
+## SkillOpt augmentation trajectory integration review (2026-09-18)
+
+Implementation moved to `feat/skillopt-fork-packets-20260918`, forked from
+`feat/deepseekv4pro-augmentation-20260911`. The hint runner now has a separate
+matched no-hint preparation/run mode that freezes the exact prior checkpoint
+hashes and fail-closes on actor model, high reasoning effort, 600-second budget,
+and initial-skill hash parity. A new external-only exporter copies complete
+original and continuation traces into task-grouped fork packets, reconstructs
+exact event-index original prefix/suffix views, and records that fresh actors
+did not observe the prefix. A diagnostic SkillOpt driver creates exactly one
+Reflect item per source task, allows at most two card proposals per task, then
+uses native merge and four-edit rank. Its required card form is trigger, action,
+validation check, and failure boundary. Focused offline tests pass 10/10 and the
+new Python files compile. No model/API call or packet export was run: this host
+does not expose the prior external complete augmentation roots, and its base
+Python environment lacks the OpenAI package needed to import the pinned SkillOpt
+runtime. Next: mount or identify the three external v1/v2/original roots, fill
+fresh no-hint configs under `VERUS_SKILL_RUN_ROOT`, run 19 continuations, export
+the packets, then execute the hint-visible diagnostic and audit the four-card
+candidate before any held-out gate.
+
+Live-run follow-up: the user authorized continuing the matched no-hint run, but
+this host exposes no `DEEPSEEK_API_KEY` in the process environment or common
+local configuration paths. The historical `/zp_vegeta` augmentation/run mount,
+formal Verus binary, and Lynette binary are also absent. The three published
+checkpoint sets remain available and all 19 hashes match their frozen selection
+manifests, but the compact publication cannot replace the complete v1/v2 and
+original event streams required for fork packets. The pinned SkillOpt checkout
+was restored and verified at tree `7e207482b0bf0238b21e13976f6f9da5f130072c`;
+an isolated uv environment supplied runtime/test dependencies and 14 focused
+tests passed, including the upstream path-reference regression. No DeepSeek or
+optimizer request was made. Resume only with a credential path plus the prior
+complete run/toolchain mount; do not substitute a Codex actor for the matched
+DeepSeek no-hint control.
+
+The current hint-augmentation selector resumes every unique source hash observed
+at a Verus verifier event except states byte-identical to the terminal proof. It
+does not use verifier-gated Patch F1, proof coverage, plateau detection, or any
+other code-progress criterion. Across the three train-only source trajectories,
+19 checkpoints were each sampled once under v1 and once under v2.
+
+For SkillOpt, continuation-only conversations are incomplete evidence. The
+recommended input unit is a task-grouped fork packet: the exact original prefix
+through the checkpoint, an explicit branch marker with the checkpoint diagnostic,
+and separate complete original/v1/v2 suffixes. A concatenated continuation must
+record that its fresh actor did not observe the historical prefix. Hint text, if
+shown to the optimizer, should be a labeled teacher intervention rather than
+verifier evidence. The first controlled comparison should use identical fork
+packets with hint-visible versus hint-masked optimizer views.
+
+The prior formal SkillOpt recipe remains pinned at 40 train tasks, reflection
+minibatch 8, merge batch 8, success and failure reflection, and a 20-task hard
+selection gate. A new augmentation config and formatter/grouped sampler are
+needed; changing the prior formal YAML in place would violate its reproducibility
+contract. No fork-packet exporter, optimizer run, or downstream skill result
+exists yet. The recommended first batching policy is one source task per analyst
+batch: IR has six fork packets, AC six, and AL seven, with each packet containing
+the common prefix, explicit branch point, and complete original/v1/v2 suffixes.
+Three task-level reflections should emit triggered card-shaped proposals, followed
+by the native cross-task merge/rank stage. This preserves within-task contrasts
+while forcing generalization only at merge and selection time. The configured
+`max_analyst_rounds=3` is not passed into the pinned reflection implementation;
+the active epoch-1 bound is four selected patch edits. Next: freeze the packet
+schema and card contract, then export a train-only dry run before any optimizer
+call.
+
+Design caveats before that run: three one-task analyst calls would receive the
+same proposal-level standing as ordinary eight-task calls unless merge weighting
+is changed, so preserving 40 task-level units alone does not preserve optimizer
+weight. The original suffix is also not a matched no-hint continuation because
+the original actor retained its prior conversational state while each augmented
+actor started fresh at the checkpoint. Full fork packets, especially AC, may
+exceed practical analyst attention even when exposed by local path, and path
+access must be confined to the exported train-only packet tree. Treat the first
+three-task execution as card-generation diagnostics; record serialized size and
+files actually read, retain repeated checkpoint occurrence identities, and do
+not make a causal augmentation or downstream utility claim. A formal comparison
+needs equal task/proposal weighting, a fresh checkpoint-matched no-hint arm, and
+the unchanged held-out selection gate.
+
 Hint-content audit: 19 full pairs read and 38 actor hint inputs matched exactly. Corrected earlier truncated-paragraph assessments: initial-skill AC v1 CP4 already warns of witness extraction; AC v2 CP5 already mentions the request bridge. Local and publication-copy reports corrected; the 2026-09-18 update publishes HINT_CONTENT_COMPARISON.md and its structured records. External HINT_CONTENT_COMPARISON.md records broadly similar mathematics, some more explicit AC operations, and teacher output increase (46443 to 56001) versus actor decrease (222926 to 194976). No causal compute-transfer or billing claim. No raw trace edits or new API calls.
 
 

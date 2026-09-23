@@ -508,13 +508,20 @@ Continuation experiment:
         if initial_candidate_source is None:
             raise ValueError("continuation instructions require a checkpoint")
         prompt += "\n" + continuation_instructions + "\n"
+    rust_environment = ""
+    if actor_isolation is not None:
+        rust_root = actor_isolation.rust_root.resolve()
+        rust_environment = f"""export CARGO_HOME="{rust_root / 'cargo'}"
+export RUSTUP_HOME="{rust_root / 'rustup'}"
+export PATH="$CARGO_HOME/bin:$PATH"
+"""
     verus_wrapper = f"""#!/usr/bin/env bash
 set -u
 if [[ "$#" -ne 1 || "$1" != "candidate.rs" ]]; then
   echo "usage: ./tools/run_verus.sh candidate.rs" >&2
   exit 2
 fi
-exec "{verus_bin}" candidate.rs
+{rust_environment}exec "{verus_bin}" candidate.rs
 """
     lynette_wrapper = f"""#!/usr/bin/env bash
 set -u

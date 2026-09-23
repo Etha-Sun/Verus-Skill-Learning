@@ -25,6 +25,7 @@ MOUNT_BIN = Path("/usr/bin/mount")
 UMOUNT_BIN = Path("/usr/bin/umount")
 UNSHARE_BIN = Path("/usr/bin/unshare")
 SYSTEM_PYTHON = Path("/usr/bin/python3")
+HOME_ROOT = Path("/home").resolve()
 
 PR_CAPBSET_DROP = 24
 PR_SET_SECUREBITS = 28
@@ -101,7 +102,7 @@ class ActorIsolationConfig:
         ):
             resolved = path.resolve()
             if (
-                resolved == Path("/home")
+                resolved == HOME_ROOT
                 or _tool_root_reexposes_hidden_root(resolved, scratch)
                 or _tool_root_reexposes_hidden_root(resolved, actor_home)
             ):
@@ -497,7 +498,7 @@ def _run_outer(args: argparse.Namespace) -> int:
     actor_home = Path(os.environ.get("HOME", "/home/codex")).resolve()
     if scratch_root == Path("/"):
         raise ValueError("scratch root must not be /")
-    if actor_home == Path("/home") or Path("/home") not in actor_home.parents:
+    if actor_home == HOME_ROOT or HOME_ROOT not in actor_home.parents:
         raise ValueError(f"actor HOME must be below /home: {actor_home}")
     workspace = _strict_child(args.workspace, scratch_root, "workspace")
     verus_root = args.verus_root.resolve()
@@ -507,8 +508,8 @@ def _run_outer(args: argparse.Namespace) -> int:
     if not workspace.is_dir() or not verus_root.is_dir() or not rust_root.is_dir():
         raise ValueError("workspace, Verus root, and Rust root must be directories")
     if (
-        verus_root == Path("/home")
-        or rust_root == Path("/home")
+        verus_root == HOME_ROOT
+        or rust_root == HOME_ROOT
         or _tool_root_reexposes_hidden_root(verus_root, scratch_root)
         or _tool_root_reexposes_hidden_root(rust_root, scratch_root)
         or _tool_root_reexposes_hidden_root(verus_root, actor_home)

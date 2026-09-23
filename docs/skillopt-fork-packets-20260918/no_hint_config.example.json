@@ -1,0 +1,22 @@
+{
+  "output_root": "<SET_FRESH_EXTERNAL_NO_HINT_ROOT>",
+  "checkpoint_publication_root": "<SET_REVIEWED_PROJECT_PUBLICATION_ROOT>",
+  "task_id": "<SET_TRAIN_TASK_ID>",
+  "model": "deepseek-v4-pro",
+  "context_window": 1048576,
+  "actor_timeout_seconds": 600,
+  "credential_file": "<SET_EXTERNAL_CREDENTIAL_FILE>",
+  "actor_protocol": "<SET_REPOSITORY_ACTOR_PROTOCOL>",
+  "codex_bin": "<SET_CODEX_BIN>",
+  "verus_root": "<SET_VERUS_ROOT>",
+  "verus_bin": "<SET_VERUS_BIN>",
+  "lynette_bin": "<SET_LYNETTE_BIN>",
+  "rust_root": "<SET_RUST_ROOT>",
+  "scratch_root": "<SET_SCRATCH_ROOT>",
+  "bridge_port": 18300,
+  "model_catalog": "<SET_MODEL_CATALOG>",
+  "old_reference_dir": "<SET_OLD_REFERENCE_DIR>",
+  "actor_skill_file": "<SET_INITIAL_SKILL_FILE>",
+  "actor_skill_present": true,
+  "actor_skill_sha256": "96a557582ff423d159aa97698d3ea1eb55bd07af59cbfd3a518d86326a40df40"
+}

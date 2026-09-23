@@ -1,0 +1,8 @@
+{
+  "verdict": "false_positive_literal_call",
+  "hint_sha256": "f8ddeed97a9d2eae2e92cb9eb2d667fea8ee88a8eda6be0eb991e11351c3a386",
+  "screen_sha256": "ee47bb813e63993c2b5bc97e7f7268ee3916b4d20eac1ac5d35ae23f417d5a71",
+  "review_source": "../CP02_SCREEN_AUDIT.md",
+  "review_source_sha256": "9490afd1fb1bd285e0bedb3ef28333e12c0e5c16ff6287d1f33d25f14dd59898",
+  "scope": "this exact published hint only"
+}

@@ -1,0 +1,35 @@
+{
+  "output_root": "<SET_FRESH_OUTPUT_BELOW_VERUS_SKILL_RUN_ROOT>",
+  "tasks": [
+    {
+      "project": "IR",
+      "task_id": "3a77a3e4e72edf600e2a",
+      "original_run": "<SET_IR_ORIGINAL_STEP_0001_TASK_RUN>",
+      "arms": {
+        "v1": "<SET_IR_V1_ROOT>",
+        "v2": "<SET_IR_V2_ROOT>",
+        "no_hint": "<SET_IR_NO_HINT_ROOT>"
+      }
+    },
+    {
+      "project": "AC",
+      "task_id": "bcf0292578550cb38451",
+      "original_run": "<SET_AC_ORIGINAL_STEP_0001_TASK_RUN>",
+      "arms": {
+        "v1": "<SET_AC_V1_ROOT>",
+        "v2": "<SET_AC_V2_ROOT>",
+        "no_hint": "<SET_AC_NO_HINT_ROOT>"
+      }
+    },
+    {
+      "project": "AL",
+      "task_id": "f91ac92b861061915a41",
+      "original_run": "<SET_AL_ORIGINAL_STEP_0001_TASK_RUN>",
+      "arms": {
+        "v1": "<SET_AL_V1_ROOT>",
+        "v2": "<SET_AL_V2_ROOT>",
+        "no_hint": "<SET_AL_NO_HINT_ROOT>"
+      }
+    }
+  ]
+}
