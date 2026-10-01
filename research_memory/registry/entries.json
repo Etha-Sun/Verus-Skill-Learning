@@ -1,5 +1,101 @@
 [
   {
+    "created_at": "2026-09-29T21:13:21",
+    "project": "verus_self_evolving",
+    "kind": "ideas",
+    "title": "Matched augmentation ablations for representation grouping selection and scale",
+    "status": "proposed",
+    "path": "projects/verus_self_evolving/ideas/20260929-211321-matched-augmentation-ablations-for-representation-grouping-selection-and-scale/ENTRY.md"
+  },
+  {
+    "created_at": "2026-09-29T18:10:50",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "Group meeting augmentation status and from scratch scaling gates",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/notes/20260929-181050-group-meeting-augmentation-status-and-from-scratch-scaling-gates/ENTRY.md"
+  },
+  {
+    "created_at": "2026-09-26T23:18:47",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Frozen IR card checkpoint mechanism and source excluded transfer diagnostic",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/experiments/20260926-231847-frozen-ir-card-checkpoint-mechanism-and-source-excluded-transfer-diagnostic/ENTRY.md"
+  },
+  {
+    "created_at": "2026-09-26T23:07:25",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "Case first card mechanism validation and transfer boundaries",
+    "status": "draft",
+    "path": "projects/verus_self_evolving/notes/20260926-230725-case-first-card-mechanism-validation-and-transfer-boundaries/ENTRY.md"
+  },
+  {
+    "created_at": "2026-09-26T21:45:43",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Evidence aware card bank merge and autonomous retrieval pilot",
+    "status": "draft",
+    "path": "projects/verus_self_evolving/experiments/20260926-214543-evidence-aware-card-bank-merge-and-autonomous-retrieval-pilot/ENTRY.md"
+  },
+  {
+    "created_at": "2026-09-26T21:32:01",
+    "project": "verus_self_evolving",
+    "kind": "ideas",
+    "title": "Branch augmentation skill bank paper hypothesis and evaluation plan",
+    "status": "draft",
+    "path": "projects/verus_self_evolving/ideas/20260926-213201-branch-augmentation-skill-bank-paper-hypothesis-and-evaluation-plan/ENTRY.md"
+  },
+  {
+    "created_at": "2026-09-26",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "Optimizer branch-awareness transcript audit",
+    "status": "complete_read_only_audit",
+    "path": "projects/verus_self_evolving/notes/20260926-optimizer-branch-awareness-audit/ENTRY.md"
+  },
+  {
+    "created_at": "2026-09-23T21:15:13",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Matched original versus augmented skills validation20 utility evaluation",
+    "status": "stopped_for_trace_audit",
+    "path": "projects/verus_self_evolving/experiments/20260923-211513-matched-original-versus-augmented-skills-validation20-utility-evaluation/ENTRY.md"
+  },
+  {
+    "created_at": "2026-09-22T21:51:01",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Cost aware task versus checkpoint focused SkillOpt card extraction pilot",
+    "status": "draft",
+    "path": "projects/verus_self_evolving/experiments/20260922-215101-cost-aware-task-versus-checkpoint-focused-skillopt-card-extraction-pilot/ENTRY.md"
+  },
+  {
+    "created_at": "2026-09-22T21:22:37",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Hint visible SkillOpt fork card diagnostic from complete historical traces",
+    "status": "complete_diagnostic_only",
+    "path": "projects/verus_self_evolving/experiments/20260922-212237-hint-visible-skillopt-fork-card-diagnostic-from-complete-historical-traces/ENTRY.md"
+  },
+  {
+    "created_at": "2026-09-22T20:59:13",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Recovered hint trace intake and original archive transfer retry",
+    "status": "awaiting_original_archive_transfer",
+    "path": "projects/verus_self_evolving/experiments/20260922-205913-recovered-hint-trace-intake-and-original-archive-transfer-retry/ENTRY.md"
+  },
+  {
+    "created_at": "2026-09-22T20:23:42",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "Augmentation SkillOpt card retrieval and Qwen roadmap alignment audit",
+    "status": "complete",
+    "path": "projects/verus_self_evolving/notes/20260922-202342-augmentation-skillopt-card-retrieval-and-qwen-roadmap-alignment-audit/ENTRY.md"
+  },
+  {
     "created_at": "2026-09-08T21:58:23",
     "project": "verus_self_evolving",
     "kind": "experiments",

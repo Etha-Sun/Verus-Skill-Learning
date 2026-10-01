@@ -136,7 +136,9 @@ The diagnostic driver creates exactly one failure-side Reflect item for each
 source task. IR, AC, and AL therefore have equal task weight even though they
 contain 6, 6, and 7 checkpoints. Each Reflect call may propose at most two
 cards. SkillOpt then uses its native failure merge and global rank stages to
-retain at most four edits.
+retain at most four edits. The fork-specific merge prompt preserves complete
+Trigger/Action/Validate/Avoid-when cards as append edits. Each selected card
+must pass the shape audit; generic prose insertions are rejected.
 
 The optimizer is GPT-5.6 Sol through the local Codex exec backend. Network and
 web search are disabled. Run the optimizer output as a child of the packet root
@@ -155,6 +157,63 @@ python3 -m skillopt_verusage.fork_card_optimize \
 The candidate remains diagnostic until it passes manual card review and the
 unchanged fixed validation-20 selection gate. The driver does not mix these
 three task patches with the 37 ordinary train trajectories.
+
+If only the merge contract needs correction after a completed diagnostic,
+use a fresh output directory and `--reuse-reflections-from "$PREVIOUS_OUT_DIR"`.
+The driver verifies packet, seed, analyst prompt, model, reasoning effort, and
+batch settings, records source patch hashes, and copies the three reflection
+patches without new analyst calls. Retain the rejected original output and
+report the merge revision separately. The native ranking stage only calls a
+model when the merged pool exceeds the four-edit budget.
+
+## Cost-aware card extraction pilot
+
+Two optional analysis modes share the same efficiency-focused analyst prompt,
+initial skill, equal source-task weighting, and two-proposal budget:
+
+- `--analysis-mode efficiency_task`: inspect every checkpoint fork, with paired
+  continuation costs and explicit search-detour evidence.
+- `--analysis-mode efficiency_focus`: nominate the strongest successful relative
+  reduction and a distinct adverse checkpoint per task, prioritizing failures;
+  inspect those forks fully and use remaining checkpoints for counterexamples.
+
+Both require `--paired-costs "$COST_SIDECAR"`. The driver verifies actor completion
+counts and terminal outcomes against packet results before calling the optimizer.
+Both modes see all paired costs, so this compares reading scope rather than a
+strict information ablation. Outcome-based nomination is descriptive train-only
+selection, not an unbiased estimate of hint benefit. Teacher cost is reported
+separately from actor cost. Numeric evidence stays in task reflection sidecars;
+deployable cards contain triggers, actions, checks, and boundaries.
+
+Use `--capture-events` to retain the optimizer CLI events under the external
+output directory for a later evidence-access audit. The capture wrapper forwards
+stdin/stdout and exit status; it does not change the read-only optimizer sandbox.
+Source-task metadata is attached before merging to preserve proposal provenance.
+Reuse additionally requires the same analysis mode and paired-cost hash.
+
+## Matched extraction and validation utility test
+
+`--analysis-mode matched_evidence` uses one condition-neutral prompt for
+original-only and augmented three-task packets. An `original_only` optimizer
+view must contain only original task evidence; the augmented view includes
+complete historical forks and paired costs. Keep separate external roots and
+record their file hashes. Both arms preserve the same seed, task weight, proposal
+cap, merge prompt and card budget; do not manually revise only one matched arm.
+
+`python3 -m skillopt_verusage.skill_validation --run-root "$VALIDATION_ROOT"`
+runs the frozen external `experiment_contract.json` and `runtime_config.json`.
+Use `--preflight-only` to check validation-source hashes, train membership,
+formal Verus and actor isolation first. Live runs require `matched_audit.json`
+with matching skill hashes and `approved_for_validation` status. Credentials
+remain outside the repository and are loaded only into the local provider bridge.
+
+The validation driver calls the existing isolated actor runner, preserves full
+traces, distinguishes pilot infrastructure checks from task failure, and resumes
+only completed results whose skill matches. A partial run requires audit before
+retry. It reports within-budget dual-validation success, all-run usage, and
+paired costs among jointly solved task/repetition pairs. Lower cost from failure
+is not an efficiency win. The final test split is not used. Native Responses
+requests now enforce the same shared estimated-cost budget as chat requests.
 
 ## Offline checks
 

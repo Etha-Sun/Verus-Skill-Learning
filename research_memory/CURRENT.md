@@ -1,5 +1,381 @@
 # Current Research State
 
+## Proposed ablation matrix: reduced generation budget (2026-09-29)
+
+User requests minimizing expensive 160-trace experiments. The active compact
+plan is `docs/augmentation-experiment-plan.md`: first reuse original traces for
+grouping/format controls, then use N=10 with one new trajectory per source
+(20 total per augmented arm). Running all four small generation arms requires
+40 new training trajectories; teacher, extraction and evaluation costs are extra.
+Grouping/format ablations reuse identical evidence. Expand promising routes to
+N=40 (80 total per arm), reusing the first ten new traces if protocols match.
+Only one selected-method, 160-total-trace condition remains optional and later.
+This supersedes the earlier provisional 160-new/200-total counting assumption.
+Equal-count utility is not compute efficiency; nonsignificance is not equivalence.
+All downstream evaluations start from scratch. No experiment launched by this
+document revision; conclusions remain limited to the conditions actually tested.
+Plan: `research_memory/projects/verus_self_evolving/ideas/20260929-211321-matched-augmentation-ablations-for-representation-grouping-selection-and-scale/ENTRY.md`.
+Raw/sealed data untouched; no API/GPU use.
+
+## Learning pipeline preference: build on SkillOpt (2026-09-29)
+
+User prioritizes SkillOpt as the base method, with Trace2Skill as a comparison.
+Reflection uses up to eight traces per group after separating success/failure;
+each group proposes up to four edits here, then merging and final scheduled
+selection produce one candidate. Fast update is per training step, followed by
+a selection gate; optional slow
+update from epoch 2 resamples train items and compares prior/current skills.
+The fixed80 baseline uses edit budget 4 with cosine/minimum 2, not a universal
+three-card limit. Recent card extraction is a partial reuse, not a completed
+new full SkillOpt training loop. Keep data augmentation effects separate from
+card-format, budget, grouping and retrieval changes. Details in the group
+meeting note; no experiment or configuration changes made.
+
+## ExVerus scope clarification (2026-09-29)
+
+User distinguishes ExVerus verifier-accepted obfuscation from our later added
+strict equivalence gate. Appendix E documents generation of verified/unverified
+variants and repair from original proof plus errors, without reporting pairwise
+equivalence certificates. Certified Boolean rewriting is an additional method
+choice. For augmentation utility, verifier-accepted synthetic tasks can be a
+separate baseline without claiming proven equivalence. Proposed for discussion;
+no generator, admission gate or experiment was changed. See the follow-up in
+the group-meeting note below.
+
+## Group meeting alignment: from-scratch endpoint and two augmentation routes (2026-09-29)
+
+The user's latest correction is authoritative: continuation produces augmented
+training experience; primary skill/card utility evaluation starts from scratch.
+The 18 checkpoint-local tests are auxiliary and do not establish full-task gains.
+Next work should prioritize matched from-scratch validation rather than more
+checkpoint-local utility runs. No new experiment or scale-up was launched here.
+
+Cross-branch read-only audit corrects the stale claim of no obfs implementation:
+`feat/obfuscation-certified-predicates` at `2ec5b86` implements certified Boolean
+shared-predicate rewrites. Its reviewed AC full-file smoke passed three sequential
+rewrites; candidate coverage is mostly AC. This establishes equivalence-gated
+engineering feasibility, not altered proof difficulty, actor solving or learned
+card utility. Actor task export/proof stripping and paired trajectories remain.
+
+Hint has complete fork inputs and original-six/augmented-five card banks. The
+six-run from-scratch retrieval pilot showed no gain and uneven actual exposure.
+Proposed sequence: modest independent train-task expansion and fair original /
+extra-no-hint / hint comparison, with obfs joining after trajectory feasibility;
+fixed extractor/exposure, all-run full-task success and cost, final frozen test.
+Scale only on reproducible downstream evidence, not numbers of variants/cards.
+
+Meeting brief and implementation/result pointers:
+`research_memory/projects/verus_self_evolving/notes/20260929-181050-group-meeting-augmentation-status-and-from-scratch-scaling-gates/ENTRY.md`.
+No API/GPU/experiment run, branch switch, merge or raw/sealed data change.
+
+## Complete: controlled card application diagnostic (2026-09-26)
+
+All 18 authorized attempts finished and were independently reviewed by Astra.
+Each passes Verus/preservation within budget, with V2_TRACE and complete provider
+responses. Frozen cards, source, runtime and code hashes are unchanged. Both IR
+cards achieved one-edit narrow repairs in all three repetitions; no-card did so
+in two, with one long proof/tool detour dominating its mean. This supports a
+local reminder mechanism, not augmentation superiority over original extraction.
+
+AL and synthetic boundaries all pass, without establishing stable transfer gain.
+AL is excluded from these IR-only proposals but researcher-selected; original
+train-40 skill remains a text-only reference. No retrieval or history replay.
+No-card IR r0 performed forbidden temporary writes: retain its dual-pass/V2
+labels and costs, but report process compliance separately (other 17 had no
+observed extra writes). All 18 stale visibility initial hashes are reconciled
+via separate contract/actual snapshot/prompt sidecars; originals untouched.
+
+External root: `skillopt-card-case-study-20260926`; read `ANALYSIS.md`,
+`audit/final_review.md`, full readable case transcripts and `closeout.json`.
+Recorded actor estimate about USD 0.62; no unsettled reservations. No GPU,
+final-test access, historical trace changes or follow-up expansion. Next select
+cases where executed branches add information absent from the original trace,
+then freeze cards and assess applicability on separate cases.
+Entry: `research_memory/projects/verus_self_evolving/experiments/20260926-231847-frozen-ir-card-checkpoint-mechanism-and-source-excluded-transfer-diagnostic/ENTRY.md`.
+
+## User priority: case-level card mechanism before scaling (2026-09-26)
+
+The user asks to establish why each card exists, whether it fixes the original
+trace problem, and whether it generalizes despite a small bank. Prioritize this
+over treating card count as the explanation for the retrieval pilot result.
+Direct trace/diff checks support the IR preservation repair and corroborating
+AL CP07 case; both were extraction inputs, so this is not held-out transfer.
+AC passing-trigger-note repair is also already visible in the original trace,
+limiting the unique knowledge claim from augmentation at that checkpoint.
+
+Next proposed diagnostic: directly supply no card/original card/augmented card
+at matched triggering states, with repeated attempts and identical observable
+history/diagnostics. Separately test excluded-source positive and boundary cases.
+Historical specific-hint success does not validate the abstract final card.
+No new API or verifier calls were made in this case audit; all inputs unchanged.
+External artifact: `skillopt-retrieval-pilot-20260926/audit/CASE_STUDIES.md`.
+Entry: `research_memory/projects/verus_self_evolving/notes/20260926-230725-case-first-card-mechanism-validation-and-transfer-boundaries/ENTRY.md`.
+
+## Evidence-aware card retrieval pilot complete (2026-09-26)
+
+The authorized near-term experiments completed: two successful Sol/high merges
+reused existing per-task analyses, producing six original-only cards and five
+augmented cards with full evidence forwarding and Why. Astra reviewed both
+unedited banks. Twenty-two focused tests and toolchain/isolation preflight
+passed. The deprecated Codex config was removed; old logs/results stay unchanged.
+
+All six new validation attempts finished: each condition solved AL and timed
+out on IR/AC (one of three solved). The sole joint success used more recorded
+output with augmentation. No V0_INVALID occurred; both successes are V2_TRACE,
+all four timeouts V1_TRUNCATED, with zero incomplete payloads. No efficiency or
+generalization gain established. No GPU, historical rerun or final-test access.
+
+Retrieval is a concrete limitation: one augmented actor directly read the whole
+card bank, bypassing the helper despite instructions. Shared tool configuration
+does not guarantee equal actual exposure. Other queries produced weakly matched
+cards; reading did not always prevent the advised-against detour. Keep all six
+attempts and the deviation visible. Recorded costs exclude unknown usage for
+two unsettled reservations; do not report settled spend as the final bill.
+
+External root: `skillopt-retrieval-pilot-20260926/`; read `ANALYSIS.md`,
+`audit/pilot_outcome_audit.json`, and `audit/CARD_BANK_AUDIT.md`. Cards and code
+remained frozen during evaluation. Next: distinguish bank coverage, retrieval,
+application and card utility before scaling; consider controlled exposure on
+independent development data. No automatic full validation expansion occurred.
+Entry: `research_memory/projects/verus_self_evolving/experiments/20260926-214543-evidence-aware-card-bank-merge-and-autonomous-retrieval-pilot/ENTRY.md`.
+
+## Paper direction: branch augmentation into a retrievable card bank (2026-09-26)
+
+The user proposes a short main skill plus an extensible offline-derived card
+bank, with autonomous agent retrieval. Treat this as the intended research
+direction under discussion; the current four-card static-injection pilot does
+not implement it. Bank size and per-query exposure should be separate budgets.
+Focused primary-source scouting finds close prior art in ExpeL/Memp, D2Skill,
+BASM and CaSKG; neither retrieval nor boundary fields alone justify novelty.
+The proposed hypothesis is that executed checkpoint alternatives teach more
+transferable and appropriately scoped decisions than original summarization or
+equal-budget unguided sampling. Current three-task evidence does not establish it.
+
+Suggested staged work: repair fidelity and evidence propagation, test matched
+original/augmented banks under one simple retrieval interface, then add matched
+no-hint sampling and teacher-only controls before scaling. Evaluate unseen-task
+success, online cost, failures, retrieval use and offline construction costs.
+No large run was launched or newly authorized by this discussion. No GPU use,
+new inference, raw/sealed changes or test inspection occurred. Proposal/sources:
+`research_memory/projects/verus_self_evolving/ideas/20260926-213201-branch-augmentation-skill-bank-paper-hypothesis-and-evaluation-plan/ENTRY.md`.
+
+## Optimizer branch-awareness transcript audit (2026-09-26)
+
+The augmented matched extraction retained three per-task Codex sessions and one
+merge session. Visible messages explicitly identify checkpoint branches, paired
+hint/no-hint continuations, and failed/slower alternatives. Executed reads and
+the per-task `card_evidence` corroborate actual comparisons, including a failed
+hinted arm, slower hints, and minimal preservation repair versus proof rewrites.
+This supports branch-aware analysis, not causal savings or complete understanding.
+
+A concrete information gap exists at merge: per-task `card_evidence` is not
+forwarded in `merge_inputs.json`; the merge session made no tool calls to recover
+it. It receives compressed reasoning/edits and source pointers. Potential next
+extraction diagnostic: freeze current candidates and compare a merge supplied
+with full evidence sidecars. No such rerun or code change occurred in this audit.
+Validation remains stopped pending its separate fidelity audit.
+
+Readable conversations, commands, outputs, and a source-hash inventory are in
+external run storage under `skillopt-validation-20260923/audit/analysis-session-review-20260926/`.
+The capture wrapper did not retain verbatim stdin or hidden reasoning; preserved
+prompt components are separate from the visible event transcripts. Durable note:
+`research_memory/projects/verus_self_evolving/notes/20260926-optimizer-branch-awareness-audit/ENTRY.md`.
+No API calls or GPU use occurred; raw/sealed data and original logs are unchanged.
+
+## Validation status rechecked: stopped, no background progress (2026-09-26)
+
+The user requested current status. Live filesystem/process checks confirm the
+validation runner and launcher have exited. The last status is
+`stopped_for_audit`, with eight of 200 planned rollouts recorded; no final report
+or later run output exists. Three recorded candidates passed both validators
+but received V0 trace-fidelity classifications; five attempts timed out. The
+provider ledger records 234 settled requests and about USD 0.82 estimated spend;
+this is partial actor spend, not total experiment/optimizer billing. No new
+inference call or restart occurred during this status check.
+
+Original-only and augmented four-card candidates are already extracted. Cards
+were injected together at the start; dynamic stage retrieval is not implemented.
+The next technical task is to diagnose the incomplete-payload fidelity flags,
+preserve the original records, and establish a corrected audit before resuming
+utility evaluation. The user questioned five conditions; reducing to the matched
+two-arm contrast was suggested but not explicitly selected. No local GPU use is
+permitted. Raw/sealed data and trajectories remain unchanged.
+
+
+## Resource constraint: no local GPU (2026-09-24)
+
+The user explicitly requires no GPU use. Do not allocate GPUs, launch local
+model inference or GPU services, or submit GPU jobs. Continue using remote API
+models and CPU-only local verification/log analysis. Provider-internal hardware
+is outside this workspace's control. This constraint applies to subsequent
+experiments and reruns. The current validation run already stopped for audit;
+this instruction does not authorize a restart or change its stopped state.
+
+
+## Matched skill validation launched (2026-09-23)
+
+The user authorized execution. DeepSeek API authentication and live native
+Responses requests work on this host. A matched original-only and augmented
+three-task extraction each completed four Sol/high calls, preserved the same
+seed/prompt/budgets, and produced four native cards. Astra approved both for
+validation without edits; old train-40 and prior reviewed augmentation cards
+are separate secondary references.
+
+Five frozen conditions (initial, original-only, augmented, train-40 reference,
+reviewed augmentation) are running on unchanged validation-20, twice per task,
+DeepSeek V4 Pro/high, 600 seconds, eight workers: 200 planned new rollouts.
+The 15-run pilot tests infrastructure validity only; it is included in repeat 1.
+All skills are frozen before actor calls, with no validation-driven editing.
+Actor isolation and the formal Verus identity passed. Native Responses budget
+accounting was repaired and tested; a USD 30 local estimated-cost guard applies.
+Thirty tests and four subtests pass. First live check saw eight actors and 35
+settled API requests without errors/uncertain usage; evaluation is not complete.
+
+External root: `skillopt-validation-20260923/`. Monitor `status.json`,
+`validation.log`, `summary.json`, `budget.json`; full traces are in `rollouts/`.
+The runner preserves invalid/partial attempts and stops for audit, or writes
+`RESULTS.md` after completion. Next: inspect pilot/full results and report
+within-budget success, all-run usage, and paired costs on jointly solved tasks.
+Test-20 and historical/raw/sealed inputs are unchanged. Durable entry:
+`research_memory/projects/verus_self_evolving/experiments/20260923-211513-matched-original-versus-augmented-skills-validation20-utility-evaluation/ENTRY.md`.
+
+
+## User correction: evaluate utility and ordinary SkillOpt contrast (2026-09-23)
+
+The user explicitly asks why the new cards have not been tested for token
+savings and requests the comparison with skills extracted from ordinary train
+traces. The prior turn completed extraction diagnostics, not the intended
+utility comparison. Existing validation-20 infrastructure and fixed validation
+manifest are present; no live evaluation was started in this clarification.
+
+Next comparison must include the initial skill, a matched original-only
+three-task skill, and an augmented three-task skill, plus the existing ordinary
+train-40 reference as an unmatched practical comparator. Freeze actor/toolchain,
+skill injection, timeout, repetitions, extractor/card budgets, and review policy.
+Do not confound augmentation with Astra-only manual edits or a different card
+format. Use equal review for both matched arms or compare unedited native
+outputs and report reviewed cards separately. Success is the primary guard;
+report paired costs on jointly solved tasks and all-run cost/failure/timeout
+outcomes, with input/cache and completion accounting separated. First use the
+fixed validation split; do not tune cards on final test results. The original
+train checkpoints can test training reuse but cannot establish transfer.
+
+Textual comparison is already supported: ordinary train-40 is broader (lemma
+planning, loops, named closures, infrastructure and rollback), while augmented
+cards specify conditional stage actions. The latter start from initial.md and
+are not a strict extension of train-40. No downstream or causal advantage is
+established. This clarification changed memory only; raw data and traces remain
+unchanged.
+
+
+## Cost-aware extraction comparison complete (2026-09-22)
+
+Eight native optimizer calls completed on the existing three-task/19-checkpoint
+packet, with no trajectory rerun. Full-task cost-aware B proposed four cards;
+checkpoint-focused C proposed five; both retained four and passed shape audits.
+All nine numeric evidence records match historical outcomes and cost metadata.
+Astra favors B as this pilot's base: C misses an intermediate trigger-repair rule
+and retains a weak IR contrast. Both native merges lose useful stage conditions;
+a separately labeled reviewed four-card derivative restores checks and boundaries.
+The recommended themes are preservation-first macro repair, staged trigger and
+witness repair, local temporal witness bridges, and unresolved-helper triage.
+
+This is extraction-quality evidence from one sample per method on three train
+tasks, not downstream efficacy or a stable method ranking. Historical actor
+savings do not establish savings from the new cards. The ordinary train-40 skill
+remains a broader, unmatched reference. Next: freeze a matched original-only
+versus augmented extraction comparison and separate leakage-safe evaluation.
+Artifacts are under external `skillopt-fork-packets-20260922/efficiency-pilot-20260922/`,
+including `COMPARISON.md`, both raw runs, and `astra-audit/` reviewed card/provenance.
+Focused tests pass 22 tests and 6 subtests. Raw and sealed inputs are unchanged.
+Durable entry:
+`research_memory/projects/verus_self_evolving/experiments/20260922-215101-cost-aware-task-versus-checkpoint-focused-skillopt-card-extraction-pilot/ENTRY.md`.
+
+
+## Clarified card objective: checkpoint-local search savings (2026-09-22)
+
+The user prioritizes timely hints that avoid costly search after a checkpoint,
+not only mechanisms absent from original traces. The completed first SkillOpt
+pass did not explicitly optimize or summarize this efficiency contrast. Offline
+reanalysis finds promising same-checkpoint successful lower-token hint paths
+(IR CP06, AL CP03, AC CP01 v2), but single historical samples and runtime drift
+prevent attributing the entire difference to hints. Existing cards partially
+capture the repair actions but omit paired cost/detour evidence. The revised
+output now has external `efficiency-audit/EFFICIENCY_FINDINGS.md` plus all 19
+checkpoint costs. Next extraction should attach observable trigger, expensive
+detour, executed shortcut, checks, teacher/actor costs, and counterexamples to
+each proposed card. No new calls or raw-data changes were made for this audit.
+
+## Hint-visible SkillOpt diagnostic and Astra audit complete (2026-09-22)
+
+The Release original-three archive passed its supplied SHA-256, size, and
+241-file checks. Real fork packets contain 3 tasks, 19 checkpoints, and 57
+continuations; every original prefix/suffix reconstruction and copied branch
+hash passed. Three Sol/high analysts proposed six cards. The first generic
+merge flattened the card structure and was rejected. A fork-specific append
+merge reused the same task reflections and produced four cards, 3,901 bytes,
+SHA-256 `a88338dc417afe72de72a1d926fced5fbbae980eba0bf76a2644775bf78757f6`.
+Focused checks pass: 21 tests and 6 subtests. Five native optimizer attempts
+completed in total; no actor trajectory or analyst reflection was rerun.
+
+Astra completed independent baseline/evidence review. The four cards add
+operational specificity compared with the ordinary train-40 stage-1 text, but
+cover fewer topics; all four mechanisms already occur in original traces,
+with several no-hint confirmations. The raw merge reasoning mislabels some
+AC cases as IR; the review sidecar corrects provenance without rewriting the
+candidate. The result is an offline diagnostic, with no established causal
+augmentation benefit or downstream solved-rate/token improvement. Next is a
+controlled extraction comparison with matched task/proposal exposure, then a
+separately scoped unchanged held-out selection gate; neither was run here.
+
+Artifacts are below external `skillopt-fork-packets-20260922/`: the revised
+`skillopt-hint-visible-card-merge/candidate_skill.md`, independent
+`astra-audit/AUDIT.md`, corrected provenance, branch outcomes, and combined
+usage. Raw and sealed inputs remain unchanged. Full durable result:
+`research_memory/projects/verus_self_evolving/experiments/20260922-212237-hint-visible-skillopt-fork-card-diagnostic-from-complete-historical-traces/ENTRY.md`.
+
+## Original archive transfer pending; historical hints ready (2026-09-22)
+
+The user packaged the three complete original train traces on Vegeta; the
+current-host rsync retry timed out before SSH authentication and received no
+archive. This is a transport blocker, not missing historical data. All 38
+historical hint traces are now validated and durably adapted below the external
+`recorded-hints-76f75da/` run root. All 19 no-hint complete traces and the six
+hint/no-hint checkpoint selections passed checks. SkillOpt bootstrap passed.
+No trajectory rerun or optimizer call occurred. Receive and hash-check the
+original-three archive, then export complete fork packets and run SkillOpt plus
+the baseline-skill/Astra comparison. Raw and sealed inputs remain unchanged.
+Details: `research_memory/projects/verus_self_evolving/experiments/20260922-205913-recovered-hint-trace-intake-and-original-archive-transfer-retry/ENTRY.md`.
+
+## Roadmap alignment audit: augmentation, cards, retrieval, Qwen (2026-09-22)
+
+The user's items 4-8 align with the active direction, but the end-to-end
+experiment remains incomplete. Hint v1/v2 are variants of one augmentation;
+no explicitly named semantic-obfuscation implementation or reviewed result was
+found in the inspected repository. Full/pruned/no-reference experiments exist,
+but their equivalence to the user's term needs clarification. The ordinary
+train-40 stage-1 skill is a comparison reference; a reviewed augmented card
+result and controlled downstream comparison were not found in repository
+artifacts. External run roots were not configured in this audit session.
+
+Code inspection confirms a task-grouped fork-card diagnostic, not a complete
+40-task replacement pipeline. A keyword top-1 retriever with abstention already
+exists in the old SkillProxy path, but the current Codex training branch and
+fixed-test evaluator do not expose that dynamic retrieval path. Markdown card
+output also needs an audited conversion to the existing JSON card bank.
+Historical Qwen evaluations cover ordinary S1/S2 and Trace2Skill, not the new
+augmentation/card/retrieval chain. Root and subproject plans describe older
+workstreams and need a common current milestone index.
+
+Recommended next action: clarify obfuscation, reuse the recovered 38 historical
+hint traces described below, obtain the three complete original trajectories,
+and produce the three-task card diagnostic. Then compare methods with matched
+task/proposal weights and separate data, extraction, and routing changes. Keep
+hindsight teacher hints train-only; deployment retrieval uses frozen train
+cards and observable current state. This audit made no inference calls, tests,
+raw-data writes, or implementation edits. Detailed evidence and proposed gates:
+`research_memory/projects/verus_self_evolving/notes/20260922-202342-augmentation-skillopt-card-retrieval-and-qwen-roadmap-alignment-audit/ENTRY.md`.
+
 ## Complete historical hint traces recovered from Git (2026-09-22)
 
 After the fixed-hint replay implementation was prepared, a colleague published

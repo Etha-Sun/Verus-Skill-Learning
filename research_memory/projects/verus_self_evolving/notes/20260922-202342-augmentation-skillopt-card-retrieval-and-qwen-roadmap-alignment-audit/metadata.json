@@ -1,0 +1,13 @@
+{
+  "title": "Augmentation SkillOpt card retrieval and Qwen roadmap alignment audit",
+  "project": "verus_self_evolving",
+  "kind": "notes",
+  "created_at": "2026-09-22T20:23:42",
+  "status": "complete",
+  "links": [
+    "docs/skillopt-fork-packets-20260918/README.md",
+    "docs/hint-augmentation-20260916/README.md",
+    "skillopt-verusage/src/skillopt_verusage/retrieval.py"
+  ],
+  "raw_data_read_only": true
+}

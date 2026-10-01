@@ -179,6 +179,37 @@ class CodexDeepSeekBridgeTests(unittest.TestCase):
                 row = json.loads(ledger.read_text(encoding="utf-8"))
                 self.assertTrue(row["attempts"][0]["error"])
 
+    def test_native_budget_blocks_before_network_and_settles_usage(self):
+        from skillopt_verusage.budget_guard import SharedBudgetGuard
+        def response(body):
+            out = BytesIO(body)
+            out.headers = Message()
+            out.headers['Content-Type'] = 'text/event-stream'
+            return out
+        with tempfile.TemporaryDirectory() as tmp:
+            guard = SharedBudgetGuard(Path(tmp)/'budget.json', approval_limit_usd=5,
+                prior_spend_usd=0, optimizer_reserve_usd=0, request_reserve_usd=0.01)
+            config = BridgeConfig(model='deepseek-v4-pro', upstream_base_url='https://example.invalid',
+                api_key='fake', ledger_path=Path(tmp)/'ledger.jsonl', max_output_tokens=1,
+                retry_output_tokens=1, request_timeout_seconds=1, native_responses=True, budget_guard=guard)
+            body = b'data: {"type":"response.completed","response":{"status":"completed","model":"deepseek-v4-pro","usage":{"input_tokens":10,"output_tokens":2}}}\n\n'
+            with patch('skillopt_verusage.codex_deepseek_bridge.urlopen', return_value=response(body)):
+                forward_native_responses(config, {'input':[]})
+            state = json.loads(guard.path.read_text())
+            self.assertEqual(state['settled_requests'], 1)
+            self.assertEqual(state['reservations'], {})
+            self.assertGreater(state['target_spend_usd'], 0)
+            with patch.object(guard, 'reserve', side_effect=RuntimeError('budget denied')), patch('skillopt_verusage.codex_deepseek_bridge.urlopen') as network:
+                with self.assertRaisesRegex(RuntimeError, 'budget denied'):
+                    forward_native_responses(config, {'input':[]})
+                network.assert_not_called()
+            with patch('skillopt_verusage.codex_deepseek_bridge.urlopen', return_value=response(b'bad')):
+                with self.assertRaises(RuntimeError):
+                    forward_native_responses(config, {'input':[]})
+            state = json.loads(guard.path.read_text())
+            self.assertEqual(state['uncertain_requests'], 1)
+            self.assertEqual(state['reservations'], {})
+
     def test_translates_codex_history_and_tools(self) -> None:
         payload = {
             "instructions": "system rules",

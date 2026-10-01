@@ -249,7 +249,7 @@ last.write_text("complete")
         )
         joined = " ".join(command)
         self.assertIn('model_reasoning_summary="detailed"', joined)
-        self.assertIn("model_supports_reasoning_summaries=true", joined)
+        self.assertNotIn("model_supports_reasoning_summaries", joined)
         self.assertIn("hide_agent_reasoning=false", joined)
         self.assertIn("show_raw_agent_reasoning=true", joined)
         for capability in (

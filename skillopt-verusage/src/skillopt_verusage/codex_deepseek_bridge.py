@@ -573,6 +573,14 @@ def forward_native_responses(
     error_text: str | None = None
     content_type = "text/event-stream"
     body = b""
+    reservation_id = None
+    if config.budget_guard:
+        # Native requests previously skipped the shared guard used by chat mode.
+        # Reserve conservatively without rewriting the forwarded request.
+        output_bound = int(request_payload.get("max_output_tokens") or 131072)
+        reservation_id = config.budget_guard.reserve(
+            estimate_deepseek_request_upper_bound(output_bound, config.model, price_band="peak")
+        )
     try:
         request = Request(
             config.upstream_base_url.rstrip("/") + "/responses",
@@ -636,6 +644,10 @@ def forward_native_responses(
             "price_band": price_band,
             "error": error_text,
         }
+        if config.budget_guard and reservation_id:
+            config.budget_guard.settle(
+                reservation_id, cost_usd=attempt["estimated_cost_usd"], usage=usage
+            )
         record = {
             "request_id": uuid.uuid4().hex,
             "task_id": task_id,

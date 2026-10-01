@@ -1,0 +1,9 @@
+{
+  "title": "Recovered hint trace intake and original archive transfer retry",
+  "project": "verus_self_evolving",
+  "kind": "experiments",
+  "created_at": "2026-09-22T20:59:13",
+  "status": "awaiting_original_archive_transfer",
+  "links": [],
+  "raw_data_read_only": true
+}

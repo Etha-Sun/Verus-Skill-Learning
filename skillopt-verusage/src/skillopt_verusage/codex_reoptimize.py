@@ -270,7 +270,10 @@ def _ledger_summary(path: Path) -> dict[str, Any]:
         for line in path.read_text(encoding="utf-8").splitlines()
         if line.strip()
     ] if path.is_file() else []
-    successful = [row for row in rows if row.get("status") == "success"]
+    # A logical-call record and its attempt describe the same API execution.
+    # Count attempts for usage/calls; keep logical records only as metadata.
+    attempts = [row for row in rows if row.get("record_type") != "optimizer_logical_call"]
+    successful = [row for row in attempts if row.get("status") == "success"]
     by_stage: dict[str, dict[str, int]] = {}
     for row in successful:
         stage = str(row.get("stage", "unknown"))
@@ -283,8 +286,9 @@ def _ledger_summary(path: Path) -> dict[str, Any]:
         totals["completion_tokens"] += int(usage.get("completion_tokens", 0) or 0)
     return {
         "records": len(rows),
+        "logical_calls": sum(row.get("record_type") == "optimizer_logical_call" for row in rows),
         "successful_calls": len(successful),
-        "failed_calls": len(rows) - len(successful),
+        "failed_calls": len(attempts) - len(successful),
         "by_stage": by_stage,
         "total": {
             key: sum(stage.get(key, 0) for stage in by_stage.values())
