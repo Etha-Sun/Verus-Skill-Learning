@@ -1,5 +1,73 @@
 # Current Research State
 
+## Forty-task design and readiness audit complete, runtime pending (2026-10-01)
+
+Active proposal: `docs/augmentation-main-experiment-20261001.md`. Keep all 40
+original training sources, add at most one hint branch per eligible source, and
+compare initial skill, native SkillOpt, original-only cards and augmented cards
+from scratch on val20, with two frozen repetitions. Final test remains reserved.
+Hint currently requires an original verified final; the historical 600-second
+train40 solved 23/40, so 40 sources do not imply 40 eligible new branches.
+The 23/40 figure is from the historical report, not a new full-40 trace audit.
+A follow-up located the local recovered run directory despite unset environment
+variables: three original IR/AC/AL trajectories are readable, with 104/148/94
+canonical events, matching train source hashes, Pro/max/600s manifests and
+recorded final Verus/Lynette passes. Full train40, including all failures, has
+not been located here. Machine-local paths are in ignored `.agent-context.local.md`.
+
+Reusable paths exist for historical Pro/Sol baseline, original reoptimization,
+single-task hint/no-hint continuation and frozen validation. Forty-task launch
+is not ready: project-keyed packet/reflection identities collide across sources,
+the evidence bank rejects more than eight sources, teacher/extractor do not share
+an end-to-end learning budget, and native Responses reserves an absent output
+cap without forwarding it. New settings need a new formal contract. Full
+DeepSeek extraction also needs a file-evidence adapter; keeping Sol is a usable
+fallback only with separate API-cost and token/quota accounting.
+
+Official Pro service is documented, but project credentials and working
+Verus/Lynette setup are unconfirmed; run/data environment variables are unset,
+while recovered local trajectories do exist. Another server's readiness
+is unknown; target SSH alias/config path was requested. Relevant offline tests
+passed: 83 tests and 10 subtests. No authenticated/live provider or full runtime
+smoke occurred. Proposed USD 40–80 API planning space and USD 25/method learning
+ceiling are estimates/proposals, not approved caps; equal caps are not equal
+actual spend. Historical train40 known actor cost was about USD 4.47, with an
+unknown-usage request. No augmentation gain or compute-efficiency gain established.
+
+Next: configure target server, repair identity/bank/budget gaps, freeze extractor
+and complete-input cost estimates, run training-only smoke, then the paired batch.
+Audit: `research_memory/projects/verus_self_evolving/notes/20261001-160745-forty-task-experiment-budget-design-and-pipeline-readiness-audit/ENTRY.md`.
+Only reviewed docs/memory changed; no paid inference, GPU, experiment launch,
+raw/sealed-data change, commit or push.
+
+## Meeting priority: forty-task main comparison before full ablations (2026-10-01)
+
+Full review of the supplied ASR transcript and September 30 presentation, with
+existing experiment/code checks, establishes the next priority: scale the basic
+augmentation method to 40 source training tasks and compare against SkillOpt
+under reasonably matched learning budgets. Prefer DeepSeek; aim to share initial
+results on October 9, then schedule discussion as needed. This supersedes the
+September 29 requirement to demonstrate N=10 gains before the N=40 main contrast;
+small engineering checks remain appropriate. Full ablations and combined hint/obfs
+design follow initial efficacy evidence. Current pilots have not established an
+augmentation gain; downstream utility remains from scratch on separate tasks.
+
+Exact model roles/version, learning-budget scope/amount, branches per task and
+card consolidation/exposure are still open. USD 10 was an example, not an
+approved cap. The hint illustration is original plus three branches (160 total
+at N=40), not 160 new traces. Code currently rejects evidence-bank extraction
+above eight source tasks and lacks a cumulative reflection-spend stop; existing
+actor cost guards do not implement the proposed learning-budget control.
+The meeting's Qwen 6/20 to 17/20 long-token-budget report has no matching local
+run/config found here; do not substitute the historical 1200-second evaluation
+or infer its exact cap from a generic launcher.
+
+Next: freeze the minimal main-comparison contract, implement those scale/budget
+gaps, preflight and then run the agreed experiment. This turn only reconciled
+documents; no run, API/GPU use, raw/sealed-data change, commit or push occurred.
+Reviewed timestamped summary and remaining choices:
+`research_memory/projects/verus_self_evolving/meetings/20261001-144332-forty-task-augmentation-experiment-priorities-and-learning-budget-meeting/ENTRY.md`.
+
 ## Proposed ablation matrix: reduced generation budget (2026-09-29)
 
 User requests minimizing expensive 160-trace experiments. The active compact

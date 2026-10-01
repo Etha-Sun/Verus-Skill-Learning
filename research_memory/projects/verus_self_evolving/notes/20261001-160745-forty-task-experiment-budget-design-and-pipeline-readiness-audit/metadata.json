@@ -1,0 +1,16 @@
+{
+  "title": "Forty task experiment budget design and pipeline readiness audit",
+  "project": "verus_self_evolving",
+  "kind": "notes",
+  "created_at": "2026-10-01T16:07:45",
+  "status": "audited_plan_runtime_not_ready",
+  "links": [
+    "docs/augmentation-main-experiment-20261001.md",
+    "docs/augmentation-experiment-plan.md",
+    "skillopt-verusage/src/skillopt_verusage/budget_guard.py",
+    "skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py",
+    "skillopt-verusage/src/skillopt_verusage/fork_card_optimize.py",
+    "skillopt-verusage/scripts/export_skillopt_fork_packets.py"
+  ],
+  "raw_data_read_only": true
+}

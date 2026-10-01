@@ -1,5 +1,17 @@
 # Augmentation Experiment Plan — Budget-Conscious Version
 
+> Active execution proposal: [forty-task experiment and budget plan](augmentation-main-experiment-20261001.md).
+> It specifies the first comparison, eligibility, cost assumptions, budget design
+> and audited pipeline/runtime gaps. The September 29 matrix below is retained
+> as a historical set of candidate ablations, not the current execution order.
+
+> Status update from the October 1 meeting: prioritize a 40-source-task main
+> comparison against SkillOpt under reasonably matched learning budgets; small
+> engineering checks may precede it. The matrix below preserves the September 29
+> candidate ablations, but N=10 efficacy and every ablation are no longer required
+> before that main comparison. Budget scope and exact settings remain to be frozen.
+> See the [reviewed meeting summary](../research_memory/projects/verus_self_evolving/meetings/20261001-144332-forty-task-augmentation-experiment-priorities-and-learning-budget-meeting/ENTRY.md).
+
 ## Counting and Format Conventions
 
 - 首轮不安排 160 条轨迹的实验；先在 10 道题上比较方法，有信号后再扩到 40 道题。

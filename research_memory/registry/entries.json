@@ -1,5 +1,21 @@
 [
   {
+    "created_at": "2026-10-01T16:07:45",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "Forty task experiment budget design and pipeline readiness audit",
+    "status": "audited_plan_runtime_not_ready",
+    "path": "projects/verus_self_evolving/notes/20261001-160745-forty-task-experiment-budget-design-and-pipeline-readiness-audit/ENTRY.md"
+  },
+  {
+    "created_at": "2026-10-01T14:43:32",
+    "project": "verus_self_evolving",
+    "kind": "meetings",
+    "title": "Forty task augmentation experiment priorities and learning budget meeting",
+    "status": "reviewed_summary_execution_contract_pending",
+    "path": "projects/verus_self_evolving/meetings/20261001-144332-forty-task-augmentation-experiment-priorities-and-learning-budget-meeting/ENTRY.md"
+  },
+  {
     "created_at": "2026-09-29T21:13:21",
     "project": "verus_self_evolving",
     "kind": "ideas",
