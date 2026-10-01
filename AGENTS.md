@@ -39,15 +39,21 @@ This repository is the only active development workspace. The legacy
 
 - Treat all raw datasets and sealed data below `VERUS_SKILL_DATA_ROOT` as
   read-only. Never modify, move, rename, or commit them.
-- Write generated experiment outputs only below `VERUS_SKILL_RUN_ROOT`. Keep
-  only reviewed compact summaries, contracts, and pointers in this repository.
-- Do not commit personal absolute paths, secrets, API credentials, raw traces,
-  sealed data, meeting transcripts, token tables, or complete run directories.
+- Write generated experiment outputs only below `VERUS_SKILL_RUN_ROOT`.
+  Reviewed compact summaries, contracts, and pointers may be kept in this
+  repository. Selected token tables and raw execution traces (trajectories)
+  may also be copied here and committed when review confirms clear analytical
+  value and compliance with the safety rules below. Exclude meaningless,
+  redundant, or unreviewed bulk run outputs.
+- Do not commit personal absolute paths, secrets, API credentials, sealed data,
+  meeting transcripts, or complete run directories. Review selected token
+  tables and traces for these prohibited contents before committing them.
 - The reviewed `fixed-claude-stratified-80-seed20260814/` benchmark fixture is
   an explicit exception: its fixed train/val/test sources, manifests, and
   historical split-stratification token/time fields remain tracked so every
-  method uses the same unchanged test-20. This exception does not cover run
-  outputs, provider ledgers, prompts, responses, or other token tables.
+  method uses the same unchanged test-20. Other run outputs, provider ledgers,
+  prompts, responses, and token tables remain subject to the review and safety
+  rules above.
 - All newly created files and directories must use English ASCII names.
 
 ## Research Evidence Boundaries
