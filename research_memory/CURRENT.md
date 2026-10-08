@@ -1,5 +1,1363 @@
 # Current Research State
 
+## Recent research publication in five themes (2026-10-07)
+
+User requested at most five commits of recent work, not a push or new fixes.
+Implementation commits:25efc78 (helper-aware progress/checkpoints),c3f238b
+(autonomous card discovery/offline review),f3d0c36 (native hindsight campaign
+and audited recovery),65f6228 (saved transcript export/results reporter).
+Fifth commit contains October compact research records and this handoff.
+811 selected proof/dependency/export/summary and SkillOpt regressions pass.
+
+Publication excludes raw runs, provider ledgers, credentials, personal paths,
+meeting transcripts, sealed data and unrelated older untracked materials.
+Committed index/registry cover tracked and selected entries only; local generated
+indexes may additionally include older unpublished entries, which remain local.
+No fixes from the latest reviewer are implemented by this publication.
+Next: user-directed offline design fixes; no new evaluation or remote push.
+Note: notes/20261007-211330-recent-proof-progress-campaign-retrieval-and-evidence-publication/ENTRY.md.
+
+## Independent inference/card full-trace review COMPLETE (2026-10-07)
+
+ONE independent reviewer examined the entire saved stitched/raw demo trace,
+all augmented78 bodies and deployment/learning interfaces. Seven findings;
+root verified major anchors and all62 source hashes, with zero mismatches.
+Concrete card-072 defect: successful source removes extra always but retains
+lift_state (TempPred); Action misleadingly says state-level predicate. Other
+findings: installed-library advice conflicts with workspace-only prompt;
+long full-Trigger routing index and insufficient near-neighbor distinction;
+ambiguous syntax/version limits; shared field parser crosses inline labels
+in14 cards and falsely accepts an empty Action. Current autonomous index
+compensates for the parser, so this is NOT an observed body-exposure leak.
+
+Demo remains dual-pass, zero body reads, full-index exposure. No-read is allowed;
+index influence unknown. Missing provider payloads/reasoning/request-to-item
+mapping prevent full decision audit, not execution or preservation validation.
+No card-benefit, failure-causation or token-savings conclusion from this case.
+71/78 cards have one distinct source question and7 have two; forks are not
+independent support. No estimated whole-bank semantic correctness rate.
+
+External REVIEW.md/findings.json/SOURCE_SHA256.json/ROOT_CHECK.md:
+VERUS_SKILL_RUN_ROOT/skillopt-verusage/inference-card-review-20261007-lGqbOO/.
+Review note: notes/20261007-191317-independent-full-trace-inference-and-card-design-review/ENTRY.md.
+Next: user-directed offline revisions (072 semantics, library policy, parser,
+family boundaries then shorter routing descriptions). No implementation or
+reevaluation authorized by this audit. Code/cards/frozen results/raw data
+unchanged; no paid calls or sealed test access. Dedicated APIs absent;
+local artifact/hash evidence fallback, no Science Evidence Graph claim.
+
+## Full saved CLI trace exported; provider thinking missing (2026-10-07)
+
+User requests stitched initial prompt/model thinking-output/tools-feedback/edits,
+not a short summary. Added export_codex_transcript.py,36 exporter/card regressions
+pass. External demo/stitched-trace/full_trace.md81292bytes and full_trace.json
+131752bytes preserve exact host prompt, all18 completed items (14command/3edit/
+1final), full outputs, three snapshot diffs/full candidate states, raw38events,
+dual validation,14-call ledger/runtime and source hashes. All checked unchanged.
+
+Do NOT claim full provider trace: zero CLI reasoning items despite3786reasoning
+tokens; successful native Responses request/SSE bodies were not persisted, only
+usage metadata. Original patch arguments and exact API-to-item mapping missing;
+CLI built-in system/tool prompts not recorded. Export explicitly labels gaps,
+never invents thinking; completed steps are not reconstructed model API rounds.
+Next: show stitched files; separately scope full provider logging/new live sample
+if user wants missing fields. No rerun/model call or production logger changes.
+Original logs/results/raw/sealed data unchanged, graph APIs absent/local hashes.
+Note: notes/20261007-185938-full-stitched-cli-trace-export-with-explicit-thinking-and-request-payload-gaps/ENTRY.md.
+
+## One compact-index live trace demonstration COMPLETE (2026-10-07)
+
+User authorized exactly one real example, not a full reevaluation. Pro/max/600s,
+unchanged augmented78 bodies plus deduplicated complete index, optional autonomous
+ID reads. Purpose-selected already-analyzed validation case599792dd13f472f45fa4
+/AL__always_distributed_by_and, auxiliary/dev and not independent confirmation.
+No solution/reference/old trajectory/private review answer key supplied to actor.
+Existing isolated Codex/bridge/final dual-validator path; no production code edits.
+
+External: VERUS_SKILL_RUN_ROOT/skillopt-verusage/compact-index-live-demo-20261007-183017/.
+Driver session95706 finished exit0: actor70.58s, total71.55s; V2_TRACE, valid
+provider, clean completed terminal, independent Verus1verified/0errors and
+preservation pass. Complete index read but zero card body reads/direct bank
+accesses; no forced-read retry. Actual trace: empty proof failure -> quantified
+proof -> missing-antecedent helper failure -> `==>` to `implies` -> first dual
+pass -> explicit trigger warning cleanup -> dual pass again. No causal card
+benefit or old/new token savings established. Settled14Pro requests, prompt257002
+(247424cachehit/9578miss), output5278, estimatedUSD0.022215248, unknown0.
+First preflight rejected legacy .env
+run-root mismatch before output/API; explicit approved run-root override resolved
+it, without editing credentials/config or making an extra live attempt.
+Bridge drained; input/bundle/config hashes unchanged. User-readable TRACE.md,
+full raw/conversation/snapshots/result/summary external. Next: show actual trace;
+only separately authorize quantitative same-bank old/new comparison, no relearning
+or augmentation required. No ordinary retry or extra live episode.
+Entry: experiments/20261007-183017-one-real-deepseek-pro-compact-index-trace-demonstration/ENTRY.md.
+Raw/sealed data untouched; dedicated graph APIs unavailable, local evidence fallback.
+
+## Compact card discovery and offline review implemented (2026-10-07)
+
+User approved minimal implementation. Removed duplicate Trigger fallback in
+card_bank index; retained all IDs/order, autonomous arbitrary-ID reads and exact
+full bodies. Optional complete single-line description map affects index only,
+requires checking the full Trigger/Avoid when after reading. No hard truncation,
+new ranking, native-learning changes or model-generated descriptions this turn.
+
+123 focused/native/campaign/resume tests pass in existing vrl environment.
+Fresh no-API real-bank rehearsal verified all141 exact body reads and unchanged
+source bank/old entrypoint hashes. Original63 SKILL.md26462->14336 UTF-8 bytes
+(-45.8%); augmented78 35342->18836 (-46.7%). These are byte reductions, not
+measured provider-token/cost/solved-rate gains. Completed campaign remains frozen.
+
+Added seven synthetic positive/negative/optional development cases and a bank-
+hash-bound analyst-only review packet with actual bundle binding and blank
+read/premise/action/diff/dual-validator evidence. No measured routing accuracy;
+applicability does not impose mandatory reads. Next: review descriptions and
+actual use on development data before separately authorized live comparisons.
+No paid calls, raw-data writes or sealed-test access. Local hash evidence fallback.
+Entry: experiments/20261007-180217-compact-autonomous-card-index-and-offline-applicability-review-implementation/ENTRY.md.
+External: VERUS_SKILL_RUN_ROOT/skillopt-verusage/card-index-review-dev-20261007-180217-final/.
+
+## Claude Code skill discovery/review research (2026-10-07)
+
+Official Code docs, Agent Skills engineering/best practices and official
+skill-creator grader/trigger-loop source reviewed. Separate metadata discovery,
+on-demand loading, trigger quality and output/trace utility. Our on-demand body
+path already exists; gaps are duplicate index, independent near-miss review and
+compact routing versus full prerequisites. Propose minimal nonduplicate complete
+index, then separately validated descriptions and trace review; retain autonomous
+ID choices. Do not claim Claude metadata is always shorter or guarantees gains.
+Claude CLI trigger scripts are not directly DeepSeek-compatible; internal holdout
+used to select descriptions is not a sealed final test. No code/bank/API/run
+changes or sealed-test access; next user-directed design or implementation.
+Literature: projects/verus_self_evolving/literature/20261007-173615-claude-code-skill-discovery-loading-and-evidence-based-review-design/ENTRY.md.
+
+## Completed-result figures and card/action evidence audit (2026-10-07)
+
+User requested a quick parallel subagent follow-up, not new paid experiments.
+Three inspected figures summarize600s success, task-cluster CI and joint-success
+resources. Full141 card structure/proposal lineage and80 downstream exposure
+census completed; semantic review is purpose-selected and bounded, not an
+estimated card correctness rate. Concrete069 antecedent adoption in599/r1 and
+serialization contract/trigger family use inaa78/r1,r2 support actual conditional
+application, not causal benefit.057 partial use relies on original-only evidence
+and overlaps original047;013 has training support but zero downstream body reads.
+52's post-pass cleanup cannot explain earlier proof construction. Semantic
+premise mismatch and explicit declines remain visible.
+
+All141 deployed index lines duplicate their own Trigger as title: redundant
+UTF-8 bytes12126 original/16506 augmented. Do not reinterpret bytes as token
+savings or caused failures.71/78 augmented cards cite forks, but71/78 are
+single-task-supported and many rule families overlap originals. Primary
+benefit remains inconclusive. Recommend compact index/nonduplicate rule families
+and explicit premises as a later version; no bank/code/protocol changes here.
+Durable note: notes/20261007-140333-completed-campaign-figures-and-card-action-evidence-audit/ENTRY.md.
+External artifacts: evaluation-resume-20261007-ri57is/analysis/quick-followup-20261007/.
+No API calls, raw writes or sealed-test access. Local hash evidence fallback.
+Retrieval follow-up confirmed: optional full-index plus arbitrary-ID reads,
+applicability/avoidance checks and adoption/decline explanation; no automated
+stall detector or mandatory retrieval. Default lexical-search variant is not
+deployed. Duplicate title fallback is located in card_bank._index_entry.
+
+## Authorized hindsight campaign COMPLETE: validation20 evidence (2026-10-07 09:08 UTC)
+
+evaluation-resume-20261007-ri57is finished all160 unique episodes,20 validation
+tasks/four frozen conditions/two repetitions, DeepSeek V4 Pro/max/600s. PID1001842
+is absent; report_complete true. All60 retained parent outcomes remain byte-exact;
+100 new episodes,13 drained physical waves, zero transport retries/new unknown
+usage. No ordinary failure/timeout was rerun.125V2/35V1/zeroV0 saved classifications
+retained. Automatic report reproduced exactly without overwrite; all283 frozen
+production hashes unchanged. Progress remaining4 is a stale last-wave display,
+not missing outcomes; preserve it and trust exact160 schedule/source reconciliation.
+
+Initial/native/original-only each31/40 (77.5%); augmented32/40 (80.0%). Primary
+augmented-minus-original-only +2.5pp,95% task-cluster bootstrap CI[-5,+10]pp,
+20 clusters/10000 draws/seed20261006: improvement INCONCLUSIVE. Including late
+final dual passes gives32/31/32/33 respectively; not the600s episode endpoint.
+Augmented uses more resources on30 joint-success pairs: prompt+47.3%, output
+tokens+17.0%, estimated actor cost+27.6%, walltime+17.2%; no efficiency gain.
+Provider fidelity review keys empty;29 usage snapshots differ from drained
+selected ledgers, which are authoritative and do not reclassify outcomes.
+
+Selected160 actor ledgerUSD27.184393896 is a metric projection, not another
+bill. New physicalUSD17.314755480, campaign knownUSD60.560649908; historical
+unresolved upperUSD6.627021720 separate/not settled/zero/invoice. Shared source40
+acquisitionUSD5.675279016 and its unresolvedupperUSD1.839045120 are separate.
+Original63/augmented78 cards/native unchanged; full autonomous ID retrieval:
+original13/40 runs read32cards; augmented19/40 read61. One bounded matched case
+shows appropriate declines/partial use, not causal improvement. Source-matched,
+not compute-matched;84 fallback points/one bank per condition/validation-only.
+
+Durable report: VERUS_SKILL_RUN_ROOT/skillopt-verusage/evaluation-resume-20261007-ri57is/
+analysis/hindsight-summary/summary.json SHA91d0860a7eec7fbafa93760d122df51d22afc3a241b48712aa0447f02921f29f.
+Independent review audits/completed_evaluation_summary_review.json; compact
+experiment RESULTS.md records measured tables, fee separation, evidence and
+limits. Next: close the agreed campaign and report the inconclusive result;
+no additional paid training/ablation/sealed-test run. R042 broader frontier not
+declared complete. Raw datasets/old runs unchanged; sealedtest20 unread.
+Graph APIs unavailable: local hash-bound evidence fallback only.
+
+Root's explicit150-minute timer ended10:13:52Z; final report reproduced exactly,
+160 coverage/no paid process/all283 production hashes rechecked. Allthree
+discordant paired runs now reviewed (two augmented-only,one original-only):
+a23/r1 andb9/r2 each have safe proofs on both sides before600s but opposite
+finishing/cleanup cutoffs;9ee/r2 augmented reads052 only after both checks pass.
+Initial public index exposure remains possible; no causal efficacy inference.
+New external audits/discordant_pair_case_review.json binds46 files; compact
+CASE_STUDIES.md/RESULTS.md updated. No additional paid work or outcome edits;
+the agreed task is finished, not the broader R042 frontier.
+
+## Evaluation-only recovery LIVE (2026-10-07 07:15 UTC)
+
+User now explicitly requests waiting through the estimated remaining2-3hours,
+then finishing result/cost/case review and closeout without another "continue".
+User subsequently explicitly sets a150-minute wait before the root's next
+result review; this supersedes the earlier estimated waiting duration. Replace
+root's recurring observer with a150-minute timer in cancellable short slices;
+paid runner and independent failure/completion monitor continue uninterrupted.
+Review actual coverage/reporter/costs/cases when the timer ends; if incomplete,
+continue toward completion, never declare done from the timer alone.
+Root keeps this conversation turn in cancellable short waits; no standalone
+automation_update tool is available, so no scheduled background wake is claimed.
+Existing runner auto-reporter and independent monitor remain active. ETA is an
+estimate from100 pending slots/8concurrent600s waves, not a promised deadline;
+request drain/technical retries can extend it. No protocol or cost gate changes.
+
+User explicitly asks to recover. New external evaluation-resume-20261007-ri57is
+started07:15:14.360276Z, PID1001842/session12144; actual process and eight
+wave000 actor manifests/raw streams confirmed live. Strict audited60 saved
+outcomes copied byte-for-byte, including four omitted by old ordered aggregate;
+normal failures/V1 timeouts remain unchanged. Pending100 = four transport-invalid
+whole episodes plus96 missing, unchanged validation20/fourconditions/tworeps/
+600s DeepSeek V4 Pro/max. No learning/card/selector recomputation or sealed-test access.
+
+Each8-episode wave has a fresh bridge, drains before evidence/ledger selection;
+only real IncompleteRead/same-wave409 V0 can retry, at most two replacements per
+logical episode. First technically valid result retained regardless of score;
+normal failure/timeout never retried. All physical attempts/unknown fee exposures
+remain separate from selected160 metric projection. Full coverage automatically
+runs the frozen reporter. Cost is record-only, no renewed phase or fee approval.
+
+Actual no-API Dx20Eo preview validates60 full clones, parent gate/artifacts,
+physical-owner maps and selected ledger: USD9.869638416 selected actor usage;
+zero new physical calls. Parent-inclusive knownUSD43.245894428 and historical
+unresolvedupperUSD6.62702172 separate, not invoice/settled/zero; source40 separate.
+29 parent-audit tests,38 resume tests,50 reporter tests pass; independent read-only
+review Go. Frozen snapshot SHA1fce9667e7ba73ccf5b40c82a306fc84c0316e3b05b17705684154595e09343a.
+Broad offline regression:965 tests and49 subtests pass; two unrelated
+Trace2Skill producer runtime-pin tests fail (vendored tree314dfae... vs expected
+8a80dd6...). Read-only diagnosis:five pre-existing ignored bytecode caches cause
+the mismatch; excluding caches yields the exact expected source hash. No cleanup.
+This recovery uses skill_evolution_pilot.codex_runner, not that
+Trace2Skill producer; no unrelated fix or evidence-gate relaxation. Independent
+read-only monitoring continues; firstwave has4 new saved outcomes by07:17:33Z.
+All283 production snapshot files remain unchanged. Parent aQfE7o
+incident393/runtime5213 evidence unchanged; new cases/outputs only in recovery
+root. Next: monitor actual PID/saved waves through160 and paired report; no utility
+claim from partial results. Graph APIs unavailable; local hashed-evidence fallback.
+
+## Evaluation transport failure: partial56 rows,60 valid outcomes preserved (2026-10-07 UTC)
+
+This supersedes the live-state observations below. aQfE7o stopped at04:00:20Z;
+actual PID1772570 is absent. It is NOT160-complete and no final statistical
+report was run. Eight already-dispatched actors drained, leaving64 saved
+results:48V2,12V1,4V0; ordered aggregate has56. Four valid final-wave outcomes
+are outside that aggregate and must not be repurchased or discarded.
+
+Initial request75478abf7fbe46ebbc0b6eb225728de8 for val_r1_initial--08d1a2c2d3839f127970
+lost its SSE reply after261451bytes.995 complete frames contain only reasoning
+deltas after setup, no terminal response or non-null usage. Bridge failure latch
+then correctly rejects local reconnects; allfour conditions for this source end
+V0. Three have valid knownPro usage but failed Codex terminal, not ordinary proof
+failures. Preserve allraws/results/fees; do not silently reclassify them.
+
+Current knownUSD10.369493992 includes replacement006USD0.057415776; evaluation
+knownUSD10.312078216. Parent-inclusive knowncampaignUSD43.245894428 excludes
+separate source40 acquisition. One NEW unresolved request has conservative
+full-window/peak upperUSD1.90316544, separate from three historical unresolved
+upperUSD4.72385628; none is settled/zero or a fee gate. Source40 knownUSD5.675279016
+and its own unresolvedupperUSD1.83904512 also stay separate. Not an invoice.
+
+External audits/evaluation_transport_incident_review.json binds393 preserved
+files, SHA04967adafd878c63d0d96998c980c75320a58f116f88d66274db05f53bfa416f.
+Bounded retrieval-case review SHAde32c7e70420831f6a94077eb2274abf22c39d9e4653e175006d4110d22cce51
+documents one matched/declined/partial-use example, not causal benefit. Existing
+reporter22synthetic tests pass; complete160/drained guard correctly prevents a
+partial headline report. Production/fourartifacts remain frozen; no reviewer
+API calls/restarts/edits, no sealedtest access. Graph APIs unavailable; local
+hashed-evidence fallback only. Root now owns technical recovery: narrowly audit
+and retain all60 valid outcomes (including V1 timeout classifications), restart
+only four invalid whole episodes plus remaining96, unchanged160/600s protocol.
+
+## Full banks accepted; downstream160 evaluation live (2026-10-07 UTC)
+
+aQfE7o PID1772570/session58822 remains alive. Root fullbank hash-bound
+receipt accepted; phasevalidation began02:56:00.693677Z,8concurrent actors,
+20valtasks/fourconditions/tworeps/600s Promax. Evaluation_completed0 atstart;
+no utility result yet. First val access occurred only AFTER complete frozen/
+semantic/public bank admission. Sealedtest20 remains unread; no stage/fee
+permission gates. Continue to160 outcomes plus task-clustered report/cases.
+
+User now asks whether to wait; yes, no further user action required. Actual
+03:01:38Z monitor sees2 saved outcomes even though ordered wave collector
+stillreports0 (first future unfinished); do not mistake that for a stopped run.
+Read-only monitor session30783/monitor.log checksactualPID/disk/fees/results.
+storage_recovery_tests owns autonomous remaining160monitor/report/memory
+closeout; smoke_quality owns predefined actual retrieval cases. Both instructed
+to continue to actual completion or report a technical failure, with no new
+paid work outside the existing160 schedule, no production/artifact edits or
+test access. No success-rate conclusion from two early solved aug examples.
+
+New006 reply16710c5dbcf84d9a9595ed76d51a499d is fully meteredUSD0.057415776.
+Native whole-pair regeneration produced3cards versus old4, fullaug78 versus
+rejected79; no manual filtering/rewrites. Original63 cards/native unchanged.
+Fullcoverage19pairs/38sources/original38traces/aug152traces verified.35other
+paid replies/proposals and native6/smoke unchanged; freshbothpublicindexes
+title/Trigger-only/allIDs/nofixedranking/provenance leakage. All171production
+files frozenunchanged, all4actualartifacts/evidencechecked. New006semantic
+reviewSHA266076a0a11b5b41279a34ac3179bffeb500a2e08e694b837f1dc2ef343f754e;
+fullindependentreviewSHA7f99521c5e89cebedac3e2e37647a5865e20db2c1700ab679fe3ad53a8a1bfcd.
+Rootaccepted evidenceSHA996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648.
+KnowncampaignUSD32.933816212 and historicalunknownupperUSD4.72385628 remain
+separate/notinvoice; originalsource40 acquisition separate. Necessity/mechanism/
+case-split/cause caveats retained, source-matched notcompute-matched due repair
+effort. Graph APIs unavailable; localhash evidencefallback, no graph-complete claim.
+
+## Full-pipeline semantic continuation live (2026-10-07 UTC)
+
+aQfE7o started02:49:51.824825Z PID1772570/session58822. Actual process is
+running; initial hint_augmentation counters are unchanged cached rehydration,
+not new teacher/actor calls. Production is frozen (171-file code snapshot;
+configSHAbbea689f0a27c4fb65260139cffe862903d81acf07f4906b306d5ed181675c21).
+Only augmented006 whole-batch native Reflect regeneration is new paid learning;
+35other complete replies/native6/114actors are byte-bound cached replays.
+After replacement+public/frozen full review, automatically160val600s Promax;
+no repeated user phase permissions and no fee ceiling/gate. All costs recorded.
+
+691tests/49subtests pass, plus3 nonempty-rejection tamper tests. Actual no-API
+BUYinD preview reconstructed38preflight/helperselector/114hint+actor results/
+native6/orig18Reflect, replayed35fullcards, admitted all36complete inputs,
+and never dispatched006/readval/test. PreviewSHA969a9bd13bedb1997cc4bd0ea1a43a6591c11dd67a4038f161f7a115c940c909;
+parent507-file semantic receiptSHAb908e7c44ada3de3e6190c2fa539bc2dee6a0da7a236573875e5d9a695e0731b.
+Earlier K9o0g9 preview failed only because its external manual replay client
+omitted tokenizer configuration; preserve diagnostic/failed run, corrected
+fresh preview passed. No production relaxation or API calls in either preview.
+Both fresh public indexes show title/Trigger only, preserve card bodies and
+autonomous unrestricted ID reads. Old rejected banks/raw/bundles stay unchanged.
+Known parentUSD32.876400436, unresolved historicalupperUSD4.72385628 separate;
+source40 acquisition separately reported. Sealed/raw data safe; no benefit claim.
+
+## Full cards generated; automatic whole-batch semantic repair (2026-10-07 UTC)
+
+GDmKqb completed all19pairs: original63cards and augmented79cards, with114
+verified forks unchanged. It exited1 at02:37:04Z on the deliberate hash-bound
+fullbank quality rejection, not a cost gate. No paid process remains and no
+validation/test source was opened. All14 new requests have known estimated
+USD6.886077880; cumulative known campaignUSD32.876400436, historical unresolved
+upperUSD4.72385628 separately recorded, not settled or zero.
+
+Latest user clarification: cost is record-only; automatically proceed through
+the complete SkillOpt pipeline without repeated phase permissions. Repair only
+the confirmed augmented006 trigger-pattern/ground-instance contradiction by
+native regeneration of the ENTIRE eight-trace batch, replay35 pristine full
+responses/native6/114actors. Never hand-edit/filter the bad card. Independent
+even/odd/full-public reviews completed. Deployment-only index extraction also
+needs to avoid first-line one-paragraph cards preloading Action/Why; preserve
+card bytes, show full title/Trigger index, agent selects arbitrary card IDs.
+Regression and no-API exact replay precede paid repair; after full replacement
+and bundle review, automatically run160 validation attempts600s Promax.
+Graph APIs unavailable; hash-bound local evidence fallback. Raw/sealed data safe.
+
+## Full-pipeline continuation after storage repair (2026-10-07 UTC)
+
+Review update: augmented006 cardindex1 has a confirmed operative trigger-pattern
+versus ground-instance contradiction. Root and two independent reviewers agree;
+evidence audits/trigger_pattern_review.json SHA70ba59c6db1d6ffef6c095e5611c6a8a9a33927e9aa7f50f0e56bc6c41adade6.
+Remaining batches continue; no evaluation of this unchanged bank. After the full
+generation/drain, reject/preserve the bank and native-regenerate the ENTIRE
+affected eight-trace batch (not a hand-edited/filtered card), then re-audit and
+autoevaluate. Original63/native controls remain unchanged and audited. Generic
+semantic-selfcheck applies to both conditions; valid paid inputs/replies remain
+exact-cache replays. Expenses only recorded; no new user authority blocker.
+Production remains frozen while GDm runs. See PLAN for exact minimal repair.
+
+User explicitly requested continuation after freeing space and clarified fees
+are record-only, including uncertainty: no repeated cost/stage approval gates.
+GDmKqb started02:19:39Z PID405788/session69909; actual initial phase inputs_audited,
+process alive. Production code frozen after launch. Fixed38sources/114forks and
+native6/two smoke banks/22 valid full-card replies replay unchanged; generate
+14missing augmented batches, then automatically finish fullbank review and,
+if accepted,160pairedval attempts600s Promax. Sealedtest stays unread.
+
+Storage guard checks 1GiB writable headroom before new dispatch; in-memory
+failure latch now precedes all attempted error writes. Original exception
+survives ENOSPC during error/partial persistence, queued calls cannot dispatch
+after failure, caches remain usable. Narrow storage recovery audits original
+stale progress/dead process/ledger/log/414 files plus exact ancestry/22paidreply
+owners.004/005 absent replies cannot be replayed; no counterfeit fees/UUIDs.
+Known parent campaignUSD25.990322556 and unresolved upperUSD4.72385628 recorded
+separately;005 is preserved once atUSD2.67611124, not settled or zero. Cost-only
+uncertainty no longer blocks check_costs transitions; technical evidence/safety/
+quality guards remain. No dollar caps or model/split/selection/pairing changes.
+
+Root regression467tests/36subtests passed; independent458/36 matrix and44
+storage-recovery tests passed. Older tests expecting unknown-fee phase rejection
+were updated to the latest user contract, not weakened evidence checks. Actual
+no-API preview replayed114results/native6/22card caches, regenerated18 original
+proposals from paid replies and admitted36completecard inputs. Its final cost
+audit first failed because the source review inventory was strengthened during
+preview; retain that log and the separately successful completion recheck.
+Preview receiptSHA d4d750817a5cf8276e0a45ccd04d6d1ab98236f67aad5407b4d67957d4d4b57a.
+Storage repair reviewSHA7d8c3df49d2fb1305540ec71c766f1b36e7b5908c5387541a344ea605df99db9;
+independent reviewSHA467e357730547fdc14677e97db56e93a6dca7b2ae63f7a8b223ad051c56de36a.
+Graph/shell skill APIs unavailable: local hashed-evidence fallback, not a
+graph-recorded main result. Next: monitor actualPID plus logs; independent even/
+odd fullaug semantics and public/original bank audits run concurrently. Root
+finalhash quality gate only after all19pairs covered; then autoeval/report.
+
+## Storage failure: stopped, new unresolved fee needs scoped authority (2026-10-06)
+
+This supersedes the following live-state observations. Twelfth u6UsOB exited
+with code1 after shared-filesystem ENOSPC. PID550809 is absent; progress.json
+is stale because writing the stopped state also failed. No paid process is
+running. The earlier statement that ENOSPC affected only memory indexing and
+the campaign remained live was incorrect. Preserve the original progress/log/
+ledger rather than rewriting history. A read-only monitor was stopped after
+confirming it was reporting that stale file; no paid process was killed.
+
+114 verified forks remain intact. Original-only extraction is complete across
+19pairs/38sources with63cards and an independent public-bundle review. Augmented
+extraction has four completed remaining batches/21cards plus three smoke cards;
+full augmented bank, final quality gate and160 validation attempts are pending.
+No validation input or sealed test was accessed; raw sources were not modified.
+No files were deleted, moved, or manually repaired. Space subsequently recovered
+externally, but this does not recover missing provider replies or settle fees.
+
+Seven twelfth ledger rows have known estimated fees USD2.319359284; known
+parent-inclusive campaign total USD25.990322556, excluding the separately
+recorded original train40 acquisition. Augmented004 request
+be5eb5af99914cfbbee2512973cd126a has known USD0.361545932 but no saved response.
+Augmented005 has started/request/admission evidence but no reply or ledger row;
+its local request SHA2491c1eb07a19509895d3d600fe260d97a118f7d76b72deddaa5971003433acf
+must be treated as possibly dispatched, not unsent/zero. Conservative peak
+uncached byte-based upper USD2.67611124 is not a settled fee. This is a NEW
+uncertainty, not covered by the two individually approved historical requests
+(still unresolved upper USD2.04774504). Combined unresolved upper USD4.72385628.
+No further paid calls before scoped authority for005 and its replacement.
+
+External u6UsOB/storage_incident.json SHA
+eb3cb327b91c64b46fc57baedd1e2751d0baaabae79a03a5196fd01380df1528 binds414
+preserved files, all rechecked unchanged, and the original ledger/log/progress.
+Next: request bounded authority; then add storage-aware pre-dispatch checks and
+failure latching before error-file writes, test narrow recovery of valid paid
+caches (not nonexistent004/005 replies), and finish cards/gate/evaluation/report.
+No R042-complete or downstream-utility claim is established.
+
+## Twelfth live continuation with sixteen pristine card replays (2026-10-06)
+
+u6UsOB started22:26:05Z PID550809/session60338,monitor37151; actual phase
+card_extraction after114forks/two smoke banks/native6 caches unchanged replays.
+Production frozen after launch. Chained known-content-schema recovery passed
+450tests/43subtests plus actual zero-provider previewn83n2j:16proposals replay
+unchanged, all18original+18aug complete inputs admitted, invalid016 never copied,
+no new request/ledger/heldout access. New contentstring output-only reminder
+does not replace earlier exactpaid input bytes. Guard clearly rejects nonstring
+content; no dict-to-prose normalization or manual card filtering.367-file root
+reviewSHAc82a92d4c59be6bb2701e4ad5ea7b9f6aac7dfd9b778a8a8fa8e982452c344d4,
+independentreviewSHAffdc255c040480e47fc705bbfb95f7f7a1c5dddb269fac252e4fff36cc4cd562.
+First concurrent regression collected an outdated synthetic fixture lacking newly
+required failed_card_task and failed one test; preserve diagnostic, corrected
+fixture/full450 regression passes. No production relaxation. Native/current-vs-
+ancestor caches, raw request/status/usage hashes and all114results remain bound.
+Only regenerate016 and first017, then18remaining augmented batches/fullbank
+reviews/autonomous public bundles/frozen gate/160validation attempts andreport.
+Parent knownUSD23.670963272 and two unresolved historical boundsUSD2.04774504
+remain separate; no newunknown at launch.38+114=152trainingtraces, evaluation600s
+allPromax; sealedtest untouched. Continue to actual completion/new authority blocker.
+
+Observed twelfth: all18remaining original-only proposals completed; with smoke,
+full19pairs/38sourcebank contains63cards, no manually filtered/rewritten bodies.
+New016/017 real prose-string replies knownUSD0.074748916 total; parent-inclusive
+knownUSD23.745712188 at this point, historicalunknownupperUSD2.04774504 separate.
+All18 complete augmented packets admitted with new reminder (maximum934922),
+firsttwo actual augmented requests dispatched. Independent original full
+coverage/provenance/publicbundle audit underway; augmented semantics pending.
+Ghost initialization card's uniqueness avoidance is a conservative scope limit,
+not evidence all nondeterministic permitted states forbid concrete selection.
+Inlining-card Action combines inlining and two new quantified facts; its Why's
+causal attribution to alias removal is not isolated. Keep raw control unchanged
+and document limits, not posthoc improve it. No frozen gate/val/test access yet.
+
+During CASE_STUDIES update, memory index generation hit shared-filesystem
+ENOSPC. Read-only df/zfs checks show no dataset quota/refquota or inode shortage;
+available space recovered externally from6.3GB to21GB. Successful mem.py index
+rerun rebuilt INDEX/registry; no files deleted/moved and no paid process killed.
+Live card phase still has no errors/call-error files/unknown usage;4augmented
+proposals validated at the check. Independently source-crosschecked38groups,
+114real event traces/hint payloads/final SHA and152logicaltraces all agree.
+Original full63-card independent reviewSHA8c9b233663a258b5887d9dbc0aa412330bb71bd9e2129c122fde8af60f243d1a
+passes input/ref/merge/public3file63-ID reader checks with documented caveats.
+Augmented000's extensional alternate is supported but its hypothetical failed-
+direct-equality trigger is not observed; do not claim efficacy contrast/necessity.
+Augmented001's direct universal host-safety route is supported for current
+nonunique enabled-step witness bridge, not a universal claim about choose.
+Fullbank gate still pending; validation/sealedtest remain untouched.
+
+## Eleventh metered content-schema halt and bounded recovery (2026-10-06)
+
+Cv8aaY stopped22:17:21Z; all paid processes stopped, no evaluation started.
+114forks/native6/two smoke banks remain unchanged.16accepted remaining
+original-only proposals contain54cards (+3smoke=57); no augmented remaining
+calls yet. Eight new requests knownUSD0.43496376, parent-inclusive known
+USD23.670963272; historical unknownupperUSD2.04774504 stays separately unresolved,
+no third unknown. Rejected016request0ed7a54eefab4ffebfa279d601e9e4ee has correct
+trace-analysis arrays/evidence but two content objects, not prose strings;
+completed feeUSD0.047768732. Preserve whole raw output, never host-coerce fields.
+017 never dispatched. Independent audit reconstructs all17 actual full packets,
+confirms16proposals equal paid JSON and9old Nk caches byte-identical. Root367-file
+hash-bound card_stage_repair_review permits only16valid cache replays and
+unchanged114actors/native6; regenerated016 and first017 still required. New
+content type guard reports a clear rejection and output-only reminder explicitly
+requires a string. Earlier exact paid input strings retain semantic-evidence
+equality replay, not replacement. Narrow chained recovery revalidates the complete
+Nk/native ancestor ownership rather than assigning old cached calls to a new
+ledger. Actual strict audit returns16replays/nativeSHA588570...fc6. Independent
+synthetic recovery tests and no-provider preview pending before twelfth launch.
+No paid continuation currently active; fullbank quality/gated160eval still
+required. Raw/sealed sources unchanged; no completed-R042 or utility claim.
+
+## Eleventh live card-stage continuation (2026-10-06)
+
+Cv8aaY started22:11:53Z PID502666/session92458; read-only monitor89001.
+114forks/two smoke banks/six native calls replayed unchanged; real phase is
+card_extraction. Production frozen after launch. This follows independent16
+known-request tokenizer calibration: actual prompt=framed+99 for this exact
+one-part Pro/high/json_object/streamFalse contract, not a universal bound.
+All18 full augmented packets measured; batch012 frame834976/HTTP1034323,
+oldmax total1154140 versus framed934858. Outer HTTP escaping caused one false
+offline rejection. Narrow fixed-contract correction uses framed count while
+retaining payload hash/HTTP diagnostics,1Mwindow,16384output,10%/8192margin,
+static tokenizerSHA and all unsupported-history guards. Other formats/schema/
+multipart/effort/stream retain oldmax; no-tokenizer byte fallback unchanged.
+No input truncation, dropped evidence, new codec or pairing change. Independent
+escaping/boundary tests added;409tests/43subtests pass. Actual zero-API preview
+tvD0KZ admits all18 full packets; maximum934858. Independent hash-bound
+token_calibration_reviewSHA46b1eb20606b7d962be35b2e611f56efc3c6c92d53c11f6fde6ce5770577729b
+binds16metered raw/request/validated inputs and18profile measurements. Full
+bank semantic reviewers now work in parallel; root does not release evaluation
+until complete banks/public bundles/frozen hashes pass. Training scope38+114=152
+unchanged;160 downstream attempts pending. Parent knownUSD23.235999512 plus
+separately unresolved historicalupperUSD2.04774504; new cost not yet observed.
+All raw datasets/old ledgers/sealedtest remain untouched; no utility claim.
+
+## Full-card recovery and offline context profiling (2026-10-06)
+
+Tenth NkKTue stopped21:45:39Z; no paid campaign is currently running. All114
+forks remain safeV2/Pro/max/verified/within1800s, native skill replay exact with
+zero new native requests. Ten original-only card calls are all metered,
+USD1.024143164; eight accepted proposals contain27cards. Batch008 has a keyed
+object instead of the required trace array and two genuinely nonexistent event
+references; preserve it and regenerate, never host-rewrite references/cards.
+Batch009 has valid shape/evidence and prose but two lexical false positives
+(deserializer versus deserialize, explicitly negated new-axiom advice). Minimal
+identifier-boundary and immediate-negation checks admit its unchanged reply.
+Hash-bound325-file card_stage_repair_review preserves both failures and permits
+nine exact paid cache replays. Native six caches and114 actors are unchanged.
+390tests/39subtests pass, including independent recovery and lexical guard tests.
+
+Zero-API preview eZv625 admitted18original-only inputs but stopped on augmented
+batch012 after12/18 admitted. This is an offline conservative estimator failure,
+not evidence that hosted model input exceeds its context window. The estimator
+currently takes max(model-framed text tokens, outer HTTP serialized JSON tokens).
+Diagnostic3okGtF now profiles all18 full augmented packets; independent audit
+compares16 known native/original-card requests against actual provider usage.
+No truncation, omitted trace, regrouping, cap reduction, or paid continuation
+authorized by this diagnostic. All generated outputs stay under external RUN_ROOT.
+Known campaign-parent costsUSD23.235999512; two historical individually approved
+unknown bounds remain separately unresolvedUSD2.04774504. No third unknown.
+Full banks/quality gate/160live validation attempts are still pending; fixed
+sealed test untouched. Science graph tools unavailable: exact local evidence
+fallback, not graph confirmation. Next: resolve full-input admission, then
+fresh bounded card-stage recovery and independent complete-bank review.
+
+## Native syntax-audit repair and tenth live continuation (2026-10-06)
+
+NinthQi4xhV completed all114safeV2/Pro/max/verified/within1800s forks; no new
+unknown. Then at21:30:30Z native candidate audit rejects generic `==>` notation.
+Independent actual-input audit proves five M8 payloads cover38originals once,
+and one merge is fully metered. Six native requests totalUSD0.42960962; ranking
+legitimately skips a new call for one edit<=4. Historical Codex lint prohibits
+concrete task formulas, but overbroad fragment matching falsely rejects generic
+syntax in the unmodified native control. No full task proof/private path/new
+bypass found. execution_equality is both one target name and an existing API in
+five other training sources; do not claim zero API/target-name overlap. Broad
+success-derived native tactics remain a baseline limitation, not rewrite authority.
+
+Bounded repair keeps default prose-only audit unchanged for Codex/cards; only
+native opts out of syntax-fragment matching. Size/task-ID/application/bypass
+checks remain. Hash-bound263-file native_candidate_repair_review binds all114
+results/hints and six raw/request/validated caches to stopped ledger/progress.
+734ninth ledger rows known, newUSD4.4440506; campaign parent knownUSD22.211856348
+plus two separately unresolved historical boundsUSD2.04774504. No third unknown.
+284tests/39subtests pass, including73new recovery/guard tests. Actual no-provider
+previewcP3XLk copies114results/twobanks and replays six caches;3002-byte native
+SHA588570b181c2d2fc7e0231844f7ad3378fc5ab32472df41a37753d70d36d4fc6,
+zero new API/ledger, old raw outputs unchanged. First unlaunchedpreviewluD19M
+missed client initialization before any provider request; preserve as diagnostic,
+not a paid ancestor. Baseline/science graph tools unavailable, local evidence
+fallback explicitly documented; no graph confirmation claimed.
+
+Tenth `skillopt-verusage/train38-hindsight-native-20261006-NkKTue/` started
+21:38:44Z PID331184/session20263, monitor41216. All114hints/forks and two smoke
+banks reused, native skill replay exact; current phasecard_extraction. Complete
+18remaining batches per card condition, full-bank semantic/hash gate, then160
+fixed-validation attempts and final report remain. Independent native/original-only
+and augmented reviewers active. No production edits after launch, no val/test
+access yet, raw datasets and all old ledgers remain untouched. Scope38+114=152
+logical training traces unchanged. Continue until completion or new authority blocker.
+
+## Known-cost hint-binding repair and ninth live recovery (2026-10-06)
+
+Eighth zDBL5X stopped20:28:56Z with89/114 safeV2 verified continuations.
+Teacher38c3aa21... for262a070f48e88a320e0c/cp3 copied the wrong checkpoint hash;
+strict screen rejects it, no actor launched. All910 ledger rows known, new
+estimateUSD6.38128788; cumulative knownUSD17.767805748 plus the two unchanged
+user-approved historical unknown boundsUSD2.04774504 separately. No third
+unknown fee. Raw/validated response and ledger preserved; do not hand-correct hash.
+External hint_binding_inventory/review bind exact request and all89 results/hints.
+Added narrow known-cost binding recovery, literal-hash reminder, immediate failed
+hint/screen evidence, and as-completed wave error reporting before active work
+drains. No provider protocol, strict screen, point policy, card contract or scope
+change.231 tests/39 subtests pass, including46 independent recovery regressions
+and3 validation-recording/early-wave regressions. Actual no-API preview copies89
+results/two banks and no rejectedhint/actor. Science graph tool fallback unchanged.
+
+Ninth run `skillopt-verusage/train38-hindsight-native-20261006-Qi4xhV/`
+started20:34:46Z PID3642572/session66880, read-only monitor23305. All89 results
+and unchanged smoke receipts replayed; regenerate only missing rejectedhint and
+finish25 continuations, then native38-source M8,19 paired full card batches per
+card condition, full-bank quality gate and160 validation attempts. No production
+edits after launch. All training raw data and sealedtest untouched; no full-bank
+utility or completed-R042 claim. Continue until complete or genuine new blocker.
+
+Observed20:54Z:96/114, all96 verified; no newunknown or validationerror.
+Genuine replacementhint671aaf1c... is meteredUSD0.068291784, correcthash comes
+from provider output (not hostrewrite); its actor completes safeV2,879.36s,
+105450outputs,52knownrequests. Independent real receipt/reuse audit passes.
+Loopcase shows entry-old baseline differs from per-push snapshot and view equality
+does not imply concrete element equality. All facts/limits inCASE_STUDIES.
+Eighteen continuations plus fullnative/cards/quality/gated160validation remain.
+
+Observed21:12Z:103/114 safe verified continuations, no new unknown or active
+wave error. Eleven actors plus full native/card learning and gated160 evaluation
+remain. Independent new send-sequence/composition cases confirm helper extraction,
+entry ghost constants, failure-log policies and warning cleanup are not universally
+mandatory. Added exact event/diff counterexamples inCASE_STUDIES; no val/test
+access, no production edits or paid reviewer calls.
+
+Observed21:29Z:114/114 completed continuations, all114safeV2 verified and no
+new unknown charges or rejected hints. Actual phase now native_skillopt; full
+original-only/augmented19-batch banks, quality gate and160 validation attempts
+still pending. Training total is38 originals+114 forks=152 logical traces,
+not160 training traces. Ninth-run new known estimateUSD4.014441 at this
+observation; parent knownUSD17.767805748 and historical unknownupperUSD2.04774504
+remain separate and unresolved. Independent actual native payload audit started.
+
+## Actor transport recovery now authorized (2026-10-06)
+
+User agrees to scoped new unknown-fee treatment and continued execution.
+Preserve new actor unknown upperUSD1.90316544 separately alongside the earlier
+teacher upperUSD0.1445796; no old ledger rewrite or zero-fee assumption.
+Implement hash-bound recovery of59 metered results/60 valid hints/two accepted
+smoke banks into a fresh external run. Rerun only064562.../cp2 actor from its
+original checkpoint; prior unmetered raw completion remains excluded. Other54
+missing continuations and full native/cards/evaluation still required. No
+blanket retry authority. Request-level HTTP409 latch tested; check queued
+teacher dispatch and new recovery tests before paid launch. Tools for science
+graph/bash_exec unavailable; documented local execution/evidence fallback.
+
+Update:188 tests/45 subtests pass. Actual no-API previewDhl5g2 copies59 results
+and two banks, excludes solved unmetered actor, and reports knownUSD11.386517868
+plus two separate approved unknown bounds totalingUSD2.04774504. Eighth fresh
+runzDBL5X started19:13:48Z PID2225844/session61230;59 branch/hint replays and
+unchanged smoke receipt6820b82b... pass; affected actor is live with reused hint,
+no teacher repurchase and no new unknown so far. Monitor70960. No production
+edits after launch. Full114/native/card/evaluation completion remains pending.
+External pointer:skillopt-verusage/train38-hindsight-native-20261006-zDBL5X/.
+
+Observed19:39Z:65/114 admitted branches, all65 verified. Replacement064562/cp2
+passes safeV2 with eight known requests; no teacher repurchase. No new unknown
+usage. Long joint-platform sourcea3c9 has two verified alternatives (two fold
+helpers versus one combined helper); cp3 remains live within1800s. Descriptive
+case contrast only, no causal point-value claim. Full native/cards/eval pending.
+Two active read-only reviewers cover augmented cases/full-bank quality and
+native/original-only coverage/semantic quality respectively; root owns final gate.
+
+Observed19:59Z:81/114 all verified, no new unknown charges. Preselected longest
+platform sourced61/cp1 really spans95414 output tokens at event22. Original flat
+span contains25 tool calls, source reading and a verified multiset probe; seven
+changed helpers lie outside retained final dependency closure. Flat retrospective
+overlap therefore is not established wasted work even with helper inclusion.
+Full114/native/full19-batch banks/evaluation remain pending; continue execution.
+
+Observed20:13Z:84/114 admitted continuations, all84 verified; no new unknown.
+Longest-platform sourced61 now completes allthree: cp1 safeV2 with1053.0 actor
+seconds/118661 outputs, cp2 113.9s/10930, cp3 953.2s/102402. Timing is descriptive,
+not causal selection ranking. Actual checkpoint census:18 platformpoints/12tasks,
+12 compilerpoints/11tasks,84 fallbackpoints/34tasks;20 tasks have allfallback,
+17 have identical code at allthree points but distinct past-visible prefixes.
+Thirty continuation jobs plus full native/cards/gated160 validation remain.
+
+Observed20:23Z:87/114 verified; identified a latent known-cost hint binding
+failure262a070f48e88a320e0c/cp3. Request38c3aa21cdd049a6bf88a17b2354cc7d
+finished20:14:36Z, knownUSD0.067200804. JSON/schema/refs valid, but output
+checkpoint hash transposes characters versus contract. screen_hint asserts
+before hint/screen files are persisted; therefore hint_rejected counter remains0
+and ordered future collection waits on activecp1/cp2 before reporting error.
+No cp3 actor exists; no new unknown. Do not hot-edit production files. Let
+current two actors finish within existing budget, preserve literal failure/raw
+response, then strengthen exact hash generation and validation-failure evidence,
+test narrowly bound known-cost hint recovery and resume completed work unchanged.
+No silent hash rewrite or normalization of model output; strict binding remains.
+
+## Seventh stopped on a new actor interruption; request-level fix (2026-10-06)
+
+CFj1WK successfully generated the one replacement hint, preserving the old
+approved teacher unknown fee. Actor064562.../cp2 then lost an HTTP chunked
+response (requestd0a576bd8d1e4f02952924041ada8967,1012489 bytes) with unknown
+usage. Existing bridge returned502; Codex automatically retried before the
+phase-end accounting check. This is a real fail-closed execution gap, not a
+deliberate root replay. Root terminated exact campaign PID2175016 and captured
+descendants, confirmed no live process. Preserve all10 ledger rows,9 known
+new chargesUSD0.034056572 and1 new unknown. Current known cumulative estimate
+USD11.386517868; old approved unknown upperUSD0.1445796 stays separate. New
+actor unknown upperUSD1.90316544 conservatively uses full1048576 input plus
+131072 output at peak rates; payload was not captured, not inferred from retry.
+59 fully metered results and60 valid hints survive. Additional actor raw turn
+completed and independent local Verus2/0 plus Lynette exit0 pass, but no
+result.json exists and strict provider/error audit would reject admission;
+do not manufacture/relax that result. Full cards/native/validation still not run.
+After stop, added campaign-only native request-level error latch, non-retry409,
+and failed request/partial-body hash capture; no acceptance of partial usage.
+Existing in-flight requests may finish but cannot clear the latch. Local mocked
+HTTP regression passes, no real API used. User said continue; scoped question
+asks whether new unknown upper may be retained before paid branch recovery.
+Their subsequent count question is not a change of the38-source scope:
+40 originals+120 forks=160 logical traces in full40; current38+114=152,
+19 batches of8. Downstream160 is20 validation tasks*4 conditions*2 repetitions.
+External transport_incident.json and progress.json are honest stop receipts;
+all raw/sealed data and old ledgers preserved. Await new paid-recovery authority.
+
+## One interrupted-hint replacement authorized (2026-10-06)
+
+User's latest continue explicitly answers the scoped request to replace only
+teacher request4e2bbb0b33224bdc8cf48caca8af72d5 for064562.../cp2. Preserve its
+unresolved fee under the conservativeUSD0.1445796 exposure upper, separate from
+known estimates; do not rewrite the source ledger/inventory or assume zero.
+Implement and regression-check hash-bound transport recovery/accounting, reuse
+all59 complete branches/valid hints and both accepted smoke banks in a fresh
+external run, then finish remaining55 actors, native baseline,19 paired card
+batches and gated160 validation runs. No blanket paid retry authority: any other
+unknown request still stops for audit. Prior stop below is retained as history.
+Raw and sealed data remain untouched; no new provider calls started yet.
+
+Update:105 targeted tests/39 subtests pass (155 broader existing tests/32
+subtests also passed). Independent read-only audit accepts the exact recovery.
+No-provider actual constructor previewFVn6Bc copied59 actors and two banks,
+known parentUSD11.352461296 plus separate unknown upperUSD0.1445796.
+Fresh seventh campaignCFj1WK started18:52:22Z, PID2175016; actual59 copied
+results,38-source input audit complete. No production edits after launch.
+Run pointer:skillopt-verusage/train38-hindsight-native-20261006-CFj1WK/.
+Continue through remaining55 actors, full learning and gated evaluation.
+
+## Real transport blocker after59 verified branches (2026-10-06)
+
+Sixth run `skillopt-verusage/train38-hindsight-native-20261006-iAlVyl/`
+stopped09:55:15Z after59/114 continuations, all safe verified Pro/max/V2 and
+within1800s. Teacher request `hint--064562633b00d03570ef--cp2` failed at HTTP
+chunked read with IncompleteRead(4083 bytes). Ledger request4e2bbb0b... has unknown
+usage/cost, not zero. No hint or actor exists for that failed request; no live
+paid process remains. All other59 valid hints/results and accepted three-card
+smoke banks are intact, bound in external halt_inventory.json.55 actor jobs,
+native baseline, full19-batch banks and160-run evaluation remain incomplete.
+Current ledger623 rows: knownUSD6.266191536 plus parentUSD5.08626976, cumulative
+knownUSD11.352461296; separate conservative unknown exposure upperUSD0.1445796
+from full uncached UTF8-byte/framing input and8192 output at peak rates. Historical
+source38 acquisition still separate; no invoice or full-cost completion claim.
+DeepSeek official Responses API is stateless/store:false; local failure saved no
+partial body, so no safe response retrieval. Did not retry or rewrite the ledger.
+Asked user whether to preserve unknown expense underUSD0.15 bound and explicitly
+authorize a fresh single replacement hint request, reusing all completed work.
+Await that authority; unknown-usage fail-closed policy is unchanged. After the
+paid process exited, added partial-response preservation for future interrupted
+teacher calls, not acceptance/retry.96 targeted tests/26 subtests pass, diff clean.
+Case review also preserves two semantic hint counterexamples: guarded-obligation
+direction reversed but actor corrected; claimed mandatory reproof of existing
+trusted helper contradicted by another verified branch. Full-card audit must
+exclude these false generic rules; no model outputs filtered/edited. Reporter
+handles final settled ledger versus saved result snapshots without altering
+outcomes; synthetic tests only, no held-out source access. Raw/sealed data intact.
+Record and current artifacts:
+`research_memory/projects/verus_self_evolving/experiments/20261006-024326-authorized-hindsight-hint-forks-grouped-native-cards-and-downstream-campaign/`.
+
+## Hint-format repair after23 completed branches (2026-10-06)
+
+Fifth run `train38-hindsight-native-20261006-3rAATn` stopped08:54:54Z:
+23 safe fully metered Pro/max/V2 continuations all verified; one additional hint
+quoted checkpoint assertion/quantifier syntax and was correctly rejected before
+actor launch. Root and independent quality reviewer confirm a true logic-only
+contract violation. Keep screen unchanged; strengthen natural-language diagnostic
+generation and evidence-limited claims, regenerate only the rejected hint in a
+fresh reviewed recovery. Reuse all23 completed actors,23 valid hints and unchanged
+accepted original-only/augmented smoke banks (three cards each), hash-bound to the
+same actual smoke evidence. No native baseline, full banks or evaluation yet.
+Fifth ledger195 rows has known estimateUSD3.821344736; parent chargesUSD1.264925024,
+cumulativeUSD5.08626976, unknown0. Historical source38 acquisitionUSD3.361834916
+remains separate. No value/speedup claim, held-out access or raw-data modification.
+Next: regression-check repair recovery, resume remaining91 missing actors, finish
+19 matched card batches per condition and native baseline, review frozen banks,
+then run160 validation actors. Keep working until full task complete.
+Recovery regression59 tests/6 subtests passes; actual no-provider constructor
+copies23 results and two accepted banks correctly. Preview directory9RVqx1 is
+unlaunched diagnostic output, not another paid run. Sixth paid recovery is
+`skillopt-verusage/train38-hindsight-native-20261006-iAlVyl/`; same38/source/policy,
+no card or actor repurchase for reviewed completed outputs.
+
+## Authorized campaign narrowed to38 training sources (2026-10-06)
+
+User authorized DeepSeek V4 Pro hindsight hints, three continuations per source,
+native SkillOpt cards with two questions/eight logical traces per batch, and a
+real two-question smoke followed by automatic full continuation if engineering
+and qualitative quality review pass. Latest voice instruction supersedes the
+briefly approved missing-reference rerun: start with38 sources and defer both
+the original timeout and the expensive pruning-incomplete verified supplement.
+Neither deferred source is to be rerun now. This gives114 branches and19 card
+batches; matched original-only/native controls must use the same38-source subset.
+The supplement is not a failed final proof: only its local reference pruning
+timed out. Existing originals/reports/ledgers remain read-only. Real smoke's
+fourth, contract-repair recovery stopped at semantic quality review under the approved external run root:
+`skillopt-verusage/train38-hindsight-native-20261006-lx52gS/`.
+Two completed hints from the preserved pre-actor directory failure run are
+hash-bound reused, not repaid; their estimated physical charge is USD0.092599056.
+A second preserved startup attempt exposed a missing local bridge environment
+marker and exited before any provider request. Both known engineering defects
+are repaired.150 tests/13 subtests pass.114 selected seeds passed local admission.
+Six real smoke branches are complete: all independently Verus/Lynette verified,
+Pro/max/V2, no unknown usage. Third run stopped at original-only native card
+audit: model returned actual assertion/quantifier templates, not a false positive.
+No augmented card call, full expansion or held-out access occurred in that third run. Preserve
+the response; strengthened the same pure-prose contract, kept the audit unchanged,
+and reused all six complete branches in the fresh reviewed recovery without actor
+repayment. All six hints also passed full-packet/contract equality checks and were
+reused without payment. New card requests are deliberate contract repairs with recorded costs,
+never an unresolved-network replay. Parent physical estimated charges total
+USD0.79394964, including the rejected original-only response and first two hints.
+Independent native M8 input audit admits all38 sources without changing algorithm.
+User requested division of work and autonomous card retrieval: new deployable
+mode gives complete card index plus ID reader only, no fixed lexical ranking or
+top-k search, and strips private provenance/source metadata. Fourth run's two
+native proposals pass format/evidence audit: original-only2 cards, augmented4,
+all8 logical traces correctly analyzed. Root and independent reviewer reject
+the unchanged augmented bank: card002's predicate-incompatible Set-method
+avoidance contradicts the successful built-in witness route; card003 generalizes
+one post-success warning cleanup into the false universal claim that trigger
+changes cannot help verification. Cards001/004 have useful branch-grounded routes,
+but no filtering/manual rewriting/regeneration was performed. Root wrote a
+hash-bound rejected smoke_review.json; process exited08:17:48Z. No remaining108
+forks, final artifact freeze or held-out access. New estimate USD0.470975384;
+including preserved parent charges USD1.264925024, unknown usage0. These estimates
+exclude historical original40 collection and are not invoice totals. Latest user
+instruction: continue until the task is finished. Repair generator's generic
+semantic evidence constraints in both card conditions, not filtering/hand-editing
+cards or changing the architecture; fifth fresh recovery will reuse six actors
+and hints. Independent reviewer agrees this is strengthening the existing card
+contract. New native outputs still require actual semantic review. No downstream
+utility result. Direct evaluation entry now also checks receipt/artifact hashes
+before any validation access; reproducing regression passes,49 targeted tests.
+Fifth recovery active at `skillopt-verusage/train38-hindsight-native-20261006-3rAATn/`,
+launched08:23:10Z, session8839. Six old results and hints hash-bind reused;38
+references/114 seeds re-admitted. Both card conditions regenerate under identical
+generic semantic constraints;131 broad targeted tests/32 subtests pass. No
+filtering, copied/manual replacement cards, missing trace omission or alternate
+models. Rejected parent bank/receipt remain unchanged. Actual new two native
+proposals have3 cards each and pass root/independent semantic review: earlier
+false rules removed, all8 trace analyses and source refs correct. Root hash-checks
+all card/proposal/hint/result evidence then writes accepted smoke_review.json
+(digest6820b82b...). At08:29:06Z remaining108 forks started,6workers. Current
+new-plus-parent estimate before expansion USD1.733830032, unknown usage0. No
+causal point value/speedup claim; full bank still needs separate quality receipt.
+Same38-source original evidence's known estimated charge USD3.361834916 across
+953 metered attempts is shared historical acquisition, not new campaign charge.
+Matched source subset does not mean matched learning compute/call count/budget.
+Independent active-process mount audit confirms actor scratch tree is tmpfs-hidden
+except its own workspace/exact read-only tools. Teacher hints, banks, checkpoint
+reports, reviewed references and original rollout are actually absent through
+the actor process root while own workspace/toolchain remain visible. Continuation
+reference hash remainsNone. This is operational hindsight separation evidence,
+not just a prompt-level assertion; no actor commands/instructions were injected.
+Final artifact quality is also receipt-gated before any validation source access.
+Fixed-hash official static tokenizer admission is wired for text-only requests,
+with truncation/padding disabled and fail-closed configuration/hash checks. Full
+pair admission precedes any native paid call;62 targeted tests/19 subtests pass
+after two integration checks (prior broad suite162/32). Actual smoke8 packet
+fits317,336 conservative tokens including output allowance. API usage remains
+authoritative; actor/tool/history payloads do not use this simplified admission.
+Latest broad targeted suite129 tests/32 subtests passes. Independent deployment
+review confirms normal final-receipt gate and complete bundle content hashing.
+Direct evaluation-method hardening was implemented/tested after the fourth run
+exited, before the fifth launch; production source was not changed mid-run.
+Before any future final-quality receipt, verify
+all current artifact/bank/evidence hashes. Full experiment remains incomplete.
+1800s learning actors,600s downstream actors, expense recording without artificial
+cash caps, sealed test exclusion and hindsight/actor separation remain in force.
+Record: `research_memory/projects/verus_self_evolving/experiments/20261006-024326-authorized-hindsight-hint-forks-grouped-native-cards-and-downstream-campaign/`.
+
+## Extensible three-point selector and native card adapter implemented (2026-10-03)
+
+User-authorized first implementation is dev-complete. Eight-trace interpretation
+was stated and asked asynchronously: each source has one original plus three
+hint continuations, so two source questions/eight logical traces per batch. No
+reply changing that interpretation arrived during implementation; no paid launch.
+
+New selector has ordered replaceable providers and one common three-point/safety
+contract. `rule_based_v1` prioritizes per-component target/helper-and-state flat
+platform starts, then explicit post-compiler-error regressions, then marked
+context fallbacks. Passing/probe/post-success code is excluded, duplicate visible
+prefixes and continuous compiler-error episodes are screened. Original-only
+target-coverage control remains available. Unknown error counts are not zero.
+
+Offline unchanged train40 preparation selected120 points:21 joint-platform starts,
+15 compiler-regression points and84 contextual fallbacks. All120 selected seeds
+passed Lynette;108 unique source states audited,80 passed and28 rejected (13 parse
+failures,15 differences).40 rejection visits include repeated pool/context visits,
+not40 unique failed states.38 pruned references, one verified unpruned supplement,
+and one failed original without invented reference retained. No point-value claim.
+
+Native SkillOpt Reflect(M=2) now handles question groups; model output is cards
+plus explicit per-trace analyses, not generic skill edits. Host parsing envelope
+has empty edits; card sink replaces generic merge/rank/apply, baseline unchanged.
+Three fork paths/stages are unique and hash-bind checkpoint, screened hint and
+visible-prefix rehydration. This is not hidden-state/live-session restoration.
+Expense policy is record-only; unknown usage/provider failures still stop work.
+
+142 tests/13 subtests pass, including real native Reflect with mocked transport
+and six synthetic continuations feeding one eight-trace batch. All40 real original
+traces also passed20 native mock batches. Initial adjacent pairing failed full
+context admission before any call; lossless short references plus stable original-
+size largest/smallest pairing fixed original-only admission (max826,938 user bytes).
+Both card conditions use the same original-derived pairs. Actual augmented inputs
+still need admission once real suffixes exist; no truncation/splitting is allowed.
+
+Outputs under approved run root: `skillopt-verusage/checkpoint-rule-v1-20261003-dev03/`
+and `skillopt-verusage/native-card-original40-mock-20261003-dev01/` (mock only, no cards).
+Contract/results: `research_memory/projects/verus_self_evolving/experiments/20261003-123847-extensible-checkpoint-selector-and-native-skillopt-two-task-card-batches/`.
+Interface guide: `skillopt-verusage/CHECKPOINT_CARDS.md`. Next: confirm interpretation,
+review/release paid gates for a real small fork/card smoke, then full120 forks and
+20 augmented batches.1800s Pro/max actors,600s downstream evaluation unchanged.
+No actual hints/cards trained, utility established, held-out split read, raw data
+modified or paid request sent. R042/frontier remains incomplete.
+
+## Helper-inclusive repair and local reanalysis complete (2026-10-03)
+
+User-authorized repair completed:39 successful training curves/368 verifier calls,
+10 tasks with25 related new/changed proof helpers. Compiler-qualified VIR static
+scope excludes11 changed proofs outside the final dependency closure; retain them
+as exploration, not final-path overlap. Fixed function-local denominators and
+target-only/combined paired views implemented in the offline driver. This is
+not a necessity proof or a complete semantic-progress metric.
+
+Primary38 pruned-reference pure-platform task histogram:0:19,1:13,2:2,3:1,5:1,6:2;
+only4 have3 or more.37 spans, median1,871 output tokens, maximum95,414, total239,614
+vs286,293 for paired target-only. State-aware:38 spans, median2,057.5, only5 tasks
+have3 or more, total208,810 vs235,729. These differences are offline interval
+reclassification, not savings.40 primary regression flags/39 before first pass;
+the separate target-pruning-incomplete supplement contributes3 additional flags.
+Strictly pre-pass target-flat/helper gains:13 transitions across4 tasks; full-trace
+inventory19 includes4 entering first pass and2 after it. Seven flat combined
+transitions still reduce error counts, so plateau does not establish stagnation.
+
+New1313 deletion trials,168 accepted units/183 lines, all actual Verus+Lynette
+gates audited against unchanged originals; no new timeout. Reused parent trials
+not charged again. Two macro/external-body parser failures recovered; all39 scopes
+and368 curve values reproduce using the final parser.110 tests/13 subtests pass.
+Raw inputs, sealed splits, traces and original ledgers unchanged; no paid inference.
+
+Reviewed output: `skillopt-verusage/train39-helper-reviewed-20261003-EGEcwN/`
+below the approved run root. Durable results/cases/proposal:
+`research_memory/projects/verus_self_evolving/experiments/20261003-021134-helper-inclusive-proof-progress-and-checkpoint-selection-analysis/`.
+Next: user review of episode-based selection. Keep longest-platform starts as a
+comparison; add repeated missing-obligation starts and actual API dead-ends,
+then safe presolution context prefixes to fill exactly3. All39 have3 context
+boundaries even excluding first-pass code; only23 have3 distinct code states.
+No selector/fallback frozen, no hint usefulness/causal token savings proven.
+Native SkillOpt fast-update cards remain required and separate, not implemented
+by this analysis. No branch or downstream evaluation was launched.
+
+## Helper-inclusive progress scope proposed, not implemented (2026-10-02)
+
+After the voice clarification, the user said to continue. This continuation
+explained the method and performed only read-only implementation/source checks.
+Both current reference pruning and main overlap are target-only, not whole-task
+proof progress. New helpers in the flat map-marshalling case have diagnostic
+unpruned-final overlap11/13 to13/13 and3/4 to4/4 across calls15-18 while target
+overlap remains1/23. This diagnostic is not a newly pruned combined curve.
+Proposal: include the target and final-required new/modified transitive helpers,
+prune with full Verus/Lynette gates, use a fixed reference and function-local line
+matching, preserve target/helper component curves and exclude unrelated probes.
+Scope is pending user review. No metric/code change, verifier run, provider call
+or39-task rerun; old statistics remain target-only. Three filled checkpoints
+and native SkillOpt card integration remain confirmed, not reopened.
+Proposal/evidence:
+`research_memory/projects/verus_self_evolving/experiments/20261002-211430-train39-proof-progress-plateau-regression-and-checkpoint-case-audit/HELPER_PROGRESS_PROPOSAL.md`.
+
+## Authorized train39 checkpoint investigation (2026-10-02)
+
+The user explicitly requested running all39 successful originals through fresh
+verifier-grounded proof progress, per-task plateau/token and regression statistics,
+and qualitative case studies of plateau starts, pre-/post-regression boundaries
+and alternative stagnation signals. This is an initial investigation, not a frozen
+selector. The user clarified each source ultimately needs three checkpoints, filled
+with a fallback if necessary; do not re-ask whether fewer points are acceptable.
+Cards must be generated inside SkillOpt's reflection/update chain, not a standalone
+extractor; implementation of that integration is outside this analysis-only task.
+
+Initial investigation completed:39 curves/368 recorded calls,38 verifier-pruned
+references and one separately labeled fresh verified unpruned supplement. The
+expensive supplement's pruning remains incomplete after three120-second trial
+timeouts; no failed/timed-out deletion was accepted. Reviewed output below the
+approved run root: `skillopt-verusage/train39-progress-reviewed-20261002-YeOZGq/`.
+No API calls or paid restart; no selector or fallback was frozen.
+Actual-source checks exposed target filename aliases, executable targets, duplicate
+methods and contract-lambda brace confusion, which received scoped parser repairs.
+An isolated probe temporarily replaces one target in four recorded calls: mark
+target coverage unavailable, never zero or target success.368 verifier calls are
+recorded across39 successful originals, not497 (the latter included the timeout).
+Scoped regression99 passed,13 subtests passed. Hash/diff provenance and fresh
+Verus/Lynette reference logs audited; original ledger and manifest unchanged.
+On38 primary tasks only3 have at least three pure-overlap platforms, or6 using
+constant verification tier too. Pure-overlap spans:32, median1,875.5 output
+tokens, maximum95,414. State-aware spans:38, median2,223. Full-trace regression
+union40:4 overlap drops,38 tier drops, two overlapping;39 are before first pass.
+Cases show helper progress inside flat curves, nonsemantic cast-induced overlap
+drops, API dead-ends and short traces without three failed-verifier snapshots.
+Preserve raw/sealed data, all originals and prior ledgers. Next: user review of
+long-platform starts, failed-obligation/attempt episodes, pre-/post-drop roles
+and presolution conversation-boundary fallback to fill three. No hint utility,
+causal savings or downstream improvement is established. Native SkillOpt card
+integration remains required but unimplemented in this analysis-only task.
+Record:
+`research_memory/projects/verus_self_evolving/experiments/20261002-211430-train39-proof-progress-plateau-regression-and-checkpoint-case-audit/ENTRY.md`.
+
+## Stage review and cost-accounting clarification (2026-10-02)
+
+The user now requests concise stage-by-stage inspection and says costs need
+recording, not an enforced learning-budget limit. This supersedes the pending
+USD25-per-method/analysis-budget-stop design question; no runtime guard code was
+changed in this read-only configuration turn. Do not imply old limits are already
+removed or infer new paid launch authority. Existing paid entry points stay off;
+the disposition of the earlier global USD80 safety ceiling remains for review.
+Progress currently reports plateau spans (equal target-proof coverage and tier,
+positive output-token spend before pass) and coverage/tier drops. No value score,
+ranking, K-point policy or automatic fallback is frozen. Candidate shortage is a
+possible condition, not an observed count: no real40-source pruning/selection has
+run. Preserve the unsolved source with no reference. Raw/sealed data and outputs
+are unchanged. Stage/repair pointer remains the current experiment REPAIR.md.
+
+## Confirmed component repairs, full design review still pending (2026-10-02)
+
+The user authorized fixing confirmed discrepancies before reviewing all designs.
+Implemented pruned target-proof progress with fresh verifier/preservation gates,
+all plateau/regression reporting without a frozen selection policy; removed
+count/midpoint selector. Added hash-checked fork prefix/suffix comparison and
+targeted comparative card prompt. Removed unapproved two-card/700-byte limits;
+added visible title/trigger index and direct per-ID reads. Native wrapper and
+timestamp-ledger adapters were corrected after real-log inspection. Paid entries
+and archived-run reopening are disabled pending review, not guarded by an
+unreviewed approval flag. Regression93 passed,13 subtests passed. Read-only source
+adapter scan aligned40 originals/497 verifier calls; this is not real pruning.
+
+The grouped multi-branch coordinator and budget-frontier closure are unfinished;
+do not remove a gate and restart the legacy one-fork workflow. Questions sent:
+checkpoint/K/grouping, matched learning cost boundary and per-method amount,
+card count/length/index exposure. Preserve explicit Pro,1800s/600s and USD80
+decisions; fresh-run accounting must not silently grant a second USD80 budget.
+Old campaign remains stopped/reference-only. No new paid calls or real verifier
+runs; raw/sealed data, source40, old outputs/ledgers and transcript untouched.
+Details and external test-log pointer:
+`research_memory/projects/verus_self_evolving/experiments/20261002-114224-four-condition-deepseek-augmentation-main/REPAIR.md`.
+Next: full user design review, then remaining coordinator/closure implementation
+and bounded chain verification before explicit paid restart direction.
+
+## Meeting alignment failure: campaign stopped, do not resume (2026-10-02)
+
+The user rejected the current method as inconsistent with the meeting. Read the
+entire269-line supplied transcript; its hash matches the already reviewed Oct1
+meeting record. The implementation did not enforce the recorded construction:
+verifier-pruned final target-proof progress, stagnation/regression selection,
+multiple related forks, prefix/suffix comparative analysis and grouped reflection,
+budget-frontier closure, retained card directions and agent-visible index.
+Verifier-count plateaus/middle fallbacks, one branch per source, independent
+two-card/700-byte extraction and strict all40 completion are not equivalent.
+The proposed numeric caps were not meeting decisions. Later explicit model,
+1800s complete-path /600s downstream and USD80 settings remain valid.
+
+Campaign `augmentation-main-20261002-Ws4keW` stopped automatically at19:06:30 UTC
+on a card byte-cap exception; process checks found no active coordinator or
+inference actors. Do not restart or merely relax the byte limit. Classify its
+36 continuations,3 rejected hints, O4/H3 source proposals and native candidate
+as diagnostic/reference-only, not the meeting-aligned main result. Validation0.
+New settled provider estimate USD5.076593324,812 requests; no uncertain requests
+or open new reservations. Original40/39 solved evidence is reusable and unchanged;
+prior original billing uncertainty remains separate. No efficacy established.
+
+Next: deliver the source-grounded alignment audit, freeze the corrected method
+contract, resolve only unspecified selection/K/cost-boundary/card-exposure
+details, then verify the corrected train-only chain before any paid restart.
+Existing proof-progress/pruning and fork-prefix components must be evaluated,
+not replaced by error counts. This section supersedes prior instructions below
+to continue the coordinator. Compact audit:
+`research_memory/projects/verus_self_evolving/experiments/20261002-114224-four-condition-deepseek-augmentation-main/MEETING_ALIGNMENT_AUDIT.md`.
+This audit changed research memory only; raw/sealed data, outputs, transcript,
+code and test20 were not modified. No new paid calls or verifier runs.
+
+## Campaign configuration and checkpoint audit (2026-10-02)
+
+Read-only code/manifest audit for the user's configuration question: all models
+are Pro, actors use max (learning1800s / validation600s), whereas teacher,
+card extractors and native optimizer use high. This is not all-roles-max.
+Frozen `selection.json` has39 checkpoints:17 verifier-count plateau selections
+and22 deterministic middle-eligible-verifier fallbacks. Plateau means unchanged
+(verified,error) counts, or compile-error count, ranked by intervening output
+tokens; choose its first point. No semantic stagnation or minimum-duration
+threshold is established. Do not describe all39 as true stagnation points.
+At the inspected snapshot, augmentation completed36 continuations and rejected3
+hints. Native S has an audited40-source candidate with4 selected edits; O/H card
+extraction is running (3 source proposals each at inspection), validation0/160.
+No downstream utility claim. Continue the already authorized coordinator without
+changing checkpoint rules; artifacts/data/test20 were not changed in this audit.
+Detailed configuration/limitations added to the current experiment RUN.md.
+
+## Four-condition augmentation campaign running (2026-10-02)
+
+User resolved the final ambiguity and explicitly requested execution: all model
+roles DeepSeek V4 Pro, shared original/hint trajectories max/1800 seconds, all
+four downstream conditions max/600 seconds, new campaign-wide USD80 ceiling.
+Native SkillOpt uses the same original40, not shorter training evidence. Keep
+test20 sealed and defer obfuscation/full ablations. Engineering and train-only
+smoke must precede full launch. Fresh external run ID is
+`augmentation-main-20261002-Ws4keW`. Launched at 17:07 UTC; the included training
+smoke is now making real Pro/max continuation calls after two pre-provider
+infrastructure failures were archived and fixed. The paid teacher response was
+reused exactly, not regenerated. Latest coordinator is in tmux session
+`augmentation-main-20261002`, external `resume_schema.log`; inspect
+`progress.json`, `provider_calls.jsonl` and `budgets/global.json` before any
+restart. Original40 complete-evidence/hash preflight passed, selector yields39
+eligible sources, native six minibatch contexts fit, and55 focused tests passed.
+The included hint actor solved with V2_TRACE and both validators. Two train-only
+O extractor outputs exceeded the700-byte limit and were rejected/preserved;
+prompt-only guidance was insufficient. A reviewed matched O/H native JSON Schema
+interface repair passed the O smoke and is checking the H smoke, with700
+ASCII-byte content limits and unchanged five-field/leakage audits. Completed
+teacher and actor are reused, not rerun.
+Full source-covered learning and160 downstream attempts remain pending. No
+efficacy claim. Pipeline uses two hint continuations, then eight downstream
+actors after artifact freezing. Provider price-band estimates are not an invoice;
+the historical unknown source reservation remains untouched. Plan/checklist and
+implementation scope:
+`research_memory/projects/verus_self_evolving/experiments/20261002-114224-four-condition-deepseek-augmentation-main/ENTRY.md`.
+
+## Next-stage readiness, awaiting user settings (2026-10-02)
+
+The fresh source40 enables the planned augmentation/learning stage. A read-only
+snapshot scan confirms saved non-final candidates in every one of the 39 solved
+sources, before applying a frozen selector. Keep the failed original in S/O/H.
+First-round proposal remains four conditions (initial, native SkillOpt,
+original-only cards, augmented cards), one hint maximum per eligible source,
+and later from-scratch val20 twice, not immediate obfs/full ablations/test20.
+Full paid launch is not yet authorized or engineering-ready. Confirm extractor
+backend, continuation/evaluation effort/time settings and new total cash cap;
+the USD 30 source-run guard does not authorize those stages. Verified pending
+repairs: source-ID collisions, 40-source bank/provenance, max/1800 actor
+parameterization if selected, and teacher/extractor budget admission. Native
+bridge request-cap forwarding was already repaired. No new inference/code
+implementation occurred during this decision. Decision details are recorded
+in the current train40 experiment ENTRY; proceed only after choices and gates.
+
+## Completed DeepSeek V4 Pro train40 rerun (2026-10-01 local time)
+
+The initial-skill rerun is complete: 39/40 (97.5%) verified by independent Verus
+and Lynette, using DeepSeek V4 Pro/max and 1,800 seconds per source. All 40 source
+and skill hashes, actor settings, safety and task identities passed audit. There
+are 39 V2 complete traces and one V1 timeout: `AL__eliminate_always`, task ID
+`8722b35e3186b217ea38`, still unverified after 1,800 seconds but preservation-safe.
+AC 12/12, AL 13/14, IR 14/14. Eight-worker continuation completed without retrying
+any source. Duration was about 51m38s; no run processes remain active.
+
+Historical pairing against 23/40: 22 retained successes, 17 newly solved and one
+regression (the failed AL task was previously solved), net +16. Repaired toolchain,
+time cap and explicit request output cap differ; no causal budget-only or
+learned-skill improvement is established. There are 39 successful original traces,
+not 40 augmented successes. No augmentation/optimizer/held-out evaluation ran.
+
+Recorded settled cost is approximately USD 5.68 from 1,286 metered completed
+requests, matching task totals. One open USD 1.839 guard reservation remains after
+timeout/bridge shutdown: final billing is unresolved and must not be presented as
+fully settled or silently cleared. The USD 30 whole-run limit was not reached.
+Next: inspect the single AL regression and reconcile billing if needed; no new
+paid run is authorized. Raw/sealed and historical outputs are unchanged.
+External run: `train40-pro-initial-1800s-20261001-KjQXKA`, reviewed `summary.md`
+and `audit_summary.json`. Canonical result record:
+`research_memory/projects/verus_self_evolving/experiments/20261001-191318-deepseek-pro-train40-1800s-rerun/ENTRY.md`.
+
+## Historical launch and concurrency transition (2026-10-01)
+
+The user authorized a fresh initial-skill train40 run using DeepSeek V4 Pro,
+max reasoning (unchanged from the historical run), and 1,800 seconds per task.
+This supersedes the earlier proposed 1,200-second cap. All 40 source hashes and
+the initial-skill hash match. The repaired formal Verus identity and host actor
+isolation preflight passed. A minimal native bridge default output-cap forwarding
+fix is local and covered by 24 passing mocked bridge tests.
+
+The user configured the local DeepSeek credential; authentication and a full
+isolated toolchain probe passed. Paid execution started at 00:24:50 UTC October 2
+(October 1 local time) in external run
+`train40-pro-initial-1800s-20261001-KjQXKA`. First included task passed Verus,
+Lynette and provider/V2 trace checks in about 106 seconds. Four tasks were solved
+at the last recorded checkpoint, not a final solved/40 result. Native output cap
+is 131,072 tokens per request; USD 30 is a whole-run safety guard, not per task.
+
+The user then authorized higher concurrency. The coordinating parent was
+gracefully interrupted to stop new task admission while its active four-worker
+stage drains. A detached continuation waits for that coordinator to exit, then
+reuses all valid completed tasks and the same accounting state and admits only
+unattempted tasks with eight workers. Inspect per-task results during drain;
+the original coordinator's rolling progress log is stale until continuation.
+Next: verify transition health and final full40 results/accounting. Tmux sessions
+are `train40-pro-1800-20261001` and `train40-pro-1800-eight`; logs are `bash.log`
+and `resume.log` in the external run. Run-root override keeps generated outputs
+outside the repo. No optimizer, augmentation, validation, or test evaluation is
+authorized by this instruction; raw/historical data remain unchanged.
+Contract and rolling checklist:
+`research_memory/projects/verus_self_evolving/experiments/20261001-191318-deepseek-pro-train40-1800s-rerun/ENTRY.md`.
+
+## Historical train40 initial-run failure and budget audit (2026-10-01)
+
+Read-only inspection located all 40 `step_0001` training result records in the
+canonical external run on this host. All identify DeepSeek V4 Pro/max; the
+600-second initial-skill run has 23 solves, 15 unsolved timeouts and two normal
+unsolved terminations. Eight unsolved IR tasks contain the old builtin-macro
+crate alias: three retained it and have missing-crate errors; five removed it
+and fail preservation, four despite Verus success. More time alone cannot fix
+the historical compatibility contract. The other nine failures are timeouts.
+Follow-up clarification: the compatibility issue was subsequently addressed
+by the August 20 Verus upgrade and August 22 formal release identity gate.
+The 23/40 remains the old run, not a fresh result under the repaired toolchain;
+the next run needs to confirm the fixed setup, not repeat the old repair work.
+This verifies results, not full trajectory/export completeness. Previous notes
+about only three originals being located reflect a different-host audit.
+Recommended next step: compatible-toolchain training smoke, then a fresh common
+initial-skill train40 run with a proposed 1,200-second task limit, reporting real
+request/token/time budgets and actual eligible count. No rerun was launched.
+Audit: `research_memory/projects/verus_self_evolving/notes/20261001-190017-train40-initial-budget-and-failure-audit/ENTRY.md`.
+
+## Remote progress sync and meeting handoff (2026-10-01)
+
+All remote branch heads were fetched. Latest research is on
+`origin/feat/skillopt-fork-packets-20260918` at `a517845`; `origin/main`
+remains `3366229`. Initially the obfuscation-planning branch matched its remote
+at `2c3b698`, and a temporary worktree held the latest research checkout.
+The user subsequently requested switching this workspace to
+`feat/skillopt-fork-packets-20260918`; it now tracks its origin branch at
+`a517845` after the user's correction and a fresh remote check. Three commits
+after the initial `ecc018e` checkout were fast-forwarded. Local uncommitted
+memory and materials were preserved, with stash backups retained. No merge
+commit was created.
+
+The newer branch supersedes the September 22 input-blocked status below:
+three original traces, 38 historical hinted continuations and 19 no-hint
+continuations were recovered and used for extraction. Original-only and
+augmented banks contain six and five cards. The six-attempt from-scratch
+retrieval pilot solved the same one of three tasks in each condition, with
+uneven actual card exposure and incomplete final billing. The 18-attempt
+checkpoint diagnostic supports a local reminder mechanism, not augmentation
+superiority or full-task transfer. The earlier 200-rollout validation stopped
+for audit after eight attempts; this sync did not restart it.
+
+The October 1 meeting and readiness audit supersede the September 29 requirement
+for an N=10 efficacy gate. The active proposal prioritizes the forty-source-task
+main comparison against SkillOpt with reasonably matched learning budgets and
+from-scratch val20 evaluation. Hint adds at most one branch per eligible source;
+historical train40 solved 23/40, so forty sources need not yield forty hint
+branches. Small engineering checks precede execution; full ablations follow.
+Pipeline source identities, the eight-source bank limit, learning-budget control
+and runtime readiness still require work. Exact roles/caps remain proposed;
+no run is newly authorized by this sync. Active plan:
+`docs/augmentation-main-experiment-20261001.md`. Obfs feasibility remains reported
+cross-branch evidence; its cited `2ec5b86` implementation is unavailable here.
+
+New meeting notes are present in `Meeting - 260930.md` and canonical memory.
+Next: use the forty-task plan and its readiness gaps as the current handoff,
+then incorporate any additional recording the user supplies. No inference,
+GPU use or raw/sealed-data access occurred during this sync.
+Canonical sync note:
+`research_memory/projects/verus_self_evolving/notes/20261001-174255-remote-progress-sync-and-meeting-handoff/ENTRY.md`.
+
+## Train-40 canonical trace transfer ready for gpublaze pull (2026-09-22)
+
+The original SkillOpt `step_0001` train-40 corpus is distinct from hint v1/v2.
+All 40 canonical task directories are present on Vegeta; `_attempts/` is
+explicitly excluded from this transfer. Direct push authentication could not
+use gpublaze's centralized authorized-key file, so the approved direction is
+now gpublaze pulling from Vegeta at `128.135.164.73:22`. The verified gpublaze
+ED25519 public key is authorized once for the Vegeta `ycsun` account. A 3,573
+file manifest was generated in the external run root with SHA-256
+`da7f3d091d2d23fdd6d31b7223db298f301706ea49dfa38224e777f229613d42`.
+
+For the immediate fork-packet dependency, exactly the three original IR/AC/AL
+task directories were also packaged as
+`skillopt-original-three-traces-20260922.tar.gz` in the external `incoming/`
+directory. The 1,260,734-byte archive contains 241 files, passed `gzip -t` and
+required-file presence checks, and has SHA-256
+`e3ebeb101e965f9a3c10bb0219e2cff69ed4e51cdf3fa47b1c70b1caa8e89ad2`.
+It must remain outside Git because it contains raw events, prompts,
+conversations, and snapshots.
+
+After explicit user authorization, that three-original archive and its
+checksum were published as assets on the public GitHub Release
+`skillopt-original-three-20260922`, anchored at commit
+`4f05ead3e829c8c6c7e428adb1fbbec840af127a`. GitHub reports the same local
+asset sizes. This did not add raw data to Git history, but the Release assets
+are publicly downloadable; credential-pattern screening passed but is not a
+general privacy guarantee.
+
+The transfer is prepared but not yet confirmed at the destination. Next:
+gpublaze must verify Vegeta host-key fingerprint
+`SHA256:PtvNH2A9eXeqrKkHMiKSrPh+iXIHT0ecWHHu+uE9mTQ`, pull the trace tree and
+manifest, require 40 task directories, and pass all per-file SHA-256 checks.
+Raw traces remain external and uncommitted.
+
+Canonical run pointer:
+`research_memory/projects/verus_self_evolving/notes/20260922-190556-train40-canonical-trace-transfer-to-gpublaze/ENTRY.md`.
+
+## SkillOpt fork-packet diagnostic blocked at input intake (2026-09-22)
+
+The train-only IR/AC/AL fork-packet diagnostic stopped before export. The
+complete original `step_0001` trajectories for task IDs
+`3a77a3e4e72edf600e2a`, `bcf0292578550cb38451`, and
+`f91ac92b861061915a41` are present in the established ycsun external run tree
+with all required event, conversation, source, result, manifest, and snapshot
+files. The two required gpublaze transfer files are absent because `gpublaze`
+cannot be resolved from this host. The reported xinyueh historical root exists
+but is not listable by this account, so complete hint v1 and v2 roots remain
+unavailable; the no-hint 19 archive is also unavailable pending transfer.
+
+No patch, extraction, bootstrap, packet export, SkillOpt call, or trajectory
+rerun occurred. The next action is operator provision of a reachable transfer
+route for the two hash-pinned handoff files plus readable absolute paths or
+archives for both distinct complete v1/v2 roots. Do not substitute compact
+publications or claim hint, solved-rate, or token benefit.
+
+Canonical intake audit:
+`research_memory/projects/verus_self_evolving/experiments/20260922-180241-skillopt-fork-packet-historical-input-intake-audit/ENTRY.md`.
+
 ## Forty-task design and readiness audit complete, runtime pending (2026-10-01)
 
 Active proposal: `docs/augmentation-main-experiment-20261001.md`. Keep all 40

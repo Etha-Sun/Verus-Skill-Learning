@@ -1,0 +1,12 @@
+{
+  "title": "One real DeepSeek Pro compact index trace demonstration",
+  "project": "verus_self_evolving",
+  "kind": "experiments",
+  "created_at": "2026-10-07T18:30:17",
+  "status": "complete_one_demo_dual_pass_zero_body_reads",
+  "links": [
+    "VERUS_SKILL_RUN_ROOT/skillopt-verusage/compact-index-live-demo-20261007-183017/TRACE.md",
+    "VERUS_SKILL_RUN_ROOT/skillopt-verusage/compact-index-live-demo-20261007-183017/summary.json"
+  ],
+  "raw_data_read_only": true
+}

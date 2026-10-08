@@ -1,0 +1,9 @@
+{
+  "title": "Four-condition DeepSeek augmentation main experiment",
+  "project": "verus_self_evolving",
+  "kind": "experiments",
+  "created_at": "2026-10-02T11:42:24-05:00",
+  "status": "stopped_method_misaligned_reference_only",
+  "links": [],
+  "raw_data_read_only": true
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Full stitched CLI trace export with explicit thinking and request payload gaps",
+  "project": "verus_self_evolving",
+  "kind": "notes",
+  "created_at": "2026-10-07T18:59:38",
+  "status": "complete_saved_cli_export_incomplete_provider_transcript",
+  "links": [
+    "scripts/export_codex_transcript.py",
+    "VERUS_SKILL_RUN_ROOT/skillopt-verusage/compact-index-live-demo-20261007-183017/stitched-trace/full_trace.md",
+    "VERUS_SKILL_RUN_ROOT/skillopt-verusage/compact-index-live-demo-20261007-183017/stitched-trace/full_trace.json"
+  ],
+  "raw_data_read_only": true
+}

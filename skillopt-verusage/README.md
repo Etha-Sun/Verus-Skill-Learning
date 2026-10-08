@@ -29,6 +29,10 @@
 
 ## 主要文件
 
+- [review/README.md](review/README.md)：完整 ID 的去重索引、独立路由描述接口，
+  以及适用／不适用／可选案例的离线审查；不强制检索，也不自动认定效果。
+- `CHECKPOINT_CARDS.md`：可替换的三点选点接口、两题八轨迹的原生 SkillOpt
+  card 更新接入及离线检查；付费实验仍需设计确认。
 - `PLAN.md` / `CHECKLIST.md`：Vskill-0822 的 Trace2Skill 选择性迁移范围与验收项。
 - `refine-logs/VSKILL_0822_TRACE2SKILL_ALIGNMENT.md`：实现差异、token/time/score
   差距原因和剩余可比性边界。

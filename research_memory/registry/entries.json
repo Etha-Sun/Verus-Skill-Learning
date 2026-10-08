@@ -1,5 +1,125 @@
 [
   {
+    "created_at": "2026-10-07T21:13:30",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "Recent proof-progress campaign retrieval and evidence publication",
+    "status": "complete_local_publication",
+    "path": "projects/verus_self_evolving/notes/20261007-211330-recent-proof-progress-campaign-retrieval-and-evidence-publication/ENTRY.md"
+  },
+  {
+    "created_at": "2026-10-07T19:13:17",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "Independent full trace inference and card design review",
+    "status": "complete_independent_read_only_review",
+    "path": "projects/verus_self_evolving/notes/20261007-191317-independent-full-trace-inference-and-card-design-review/ENTRY.md"
+  },
+  {
+    "created_at": "2026-10-07T18:59:38",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "Full stitched CLI trace export with explicit thinking and request payload gaps",
+    "status": "complete_saved_cli_export_incomplete_provider_transcript",
+    "path": "projects/verus_self_evolving/notes/20261007-185938-full-stitched-cli-trace-export-with-explicit-thinking-and-request-payload-gaps/ENTRY.md"
+  },
+  {
+    "created_at": "2026-10-07T18:30:17",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "One real DeepSeek Pro compact index trace demonstration",
+    "status": "complete_one_demo_dual_pass_zero_body_reads",
+    "path": "projects/verus_self_evolving/experiments/20261007-183017-one-real-deepseek-pro-compact-index-trace-demonstration/ENTRY.md"
+  },
+  {
+    "created_at": "2026-10-07T18:02:17",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Compact autonomous card index and offline applicability review implementation",
+    "status": "complete_auxiliary_dev_no_live_eval",
+    "path": "projects/verus_self_evolving/experiments/20261007-180217-compact-autonomous-card-index-and-offline-applicability-review-implementation/ENTRY.md"
+  },
+  {
+    "created_at": "2026-10-07T17:36:15",
+    "project": "verus_self_evolving",
+    "kind": "literature",
+    "title": "Claude Code skill discovery loading and evidence based review design",
+    "status": "reviewed_official_sources_design_only_no_paid_runs",
+    "path": "projects/verus_self_evolving/literature/20261007-173615-claude-code-skill-discovery-loading-and-evidence-based-review-design/ENTRY.md"
+  },
+  {
+    "created_at": "2026-10-07T14:03:33",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "Completed campaign figures and card action evidence audit",
+    "status": "complete_offline_figures_and_bounded_card_trace_review",
+    "path": "projects/verus_self_evolving/notes/20261007-140333-completed-campaign-figures-and-card-action-evidence-audit/ENTRY.md"
+  },
+  {
+    "created_at": "2026-10-06T02:43:26",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Authorized hindsight hint forks grouped native cards and downstream campaign",
+    "status": "complete_validation20_primary_benefit_inconclusive_physical_fees_recorded",
+    "path": "projects/verus_self_evolving/experiments/20261006-024326-authorized-hindsight-hint-forks-grouped-native-cards-and-downstream-campaign/ENTRY.md"
+  },
+  {
+    "created_at": "2026-10-03T12:38:47",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Extensible checkpoint selector and native SkillOpt two task card batches",
+    "status": "complete_dev_selector_and_native_cards_mock_verified_no_paid_run",
+    "path": "projects/verus_self_evolving/experiments/20261003-123847-extensible-checkpoint-selector-and-native-skillopt-two-task-card-batches/ENTRY.md"
+  },
+  {
+    "created_at": "2026-10-03T02:11:34",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Helper-inclusive proof progress and checkpoint selection analysis",
+    "status": "complete_helper_inclusive_offline_analysis_one_target_pruning_supplement",
+    "path": "projects/verus_self_evolving/experiments/20261003-021134-helper-inclusive-proof-progress-and-checkpoint-selection-analysis/ENTRY.md"
+  },
+  {
+    "created_at": "2026-10-02T21:14:30",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Train39 proof progress plateau regression and checkpoint case audit",
+    "status": "complete_initial_investigation_one_pruning_incomplete",
+    "path": "projects/verus_self_evolving/experiments/20261002-211430-train39-proof-progress-plateau-regression-and-checkpoint-case-audit/ENTRY.md"
+  },
+  {
+    "created_at": "2026-10-02T11:42:24-05:00",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Four-condition DeepSeek augmentation main experiment",
+    "status": "stopped_method_misaligned_reference_only",
+    "path": "projects/verus_self_evolving/experiments/20261002-114224-four-condition-deepseek-augmentation-main/ENTRY.md"
+  },
+  {
+    "created_at": "2026-10-01T19:13:18-05:00",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "DeepSeek V4 Pro train40 initial rerun at 1800 seconds",
+    "status": "complete_outcomes_39_of_40_billing_one_request_unresolved",
+    "path": "projects/verus_self_evolving/experiments/20261001-191318-deepseek-pro-train40-1800s-rerun/ENTRY.md"
+  },
+  {
+    "created_at": "2026-10-01T19:00:17-05:00",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "Train40 initial budget and failure audit",
+    "status": "complete_read_only_rerun_recommended",
+    "path": "projects/verus_self_evolving/notes/20261001-190017-train40-initial-budget-and-failure-audit/ENTRY.md"
+  },
+  {
+    "created_at": "2026-10-01T17:42:55-05:00",
+    "project": "verus_self_evolving",
+    "kind": "notes",
+    "title": "Remote progress sync and meeting handoff",
+    "status": "complete_awaiting_meeting_recording",
+    "path": "projects/verus_self_evolving/notes/20261001-174255-remote-progress-sync-and-meeting-handoff/ENTRY.md"
+  },
+  {
     "created_at": "2026-10-01T16:07:45",
     "project": "verus_self_evolving",
     "kind": "notes",

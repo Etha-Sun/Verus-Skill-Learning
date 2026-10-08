@@ -1,0 +1,12 @@
+{
+  "title": "Compact autonomous card index and offline applicability review implementation",
+  "project": "verus_self_evolving",
+  "kind": "experiments",
+  "created_at": "2026-10-07T18:02:17",
+  "status": "complete_auxiliary_dev_no_live_eval",
+  "links": [
+    "skillopt-verusage/review/README.md",
+    "VERUS_SKILL_RUN_ROOT/skillopt-verusage/card-index-review-dev-20261007-180217-final/receipt.json"
+  ],
+  "raw_data_read_only": true
+}
