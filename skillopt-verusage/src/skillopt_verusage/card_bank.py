@@ -14,15 +14,18 @@ from skillopt_verusage.skill_artifact import load_skill_artifact
 RETRIEVAL_INSTRUCTIONS = """
 ## On-demand proof repair cards
 
-An optional card library is available in this workspace. When a diagnostic is
-unfamiliar, attempts repeat without progress, or you are considering rewriting
-a proof that already verifies, search using the current proof goal, exact
-diagnostic, and the action already attempted:
+An optional card library is available in this workspace. The index below lists
+every card's title and trigger. Use your current proof state to choose a card
+and read it directly by ID without searching. You decide whether and when to
+retrieve advice; a hint of stagnation is not a mandatory retrieval trigger.
+
+If you want help narrowing the index, optionally search using the current proof
+goal, exact diagnostic, and the action already attempted:
 
     python3 card_search.py search "current diagnostic and proof state"
 
-Search returns at most three titles and trigger conditions. Read one promising
-card at a time:
+Search is only a lexical helper and returns at most three matches; it does not
+limit which indexed cards you may choose. Read a promising card by ID:
 
     python3 card_search.py read card-001
 
@@ -36,7 +39,53 @@ the normal task budget includes its time and context cost.
 """
 
 
-def build_bundle(bank_path: Path, seed_path: Path, destination: Path):
+AUTONOMOUS_RETRIEVAL_INSTRUCTIONS = """
+## On-demand proof repair cards
+
+An optional card library is available in this workspace. The complete index
+below lists every card's title and trigger. You decide whether, when, and which
+cards to read based on your current proof state; no retrieval ranking or fixed
+card count is imposed. Read any indexed card by ID:
+
+    python3 card_read.py card-001
+
+You may read additional cards, decline their advice, or continue without them.
+Check Trigger and Avoid when against the current state, perform required
+prechecks, and use normal verification and preservation tools after acting.
+Cards are fallible advice, not proof. Briefly identify a consulted card's ID
+and why it applies or why you decline it in your progress message. Do not
+bulk-read cards.json or modify library files. Reading is optional and uses the
+normal task time and context budget.
+"""
+
+AUTONOMOUS_CARD_READER = '''"""Read an agent-selected card ID without search or ranking."""
+import argparse
+import json
+from pathlib import Path
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("card_id")
+args = parser.parse_args()
+cards = json.loads(Path(__file__).with_name("cards.json").read_text())["cards"]
+card = next((c for c in cards if c["id"] == args.card_id), None)
+print(json.dumps({"card_retrieval": 1, "operation": "read", "id": args.card_id,
+                  **({"content": card["content"]} if card else {"error": "unknown card id"})},
+                 ensure_ascii=False))
+'''
+
+
+def _index_entry(card, description=None):
+    labels = r"\*\*(?:Trigger|Action|Why|Validate|Avoid when):\*\*"
+    heading = re.split(labels, card['content'], maxsplit=1)[0].strip().lstrip('# ')
+    trigger = re.split(labels, card_search.field(card['content'], 'Trigger'), maxsplit=1)[0]
+    title = ' '.join(heading.split())
+    description = ' '.join((trigger if description is None else description).split())
+    summary = f'{title} — {description}' if title and title != description else description
+    return f"- {card['id']}: {summary}"
+
+
+def build_bundle(bank_path: Path, seed_path: Path, destination: Path, *, autonomous_retrieval=False,
+                 index_descriptions: dict[str, str] | None = None):
     destination = _require_run_child(destination)
     bank = json.loads(bank_path.read_text())
     cards = bank.get("cards", [])
@@ -51,10 +100,28 @@ def build_bundle(bank_path: Path, seed_path: Path, destination: Path):
         for label in ("Trigger", "Action", "Why", "Validate", "Avoid when"):
             if not card_search.field(card["content"], label):
                 raise ValueError(f"card missing {label}")
+    if index_descriptions is not None:
+        if set(index_descriptions) != set(ids) or any(
+            not isinstance(text, str) or not text.strip() or len(text.splitlines()) != 1
+            for text in index_descriptions.values()
+        ):
+            raise ValueError('index descriptions must cover every card with nonempty single-line text')
     destination.mkdir(parents=True, exist_ok=False)
-    (destination / "SKILL.md").write_text(seed_path.read_text().rstrip() + "\n" + RETRIEVAL_INSTRUCTIONS)
-    (destination / "cards.json").write_text(json.dumps(bank, ensure_ascii=False, indent=2) + "\n")
-    shutil.copyfile(Path(card_search.__file__), destination / "card_search.py")
+    index = "\n## Card index\n\n" + "\n".join(
+        _index_entry(card, None if index_descriptions is None else index_descriptions[card['id']])
+        for card in cards
+    ) + "\n"
+    instructions = AUTONOMOUS_RETRIEVAL_INSTRUCTIONS if autonomous_retrieval else RETRIEVAL_INSTRUCTIONS
+    if index_descriptions is not None:
+        instructions = instructions.replace("title and trigger", "title and routing description")
+        instructions += '\nIndex descriptions are routing cues only. Read the full Trigger and Avoid when before acting.\n'
+    (destination / "SKILL.md").write_text(seed_path.read_text().rstrip() + "\n" + instructions + index)
+    deployed_bank = {"schema_version": bank["schema_version"], "cards": cards} if autonomous_retrieval else bank
+    (destination / "cards.json").write_text(json.dumps(deployed_bank, ensure_ascii=False, indent=2) + "\n")
+    if autonomous_retrieval:
+        (destination / "card_read.py").write_text(AUTONOMOUS_CARD_READER)
+    else:
+        shutil.copyfile(Path(card_search.__file__), destination / "card_search.py")
     return load_skill_artifact(destination).manifest()
 
 

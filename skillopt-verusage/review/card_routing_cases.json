@@ -1,0 +1,56 @@
+{
+  "schema_version": "card-routing-review-cases-v1",
+  "bank_sha256": "c58d2d38d202ce638781ac1faaa25b61aa8ae10f9233eb04535da3b9c5d3e139",
+  "scope": "Synthetic development states; no validation or sealed-test task sources",
+  "cases": [
+    {
+      "case_id": "verified_warning_cleanup",
+      "card_id": "card-052",
+      "state": "Verus verifies every function with zero errors. A proof-only universal assertion emits an automatic-trigger warning. Preservation passes. The remaining task is optional warning cleanup.",
+      "expected_applicability": "optional",
+      "rationale": "The verified-proof precondition holds, but warning cleanup is not required to construct a proof and cannot explain its earlier success."
+    },
+    {
+      "case_id": "failed_quantifier_near_miss",
+      "card_id": "card-052",
+      "state": "Verus reports an assertion failure under a universal quantifier and an automatic-trigger warning. The proof has not verified. The goal is to discharge the failing assertion, not silence warnings.",
+      "expected_applicability": "inapplicable",
+      "rationale": "Sharing trigger-related words does not satisfy the already-verified precondition. This card explicitly excludes failed-proof construction."
+    },
+    {
+      "case_id": "missing_antecedent",
+      "card_id": "card-069",
+      "state": "An asserted universal has a plain implication. Its inner proof needs a fact from the antecedent, which is not assumed in the body. Verus flags the inner assertion. No implication-helper function has been found in the installed library.",
+      "expected_applicability": "applicable",
+      "rationale": "Explicit branching on the antecedent addresses the missing assumption. The alternative helper route is not justified without installed-library evidence."
+    },
+    {
+      "case_id": "unrelated_universal_failure",
+      "card_id": "card-069",
+      "state": "A universal assertion fails on an arithmetic bound. The antecedent is already established inside an explicit branch; the missing fact is an inequality about sequence length, not an unassumed antecedent.",
+      "expected_applicability": "inapplicable",
+      "rationale": "A universal assertion failure alone does not establish this card's specific missing-antecedent mechanism."
+    },
+    {
+      "case_id": "fixed_width_connector",
+      "card_id": "card-021",
+      "state": "A bound needs the fixed length of a closed serialization function. A direct length assertion fails. Library inspection confirms an open counterpart and a connector equality for exactly that conversion.",
+      "expected_applicability": "applicable",
+      "rationale": "The fixed-width goal and the matching open/closed connector are both available; transferring the open length fact is supported."
+    },
+    {
+      "case_id": "closed_map_view_near_miss",
+      "card_id": "card-021",
+      "state": "A closed map-view function hides a lookup relationship. The goal is key membership, not fixed-width serialization length, and no matching open serialization conversion is involved.",
+      "expected_applicability": "inapplicable",
+      "rationale": "The word closed is insufficient: this card describes a specific conversion/connector and fixed-width length fact."
+    },
+    {
+      "case_id": "missing_connector",
+      "card_id": "card-021",
+      "state": "A fixed-width closed serialization length is needed, but inspection confirms the allowed library has no matching open counterpart or connector. The specification cannot be changed.",
+      "expected_applicability": "inapplicable",
+      "rationale": "The card's Avoid when clause applies. Do not fabricate an interface or modify the specification to fit the suggestion."
+    }
+  ]
+}
