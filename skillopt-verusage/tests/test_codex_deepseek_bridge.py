@@ -210,6 +210,29 @@ class CodexDeepSeekBridgeTests(unittest.TestCase):
             self.assertEqual(state['uncertain_requests'], 1)
             self.assertEqual(state['reservations'], {})
 
+    def test_native_output_cap_is_forwarded_and_reserved(self) -> None:
+        from skillopt_verusage.budget_guard import SharedBudgetGuard, estimate_deepseek_request_upper_bound
+
+        for payload, expected in (({"input": []}, 32),
+                                  ({"input": [], "max_output_tokens": None}, 32),
+                                  ({"input": [], "max_output_tokens": 64}, 64)):
+            with self.subTest(payload=payload), tempfile.TemporaryDirectory() as tmp:
+                guard = SharedBudgetGuard(Path(tmp) / "budget.json", approval_limit_usd=5,
+                    prior_spend_usd=0, optimizer_reserve_usd=0, request_reserve_usd=0.01)
+                config = BridgeConfig(model="deepseek-v4-pro", upstream_base_url="https://example.invalid",
+                    api_key="fake", ledger_path=Path(tmp) / "ledger.jsonl", max_output_tokens=32,
+                    retry_output_tokens=32, request_timeout_seconds=1, native_responses=True, budget_guard=guard)
+                response = BytesIO(b'data: {"type":"response.completed","response":{"status":"completed","model":"deepseek-v4-pro","usage":{"input_tokens":10,"output_tokens":2}}}\n\n')
+                response.headers = Message()
+                response.headers["Content-Type"] = "text/event-stream"
+                original = dict(payload)
+                with patch("skillopt_verusage.codex_deepseek_bridge.urlopen", return_value=response) as network, patch.object(guard, "reserve", wraps=guard.reserve) as reserve:
+                    _, _, record = forward_native_responses(config, payload)
+                self.assertEqual(json.loads(network.call_args.args[0].data)["max_output_tokens"], expected)
+                reserve.assert_called_once_with(estimate_deepseek_request_upper_bound(expected, config.model, price_band="peak"))
+                self.assertEqual(record["attempts"][0]["max_tokens"], expected)
+                self.assertEqual(payload, original)
+
     def test_translates_codex_history_and_tools(self) -> None:
         payload = {
             "instructions": "system rules",

@@ -11,6 +11,7 @@ import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from http.client import IncompleteRead
 from pathlib import Path
 from typing import Any
 from urllib.error import HTTPError, URLError
@@ -492,6 +493,8 @@ class BridgeConfig:
     ledger_lock: threading.Lock = field(default_factory=threading.Lock)
     active_requests: int = 0
     total_requests: int = 0
+    fail_closed_on_provider_error: bool = False
+    halted_error: str | None = None
 
 
 def _native_response_usage(
@@ -562,9 +565,14 @@ def forward_native_responses(
     *,
     task_id: str | None = None,
 ) -> tuple[bytes, str, dict[str, Any]]:
-    """Pass a Codex Responses request through unchanged except for frozen model id."""
+    """Forward a Codex Responses request with frozen model and default output cap."""
+    with config.state_lock:
+        if config.fail_closed_on_provider_error and config.halted_error:
+            raise RuntimeError('Provider bridge halted pending review: '+config.halted_error)
     request_payload = dict(payload)
     request_payload["model"] = config.model
+    if request_payload.get("max_output_tokens") is None:
+        request_payload["max_output_tokens"] = config.max_output_tokens
     started = time.monotonic()
     started_at = datetime.now(timezone.utc)
     usage: dict[str, int] | None = None
@@ -573,11 +581,13 @@ def forward_native_responses(
     error_text: str | None = None
     content_type = "text/event-stream"
     body = b""
+    partial_body = b""
+    request_id = uuid.uuid4().hex
     reservation_id = None
     if config.budget_guard:
         # Native requests previously skipped the shared guard used by chat mode.
-        # Reserve conservatively without rewriting the forwarded request.
-        output_bound = int(request_payload.get("max_output_tokens") or 131072)
+        # Reserve against the output bound actually sent upstream.
+        output_bound = int(request_payload["max_output_tokens"])
         reservation_id = config.budget_guard.reserve(
             estimate_deepseek_request_upper_bound(output_bound, config.model, price_band="peak")
         )
@@ -617,8 +627,13 @@ def forward_native_responses(
         raise RuntimeError(error_text) from error
     except Exception as error:
         error_text = f"{type(error).__name__}: {error}"
+        if isinstance(error, IncompleteRead):
+            partial_body = error.partial
         raise
     finally:
+        if error_text and config.fail_closed_on_provider_error:
+            with config.state_lock:
+                config.halted_error = error_text
         finished_at = datetime.now(timezone.utc)
         price_band: str | None = None
         if config.pricing_profile in {"legacy-deepseek", "deepseek-current"}:
@@ -649,7 +664,7 @@ def forward_native_responses(
                 reservation_id, cost_usd=attempt["estimated_cost_usd"], usage=usage
             )
         record = {
-            "request_id": uuid.uuid4().hex,
+            "request_id": request_id,
             "task_id": task_id,
             "phase": phase,
             "model": config.model,
@@ -669,6 +684,19 @@ def forward_native_responses(
             ),
             "wall_seconds": time.monotonic() - started,
         }
+        if error_text and config.fail_closed_on_provider_error and config.ledger_path:
+            directory = config.ledger_path.parent/'provider_failure_evidence'/request_id
+            directory.mkdir(parents=True,exist_ok=True)
+            request_bytes = json.dumps(request_payload,ensure_ascii=False).encode('utf-8')
+            (directory/'request.json').write_bytes(request_bytes)
+            evidence = {'request_sha256':hashlib.sha256(request_bytes).hexdigest(),
+                        'error':error_text,'partial_response_accepted':False}
+            if partial_body:
+                (directory/'response.partial.raw').write_bytes(partial_body)
+                evidence.update(partial_body_sha256=hashlib.sha256(partial_body).hexdigest(),
+                                partial_body_bytes=len(partial_body))
+            (directory/'error.json').write_text(json.dumps(evidence,indent=2)+'\n')
+            record['failure_evidence_relative_path'] = str(directory.relative_to(config.ledger_path.parent))
         with config.ledger_lock:
             _append_jsonl(config.ledger_path, record)
     return body, content_type, record
@@ -972,7 +1000,7 @@ def make_handler(config: BridgeConfig):
                 total_requests = config.total_requests
             body = json.dumps(
                 {
-                    "status": "ok",
+                    "status": "halted" if config.halted_error else "ok",
                     "model": config.model,
                     "active_requests": active_requests,
                     "total_requests": total_requests,
@@ -1030,7 +1058,7 @@ def make_handler(config: BridgeConfig):
                 self.wfile.write(b"data: [DONE]\n\n")
                 self.wfile.flush()
             except Exception as error:
-                self._json_error(502, f"{type(error).__name__}: {error}")
+                self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
             finally:
                 with config.state_lock:
                     config.active_requests -= 1

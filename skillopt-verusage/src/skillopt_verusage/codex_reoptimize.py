@@ -220,6 +220,7 @@ def _candidate_audit(
     apply_report: list[dict[str, Any]],
     *,
     max_candidate_bytes: int = MAX_CANDIDATE_BYTES,
+    prose_only: bool = True,
 ) -> list[str]:
     errors: list[str] = []
     candidate_bytes = len(candidate_skill.encode("utf-8"))
@@ -244,9 +245,10 @@ def _candidate_audit(
         if isinstance(edit, dict)
     )
     lowered = changed_text.lower()
-    for fragment in ("```", "assert(", "forall|", "==>", ".fold_left("):
-        if fragment in changed_text:
-            errors.append(f"selected edits contain concrete code/formula: {fragment}")
+    if prose_only:
+        for fragment in ("```", "assert(", "forall|", "==>", ".fold_left("):
+            if fragment in changed_text:
+                errors.append(f"selected edits contain concrete code/formula: {fragment}")
     trusted_terms = ("trusted", "pre-existing", "preexisting", "already present", "existing")
     blanket_bans = ("must not be used", "may not be used", "never use", "do not use")
     if any(term in lowered for term in trusted_terms) and any(
