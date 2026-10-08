@@ -21,6 +21,8 @@ from verus_self_evolve.proof_progress import (
     greedy_prune_proof_lines,
     load_jsonl,
     proof_line_coverage,
+    stagnation_segments as _stagnation_segments,
+    regression_transitions as _regression_transitions,
 )
 from verus_self_evolve.trajectory_progress import verifier_state
 
@@ -80,60 +82,6 @@ def _snapshot_sources(prediction_dir: Path) -> dict[str, tuple[str, str]]:
             ),
         )
     return sources
-
-
-def _stagnation_segments(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    stagnant_edges = []
-    for left, right in zip(rows, rows[1:]):
-        token_delta = right["cumulative_output_tokens"] - left["cumulative_output_tokens"]
-        same_coverage = abs(right["proof_coverage"] - left["proof_coverage"]) < 1e-12
-        same_tier = right["verifier_tier"] == left["verifier_tier"]
-        still_searching = left["verifier_tier"] < 2
-        if token_delta > 0 and same_coverage and same_tier and still_searching:
-            stagnant_edges.append((left, right))
-    segments = []
-    for left, right in stagnant_edges:
-        if segments and segments[-1]["end_call"] == left["call_ordinal"]:
-            segments[-1]["end_call"] = right["call_ordinal"]
-            segments[-1]["end_output_tokens"] = right["cumulative_output_tokens"]
-            segments[-1]["output_token_delta"] = (
-                segments[-1]["end_output_tokens"]
-                - segments[-1]["start_output_tokens"]
-            )
-        else:
-            segments.append(
-                {
-                    "start_call": left["call_ordinal"],
-                    "end_call": right["call_ordinal"],
-                    "start_output_tokens": left["cumulative_output_tokens"],
-                    "end_output_tokens": right["cumulative_output_tokens"],
-                    "output_token_delta": right["cumulative_output_tokens"]
-                    - left["cumulative_output_tokens"],
-                    "proof_coverage": left["proof_coverage"],
-                    "verifier_tier": left["verifier_tier"],
-                }
-            )
-    return segments
-
-
-def _regression_transitions(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    transitions = []
-    for left, right in zip(rows, rows[1:]):
-        coverage_delta = right["proof_coverage"] - left["proof_coverage"]
-        tier_delta = right["verifier_tier"] - left["verifier_tier"]
-        if coverage_delta >= 0 and tier_delta >= 0:
-            continue
-        transitions.append(
-            {
-                "from_call": left["call_ordinal"],
-                "to_call": right["call_ordinal"],
-                "from_output_tokens": left["cumulative_output_tokens"],
-                "to_output_tokens": right["cumulative_output_tokens"],
-                "coverage_delta": coverage_delta,
-                "verifier_tier_delta": tier_delta,
-            }
-        )
-    return transitions
 
 
 def _write_calls_csv(path: Path, rows: list[dict[str, Any]]) -> None:

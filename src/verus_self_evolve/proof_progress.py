@@ -4,6 +4,7 @@ import json
 import re
 from collections import Counter
 from difflib import SequenceMatcher
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Callable
 
@@ -11,7 +12,7 @@ from .trajectory_progress import normalize_code_lines, verifier_state
 
 
 VERUS_CANDIDATE_RE = re.compile(
-    r"(?:^|['\";\s])(?:/[^\s'\";]+/)?verus\s+candidate\.rs\b"
+    r"(?:^|['\";\s])(?:[^\s'\";]*/)?(?:verus|run_verus\.sh)\s+candidate\.rs\b"
 )
 
 
@@ -86,7 +87,7 @@ def extract_verifier_calls(events: list[dict[str, Any]]) -> list[dict[str, Any]]
                 "timestamp": event.get("timestamp"),
                 "candidate_sha256": event.get("candidate_sha256"),
                 "tool_call_id": source_id or None,
-                "origin": "host_validation",
+                "origin": "actor" if source_id else "host_validation",
                 "verifier_output": output,
                 "verifier": verifier_state(output),
             }
@@ -111,11 +112,12 @@ def align_tool_calls_to_output_tokens(
 ) -> dict[str, Any]:
     """Map Codex tool-call ids to cumulative complete-ledger output tokens.
 
-    Each ledger row stores the input item types for the next model request.
-    The increase in ``function_call`` count between adjacent requests is the
-    number of tool calls emitted by the preceding response.
+    Historical ledgers use input-item deltas. Native Responses ledgers omit
+    those types; align their completed request timestamps to tool-start events.
+    Missing metadata is an error, never a reason to put all calls at final cost.
     """
     tool_ids = []
+    tool_starts = []
     for event in events:
         raw = event.get("data", {}).get("raw_codex_event", {})
         item = raw.get("item", {})
@@ -127,12 +129,32 @@ def align_tool_calls_to_output_tokens(
             call_id = item.get("id")
             if isinstance(call_id, str):
                 tool_ids.append(call_id)
+                tool_starts.append(event)
 
     cumulative = []
     total = 0
     for record in ledger_records:
         total += _completion_tokens(record)
         cumulative.append(total)
+
+    if not all(isinstance(record.get("input_item_types"),list) for record in ledger_records):
+        if (not ledger_records or any(not row.get("finished_at_utc") for row in ledger_records)
+                or any(not event.get("timestamp") for event in tool_starts)):
+            raise ValueError("Missing output-token alignment metadata")
+        finished = sorted((datetime.fromisoformat(row["finished_at_utc"]),_completion_tokens(row))
+                          for row in ledger_records)
+        mapped = {}
+        for call_id,event in zip(tool_ids,tool_starts):
+            started = datetime.fromisoformat(event["timestamp"])
+            if started.tzinfo is None or any(when.tzinfo is None for when,_ in finished):
+                raise ValueError("Token alignment requires timezone-aware timestamps")
+            preceding = [tokens for when,tokens in finished if when<=started]
+            if not preceding:
+                raise ValueError("Tool call precedes all completed provider requests")
+            mapped[call_id] = sum(preceding)
+        return {"tool_call_output_tokens":mapped,"total_output_tokens":total,
+                "request_count":len(ledger_records),"tool_call_count":len(tool_ids),
+                "alignment":"completed_request_timestamps"}
 
     mapped: dict[str, int] = {}
     cursor = 0
@@ -172,19 +194,34 @@ def _brace_delta(line: str) -> int:
     return line.count("{") - line.count("}")
 
 
-def function_body_span(source: str, function_name: str) -> tuple[int, int]:
+def function_body_span(source: str, function_name: str, *, occurrence: int = 0) -> tuple[int, int]:
     """Return zero-based line indices delimiting a proof body, excluding braces."""
     lines = source.splitlines(keepends=True)
-    pattern = re.compile(rf"\bproof\s+fn\s+{re.escape(function_name)}\b")
-    function_start = next(
-        (index for index, line in enumerate(lines) if pattern.search(line)), None
-    )
+    pattern = re.compile(rf"\bfn\s+{re.escape(function_name)}\b")
+    starts = [index for index, line in enumerate(lines) if pattern.search(line.split("//", 1)[0])]
+    function_start = starts[occurrence] if 0 <= occurrence < len(starts) else None
     if function_start is None:
         raise ValueError(f"proof function not found: {function_name}")
-    body_open = next(
-        (index for index in range(function_start, len(lines)) if "{" in lines[index]),
-        None,
-    )
+    body_open = None
+    parens = brackets = braces = 0
+    for index in range(function_start, len(lines)):
+        clean = re.sub(r'"(?:\\.|[^"\\])*"', '""', lines[index].split("//", 1)[0])
+        for position, character in enumerate(clean):
+            if character == "(": parens += 1
+            elif character == ")": parens -= 1
+            elif character == "[": brackets += 1
+            elif character == "]": brackets -= 1
+            elif character == "{":
+                prefix = clean[:position].strip()
+                if parens == brackets == braces == 0 and (
+                    not prefix or (index == function_start and not re.search(r"\b(?:requires|ensures|decreases)\b", prefix))
+                ):
+                    body_open = index
+                    break
+                braces += 1
+            elif character == "}": braces -= 1
+        if body_open is not None:
+            break
     if body_open is None:
         raise ValueError(f"proof function body not found: {function_name}")
     depth = 0
@@ -195,9 +232,9 @@ def function_body_span(source: str, function_name: str) -> tuple[int, int]:
     raise ValueError(f"unbalanced proof function body: {function_name}")
 
 
-def function_body(source: str, function_name: str) -> str:
+def function_body(source: str, function_name: str, *, occurrence: int = 0) -> str:
     lines = source.splitlines(keepends=True)
-    start, end = function_body_span(source, function_name)
+    start, end = function_body_span(source, function_name, occurrence=occurrence)
     return "".join(lines[start:end])
 
 
@@ -214,6 +251,53 @@ def proof_line_coverage(current_body: str, final_body: str) -> dict[str, float |
         "final_lines": denominator,
         "coverage": matched / denominator,
     }
+
+
+def stagnation_segments(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Report every pre-pass constant-coverage/tier span with positive token cost."""
+    segments = []
+    for left, right in zip(rows, rows[1:]):
+        token_delta = right["cumulative_output_tokens"] - left["cumulative_output_tokens"]
+        same_coverage = (left["proof_coverage"] is not None and right["proof_coverage"] is not None
+                         and abs(right["proof_coverage"] - left["proof_coverage"]) < 1e-12)
+        if not (token_delta > 0 and same_coverage
+                and right["verifier_tier"] == left["verifier_tier"]
+                and left["verifier_tier"] < 2):
+            continue
+        if segments and segments[-1]["end_call"] == left["call_ordinal"]:
+            segments[-1]["end_call"] = right["call_ordinal"]
+            segments[-1]["end_output_tokens"] = right["cumulative_output_tokens"]
+            segments[-1]["output_token_delta"] = (
+                segments[-1]["end_output_tokens"] - segments[-1]["start_output_tokens"]
+            )
+        else:
+            segments.append({
+                "start_call": left["call_ordinal"], "end_call": right["call_ordinal"],
+                "start_output_tokens": left["cumulative_output_tokens"],
+                "end_output_tokens": right["cumulative_output_tokens"],
+                "output_token_delta": token_delta, "proof_coverage": left["proof_coverage"],
+                "verifier_tier": left["verifier_tier"],
+            })
+    return segments
+
+
+def regression_transitions(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Report coverage/tier drops, not claims of semantic proof regression."""
+    transitions = []
+    for left, right in zip(rows, rows[1:]):
+        if left["proof_coverage"] is None or right["proof_coverage"] is None:
+            continue
+        coverage_delta = right["proof_coverage"] - left["proof_coverage"]
+        tier_delta = right["verifier_tier"] - left["verifier_tier"]
+        if coverage_delta >= 0 and tier_delta >= 0:
+            continue
+        transitions.append({
+            "from_call": left["call_ordinal"], "to_call": right["call_ordinal"],
+            "from_output_tokens": left["cumulative_output_tokens"],
+            "to_output_tokens": right["cumulative_output_tokens"],
+            "coverage_delta": coverage_delta, "verifier_tier_delta": tier_delta,
+        })
+    return transitions
 
 
 def classify_proof_line(line: str) -> str:
@@ -234,11 +318,13 @@ def classify_proof_line(line: str) -> str:
 
 
 def _added_body_line_indices(
-    baseline_source: str, final_source: str, function_name: str
+    baseline_source: str, final_source: str, function_name: str, *, occurrence: int = 0,
+    baseline_body: str | None = None,
 ) -> list[int]:
-    baseline_body = function_body(baseline_source, function_name)
+    if baseline_body is None:
+        baseline_body = function_body(baseline_source, function_name, occurrence=occurrence)
     final_lines = final_source.splitlines(keepends=True)
-    final_start, final_end = function_body_span(final_source, function_name)
+    final_start, final_end = function_body_span(final_source, function_name, occurrence=occurrence)
     baseline_lines = baseline_body.splitlines(keepends=True)
     body_lines = final_lines[final_start:final_end]
     baseline_normalized = [line.strip() for line in baseline_lines]
@@ -264,9 +350,10 @@ def _candidate_block_ranges(
     records: list[tuple[int, str]],
     candidate_ids: set[int],
     function_name: str,
+    *, occurrence: int = 0,
 ) -> list[tuple[int, int]]:
     source = "".join(line for _, line in records)
-    body_start, body_end = function_body_span(source, function_name)
+    body_start, body_end = function_body_span(source, function_name, occurrence=occurrence)
     stack: list[int] = []
     ranges = []
     for position in range(body_start, body_end):
@@ -293,10 +380,12 @@ def greedy_prune_proof_lines(
     final_source: str,
     function_name: str,
     verify: VerifyCallback,
+    *, occurrence: int = 0, baseline_body: str | None = None,
 ) -> dict[str, Any]:
     """Greedily delete added proof lines and balanced blocks to a fixed point."""
     records = list(enumerate(final_source.splitlines(keepends=True)))
-    candidates = _added_body_line_indices(baseline_source, final_source, function_name)
+    candidates = _added_body_line_indices(baseline_source, final_source, function_name,
+                                         occurrence=occurrence, baseline_body=baseline_body)
     candidate_ids = set(candidates)
     trials = []
     removed_lines: dict[int, dict[str, Any]] = {}
@@ -346,7 +435,7 @@ def greedy_prune_proof_lines(
         while True:
             removed_block = False
             for opening, closing in _candidate_block_ranges(
-                records, candidate_ids, function_name
+                records, candidate_ids, function_name, occurrence=occurrence
             ):
                 unit_records = records[opening : closing + 1]
                 trial_records = records[:opening] + records[closing + 1 :]
@@ -392,7 +481,7 @@ def greedy_prune_proof_lines(
             break
 
     pruned_source = "".join(line for _, line in records)
-    final_nonblank = len(normalize_code_lines(function_body(final_source, function_name)))
+    final_nonblank = len(normalize_code_lines(function_body(final_source, function_name, occurrence=occurrence)))
     removed = list(removed_lines.values())
     removed_categories = Counter(row["category"] for row in removed)
     removed_assertions = removed_categories["assert"]
