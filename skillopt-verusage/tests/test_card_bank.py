@@ -6,12 +6,40 @@ import sys
 import pytest
 
 from skillopt_verusage.card_bank import build_bundle, audit_retrieval
-from skillopt_verusage.card_search import respond
+from skillopt_verusage.card_search import field, respond, validate_fields
 from skillopt_verusage.skill_artifact import load_skill_artifact
 
 
 def sample_card():
     return {"id": "card-001", "content": "### Preservation after verification\n**Trigger:** Verus passes but preservation fails.\n**Action:** Inspect imports.\n**Why:** Avoid rewriting a verified proof.\n**Validate:** Run both checks.\n**Avoid when:** Executable code changed."}
+
+
+def test_inline_fields_have_exact_boundaries_and_search_hides_body():
+    card = sample_card()
+    card['content'] = card['content'].replace('\n', ' ')
+    validate_fields(card['content'])
+    assert field(card['content'], 'Action') == 'Inspect imports.'
+    assert field(card['content'], 'Trigger') == 'Verus passes but preservation fails.'
+    result = respond({'cards':[card]}, 'search', 'preservation')['results'][0]
+    assert result['title'] == 'Preservation after verification'
+    assert '**Action:**' not in json.dumps(result)
+    assert 'Inspect imports.' not in json.dumps(result)
+
+
+@pytest.mark.parametrize('separator', [' ', '\n'])
+@pytest.mark.parametrize('defect', ['empty', 'missing', 'duplicate'])
+def test_invalid_fields_rejected_before_bundle_write(tmp_path, monkeypatch, separator, defect):
+    monkeypatch.setenv('VERUS_SKILL_RUN_ROOT', str(tmp_path))
+    card = sample_card()
+    replacement = {'empty':'**Action:**', 'missing':'',
+                   'duplicate':'**Action:** Inspect imports. **Action:** Repeat.'}[defect]
+    card['content'] = card['content'].replace('**Action:** Inspect imports.', replacement).replace('\n', separator)
+    bank = tmp_path/'bank.json'
+    bank.write_text(json.dumps({'schema_version':'stage-card-bank-v1','cards':[card]}))
+    seed = tmp_path/'seed.md'; seed.write_text('Base skill\n')
+    with pytest.raises(ValueError, match='Action'):
+        build_bundle(bank, seed, tmp_path/'invalid')
+    assert not (tmp_path/'invalid').exists()
 
 
 def test_bundle_search_read_preserves_hash_and_hides_evidence(tmp_path, monkeypatch):

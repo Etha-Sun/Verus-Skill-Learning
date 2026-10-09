@@ -1,0 +1,9 @@
+{
+  "title": "Reviewed card repair short routing full provider capture and validation smoke",
+  "project": "verus_self_evolving",
+  "kind": "experiments",
+  "created_at": "2026-10-08T19:56:32",
+  "status": "complete",
+  "links": ["PLAN.md", "CHECKLIST.md", "artifacts/validation-results-pointer.json"],
+  "raw_data_read_only": true
+}

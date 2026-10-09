@@ -31,7 +31,13 @@ and limitations. No task-specific proof, target names, paths, credentials, bypas
 generic skill edits or patch output. The host will index/store cards, not apply edits.
 Cards must be ordinary prose only: no inline code, pseudocode, formulas, assertion
 templates, quantifier syntax or example method-call expressions, even if generic.
-Describe the logical step in words instead. Distinguish steps needed to discharge
+Describe the logical step in words instead.
+Use unambiguous names for predicate layers and syntax operations in prose; do
+not collapse raw state predicates, lifted temporal predicates and always wrappers.
+If an observation depends on a tool version, include its recorded version or
+require confirmation from the current diagnostic in the deployable conditions,
+not only in private limitations. Do not invent a version that was not supplied.
+Distinguish steps needed to discharge
 an obligation from later warning cleanup; a successful trace does not prove that
 each assertion or trigger annotation was necessary.
 Keep each claim within its supporting observations and applicability conditions.

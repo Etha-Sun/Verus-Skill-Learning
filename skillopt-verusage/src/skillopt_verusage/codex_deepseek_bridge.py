@@ -17,6 +17,8 @@ from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
+from skillopt_verusage.provider_capture import capture_root, start_capture, finish_capture, redact
+
 from skillopt_verusage.budget_guard import (
     SharedBudgetGuard,
     estimate_deepseek_cost,
@@ -495,6 +497,7 @@ class BridgeConfig:
     total_requests: int = 0
     fail_closed_on_provider_error: bool = False
     halted_error: str | None = None
+    capture_public_payloads: bool = False
 
 
 def _native_response_usage(
@@ -567,7 +570,7 @@ def forward_native_responses(
 ) -> tuple[bytes, str, dict[str, Any]]:
     """Forward a Codex Responses request with frozen model and default output cap."""
     with config.state_lock:
-        if config.fail_closed_on_provider_error and config.halted_error:
+        if (config.fail_closed_on_provider_error or config.capture_public_payloads) and config.halted_error:
             raise RuntimeError('Provider bridge halted pending review: '+config.halted_error)
     request_payload = dict(payload)
     request_payload["model"] = config.model
@@ -583,6 +586,10 @@ def forward_native_responses(
     body = b""
     partial_body = b""
     request_id = uuid.uuid4().hex
+    capture_directory = None
+    capture_metadata = None
+    capture_parent = capture_root(config.ledger_path) if config.capture_public_payloads else None
+    upstream_dispatched = False
     reservation_id = None
     if config.budget_guard:
         # Native requests previously skipped the shared guard used by chat mode.
@@ -592,6 +599,8 @@ def forward_native_responses(
             estimate_deepseek_request_upper_bound(output_bound, config.model, price_band="peak")
         )
     try:
+        if capture_parent is not None:
+            capture_directory = start_capture(capture_parent, request_id, payload, request_payload, config.api_key)
         request = Request(
             config.upstream_base_url.rstrip("/") + "/responses",
             data=json.dumps(request_payload, ensure_ascii=False).encode("utf-8"),
@@ -601,6 +610,7 @@ def forward_native_responses(
             },
             method="POST",
         )
+        upstream_dispatched = True
         with urlopen(request, timeout=config.request_timeout_seconds) as response:
             content_type = response.headers.get_content_type()
             body = response.read()
@@ -618,12 +628,19 @@ def forward_native_responses(
                 f"expected {expected_upstream_model!r}"
             )
             raise RuntimeError(error_text)
+        if capture_directory is not None:
+            capture_metadata = finish_capture(capture_directory, body, content_type,
+                                             request_id, task_id, config.api_key)
     except HTTPError as error:
         detail = error.read().decode("utf-8", errors="replace")[:2000]
         error_text = f"DeepSeek HTTP {error.code}: {detail}"
+        if config.capture_public_payloads:
+            error_text = redact(error_text, config.api_key)
         raise RuntimeError(error_text) from error
     except URLError as error:
         error_text = f"DeepSeek transport error: {error.reason}"
+        if config.capture_public_payloads:
+            error_text = redact(error_text, config.api_key)
         raise RuntimeError(error_text) from error
     except Exception as error:
         error_text = f"{type(error).__name__}: {error}"
@@ -631,7 +648,9 @@ def forward_native_responses(
             partial_body = error.partial
         raise
     finally:
-        if error_text and config.fail_closed_on_provider_error:
+        if config.capture_public_payloads and error_text:
+            error_text = redact(error_text, config.api_key)
+        if error_text and (config.fail_closed_on_provider_error or config.capture_public_payloads):
             with config.state_lock:
                 config.halted_error = error_text
         finished_at = datetime.now(timezone.utc)
@@ -654,7 +673,7 @@ def forward_native_responses(
                     price_band=price_band,
                 )
                 if usage
-                else None
+                else 0.0 if config.capture_public_payloads and not upstream_dispatched else None
             ),
             "price_band": price_band,
             "error": error_text,
@@ -684,7 +703,15 @@ def forward_native_responses(
             ),
             "wall_seconds": time.monotonic() - started,
         }
-        if error_text and config.fail_closed_on_provider_error and config.ledger_path:
+        if capture_metadata is not None:
+            record['public_capture'] = {**capture_metadata,
+                'relative_path':str(capture_directory.relative_to(config.ledger_path.parent))}
+        elif config.capture_public_payloads:
+            record['public_capture'] = {'complete':False, 'request_id':request_id,
+                                       'reason':'Request/response capture did not complete'}
+        if config.capture_public_payloads:
+            record['upstream_dispatched'] = upstream_dispatched
+        if error_text and config.fail_closed_on_provider_error and config.ledger_path and not config.capture_public_payloads:
             directory = config.ledger_path.parent/'provider_failure_evidence'/request_id
             directory.mkdir(parents=True,exist_ok=True)
             request_bytes = json.dumps(request_payload,ensure_ascii=False).encode('utf-8')

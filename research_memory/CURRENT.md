@@ -1,5 +1,68 @@
 # Current Research State
 
+## Frozen repaired78 full validation20 COMPLETE (2026-10-09)
+
+User requests overall validation. DeepSeek V4 Pro/max/600s/two workers,
+same frozen old/revised78 packages and permissions/capture, costs record-only.
+Reuse completed four-task eight episodes; add remaining16x2=32, total20x2=40.
+Report prior-development4 and remaining16 separately; no tuning/retraining,
+forced reads, ordinary retries or sealed-test access. Existing banks/results
+immutable; parent Astra method approval reused, new scope user-authorized.
+Only orchestration/result-count metadata extended, original driver snapshotted.
+Entry:experiments/20261008-234208-frozen-repaired78-full-validation20-continuation/.
+External:VERUS_SKILL_RUN_ROOT/skillopt-verusage/full-validation20-20261008-6kHSjI/.
+Session8424 complete2026-10-09T06:09:36Z,32 new plus8 parent=40 accounted.
+Old15/20 versus revised16/20 dual-pass; five/four600s timeouts, no API failures.
+Remaining16 old11/16,new12/16; prior4 both4/4.15 both-pass,one gained filtered-
+sequence task62ff0a3cf2c458b36ac8,zero old-only passes,four both-timeout.
+Old/new total prompttokens30081083/24188312 (cached repeats included),
+completion512492/396488, actorseconds6477.041/5063.193, USD2.591690/1.944083.
+1178 total calls, USDestimate4.535772824, unknown costs0, bridge drained.
+Remaining16 cost improvement about10%, versus64% prior4; full20 about25%.
+Only2/20 new body-reading episodes versus10/20 old, index influence unknown.
+No causal card/general efficiency/robust solved-rate gain claim; validation
+development, mixed package changes/cache/order/price bands/exploration caveats.
+All970 new capture hashes/all32 public exports and frozen inputs checked exact;
+REPORT.md/full_validation_summary.json/full_traces durable. Raw/sealed unchanged.
+Next:user-directed matched failure/card-use analysis, no further paid work queued.
+
+## Card repair and reviewer-gated validation COMPLETE (2026-10-08)
+
+User authorizes six TODO implementations and reasonable Astra review, followed
+by validation development tests if approved; material uncertainties asked
+immediately. New external version, frozen banks/results unchanged, no sealed
+test or retraining. Default plan four fixed validation tasks,old-v-new once each
+(eight episodes),Pro/max/600s,two workers,fees recorded without artificial cap.
+No forced retrieval or gain claim. Reasonable practical approval, not paper gate.
+Opt-in capture records public provider payloads honestly, no hidden thinking.
+Entry/PLAN/CHECKLIST:
+experiments/20261008-195632-reviewed-card-repair-short-routing-full-provider-capture-and-validation-smoke/.
+External: VERUS_SKILL_RUN_ROOT/skillopt-verusage/card-repair-validation-20261008-3gtA3H/.
+Implemented eight body corrections/all78 short descriptions, strict shared
+field parser, exact-vstd opt-in permission and private public-provider capture/
+honest exporter.769 selected regressions pass; all78 deployed reads exact,
+70 bodies untouched. Entrypoint35342->11545 UTF8bytes, NOT token/gain claim.
+Astra final APPROVE_WITH_NONBLOCKING_NOTES,zero blockers; independently27 tests
+and all contract hashes/78 descriptions/bodies checked,071/072 signatures match.
+All8 approved episodes completed exit0,V2_TRACE, no timeout/retry; old and new
+both4/4 dual-pass.208 metered requests, USDestimate0.99800448, unknown/errors0.
+Old/new prompt tokens5854198/1499842 (includes repeated cached prefixes),
+completion85775/30569, summed actorseconds1027.188/381.056. Lower observed
+development resources only; no general/causal efficiency or solved-rate gain.
+Package changes permissions/bodies/index; cache/order/exploration not isolated.
+All208 public captures hash-exact,8 full exports,319237 real public reasoning
+delta characters; hidden thinking/wire bytes/CLI-to-API association not invented.
+New599 reads052 only after first dual pass; othernew3 read no bodies, so no live
+071/072 adoption claim. Oldserialization eventually finds same existing lemma
+via own compiler logs; new uses actual installed-source contracts. Exposure is
+not causal use. All640 capture/export files upstream-key-free, reviewed source
+hashes exact, no newly added bypass tokens, bridge drained, raw/sealed untouched.
+REPORT.md/summary.json/full_traces/ and astra-review/ durable under external root.
+Next: user-directed larger/controlled evaluation only; don't restart paid work.
+Nonblocking018 Validate combined wording and repeated-todo timestamp caveat
+recorded; frozen run not mutated to clean these. No commit/push this task.
+Dedicated experiment/artifact APIs unavailable; local hash-bound fallback.
+
 ## Recent research publication in five themes (2026-10-07)
 
 User requested at most five commits of recent work, not a push or new fixes.

@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 
 import pytest
+from skillopt_verusage.provider_capture import start_capture, finish_capture
 
 
 spec = importlib.util.spec_from_file_location('export_codex_transcript',
@@ -62,3 +63,29 @@ def test_export_refuses_overwrite_and_outside_run_root(tmp_path, monkeypatch):
     module.export_transcript(episode, ledger, tmp_path/'export')
     with pytest.raises(FileExistsError):
         module.export_transcript(episode, ledger, tmp_path/'export')
+
+
+def test_provider_round_export_binds_actual_payloads_without_inventing_step_reasoning(tmp_path, monkeypatch):
+    monkeypatch.setenv('VERUS_SKILL_RUN_ROOT', str(tmp_path))
+    episode, ledger, _ = fixture(tmp_path)
+    incoming = {'instructions':'Actual CLI instructions', 'input':[], 'tools':[]}
+    directory = start_capture(tmp_path/'provider_capture', 'request-1', incoming,
+                              {**incoming, 'model':'deepseek-v4-pro'}, 'fixture-secret')
+    body = json.dumps({'id':'response-1','status':'completed', 'output':[
+        {'type':'reasoning','summary':[{'text':'Actual public reasoning'}]},
+        {'type':'function_call','name':'apply_patch','call_id':'call-1','arguments':'Actual patch'}]}).encode()
+    metadata = finish_capture(directory, body, 'application/json', 'request-1', 'demo', 'fixture-secret')
+    row = {'task_id':'demo', 'request_id':'request-1', 'started_at_utc':'start', 'finished_at_utc':'finish',
+           'public_capture':{**metadata,'relative_path':'provider_capture/request-1'}, 'attempts':[]}
+    ledger.write_text(json.dumps(row)+'\n')
+    packet = module.export_transcript(episode, ledger, tmp_path/'export')
+    assert packet['completeness']['public_provider_payloads_complete'] is True
+    assert packet['completeness']['full_provider_conversation_complete'] is False
+    assert packet['provider_transcripts'][0]['request']['incoming'] == incoming
+    assert all(s['visible_reasoning'] is None for s in packet['steps'])
+    markdown = (tmp_path/'export/full_trace.md').read_text()
+    assert 'Actual public reasoning' in markdown and 'Actual patch' in markdown
+    assert 'not an inferred CLI step association' in markdown
+    (directory/'response.txt').write_text('changed')
+    with pytest.raises(ValueError, match='hash mismatch'):
+        module.export_transcript(episode, ledger, tmp_path/'bad-export')

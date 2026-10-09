@@ -47,8 +47,8 @@ def _require_external_output(out_dir: Path) -> Path:
     return resolved
 
 
-def build_prompt() -> str:
-    return """Solve the Verus proof task in candidate.rs from scratch.
+def build_prompt(*, installed_library_root: Path | None = None) -> str:
+    prompt = """Solve the Verus proof task in candidate.rs from scratch.
 
 Visibility and editing rules:
 - Treat input.rs as immutable and edit only candidate.rs.
@@ -71,6 +71,31 @@ Proof rules:
 Leave the complete best candidate in candidate.rs. In the final response,
 report verification status and strategies attempted. Do not omit failed steps.
 """
+    if installed_library_root is not None:
+        root = str(installed_library_root)
+        if not installed_library_root.is_absolute() or any(c in root for c in '\n\r`'):
+            raise ValueError('invalid installed-library root')
+        prompt = prompt.replace(
+            '- Do not inspect files outside this workspace, repository history, prior runs,',
+            '- Outside this workspace, you may inspect only the installed vstd source\n'
+            f'  directory `{root}` read-only, including its source subdirectories.\n'
+            '  This exception does not permit editing library files or following symlinks\n'
+            '  outside that directory. Do not inspect any other outside files, repository history, prior runs,')
+    return prompt
+
+
+def approved_library_root(root: Path | None, isolation: ActorIsolationConfig | None,
+                          contract_profile: str) -> Path | None:
+    if root is None:
+        return None
+    if isolation is None or contract_profile != 'project':
+        raise ValueError('installed-library permission requires isolated project profile')
+    resolved = root.resolve()
+    tool_root = isolation.verus_root.resolve()
+    if (resolved != (tool_root/'vstd').resolve() or tool_root not in resolved.parents
+            or not resolved.is_dir()):
+        raise ValueError('installed-library permission must name the isolated vstd directory')
+    return resolved
 
 
 def build_cross_provider_prompt(
@@ -445,7 +470,9 @@ def run_codex_smoke(
     reference_proof_source: Path | None = None,
     continuation_instructions: str | None = None,
     reference_kind: str = "original_final",
+    installed_library_root: Path | None = None,
 ) -> dict[str, Any]:
+    installed_library_root = approved_library_root(installed_library_root, actor_isolation, contract_profile)
     out_dir = _require_external_output(out_dir)
     codex_bin = _require_executable(codex_bin, "codex")
     verus_bin = _require_executable(verus_bin, "verus")
@@ -469,7 +496,7 @@ def run_codex_smoke(
             lynette_bin=lynette_bin,
         )
         if contract_profile == "cross_provider_20260819"
-        else build_prompt()
+        else build_prompt(installed_library_root=installed_library_root)
     )
     if initial_candidate_source is None and reference_proof_source is not None:
         raise ValueError("reference requires a checkpoint")
@@ -648,6 +675,7 @@ exec "{lynette_bin}" compare -t input.rs candidate.rs
         "show_raw_agent_reasoning": show_raw_agent_reasoning,
         "timeout_seconds": timeout_seconds,
         "contract_profile": contract_profile,
+        "installed_library_read_root": str(installed_library_root) if installed_library_root else None,
         "provider": {
             "id": provider_id,
             "base_url": provider_base_url,

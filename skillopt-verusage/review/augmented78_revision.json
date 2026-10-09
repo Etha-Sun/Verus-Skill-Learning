@@ -1,0 +1,122 @@
+{
+  "schema_version": "reviewed-card-revision-v1",
+  "source_bank_sha256": "c58d2d38d202ce638781ac1faaa25b61aa8ae10f9233eb04535da3b9c5d3e139",
+  "scope": "Manual engineering corrections and routing; not retraining or measured benefit",
+  "observed_verus_version": "0.2025.09.12.bb1f342",
+  "field_updates": {
+    "card-006": {
+      "Action": "For a quantified proof assertion with the missing-antecedent diagnostic, use the dedicated proof implication operator named implies by the current Verus diagnostic, or explicitly branch on the antecedent before deriving the consequent. Check nested assertions separately; do not rewrite unrelated specification implications.",
+      "Avoid when": "The antecedent is already available or the failure needs another logical premise. The operator behavior was observed in Verus 0.2025.09.12.bb1f342; confirm the current diagnostic and language support rather than assuming the behavior in every version."
+    },
+    "card-015": {
+      "Action": "Distinguish an actual method from a field storing a function. Call methods normally; select a function-valued field before applying it. Separately, if a quantified proof assertion lacks its antecedent, use the diagnostic's dedicated proof implication operator, named implies in the observed version, or an explicit conditional guard before deriving the conclusion.",
+      "Avoid when": "The diagnostic is not a method-versus-field or missing-antecedent error. The implication behavior was observed in Verus 0.2025.09.12.bb1f342; confirm current diagnostics before changing syntax, and do not alter specification meaning."
+    },
+    "card-018": {
+      "Action": "If the proof body lacks an implication antecedent, use the dedicated proof implication operator named implies by the current diagnostic, or explicitly branch on the antecedent. If the error instead concerns trigger inference, annotate a relevant atomic witness term or per-witness entailment term that mentions the bound variable. Recheck these two diagnoses independently; neither repair is automatically needed for the other.",
+      "Avoid when": "No missing-antecedent or trigger-inference diagnostic is present, or the proof lacks a genuine logical premise. The implication behavior was observed in Verus 0.2025.09.12.bb1f342; check the installed language before selecting that operator."
+    },
+    "card-023": {
+      "Action": "Use the quantified binder directly rather than shadowing it with a new symbol. If the proof block does not assume its implication antecedent, use the dedicated proof implication operator named implies by the current diagnostic, or explicitly branch on that antecedent before any operation requiring it.",
+      "Avoid when": "The needed index or bound premise is genuinely absent, or there is no binder-scope or missing-antecedent issue. The implication behavior was observed in Verus 0.2025.09.12.bb1f342; confirm current diagnostics rather than rewriting arbitrary implications."
+    },
+    "card-057": {
+      "Action": "Treat trigger inference and missing antecedents as separate diagnostics. For a missing antecedent, use the dedicated proof implication operator named implies in the current diagnostic or branch explicitly on the antecedent. For trigger inference, annotate the predicate application on the quantified state or suffix that later instantiation actually needs. Rerun before deciding whether the other repair is also necessary.",
+      "Avoid when": "The proof failure requires a new logical premise rather than either reported diagnostic. The implication behavior was observed in Verus 0.2025.09.12.bb1f342; confirm local syntax and the current warning. Successful-proof warning cleanup alone is not evidence that these steps were needed to construct the proof."
+    },
+    "card-069": {
+      "Action": "Prove the implication through an equivalent disjunction and branch explicitly on the antecedent inside the quantified proof. Under that branch, derive the consequent from the antecedent. Alternatively, when the current diagnostic confirms it, use the dedicated proof implication operator named implies in the observed Verus version and check that the antecedent warning disappears. These are alternative routes, not mandatory combined steps.",
+      "Avoid when": "The antecedent is already available and a different premise is missing. The dedicated operator behavior was observed in Verus 0.2025.09.12.bb1f342; confirm current language support. Do not use a missing-helper guess as evidence that either logical strategy is impossible."
+    },
+    "card-071": {
+      "Action": "Inspect the existing combinator contracts and establish stability of each always-wrapped temporal conjunct. The always-stability rule takes the inner temporal predicate, not an already-always-wrapped conjunct. If a component starts as a state predicate, keep its lifting to temporal form. Combine the resulting stability facts in the target's left-nested order, using the existing chaining helper or explicit pairwise rules.",
+      "Why": "Stability is required for the temporal conjuncts that actually occur in the target. Matching the inner predicate and the conjunction association lets the existing rules supply those exact stability facts."
+    },
+    "card-072": {
+      "Trigger": "An always-stability rule was given a temporal predicate already wrapped in always, and the following conjunction-stability call fails its precondition because the resulting stable form has an extra always wrapper.",
+      "Action": "Pass the inner temporal predicate to the always-stability rule, removing the extra always wrapper but retaining the state-to-temporal lifting when the component began as a state predicate. Then combine stability of the intended always-wrapped conjuncts in the target's left-to-right association.",
+      "Why": "The rule establishes stability of always applied to its temporal argument. Passing an already-always-wrapped argument proves a nested always form instead of stability of the intended conjunct. Raw state predicates still need lifting to the required temporal argument type.",
+      "Avoid when": "The rule does not take an inner temporal predicate or its contract intentionally expects another wrapper shape. Inspect the exact local contract; do not remove state-to-temporal lifting or claim a type-layer repair is sufficient when other conjunction premises are missing."
+    }
+  },
+  "index_descriptions": {
+    "card-001": "Known library algebraic obligation; inspect and reuse a lemma with matching conclusion and premises.",
+    "card-002": "Set or image equality without a matching lemma; membership extensionality and reverse-direction witnesses.",
+    "card-003": "Marshalable values with equal serialization; use an existing trait bridge to view equality.",
+    "card-004": "Record equality from pointwise-equal function fields; first try a local field-equality assertion.",
+    "card-005": "Direct function-field equality fails and helpers are unavailable; consider built-in extensional equality.",
+    "card-006": "Quantified proof lacks its antecedent: diagnostic-guided implication operator or explicit branch; not trigger inference.",
+    "card-007": "Weak-fairness liveness remains open; separate pointwise precondition, action outcome and post-state preservation proofs.",
+    "card-008": "Eventual action is known but post-state existence fails; choose an occurrence and instantiate its state consequence.",
+    "card-009": "Raw-state witness exists at a shifted index; bridge it to nested-suffix eventual satisfaction.",
+    "card-010": "Empty temporal invariant proof; establish initialization and every transition's preservation through existing induction.",
+    "card-011": "Network multiset updates; separate surviving old messages from newly sent messages for invariant preservation.",
+    "card-012": "Controller must not send to its external system; analyze reconciler branches and lift request-kind safety.",
+    "card-013": "Nonunique enabled-step witness invalidates result equality; reuse universal safety for the supplied host result.",
+    "card-014": "Nested always postcondition; unfold suffix satisfaction and reuse an existing forward-shift helper.",
+    "card-015": "Mixed proof diagnostics: distinguish method/function-field syntax from missing quantified antecedents before repairing.",
+    "card-016": "Message-existential leads-to goal with per-witness lemmas; match predicate templates and existential lifting.",
+    "card-017": "Finiteness of a fold-produced set; induct on finite input cardinality and preserve finiteness on insertion.",
+    "card-018": "Witness or per-witness assertion reports trigger inference or missing antecedent; diagnose and repair each separately.",
+    "card-019": "Fuel reveal rejected for a nonrecursive spec wrapper; consider a recursive proof helper for its underlying fold.",
+    "card-020": "Predicate equals its conjunction with an entailed predicate; establish mutual entailment using existing rules.",
+    "card-021": "Opaque fixed-width serialization length; require matching open counterpart and connector before transferring length.",
+    "card-022": "Generic fold lemmas fail to connect concrete bounds; use specialized recursive element and serialization facts.",
+    "card-023": "Quantified bounds unavailable: check binder shadowing and antecedent scope before calling dependent helpers.",
+    "card-024": "Verification passes but module-scope proof directive breaks preservation; consider placing it inside proof bodies.",
+    "card-025": "Always-lifted action premise must hold on every suffix; invoke the existing unfolding helper.",
+    "card-026": "Compound stability includes universal fairness/action obligations; prove instances, lift quantifiers, then combine conjuncts.",
+    "card-027": "Specialized fairness action causes binder-type mismatch; quantify only the remaining payload, keeping identifiers fixed.",
+    "card-028": "Pointwise record equality encounters function-field syntax or trigger errors; fix projection/application and quantifier triggers.",
+    "card-029": "Temporal equality with universal and always operators; existing commutation helpers and reflexive entailment premises.",
+    "card-030": "Phase-descent precondition mismatches the base bundle; bridge recursive phase accumulation before descending.",
+    "card-031": "Final liveness theorem with existing invariant, stability and phase helpers; assemble their premise-compatible chain.",
+    "card-032": "Existential leads-to intermediates with witness-specific helpers; lift witnesses and compose intermediate entailments.",
+    "card-033": "Existential temporal equality with available equality/witness rules; prove both entailments and introduce witnesses explicitly.",
+    "card-034": "Actual trigger-inference error in assertion or witness choice; annotate a relevant bound-variable term, then recheck.",
+    "card-035": "Counting loop lacks termination measure; remaining iterations plus index bounds may discharge termination.",
+    "card-036": "Loop-body call loses function-entry assumptions; carry necessary facts and entry-state snapshots as invariants.",
+    "card-037": "Whole-sequence property fails at one loop index; instantiate it through an in-bounds element helper.",
+    "card-038": "Verus passes but preservation rejects borrow/ghost-return shape; retain original executable call and return structure.",
+    "card-039": "Temporal proof at arbitrary natural offset; recursive induction and extensional execution equality bridges.",
+    "card-040": "Natural predecessor assignment has integer type; prove positive-index branch and convert the nonnegative predecessor.",
+    "card-041": "Packet-prefix loop set invariant fails; track emitted views, inherited facts and index-step set updates.",
+    "card-042": "Verified proof fails executable-shape comparison; restore original names, bindings, branches and statement order.",
+    "card-043": "Equal views must imply marshalability equality; first try existing view-equality and trait-lemma bridges.",
+    "card-044": "Marshalability bridge unavailable or cannot instantiate; constructor cases and per-field view/serialization facts.",
+    "card-045": "Always-conjunction stability using explicit rules; pass each inner temporal predicate and match left association.",
+    "card-046": "Constructor/deserializer success lacks representation bridge; use an existing round-trip fact before moving its input.",
+    "card-047": "Existing stabilization macro expects lifted temporal arguments; preserve lifting, omit extra always and trailing separator.",
+    "card-048": "Finite-set fold must equal an image; cardinality induction in a proof helper preserving the original contract.",
+    "card-049": "Duplicate-free sequence removal must match set removal; index-shift witnesses and membership extensionality.",
+    "card-050": "Verified set equality fails preservation due imports/macros; qualified proof references or direct extensional reasoning.",
+    "card-051": "Leads-to transitivity with existing temporal helpers; combine eventual witnesses and align summed execution suffixes.",
+    "card-052": "Proof already verifies: optional automatic-trigger or implication-warning cleanup, not failed-proof construction.",
+    "card-053": "Length-prefixed injectivity; establish fixed-width header contract before pointwise header and sequence equality.",
+    "card-054": "Ghost aggregate must contain empty sequences/set; replace an unconstrained witness with a concrete ghost aggregate.",
+    "card-055": "Missing proof helper/macro and import-preservation risk; confirm a qualified path before editing.",
+    "card-056": "Empty temporal entailment proof; establish pointwise/suffix implication, then lift and instantiate supplied premises.",
+    "card-057": "Quantified state/suffix assertion has trigger or antecedent diagnostic; target later predicate instantiation without conflating repairs.",
+    "card-058": "Entailment/validity premise remains uninstantiated; assert its full implication at the concrete execution first.",
+    "card-059": "Ghost unwrap of uninterpreted conversion fails recommendations; reason through surrounding specs without extracting its value.",
+    "card-060": "Function field mistaken for method, followed possibly by trigger failure; project before applying, then diagnose triggers.",
+    "card-061": "Existential temporal reachability needs a time witness; use supported choice with a valid trigger term.",
+    "card-062": "Empty always-conjunction stability proof; inspect local rule/macro contracts before selecting the existing route.",
+    "card-063": "Fold over sequence concatenation: induct on the second sequence and use concatenation associativity.",
+    "card-064": "Alternative concatenated-fold route: existing split lemma plus a helper for a nonempty initial accumulator.",
+    "card-065": "Out-of-scope proof macro with unsafe top-level import; qualified invocation, then diagnose empty-sequence type inference.",
+    "card-066": "Generic sequence type mismatch; annotate empty element type or convert length to the expected index type.",
+    "card-067": "Sequence equality with a common appended suffix; prove lengths and indexed elements in both directions.",
+    "card-068": "Sequence-equality closure helper out of scope; qualified reference after its length and element premises hold.",
+    "card-069": "Missing antecedent inside quantified proof; explicit disjunction/branch route or diagnostic-supported implication operator.",
+    "card-070": "Single-versus-nested temporal operator equality; mutual entailment and pointwise suffix-index identities.",
+    "card-071": "Always-conjunction stability chain; preserve state lifting and combine the intended temporal conjuncts.",
+    "card-072": "Conjunction stability fails after an extra always wrapper; remove that wrapper, retaining state-to-temporal lifting.",
+    "card-073": "Initializer's abstract history must be empty but ghost source is arbitrary; choose a concrete empty history.",
+    "card-074": "Helper precondition fails under quantified implication; explicit antecedent branch before the dependent call.",
+    "card-075": "Public spec-function field used as a method; correct projection/application consistently across occurrences.",
+    "card-076": "Recursive helper loses quantified suffix-stability facts; expand aliases and instantiate its precise hypotheses.",
+    "card-077": "Universal equivalence has different bodies; establish pointwise equivalence, then triggers or directional lemmas.",
+    "card-078": "Library operation facts inactive in pointwise proof; inspect allowed definitions and existing broadcast groups."
+  }
+}

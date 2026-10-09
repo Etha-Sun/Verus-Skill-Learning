@@ -97,9 +97,7 @@ def build_bundle(bank_path: Path, seed_path: Path, destination: Path, *, autonom
     for card in cards:
         if set(card) != {"id", "content"}:
             raise ValueError("deployable card must not expose evidence sidecars")
-        for label in ("Trigger", "Action", "Why", "Validate", "Avoid when"):
-            if not card_search.field(card["content"], label):
-                raise ValueError(f"card missing {label}")
+        card_search.validate_fields(card["content"])
     if index_descriptions is not None:
         if set(index_descriptions) != set(ids) or any(
             not isinstance(text, str) or not text.strip() or len(text.splitlines()) != 1

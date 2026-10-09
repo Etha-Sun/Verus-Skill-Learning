@@ -36,6 +36,30 @@ def export_transcript(episode: Path, ledger: Path, output: Path):
     key = manifest['bridge']['task_key']
     calls = [json.loads(line) for line in read(ledger).splitlines() if line.strip()]
     calls = [call for call in calls if call.get('task_id') == key]
+    provider_transcripts = []
+    for call in calls:
+        capture = call.get('public_capture') or {}
+        if not capture.get('complete'):
+            continue
+        relative = capture.get('relative_path')
+        if relative != f"provider_capture/{call['request_id']}":
+            raise ValueError('Invalid provider capture path')
+        directory = (ledger.parent/relative).resolve()
+        if ledger.parent.resolve() not in directory.parents:
+            raise ValueError('Provider capture outside ledger directory')
+        metadata = json.loads(read(directory/'capture.json'))
+        if (metadata != {k:v for k,v in capture.items() if k != 'relative_path'}
+                or metadata['request_id'] != call['request_id'] or metadata['task_id'] != key):
+            raise ValueError('Provider capture binding mismatch')
+        request_text = read(directory/'request.json')
+        response_text = read(directory/'response.txt')
+        if (hashlib.sha256(request_text.encode()).hexdigest() != metadata['request_sha256']
+                or hashlib.sha256(response_text.encode()).hexdigest() != metadata['saved_response_sha256']):
+            raise ValueError('Provider capture hash mismatch')
+        provider_transcripts.append({'request_id':call['request_id'],
+            'started_at_utc':call['started_at_utc'], 'finished_at_utc':call['finished_at_utc'],
+            'metadata':metadata, 'request':json.loads(request_text),
+            'public_response_text':response_text})
     prompt = read(episode/'prompt.txt')
     validation = json.loads(read(episode/'validation.json'))
     boundary_states = {row['data']['boundary']:row for row in normalized
@@ -64,19 +88,28 @@ def export_transcript(episode: Path, ledger: Path, output: Path):
         steps.append(step)
     initial = boundary_states['initial']['data']
     initial_candidate = read(snapshot_file(initial['snapshot']))
-    gaps = ['Exact upstream request payloads and successful raw Responses/SSE bodies were not saved.',
-            'The host-authored initial user prompt is exact; CLI built-in system/tool instructions are not recorded here.',
-            'Completed CLI items are execution steps, not a reconstructed mapping to provider API rounds.',
-            'File-edit diffs are reconstructed from saved before/after states, not original patch-call arguments.']
+    public_complete = bool(calls) and len(provider_transcripts) == len(calls)
+    gaps = ['Completed CLI items are execution steps, not a reconstructed mapping to provider API rounds.',
+            'File-edit diffs are reconstructed from saved states; original patch arguments, if captured, '
+            'are retained separately in the provider stream, not inferred per CLI item.']
+    if not public_complete:
+        gaps += ['Some or all upstream request payloads and successful Responses/SSE bodies were not saved.',
+                 'The host-authored initial user prompt is exact; missing provider captures cannot recover CLI built-in instructions.']
+    if provider_transcripts:
+        gaps.append('Provider payloads are credential-redacted and JSON-normalized, not exact wire bytes. '
+                    'Opaque encrypted_content is omitted; only actual public reasoning is retained when returned.')
     reasoning_items = sum(step['raw_event']['item']['type'] == 'reasoning' for step in steps)
     if not reasoning_items:
-        gaps.append('No visible reasoning/thinking item was saved. Reasoning token usage does not recover its text.')
+        gaps.append('No CLI reasoning/thinking item was saved. Any captured public reasoning is shown '
+                    'per provider round, not inferred per execution step; usage alone never recovers text.')
     packet = {'schema_version':'stitched-codex-transcript-v1', 'initial_user_prompt':prompt,
               'initial_candidate':initial_candidate, 'run_manifest':manifest,
               'steps':steps, 'raw_cli_events':raw, 'provider_calls':calls,
+              'provider_transcripts':provider_transcripts,
               'independent_validation':validation, 'source_sha256':hashes,
               'completeness':{'saved_cli_payloads_complete':True,
                               'full_provider_conversation_complete':False,
+                              'public_provider_payloads_complete':public_complete,
                               'visible_reasoning_items':reasoning_items,
                               'gaps':gaps}}
     parts = ['# Stitched saved trace (not a complete provider transcript)\n',
@@ -109,6 +142,14 @@ def export_transcript(episode: Path, ledger: Path, output: Path):
               fence(json.dumps(calls, ensure_ascii=False, indent=2), 'json'),
               '## Runtime manifest\n', fence(json.dumps(manifest, ensure_ascii=False, indent=2), 'json'),
               '## Source hashes\n', fence(json.dumps(hashes, indent=2), 'json')]
+    for number, transcript in enumerate(provider_transcripts, 1):
+        parts += [f"## Provider round {number:02d} / {transcript['request_id']}\n",
+                  'This is a captured provider round, not an inferred CLI step association.\n',
+                  '### Actual incoming and forwarded request (redacted)\n',
+                  fence(json.dumps(transcript['request'], ensure_ascii=False, indent=2), 'json'),
+                  '### Actual public response, including returned reasoning and tool-call arguments\n',
+                  fence(transcript['public_response_text']),
+                  '### Capture binding and limitations\n', fence(json.dumps(transcript['metadata'], indent=2), 'json')]
     output = _require_run_child(output)
     output.mkdir(parents=True, exist_ok=False)
     (output/'full_trace.md').write_text('\n'.join(parts), encoding='utf-8')

@@ -10,6 +10,8 @@ import re
 
 
 STOP_WORDS = set("a an the is are to of in on and or for with by from as at it this that be when then only".split())
+FIELDS = ("Trigger", "Action", "Why", "Validate", "Avoid when")
+FIELD_LABEL = r"\*\*(?:" + "|".join(map(re.escape, FIELDS)) + r"):\*\*"
 
 
 def terms(text):
@@ -17,8 +19,15 @@ def terms(text):
 
 
 def field(content, label):
-    match = re.search(r"\*\*" + re.escape(label) + r":\*\*\s*(.*?)(?=\n\*\*|\Z)", content, re.S)
+    match = re.search(r"\*\*" + re.escape(label) + r":\*\*\s*(.*?)(?=" + FIELD_LABEL + r"|\Z)", content, re.S)
     return match.group(1).strip() if match else ""
+
+
+def validate_fields(content):
+    for label in FIELDS:
+        occurrences = len(re.findall(r"\*\*" + re.escape(label) + r":\*\*", content))
+        if occurrences != 1 or not field(content, label):
+            raise ValueError(f"card missing, empty or duplicate {label}")
 
 
 def search(cards, query, limit=3):
@@ -27,7 +36,8 @@ def search(cards, query, limit=3):
     docs = [Counter(terms(c["content"])) for c in cards]
     results = []
     for card, counts in zip(cards, docs):
-        title = card["content"].splitlines()[0].lstrip("# ")
+        heading = re.split(FIELD_LABEL, card["content"], maxsplit=1)[0].strip().lstrip("# ")
+        title = " ".join(heading.split()) or field(card["content"], "Trigger")
         trigger = field(card["content"], "Trigger")
         salient = set(terms(title + " " + trigger))
         score = sum((1 + math.log(counts[w])) * math.log(1 + len(cards) / (1 + sum(w in d for d in docs)))

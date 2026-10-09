@@ -16,11 +16,40 @@ from skill_evolution_pilot.codex_runner import (
     _run_complete,
     _verus_tool_manifest,
     build_command,
+    build_prompt,
+    approved_library_root,
     run_codex_smoke,
 )
 
 
 class CodexRunnerTest(unittest.TestCase):
+    def test_installed_library_permission_is_narrow_and_opt_in(self):
+        from skill_evolution_pilot.actor_isolation import ActorIsolationConfig
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            verus = root/'verus'; (verus/'vstd').mkdir(parents=True)
+            isolation = ActorIsolationConfig(root/'scratch', verus, root/'rust', 12345)
+            library = approved_library_root(verus/'vstd', isolation, 'project')
+            prompt = build_prompt(installed_library_root=library)
+            self.assertIn(str(library), prompt)
+            self.assertIn('read-only', prompt)
+            self.assertIn('following symlinks', prompt)
+            self.assertIn('credentials, or network resources', prompt)
+            self.assertIn('Never use assume, admit', prompt)
+            self.assertIn('Do not inspect files outside this workspace', build_prompt())
+            for bad in (verus, root, root/'answers'):
+                with self.assertRaises(ValueError):
+                    approved_library_root(bad, isolation, 'project')
+            with self.assertRaises(ValueError):
+                approved_library_root(library, None, 'project')
+            with self.assertRaises(ValueError):
+                approved_library_root(library, isolation, 'cross_provider_20260819')
+            (verus/'vstd').rmdir()
+            outside = root/'outside'; outside.mkdir()
+            (verus/'vstd').symlink_to(outside, target_is_directory=True)
+            with self.assertRaises(ValueError):
+                approved_library_root(verus/'vstd', isolation, 'project')
+
     def test_verus_manifest_hashes_the_real_rust_verify_implementation(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
