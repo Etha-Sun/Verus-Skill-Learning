@@ -138,6 +138,25 @@ def test_exposure_audit_does_not_count_started_twice_or_claim_application(tmp_pa
     assert audit['application_correctness']=='requires manual trace audit'
 
 
+def test_diagnostic_guidance_is_opt_in_and_preserves_card_channel(tmp_path, monkeypatch):
+    from skillopt_verusage.card_bank import DIAGNOSTIC_RETRIEVAL_GUIDANCE
+    monkeypatch.setenv('VERUS_SKILL_RUN_ROOT', str(tmp_path))
+    bank = tmp_path/'bank.json'
+    bank.write_text(json.dumps({'schema_version':'stage-card-bank-v1','cards':[sample_card()]}))
+    seed = tmp_path/'seed.md'; seed.write_text('Base skill\n')
+    baseline, guided = tmp_path/'baseline', tmp_path/'guided'
+    build_bundle(bank, seed, baseline, autonomous_retrieval=True)
+    build_bundle(bank, seed, guided, autonomous_retrieval=True, diagnostic_guidance=True)
+    assert DIAGNOSTIC_RETRIEVAL_GUIDANCE not in (baseline/'SKILL.md').read_text()
+    assert (guided/'SKILL.md').read_text().replace(DIAGNOSTIC_RETRIEVAL_GUIDANCE, '') == (baseline/'SKILL.md').read_text()
+    for name in ('cards.json', 'card_read.py'):
+        assert (baseline/name).read_bytes() == (guided/name).read_bytes()
+    assert 'fixed number' in (guided/'SKILL.md').read_text()
+    with pytest.raises(ValueError, match='autonomous'):
+        build_bundle(bank, seed, tmp_path/'invalid-guidance', diagnostic_guidance=True)
+    assert not (tmp_path/'invalid-guidance').exists()
+
+
 @pytest.mark.parametrize('autonomous_retrieval', [False, True])
 @pytest.mark.parametrize('heading, separator, expected_title', [
     ('', ' ', 'Verus passes but preservation fails.'),

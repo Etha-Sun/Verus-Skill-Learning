@@ -58,6 +58,34 @@ bulk-read cards.json or modify library files. Reading is optional and uses the
 normal task time and context budget.
 """
 
+DIAGNOSTIC_RETRIEVAL_GUIDANCE = """
+### When a card can help
+
+Treat the index as a map, not a replacement for a card's conditions. Consider
+reading a matching card before inventing an unfamiliar helper, choosing between
+proof strategies, or repeating an edit after the same obligation fails again.
+An unfamiliar diagnostic, uncertain lemma contract, or no clear next logical
+step is also a reason to consult the index. These are decision cues, not a
+mandatory stall detector or a requirement to read a fixed number of cards.
+
+Choose by the current failed obligation, available premises, and attempted
+action, not by a shared topic word alone. Read the selected card's full Trigger,
+Action, Validate and Avoid when before relying on its advice. A missing
+antecedent, missing trigger, and missing logical premise are different problems;
+similarly, raw state predicates, lifted temporal predicates and always wrappers
+are different types of argument. Check the exact current diagnostic and local
+helper contract. If adjacent cards suggest different routes, inspect the
+relevant alternatives rather than assuming the first match is applicable.
+
+After reading, briefly say which condition matches (or why you decline), try
+one justified proof-only change, and check its diagnostics and preservation.
+Do not keep rereading the same advice when a premise is absent. Prefer a known
+small repair or a confirmed local lemma without a card when that is sufficient;
+no matching card is a valid outcome. A warning after verification is optional
+cleanup, not a failed proof. Once both checks pass, stop unless cleanup is
+worth its cost. A card read or an index mention is not itself progress.
+"""
+
 AUTONOMOUS_CARD_READER = '''"""Read an agent-selected card ID without search or ranking."""
 import argparse
 import json
@@ -85,7 +113,9 @@ def _index_entry(card, description=None):
 
 
 def build_bundle(bank_path: Path, seed_path: Path, destination: Path, *, autonomous_retrieval=False,
-                 index_descriptions: dict[str, str] | None = None):
+                 index_descriptions: dict[str, str] | None = None, diagnostic_guidance=False):
+    if diagnostic_guidance and not autonomous_retrieval:
+        raise ValueError('diagnostic guidance requires autonomous retrieval')
     destination = _require_run_child(destination)
     bank = json.loads(bank_path.read_text())
     cards = bank.get("cards", [])
@@ -113,6 +143,8 @@ def build_bundle(bank_path: Path, seed_path: Path, destination: Path, *, autonom
     if index_descriptions is not None:
         instructions = instructions.replace("title and trigger", "title and routing description")
         instructions += '\nIndex descriptions are routing cues only. Read the full Trigger and Avoid when before acting.\n'
+    if diagnostic_guidance:
+        instructions += DIAGNOSTIC_RETRIEVAL_GUIDANCE
     (destination / "SKILL.md").write_text(seed_path.read_text().rstrip() + "\n" + instructions + index)
     deployed_bank = {"schema_version": bank["schema_version"], "cards": cards} if autonomous_retrieval else bank
     (destination / "cards.json").write_text(json.dumps(deployed_bank, ensure_ascii=False, indent=2) + "\n")

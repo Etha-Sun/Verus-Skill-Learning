@@ -60,5 +60,13 @@ def test_prepare_freezes_exactly_four_tasks_and_eight_episodes(tmp_path, driver,
     assert value['workers'] == 2 and value['timeout_seconds'] == 600
     assert value['reference_proof_supplied'] is False and value['ordinary_retry'] is False
     assert value['sealed_test_access'] is False
+    assert 'installed_library_conditions' not in value
     with pytest.raises(ValueError):
         driver.prepare(config,tmp_path/'old',tmp_path/'new',root)
+    expanded = tmp_path/'expanded'; expanded.mkdir()
+    value = driver.prepare(config,tmp_path/'old',tmp_path/'new',expanded,
+        task_ids=tuple(reversed(driver.TASKS)), installed_library_conditions=('old','revised'))
+    assert value['installed_library_conditions']==['old','revised']
+    assert [item['id'] for item in value['items']]==list(reversed(driver.TASKS))
+    with pytest.raises(ValueError, match='distinct validation'):
+        driver.prepare(config,tmp_path/'old',tmp_path/'new',tmp_path/'bad',task_ids=('unknown',))

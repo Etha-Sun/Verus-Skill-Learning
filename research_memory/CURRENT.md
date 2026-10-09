@@ -1,5 +1,29 @@
 # Current Research State
 
+## Augmentation utility and retrieval mechanism audit ACTIVE (2026-10-09)
+
+User requests macro/card/full-trace analysis, Astra review, baseline commit,
+minimal repairs and rerun. Prior version preserved first in commit3c39643.
+Entry:experiments/20261009-025529-augmentation-utility-retrieval-mechanism-audit-and-controlled-repair/.
+External:VERUS_SKILL_RUN_ROOT/skillopt-verusage/retrieval-mechanism-audit-20261009-i8ZabJ/.
+Root/independent census confirms old34body returns/10episodes,new2/2; all40
+issue SKILL read commands, endpoint exposure19old/20new; truncation caveat.
+Public reasoning explicitly cites unread024/038/042 index advice: index use
+exists, low body count is not proof of unused knowledge.052new is post-pass
+cleanup;031new overmatches a local liveness goal but is recognized as general.
+Historical augment question remains31/40original-only vs32/40augmented,
+CI[-5,+10]pp and worse joint-success resources. Latestold/new bothaugmented.
+All38 originals/114forks terminal dual-pass,17forkfinaltexts match original;
+71/78cards single-question-supported. No terminal mixed outcomes/causal claim.
+Implemented opt-in diagnostic retrieval cues, unchanged defaults/all78bodies/
+index/reader; no forced reads/top-k/retraining.774selected regressions pass.
+Prepared40contemporaneous validation episodes, same repaired78/vstd/Pro/max/
+600s/two workers; primary within-budget dual-pass, reads secondary not target.
+Astra implementation checks42hashes/40schedulepairs/byte-exact controls and
+37focused tests pass; waiting exact formal receipt before paid launch.
+Raw/sealed/legacy/frozen runs unchanged; costs record-only. Next: receipt,
+launch reviewed comparison, inspect declared six-case rubric and all outcomes.
+
 ## Frozen repaired78 full validation20 COMPLETE (2026-10-09)
 
 User requests overall validation. DeepSeek V4 Pro/max/600s/two workers,

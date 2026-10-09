@@ -40,7 +40,8 @@ def check_review(receipt, contract):
         raise ValueError('Live run requires Astra approval of this exact contract')
 
 
-def prepare(config_path, old, new, root):
+def prepare(config_path, old, new, root, *, task_ids=TASKS,
+            installed_library_conditions=('revised',)):
     config = json.loads(config_path.read_text())
     repo = Path(config['repo']).resolve()
     manifest = repo/'fixed-claude-stratified-80-seed20260814/val/items.json'
@@ -52,7 +53,11 @@ def prepare(config_path, old, new, root):
         for entry in artifacts[name]['files']:
             inputs[str(path.resolve()/entry['relative_path'])] = entry['sha256']
     sources = []
-    for ident in TASKS:
+    if not task_ids or len(set(task_ids)) != len(task_ids) or not set(task_ids) <= set(items):
+        raise ValueError('Expected distinct validation task IDs')
+    if not set(installed_library_conditions) <= {'old', 'revised'}:
+        raise ValueError('Unknown installed-library condition')
+    for ident in task_ids:
         item = items[ident]
         source = repo/item['source_path']
         if sha(source) != item['source_sha256']:
@@ -71,7 +76,7 @@ def prepare(config_path, old, new, root):
     inputs.update({config[key]:sha(config[key]) for key in ('codex_bin','verus_bin','lynette_bin')})
     catalog = Path(config['source_root'])/'models.json'
     inputs[str(catalog)] = sha(catalog)
-    schedule = [{'id':ident, 'condition':condition} for i,ident in enumerate(TASKS)
+    schedule = [{'id':ident, 'condition':condition} for i,ident in enumerate(task_ids)
                 for condition in (('old','revised') if i % 2 == 0 else ('revised','old'))]
     contract = {'schema_version':'card-revision-validation-dev-v1', 'items':sources,
         'schedule':schedule, 'model':'deepseek-v4-pro', 'reasoning_effort':'max',
@@ -81,6 +86,8 @@ def prepare(config_path, old, new, root):
         'public_provider_capture':True, 'reference_proof_supplied':False,
         'ordinary_retry':False, 'sealed_test_access':False, 'expense_policy':'record_only',
         'caveat':'Four purpose-selected analyzed validation tasks, package-level development comparison; not causal or independent confirmation.'}
+    if installed_library_conditions != ('revised',):
+        contract['installed_library_conditions'] = list(installed_library_conditions)
     if not root.is_dir() or (root/'validation_contract.json').exists():
         raise ValueError('Need a prepared external root and no prior validation contract')
     write_json(root/'validation_contract.json',contract)
@@ -164,7 +171,8 @@ def run(config, root, contract, *, expected_episodes=8):
                 actor_isolation_rust_root=Path(config['source_root'])/'toolchain',
                 actor_isolation_forbidden_paths=(repo,Path(os.environ['VERUS_SKILL_DATA_ROOT']),
                     Path(config['source_root'])/'rollout',Path(config['source_root'])/'train_items.json'),
-                installed_library_root=Path(contract['installed_library_root']) if condition=='revised' else None)
+                installed_library_root=Path(contract['installed_library_root'])
+                    if condition in contract.get('installed_library_conditions', ['revised']) else None)
             return {'condition':condition,'episode':str(out),'row':row}
 
         jobs = iter(contract['schedule'])
