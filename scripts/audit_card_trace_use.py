@@ -16,11 +16,26 @@ def audit_episode(episode):
     raw = episode/'codex_events.raw.jsonl'
     audit = audit_retrieval(raw)
     observations = []
+    first_verus_pass_line = None
+    body_read_phases = []
     for number,line in enumerate(raw.read_text().splitlines(),1):
         event = json.loads(line); item = event.get('item',{})
         if event.get('type') != 'item.completed' or item.get('type') != 'command_execution':
             continue
         command = item.get('command',''); output = str(item.get('aggregated_output',''))
+        verus_pass = bool(re.search(r'run_verus\.sh\s+candidate\.rs',command) and
+                          re.search(r'verification results::\s*\d+ verified,\s*0 errors',output))
+        for output_line in output.splitlines():
+            try:
+                payload = json.loads(output_line)
+            except ValueError:
+                continue
+            if isinstance(payload,dict) and payload.get('card_retrieval')==1 and 'content' in payload:
+                phase = ('after_first_visible_verus_pass' if first_verus_pass_line is not None else
+                         'same_command_as_verus_pass_order_unknown' if verus_pass else 'before_first_visible_verus_pass')
+                body_read_phases.append({'id':payload.get('id'),'line':number,'phase':phase})
+        if verus_pass and first_verus_pass_line is None:
+            first_verus_pass_line = number
         observations.append({'line':number,'item_id':item.get('id'),'command':command,
             'exit_code':item.get('exit_code'),
             'index_endpoints_visible':'- card-001:' in output and '- card-078:' in output,
@@ -36,11 +51,13 @@ def audit_episode(episode):
         'reader_invocations':[e for e in observations if e['reader_invocation_candidate']],
         'direct_bank_candidates':[e for e in observations if e['direct_bank_candidate']],
         'completed_commands':len(observations),
+        'first_visible_verus_pass_line':first_verus_pass_line,'body_read_phases':body_read_phases,
         'repeated_error_header_proxy':{k:v for k,v in failures.items() if v>1},
         'observations':observations,
         'limits':'Visible command/output audit only. Index endpoints do not prove every intervening line '
                  'was attended to. Repeated headers can refer to different obligations. '
-                 'No automatic semantic adoption or causal utility classification.'}
+                 'Read phases refer to observed verifier-pass text, not current candidate validity '
+                 'or dual validation. No automatic semantic adoption or causal utility classification.'}
 
 
 def main():

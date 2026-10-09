@@ -22,10 +22,13 @@ def audit(root, historical_summary):
                 'original_solved':bool(original['result']['proof_solved'] and original['result']['safety_passed']),
                 'fork_solved':[bool(t['result']['proof_solved'] and t['result']['safety_passed']) for t in traces[1:]],
                 'final_text_hashes':hashes,'distinct_final_texts':len(set(hashes)),
+                'checkpoint_kinds':{f['checkpoint']['checkpoint_id']:f['checkpoint']['kind'] for f in group['forks']},
+                'fallback_points':sum(bool(f['checkpoint'].get('fallback')) for f in group['forks']),
                 'fork_texts_equal_original':sum(h==hashes[0] for h in hashes[1:])})
     if len(groups)!=38 or len({g['source_task'] for g in groups})!=38:
         raise ValueError('Expected exactly38 unique training groups')
     support = {}
+    checkpoint_kinds = {g['source_task']:g['checkpoint_kinds'] for g in groups}
     for condition in ('original_only','augmented'):
         path = root/'banks'/condition/'provenance.json'
         bank = json.loads((path.parent/'cards.json').read_text())['cards']
@@ -38,16 +41,23 @@ def audit(root, historical_summary):
             sources = sorted({s for r in records for s in r['source_tasks']})
             refs = {ref for r in records for ref in r['evidence_refs']}
             kinds = sorted({'original' if ':original/' in ref else 'fork' for ref in refs})
+            referenced_points = {tuple(ref.split('/',1)[0].split(':')[1:]) for ref in refs
+                                 if ':original/' not in ref}
+            point_kinds = sorted({checkpoint_kinds[task][cp] for task,cp in referenced_points})
             cards.append({'id':card['id'],'source_tasks':sources,'source_count':len(sources),
-                          'reference_kinds':kinds,'reference_count':len(refs)})
+                          'reference_kinds':kinds,'referenced_checkpoint_kinds':point_kinds,
+                          'reference_count':len(refs)})
         support[condition] = {'card_count':len(cards),
             'source_count_histogram':dict(Counter(c['source_count'] for c in cards)),
             'reference_kind_histogram':dict(Counter('+'.join(c['reference_kinds']) for c in cards)),
+            'checkpoint_kind_combinations':dict(Counter('+'.join(c['referenced_checkpoint_kinds']) or 'no_fork_refs' for c in cards)),
             'cards':cards}
     historical = json.loads(historical_summary.read_text())
     return {'groups':groups,'training_totals':{'groups':len(groups),'forks':sum(len(g['fork_solved']) for g in groups),
         'originals_solved':sum(g['original_solved'] for g in groups),
         'forks_solved':sum(sum(g['fork_solved']) for g in groups),
+        'fallback_points':sum(g['fallback_points'] for g in groups),
+        'checkpoint_kind_histogram':dict(Counter(k for g in groups for k in g['checkpoint_kinds'].values())),
         'mixed_terminal_fork_groups':sum(len(set(g['fork_solved']))>1 for g in groups),
         'fork_texts_equal_original':sum(g['fork_texts_equal_original'] for g in groups),
         'distinct_final_texts_histogram':dict(Counter(g['distinct_final_texts'] for g in groups))},

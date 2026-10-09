@@ -15,14 +15,23 @@ Historical augment question remains31/40original-only vs32/40augmented,
 CI[-5,+10]pp and worse joint-success resources. Latestold/new bothaugmented.
 All38 originals/114forks terminal dual-pass,17forkfinaltexts match original;
 71/78cards single-question-supported. No terminal mixed outcomes/causal claim.
+Points84context-fallback/18platform/12compile-regression-after;73.7%fallback,
+so mixed-point augmentation not a clean stagnation-targeted intervention.
 Implemented opt-in diagnostic retrieval cues, unchanged defaults/all78bodies/
 index/reader; no forced reads/top-k/retraining.774selected regressions pass.
 Prepared40contemporaneous validation episodes, same repaired78/vstd/Pro/max/
 600s/two workers; primary within-budget dual-pass, reads secondary not target.
-Astra implementation checks42hashes/40schedulepairs/byte-exact controls and
-37focused tests pass; waiting exact formal receipt before paid launch.
-Raw/sealed/legacy/frozen runs unchanged; costs record-only. Next: receipt,
-launch reviewed comparison, inspect declared six-case rubric and all outcomes.
+Astra receipt APPROVE_WITH_NONBLOCKING_NOTES binds contractb0f3bb61...c737;
+42hashes/40schedulepairs/byte-exact controls and37focused tests pass.
+Repair commitb567aa3; session99922 launched40episodes, firstpairaded79905.
+Live handoff snapshot:3/40complete,failures[]; controladed410.5s/pass,
+guidedad79905 600.6s/ordinarytimeout,controla23a298.5s/pass. Partial, not a
+guidance-effect conclusion. Guideda23a/control3f17running; PID3871089alive.
+Actor timeout caused a downstream BrokenPipe log after client exit, but no
+upstream error/provider-invalid flag or scheduler halt; don't retry that episode.
+Driver continues the frozen40queue and automatically drains/exports/aggregates.
+Raw/sealed/legacy/frozen runs unchanged; costs record-only. Next: monitor
+reviewed comparison, then inspect declared six-case rubric and all outcomes.
 
 ## Frozen repaired78 full validation20 COMPLETE (2026-10-09)
 

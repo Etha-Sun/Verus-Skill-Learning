@@ -57,6 +57,18 @@ cite original+fork,18fork-only,7original-only;71single-question/7two-question.
 Historical31/40original-only versus32/40augmented remains inconclusive, interval
 [-5,+10]percentage points and higher joint-success resources. Recentold/new
 package results cannot substitute for this augmentation comparison.
+Stored points:84context_fallback,18joint_platform_start,12compile_regression_after;
+73.7%are fallback, not detected stalls.35cards have fallback-only fork refs,
+36include platform/regression fork refs,7no forks. Counts do not prove semantic
+contrast or utility. This is mixed-point augmentation, not pure stall targeting.
+Astra supplement independently confirms20/38groups allfallback,17/38same source
+hash across3contexts,7/18platforms unknownerrorcounts,minplatform107tokens.
+Distinctprefixes satisfy implementedcontract but are not distinctcodestates.
+Remaining platform labels are candidate proxies, not confirmed semantic stalls.
+Future offline selection replay should compare known-error/min-duration variants
+and point-kind-stratified contrast evidence before another paid learning run.
+031negativeapplicability and optional family navigation remain separate followups;
+do not change frozenbank/interface while currentcomparisonruns.
 
 Opt-in DIAGNOSTIC_RETRIEVAL_GUIDANCE is1644UTF8bytes. Default and all card/index/
 reader bytes remain unchanged; no card-specific learned policy or causal claim.
@@ -73,5 +85,26 @@ guidance-validation/ contains fresh versioned bundles, contract and eventual
 raw/public captures/full exports. Run command is scripts/validate_retrieval_guidance.py
 --config EXTERNAL_CONFIG --output EXTERNAL_GUIDANCE_ROOT --review EXACT_RECEIPT,
 using existing vrl Python/PYTHONPATH and approved run-root environment.
-Next: finish receipt gate, launch40episodes, retain null/negative evidence and
-compare appropriate use plus outcomes rather than maximize retrieval frequency.
+Receipt astra-review/implementation_review.json APPROVE_WITH_NONBLOCKING_NOTES
+binds the exact contract; full REVIEW.md/findings.json/IMPLEMENTATION_REVIEW.md
+record independent evidence and nonblocking semantic followups. Root read the
+review, agrees with evidence boundaries; source-bound files frozen during run.
+Repair implementation committed b567aa3. Session99922 launched40episodes,
+starting with contemporaneous old/revised aded79905 pair. Next: monitor, retain
+null/negative evidence and compare appropriate use plus outcomes rather than
+maximize retrieval frequency. No claim of successful rerun before completion.
+
+## Live handoff
+
+3/40complete,progressfailures[]; controladed79905dualpasses410.5s, guidedaded
+ordinary600.6s timeout, controla23adualpasses298.5s. Guided a23a/control3f17
+still running. PID3871089/session99922 remain active; frozen queue continues
+automatically, then drains provider requests, exports full public traces and
+writes summary.json/guidance_summary.json. No complete efficacy claim yet.
+An after-timeout client BrokenPipe appears in run.log, with no upstream provider
+error or invalid-provider outcome; preserve it, no ordinary retry or live patch.
+Two audit-stage unit tests pass; rerun actual training/raw-log scripts reproduces
+all counts. Offline stage is first visible verifier-pass text, not dual-validation
+or semantic-adoption attribution. CURRENT updated, memory index rebuilt; no
+raw/sealed/legacy/frozen output mutations. Generated indexes also contain older
+unpublished entries and are not staged wholesale with this scoped publication.
