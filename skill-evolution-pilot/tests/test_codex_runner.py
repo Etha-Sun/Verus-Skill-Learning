@@ -35,7 +35,7 @@ class CodexRunnerTest(unittest.TestCase):
             self.assertIn('read-only', prompt)
             self.assertIn('following symlinks', prompt)
             self.assertIn('credentials, or network resources', prompt)
-            self.assertIn('Never use assume, admit', prompt)
+            self.assertIn('Never introduce assume, admit', prompt)
             self.assertIn('Do not inspect files outside this workspace', build_prompt())
             for bad in (verus, root, root/'answers'):
                 with self.assertRaises(ValueError):

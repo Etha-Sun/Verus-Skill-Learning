@@ -62,7 +62,14 @@ Visibility and editing rules:
 Proof rules:
 - Preserve executable behavior, signatures, requires, ensures, and decreases.
 - Add or edit proof-only assertions, lemmas, invariants, triggers, and proof blocks.
-- Never use assume, admit, external_body, new axioms, or verification bypasses.
+- Never introduce assume, admit, external_body, new axioms, or verification bypasses.
+- Pre-existing trusted declarations in input.rs are supplied background:
+  preserve their attributes, signatures, contracts, and bodies. You may
+  call them through their existing contracts when their premises hold.
+  Repair the unverified target proof, not the supplied trusted background.
+- Fix parse, type/mode, and scope errors before changing proof strategy.
+  Make the smallest supported correction (ordinary assertions use
+  assert(condition);), then re-run Verus before expanding the proof.
 - Run `./tools/run_verus.sh` after edits and use its complete diagnostics.
 - Run `./tools/run_lynette.sh` before finishing.
 - Continue exploration until both checks pass or useful
