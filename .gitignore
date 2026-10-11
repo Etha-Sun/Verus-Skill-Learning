@@ -12,6 +12,7 @@ __pycache__/
 data-local/
 artifacts/
 runs/
+trace-experience-autoresearch/runtime
 tmp.txt
 WechatIMG221.jpg
 atlas-verusage-reproduction/runs/
