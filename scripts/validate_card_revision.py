@@ -33,6 +33,11 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def episode_key(job):
+    key = 'dev_'+job['condition']+'--'+job['id']
+    return key if 'repeat' not in job else key+'--repeat-'+str(job['repeat'])
+
+
 def check_review(receipt, contract):
     approval = json.loads(receipt.read_text())
     if (approval.get('decision') not in ('APPROVE', 'APPROVE_WITH_NONBLOCKING_NOTES')
@@ -154,7 +159,7 @@ def run(config, root, contract, *, expected_episodes=8):
     with bridge(config,root) as (settings,url,manifest):
         def episode(job):
             item = items[job['id']]; condition = job['condition']
-            key = 'dev_'+condition+'--'+item['id']; out = root/'episodes'/key
+            key = episode_key(job); out = root/'episodes'/key
             print(json.dumps({'phase':'starting','key':key}),flush=True)
             row = run_task(item_id=item['id'], source=Path(item['runtime_source']),
                 expected_source_sha256=item['source_sha256'], directory_group=item['directory_group'],
@@ -177,7 +182,7 @@ def run(config, root, contract, *, expected_episodes=8):
 
         jobs = iter(contract['schedule'])
         with ThreadPoolExecutor(max_workers=2) as pool:
-            pending = {pool.submit(episode,next(jobs)) for _ in range(2)}
+            pending = {pool.submit(episode,next(jobs)) for _ in range(min(2,len(contract['schedule'])))}
             while pending:
                 done,pending = wait(pending,return_when=FIRST_COMPLETED)
                 for future in done:

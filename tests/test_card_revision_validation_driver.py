@@ -1,7 +1,9 @@
 import importlib.util
+from contextlib import contextmanager
 import json
 from pathlib import Path
 import sys
+from types import SimpleNamespace
 
 import pytest
 
@@ -26,6 +28,39 @@ def test_review_gate_requires_exact_hash_and_reasonable_approval(tmp_path, drive
         receipt.write_text(json.dumps({'decision':decision,'contract_sha256':digest}))
         with pytest.raises(ValueError):
             driver.check_review(receipt,contract)
+
+
+def test_shared_runner_collects_single_job(tmp_path,driver,monkeypatch):
+    repo = tmp_path/'repo'; repo.mkdir(); (repo/'.env').write_text('')
+    monkeypatch.setenv('DEEPSEEK_API_KEY','test-no-network')
+    monkeypatch.setenv('VERUS_SKILL_DATA_ROOT',str(tmp_path/'data'))
+    source = repo/'input.rs'; source.write_text('proof input')
+    root = tmp_path/'run'; root.mkdir(); calls = []
+    ledger = root/'provider_calls.jsonl'; ledger.write_text('')
+    @contextmanager
+    def bridge(*args):
+        yield SimpleNamespace(ledger_path=ledger,halted_error=None),'mock','manifest'
+    def run_task(**kwargs):
+        calls.append(kwargs['bridge_task_key'])
+        kwargs['out_dir'].mkdir()
+        return {'bridge_task_key':kwargs['bridge_task_key'],'proof_solved':True,
+                'provider_valid':True,'fidelity':'V2_TRACE'}
+    monkeypatch.setattr(driver,'bridge',bridge)
+    monkeypatch.setattr(driver,'run_task',run_task)
+    monkeypatch.setattr(driver,'_bridge_usage',lambda *a:{})
+    monkeypatch.setattr(driver,'audit_retrieval',lambda *a:{})
+    monkeypatch.setattr(driver,'export_transcript',lambda *a:{'completeness':'mock'})
+    config = {k:str(tmp_path) for k in ('codex_bin','verus_bin','lynette_bin','scratch_root','source_root')}
+    config['repo'] = str(repo)
+    contract = {'input_hashes':{},'items':[{'id':'one','source_path':'input.rs',
+        'directory_group':'group','source_sha256':driver.sha(source)}],
+        'schedule':[{'id':'one','condition':'old','repeat':0}],
+        'bundle_paths':{'old':str(tmp_path)},'artifacts':{'old':{'artifact_sha256':'hash'}},
+        'model':'deepseek-v4-pro','caveat':'test'}
+    driver.run(config,root,contract,expected_episodes=1)
+    summary = json.loads((root/'summary.json').read_text())
+    assert calls==['dev_old--one--repeat-0']
+    assert summary['completed_episodes']==1 and not summary['failures']
 
 
 def test_prepare_freezes_exactly_four_tasks_and_eight_episodes(tmp_path, driver, monkeypatch):
