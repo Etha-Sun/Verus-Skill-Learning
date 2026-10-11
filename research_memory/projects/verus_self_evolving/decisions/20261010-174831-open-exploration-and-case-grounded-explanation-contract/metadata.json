@@ -1,0 +1,11 @@
+{
+  "title": "Open exploration and case grounded explanation contract",
+  "project": "verus_self_evolving",
+  "kind": "decisions",
+  "created_at": "2026-10-10T17:48:31",
+  "status": "brief_recorded_scope_and_budget_pending",
+  "links": [
+    "../../../../../trace-experience-autoresearch/RESEARCH_BRIEF.md"
+  ],
+  "raw_data_read_only": true
+}

@@ -94,7 +94,7 @@ starting with contemporaneous old/revised aded79905 pair. Next: monitor, retain
 null/negative evidence and compare appropriate use plus outcomes rather than
 maximize retrieval frequency. No claim of successful rerun before completion.
 
-## Live handoff
+## Historical live handoff (superseded by complete result below)
 
 3/40complete,progressfailures[]; controladed79905dualpasses410.5s, guidedaded
 ordinary600.6s timeout, controla23adualpasses298.5s. Guided a23a/control3f17
@@ -108,3 +108,50 @@ all counts. Offline stage is first visible verifier-pass text, not dual-validati
 or semantic-adoption attribution. CURRENT updated, memory index rebuilt; no
 raw/sealed/legacy/frozen output mutations. Generated indexes also contain older
 unpublished entries and are not staged wholesale with this scoped publication.
+
+## Complete result and paired failure analysis (2026-10-09)
+
+All40 completed, provider bridge drained, frozen inputs unchanged. Control16/20
+versus guided13/20 within-budget dual-pass; timeouts4/7;12both-pass,3both-fail,
+4losses and1gain.970calls, no upstream failures/provider-invalid outcomes,
+settled USD2.606243112/3.110040824. Guidance increases body-reading episodes1->5
+and returns3->13 but not primary success. Parent summary SHA256:
+b35746a4ad03b8f5efe0cbe6c6b79fae05d94b2b49ca03437f07c6e566391559.
+
+User asks whether lost tasks were misled or spent too long reading cards.
+Bounded offline analysis checks all20 pairs, all4 losses/1gain and all5guided
+body-reading episodes. Rubric: exposure/applicability/action/diagnostic/outcome;
+full raw commands/diffs/public reasoning retained, not read-count attribution.
+No API/model calls or source/card changes. New external failure-analysis/
+REPORT.md, paired_analysis.json and reproducible analyze.py bind parent hash
+and raw-CLI hashes/line/item anchors. Provider intervals unioned and clipped to
+actor windows; CLI item timing gaps not treated as subprocess durations.
+
+All4guided losses read no body and have no visible direct-bank access commands.
+aded fails exact negative-quantifier trigger matching; a23a expands unproved
+generic entail helpers and only proposes reading cards in the last request;
+3ce re-proves2given external-body lemmas unnecessarily then searches for imagined
+asserts;9b9f misses assert parentheses and misdiagnoses temporal syntax until
+~467s. Loss-set reasoning37382->120905, guided provider-active2345.54s out of
+2402.07actorseconds; includes generation/transport/serverwait, not pure thinking.
+Nine actual reader return commands report rounded0.0000s: no observed long
+file-reading delay. Body misinformation cannot directly explain zero-read
+losses, but visible index/guidance/prior knowledge and stochastic route effects
+remain possible. Shared task wording ambiguously forbids use of external_body
+rather than introduction;3ce interprets existing trusted background as forbidden.
+3ce toolchain searches exceed the allowedvstd subtree; no sealed access observed,
+but proof-only Lynette pass is not access-policy certification.
+
+Gainb9e:control56command items/no patch/timeout, guided10patches/12verifier
+commands/pass539.8s. Actualbody cases show useful050qualified-localmacro advice,
+correct001libraryreuse plus needless helperreproof,005function-field card
+overmatched to set-preservation,007broadplan/noedit, and appropriate rejection
+of071/062/045 absentpremises. Neither allreadsbad nor allcardscorrect is supported.
+
+Recommendation:not default-enable guidance based on this negative single run.
+Clarify givenbackground/targetscope, enforce diagnostic-first minimal syntax
+repairs and available-lemma reuse, make optional retrieval timely and narrower
+with absent-premise negatives. These are proposals, not fixes implemented in this
+analysis. Repeated isolated paired evaluation would be needed for causal claims;
+validation20 reused, no independent test result. Frozen bank/runs/raw/sealed/
+legacy unchanged. CURRENT updated and memory index rebuilt; no new paid run queued.

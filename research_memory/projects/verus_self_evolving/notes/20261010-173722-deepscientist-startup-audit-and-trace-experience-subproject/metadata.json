@@ -1,0 +1,11 @@
+{
+  "title": "DeepScientist startup audit and trace experience subproject",
+  "project": "verus_self_evolving",
+  "kind": "notes",
+  "created_at": "2026-10-10T17:37:22",
+  "status": "empty_service_healthy",
+  "links": [
+    "../../../../../trace-experience-autoresearch/README.md"
+  ],
+  "raw_data_read_only": true
+}

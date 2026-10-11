@@ -1,0 +1,102 @@
+{
+  "schema_version": "results-synthesis-evidence-v1",
+  "run_root_alias": "VERUS_SKILL_RUN_ROOT/skillopt-verusage",
+  "claim_types": {
+    "raw_metrics": "parsed from frozen summaries and result files",
+    "resource_deltas_and_task_matrix": "computed locally from those parsed records",
+    "trace_findings": "parsed bounded observations, not causal efficacy",
+    "next_steps": "hypotheses and recommendations, not implemented results"
+  },
+  "sources": {
+    "campaign": {
+      "path": "evaluation-resume-20261007-ri57is/analysis/hindsight-summary/summary.json",
+      "sha256": "91d0860a7eec7fbafa93760d122df51d22afc3a241b48712aa0447f02921f29f",
+      "trust": "trusted_complete_development_comparison",
+      "canonical_result_hashes_checked": 160,
+      "canonical_result_hash_mismatches": 0
+    },
+    "repair4": {
+      "path": "card-repair-validation-20261008-3gtA3H/summary.json",
+      "sha256": "1565bfdecf2d0fb0c1fa4e25a9ad538ae444883ff1b5febded2569261d0b9055",
+      "trust": "trusted_development_subset_included_in_repair20"
+    },
+    "repair20": {
+      "path": "full-validation20-20261008-6kHSjI/full_validation_summary.json",
+      "sha256": "b34afe5caa655db69c45df85e1aeb3a2e9d796fd46ae6922ab1de3a1c251cf65",
+      "trust": "trusted_complete_development_package_comparison"
+    },
+    "guidance": {
+      "path": "retrieval-mechanism-audit-20261009-i8ZabJ/guidance-validation/guidance_summary.json",
+      "sha256": "36c474b4682834bd9db52f38ac25b6f963c78cee99dc95d51a3b82d5ebd52e3a",
+      "trust": "trusted_complete_development_guidance_comparison"
+    },
+    "executive6": {
+      "path": "executive-pilot-20261009-NYYmFA/executive_summary.json",
+      "sha256": "ede98e6d27a40f65eecbdcca8db93f9e55e0d1357339b1222333fc7968e273c3",
+      "trust": "trusted_purpose_selected_pilot_not_general_confirmation"
+    },
+    "interrupted": {
+      "path": "executive-full-20261010-YUSsK2/full_executive_summary.json",
+      "sha256": "a1a880d30911aa026bbed162496f89069bc265d365c5309032aada8eb388116b",
+      "trust": "reference_only_incomplete_prefix_parked",
+      "warning": "Raw totals include invalid rows; use documented valid13pairs only, not full-result inference."
+    },
+    "executive20": {
+      "path": "executive-single-20261010-I5C6Z6/single_executive_summary.json",
+      "sha256": "e593abb0e88d2ce71c5d98e699761df9fd5478d47d5d79642dbb5ec635ceb220",
+      "trust": "trusted_complete_development_executive_comparison"
+    },
+    "prior_failure_analysis": {
+      "path": "retrieval-mechanism-audit-20261009-i8ZabJ/failure-analysis/paired_analysis.json",
+      "sha256": "a7403db9f752d0e364c52a381286081005c378aa61b5989b84df3ce6206b37c6",
+      "trust": "trusted_exhaustive_outcome_census_bounded_semantic_cases"
+    },
+    "augmentation_audit": {
+      "path": "retrieval-mechanism-audit-20261009-i8ZabJ/augmentation_audit.json",
+      "sha256": "f9a132d44723edef864423e6ea526b70996e81e5450fa4d2983869b495b8ede2",
+      "trust": "trusted_structural_provenance_audit_not_causal_value"
+    }
+  },
+  "new_trace_root": "executive-single-20261010-I5C6Z6/sessions/session-000/episodes",
+  "new_raw_trace_checks": {
+    "dev_old--a23a4969155913255f76--repeat-0": {
+      "raw_sha256": "f0bd47efcb671823511dc4c095ca8e0adfed00f92ca2ea193c7bd16fc090b14b",
+      "anchors": "raw lines35,40: library/antecedent syntax experiments; timeout result in selected summary"
+    },
+    "dev_revised--a23a4969155913255f76--repeat-0": {
+      "raw_sha256": "e22d95aa07d3422d91527feaf8bd690da25cf2380013761abaadecebb2000fbc",
+      "anchors": "raw28:3verified/0errors at416.5s;31:Lynette at430.1s;33-47:additional cleanup/checks;51:final"
+    },
+    "dev_old--b97aaebc64493c607210--repeat-0": {
+      "raw_sha256": "cdda09b9937f3d45365265886b69d89812e5922ce0ba884d0179d79b3a3f8413",
+      "anchors": "raw27:first Verus pass165.5s;34:Lynette195.5s"
+    },
+    "dev_revised--b97aaebc64493c607210--repeat-0": {
+      "raw_sha256": "fb685421614bdf030c2149fc629b8b28439e54aef4a49f5c92c41bd5e9e4ef66",
+      "anchors": "raw40:Verus392.3s;52:Lynette461.3s;53:proposes warning cleanup;57:invalid trigger478.9s;61:restored493.3s"
+    },
+    "dev_old--599792dd13f472f45fa4--repeat-0": {
+      "raw_sha256": "67d3e01aaaf1d97abdb9ce9920cabddf4a1e06f3ca455058641d41a857c2b871",
+      "anchors": "raw17/21/25:syntax errors;34:Verus118.5s;37:Lynette121.3s"
+    },
+    "dev_revised--599792dd13f472f45fa4--repeat-0": {
+      "raw_sha256": "5beb183c414931e4d96515a1512e1f582adeead38cd1e2c86fb448226304d5d3",
+      "anchors": "raw20/24/28/33:syntax errors through266.7s;44:Verus296.6s;57:Lynette330.8s"
+    },
+    "dev_old--33108254990fcf07c1e2--repeat-0": {
+      "raw_sha256": "7130699ccce0ae669c145ab8e4556ec08301f6a43fb09e8e22da5b073ee9935f",
+      "anchors": "raw16/38/50/54:failed assertions;60:Verus329.0s;64:Lynette337.1s;83:final bridge summary"
+    },
+    "dev_revised--33108254990fcf07c1e2--repeat-0": {
+      "raw_sha256": "c83aa0b1b7b9b07df73ee64d924a8c93f605840dcd521f99d6d4bea92b563c2c",
+      "anchors": "one completed file_change;raw18:Verus128.5s;21:Lynette134.9s;24:map_valid bridge summary"
+    }
+  },
+  "safety": {
+    "new_provider_calls": 0,
+    "production_or_prompt_or_card_edits": false,
+    "raw_or_sealed_or_frozen_run_edits": false,
+    "evidence_graph_api_available": false,
+    "fallback": "read-only shell/hash parsing plus canonical compact repository memory"
+  }
+}

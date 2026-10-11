@@ -1,0 +1,93 @@
+{
+  "date": "2026-10-10",
+  "status": "planning_only",
+  "raw_data_read_only": true,
+  "new_deepseek_calls": 0,
+  "external_review": {
+    "backend": "Claude CLI through ARIS command builder",
+    "status": "timeout",
+    "timeout_seconds": 180,
+    "configured_usd_ceiling": 1.0,
+    "settled_usage": "unknown"
+  },
+  "secondary_review": {
+    "family": "Codex same-family separate context",
+    "verdicts": [
+      "REVISE",
+      "READY_FOR_DIAGNOSTIC"
+    ],
+    "paid_execution_authorized": false
+  },
+  "aris_sources": {
+    "research_refine_skill_sha256": "f4ee9692357a1c3fed336c07625c876930470fbe983d18043a65142611490856",
+    "claude_review_bridge_sha256": "f5e13a5f13e360381108549a10a56b72a4f9732f0cfe5c1a09f089b5a800e76a"
+  },
+  "source_evidence": [
+    {
+      "path": "fixed-claude-stratified-80-seed20260814/split_manifest.json",
+      "sha256": "b9647679a832392a3368f3c83011076d3bd3ce70380f6c39cd7e2da3418436c3"
+    },
+    {
+      "path": "research_memory/projects/verus_self_evolving/notes/20261010-133959-deepseek-augmentation-card-and-executive-results-synthesis-through-october-10/ENTRY.md",
+      "sha256": "02400fb0a3e84dcde41edab04ad21c5073de571527d1c0de3244b558cc2e1da4"
+    },
+    {
+      "path": "research_memory/projects/verus_self_evolving/experiments/20260821-130358-skillopt-s1-s2-four-model-held-out-evaluation/ENTRY.md",
+      "sha256": "c72b52208b6a83ac843ec8eb6c3a71196d52d7daa5e80f8a0b79f0c2cc308a88"
+    }
+  ],
+  "planning_artifacts": [
+    {
+      "path": "CRITICAL_REVIEW.md",
+      "sha256": "261a6b1be5f688b04a5a77f52b9a11db37b49584d3fb37ff42d2c9739c8f9763"
+    },
+    {
+      "path": "CURRENT_BOARD.md",
+      "sha256": "774e06595657e144654b82b5bcea775ed25efd3615ef547cb10d50453615ee1e"
+    },
+    {
+      "path": "ENTRY.md",
+      "sha256": "0ff824c7c50ba9211cb8e28f0b9b720f617d90e98b74e45b2834d72d8eb9dc64"
+    },
+    {
+      "path": "FINAL_PROPOSAL.md",
+      "sha256": "b421d0db9ef64a43ed7441ef4cbe8bed6e64722e75284ba2221d9417eacf3888"
+    },
+    {
+      "path": "FINAL_PROPOSAL_20261010T211329Z.md",
+      "sha256": "b421d0db9ef64a43ed7441ef4cbe8bed6e64722e75284ba2221d9417eacf3888"
+    },
+    {
+      "path": "LITERATURE_AND_TOOL_AUDIT.md",
+      "sha256": "8c7bf10ea0f303db098a4ce86f7c9bc3e4822df206f12eb1d6047224dd616b99"
+    },
+    {
+      "path": "OBJECTIVE_CONTRACT.md",
+      "sha256": "624afd09ca49980b5fd96a65e67ec6aeab21287e11a5a5ab35b303f4b252a5ff"
+    },
+    {
+      "path": "PLAN_DRAFT.md",
+      "sha256": "2816b23ef3bd874d5a1e5265268614b29ed9825b27d715895401b63ff28d7c34"
+    },
+    {
+      "path": "REVIEW_RESPONSE.md",
+      "sha256": "8f8cb7d9fd6126076d48c567afbdde2d1809190fdbce10d2dd21f70c98575a42"
+    },
+    {
+      "path": "REVIEW_SUMMARY.md",
+      "sha256": "ce32422d23c48aaa2d3647d91135d198b01c5ec5e32b367f1cba93dac230dfec"
+    },
+    {
+      "path": "USER_BRIEF.md",
+      "sha256": "7c31403d7815b6133a4b02ad83537a7c9989d9fbbeca78d5dde19c1780f23937"
+    }
+  ],
+  "pending": [
+    "approved data/output root resolution",
+    "source/probe membership and ancestry",
+    "evidence coverage",
+    "operational token/call/skill budgets",
+    "concurrent spending enforcement",
+    "paid pilot launch scope"
+  ]
+}

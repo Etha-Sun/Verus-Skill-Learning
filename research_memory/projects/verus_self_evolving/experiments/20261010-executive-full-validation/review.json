@@ -1,0 +1,20 @@
+{
+  "decision": "APPROVE_WITH_NONBLOCKING_NOTES",
+  "contract_sha256": "82d382beb226c0f67c2e8720b0731edc6e107487e87fee3e1fa822265b6ff789",
+  "reviewer": "gpt-6-astra",
+  "scope": "80 fresh development episodes: validation20 x two Executive arms x two repeats under the corrected contract.",
+  "blocking_issues": [],
+  "rationale": [
+    "Independently verified the new contract SHA256 and all 48 input hashes.",
+    "Compared against the preserved prior contract: schedule, bundles, shared TASK, model, budgets, permissions and endpoint metadata are unchanged. Changed hash entries are limited to the audit script, wrapper and regenerated audit.",
+    "Verified the corrected audit handles stacked and alternate external-body attributes. All four b9e episodes now include all five trusted declarations, with zero detected changes.",
+    "Reverified all 1093 audit evidence hashes. The underlying 1020 snapshots and 24 final candidates remain unchanged.",
+    "The prior review's 80-cell schedule, matched methods, complete-matrix checks and settled-provider checks remain applicable.",
+    "Independently reran 13 focused tests successfully. No episodes had started during review."
+  ],
+  "nonblocking_notes": [
+    "Keep the nine pilot episodes with flagged operational commands separate from proof-preservation outcomes. Saved-command flags and snapshot checks do not certify complete filesystem-access compliance.",
+    "Confirm settled unknown_cost_requests is zero before claiming complete monetary accounting; the aggregation validity predicate does not explicitly require this.",
+    "Report pilot6, remaining14 and repeats separately. These are previously exposed validation problems, not untouched held-out confirmation or 80 independent problems."
+  ]
+}

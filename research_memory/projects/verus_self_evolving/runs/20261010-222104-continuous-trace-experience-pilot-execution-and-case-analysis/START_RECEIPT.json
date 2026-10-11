@@ -1,0 +1,96 @@
+{
+  "schema_version": "continuous-pilot-start-v1",
+  "observed_campaign_state": {
+    "status": "running",
+    "phase": "implementation",
+    "started_at": 1791688785.3527033,
+    "controller_model": "gpt-6.1-sol",
+    "actor_model": "deepseek-v4-pro",
+    "actor_timeout_seconds": 600,
+    "pilot_episodes": 32,
+    "smoke_episodes": 2,
+    "method_phase_ceiling_usd": 20.0,
+    "controller_cost_separate": true
+  },
+  "training_packet_sha256": "147db01bef5ae0985ccdc80caef7f5749f4bc6ecf19257078bc0e7046d72a8de",
+  "probe_count": 8,
+  "donor_count": 19,
+  "donor_outcomes": {
+    "True": 18,
+    "False": 1
+  },
+  "smoke_complete": true,
+  "smoke_bridge_drained": true,
+  "smoke_episodes": [
+    {
+      "id": "a7d8648acdb905dad951",
+      "budgeted_success": true,
+      "fidelity": "V2_TRACE",
+      "provider_valid": true,
+      "actor_wall_seconds": 27.94079669000348,
+      "settled_usage": {
+        "requests": 8,
+        "metered_requests": 8,
+        "unmetered_requests": 0,
+        "error_requests": 0,
+        "completed_requests": 8,
+        "incomplete_requests": 0,
+        "unknown_status_requests": 0,
+        "prompt_tokens": 96550,
+        "prompt_cache_hit_tokens": 92928,
+        "prompt_cache_miss_tokens": 3622,
+        "completion_tokens": 1408,
+        "reasoning_tokens": 605,
+        "estimated_cost_usd": 0.014445551999999995,
+        "unknown_cost_requests": 0,
+        "price_bands": {
+          "peak": 8
+        },
+        "upstream_models": [
+          "deepseek-v4-pro"
+        ]
+      }
+    },
+    {
+      "id": "cab5b8b8dbe5cad21502",
+      "budgeted_success": true,
+      "fidelity": "V2_TRACE",
+      "provider_valid": true,
+      "actor_wall_seconds": 236.9757557460107,
+      "settled_usage": {
+        "requests": 42,
+        "metered_requests": 42,
+        "unmetered_requests": 0,
+        "error_requests": 0,
+        "completed_requests": 42,
+        "incomplete_requests": 0,
+        "unknown_status_requests": 0,
+        "prompt_tokens": 1412670,
+        "prompt_cache_hit_tokens": 1387136,
+        "prompt_cache_miss_tokens": 25534,
+        "completion_tokens": 19873,
+        "reasoning_tokens": 12919,
+        "estimated_cost_usd": 0.173435944,
+        "unknown_cost_requests": 0,
+        "price_bands": {
+          "peak": 42
+        },
+        "upstream_models": [
+          "deepseek-v4-pro"
+        ]
+      }
+    }
+  ],
+  "raw_inputs_edited": false,
+  "validation_or_test_traces_supplied": false,
+  "old_methods_supplied": false,
+  "collection_generic_policy_disclosed": true,
+  "analyzer_dispatch_observed": true,
+  "guard_checks": [
+    "valid32cell_contract",
+    "reject_missing_cell",
+    "reject_forbidden_experience_source",
+    "reject_postfreeze_context_change",
+    "reject_mutated_donor_trace"
+  ]
+}

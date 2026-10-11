@@ -1,6 +1,579 @@
 # Current Research State
 
-## Augmentation utility and retrieval mechanism audit ACTIVE (2026-10-09)
+## Recent implementation and evidence LOCAL PUBLICATION (2026-10-11)
+
+User requested careful local commits; no push or new research run. Four source
+groups saved as c9bb14b, f35f011, 17c0c4d and f7a4600: diagnostic proof policy,
+Executive evaluation/recovery, card routing/token audits, independent adapters
+and lifecycle guardian. Reviewed compact results/reports and memory form the
+fifth documentation group. Older unrelated research/private files stay local.
+Focused55tests passed. Expanded regression1048passed/11failed in sandbox: nine
+socket-related failures pass in an escalated10-test mock-only rerun; two old
+vendor-hash checks pass on a clean tracked archive, local ignored bytecode is
+the difference. No source/hash weakening, cache deletion or paid model calls.
+This is not a single all-green full-suite run. Active independent research and
+raw/sealed/legacy/frozen results were not altered. Next: preserve scientific
+claim boundaries and follow the existing research owner, not duplicate runs.
+Publication receipt: notes/20261011-031434-reviewed-recent-inference-diagnostics-and-research-commits/ENTRY.md.
+
+## Continuous DeepScientist lifecycle guardian active (2026-10-11)
+
+User explicitly requested continued autonomous research and explanation of the stop.
+Prior completed runner remained active/running and did not hand off; exact original
+postprocess failure remains unlogged. A reproducible framework raw-artifact scan
+error on list-valued JSON is evidenced by bash-f4d94c6d/terminal.log (06:55UTC),
+QuestService._collect_artifacts_raw sorting with payload.get. Native researcher
+repaired object-only projection caches without changing raw/frozen arrays.
+
+Native progression verified: recovered run-978431e6 audited pilot and launched
+coverage-002(8development-validation tasks x N/S/L=24attempts); run-f508b2e7 then
+run-51aee991 occurred via native continuation. Latest live check coverage4/24,
+run-e2e8946f producing tools/output, no new efficacy conclusion. Pilot all arms6/8;
+its native analysis reports A total tokens41.07% above B, not a transferable gain.
+
+Parent-imposed ONE-follow-up restriction superseded by latest user directive;
+continuous useful studies may share existing USD20 estimated method/74actor total
+and analyzer ceilings. Native agent received instruction; neutral external
+userfiles/CONTINUOUS_USER_DIRECTION_20261011.md is durable authority. No private
+limits increased, no frozen scientific contract changed, no duplicate batch.
+
+Independent watch_controller.py guardian PID961794 launched outside process
+namespace sandbox. Verified live-controller detection and subsequent60s heartbeat,
+no errors; six regression/policy/component tests pass, including completed stale
+turn -> native resume and cooldown preserving original result bytes. Guard resumes
+through native API after300s completed idle,600s cooldown, repairs API500 projection
+through existing quest script, and respects explicit stop/resource checkpoints.
+It does not dispatch experiments, restart a failed daemon or interrupt a hung
+live model call. Next: native coverage completion/all-outcome case audit and
+scientifically justified remaining-envelope study; verify real continuation.
+Code: trace-experience-autoresearch/watch_controller.py and test_watch_controller.py.
+External lifecycle-guardian/{start-receipt,state,continuous-direction-receipt}.json
+are durable runtime evidence. Raw/sealed/legacy data and prior results unchanged;
+all full logs/results stay external. Controller costs separate.
+
+## DeepScientist stalled continuation recovered (2026-10-11 06:47 UTC)
+
+Live status check found pilot-001 complete32/32 since04:29:59UTC; every N/G/B/A
+arm6/8 budgeted successes and2timeouts, so no solved-rate lift established.
+Native watcher finished04:38:32UTC with stable ledger and frozen hashes unchanged,
+but run-ac3e9860 had completed04:19:34UTC while still listed active/running; no
+subsequent native analysis or actor batch existed at06:45UTC. Healthy web service
+and autonomous settings alone did not prove research execution. Exact underlying
+cleanup/scheduling failure is not yet diagnosed.
+
+Existing authorization used to send one native recovery message; service reconciled
+stale active state and started run-978431e6 at06:46:48UTC. Verified actual new model
+output and bash_exec boundary/skill read at06:47UTC, not just UI state. Native owner
+was instructed to audit all32 outcomes/costs/cases, repair continuation, independently
+select a justified bounded follow-up under unchanged AUTONOMOUS_HANDOFF ceilings,
+and avoid repeating the completed pilot. Next: verify durable analysis and genuine
+continuation after the recovered turn; future autonomy remains unverified.
+Evidence: external quest .ds/runs/run-978431e6/stdout.jsonl, daemon.jsonl recovery
+event, backend/batches/pilot-001/summary.json, monitoring state.json. No raw/sealed/
+legacy inputs or existing experiment results modified; no duplicate actor launched
+by this status repair. Controller consumption remains separate.
+
+## Comprehensive DeepSeek project REPORT COMPLETE (2026-10-11)
+
+User-requested full Chinese stage report now covers source collection, helper-aware
+progress, selector114points, forks114, native Reflect cards-only integration,
+all completed downstream rounds, successful-trace resources, timeouts, retrieval
+cases and latest16-cell checkpoint diagnostic. Main304=234success+70timeout;
+diagnostic16=11success+5timeout, estimated inference costs45.739190+1.621275USD,
+not whole-project expenditure. Pipeline works; stable augmentation utility and
+generalized Executive efficiency remain unproven. Stronger optional guidance
+regressed; query unexercised; finding appropriate advice does not ensure applying it.
+
+Separately, read-only pilot-001 snapshot now complete32/32, N/G/B/A each6/8success
+and2timeouts. Training-probe research not pooled with downstream or diagnostic;
+native controller retains execution/analysis ownership. No new paid calls, code,
+card/prompt changes, external run mutations or raw/sealed/legacy changes for report.
+Next proposals: precise058 application, replacing flat index with optional search,
+verified-candidate protection and isolated augmentation controls before confirmation.
+Canonical deliverable: notes/20261011-010654-deepseek-proof-augmentation-cards-and-inference-comprehensive-progress-report/
+REPORT.md, EVIDENCE.json, ENTRY.md. Supersedes older report-scope/progress snapshots
+below, not their historical evidence or independent controller decisions.
+
+## Card routing CHECKPOINT DIAGNOSTIC COMPLETE (2026-10-11)
+
+User-approved four-arm/four-checkpoint development diagnostic complete16/16:
+DeepSeek V4 Pro/max,600s/actor,workers2, cost record-only, estimatedUSD1.621275.
+Arms: original Executive only; pre-reviewed advice exposed; repaired78 short index;
+same index plus optional paginated keyword/full-text query. Bank bodies and shared
+runner unchanged. Two cases have reviewed advice001 or006/058; two have no confirmed
+exact match and identical-information exposed/none negative controls. No forced
+reads, reference solutions, sealed-test access or automatic validation scale-up.
+
+Outcomes none/exposed/index3/4 successes each, query2/4;timeouts1/1/1/2. No invalid
+episodes, no unknown costs, bridge drained and input hashes unchanged. Full public
+payload export complete16/16; private reasoning not reconstructed. Zero query
+calls, so search quality untested. Only failed a23 query run read6cards including
+006/058: correctly fixes quantified implication, but translates058 into unfolded
+Boolean implications instead of exact temporal satisfaction trigger; late debug
+detour times out. Exposed190.6s,none310.8s,index142.5s on that case. Discovery alone
+does not ensure application; no causal or generalized gain claim from single cells.
+Fresh same-code continuations, NOT exact historical conversation replay.
+External run: skillopt-verusage/card-routing-diagnostic-20261010-231609/ under
+VERUS_SKILL_RUN_ROOT. Summary/statistics/REPORT/full_traces/completion all present.
+Canonical analysis: experiments/20261010-231609-frozen-checkpoint-card-routing-four-arm-diagnostic/RESULTS.md.
+Next proposal: independently test replacing flat index with query entry and
+concrete exact-term058 guidance; no new paid run launched by this status check.
+Separate autoresearch below and prior/raw/sealed inputs untouched.
+
+## DeepScientist NATIVE AUTONOMOUS ownership verified (2026-10-10)
+
+User asked DeepScientist itself run the research. Native workspace_mode and
+ decision_policy are autonomous; actual run-ac3e9860(gpt-6.1-sol/high) read the
+handoff and registered durable watcher bash-e109feb1. Outer coordinator3634228
+was retired individually; original actor3742710 kept running the unchanged frozen
+pilot. Latest recorded progress23/32, four arms N/G/B/A on8 training probes,
+no recorded invalid rows; results remain partial, no efficacy conclusion.
+Native controller owns monitoring, all-outcome case analysis, next route and
+future evaluator calls. Do not restart parent run_campaign.py or duplicate analysis.
+
+Next study delegated, at most40 new attempts within existing estimatedUSD20 method
+ceiling; total74 attempts incl2smoke+32current. Analyzer total8calls/1M inputbytes/
+65536 outputtoken reservations. Available actor pool8trainprobes+20 exposedval;
+valmetadata/input hashes checked, no val answers/old outcomes/traces or test data.
+Future contexts≤16384bytes under a newly frozen scientific contract; currentpilot
+retains1024bytes and600s. ActorV4Pro/max600s; controller consumption separate.
+Original pilot adapter/config preserved externally before interface upgrade.
+
+Canonical record:runs/20261010-222104-continuous-trace-experience-pilot-execution-and-case-analysis/
+ENTRY.md,NATIVE_HANDOFF_RECEIPT.json. Runtime/native_ownership_handoff.json and
+native quest state/watcher/per-batch progress are authoritative. Old campaign_state
+is a migration pointer, not a live scheduler status. Raw/sealed/legacy/frozen inputs
+and previous runs unchanged; outputs external. Supersedes outer-owned status below.
+
+## Continuous autoresearch EXECUTION STARTED; two live smokes complete (2026-10-10)
+
+Prior opening-only stop was a coordinator configuration error; user authorization
+was already present. A reviewed training packet and method-neutral adapter now
+exist. Two actual DeepSeek V4 Pro/max no-experience episodes completed within600s
+with valid provider/trace evidence and Verus+Lynette+safety success. This verifies
+wiring, not method efficacy. Smoke outcomes are withheld from the independent
+researcher until method/context freeze.
+
+Automatic campaign PID3634228 now runs implementation-freeze-001, then validates
+and executes32 training-probe attempts (8 x N/G/B/A), then automatically invokes
+case-grounded analysis. Phase state:trace-experience-autoresearch/runtime/
+campaign_state.json. Active source packet:8 probes,19 donors(18success/1failure),
+conservative module/name/hash exclusions; semantic ancestry remains incomplete.
+Historical donor1800s/generic-policy bias disclosed. No val/test traces supplied.
+Actor600s; analyzer4calls/400000inputbytes/32768outputtoken ceiling; estimated
+method phaseUSD20 guard; controllergpt-6.1-sol/high cost separate. No ordinary
+retries/900s extension. Read-only post-stop grading is separate from actor clock;
+timeouts remain failures. Context allocation1024UTF8bytes, not exact token matching.
+
+Canonical run: runs/20261010-222104-continuous-trace-experience-pilot-execution-and-case-analysis/
+ENTRY.md and START_RECEIPT.json. Code:trace-experience-autoresearch/{prepare_packet,
+evaluation_adapter,run_campaign}.py. Next: inspect live campaign/controller progress;
+no further user start authorization is required. Raw/sealed/legacy/frozen inputs
+and prior runs unchanged; all full new outputs external. Supersedes idle/awaiting
+parent packet status below. No learned-method gains established yet.
+
+## DeepScientist status VERIFIED: opening complete, service healthy, idle (2026-10-10)
+
+opening-independent-001 completed in~379s, exit0, empty stderr; all nine expected
+output/checkpoint files present and hypothesis freeze unchanged. Daemon healthok,
+host-side PID2462377 live, sessions0. Sandbox-local /proc cannot establish host
+PID absence; preliminary absent-process interpretation was corrected. No service
+restart needed/performed. Research currently idle by bounded opening design,
+not an unattended continuous experiment loop; no actor/analyzer calls or gains.
+Candidate32-attempt/four-arm training pilot remains prospective, not ready/run.
+Next parent action: reviewed train-only trace/ancestry packet and minimal evaluator
+adapter, then executable membership/model/budget freeze. Do not make the user
+resupply already-available project data. Controller input830632/cached759936/
+output15640 tokens; tool25/24 soft overrun, no settledUSD or hard-cap guarantee.
+Status and output hashes:
+runs/20261010-192355-independent-deepscientist-trace-experience-research-kickoff/STATUS_CHECK.json.
+This status check used no new model calls or external runtime mutation. Canonical
+memory/index updated; raw/sealed/legacy/frozen data and previous runs unchanged.
+Supersedes earlier first-controller-running statements below.
+
+
+## Independent DeepScientist research controller STARTED (2026-10-10)
+
+User confirmed experience extraction-transfer-use scope and instructed start.
+Actor600s/task, optionally justified matched900s comparisons; controller resources
+excluded from method inference limits/objective and tracked separately. No total
+monetary cap specified; oldUSD15/four-arm proposal is not the selected experiment.
+Actual isolated1.6.0 overlay built offline; daemon restarted with correct framework
+resources. Old environment/npm source preserved. Fresh external quest
+trace-experience-001, controller gpt-6.1-sol/high, independent opening run
+opening-independent-001 dispatched. Actual model response and MCP reads observed.
+No personal skills/agents/prompts or parent conversation inherited; generated
+prompt checked for old-project signatures. Context/instruction separation, not
+OS read sandbox. Copilot bounds first opening pass; no automatic stage chaining.
+
+Requested hypothesis freeze before literature, then candidate frontier, paired
+experiment and case-study protocol. Train40 sources all match hashes; val20 count
+verified by parent, not supplied to opening. Independent HYPOTHESES.md now frozen with matching hash: nine explanations,
+four candidate seeds; frontier/experiment/case-study documents still in progress.
+No new DeepSeek/actor experiments or methods validated. Canonical run entry:
+runs/20261010-192355-independent-deepscientist-trace-experience-research-kickoff/ENTRY.md.
+External launch/dispatch/readiness receipts under subproject runtime/ link.
+Next: verify independent outputs and source exposure, then deliver reviewed
+train-only inputs/harness and freeze a bounded comparison. Raw/sealed/legacy/
+frozen data and prior runs unchanged. Supersedes prior scope-pending, no-model-call
+and1.5.17-service-only status below.
+
+
+## Open autoresearch and mechanism explanation brief RECORDED (2026-10-10)
+
+User wants independent exploration without anchoring to existing repository ideas,
+success/token-cost objectives, permission to challenge/reframe the problem, and
+case-level explanations of good/bad results. Active brief:
+trace-experience-autoresearch/RESEARCH_BRIEF.md; decision:
+decisions/20261010-174831-open-exploration-and-case-grounded-explanation-contract/ENTRY.md.
+Earlier evidence-record/verifier segmentation proposal is historical candidate,
+not a mandated starting method. Fresh context should receive neutral brief/data/
+harness, freeze hypotheses/predictions, then examine existing methods/comparators.
+Current parent already knows old ideas; child-folder placement is not isolation.
+Actual quest startup/memory/file/tool boundaries remain to be implemented/verified.
+Training collection-policy bias survives a context reset.
+
+Require all-attempt success/cost accounting, separate learning/actor/controller
+costs, positive/negative/null interpretations, and gain/regression/failure/efficiency
+cases with observed evidence and causal limits. Two questions pending: direction
+boundary and campaign amount/time including controller. Default scope is the
+experience extraction-transfer-use chain; no paid dispatch. No model calls, quest
+creation, service changes or raw/sealed/legacy/frozen-data changes in this pass.
+Next: resolve scope/budget and prepare independent opening packet/diagnostics.
+
+
+## DeepScientist isolated empty service STARTED (2026-10-10)
+
+Chosen stack: DeepScientist for research orchestration plus existing VeruSAGE
+scripts/evaluator. Integration directory: trace-experience-autoresearch/.
+Ignored runtime/ symlink inside that subfolder exposes external state/logs for
+convenient browsing; no service relocation/restart or real output-path change.
+External runtime prefix: VERUS_SKILL_RUN_ROOT/trace-experience-autoresearch/;
+ignored .agent-context.local.md records machine paths, PID and restart command.
+Two health checks ok and UI HTTP200 on loopback port21001; no quests/sessions.
+Controller pinned gpt-6.1-sol/high via Codex; actor remains DeepSeekV4Pro/max.
+Analyzer model is a separate frozen comparison choice, not automatically the
+controller. npm1.6.0 versus Python1.5.17 mismatch found; service deliberately uses
+existing Python1.5.17 without upgrade. No 1.6 runtime claim. Direct daemon is not
+launcher-supervised; PID management recorded locally. No global skill sync,
+connectors, cloud, automatic Git actions, provider probe or paid experiment.
+External run root passes data-layout validator; existing repository-local .env
+run root is invalid under current separation guard and was left unchanged.
+
+Audit: notes/20261010-173722-deepscientist-startup-audit-and-trace-experience-subproject/ENTRY.md.
+Next: copilot intake contract and train-only lineage audit; model connectivity,
+evaluator integration and enforced budget remain unverified. USD15 pilot cap
+still proposed. Raw/sealed/legacy/frozen data and previous runs unchanged.
+This supersedes earlier ARIS-first selection and no-daemon statements below.
+
+
+## Expanded autoresearch and blog audit COMPLETE (2026-10-10)
+
+Prior benchmark-only shortlist was incomplete; ARIS is an optional checklist,
+not an established best research system. DeepScientist belongs on shortlist:
+local npm package1.6.0 and ds executable verified; current chat has no dedicated
+DeepScientist/artifact API. No daemon/model/evaluator health claim or launch.
+Expanded eight-project star/fit table, six blog/report evidence classifications,
+DeepScientist original paper, CFD external comparison and firsthand AlphaEvolve
+case saved in projects/verus_self_evolving/literature/
+20261010-172803-expanded-autoresearch-tool-and-blog-review-including-deepscientist/ENTRY.md.
+
+Original DeepScientist attribution task/A2P is directly relevant prior work;
+locating failures does not establish downstream experience transfer. Its author
+campaign20k+GPUhours/5kideas/1.1kvalidations/21innovations is not a cheap-pilot
+performance guarantee or a current-product comparison. New OpenReview PDF was
+blocked by browser verification; do not infer newer results from snippets.
+Blog comparisons mostly document/architecture analysis, not matched experiments.
+Next: DeepScientist existing workflow/evaluator compatibility audit; retain
+DeepSeek actor, frozen data, experiment cap and evidence rules. No new paid calls,
+installs, daemon startup or raw/sealed/legacy changes. Index rebuilt at closeout.
+
+## Trace-analysis research objective and ARIS plan REVIEWED (2026-10-10)
+
+User brief preserved verbatim; priority VeruSAGE success/efficiency with frozen
+DeepSeek V4 Pro, train40/val20, extra test pool unverified. Current manifest is
+40/20/20; val20 repeatedly used, historical test20 already evaluated. Generic
+mechanisms require code-generation follow-up. Canonical planning packet:
+projects/verus_self_evolving/ideas/20261010-160133-trace-analysis-research-objective-and-autoresearch-plan/
+{USER_BRIEF.md,FINAL_PROPOSAL.md,CRITICAL_REVIEW.md,LITERATURE_AND_TOOL_AUDIT.md,
+REVIEW_SUMMARY.md,REVIEW_RESPONSE.md,EVIDENCE.json}.
+
+Select ARIS research-refine for method planning/review, reuse SkillOpt/evaluator;
+not an empirically best-tool claim. No registered autoresearch MCP service.
+Claude review timed out180s, no verdict/settledusage; separate same-family Codex
+review:REVISE then READY_FOR_DIAGNOSTIC, not cross-family assurance. Longtrace
+bottleneck/novelty remain hypotheses; local31/40->32/40 uncertain and current
+14/20->15/20 costs more. Existing hierarchical/contrastive methods are required
+comparators. Single-source card support and execution adherence remain concerns.
+
+Narrow proposal: one evidence-record input intervention, common merger/schema/
+deployment; <=32 donor/8 train-held-out probe split, four arms x1=32 episodes,
+Pro/max600s/two workers, proposed USD15 cap including analysis. No new DeepSeek
+calls or experiment implementation. First recover approved paths and audit
+lineage/snapshots; then freeze membership/token/call allowances and enforce
+concurrent cost reservation. Paid launch pending explicit scope/budget; later
+val20x2armsx2=80 separately scoped. No test access in pilot. Preserve all attempts;
+no unmatched partial comparison or family-generalization claim without evidence.
+Raw/sealed/legacy/frozen runs unchanged; compact planning files only. Index rebuilt
+at closeout. This objective supersedes the preceding domain-not-yet-selected note.
+
+## Autoresearch tool scouting COMPLETE (2026-10-10 Pacific)
+
+Documentation-based seven-tool shortlist recorded in
+literature/20261010-155158-autoresearch-tool-practical-shortlist-october-2026/ENTRY.md.
+Conditional recommendation: ARIS for existing research workflow, lightweight
+metric loop for first pilot, ShinkaEvolve for verifier-backed code evolution;
+EvoScientist for a separate general research assistant. User has not selected
+domain, budget, or implementation. Stars are approximate page snapshots;
+no installation/smoke test or comparative efficacy/cost claim. ARIS optional
+local skill installation not verified (.agents/skills absent). Next: choose
+subproject domain, then inspect one baseline's evaluator/integration contract.
+No paid calls, implementation, raw/sealed/historical-run changes; pre-existing
+work preserved. Compact scouting memory only; index rebuilt at closeout.
+
+
+## Card retrieval question audit COMPLETE (2026-10-10)
+
+Current78 has no matched oracle-exposure versus autonomous-search replay found;
+do not claim none ever done:September26direct IR-card checkpoint study18/18
+passes,no-card/original/augmented,selectedPro/high cases,noretrievalarm.
+Current deployment is fullshortindex+autonomousIDreader,NOT historicallexical
+top3search.78normalized exactbodyduplicates0;qualitative antecedent/stability/
+import families overlap but conditions/routes differ. No applicable-cardgoldset
+or recallrate;no-read isnot necessarilymiss. Positive001use,005topic-overmatch,
+599correctdeclines,a23lateread,0e8dretrievalwithoutpatch bound causalclaims.
+Compactaudit/proposedfourarm(no-card/direct/currentindex/agentquery)diagnostic:
+notes/20261010-133959-deepseek-augmentation-card-and-executive-results-synthesis-through-october-10/CARD_RETRIEVAL_DIAGNOSTIC.md.
+No newcalls,prompt/card/codechanges,controllerinterferenceorraw/frozenedits.
+Existing independentautoresearch status above remains unchanged; next is
+user-directedmatched diagnostic,notautomaticretrievalguidance scale-up.
+
+## Success-only token and timeout census COMPLETE (2026-10-10)
+
+Read-only follow-up to latest synthesis:304 unique selected complete-comparison
+episodes=234success/70ordinarytimeout/0selectedinvalid. Parked28 separately:
+20success/6timeout/2invalid/52unstarted; main recovery4excluded invalid parent
+rows remain separate.185source hashes verified; main160ledgers reconcile with
+authoritative totals, later144with saved settled_usage.3unit tests pass.
+Success mean/median/p25/p75/p90 and input/cache/output/reasoning splits recorded.
+Jointsuccess input/output/time/cost deltas:augmentation30pairs +47.3/+17.0/
++17.2/+27.6%;repair15pairs -35.0/-28.8/-26.7/-37.6%;guidance12pairs
++6.3/+1.3/+0.6/+4.5%;Executivepilot8pairs +0.04/-34.8/-26.2/-16.3%;
+latestExecutive14pairs +30.8/+21.7/+20.2/+23.0%.Conditional descriptive only.
+SelectedcostUSD45.739190,timeout22.832317(49.9%);not total physical projectspend.
+Manual same-candidate check audit:4timeouts confirmeddualpass beforedeadline,
+1finalonly timingunconfirmed,65noobservedfullpass;all11latesttimeouts latter.
+Mainaugmentedb9e r1 passesVerus/Lynette raw136/139 then explicitlyreads052,
+warningcleanup147 causescompilationfailure149/153 andlosesfinalpass. Earlypass
+freezestop is supportedcandidate,notnewresult orimplementedfix. Outcomesunchanged.
+Report:notes/20261010-133959-deepseek-augmentation-card-and-executive-results-synthesis-through-october-10/TOKEN_TIMEOUT_STATISTICS.md.
+External:VERUS_SKILL_RUN_ROOT/skillopt-verusage/success-timeout-statistics-20261010-reviewed/.
+Next:retainoutcome/successonly/jointsuccess/allrunviews; user-directedstoprule
+testorlatestmatchedslowdownanalysis. No paidcalls,prompt/card/raw/sealed/frozen
+edits;localhashfallback,dedicatedgraphAPIs unavailable. Indexrebuilt atcloseout.
+
+## Authoritative results synthesis COMPLETE (2026-10-10 Pacific)
+
+User requests all current-line changes/results/analysis. Canonical report:
+notes/20261010-133959-deepseek-augmentation-card-and-executive-results-synthesis-through-october-10/
+{ENTRY.md,TASK_MATRIX.md,EVIDENCE.json,PLAN.md,CHECKLIST.md}.
+Scope:DeepSeek training/progress/train38fork/cards/inference line, not all legacy
+model quests.5complete downstream comparisons/304selected valid records,only20
+independent validation tasks;4task smoke8records already included in repair40.
+160canonical result hashes verified,0mismatches; nine summary/audit hashes and
+eight newly parsed current raw execution streams recorded. No new paid work.
+
+Observed same-run effects:augmentation31/40->32/40,CI[-5,+10]pp,allrun time+0.9%,
+cost+7.7%(jointsuccess time+17.2%,cost+27.6%); repairbundle15/20->16/20,time-21.8%,
+cost-25.0%; guidance16/20->13/20,time+24.3%,cost+19.3%; Executivepilot9/12->11/12,
+time-25.0%; latestExecutive14/20->15/20,time+7.3%,cost+5.0%,remaining14tie11/14.
+Do not attribute package effect toindex alone or cross-run gains toTASK repair;
+common correctedTASK applies toboth Executivearms. No broad/cardcausalclaim.
+
+3f17/0e8d/08d each0/14in fourcondition2repeat+threepairedfull20comparisons;
+correlated repeats,not14independent tasks. Eight current traces show continued
+syntax detours despiteExecutiveinstructions, post-dualpass warning-cleanup
+regression onb97a, solea23gain and real3310onepatch bridge gain. Bodyreads do
+not identify cause; indexexposure remains possible.71/78single-question support,
+84/114contextfallback points andno samecheckpointnohintcontrol bound coreclaim.
+
+Current board:retain corrected semantic/index/library/TASK plumbing; initial
+Executive withcommonTASK/repaired78 is control,diagnosticfirst remainscandidate;
+do notdefault-enable negativeguidance orpromote selectedpilot gain. Next:
+boundedpersistent-hardcase/first-dual-pass audit before proposing implementation
+or new matchedexperiments. Parked80run staysparked/nooutcomereuse. Reportonly,
+no production/prompt/card/raw/sealed/frozenoutput edits; indexrebuilt.
+
+## Fresh single-repeat40 rerun COMPLETE (2026-10-10 Pacific)
+
+Finished01:49Pacific,114.85minutes; checked11:32Pacific.40unique provider-valid
+cells,855meteredsettledrequests,0upstreamerrors/unmetered/unknowncosts,one
+session/no replacements. All50inputs unchanged; summary/ledger hashes match.
+Initial14/20versusdiagnostic15/20budgeteddualpass;14bothpass,5bothfail,1gain
+(a23a),0loss. All11unsolvedepisodes ordinary600stimeouts. Actor+7.28%,prompt
++3.98%,reasoning+5.24%,cost+5.05%;estimatedUSD2.548294vs2.676945,total5.225239.
+Pilot6:3/6vs4/6;remaining14:11/14both. Earlierpilot25%time saving not replicated.
+Cardbodyreaders2->4,calls6->11; exposure,notcausality. Both-pass slowdowns
+b97a216->521s,5997134->350s,31ee262->439s allzero bodyreads. Solegain bothread
+cards; no cardcausalclaim.40traceexports available,fullmanualcaseauditpending.
+Conclusion:smallsolvedgainwithresourceregression,broadimprovementunproven.
+See experiments/20261010-executive-single-rerun/RESULTS.md. Next:read-onlytrace
+cases before proposing changes; no new paid run or implementation in resultcheck.
+Raw/sealed/legacy/priorfrozenruns unchanged, priorinterruptedrunparked/noreuse.
+
+### Launch provenance (historical snapshot)
+
+User requests fresh40after count clarification:val20xinitial/newExecutivex1repeat,
+supersedes80continuation, no prior26outcome reuse. Same Pro/max600s/two workers,
+common correctedTASK/repaired78/vstdpermission, no prompt/card changes. New
+standalone wrapper checkpoints/drains sessions and replaces only proven
+IncompleteRead+failed-terminal invalids;2bridge restarts max,2attempts/cell max.
+Valid failures/timeouts retained, no ordinary retry. All attempted ledgers/costs
+retained, unmetered error marks accounting incomplete; unique40selectedcells.
+99combined tests pass; actual prior2invalids satisfy transport
+predicate. First Astra review caught singleton worker submission bug; fixed one
+scheduler line, exact reverse-diff parent SHA check rejects all other drift.
+Contracta26568e4...ae9d42 fresh Astra APPROVE_WITH_NONBLOCKING_NOTES,50hashes
+verified and55tests independently passed. Launched PID4007184 at06:54:25UTC,
+host liveness confirmed; first aded old/newactors emit events,5actual upstream
+requests and empty stderr.0completed at launch, no new efficacy result yet.
+Entry:experiments/20261010-executive-single-rerun/{ENTRY,PLAN,CHECKLIST}.md.
+External:VERUS_SKILL_RUN_ROOT/skillopt-verusage/executive-single-20261010-I5C6Z6/.
+Next:monitor and settle40cells;active_session.json points live child
+progress while root summary is settled checkpoint. Preserve raw/old evidence.
+
+## Full validation20 Executive scale-up STOPPED / PARTIAL (2026-10-10 UTC)
+
+Status check06:30UTC:run stopped06:20UTC after28/80records,26provider-valid
+(13matched pairs),2invalid at6a728repeat0;repeat1notstarted. Revised request
+96008d9b... returned IncompleteRead(4083bytes) after upstream dispatch, fail-closed
+bridge halted oldpair before any providerrequest. Precise provider/networkorigin
+unknown. Not cost/disk/ordinary timeout. Driver drained/exported, inputs unchanged.
+VALID-only budgeted dual-pass initial11/13versusrevised9/13,timeouts2versus4.
+Raw11/14vs10/14includes invalids and must not be used as valid efficacy count.
+RecordedUSD2.529862,oneerrorrequestunmetered/no usage;billing incomplete despite
+unknown_costcounter0. No full-validation conclusion; pilot gain not replicated
+in this prefix. No new calls/repair/restart during status check.
+See experiments/20261010-executive-full-validation/INCIDENT.md.
+Next:reviewed infrastructure continuation preserving26validcells, run54remaining
+(2invalid+52unstarted), unchanged model/prompt/bank/600s/timeouts/nooutcome retries;
+then complete80matrix and audit regressions. Preserve original partialrun.
+
+### Launch provenance (historical snapshot)
+
+User authorizes autonomous scale-up. Local24trace/1020snapshot audit complete,
+zero saved supplied-trusted-block changes;9operational-flagged episodes include
+toolchain/environment and private scratch/log commands. No reference/sealed
+read observed, not a syscall compliance proof. Both readers show actual006/058
+or058-consistent instantiation; not causal card benefit. aded remains unstable.
+Fixed new audit stacked-attribute coverage bug, preserving first derived audit.
+Prepared80fresh=validation20x2armsx2repeats, unchanged pilot Executive/TASK/bank/
+reader/permissions/Pro max600s/two workers, no outcome reuse. Report pilot6,
+remaining14and repeats separately.13focused+53additional regression tests pass.
+Final contract82d382be...6ff789,48hashes;pilot30hashes unchanged. Fresh Astra
+APPROVE_WITH_NONBLOCKING_NOTES for corrected contract; independent13tests pass.
+Launched PID2972482 at2026-10-10T05:17:42Z; confirmed alive, first aded old/new
+actors emit events,6actual provider records,stderr empty,0completed at startup.
+Costs record-only. Queue/drain/full trace export and stratified summary automatic.
+Entry:experiments/20261010-executive-full-validation/{ENTRY,PLAN,PILOT_CASE_AUDIT}.md.
+External:VERUS_SKILL_RUN_ROOT/skillopt-verusage/executive-full-20261010-YUSsK2/.
+Next:monitor frozen80queue, then complete matrix/settled ledger (including unknown
+costs)/behavior/access audit before interpretation; no mid-run tuning or retries.
+All raw/legacy/sealed and frozen pilot evidence unchanged, no new commit.
+
+## Diagnostic-first Executive repeated pilot COMPLETE (2026-10-09 Pacific)
+
+24/24 complete, valid matrix/bridge drained/all30inputs unchanged. Initial9/12
+versus revised11/12 budgeted dual-pass; final10/12versus11/12, timeout3versus1.
+Actor4092.825versus3069.678seconds(-25%); prompt28.180Mversus21.785M(-22.7%);
+reasoning360501versus254733(-29.3%); costUSD1.734914versus1.342586(-22.6%).
+874settled metered Pro requests,0providererrors/unmetered/unknowncosts. Finished
+2026-10-09 17:05Pacific, about61minutes. Bodyreads0episodes/0calls versus2/7.
+Repeat0both5/6;repeat1old4/6new6/6. Quantifieraded each1/2, swapped winner;
+9b9fandb9eold1/2new2/2 (b9eold timeout finalpasses, excluded by primary).
+Favorable development direction, not stable/general efficacy or card causality.
+RESULTS.md records complete six-task census and caveats. No new paid run launched.
+Next:full-trace residual/improvement/access audit, then user-directed broader
+validation20; do not treat terminal Lynette as outside-read compliance audit.
+
+### Launch provenance (historical snapshot)
+
+User starts proposed six-task development comparison: four prior losses, one
+gain and one correct-card-decline control; old/new Executive x two fresh repeats,
+24 episodes Pro/max/600s/two workers. Both arms same corrected TASK/repaired78
+bank/index/reader/vstd permission; no extra diagnostic retrieval guidance.
+Contract474db01d...dd6bb3;62 local targeted tests pass in two invocations.
+Fresh Astra APPROVE_WITH_NONBLOCKING_NOTES verifies30 hashes/24 unique keys;
+reviewer also independently passes9 focused overlapping tests. Launched PID1295902
+at2026-10-09T23:04:40Z;first old/new aded79905 repeat0 actors live, real provider
+ledger/public actor events created, no startup error. No completed result yet.
+No efficacy claim; seen purpose-selected validation
+tasks and two repetitions are not independent new problems. Initial baseline
+and frozen runs intact. Costs record-only, no sealed data or ordinary retries.
+Entry:experiments/20261009-diagnostic-first-executive-pilot/{ENTRY,PLAN,CHECKLIST}.md.
+External:VERUS_SKILL_RUN_ROOT/skillopt-verusage/executive-pilot-20261009-NYYmFA/.
+Next:monitor frozen queue, settle complete24 matrix, audit late provider errors/
+unknown cost and actual outside reads, inspect paired behavior before broader
+validation. Automatic queue/drain/full-trace export/resource aggregation enabled;
+case interpretation is a separate post-run action, not yet completed.
+
+## Trace-grounded task-scope and diagnostic-first repair COMPLETE (2026-10-09)
+
+User authorizes definite repairs after detailed case study. Rechecked all4losses,
+1gain and5guided readers; scope misunderstanding also occurs in a passing task.
+Four offline paired solver probes: supplied-lemma chain passes; removing exact
+lambda trigger term fails/restoring passes; parentheses-only repair clears parse
+error but not semantic obligations; exact entailment instantiation proves helper
+but main antecedent/precondition errors remain.8candidates/16toolchecks, no
+timeouts, all4after Lynette pass. No fresh model inference or efficacy claim.
+Implemented project task prompt clarification: preserve/call supplied trusted
+background, forbid new bypasses, fix parse/type/scope before proof redesign.
+Added opt-in skills/diagnostic-first-v1.md (1899bytes); initial.md/all78cards/
+index/reader/retrieval switch unchanged. Not a runtime controller; no forcedreads.
+828unique regression tests covered:819sandboxpasses,9socketpermission failures
+resolved by mock-only rerun10passes(overlap1).Final7focused tests pass,diff clean.
+Entry:experiments/20261009-174435-trace-grounded-task-scope-and-diagnostic-first-repair/.
+Artifacts:VERUS_SKILL_RUN_ROOT/skillopt-verusage/trace-grounded-repair-20261009-VyNDlm/
+probes.json and per-case before/after/diagnostics/change.diff.
+Next:fresh paired development comparison of Executive seed using same corrected
+task prompt and frozenbank; not queued. Prior receipts/hashes cannot authorize
+changed code. Raw/sealed/legacy/frozen evidence unchanged; no new commit.
+
+## Retrieval guidance validation and paired failure analysis COMPLETE (2026-10-09)
+
+Full40 episodes settled; same repaired78 bank/index/reader/permissions, optional
+diagnostic guidance only, DeepSeek V4 Pro/max/600s/two workers. Control16/20
+versus guided13/20:12both-pass,3both-fail,4losses,1gain. No API failures or
+provider-invalid episodes; frozen inputs unchanged. USD2.606243/3.110041,
+970calls total. This is not augmentation versus nonaugmentation.
+Offline all20pair census and all4loss/1gain plus5guided-reading case audit:
+all4guided losses read zero card bodies, no direct-bank access command observed.
+Direct body misinformation/read-tool latency cannot explain these losses;
+index/guidance influence and stochastic trajectory differences remain possible.
+Losses:aded trigger mismatch/failed contrapositive;a23a unproved generic entail
+helpers/late unexecuted retrieval;3ce unnecessary reproof of2trusted input
+lemmas plus imagined asserts API;9b9f missing assert parentheses misdiagnosed
+as temporal keyword syntax until~467s. Four-loss reasoning37382->120905tokens;
+guided provider-active interval union2345.54/2402.07actorseconds, not pure
+thinking time. Nine actual reader tool-return commands report rounded0.0000s;
+no observed long file-I/O delay, indirect context/deliberation cost not isolated.
+Gainb9e controlnoedits/timeout,guided concrete proof loop/pass. Actualbodycases
+include useful050application,001libraryreuse,005topic-overmatch and explicit
+decline071/062/045 missing-premise advice. Retrieval frequency is not success.
+Scope wording Never use external_body versus Never introduce is ambiguous:
+3ce guided removes given trust boundaries unnecessarily;62ff also re-proves
+givenhelper but passes.3ce toolchain reads extend outside permittedvstd subtree;
+Lynette alone does not certify access-scope compliance, no sealed access seen.
+Entry:experiments/20261009-025529-augmentation-utility-retrieval-mechanism-audit-and-controlled-repair/.
+Artifacts:VERUS_SKILL_RUN_ROOT/skillopt-verusage/retrieval-mechanism-audit-20261009-i8ZabJ/
+guidance-validation/{summary.json,guidance_summary.json,full_traces/};
+failure-analysis/{REPORT.md,paired_analysis.json,analyze.py}.
+Next:user-directed minimal task-boundary/diagnostic/timely-specific-retrieval
+repairs; recommend not default-enabling guidance yet. No repair/new paid run
+launched by this analysis. Single reused-val repetition, no causal per-card or
+robust solved-rate claim. Raw/sealed/legacy/frozen artifacts unchanged.
+
+## Prior augmentation utility audit and run-start snapshot (superseded)
 
 User requests macro/card/full-trace analysis, Astra review, baseline commit,
 minimal repairs and rerun. Prior version preserved first in commit3c39643.

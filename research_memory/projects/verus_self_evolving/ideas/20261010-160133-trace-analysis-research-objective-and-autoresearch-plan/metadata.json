@@ -1,0 +1,15 @@
+{
+  "title": "Trace Analysis Research Objective And Autoresearch Plan",
+  "project": "verus_self_evolving",
+  "kind": "ideas",
+  "created_at": "2026-10-10T16:01:33",
+  "status": "planning_review_complete",
+  "links": [
+    "FINAL_PROPOSAL.md",
+    "USER_BRIEF.md",
+    "REVIEW_SUMMARY.md"
+  ],
+  "raw_data_read_only": true,
+  "execution_status": "not_started",
+  "review_verdict": "READY_FOR_DIAGNOSTIC"
+}

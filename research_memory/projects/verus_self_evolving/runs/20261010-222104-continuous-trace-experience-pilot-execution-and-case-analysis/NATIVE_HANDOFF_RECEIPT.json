@@ -1,0 +1,31 @@
+{
+  "prepared": true,
+  "current_pilot_unchanged": true,
+  "preserved_v1_adapter_sha256": "3f3d0e03794d54d4ee89a02a78e3d1f85649fea0253331a4d08be19226f1cba2",
+  "available_validation_tasks": 20,
+  "max_additional_actor_attempts": 40,
+  "shared_method_ceiling_usd": 20,
+  "future_context_byte_ceiling": 16384,
+  "handoff_sha256": "26811f8275ca161598ae6a0e24603b76330ff3424445142ad5c46d83ff1e0662",
+  "native_message_queued": true,
+  "workspace_mode": "autonomous",
+  "continuation_policy": "auto",
+  "active_run_id": "run-ac3e9860",
+  "message_id": "msg-b3cd65ec",
+  "ownership_transferred": true,
+  "retired_coordinator_pid": 3634228,
+  "preserved_actor_pid": 3742710,
+  "native_run_id": "run-ac3e9860",
+  "transferred_at": 1791692257.0410078,
+  "observed_progress": {
+    "completed": 22,
+    "scheduled": 32,
+    "failures": []
+  },
+  "managed_watcher_bash_id": "bash-e109feb1",
+  "managed_watcher_command": "python scripts/watch_pilot.py",
+  "native_model": "gpt-6.1-sol",
+  "native_reasoning_effort": "high",
+  "raw_inputs_edited": false,
+  "validation_answers_or_traces_supplied": false
+}

@@ -1,0 +1,17 @@
+{
+  "title": "Autoresearch Tool Practical Shortlist October 2026",
+  "project": "verus_self_evolving",
+  "kind": "literature",
+  "created_at": "2026-10-10T15:51:58",
+  "status": "complete",
+  "links": [
+    "https://github.com/karpathy/autoresearch",
+    "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
+    "https://github.com/uditgoenka/autoresearch",
+    "https://github.com/SakanaAI/ShinkaEvolve",
+    "https://github.com/EvoScientist/EvoScientist",
+    "https://github.com/aiming-lab/AutoResearchClaw",
+    "https://github.com/microsoft/RD-Agent"
+  ],
+  "raw_data_read_only": true
+}

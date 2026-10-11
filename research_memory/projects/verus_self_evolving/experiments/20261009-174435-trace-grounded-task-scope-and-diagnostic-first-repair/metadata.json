@@ -1,0 +1,9 @@
+{
+  "title": "Trace grounded task scope and diagnostic first repair",
+  "project": "verus_self_evolving",
+  "kind": "experiments",
+  "created_at": "2026-10-09T17:44:35",
+  "status": "complete_local_case_probes_and_prompt_repair_no_live_run",
+  "links": [],
+  "raw_data_read_only": true
+}

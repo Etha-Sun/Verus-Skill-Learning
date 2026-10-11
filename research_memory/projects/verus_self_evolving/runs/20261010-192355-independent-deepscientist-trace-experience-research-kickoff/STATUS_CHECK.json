@@ -1,0 +1,32 @@
+{
+  "checked_at": "2026-10-11T01:03:58.841703+00:00",
+  "service_health": "ok",
+  "service_pid": 2462377,
+  "sessions": 0,
+  "opening_status": "completed",
+  "opening_exit_code": 0,
+  "opening_elapsed_seconds": 378.94521856307983,
+  "completed_at_pacific": "2026-10-10T17:30:39.027256-07:00",
+  "hypothesis_freeze_unchanged": true,
+  "deliverable_hashes": {
+    "HYPOTHESES.md": "d33d33c25b71eb0f06958eb54520692f0755bc2711c1a23ee1e3eb9656a236a9",
+    "HYPOTHESES_FREEZE.txt": "66aa50be5a4dda2f258c6d85009988c1404471abb771cec10ceeef6bbc119c93",
+    "METHOD_FRONTIER.md": "800a8a1b4366f67ef1c847446596af27fcb696b7b24b18d0e8d1f8b785fc4825",
+    "EXPERIMENT_DESIGN.md": "5cc8900b25f98495cf57940543abc7ffde9b7b6d7bb527dbdaff7f89eb731598",
+    "CASE_STUDY_PROTOCOL.md": "4a605d1fecb93f0313967d4dc9971f3ee9c9ca5354cfb2ca269d1302c789227a",
+    "SOURCE_EXPOSURE_LOG.md": "72b3e7b7a3de146bfc32219853a3a3ee24dc43093d34ac1ef17ebd0bf23adb7b",
+    "plan.md": "95b3006c095e9fb9f4bff131b0939a9617a03f2713af0f3a74af934c8144fcf5",
+    "status.md": "80aeb5f050a2b57f492e939b899c23cc70fbad5670c679c8ef993f486662cf8c",
+    "SUMMARY.md": "3b4b9ada9f1469603a037a798c617dd119f6057168ac43fc78509c18793ecf02"
+  },
+  "controller_token_usage": {
+    "input_tokens": 830632,
+    "cached_input_tokens": 759936,
+    "output_tokens": 15640
+  },
+  "controller_tool_calls": 25,
+  "controller_tool_budget": 24,
+  "controller_tool_budget_exceeded": true,
+  "actor_calls": 0,
+  "next_parent_action": "Prepare reviewed training-only trace packet, ancestry manifest and evaluation adapter; freeze executable experiment contract."
+}

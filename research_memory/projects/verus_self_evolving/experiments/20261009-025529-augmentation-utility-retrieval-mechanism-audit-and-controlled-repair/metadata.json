@@ -3,7 +3,7 @@
   "project": "verus_self_evolving",
   "kind": "experiments",
   "created_at": "2026-10-09T02:55:29",
-  "status": "running_controlled_validation20",
+  "status": "complete_validation20_and_paired_failure_analysis",
   "links": [],
   "raw_data_read_only": true
 }

@@ -1,0 +1,20 @@
+{
+  "decision": "APPROVE_WITH_NONBLOCKING_NOTES",
+  "contract_sha256": "a26568e4a137907f75d1cc7b5f05ad50c77b8a7ce75edfb276cbf0081fae9d42",
+  "reviewer": "gpt-6-astra",
+  "scope": "Fresh validation20 x two Executive arms x one repeat, with bounded infrastructure-only replacements.",
+  "blocking_issues": [],
+  "rationale": [
+    "Independently verified exact contract SHA256 and all50 input hashes.",
+    "Reversing the singleton scheduling cap reproduces frozen pilot driver SHA256; preparation accepts only that exact delta and records both hashes.",
+    "Scientific inputs, bundles, shared TASK, schedule, model, budgets and permissions unchanged.",
+    "Real shared-driver one-job scheduling and39admitted/1replacement tests resolve previous blocker.",
+    "40unique cells, retention of valid failures/timeouts, narrow IncompleteRead replacements, bounded attempts, drain/integrity checks and rejection of late provider-invalid attempts verified.",
+    "Independently ran55focused and existing recovery tests successfully; no sessions started during review."
+  ],
+  "nonblocking_notes": [
+    "Separate40selected cells from all additional transport attempts and expenses.",
+    "Label monetary totals incomplete when cost_accounting_complete is false.",
+    "Retain development-evidence and operational-access limitations."
+  ]
+}

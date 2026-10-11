@@ -1,0 +1,23 @@
+{
+  "decision": "APPROVE_WITH_NONBLOCKING_NOTES",
+  "contract_sha256": "474db01d0957203524e93ed53d17d0e10e8d9da2462ca279ce8a328a71dd6bb3",
+  "reviewer": "gpt-6-astra",
+  "scope": "Fresh 24-episode Executive development comparison under the exact reviewed contract and configuration.",
+  "blocking_issues": [],
+  "rationale": [
+    "Independently verified the contract SHA256 and all 30 frozen input hashes.",
+    "Verified exactly six validation tasks, two arms and two repeats, with 24 unique episode keys and reversed arm ordering between repeats.",
+    "Verified identical 78-card bank, reader and retrieval instructions/index tail; only Executive text differs. The shared corrected TASK snapshot exactly matches the prompt builder with the approved vstd path.",
+    "Inspected per-episode workspaces, source and artifact hash checks, reference-free execution, existing actor isolation, and identical library permissions for both arms.",
+    "Verified fixed Pro/max/600-second execution with two workers, no ordinary episode retry, provider failure stopping, bridge draining and settled resource aggregation.",
+    "Verified complete-matrix gate rejects missing or duplicate episodes and requires unchanged inputs, drained bridge and no recorded failures; within-budget dual-pass is reported separately from final dual-pass.",
+    "Independently ran nine focused Executive, review-gate and diagnostic-first tests successfully."
+  ],
+  "nonblocking_notes": [
+    "These purpose-selected, previously analyzed validation tasks support development decisions only. Two repeats do not establish independent held-out efficacy or general token efficiency.",
+    "The common TASK already includes some diagnostic-first guidance; interpret this comparison as the additional effect of the revised Executive under that shared prompt.",
+    "Before final reporting, inspect settled usage for late provider errors, unmetered requests and unknown costs: the driver refreshes usage after draining but its provider-valid flag was computed earlier.",
+    "Exact-vstd permission is a prompt-level access restriction within the existing broader toolchain mount. Audit actual outside-workspace reads; proof-preservation success alone does not certify access compliance.",
+    "The 30 hashes cover the reviewed intervention and main execution path, not every transitive dependency or installed library file. Keep those dependencies unchanged throughout the run."
+  ]
+}

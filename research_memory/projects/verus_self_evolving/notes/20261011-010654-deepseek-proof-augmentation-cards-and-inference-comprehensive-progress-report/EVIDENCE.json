@@ -1,0 +1,88 @@
+{
+  "schema_version": "comprehensive-project-report-evidence-v1",
+  "report": "REPORT.md",
+  "as_of_date": "2026-10-11",
+  "run_root_alias": "VERUS_SKILL_RUN_ROOT",
+  "scope": {
+    "complete_downstream_comparisons": {
+      "episodes": 304,
+      "success": 234,
+      "timeout": 70,
+      "estimated_usd": 45.739189892,
+      "round_sizes": [160, 40, 40, 24, 40],
+      "warning": "Repeated development tasks; includes selected Executive pilot. Repair smoke8 included in repair40, not added again."
+    },
+    "checkpoint_diagnostic": {
+      "episodes": 16,
+      "success": 11,
+      "timeout": 5,
+      "invalid": 0,
+      "estimated_usd": 1.621274688,
+      "query_calls": 0,
+      "warning": "Four selected same-code fresh-conversation checkpoints, not exact historical replay or blind generalization."
+    },
+    "independent_training_snapshot": {
+      "episodes": 32,
+      "arms": {
+        "N": {"success": 6, "timeout": 2},
+        "G": {"success": 6, "timeout": 2},
+        "B": {"success": 6, "timeout": 2},
+        "A": {"success": 6, "timeout": 2}
+      },
+      "invalid": 0,
+      "warning": "Separate eight-training-probe research; never pooled with downstream304 or diagnostic16. Native controller retains ownership."
+    },
+    "excluded": [
+      "parked incomplete80-attempt campaign",
+      "early other-model histories",
+      "sealed test20"
+    ]
+  },
+  "prior_sources": {
+    "manifest": "../20261010-133959-deepseek-augmentation-card-and-executive-results-synthesis-through-october-10/EVIDENCE.json",
+    "source_entries_rehashed": 9,
+    "source_hash_mismatches": 0,
+    "additional_rehashed_statistics_source": 1,
+    "total_major_sources_rehashed": 10,
+    "prior_episode_file_audit": "Prior304 statistics audited185 source files; not all historical traces re-read in this report pass."
+  },
+  "sources": {
+    "prior_statistics": {
+      "path": "skillopt-verusage/success-timeout-statistics-20261010-reviewed/statistics.json",
+      "sha256": "cdb83358a937f2f1735562a7589918160a18704c2c549575a60caa3567071c53"
+    },
+    "diagnostic_summary": {
+      "path": "skillopt-verusage/card-routing-diagnostic-20261010-231609/summary.json",
+      "sha256": "64c3aae3a1dc5caaa5efb27c4abff72d2707870f0c7b32718928445f5d47922a"
+    },
+    "diagnostic_statistics": {
+      "path": "skillopt-verusage/card-routing-diagnostic-20261010-231609/statistics.json",
+      "sha256": "c4a74ad5600311b1025959f21dfb0da07691b62b560cf87c4ba61d3549c1ab11"
+    },
+    "diagnostic_report": {
+      "path": "skillopt-verusage/card-routing-diagnostic-20261010-231609/REPORT.md",
+      "sha256": "1c4e25927f26d66bf0abe1f9036e3b5768e9c29bfca0b285babf97130e6e4740"
+    },
+    "diagnostic_completion": {
+      "path": "skillopt-verusage/card-routing-diagnostic-20261010-231609/completion.json",
+      "sha256": "6ce4bb21ee3715ea7e2488316994bc180e49b1abcf1340e150704e1593073ce4"
+    },
+    "independent_pilot_summary": {
+      "path": "trace-experience-autoresearch/backend/batches/pilot-001/summary.json",
+      "sha256": "d353e5da195b66d90be6df71ad1fccd46f550f9c3d5e4dfd5d3201c76a0042d9"
+    }
+  },
+  "interpretation": {
+    "metrics": "Descriptive matched same-round comparisons; development reuse disclosed.",
+    "trace_observations": "Bounded evidence of behavior, not causal mediation or whole-bank accuracy.",
+    "next_experiments": "Recommendations only, not implemented or launched."
+  },
+  "safety": {
+    "new_paid_model_calls": 0,
+    "method_code_prompt_card_changes": false,
+    "raw_sealed_legacy_or_frozen_run_changes": false,
+    "independent_research_execution_changes": false,
+    "report_destination": "canonical repository research_memory",
+    "dedicated_artifact_graph_api_available": false
+  }
+}

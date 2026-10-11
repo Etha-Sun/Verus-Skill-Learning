@@ -1,0 +1,13 @@
+{
+  "title": "Expanded Autoresearch Tool And Blog Review Including DeepScientist",
+  "project": "verus_self_evolving",
+  "kind": "literature",
+  "created_at": "2026-10-10T17:28:03",
+  "status": "complete",
+  "links": [
+    "https://github.com/ResearAI/DeepScientist",
+    "https://rywalker.com/research/autoresearch-tools",
+    "https://arxiv.org/html/2509.26603v1"
+  ],
+  "raw_data_read_only": true
+}
