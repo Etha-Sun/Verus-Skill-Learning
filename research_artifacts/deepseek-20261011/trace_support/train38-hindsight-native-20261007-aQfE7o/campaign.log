@@ -1,0 +1,619 @@
+{"phase":"inputs_audited","hint_completed":0,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:49:53.455205+00:00"}
+{"phase":"checkpoints_prepared","hint_completed":0,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:49:57.226827+00:00","checkpoint_count":114}
+{"phase":"smoke_hint_augmentation","hint_completed":0,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:49:58.280504+00:00","checkpoint_count":114}
+{"phase":"smoke_hint_augmentation","hint_completed":1,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:49:58.378854+00:00","checkpoint_count":114,"last_hint_source":"0a8794c662f44dedfa7f"}
+{"phase":"smoke_hint_augmentation","hint_completed":2,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:49:58.380704+00:00","checkpoint_count":114,"last_hint_source":"0a8794c662f44dedfa7f"}
+{"phase":"smoke_hint_augmentation","hint_completed":3,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:49:58.405875+00:00","checkpoint_count":114,"last_hint_source":"0a8794c662f44dedfa7f"}
+{"phase":"smoke_hint_augmentation","hint_completed":4,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:49:58.416008+00:00","checkpoint_count":114,"last_hint_source":"3a77a3e4e72edf600e2a"}
+{"phase":"smoke_hint_augmentation","hint_completed":5,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:49:58.450016+00:00","checkpoint_count":114,"last_hint_source":"3a77a3e4e72edf600e2a"}
+{"phase":"smoke_hint_augmentation","hint_completed":6,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:49:58.458814+00:00","checkpoint_count":114,"last_hint_source":"3a77a3e4e72edf600e2a"}
+{"phase":"smoke_card_extraction","hint_completed":6,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:49:59.383819+00:00","checkpoint_count":114,"last_hint_source":"3a77a3e4e72edf600e2a"}
+{"phase":"smoke_quality_review","hint_completed":6,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.332501+00:00","checkpoint_count":114,"last_hint_source":"3a77a3e4e72edf600e2a","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4"}
+{"phase":"hint_augmentation","hint_completed":6,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.333208+00:00","checkpoint_count":114,"last_hint_source":"3a77a3e4e72edf600e2a","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":7,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.478792+00:00","checkpoint_count":114,"last_hint_source":"5b577761f2b5267cf0c4","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":8,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.481663+00:00","checkpoint_count":114,"last_hint_source":"198a95322505bae4f6f4","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":9,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.483619+00:00","checkpoint_count":114,"last_hint_source":"5b577761f2b5267cf0c4","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":10,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.484564+00:00","checkpoint_count":114,"last_hint_source":"198a95322505bae4f6f4","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":11,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.485543+00:00","checkpoint_count":114,"last_hint_source":"5b577761f2b5267cf0c4","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":12,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.486490+00:00","checkpoint_count":114,"last_hint_source":"198a95322505bae4f6f4","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":13,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.666813+00:00","checkpoint_count":114,"last_hint_source":"5f3fbbb9f3042f601f15","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":14,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.676738+00:00","checkpoint_count":114,"last_hint_source":"5f3fbbb9f3042f601f15","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":15,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.678528+00:00","checkpoint_count":114,"last_hint_source":"5f3fbbb9f3042f601f15","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":16,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.687908+00:00","checkpoint_count":114,"last_hint_source":"21d08b2dcc7dc2871787","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":17,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.688988+00:00","checkpoint_count":114,"last_hint_source":"21d08b2dcc7dc2871787","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":18,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.690066+00:00","checkpoint_count":114,"last_hint_source":"21d08b2dcc7dc2871787","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":19,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.783468+00:00","checkpoint_count":114,"last_hint_source":"a7d8648acdb905dad951","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":20,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.785073+00:00","checkpoint_count":114,"last_hint_source":"6fc5661ffaeee1c57342","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":21,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.785611+00:00","checkpoint_count":114,"last_hint_source":"6fc5661ffaeee1c57342","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":22,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.786061+00:00","checkpoint_count":114,"last_hint_source":"a7d8648acdb905dad951","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":23,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.786500+00:00","checkpoint_count":114,"last_hint_source":"6fc5661ffaeee1c57342","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":24,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.786892+00:00","checkpoint_count":114,"last_hint_source":"a7d8648acdb905dad951","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":25,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.872552+00:00","checkpoint_count":114,"last_hint_source":"070857784b9085d03a2c","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":26,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.873926+00:00","checkpoint_count":114,"last_hint_source":"f965b40cb14d9efe34f3","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":27,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.875152+00:00","checkpoint_count":114,"last_hint_source":"070857784b9085d03a2c","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":28,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.875749+00:00","checkpoint_count":114,"last_hint_source":"f965b40cb14d9efe34f3","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":29,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.876205+00:00","checkpoint_count":114,"last_hint_source":"070857784b9085d03a2c","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":30,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:00.877088+00:00","checkpoint_count":114,"last_hint_source":"f965b40cb14d9efe34f3","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":31,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.051971+00:00","checkpoint_count":114,"last_hint_source":"e12fa37f1cd7cae7e052","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":32,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.054425+00:00","checkpoint_count":114,"last_hint_source":"46f4d879d37da0eb8835","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":33,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.055510+00:00","checkpoint_count":114,"last_hint_source":"46f4d879d37da0eb8835","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":34,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.056607+00:00","checkpoint_count":114,"last_hint_source":"46f4d879d37da0eb8835","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":35,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.057570+00:00","checkpoint_count":114,"last_hint_source":"e12fa37f1cd7cae7e052","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":36,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.058588+00:00","checkpoint_count":114,"last_hint_source":"e12fa37f1cd7cae7e052","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":37,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.233889+00:00","checkpoint_count":114,"last_hint_source":"c0c8ff68ac3baec231fc","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":38,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.235693+00:00","checkpoint_count":114,"last_hint_source":"c0c8ff68ac3baec231fc","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":39,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.237685+00:00","checkpoint_count":114,"last_hint_source":"3d762c82c4ba18b0c1b6","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":40,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.238758+00:00","checkpoint_count":114,"last_hint_source":"3d762c82c4ba18b0c1b6","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":41,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.239851+00:00","checkpoint_count":114,"last_hint_source":"c0c8ff68ac3baec231fc","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":42,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.240774+00:00","checkpoint_count":114,"last_hint_source":"3d762c82c4ba18b0c1b6","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":43,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.430779+00:00","checkpoint_count":114,"last_hint_source":"6dda831c08315be1932f","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":44,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.438537+00:00","checkpoint_count":114,"last_hint_source":"6dda831c08315be1932f","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":45,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.440229+00:00","checkpoint_count":114,"last_hint_source":"6dda831c08315be1932f","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":46,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.442037+00:00","checkpoint_count":114,"last_hint_source":"a61cd2515cc23386df85","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":47,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.443418+00:00","checkpoint_count":114,"last_hint_source":"a61cd2515cc23386df85","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":48,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.444637+00:00","checkpoint_count":114,"last_hint_source":"a61cd2515cc23386df85","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":49,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.560169+00:00","checkpoint_count":114,"last_hint_source":"5bdb225a9c0c1cb671ab","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":50,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.563310+00:00","checkpoint_count":114,"last_hint_source":"5bdb225a9c0c1cb671ab","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":51,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.565051+00:00","checkpoint_count":114,"last_hint_source":"f1dd18623203a0ade5cf","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":52,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.566033+00:00","checkpoint_count":114,"last_hint_source":"5bdb225a9c0c1cb671ab","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":53,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.566931+00:00","checkpoint_count":114,"last_hint_source":"f1dd18623203a0ade5cf","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":54,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.567936+00:00","checkpoint_count":114,"last_hint_source":"f1dd18623203a0ade5cf","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":55,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.719703+00:00","checkpoint_count":114,"last_hint_source":"f91ac92b861061915a41","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":56,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.721873+00:00","checkpoint_count":114,"last_hint_source":"064562633b00d03570ef","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":57,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.722778+00:00","checkpoint_count":114,"last_hint_source":"f91ac92b861061915a41","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":58,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.723741+00:00","checkpoint_count":114,"last_hint_source":"064562633b00d03570ef","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":59,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.724652+00:00","checkpoint_count":114,"last_hint_source":"f91ac92b861061915a41","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":60,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.725661+00:00","checkpoint_count":114,"last_hint_source":"064562633b00d03570ef","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":61,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.988482+00:00","checkpoint_count":114,"last_hint_source":"4ed253b9f6582520b718","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":62,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:01.997216+00:00","checkpoint_count":114,"last_hint_source":"4ed253b9f6582520b718","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":63,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.000688+00:00","checkpoint_count":114,"last_hint_source":"4ed253b9f6582520b718","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":64,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.003796+00:00","checkpoint_count":114,"last_hint_source":"a3c9af1afebbd8d5fe93","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":65,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.005205+00:00","checkpoint_count":114,"last_hint_source":"a3c9af1afebbd8d5fe93","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":66,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.006506+00:00","checkpoint_count":114,"last_hint_source":"a3c9af1afebbd8d5fe93","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":67,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.268857+00:00","checkpoint_count":114,"last_hint_source":"e8c7fba58e229b0574c3","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":68,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.270604+00:00","checkpoint_count":114,"last_hint_source":"e8c7fba58e229b0574c3","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":69,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.277810+00:00","checkpoint_count":114,"last_hint_source":"da745d47dba2a047f98d","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":70,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.279186+00:00","checkpoint_count":114,"last_hint_source":"da745d47dba2a047f98d","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":71,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.284583+00:00","checkpoint_count":114,"last_hint_source":"e8c7fba58e229b0574c3","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":72,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.286127+00:00","checkpoint_count":114,"last_hint_source":"da745d47dba2a047f98d","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":73,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.423130+00:00","checkpoint_count":114,"last_hint_source":"035c5c6e41a11dfa0dd4","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":74,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.425842+00:00","checkpoint_count":114,"last_hint_source":"dfdac48fe9eb152881db","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":75,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.428598+00:00","checkpoint_count":114,"last_hint_source":"035c5c6e41a11dfa0dd4","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":76,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.429592+00:00","checkpoint_count":114,"last_hint_source":"dfdac48fe9eb152881db","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":77,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.430640+00:00","checkpoint_count":114,"last_hint_source":"dfdac48fe9eb152881db","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":78,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.431660+00:00","checkpoint_count":114,"last_hint_source":"035c5c6e41a11dfa0dd4","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":79,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.693946+00:00","checkpoint_count":114,"last_hint_source":"8f1c392f61aec616de82","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":80,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.704846+00:00","checkpoint_count":114,"last_hint_source":"8f1c392f61aec616de82","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":81,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.707443+00:00","checkpoint_count":114,"last_hint_source":"8f1c392f61aec616de82","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":82,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.708886+00:00","checkpoint_count":114,"last_hint_source":"d61c17b4662ca6d9cd58","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":83,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.709833+00:00","checkpoint_count":114,"last_hint_source":"d61c17b4662ca6d9cd58","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":84,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.710780+00:00","checkpoint_count":114,"last_hint_source":"d61c17b4662ca6d9cd58","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":85,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.943438+00:00","checkpoint_count":114,"last_hint_source":"e9a2851a9535ba78c7e6","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":86,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.949769+00:00","checkpoint_count":114,"last_hint_source":"e9a2851a9535ba78c7e6","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":87,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.952044+00:00","checkpoint_count":114,"last_hint_source":"262a070f48e88a320e0c","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":88,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.953340+00:00","checkpoint_count":114,"last_hint_source":"262a070f48e88a320e0c","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":89,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.954461+00:00","checkpoint_count":114,"last_hint_source":"262a070f48e88a320e0c","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":90,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:02.955470+00:00","checkpoint_count":114,"last_hint_source":"e9a2851a9535ba78c7e6","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":91,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.083494+00:00","checkpoint_count":114,"last_hint_source":"79ad7f9f7f571eb420d0","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":92,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.086961+00:00","checkpoint_count":114,"last_hint_source":"f19145d98c839556fef8","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":93,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.089172+00:00","checkpoint_count":114,"last_hint_source":"f19145d98c839556fef8","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":94,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.090073+00:00","checkpoint_count":114,"last_hint_source":"79ad7f9f7f571eb420d0","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":95,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.090984+00:00","checkpoint_count":114,"last_hint_source":"79ad7f9f7f571eb420d0","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":96,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.091855+00:00","checkpoint_count":114,"last_hint_source":"f19145d98c839556fef8","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":97,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.389641+00:00","checkpoint_count":114,"last_hint_source":"12c02e9fe584ff41bdd2","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":98,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.393245+00:00","checkpoint_count":114,"last_hint_source":"bcf0292578550cb38451","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":99,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.395049+00:00","checkpoint_count":114,"last_hint_source":"12c02e9fe584ff41bdd2","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":100,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.396442+00:00","checkpoint_count":114,"last_hint_source":"bcf0292578550cb38451","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":101,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.397529+00:00","checkpoint_count":114,"last_hint_source":"12c02e9fe584ff41bdd2","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":102,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.398543+00:00","checkpoint_count":114,"last_hint_source":"bcf0292578550cb38451","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":103,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.603517+00:00","checkpoint_count":114,"last_hint_source":"cab5b8b8dbe5cad21502","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":104,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.610661+00:00","checkpoint_count":114,"last_hint_source":"93f12658cfaa2c9d3ca3","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":105,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.612980+00:00","checkpoint_count":114,"last_hint_source":"cab5b8b8dbe5cad21502","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":106,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.614545+00:00","checkpoint_count":114,"last_hint_source":"93f12658cfaa2c9d3ca3","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":107,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.615530+00:00","checkpoint_count":114,"last_hint_source":"93f12658cfaa2c9d3ca3","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":108,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.616525+00:00","checkpoint_count":114,"last_hint_source":"cab5b8b8dbe5cad21502","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":109,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.777144+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":110,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.779786+00:00","checkpoint_count":114,"last_hint_source":"0e4238ecd50d3918b7fb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":111,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.781428+00:00","checkpoint_count":114,"last_hint_source":"0e4238ecd50d3918b7fb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":112,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.782644+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":113,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.783705+00:00","checkpoint_count":114,"last_hint_source":"0e4238ecd50d3918b7fb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.784707+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"hint_augmentation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:03.833578+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"native_skillopt","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:04.796707+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+    [2/6 REFLECT minibatch] failure=0→0 groups  success=38→5 groups  (M=8, L=4, workers=2)
+      [analyst] 1/5 minibatch_succ_001 (8 trajs) → 1 edits
+      [analyst] 2/5 minibatch_succ_000 (8 trajs) → 1 edits
+      [analyst] 3/5 minibatch_succ_003 (8 trajs) → 1 edits
+      [analyst] 4/5 minibatch_succ_002 (8 trajs) → 1 edits
+      [analyst] 5/5 minibatch_succ_004 (6 trajs) → 1 edits
+    [3/6 AGGREGATE] failure=0 success=5 (parallel, workers=2)
+    [aggregate success] level=1  5 patches → 1 batches (parallel, batch_size=8)
+      [aggregate success] level=1 batch [0:5] → 1 patch (1 edits)
+{"phase":"card_extraction","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:50:07.437477+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+    [2/6 REFLECT minibatch] failure=36→18 groups  success=0→0 groups  (M=2, L=0, workers=2)
+      [analyst] 1/18 minibatch_fail_000 (2 trajs) → 0 edits
+      [analyst] 2/18 minibatch_fail_001 (2 trajs) → 0 edits
+      [analyst] 3/18 minibatch_fail_003 (2 trajs) → 0 edits
+      [analyst] 4/18 minibatch_fail_002 (2 trajs) → 0 edits
+      [analyst] 5/18 minibatch_fail_004 (2 trajs) → 0 edits
+      [analyst] 6/18 minibatch_fail_005 (2 trajs) → 0 edits
+      [analyst] 7/18 minibatch_fail_006 (2 trajs) → 0 edits
+      [analyst] 8/18 minibatch_fail_008 (2 trajs) → 0 edits
+      [analyst] 9/18 minibatch_fail_007 (2 trajs) → 0 edits
+      [analyst] 10/18 minibatch_fail_010 (2 trajs) → 0 edits
+      [analyst] 11/18 minibatch_fail_009 (2 trajs) → 0 edits
+      [analyst] 12/18 minibatch_fail_012 (2 trajs) → 0 edits
+      [analyst] 13/18 minibatch_fail_013 (2 trajs) → 0 edits
+      [analyst] 14/18 minibatch_fail_011 (2 trajs) → 0 edits
+      [analyst] 15/18 minibatch_fail_014 (2 trajs) → 0 edits
+      [analyst] 16/18 minibatch_fail_015 (2 trajs) → 0 edits
+      [analyst] 17/18 minibatch_fail_016 (2 trajs) → 0 edits
+      [analyst] 18/18 minibatch_fail_017 (2 trajs) → 0 edits
+    [2/6 REFLECT minibatch] failure=36→18 groups  success=0→0 groups  (M=2, L=0, workers=2)
+      [analyst] 1/18 minibatch_fail_000 (2 trajs) → 0 edits
+      [analyst] 2/18 minibatch_fail_001 (2 trajs) → 0 edits
+      [analyst] 3/18 minibatch_fail_002 (2 trajs) → 0 edits
+      [analyst] 4/18 minibatch_fail_003 (2 trajs) → 0 edits
+      [analyst] 5/18 minibatch_fail_004 (2 trajs) → 0 edits
+      [analyst] 6/18 minibatch_fail_005 (2 trajs) → 0 edits
+      [analyst] 7/18 minibatch_fail_007 (2 trajs) → 0 edits
+      [analyst] 8/18 minibatch_fail_008 (2 trajs) → 0 edits
+      [analyst] 9/18 minibatch_fail_009 (2 trajs) → 0 edits
+      [analyst] 10/18 minibatch_fail_010 (2 trajs) → 0 edits
+      [analyst] 11/18 minibatch_fail_011 (2 trajs) → 0 edits
+      [analyst] 12/18 minibatch_fail_012 (2 trajs) → 0 edits
+      [analyst] 13/18 minibatch_fail_013 (2 trajs) → 0 edits
+      [analyst] 14/18 minibatch_fail_014 (2 trajs) → 0 edits
+      [analyst] 15/18 minibatch_fail_015 (2 trajs) → 0 edits
+      [analyst] 16/18 minibatch_fail_016 (2 trajs) → 0 edits
+      [analyst] 17/18 minibatch_fail_017 (2 trajs) → 0 edits
+      [analyst] 18/18 minibatch_fail_006 (2 trajs) → 0 edits
+{"phase":"artifacts_frozen","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:52:22.616569+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true}
+{"phase":"artifact_quality_review","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:52:22.617620+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648"}
+{"phase":"artifacts_quality_accepted","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:56:00.643549+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T02:56:00.693677+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":1,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:06:08.691726+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"initial"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":2,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:06:08.693998+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"native"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":3,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:06:08.696419+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"original_only"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":4,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:06:08.699141+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"augmented"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":5,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:06:08.702148+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"native"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":6,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:06:09.230138+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"original_only"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":7,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:06:09.234125+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"augmented"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":8,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:06:09.239188+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"initial"}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 38052)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 59200)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":9,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:16:13.438163+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"original_only"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":10,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:16:13.620065+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"augmented"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":11,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:16:13.625811+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"initial"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":12,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:16:13.631757+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"native"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":13,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:16:13.638046+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"augmented"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":14,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:16:13.644721+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"initial"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":15,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:16:13.651745+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"native"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":16,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:16:13.659112+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"original_only"}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 47774)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 43478)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 47798)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":17,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:16:48.722361+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"initial"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":18,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:16:57.116855+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"native"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":19,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:21:16.894600+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"original_only"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":20,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:21:16.903318+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"augmented"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":21,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:21:16.912126+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"native"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":22,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:21:16.921203+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"original_only"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":23,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:21:16.930117+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"augmented"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":24,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:21:16.936475+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"initial"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":25,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:23:28.874745+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"original_only"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":26,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:23:28.882076+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"augmented"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":27,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:23:28.889471+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"initial"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":28,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:23:28.897040+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"native"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":29,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:31:00.230904+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"augmented"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":30,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:31:00.238470+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"initial"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":31,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:31:18.697491+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"native"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":32,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:31:18.705426+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"original_only"}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 38652)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":33,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:32:49.836574+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"initial"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":34,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:41:20.279760+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"native"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":35,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:41:20.292870+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"original_only"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":36,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:41:20.306211+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"augmented"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":37,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:41:20.316406+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"native"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":38,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:41:20.325612+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"original_only"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":39,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:41:20.334962+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"augmented"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":40,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:41:20.344454+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"initial"}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 49202)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 51268)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":41,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:51:23.691700+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"original_only"}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 58904)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":42,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:51:51.465534+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"augmented"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":43,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:51:51.476385+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"initial"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":44,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:51:51.487349+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"native"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":45,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:51:51.498514+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"augmented"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":46,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:51:51.509884+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"initial"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":47,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:51:51.516641+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"native"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":48,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:51:51.523509+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"original_only"}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 56578)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":49,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:54:23.873413+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"initial"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":50,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:54:23.880655+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"native"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":51,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:54:23.887908+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"original_only"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":52,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:55:25.394688+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"augmented"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":53,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:55:25.402298+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"native"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":54,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:55:25.409995+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"original_only"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":55,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:55:25.417863+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"augmented"}
+{"phase":"validation","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":56,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T03:55:25.425819+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"initial"}
+{"phase":"stopped","hint_completed":114,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":56,"verified_reference_sources":38,"updated_at_utc":"2026-10-07T04:00:20.300456+00:00","checkpoint_count":114,"last_hint_source":"d573be72c0faf8392fbb","smoke_evidence_sha256":"6820b82bb76b7487ef7018c859dbb3ded47180513e2e423764c88c97a1a343b4","smoke_accepted":true,"artifact_evidence_sha256":"996452622d838a00a64c8206208a7c4db4dc805c7f5e9b3df0839a7351a76648","active_repetition":1,"actor_workers":8,"last_condition":"initial","error_type":"RuntimeError","error":"Actor/provider invalid, preserve and stop: val_r1_original_only--08d1a2c2d3839f127970"}
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 1260, in main
+    campaign.run()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 1237, in run
+    self.evaluation(artifacts,frozen)
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 1220, in evaluation
+    row = future.result()
+          ^^^^^^^^^^^^^^^
+  File "<HOME>/anaconda3/lib/python3.11/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "<HOME>/anaconda3/lib/python3.11/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "<HOME>/anaconda3/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 1208, in run
+    row = self.actor(item,bridge,artifacts[condition],target,600,f"val_r{repeat+1}_{condition}")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 896, in actor
+    raise RuntimeError("Actor/provider invalid, preserve and stop: "+stage+"--"+item["id"])
+RuntimeError: Actor/provider invalid, preserve and stop: val_r1_original_only--08d1a2c2d3839f127970
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 1268, in <module>
+    main()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 1260, in main
+    campaign.run()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 1237, in run
+    self.evaluation(artifacts,frozen)
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 1220, in evaluation
+    row = future.result()
+          ^^^^^^^^^^^^^^^
+  File "<HOME>/anaconda3/lib/python3.11/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "<HOME>/anaconda3/lib/python3.11/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "<HOME>/anaconda3/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 1208, in run
+    row = self.actor(item,bridge,artifacts[condition],target,600,f"val_r{repeat+1}_{condition}")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 896, in actor
+    raise RuntimeError("Actor/provider invalid, preserve and stop: "+stage+"--"+item["id"])
+RuntimeError: Actor/provider invalid, preserve and stop: val_r1_original_only--08d1a2c2d3839f127970

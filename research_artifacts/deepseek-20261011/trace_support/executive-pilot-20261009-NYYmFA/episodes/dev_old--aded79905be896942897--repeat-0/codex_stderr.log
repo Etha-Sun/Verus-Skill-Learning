@@ -1,0 +1,104 @@
+2026-10-09T23:11:25.646524Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/executive-pilot-20261009-NYYmFA/episodes/dev_old--aded79905be896942897--repeat-0/workspace/candidate.rs:
+proof fn tla_forall_not_equality<T, A>(a_to_p: spec_fn(A) -> TempPred<T>)
+    ensures tla_forall(|a: A| not(a_to_p(a))) == not(tla_exists(a_to_p)),
+{
+    let lhs = tla_forall(|a: A| not(a_to_p(a)));
+    let rhs = not(tla_exists(a_to_p));
+    assert(lhs.entails(rhs)) by {
+        assert forall |ex: Execution<T>| #[trigger] lhs.satisfied_by(ex) implies rhs.satisfied_by(ex) by {
+            assert(!(exists |a: A| #[trigger] a_to_p(a).satisfied_by(ex))) by {
+                assert forall |a: A| #[trigger] a_to_p(a).satisfied_by(ex) implies false by {
+                    assert(not(a_to_p(a)).satisfied_by(ex));
+                    assert(false);
+                }
+            }
+        }
+    }
+    assert(rhs.entails(lhs)) by {
+        assert forall |ex: Execution<T>| #[trigger] rhs.satisfied_by(ex) implies lhs.satisfied_by(ex) by {
+            assert forall |a: A| #[trigger] not(a_to_p(a)).satisfied_by(ex) by {
+                if a_to_p(a).satisfied_by(ex) {
+                    assert(exists |b: A| #[trigger] a_to_p(b).satisfied_by(ex));
+                    assert(rhs.satisfied_by(ex));
+                    assert(false);
+                }
+            }
+        }
+    }
+    temp_pred_equality(lhs, rhs);
+    assert(lhs == rhs);
+}
+
+proof fn probe1<T, A>(ex: Execution<T>, a_to_p: spec_fn(A) -> TempPred<T>, a: A)
+    requires tla_forall(|x: A| not(a_to_p(x))).satisfied_by(ex),
+{
+    assert(not(a_to_p(a)).satisfied_by(ex));
+}
+
+proof fn probe2<T, A>(ex: Execution<T>, a_to_p: spec_fn(A) -> TempPred<T>, a: A)
+    requires tla_forall(|x: A| not(a_to_p(x))).satisfied_by(ex),
+{
+    assert(!a_to_p(a).satisfied_by(ex));
+}
+
+proof fn probe3<T, A>(ex: Execution<T>, a_to_p: spec_fn(A) -> TempPred<T>, a: A)
+    requires tla_forall(|x: A| not(a_to_p(x))).satisfied_by(ex),
+{
+    assert(!exists |x: A| #[trigger] a_to_p(x).satisfied_by(ex));
+}
+
+proof fn probe4<T, A>(ex: Execution<T>, a_to_p: spec_fn(A) -> TempPred<T>, a: A)
+    requires tla_forall(|x: A| not(a_to_p(x))).satisfied_by(ex),
+{
+    tla_forall_unfold(ex, |x: A| not(a_to_p(x)));
+    assert(not(a_to_p(a)).satisfied_by(ex));
+}
+
+#[verifier(opaque)]
+pub spec fn not_p<T, A>(a_to_p: spec_fn(A) -> TempPred<T>, a: A) -> TempPred<T> {
+    not(a_to_p(a))
+}
+
+proof fn probe5<T, A>(ex: Execution<T>, a_to_p: spec_fn(A) -> TempPred<T>, a: A)
+    requires tla_forall(|x: A| not_p(a_to_p, x)).satisfied_by(ex),
+{
+    assert(not_p(a_to_p, a).satisfied_by(ex));
+}
+
+proof fn probe6<T, A>(ex: Execution<T>, a_to_p: spec_fn(A) -> TempPred<T>, a: A)
+    requires tla_forall(a_to_p).satisfied_by(ex),
+{
+    assert(a_to_p(a).satisfied_by(ex));
+}
+
+proof fn probe7<T, A>(ex: Execution<T>, a_to_p: spec_fn(A) -> TempPred<T>, a: A)
+    requires tla_forall(a_to_p).satisfied_by(ex),
+{
+    tla_forall_unfold(ex, a_to_p);
+    assert(a_to_p(a).satisfied_by(ex));
+}
+
+proof fn probe8<T, A>(ex: Execution<T>, a_to_p: spec_fn(A) -> TempPred<T>, a: A)
+    requires tla_forall(|x: A| a_to_p(x)).satisfied_by(ex),
+{
+    assert(a_to_p(a).satisfied_by(ex));
+}
+
+pub closed spec fn not_of_curried<T, A>(a_to_p: spec_fn(A) -> TempPred<T>) -> spec_fn(A) -> TempPred<T> {
+    |a: A| not(a_to_p(a))
+}
+
+proof fn probe9<T, A>(ex: Execution<T>, a_to_p: spec_fn(A) -> TempPred<T>, a: A)
+    requires tla_forall(not_of_curried(a_to_p)).satisfied_by(ex),
+{
+    assert(not_of_curried(a_to_p)(a).satisfied_by(ex));
+}
+
+proof fn probe10<T, A>(a_to_p: spec_fn(A) -> TempPred<T>)
+    ensures tla_forall(|a: A| not(a_to_p(a))) == tla_forall(not_of_curried(a_to_p)),
+{
+    reveal(not_of_curried);
+}
+
+
+}

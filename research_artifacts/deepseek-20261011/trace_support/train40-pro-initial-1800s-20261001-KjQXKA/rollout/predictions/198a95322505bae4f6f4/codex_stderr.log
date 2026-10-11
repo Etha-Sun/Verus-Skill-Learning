@@ -1,0 +1,2 @@
+2026-10-02T00:30:25.515178Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/train40-pro-initial-1800s-20261001-KjQXKA/rollout/predictions/198a95322505bae4f6f4/workspace/candidate.rs:
+        assert p.satisfied_by(ex.suffix(i)) ==> eventually(always(q)).satisfied_by(ex.suffix(i)) by {

@@ -1,0 +1,11 @@
+2026-10-09T23:07:04.356112Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/executive-pilot-20261009-NYYmFA/episodes/dev_revised--aded79905be896942897--repeat-0/workspace/candidate.rs:
+    temp_pred_equality(lhs, rhs);
+}
+
+}
+2026-10-09T23:07:52.252598Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/executive-pilot-20261009-NYYmFA/episodes/dev_revised--aded79905be896942897--repeat-0/workspace/candidate.rs:
+    let lhs = tla_forall(|a: A| not(a_to_p(a)));
+    let rhs = not(tla_exists(a_to_p));
+    assert forall |ex: Execution<T>| lhs.satisfied_by(ex) implies rhs.satisfied_by(ex) by {
+        de_morgan_execution(a_to_p, ex);
+    }

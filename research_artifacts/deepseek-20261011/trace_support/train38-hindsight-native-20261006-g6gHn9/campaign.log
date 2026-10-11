@@ -1,0 +1,28 @@
+{"phase":"inputs_audited","hint_completed":0,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-06T07:52:01.327622+00:00"}
+{"phase":"checkpoints_prepared","hint_completed":0,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-06T07:52:05.003530+00:00","checkpoint_count":114}
+{"phase":"smoke_hint_augmentation","hint_completed":0,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-06T07:52:05.569550+00:00","checkpoint_count":114}
+{"phase":"stopped","hint_completed":0,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-06T07:52:12.579358+00:00","checkpoint_count":114,"error_type":"RuntimeError","error":"Actor/provider invalid, preserve and stop: hint_actor_cp1--0a8794c662f44dedfa7f"}
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 599, in main
+    campaign.run()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 575, in run
+    artifacts,frozen = self.learning()
+                       ^^^^^^^^^^^^^^^
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 451, in learning
+    self.run_forks(smoke_items,bridge,2)
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 504, in run_forks
+    future.result()
+  File "<HOME>/anaconda3/lib/python3.11/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "<HOME>/anaconda3/lib/python3.11/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "<HOME>/anaconda3/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 401, in hint_branch
+    row = self.actor(item,bridge,self.seed,actor_directory,1800,"hint_actor_"+cp_id,candidate,instructions)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 318, in actor
+    raise RuntimeError("Actor/provider invalid, preserve and stop: "+stage+"--"+item["id"])
+RuntimeError: Actor/provider invalid, preserve and stop: hint_actor_cp1--0a8794c662f44dedfa7f

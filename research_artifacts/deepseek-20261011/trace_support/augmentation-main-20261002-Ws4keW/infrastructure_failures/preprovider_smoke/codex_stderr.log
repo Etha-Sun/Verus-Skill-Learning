@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "<REPO>/skill-evolution-pilot/src/skill_evolution_pilot/actor_isolation.py", line 624, in <module>
+  File "<REPO>/skill-evolution-pilot/src/skill_evolution_pilot/actor_isolation.py", line 620, in main
+  File "<REPO>/skill-evolution-pilot/src/skill_evolution_pilot/actor_isolation.py", line 568, in _run_outer
+RuntimeError: actor isolation leaked forbidden paths: ['<RUN_ROOT>/skillopt-verusage/train40-pro-initial-1800s-20261001-KjQXKA']

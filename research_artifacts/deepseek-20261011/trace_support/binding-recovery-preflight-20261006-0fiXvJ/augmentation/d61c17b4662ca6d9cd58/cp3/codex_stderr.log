@@ -1,0 +1,10 @@
+2026-10-06T20:07:52.031897Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/train38-hindsight-native-20261006-zDBL5X/augmentation/d61c17b4662ca6d9cd58/cp3/workspace/scratch_test.rs:
+pub proof fn test_choose_equal_true()
+{
+    let x = choose |s: u8| #[trigger] f(s) || !f(s);
+    let y = choose |s: u8| #[trigger] f(s) || !f(s);
+    assert(x == y);
+}
+
+
+}

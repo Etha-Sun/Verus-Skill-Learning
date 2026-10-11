@@ -1,0 +1,2 @@
+BRIDGE_READY http://127.0.0.1:18601/v1 model=deepseek-v4-pro config_sha256=ac806e459575a2d82f3d9d0b2634ad5eea4db2e7bec0b9e6c1e3af4cdbddcb4c
+BRIDGE_READY http://127.0.0.1:18601/v1 model=deepseek-v4-pro config_sha256=ac806e459575a2d82f3d9d0b2634ad5eea4db2e7bec0b9e6c1e3af4cdbddcb4c

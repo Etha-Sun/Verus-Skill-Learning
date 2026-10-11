@@ -1,0 +1,10 @@
+2026-10-07T07:48:26.437960Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/evaluation-resume-20261007-ri57is/evaluation_attempts/wave-003/validation/repeat_2/augmented/a23a4969155913255f76/workspace/candidate.rs:
+}
+
+}
+2026-10-07T07:50:14.853225Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/evaluation-resume-20261007-ri57is/evaluation_attempts/wave-003/validation/repeat_2/augmented/a23a4969155913255f76/workspace/candidate.rs:
+    };
+}
+
+
+}

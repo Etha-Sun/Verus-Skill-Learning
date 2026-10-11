@@ -1,0 +1,18 @@
+2026-10-02T00:36:54.681438Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/train40-pro-initial-1800s-20261001-KjQXKA/rollout/predictions/8f1c392f61aec616de82/workspace/candidate.rs:
+pub proof fn filtered_size_is_zero_means_no_such_value<V>(m: Multiset<V>, f: spec_fn(V) -> bool)
+    ensures (m.filter(f).len() == 0) == (forall |v: V| !(#[trigger] m.contains(v) && f(v)))
+{
+}
+}
+2026-10-02T00:37:29.617715Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/train40-pro-initial-1800s-20261001-KjQXKA/rollout/predictions/8f1c392f61aec616de82/workspace/candidate.rs:
+pub proof fn filtered_size_is_zero_means_no_such_value<V>(m: Multiset<V>, f: spec_fn(V) -> bool)
+    ensures (m.filter(f).len() == 0) == (forall |v: V| !(#[trigger] m.contains(v) && f(v)))
+{
+    len_is_zero_means_count_for_each_value_is_zero(m.filter(f));
+
+    assert forall |v: V| m.filter(f).count(v) == if f(v) { m.count(v) } else { 0 } by {
+    }
+    assert forall |v: V| m.contains(v) == (m.count(v) > 0) by {
+    }
+}
+}

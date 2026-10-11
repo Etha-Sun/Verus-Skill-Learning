@@ -1,0 +1,8 @@
+2026-10-02T00:34:03.966362Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/train40-pro-initial-1800s-20261001-KjQXKA/rollout/predictions/6dda831c08315be1932f/workspace/candidate.rs:
+proof fn map_fold_ok<A, B>(s: Set<A>, f: spec_fn(A) -> B)
+    requires
+        s.finite(),
+    ensures
+        map_fold(s, f) =~= s.map(f),
+{
+}

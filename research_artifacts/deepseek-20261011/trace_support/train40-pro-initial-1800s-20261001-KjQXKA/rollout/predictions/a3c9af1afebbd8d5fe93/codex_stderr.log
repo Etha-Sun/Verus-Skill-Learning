@@ -1,0 +1,14 @@
+2026-10-02T00:36:21.456133Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/train40-pro-initial-1800s-20261001-KjQXKA/rollout/predictions/a3c9af1afebbd8d5fe93/workspace/candidate.rs:
+#[allow(non_snake_case)]
+pub proof fn test_u64_len()
+{
+    let x = 5u64;
+    assert(spec_u64_to_le_bytes(x).len() == 8);
+    assert(x.ghost_serialize() == spec_u64_to_le_bytes(x));
+    assert(spec_u64_to_le_bytes(x).len() == 8);
+    assert(x.ghost_serialize().len() == 8);
+    let y = 5usize;
+    assert(spec_u64_to_le_bytes(y as u64).len() == 8);
+    assert(y.ghost_serialize() == spec_u64_to_le_bytes(y as u64));
+    assert(y.ghost_serialize().len() == 8);
+}

@@ -1,0 +1,5 @@
+2026-10-07T02:58:41.300210Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/train38-hindsight-native-20261007-aQfE7o/validation/repeat_1/augmented/a23a4969155913255f76/workspace/candidate.rs:
+                        } by {
+                            assert(spec.entails(always(lift_state(#[trigger] vrs_rely(other_id)))));
+                            assert(spec.satisfied_by(ex)
+                                ==> always(lift_state(vrs_rely(other_id))).satisfied_by(ex));

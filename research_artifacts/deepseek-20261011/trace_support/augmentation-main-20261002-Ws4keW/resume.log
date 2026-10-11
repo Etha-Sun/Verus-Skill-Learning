@@ -1,0 +1,31 @@
+{"phase":"preflight_passed","hint_completed":0,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"eligible_hint_sources":39,"updated_at_utc":"2026-10-02T17:09:14.386641+00:00"}
+{"phase":"training_smoke","hint_completed":0,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"eligible_hint_sources":39,"updated_at_utc":"2026-10-02T17:09:14.393367+00:00"}
+{"phase":"stopped","hint_completed":0,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"eligible_hint_sources":39,"updated_at_utc":"2026-10-02T17:09:23.553741+00:00","error_type":"RuntimeError","error":"Actor/provider invalid, preserve and stop: hint_actor--3a77a3e4e72edf600e2a"}
+Traceback (most recent call last):
+  File "<RUN_ROOT>/skillopt-verusage/augmentation-main-20261002-Ws4keW/resume_after_isolation_fix.py", line 24, in <module>
+    campaign.run()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 359, in run
+    artifacts,frozen = self.learning()
+                       ^^^^^^^^^^^^^^^
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 265, in learning
+    self.hint_branch(smoke,bridge)
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 232, in hint_branch
+    row = self.actor(item,bridge,self.seed,self.root/"augmentation"/ident,1800,"hint_actor",candidate,instructions)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 197, in actor
+    raise RuntimeError("Actor/provider invalid, preserve and stop: "+stage+"--"+item["id"])
+RuntimeError: Actor/provider invalid, preserve and stop: hint_actor--3a77a3e4e72edf600e2a
+Traceback (most recent call last):
+  File "<RUN_ROOT>/skillopt-verusage/augmentation-main-20261002-Ws4keW/resume_after_isolation_fix.py", line 24, in <module>
+    campaign.run()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 359, in run
+    artifacts,frozen = self.learning()
+                       ^^^^^^^^^^^^^^^
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 265, in learning
+    self.hint_branch(smoke,bridge)
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 232, in hint_branch
+    row = self.actor(item,bridge,self.seed,self.root/"augmentation"/ident,1800,"hint_actor",candidate,instructions)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 197, in actor
+    raise RuntimeError("Actor/provider invalid, preserve and stop: "+stage+"--"+item["id"])
+RuntimeError: Actor/provider invalid, preserve and stop: hint_actor--3a77a3e4e72edf600e2a

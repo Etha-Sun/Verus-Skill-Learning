@@ -1,0 +1,37 @@
+{"phase":"inputs_audited_design_pending","hint_completed":0,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-06T07:48:25.541163+00:00"}
+{"phase":"checkpoints_prepared","hint_completed":0,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-06T07:48:29.305781+00:00","checkpoint_count":114}
+{"phase":"smoke_hint_augmentation","hint_completed":0,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-06T07:48:29.873959+00:00","checkpoint_count":114}
+{"phase":"stopped","hint_completed":0,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-06T07:49:15.427919+00:00","checkpoint_count":114,"error_type":"ValueError","error":"output directory must be empty: <RUN_ROOT>/skillopt-verusage/train38-hindsight-native-20261006-q3ziVh/augmentation/0a8794c662f44dedfa7f/cp1"}
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 561, in main
+    campaign.run()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 537, in run
+    artifacts,frozen = self.learning()
+                       ^^^^^^^^^^^^^^^
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 419, in learning
+    self.run_forks(smoke_items,bridge,2)
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 472, in run_forks
+    future.result()
+  File "<HOME>/anaconda3/lib/python3.11/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "<HOME>/anaconda3/lib/python3.11/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "<HOME>/anaconda3/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 370, in hint_branch
+    row = self.actor(item,bridge,self.seed,actor_directory,1800,"hint_actor_"+cp_id,candidate,instructions)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 284, in actor
+    row = run_task(item_id=item["id"],source=Path(item["runtime_source"]),
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_flash_runner.py", line 308, in run_task
+    result = run_codex_smoke(
+             ^^^^^^^^^^^^^^^^
+  File "<REPO>/skill-evolution-pilot/src/skill_evolution_pilot/codex_runner.py", line 449, in run_codex_smoke
+    out_dir = _require_external_output(out_dir)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<REPO>/skill-evolution-pilot/src/skill_evolution_pilot/codex_runner.py", line 45, in _require_external_output
+    raise ValueError(f"output directory must be empty: {resolved}")
+ValueError: output directory must be empty: <RUN_ROOT>/skillopt-verusage/train38-hindsight-native-20261006-q3ziVh/augmentation/0a8794c662f44dedfa7f/cp1

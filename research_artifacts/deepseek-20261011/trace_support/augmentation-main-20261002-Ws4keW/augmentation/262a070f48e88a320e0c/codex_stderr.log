@@ -1,0 +1,20 @@
+2026-10-02T18:36:22.253478Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/augmentation-main-20261002-Ws4keW/augmentation/262a070f48e88a320e0c/workspace/candidate.rs:
+                    };
+                    let dst = match sm {
+                        CSingleMessage::Message { dst, .. } => dst,
+                        _ => unreached(),
+                    };
+                    let msg = sm.clone_up_to_view();
+                    proof {
+                        same_view_same_marshalable(sm, &msg);
+                        assert(msg@ == sm@);
+                        assert(sm is Message);
+                        assert(msg is Message);
+                        assert(msg.abstractable());
+                        assert(msg.is_marshalable());
+                    }
+                    let cpacket = CPacket {
+                        dst: dst.clone_up_to_view(),
+                        src: src.clone_up_to_view(),
+                        msg,
+                    };

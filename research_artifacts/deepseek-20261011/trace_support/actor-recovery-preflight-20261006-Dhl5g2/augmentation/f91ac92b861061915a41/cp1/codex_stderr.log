@@ -1,0 +1,5 @@
+2026-10-06T09:51:59.275829Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/train38-hindsight-native-20261006-iAlVyl/augmentation/f91ac92b861061915a41/cp1/workspace/candidate.rs:
+pub proof fn seq_equal_preserved_by_add<A>(s1: Seq<A>, s2: Seq<A>, suffix: Seq<A>)
+    ensures s1 == s2 <==> s1 + suffix == s2 + suffix
+{
+}

@@ -1,0 +1,4 @@
+2026-10-09T05:47:32.269612Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/full-validation20-20261008-6kHSjI/episodes/dev_revised--08d1a2c2d3839f127970/workspace/candidate.rs:
+        } else {
+            self.lows.erase(&lo, &hi);
+            self.lows.set(lo.get().clone(), clone_end_point(dst));

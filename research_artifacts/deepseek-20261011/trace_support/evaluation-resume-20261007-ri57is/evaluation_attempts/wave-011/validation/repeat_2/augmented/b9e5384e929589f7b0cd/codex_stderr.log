@@ -1,0 +1,6 @@
+2026-10-07T08:59:51.306595Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/evaluation-resume-20261007-ri57is/evaluation_attempts/wave-011/validation/repeat_2/augmented/b9e5384e929589f7b0cd/workspace/candidate.rs:
+    resp_msg
+}
+
+
+}

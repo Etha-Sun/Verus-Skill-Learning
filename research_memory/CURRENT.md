@@ -1,5 +1,22 @@
 # Current Research State
 
+## October DeepSeek card/trace private publication COMPLETE (2026-10-11)
+
+User explicitly authorized uploading complete cards and traces to the existing
+private repository. Scope is October SkillOpt experiment evidence: original
+training, hints/forks, native cards, downstream rounds, recovery copies and
+interrupted attempts, not unrelated older projects or independent research.
+Source runs/raw/sealed data remain unchanged. Publication under
+research_artifacts/deepseek-20261011/ indexes208842paths/29110unique contents,
+179732duplicate references across64source directories (not experiment counts).
+100archive volumes total1710643894bytes, <=40MiB each; four archive pushes passed.
+Independent audit verified29027archive members, supplemental assets and aliases,
+and credential/personal-path scans. Principal63/78/78banks are readable. Twelve
+focused tests pass. Final closeout commit contains cards/manifests/audit/helper.
+Next: verify final remote HEAD; restore selected evidence as needed. No new
+experiment or efficacy claim; unrelated ongoing research preserved.
+Receipt: notes/20261011-142445-complete-october-deepseek-card-and-trace-private-repository-publication/ENTRY.md.
+
 ## Recent implementation and evidence LOCAL PUBLICATION (2026-10-11)
 
 User requested careful local commits; no push or new research run. Four source

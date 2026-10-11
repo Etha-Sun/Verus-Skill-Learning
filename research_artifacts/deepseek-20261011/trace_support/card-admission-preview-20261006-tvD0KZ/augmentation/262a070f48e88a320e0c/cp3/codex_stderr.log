@@ -1,0 +1,1 @@
+2026-10-06T20:42:27.583792Z ERROR codex_core::tools::router: error=failed to parse function arguments: duplicate field `max_output_tokens` at line 1 column 376

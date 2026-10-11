@@ -1,0 +1,6 @@
+2026-10-02T18:49:32.433526Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/augmentation-main-20261002-Ws4keW/augmentation/93f12658cfaa2c9d3ca3/workspace/candidate.rs:
+    ensures
+        spec.entails(vrs_eventually_stable_reconciliation_per_cr(vrs)),
+{
+}
+}

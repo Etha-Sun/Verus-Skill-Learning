@@ -1,0 +1,27 @@
+{"phase":"inputs_audited","hint_completed":0,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-06T08:11:36.254258+00:00"}
+{"phase":"checkpoints_prepared","hint_completed":0,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-06T08:11:39.948436+00:00","checkpoint_count":114}
+{"phase":"smoke_hint_augmentation","hint_completed":0,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-06T08:11:40.522945+00:00","checkpoint_count":114}
+{"phase":"smoke_hint_augmentation","hint_completed":1,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-06T08:11:40.587469+00:00","checkpoint_count":114,"last_hint_source":"0a8794c662f44dedfa7f"}
+{"phase":"smoke_hint_augmentation","hint_completed":2,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-06T08:11:40.588308+00:00","checkpoint_count":114,"last_hint_source":"0a8794c662f44dedfa7f"}
+{"phase":"smoke_hint_augmentation","hint_completed":3,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-06T08:11:40.614437+00:00","checkpoint_count":114,"last_hint_source":"0a8794c662f44dedfa7f"}
+{"phase":"smoke_hint_augmentation","hint_completed":4,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-06T08:11:40.623682+00:00","checkpoint_count":114,"last_hint_source":"3a77a3e4e72edf600e2a"}
+{"phase":"smoke_hint_augmentation","hint_completed":5,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-06T08:11:40.651831+00:00","checkpoint_count":114,"last_hint_source":"3a77a3e4e72edf600e2a"}
+{"phase":"smoke_hint_augmentation","hint_completed":6,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-06T08:11:40.653531+00:00","checkpoint_count":114,"last_hint_source":"3a77a3e4e72edf600e2a"}
+{"phase":"smoke_card_extraction","hint_completed":6,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-06T08:11:40.656643+00:00","checkpoint_count":114,"last_hint_source":"3a77a3e4e72edf600e2a"}
+    [2/6 REFLECT minibatch] failure=2→1 groups  success=0→0 groups  (M=2, L=0, workers=2)
+      [analyst] 1/1 minibatch_fail_000 (2 trajs) → 0 edits
+    [2/6 REFLECT minibatch] failure=2→1 groups  success=0→0 groups  (M=2, L=0, workers=2)
+      [analyst] 1/1 minibatch_fail_000 (2 trajs) → 0 edits
+{"phase":"smoke_quality_review","hint_completed":6,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-06T08:15:46.770954+00:00","checkpoint_count":114,"last_hint_source":"3a77a3e4e72edf600e2a","smoke_evidence_sha256":"b358033ae98849a21039a6f2e4a3cb82c8749d1a155a7b25f45d07851fe7fc36"}
+{"phase":"stopped","hint_completed":6,"hint_rejected":0,"original_proposals":0,"augmented_proposals":0,"evaluation_completed":0,"verified_reference_sources":38,"updated_at_utc":"2026-10-06T08:17:48.828241+00:00","checkpoint_count":114,"last_hint_source":"3a77a3e4e72edf600e2a","smoke_evidence_sha256":"b358033ae98849a21039a6f2e4a3cb82c8749d1a155a7b25f45d07851fe7fc36","error_type":"RuntimeError","error":"Smoke quality review missing, rejected or not bound to this evidence"}
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 644, in main
+    campaign.run()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 620, in run
+    artifacts,frozen = self.learning()
+                       ^^^^^^^^^^^^^^^
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 500, in learning
+    audit_smoke_receipt(json.loads(receipt_path.read_text()),evidence)
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py", line 90, in audit_smoke_receipt
+    raise RuntimeError("Smoke quality review missing, rejected or not bound to this evidence")
+RuntimeError: Smoke quality review missing, rejected or not bound to this evidence

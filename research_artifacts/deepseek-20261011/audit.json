@@ -1,0 +1,10 @@
+{
+  "schema_version": "publication-content-audit-v1",
+  "logical_files": 208842,
+  "stored_archive_members": 29027,
+  "source_runs": 64,
+  "all_member_hashes_verified": true,
+  "all_aliases_resolvable": true,
+  "credential_and_personal_path_scan_passed": true,
+  "maximum_archive_volume_bytes": 41943040
+}

@@ -1,0 +1,4 @@
+2026-10-07T03:29:18.158968Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/train38-hindsight-native-20261007-aQfE7o/validation/repeat_1/native/aa78e84a931f703c7e9c/workspace/candidate.rs:
+{
+    vstd::bytes::lemma_auto_u64_from_to_le_bytes();
+}

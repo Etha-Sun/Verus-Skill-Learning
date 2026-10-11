@@ -1,0 +1,19 @@
+2026-10-09T04:55:51.182389Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/full-validation20-20261008-6kHSjI/episodes/dev_old--a23a4969155913255f76/workspace/candidate.rs:
+    vrs_rely_condition_entails_lifted_reverse(spec, cluster, controller_id);
+}
+
+
+}
+2026-10-09T04:59:10.362661Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/full-validation20-20261008-6kHSjI/episodes/dev_old--a23a4969155913255f76/workspace/candidate.rs:
+    assert((forall |ex2: Execution<ClusterState>| spec.implies(p).satisfied_by(ex2)) ==
+        (forall |ex2: Execution<ClusterState>| #[trigger] spec.satisfied_by(ex2) ==> p.satisfied_by(ex2)));
+}
+
+// File: controllers/vreplicaset_controller/proof/helper_lemmas.rs
+proof fn vrs_rely_condition_entails_lifted_forward(
+2026-10-09T04:59:44.268309Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/full-validation20-20261008-6kHSjI/episodes/dev_old--a23a4969155913255f76/workspace/candidate.rs:
+    assert(vrs_rely(other_id)(ex.suffix(i).head()));
+}
+
+// File: controllers/vreplicaset_controller/proof/helper_lemmas.rs
+proof fn vrs_rely_condition_entails_lifted_forward(

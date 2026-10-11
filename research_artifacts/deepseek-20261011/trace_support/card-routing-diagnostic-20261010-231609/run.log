@@ -1,0 +1,170 @@
+{"phase": "starting", "key": "routing_none--62ff0a3cf2c458b36ac8"}
+{"phase": "starting", "key": "routing_exposed--62ff0a3cf2c458b36ac8"}
+{"phase": "finished", "id": "62ff0a3cf2c458b36ac8", "condition": "none", "solved": true}
+{"phase": "starting", "key": "routing_index--62ff0a3cf2c458b36ac8"}
+{"phase": "finished", "id": "62ff0a3cf2c458b36ac8", "condition": "exposed", "solved": true}
+{"phase": "starting", "key": "routing_query--62ff0a3cf2c458b36ac8"}
+{"phase": "finished", "id": "62ff0a3cf2c458b36ac8", "condition": "query", "solved": true}
+{"phase": "starting", "key": "routing_exposed--a23a4969155913255f76"}
+{"phase": "finished", "id": "62ff0a3cf2c458b36ac8", "condition": "index", "solved": true}
+{"phase": "starting", "key": "routing_index--a23a4969155913255f76"}
+{"phase": "finished", "id": "a23a4969155913255f76", "condition": "index", "solved": true}
+{"phase": "starting", "key": "routing_query--a23a4969155913255f76"}
+{"phase": "finished", "id": "a23a4969155913255f76", "condition": "exposed", "solved": true}
+{"phase": "starting", "key": "routing_none--a23a4969155913255f76"}
+{"phase": "finished", "id": "a23a4969155913255f76", "condition": "none", "solved": true}
+{"phase": "starting", "key": "routing_index--599792dd13f472f45fa4"}
+{"phase": "finished", "id": "599792dd13f472f45fa4", "condition": "index", "solved": true}
+{"phase": "starting", "key": "routing_query--599792dd13f472f45fa4"}
+{"phase": "finished", "id": "599792dd13f472f45fa4", "condition": "query", "solved": true}
+{"phase": "starting", "key": "routing_none--599792dd13f472f45fa4"}
+{"phase": "finished", "id": "a23a4969155913255f76", "condition": "query", "solved": false}
+{"phase": "finished", "id": "599792dd13f472f45fa4", "condition": "none", "solved": true}
+{"phase": "starting", "key": "routing_exposed--599792dd13f472f45fa4"}
+{"phase": "starting", "key": "routing_query--3f17ea7c76a0ce99c098"}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 48164)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1070, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1088, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1009, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase": "finished", "id": "599792dd13f472f45fa4", "condition": "exposed", "solved": true}
+{"phase": "starting", "key": "routing_none--3f17ea7c76a0ce99c098"}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 46788)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1070, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1088, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1009, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase": "finished", "id": "3f17ea7c76a0ce99c098", "condition": "query", "solved": false}
+{"phase": "starting", "key": "routing_exposed--3f17ea7c76a0ce99c098"}
+{"phase": "finished", "id": "3f17ea7c76a0ce99c098", "condition": "none", "solved": false}
+{"phase": "starting", "key": "routing_index--3f17ea7c76a0ce99c098"}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 49604)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1070, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1088, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1009, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase": "finished", "id": "3f17ea7c76a0ce99c098", "condition": "exposed", "solved": false}
+{"phase": "finished", "id": "3f17ea7c76a0ce99c098", "condition": "index", "solved": false}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 36058)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1070, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1088, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1009, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase": "complete", "episodes": 16, "failures": 0}
+{"phase": "report_written", "completed": 16}

@@ -1,0 +1,9 @@
+2026-10-11T04:28:33.142676Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/card-routing-diagnostic-20261010-231609/episodes/routing_none--a23a4969155913255f76/workspace/zz_probe.rs:
+pub proof fn test()
+    ensures
+        true,
+{
+    assert((false implies true)) by {
+        h(false);
+    }
+}

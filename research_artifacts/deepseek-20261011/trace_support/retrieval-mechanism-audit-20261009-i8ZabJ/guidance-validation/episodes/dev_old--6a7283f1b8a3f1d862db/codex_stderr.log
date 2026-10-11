@@ -1,0 +1,1 @@
+2026-10-09T09:13:51.056850Z ERROR codex_core::tools::router: error=failed to parse function arguments: unknown field `explanation`, expected `step` or `status` at line 1 column 24

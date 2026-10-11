@@ -1,0 +1,844 @@
+{"phase":"recovery_ready","evaluation_completed":60,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":100,"updated_at_utc":"2026-10-07T07:15:14.253912+00:00"}
+{"phase":"validation","evaluation_completed":60,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":100,"updated_at_utc":"2026-10-07T07:15:14.361231+00:00","active_wave":0}
+{"phase":"validation","evaluation_completed":60,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":100,"updated_at_utc":"2026-10-07T07:16:42.474545+00:00","active_wave":0,"wave_finished":1,"wave_dispatched":8}
+{"phase":"validation","evaluation_completed":60,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":100,"updated_at_utc":"2026-10-07T07:16:44.612774+00:00","active_wave":0,"wave_finished":2,"wave_dispatched":8}
+{"phase":"validation","evaluation_completed":60,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":100,"updated_at_utc":"2026-10-07T07:17:20.861975+00:00","active_wave":0,"wave_finished":3,"wave_dispatched":8}
+{"phase":"validation","evaluation_completed":60,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":100,"updated_at_utc":"2026-10-07T07:17:33.561664+00:00","active_wave":0,"wave_finished":4,"wave_dispatched":8}
+{"phase":"validation","evaluation_completed":60,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":100,"updated_at_utc":"2026-10-07T07:25:23.619212+00:00","active_wave":0,"wave_finished":5,"wave_dispatched":8}
+{"phase":"validation","evaluation_completed":60,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":100,"updated_at_utc":"2026-10-07T07:25:23.650217+00:00","active_wave":0,"wave_finished":6,"wave_dispatched":8}
+{"phase":"validation","evaluation_completed":60,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":100,"updated_at_utc":"2026-10-07T07:25:23.662092+00:00","active_wave":0,"wave_finished":7,"wave_dispatched":8}
+{"phase":"validation","evaluation_completed":60,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":100,"updated_at_utc":"2026-10-07T07:25:23.713957+00:00","active_wave":0,"wave_finished":8,"wave_dispatched":8}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 54716)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 52800)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 49608)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 52400)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase":"validation","evaluation_completed":68,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":100,"updated_at_utc":"2026-10-07T07:27:03.537973+00:00","active_wave":0,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":68,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":92,"updated_at_utc":"2026-10-07T07:27:03.538771+00:00","active_wave":1,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":68,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":92,"updated_at_utc":"2026-10-07T07:28:29.819444+00:00","active_wave":1,"wave_finished":1,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":68,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":92,"updated_at_utc":"2026-10-07T07:28:50.447633+00:00","active_wave":1,"wave_finished":2,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":68,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":92,"updated_at_utc":"2026-10-07T07:29:10.468805+00:00","active_wave":1,"wave_finished":3,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":68,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":92,"updated_at_utc":"2026-10-07T07:29:30.784720+00:00","active_wave":1,"wave_finished":4,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":68,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":92,"updated_at_utc":"2026-10-07T07:36:54.806284+00:00","active_wave":1,"wave_finished":5,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":68,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":92,"updated_at_utc":"2026-10-07T07:37:05.025226+00:00","active_wave":1,"wave_finished":6,"wave_dispatched":8,"transport_retry_episodes":0}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 42988)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase":"validation","evaluation_completed":68,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":92,"updated_at_utc":"2026-10-07T07:37:06.671766+00:00","active_wave":1,"wave_finished":7,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":68,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":92,"updated_at_utc":"2026-10-07T07:37:06.734022+00:00","active_wave":1,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 43018)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 48334)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase":"validation","evaluation_completed":76,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":92,"updated_at_utc":"2026-10-07T07:37:14.635491+00:00","active_wave":1,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":76,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":84,"updated_at_utc":"2026-10-07T07:37:14.636330+00:00","active_wave":2,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":76,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":84,"updated_at_utc":"2026-10-07T07:40:02.602384+00:00","active_wave":2,"wave_finished":1,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":76,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":84,"updated_at_utc":"2026-10-07T07:40:27.179470+00:00","active_wave":2,"wave_finished":2,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":76,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":84,"updated_at_utc":"2026-10-07T07:40:48.289128+00:00","active_wave":2,"wave_finished":3,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":76,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":84,"updated_at_utc":"2026-10-07T07:41:14.432225+00:00","active_wave":2,"wave_finished":4,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":76,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":84,"updated_at_utc":"2026-10-07T07:41:18.959987+00:00","active_wave":2,"wave_finished":5,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":76,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":84,"updated_at_utc":"2026-10-07T07:41:38.427612+00:00","active_wave":2,"wave_finished":6,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":76,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":84,"updated_at_utc":"2026-10-07T07:44:57.173300+00:00","active_wave":2,"wave_finished":7,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":76,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":84,"updated_at_utc":"2026-10-07T07:46:51.813216+00:00","active_wave":2,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":84,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":84,"updated_at_utc":"2026-10-07T07:46:52.457250+00:00","active_wave":2,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":84,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":76,"updated_at_utc":"2026-10-07T07:46:52.458080+00:00","active_wave":3,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":84,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":76,"updated_at_utc":"2026-10-07T07:50:22.919156+00:00","active_wave":3,"wave_finished":1,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":84,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":76,"updated_at_utc":"2026-10-07T07:51:13.501671+00:00","active_wave":3,"wave_finished":2,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":84,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":76,"updated_at_utc":"2026-10-07T07:51:55.800321+00:00","active_wave":3,"wave_finished":3,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":84,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":76,"updated_at_utc":"2026-10-07T07:56:26.923772+00:00","active_wave":3,"wave_finished":4,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":84,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":76,"updated_at_utc":"2026-10-07T07:56:54.413163+00:00","active_wave":3,"wave_finished":5,"wave_dispatched":8,"transport_retry_episodes":0}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 40822)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase":"validation","evaluation_completed":84,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":76,"updated_at_utc":"2026-10-07T07:56:56.161834+00:00","active_wave":3,"wave_finished":6,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":84,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":76,"updated_at_utc":"2026-10-07T07:56:56.241721+00:00","active_wave":3,"wave_finished":7,"wave_dispatched":8,"transport_retry_episodes":0}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 48534)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase":"validation","evaluation_completed":84,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":76,"updated_at_utc":"2026-10-07T07:56:58.440717+00:00","active_wave":3,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 56298)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase":"validation","evaluation_completed":92,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":76,"updated_at_utc":"2026-10-07T07:57:07.448312+00:00","active_wave":3,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":92,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":68,"updated_at_utc":"2026-10-07T07:57:07.449169+00:00","active_wave":4,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":92,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":68,"updated_at_utc":"2026-10-07T07:57:59.989307+00:00","active_wave":4,"wave_finished":1,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":92,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":68,"updated_at_utc":"2026-10-07T07:58:12.312536+00:00","active_wave":4,"wave_finished":2,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":92,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":68,"updated_at_utc":"2026-10-07T07:58:54.239661+00:00","active_wave":4,"wave_finished":3,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":92,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":68,"updated_at_utc":"2026-10-07T07:59:20.569194+00:00","active_wave":4,"wave_finished":4,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":92,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":68,"updated_at_utc":"2026-10-07T07:59:27.821897+00:00","active_wave":4,"wave_finished":5,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":92,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":68,"updated_at_utc":"2026-10-07T08:01:09.129040+00:00","active_wave":4,"wave_finished":6,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":92,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":68,"updated_at_utc":"2026-10-07T08:01:19.664192+00:00","active_wave":4,"wave_finished":7,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":92,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":68,"updated_at_utc":"2026-10-07T08:07:09.207230+00:00","active_wave":4,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 38716)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase":"validation","evaluation_completed":100,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":68,"updated_at_utc":"2026-10-07T08:07:24.758761+00:00","active_wave":4,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":100,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":60,"updated_at_utc":"2026-10-07T08:07:24.759609+00:00","active_wave":5,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":100,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":60,"updated_at_utc":"2026-10-07T08:08:02.829870+00:00","active_wave":5,"wave_finished":1,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":100,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":60,"updated_at_utc":"2026-10-07T08:08:10.484332+00:00","active_wave":5,"wave_finished":2,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":100,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":60,"updated_at_utc":"2026-10-07T08:08:14.123861+00:00","active_wave":5,"wave_finished":3,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":100,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":60,"updated_at_utc":"2026-10-07T08:08:28.348535+00:00","active_wave":5,"wave_finished":4,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":100,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":60,"updated_at_utc":"2026-10-07T08:08:42.687712+00:00","active_wave":5,"wave_finished":5,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":100,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":60,"updated_at_utc":"2026-10-07T08:08:50.209508+00:00","active_wave":5,"wave_finished":6,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":100,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":60,"updated_at_utc":"2026-10-07T08:09:18.467472+00:00","active_wave":5,"wave_finished":7,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":100,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":60,"updated_at_utc":"2026-10-07T08:09:20.308844+00:00","active_wave":5,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":108,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":60,"updated_at_utc":"2026-10-07T08:09:20.675716+00:00","active_wave":5,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":108,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":52,"updated_at_utc":"2026-10-07T08:09:20.676501+00:00","active_wave":6,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":108,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":52,"updated_at_utc":"2026-10-07T08:10:23.310015+00:00","active_wave":6,"wave_finished":1,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":108,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":52,"updated_at_utc":"2026-10-07T08:11:20.245930+00:00","active_wave":6,"wave_finished":2,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":108,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":52,"updated_at_utc":"2026-10-07T08:11:32.566834+00:00","active_wave":6,"wave_finished":3,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":108,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":52,"updated_at_utc":"2026-10-07T08:12:00.211509+00:00","active_wave":6,"wave_finished":4,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":108,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":52,"updated_at_utc":"2026-10-07T08:12:36.376816+00:00","active_wave":6,"wave_finished":5,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":108,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":52,"updated_at_utc":"2026-10-07T08:15:52.194024+00:00","active_wave":6,"wave_finished":6,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":108,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":52,"updated_at_utc":"2026-10-07T08:17:23.166652+00:00","active_wave":6,"wave_finished":7,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":108,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":52,"updated_at_utc":"2026-10-07T08:17:43.875055+00:00","active_wave":6,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":116,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":52,"updated_at_utc":"2026-10-07T08:17:44.767586+00:00","active_wave":6,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":116,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":44,"updated_at_utc":"2026-10-07T08:17:44.768386+00:00","active_wave":7,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":116,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":44,"updated_at_utc":"2026-10-07T08:18:59.158522+00:00","active_wave":7,"wave_finished":1,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":116,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":44,"updated_at_utc":"2026-10-07T08:19:10.337500+00:00","active_wave":7,"wave_finished":2,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":116,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":44,"updated_at_utc":"2026-10-07T08:19:22.400126+00:00","active_wave":7,"wave_finished":3,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":116,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":44,"updated_at_utc":"2026-10-07T08:19:32.539389+00:00","active_wave":7,"wave_finished":4,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":116,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":44,"updated_at_utc":"2026-10-07T08:27:47.512522+00:00","active_wave":7,"wave_finished":5,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":116,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":44,"updated_at_utc":"2026-10-07T08:27:47.660295+00:00","active_wave":7,"wave_finished":6,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":116,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":44,"updated_at_utc":"2026-10-07T08:27:47.728052+00:00","active_wave":7,"wave_finished":7,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":116,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":44,"updated_at_utc":"2026-10-07T08:27:47.956280+00:00","active_wave":7,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 40712)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 58262)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 35896)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 56060)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase":"validation","evaluation_completed":124,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":44,"updated_at_utc":"2026-10-07T08:29:34.866565+00:00","active_wave":7,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":124,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":36,"updated_at_utc":"2026-10-07T08:29:34.867468+00:00","active_wave":8,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":124,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":36,"updated_at_utc":"2026-10-07T08:30:10.416730+00:00","active_wave":8,"wave_finished":1,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":124,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":36,"updated_at_utc":"2026-10-07T08:30:14.882919+00:00","active_wave":8,"wave_finished":2,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":124,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":36,"updated_at_utc":"2026-10-07T08:30:26.511188+00:00","active_wave":8,"wave_finished":3,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":124,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":36,"updated_at_utc":"2026-10-07T08:30:49.246938+00:00","active_wave":8,"wave_finished":4,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":124,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":36,"updated_at_utc":"2026-10-07T08:31:55.779055+00:00","active_wave":8,"wave_finished":5,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":124,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":36,"updated_at_utc":"2026-10-07T08:31:59.736334+00:00","active_wave":8,"wave_finished":6,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":124,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":36,"updated_at_utc":"2026-10-07T08:34:31.958622+00:00","active_wave":8,"wave_finished":7,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":124,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":36,"updated_at_utc":"2026-10-07T08:35:56.878163+00:00","active_wave":8,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":132,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":36,"updated_at_utc":"2026-10-07T08:35:57.763213+00:00","active_wave":8,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":132,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":28,"updated_at_utc":"2026-10-07T08:35:57.764021+00:00","active_wave":9,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":132,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":28,"updated_at_utc":"2026-10-07T08:36:42.432175+00:00","active_wave":9,"wave_finished":1,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":132,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":28,"updated_at_utc":"2026-10-07T08:36:43.556646+00:00","active_wave":9,"wave_finished":2,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":132,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":28,"updated_at_utc":"2026-10-07T08:36:48.029501+00:00","active_wave":9,"wave_finished":3,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":132,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":28,"updated_at_utc":"2026-10-07T08:37:11.163950+00:00","active_wave":9,"wave_finished":4,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":132,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":28,"updated_at_utc":"2026-10-07T08:45:59.730726+00:00","active_wave":9,"wave_finished":5,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":132,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":28,"updated_at_utc":"2026-10-07T08:45:59.893289+00:00","active_wave":9,"wave_finished":6,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":132,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":28,"updated_at_utc":"2026-10-07T08:45:59.956809+00:00","active_wave":9,"wave_finished":7,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":132,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":28,"updated_at_utc":"2026-10-07T08:45:59.966285+00:00","active_wave":9,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 39838)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 39834)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 49044)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 43258)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase":"validation","evaluation_completed":140,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":28,"updated_at_utc":"2026-10-07T08:49:26.470212+00:00","active_wave":9,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":140,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":20,"updated_at_utc":"2026-10-07T08:49:26.471030+00:00","active_wave":10,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":140,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":20,"updated_at_utc":"2026-10-07T08:50:07.294022+00:00","active_wave":10,"wave_finished":1,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":140,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":20,"updated_at_utc":"2026-10-07T08:50:29.789924+00:00","active_wave":10,"wave_finished":2,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":140,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":20,"updated_at_utc":"2026-10-07T08:50:31.630268+00:00","active_wave":10,"wave_finished":3,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":140,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":20,"updated_at_utc":"2026-10-07T08:51:01.366722+00:00","active_wave":10,"wave_finished":4,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":140,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":20,"updated_at_utc":"2026-10-07T08:51:11.630701+00:00","active_wave":10,"wave_finished":5,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":140,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":20,"updated_at_utc":"2026-10-07T08:51:19.378718+00:00","active_wave":10,"wave_finished":6,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":140,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":20,"updated_at_utc":"2026-10-07T08:52:21.754252+00:00","active_wave":10,"wave_finished":7,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":140,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":20,"updated_at_utc":"2026-10-07T08:52:46.108146+00:00","active_wave":10,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":148,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":20,"updated_at_utc":"2026-10-07T08:52:46.514000+00:00","active_wave":10,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":148,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":12,"updated_at_utc":"2026-10-07T08:52:46.514850+00:00","active_wave":11,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":148,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":12,"updated_at_utc":"2026-10-07T08:54:23.947093+00:00","active_wave":11,"wave_finished":1,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":148,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":12,"updated_at_utc":"2026-10-07T08:54:25.769954+00:00","active_wave":11,"wave_finished":2,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":148,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":12,"updated_at_utc":"2026-10-07T08:54:26.935568+00:00","active_wave":11,"wave_finished":3,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":148,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":12,"updated_at_utc":"2026-10-07T08:55:58.441720+00:00","active_wave":11,"wave_finished":4,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":148,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":12,"updated_at_utc":"2026-10-07T09:01:35.333924+00:00","active_wave":11,"wave_finished":5,"wave_dispatched":8,"transport_retry_episodes":0}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 52770)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase":"validation","evaluation_completed":148,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":12,"updated_at_utc":"2026-10-07T09:02:48.482822+00:00","active_wave":11,"wave_finished":6,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":148,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":12,"updated_at_utc":"2026-10-07T09:02:49.547560+00:00","active_wave":11,"wave_finished":7,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":148,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":12,"updated_at_utc":"2026-10-07T09:02:49.650520+00:00","active_wave":11,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 46842)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1043, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1061, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 982, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase":"validation","evaluation_completed":156,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":12,"updated_at_utc":"2026-10-07T09:02:54.541446+00:00","active_wave":11,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":156,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":4,"updated_at_utc":"2026-10-07T09:02:54.542261+00:00","active_wave":12,"wave_finished":8,"wave_dispatched":8,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":156,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":4,"updated_at_utc":"2026-10-07T09:04:18.146776+00:00","active_wave":12,"wave_finished":1,"wave_dispatched":4,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":156,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":4,"updated_at_utc":"2026-10-07T09:05:30.734315+00:00","active_wave":12,"wave_finished":2,"wave_dispatched":4,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":156,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":4,"updated_at_utc":"2026-10-07T09:08:01.292992+00:00","active_wave":12,"wave_finished":3,"wave_dispatched":4,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":156,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":4,"updated_at_utc":"2026-10-07T09:08:21.726537+00:00","active_wave":12,"wave_finished":4,"wave_dispatched":4,"transport_retry_episodes":0}
+{"phase":"validation","evaluation_completed":160,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":4,"updated_at_utc":"2026-10-07T09:08:22.496142+00:00","active_wave":12,"wave_finished":4,"wave_dispatched":4,"transport_retry_episodes":0}
+{"phase":"complete","evaluation_completed":160,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":4,"updated_at_utc":"2026-10-07T09:08:22.497719+00:00","active_wave":12,"wave_finished":4,"wave_dispatched":4,"transport_retry_episodes":0}
+<RUN_ROOT>/skillopt-verusage/evaluation-resume-20261007-ri57is/analysis/hindsight-summary/summary.json
+{"phase":"complete","evaluation_completed":160,"hint_completed":114,"actor_workers":8,"test_accessed":false,"evaluation_remaining":4,"updated_at_utc":"2026-10-07T09:08:27.057074+00:00","active_wave":12,"wave_finished":4,"wave_dispatched":4,"transport_retry_episodes":0,"report_complete":true}

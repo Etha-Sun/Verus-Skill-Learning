@@ -1,0 +1,8 @@
+2026-10-11T04:50:20.827134Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/card-routing-diagnostic-20261010-231609/episodes/routing_index--3f17ea7c76a0ce99c098/workspace/candidate.rs:
+    ensures
+        matching_pods(vrs, s.resources()) == matching_pods(vrs, s_prime.resources()),
+{
+}
+
+
+}

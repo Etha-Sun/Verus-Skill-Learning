@@ -1,0 +1,23 @@
+2026-10-02T00:45:34.420774Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in <RUN_ROOT>/skillopt-verusage/train40-pro-initial-1800s-20261001-KjQXKA/rollout/predictions/262a070f48e88a320e0c/workspace/candidate.rs:
+                    };
+                    let ghost old_map: Seq<Packet> = packets@.map_values(|p: CPacket| p@);
+                    proof {
+                        lemma_seq_push_to_set::<Packet>(old_map, cpacket@);
+                        assert(cpacket@.src == asrc);
+                        assert(cpacket@.dst == adst);
+                        let ghost send_state_view: SendState<Message> = self@.send_state;
+                        let ghost idx: int = i as int;
+                        assert(cpacket@.msg == send_state_view[adst].un_acked[idx]);
+                        let ghost left_base: Set<Packet> = old(packets)@.map_values(
+                            |p: CPacket| p@,
+                        ).to_set();
+                        let ghost up: Set<Packet> = self@.un_acked_messages_for_dest_up_to(
+                            asrc,
+                            adst,
+                            i as nat,
+                        );
+                        assert((left_base + up).insert(cpacket@) == left_base + up.insert(cpacket@));
+                    }
+                    packets.push(cpacket);
+                    i = i + 1;
+                }

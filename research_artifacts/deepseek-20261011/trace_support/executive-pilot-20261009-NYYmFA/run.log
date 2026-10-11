@@ -1,0 +1,186 @@
+{"phase": "starting", "key": "dev_old--aded79905be896942897--repeat-0"}
+{"phase": "starting", "key": "dev_revised--aded79905be896942897--repeat-0"}
+{"phase": "finished", "key": "dev_old--aded79905be896942897--repeat-0", "solved": true, "fidelity": "V2_TRACE"}
+{"phase": "starting", "key": "dev_revised--a23a4969155913255f76--repeat-0"}
+{"phase": "finished", "key": "dev_revised--aded79905be896942897--repeat-0", "solved": false, "fidelity": "V1_TRUNCATED"}
+{"phase": "starting", "key": "dev_old--a23a4969155913255f76--repeat-0"}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 43484)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1070, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1088, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1009, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase": "finished", "key": "dev_revised--a23a4969155913255f76--repeat-0", "solved": true, "fidelity": "V2_TRACE"}
+{"phase": "starting", "key": "dev_old--3ce00a38706256ab00ea--repeat-0"}
+{"phase": "finished", "key": "dev_old--3ce00a38706256ab00ea--repeat-0", "solved": true, "fidelity": "V2_TRACE"}
+{"phase": "starting", "key": "dev_revised--3ce00a38706256ab00ea--repeat-0"}
+{"phase": "finished", "key": "dev_revised--3ce00a38706256ab00ea--repeat-0", "solved": true, "fidelity": "V2_TRACE"}
+{"phase": "starting", "key": "dev_revised--9b9f6ccef89db4103c7f--repeat-0"}
+{"phase": "finished", "key": "dev_old--a23a4969155913255f76--repeat-0", "solved": true, "fidelity": "V2_TRACE"}
+{"phase": "starting", "key": "dev_old--9b9f6ccef89db4103c7f--repeat-0"}
+{"phase": "finished", "key": "dev_revised--9b9f6ccef89db4103c7f--repeat-0", "solved": true, "fidelity": "V2_TRACE"}
+{"phase": "starting", "key": "dev_old--b9e5384e929589f7b0cd--repeat-0"}
+{"phase": "finished", "key": "dev_old--9b9f6ccef89db4103c7f--repeat-0", "solved": false, "fidelity": "V1_TRUNCATED"}
+{"phase": "starting", "key": "dev_revised--b9e5384e929589f7b0cd--repeat-0"}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 37462)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1070, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1088, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1009, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase": "finished", "key": "dev_old--b9e5384e929589f7b0cd--repeat-0", "solved": true, "fidelity": "V2_TRACE"}
+{"phase": "starting", "key": "dev_revised--599792dd13f472f45fa4--repeat-0"}
+{"phase": "finished", "key": "dev_revised--599792dd13f472f45fa4--repeat-0", "solved": true, "fidelity": "V2_TRACE"}
+{"phase": "starting", "key": "dev_old--599792dd13f472f45fa4--repeat-0"}
+{"phase": "finished", "key": "dev_old--599792dd13f472f45fa4--repeat-0", "solved": true, "fidelity": "V2_TRACE"}
+{"phase": "starting", "key": "dev_revised--aded79905be896942897--repeat-1"}
+{"phase": "finished", "key": "dev_revised--b9e5384e929589f7b0cd--repeat-0", "solved": true, "fidelity": "V2_TRACE"}
+{"phase": "starting", "key": "dev_old--aded79905be896942897--repeat-1"}
+{"phase": "finished", "key": "dev_revised--aded79905be896942897--repeat-1", "solved": true, "fidelity": "V2_TRACE"}
+{"phase": "starting", "key": "dev_old--a23a4969155913255f76--repeat-1"}
+{"phase": "finished", "key": "dev_old--a23a4969155913255f76--repeat-1", "solved": true, "fidelity": "V2_TRACE"}
+{"phase": "starting", "key": "dev_revised--a23a4969155913255f76--repeat-1"}
+{"phase": "finished", "key": "dev_revised--a23a4969155913255f76--repeat-1", "solved": true, "fidelity": "V2_TRACE"}
+{"phase": "starting", "key": "dev_revised--3ce00a38706256ab00ea--repeat-1"}
+{"phase": "finished", "key": "dev_old--aded79905be896942897--repeat-1", "solved": false, "fidelity": "V1_TRUNCATED"}
+{"phase": "starting", "key": "dev_old--3ce00a38706256ab00ea--repeat-1"}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 54910)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1070, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1088, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1009, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase": "finished", "key": "dev_revised--3ce00a38706256ab00ea--repeat-1", "solved": true, "fidelity": "V2_TRACE"}
+{"phase": "starting", "key": "dev_old--9b9f6ccef89db4103c7f--repeat-1"}
+{"phase": "finished", "key": "dev_old--3ce00a38706256ab00ea--repeat-1", "solved": true, "fidelity": "V2_TRACE"}
+{"phase": "starting", "key": "dev_revised--9b9f6ccef89db4103c7f--repeat-1"}
+{"phase": "finished", "key": "dev_old--9b9f6ccef89db4103c7f--repeat-1", "solved": true, "fidelity": "V2_TRACE"}
+{"phase": "starting", "key": "dev_revised--b9e5384e929589f7b0cd--repeat-1"}
+{"phase": "finished", "key": "dev_revised--9b9f6ccef89db4103c7f--repeat-1", "solved": true, "fidelity": "V2_TRACE"}
+{"phase": "starting", "key": "dev_old--b9e5384e929589f7b0cd--repeat-1"}
+{"phase": "finished", "key": "dev_revised--b9e5384e929589f7b0cd--repeat-1", "solved": true, "fidelity": "V2_TRACE"}
+{"phase": "starting", "key": "dev_old--599792dd13f472f45fa4--repeat-1"}
+{"phase": "finished", "key": "dev_old--b9e5384e929589f7b0cd--repeat-1", "solved": true, "fidelity": "V1_TRUNCATED"}
+{"phase": "starting", "key": "dev_revised--599792dd13f472f45fa4--repeat-1"}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 59144)
+Traceback (most recent call last):
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1070, in do_POST
+    self.wfile.write(body)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 691, in process_request_thread
+    self.finish_request(request, client_address)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 361, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 755, in __init__
+    self.handle()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 424, in handle_one_request
+    method()
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1088, in do_POST
+    self._json_error(409 if config.halted_error else 502, f"{type(error).__name__}: {error}")
+  File "<REPO>/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py", line 1009, in _json_error
+    self.end_headers()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 538, in end_headers
+    self.flush_headers()
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/http/server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "<HOME>/anaconda3/envs/vrl/lib/python3.11/socketserver.py", line 834, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"phase": "finished", "key": "dev_old--599792dd13f472f45fa4--repeat-1", "solved": true, "fidelity": "V2_TRACE"}
+{"phase": "finished", "key": "dev_revised--599792dd13f472f45fa4--repeat-1", "solved": true, "fidelity": "V2_TRACE"}
+{"phase": "complete", "episodes": 24, "failures": 0, "inputs_unchanged": true}
+{"complete": true, "totals": {"old": {"n": 12, "within_budget_dual_pass": 9, "final_dual_pass": 10, "timeouts": 3, "actor_seconds": 4092.824967663997, "body_read_episodes": 0, "body_read_calls": 0, "usage": {"requests": 491, "prompt_tokens": 28179978, "prompt_cache_hit_tokens": 27826048, "prompt_cache_miss_tokens": 353930, "completion_tokens": 449064, "reasoning_tokens": 360501, "estimated_cost_usd": 1.734913576, "unknown_cost_requests": 0}}, "revised": {"n": 12, "within_budget_dual_pass": 11, "final_dual_pass": 11, "timeouts": 1, "actor_seconds": 3069.677980226028, "body_read_episodes": 2, "body_read_calls": 7, "usage": {"requests": 383, "prompt_tokens": 21785083, "prompt_cache_hit_tokens": 21427456, "prompt_cache_miss_tokens": 357627, "completion_tokens": 320782, "reasoning_tokens": 254733, "estimated_cost_usd": 1.3425862119999996, "unknown_cost_requests": 0}}}, "completed_matrix": [["aded79905be896942897", "old", 0], ["aded79905be896942897", "revised", 0], ["a23a4969155913255f76", "revised", 0], ["3ce00a38706256ab00ea", "old", 0], ["3ce00a38706256ab00ea", "revised", 0], ["a23a4969155913255f76", "old", 0], ["9b9f6ccef89db4103c7f", "revised", 0], ["9b9f6ccef89db4103c7f", "old", 0], ["b9e5384e929589f7b0cd", "old", 0], ["599792dd13f472f45fa4", "revised", 0], ["599792dd13f472f45fa4", "old", 0], ["b9e5384e929589f7b0cd", "revised", 0], ["aded79905be896942897", "revised", 1], ["a23a4969155913255f76", "old", 1], ["a23a4969155913255f76", "revised", 1], ["aded79905be896942897", "old", 1], ["3ce00a38706256ab00ea", "revised", 1], ["3ce00a38706256ab00ea", "old", 1], ["9b9f6ccef89db4103c7f", "old", 1], ["9b9f6ccef89db4103c7f", "revised", 1], ["b9e5384e929589f7b0cd", "revised", 1], ["b9e5384e929589f7b0cd", "old", 1], ["599792dd13f472f45fa4", "old", 1], ["599792dd13f472f45fa4", "revised", 1]], "summary_sha256": "1cbdd35010e862a0c407c8864e131f84b7d11d78ee01ce1d11a27feaa9d0fea0", "failures": [], "caveat": "Six purpose-selected already-analyzed validation tasks, two repeats per arm. Only Executive differs; both arms share corrected TASK. Not general efficacy, not independent held-out confirmation, not augmentation versus nonaugmentation."}
