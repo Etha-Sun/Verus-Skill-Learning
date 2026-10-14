@@ -1,0 +1,1326 @@
+{
+  "compound-stability-existing-rules": {
+    "path": "references/compound-stability-existing-rules.md",
+    "bytes": 2912,
+    "sha256": "8f12230703740b977d09ba670099e7f96682ce2644bf1a1dd132383092d6c4ad",
+    "source_card_ids": [
+      "card-026",
+      "card-045",
+      "card-047",
+      "card-062",
+      "card-071",
+      "card-072"
+    ],
+    "full": {
+      "path": "references/compound-stability-existing-rules--full.md",
+      "bytes": 9732,
+      "sha256": "0fd63399888df138509df468a1bf77f9a49ba8a34d21865e6d76660f1119980b"
+    },
+    "rules": {
+      "compound-stability-universal-components": {
+        "path": "references/compound-stability-existing-rules--compound-stability-universal-components.md",
+        "bytes": 2607,
+        "sha256": "dcf4352dd30af608089f88a89897dfd257bcc8a73e86d9d9ab05a3697afc6190",
+        "source_card_ids": [
+          "card-026"
+        ],
+        "original_rule_sha256": "7960499636c34a1a04f68c7a59a0c0465ea0cad7581f229e6093345c2ebc80ee"
+      },
+      "always-conjunction-per-conjunct-stability": {
+        "path": "references/compound-stability-existing-rules--always-conjunction-per-conjunct-stability.md",
+        "bytes": 3716,
+        "sha256": "f1db8cee34dfa52aeb4c21073799de5e9c8adca7cf76049d969d8bac813ada5a",
+        "source_card_ids": [
+          "card-045",
+          "card-071"
+        ],
+        "original_rule_sha256": "3582fb5add2cdb7b79f88cd57e3ed5e98fd7ebdd915f07722b4a90e5d8279328"
+      },
+      "existing-stabilization-proof-object-lifted-conjunction": {
+        "path": "references/compound-stability-existing-rules--existing-stabilization-proof-object-lifted-conjunction.md",
+        "bytes": 3472,
+        "sha256": "2478d94994a6ba9e6bedc2d2727d27a7561d8d28898ac0319058570714a52fec",
+        "source_card_ids": [
+          "card-047",
+          "card-062"
+        ],
+        "original_rule_sha256": "c4c6504ad5103ac25737e6f4df3dbbfd3709bc34e5368dcf2d532594815cf132"
+      },
+      "always-stability-extra-wrapper-precondition": {
+        "path": "references/compound-stability-existing-rules--always-stability-extra-wrapper-precondition.md",
+        "bytes": 2474,
+        "sha256": "490384a03442a82365913284ed5f559817609e081d3f02744674d92121a3836a",
+        "source_card_ids": [
+          "card-072"
+        ],
+        "original_rule_sha256": "82a9ac138d699b2f4aefd0d8d6a9977af7868255172fd2c56bfab68468cc8064"
+      }
+    },
+    "shared_scope": "# Compound temporal stability via existing stability and conjunction rules\n\n## Scope\n\n- Consult when: Target is a stable compound temporal predicate such as a conjunction of always-lifted predicates and/or finitely many universal fairness components\n- Consult when: Existing stability, conjunction, or stabilization proof objects/macros are available\n- Not for: Target is not a finite conjunction of always-lifted or similarly stable predicates\n- Not for: Required local rules or proof objects are absent or incompatible\n\n",
+    "shared_links": "- Distinguish from [temporal-entailment-pointwise-lifting](temporal-entailment-pointwise-lifting.md): Pointwise lifting route proves an entailment from states/suffixes; stability route combines existing stability rules in a structured predicate order.\n\n- Related [temporal-entailment-pointwise-lifting](temporal-entailment-pointwise-lifting.md): Pointwise lifting route proves an entailment from states/suffixes; stability route combines existing stability rules in a structured predicate order.\n"
+  },
+  "direct-existing-lemma-bridge": {
+    "path": "references/direct-existing-lemma-bridge.md",
+    "bytes": 2284,
+    "sha256": "d385ae58dd4d895153c3c45d928b17b62174c8ab6df06ca56daf56a81f0d8605",
+    "source_card_ids": [
+      "card-001",
+      "card-003",
+      "card-043"
+    ],
+    "full": {
+      "path": "references/direct-existing-lemma-bridge--full.md",
+      "bytes": 6663,
+      "sha256": "36ca70e1b603e331fbf7e1a0ef3cf84a7b02d0f56c8dd24d95b689870df8ca01"
+    },
+    "rules": {
+      "installed-library-lemma-direct": {
+        "path": "references/direct-existing-lemma-bridge--installed-library-lemma-direct.md",
+        "bytes": 3224,
+        "sha256": "21a3edc5570b2a304babefc205d6d8a731be5d39418eca4d7896b08a819b5318",
+        "source_card_ids": [
+          "card-001"
+        ],
+        "original_rule_sha256": "fd3d7d261bc2fd4ac41754da219e1e5e5f67d31ce320078b9354ef6e2ad9cbaa"
+      },
+      "original-card-003": {
+        "path": "references/direct-existing-lemma-bridge--original-card-003.md",
+        "bytes": 3385,
+        "sha256": "b7cc1b61f4e6dafaa91e1a02e3644f3300db296fb17420cfb19abac9aaafc025",
+        "source_card_ids": [
+          "card-003"
+        ],
+        "original_rule_sha256": "202d8ecaa24eea6e7264894d13d854f16da5a05f2677a023b9f455fb2dd842f4"
+      },
+      "original-card-043": {
+        "path": "references/direct-existing-lemma-bridge--original-card-043.md",
+        "bytes": 3523,
+        "sha256": "c0d809cba7e38eb4d74c28d20e8586ff0270decdef1e3aeee852863193b4aef7",
+        "source_card_ids": [
+          "card-043"
+        ],
+        "original_rule_sha256": "498c329f412c7f6991ef0e69988cc91b5410f4078f61d297be5ded22138f3389"
+      }
+    },
+    "shared_scope": "# Direct reuse of an existing lemma or trait bridge\n\n## Scope\n\n- Consult when: A library lemma matches an algebraic goal, or the goal connects serialization, view equality, and marshalability\n- Consult when: The selected direct route has a matching installed/declared lemma or trait contract with available premises\n- Not for the direct route: Its matching lemma, premises, or required equality connection are unavailable\n- Boundary: Cards 003/043 also describe conditional constructor fallbacks; failure of a direct bridge does not exclude those original fallback cases\n\n",
+    "shared_links": "- Distinguish from [set-equality-membership-witness](set-equality-membership-witness.md): Use this route only when the existing lemma itself closes the algebraic goal; otherwise set equality requires membership extensionality and explicit witnesses.\n\n- Distinguish from [opaque-spec-function-facts](opaque-spec-function-facts.md): Opaque-spec route needs an open counterpart/connector or fixed-width lemma, not a direct goal-matching lemma.\n\n- Related [set-equality-membership-witness](set-equality-membership-witness.md): Use this route only when the existing lemma itself closes the algebraic goal; otherwise set equality requires membership extensionality and explicit witnesses.\n\n- Related [opaque-spec-function-facts](opaque-spec-function-facts.md): Opaque-spec route needs an open counterpart/connector or fixed-width lemma, not a direct goal-matching lemma.\n\n- Related [view-equality-constructor-case](view-equality-constructor-case.md): Direct bridge first tries packaged declaration/trait route; this family is the fallback explicit case analysis.\n\n- Related [library-broadcast-activation](library-broadcast-activation.md): Direct bridge invokes a matching lemma; broadcast route explicitly brings a trusted axiom group into proof scope for case analysis.\n"
+  },
+  "eventual-witness-index-bridge": {
+    "path": "references/eventual-witness-index-bridge.md",
+    "bytes": 2124,
+    "sha256": "4f0736b542109734d51634b4ebe35f20eca51f557a30999c5fb89be497b0f787",
+    "source_card_ids": [
+      "card-008",
+      "card-009",
+      "card-061"
+    ],
+    "full": {
+      "path": "references/eventual-witness-index-bridge--full.md",
+      "bytes": 5512,
+      "sha256": "458536b2aa2615ddc258a826f33bf0b9ea4a691e7aed355057dfd67aeed89365"
+    },
+    "rules": {
+      "card-008-verbatim": {
+        "path": "references/eventual-witness-index-bridge--card-008-verbatim.md",
+        "bytes": 2462,
+        "sha256": "ba3244ddcdee5641a380dcc2d125ccbcb8da1e6902db763e647c9172683ea5da",
+        "source_card_ids": [
+          "card-008"
+        ],
+        "original_rule_sha256": "8c3e02e22782a9ca430ed00dafcb91805f40cd9e06453add0ed972f3ed295fa2"
+      },
+      "card-009-verbatim": {
+        "path": "references/eventual-witness-index-bridge--card-009-verbatim.md",
+        "bytes": 2625,
+        "sha256": "762b0a7435d9fb830b01c901a2557abdd2cace246c0d7e48608946446a02dd65",
+        "source_card_ids": [
+          "card-009"
+        ],
+        "original_rule_sha256": "52f4bf2577315b660bef5226521e1399001e483beaf57797ed4977458f04b0e5"
+      },
+      "card-061-verbatim": {
+        "path": "references/eventual-witness-index-bridge--card-061-verbatim.md",
+        "bytes": 2332,
+        "sha256": "e02224d358a7dc3cdbc436eaadca56a139b6a26294b12b165b7a2cd2a474904b",
+        "source_card_ids": [
+          "card-061"
+        ],
+        "original_rule_sha256": "e2f8f53116bf5d1d9bf16d2b125ca6b0caee6081e3a04d5a2a9002d62c4bf29e"
+      }
+    },
+    "shared_scope": "# Eventual/existential temporal index witness bridging\n\n## Scope\n\n- Consult when: Goal is eventual or existential temporal obligation with an existing raw/action occurrence or witness\n- Consult when: Lifted eventual/post-state assertion fails despite that witness\n- Consult when: A concrete natural index or spec-level choice can expose the occurrence\n- Not for: No occurrence or pointwise action-to-state implication exists\n- Not for: Needed suffix/offset arithmetic cannot be established\n\n",
+    "shared_links": "- Distinguish from [temporal-existential-witness-lifting](temporal-existential-witness-lifting.md): This route bridges time/state indices for a known occurrence; existential-witness-lifting handles message/witness predicates with helper lemmas.\n\n- Related [temporal-existential-witness-lifting](temporal-existential-witness-lifting.md): This eventual-witness-index-bridge route bridges time/state indices for a known occurrence or an existing shifted raw-state witness, or obtains an index via spec-level choice. Temporal-existential-witness-lifting instead selects message-like witnesses and lifts per-witness helper facts.\n"
+  },
+  "existing-roundtrip-proof-mode": {
+    "path": "references/existing-roundtrip-proof-mode.md",
+    "bytes": 3337,
+    "sha256": "0e572e8ea62ee988b09584cc5e3a6e3daa6c886925a555011037729bf3991bc3",
+    "source_card_ids": [
+      "card-046"
+    ],
+    "full": {
+      "path": "references/existing-roundtrip-proof-mode.md",
+      "bytes": 3337,
+      "sha256": "0e572e8ea62ee988b09584cc5e3a6e3daa6c886925a555011037729bf3991bc3"
+    },
+    "rules": {
+      "existing-roundtrip-proof-mode-046": {
+        "path": "references/existing-roundtrip-proof-mode.md",
+        "bytes": 3337,
+        "sha256": "0e572e8ea62ee988b09584cc5e3a6e3daa6c886925a555011037729bf3991bc3",
+        "source_card_ids": [
+          "card-046"
+        ],
+        "original_rule_sha256": "ebcd8337d3a3edda7ecf19ca2d8fa216c8da83234a12947ca81a1e9e39c69c2f"
+      }
+    },
+    "shared_scope": "# Existing round-trip fact used in proof mode before value movement\n\n## Scope\n\n- Consult when: Deserializer/constructor success branch returns a value whose representation is not connected to the input\n- Consult when: An existing trusted proof-mode round-trip lemma/axiom relates the reconstructed value and input\n- Consult when: Its precondition is established before the input is moved\n- Not for: No trusted round-trip proof-mode fact exists in current file\n- Not for: Success branch does not establish the lemma premise\n\n",
+    "shared_links": "- Distinguish from [opaque-spec-function-facts](opaque-spec-function-facts.md): Opaque route obtains structural facts about closed/nondecreasing definitions; roundtrip route invokes an existing trusted roundtrip fact before moving the input.\n\n- Related [opaque-spec-function-facts](opaque-spec-function-facts.md): Opaque route obtains structural facts about closed/nondecreasing definitions; roundtrip route invokes an existing trusted roundtrip fact before moving the input.\n"
+  },
+  "final-liveness-helper-chain": {
+    "path": "references/final-liveness-helper-chain.md",
+    "bytes": 3106,
+    "sha256": "f1895ba02c5d6a84d52e8030509cf740ac371fa8e5fe74d078b087362fcd9464",
+    "source_card_ids": [
+      "card-031"
+    ],
+    "full": {
+      "path": "references/final-liveness-helper-chain.md",
+      "bytes": 3106,
+      "sha256": "f1895ba02c5d6a84d52e8030509cf740ac371fa8e5fe74d078b087362fcd9464"
+    },
+    "rules": {
+      "final-liveness-helper-chain-card-031": {
+        "path": "references/final-liveness-helper-chain.md",
+        "bytes": 3106,
+        "sha256": "f1895ba02c5d6a84d52e8030509cf740ac371fa8e5fe74d078b087362fcd9464",
+        "source_card_ids": [
+          "card-031"
+        ],
+        "original_rule_sha256": "c43cfb2119e3b7ff0aba03beeadd9ea1aee23fcc7fc023097664398e8c3d5ff0"
+      }
+    },
+    "shared_scope": "# Final liveness theorem assembled from existing helper chain\n\n## Scope\n\n- Consult when: Final liveness theorem needs invariant derivation, stability, base liveness, phase descent, and condition unpacking\n- Consult when: The corresponding helper lemmas already exist and their preconditions match the current proof state\n- Not for: Required helper prerequisites are missing\n- Not for: Approach would require weakening specs or adding trusted bodies\n\n",
+    "shared_links": "- Distinguish from [leads-to-transitivity-existing-helpers](leads-to-transitivity-existing-helpers.md): Transitivity route addresses one entailment-composition step; final-liveness route composes a multi-part liveness chain.\n\n- Related [leads-to-transitivity-existing-helpers](leads-to-transitivity-existing-helpers.md): Transitivity route addresses one entailment-composition step; final-liveness route composes a multi-part liveness chain.\n"
+  },
+  "finite-set-fold-cardinality-induction": {
+    "path": "references/finite-set-fold-cardinality-induction.md",
+    "bytes": 1812,
+    "sha256": "3984c79f2e4df040b12abaa6973a24f59b543ae645a66e396ea9559af8f86fec",
+    "source_card_ids": [
+      "card-017",
+      "card-048"
+    ],
+    "full": {
+      "path": "references/finite-set-fold-cardinality-induction--full.md",
+      "bytes": 5511,
+      "sha256": "e8c87d6090c866d5f74ba05e5be553c7c100270dfa32533651456f6924b82d55"
+    },
+    "rules": {
+      "finite-set-fold-finiteness-cardinality-induction": {
+        "path": "references/finite-set-fold-cardinality-induction--finite-set-fold-finiteness-cardinality-induction.md",
+        "bytes": 2904,
+        "sha256": "6613566589779dcfb745df73f90270fdcbd78f651bb909dad80464ce87063a84",
+        "source_card_ids": [
+          "card-017"
+        ],
+        "original_rule_sha256": "cbf43a427ce548a8f6078e979c31988340c6797e1b79a0190bc148f2fd7a5b8b"
+      },
+      "finite-set-fold-image-equality-cardinality-induction-helper": {
+        "path": "references/finite-set-fold-cardinality-induction--finite-set-fold-image-equality-cardinality-induction-helper.md",
+        "bytes": 3617,
+        "sha256": "ace08b46d3d6bdf773d04d475d45b25533996a51721df8b657cd80a8994ef240",
+        "source_card_ids": [
+          "card-048"
+        ],
+        "original_rule_sha256": "791170e7dcad8ce538cf58d1d294f16aaf5140278bfbc37d80d4105f8367f78d"
+      }
+    },
+    "shared_scope": "# Finite-set fold proofs by cardinality induction\n\n## Scope\n\n- Consult when: Goal concerns a fold over a finite set, such as finiteness or equality to an image\n- Consult when: Direct assertion or generic fold lemma does not close the goal\n- Consult when: Source-set cardinality provides a decreasing measure\n- Not for: Fold is not defined by finite cardinality recursion\n- Not for: Direct library lemma already closes the goal\n\n",
+    "shared_links": "- Distinguish from [sequence-fold-concat-equality](sequence-fold-concat-equality.md): Sequence fold route concerns concatenated sequences and split/induction over second sequence; this route uses finite-set cardinality induction.\n\n- Related [sequence-fold-concat-equality](sequence-fold-concat-equality.md): Finite-set fold uses source-set cardinality; sequence fold uses sequence length or split boundary. Use this family when the goal is a finite-set fold property, not concatenation distribution over sequences.\n\n- Related [direct-existing-lemma-bridge](direct-existing-lemma-bridge.md): Try direct-existing-lemma-bridge first when an installed or already-declared lemma/trait contract has matching conclusion and premises; finite-set cardinality induction is for when direct library lemma does not close the fold goal and built-in set reasoning is needed.\n"
+  },
+  "function-field-projection-syntax": {
+    "path": "references/function-field-projection-syntax.md",
+    "bytes": 2422,
+    "sha256": "702793bbf674429834bddf9f9bfcaffd4604ee7543993e7fa2b245a0a5fa4362",
+    "source_card_ids": [
+      "card-015",
+      "card-028",
+      "card-060",
+      "card-075"
+    ],
+    "full": {
+      "path": "references/function-field-projection-syntax--full.md",
+      "bytes": 7146,
+      "sha256": "3bc3ad3a0e9642991f6282d9204614a0b13ddf30b2d723243ae44d90571ab871"
+    },
+    "rules": {
+      "card-015-verbatim": {
+        "path": "references/function-field-projection-syntax--card-015-verbatim.md",
+        "bytes": 3162,
+        "sha256": "273aa8c5af6aeec742ea4382b9d17f041ed0f7a3570ec3f502f5eeb7ceaf3b10",
+        "source_card_ids": [
+          "card-015"
+        ],
+        "original_rule_sha256": "248e07a6910a6bdd794889fedb8af06cf21cba29f15107542bf70733998ce359"
+      },
+      "card-028-verbatim": {
+        "path": "references/function-field-projection-syntax--card-028-verbatim.md",
+        "bytes": 3048,
+        "sha256": "9bdaaf4926c24f867bdc4de64dce28c0f2d52f19dd9391ccc5ac5e61808db78b",
+        "source_card_ids": [
+          "card-028"
+        ],
+        "original_rule_sha256": "a2c5c21c166218e6297f12937a86bf2dd09c2f090daf772aa809894334e2c580"
+      },
+      "merged-field-projection-before-apply": {
+        "path": "references/function-field-projection-syntax--merged-field-projection-before-apply.md",
+        "bytes": 3888,
+        "sha256": "9ee92b26dcc22502ee1ad10905d3c18edda7e1eba2f9947eb424a2be7e89c09a",
+        "source_card_ids": [
+          "card-060",
+          "card-075"
+        ],
+        "original_rule_sha256": "d71c4c5fc14942cebce3a2db58872b9266fb14568e91b444be24023ccbdbfa02"
+      }
+    },
+    "shared_scope": "# Function-valued field versus method access\n\n## Scope\n\n- Consult when: A method is mistaken for a field, a stored function field is called as a method, or pointwise record equality has the related syntax/trigger failure\n- Consult when: Card-015's separate case matches a quantified-proof missing-antecedent diagnostic\n- Not for: None of these method/field, pointwise-equality trigger, or missing-antecedent diagnostics is present\n- Boundary: The stored-function rule excludes genuine methods; that exclusion does not exclude card-015's method-as-field case\n\n",
+    "shared_links": "- Distinguish from [record-function-field-equality](record-function-field-equality.md): This route corrects projection/application syntax only; it does not establish pointwise equality or record equality.\n\n- Related [record-function-field-equality](record-function-field-equality.md): This family corrects projection/application syntax only; record-function-field-equality establishes logical field and record equality after the syntax is corrected.\n\n- Related [trigger-inference-annotation](trigger-inference-annotation.md): Card-060 and card-028 include a conditional follow-up to add explicit triggers for universal pointwise equality after syntax repair; trigger-inference-annotation handles standalone trigger-inference failures without the initial field-call parse error.\n\n- Related [quantified-proof-antecedent-binder-scope](quantified-proof-antecedent-binder-scope.md): The second branch of verbatim card-015 overlaps with quantified-proof-antecedent-binder-scope's missing-antecedent repair. It remains inside the verbatim rule because the source card bundles both diagnostics.\n"
+  },
+  "ghost-empty-witness": {
+    "path": "references/ghost-empty-witness.md",
+    "bytes": 1596,
+    "sha256": "b10710504c4133f20d923f2f75b8ee6b8412bf6321aa9fefa11117234a69505b",
+    "source_card_ids": [
+      "card-054",
+      "card-073"
+    ],
+    "full": {
+      "path": "references/ghost-empty-witness--full.md",
+      "bytes": 3516,
+      "sha256": "d1c5e5ea3be0debcd39dbec88d1d488cae31591ab77c82545e45201aaaf133ec"
+    },
+    "rules": {
+      "concrete-empty-ghost-aggregate": {
+        "path": "references/ghost-empty-witness--concrete-empty-ghost-aggregate.md",
+        "bytes": 2128,
+        "sha256": "7f229704730ebb2297054c95e74b90638643f8f95eb1d62a9c902929599d4976",
+        "source_card_ids": [
+          "card-054"
+        ],
+        "original_rule_sha256": "7b7fa2c47e7a2793713e31f12cfbe1e74d7733d56994142494efbc617c309807"
+      },
+      "concrete-empty-ghost-history-initializer": {
+        "path": "references/ghost-empty-witness--concrete-empty-ghost-history-initializer.md",
+        "bytes": 1983,
+        "sha256": "9c1707f605bd6553a03c670969dd29fba8950289fa8655ea4f25ebd51fbe607b",
+        "source_card_ids": [
+          "card-073"
+        ],
+        "original_rule_sha256": "cdf281fd66ad8c17498c668a029123df1f6ffc60a06c54ff72dcbe367808ea07"
+      }
+    },
+    "shared_scope": "# Concrete empty ghost aggregate or history witness\n\n## Scope\n\n- Consult when: Ghost aggregate or history field must be all-empty or contain empty sequences/set\n- Consult when: Current ghost source is an arbitrary or unconstrained value\n- Not for: Contract requires nonempty or partially populated value\n- Not for: Field affects executable behavior\n\n",
+    "shared_links": "- Distinguish from [existing-roundtrip-proof-mode](existing-roundtrip-proof-mode.md): Roundtrip route uses a trusted fact about a constructed return value; this route constructs a concrete empty ghost witness.\n\n- Related [existing-roundtrip-proof-mode](existing-roundtrip-proof-mode.md): Roundtrip route uses a trusted fact about a constructed return value; this route constructs a concrete empty ghost witness.\n"
+  },
+  "leads-to-transitivity-existing-helpers": {
+    "path": "references/leads-to-transitivity-existing-helpers.md",
+    "bytes": 3419,
+    "sha256": "2d8ad363e269aaaf134c314dcd0e049a8824481cfccdb200b59810b70f32e9ea",
+    "source_card_ids": [
+      "card-051"
+    ],
+    "full": {
+      "path": "references/leads-to-transitivity-existing-helpers.md",
+      "bytes": 3419,
+      "sha256": "2d8ad363e269aaaf134c314dcd0e049a8824481cfccdb200b59810b70f32e9ea"
+    },
+    "rules": {
+      "rule-card-051-verbatim": {
+        "path": "references/leads-to-transitivity-existing-helpers.md",
+        "bytes": 3419,
+        "sha256": "2d8ad363e269aaaf134c314dcd0e049a8824481cfccdb200b59810b70f32e9ea",
+        "source_card_ids": [
+          "card-051"
+        ],
+        "original_rule_sha256": "afc7aff41430804352904dc7690c6eb75e680fa77a794ec942cadef996b38d00"
+      }
+    },
+    "shared_scope": "# Leads-to transitivity with existing temporal helpers\n\n## Scope\n\n- Consult when: Goal is a leads-to transitivity postcondition\n- Consult when: Trusted entailment, always, eventually, implication, witness, execution equality, and backward propagation helpers exist\n- Not for: Required helpers are absent or contracts changed\n- Not for: Conclusion is not a leads-to transitivity\n\n",
+    "shared_links": "- Distinguish from [final-liveness-helper-chain](final-liveness-helper-chain.md): Final-liveness route assembles invariant/stability/phase helpers; this route focuses on two-step temporal implication composition and suffix index alignment.\n\n- Related [final-liveness-helper-chain](final-liveness-helper-chain.md): Transitivity route addresses one two-step entailment-composition step with suffix index alignment; final-liveness route assembles a multi-part invariant/stability/phase helper chain.\n\n- Related [temporal-entailment-pointwise-lifting](temporal-entailment-pointwise-lifting.md): Pointwise-lifting proves a single per-suffix entailment/leads-to relationship; this transitivity route composes two existing leads-to hypotheses through an intermediate witness time and shifted suffix arithmetic using existing temporal helpers.\n"
+  },
+  "library-broadcast-activation": {
+    "path": "references/library-broadcast-activation.md",
+    "bytes": 2284,
+    "sha256": "47ff8ed44f3057025be00996771d42075f6edd5065e28a70a845be15f1880741",
+    "source_card_ids": [
+      "card-078"
+    ],
+    "full": {
+      "path": "references/library-broadcast-activation.md",
+      "bytes": 2284,
+      "sha256": "47ff8ed44f3057025be00996771d42075f6edd5065e28a70a845be15f1880741"
+    },
+    "rules": {
+      "lb-broadcast-activation-verbatim": {
+        "path": "references/library-broadcast-activation.md",
+        "bytes": 2284,
+        "sha256": "47ff8ed44f3057025be00996771d42075f6edd5065e28a70a845be15f1880741",
+        "source_card_ids": [
+          "card-078"
+        ],
+        "original_rule_sha256": "b115112341f57a06348d42a8200e2c1e6648db6382f097a8b8a179779445ae15"
+      }
+    },
+    "shared_scope": "# Activate installed library broadcast axiom groups in proof body\n\n## Scope\n\n- Consult when: Pointwise proof is stuck on facts about an installed library operation\n- Consult when: The relevant broadcast axiom group exists in the installed library and open definitions are available\n- Not for: Relevant broadcast axiom group is absent in installed version\n- Not for: Bringing it in causes unintended instantiation of unrelated facts\n\n",
+    "shared_links": "- Distinguish from [direct-existing-lemma-bridge](direct-existing-lemma-bridge.md): Direct bridge invokes a matching lemma; broadcast route explicitly brings a trusted axiom group into proof scope for case analysis.\n\n- Related [direct-existing-lemma-bridge](direct-existing-lemma-bridge.md): Direct bridge invokes a matching lemma; broadcast route explicitly brings a trusted axiom group into proof scope for case analysis.\n"
+  },
+  "loop-termination-and-invariants": {
+    "path": "references/loop-termination-and-invariants.md",
+    "bytes": 2403,
+    "sha256": "71eb7bbe4bed02db2e0c8d09c91a0ee4289ab1bb02529cabcc73991d6fcdb3c7",
+    "source_card_ids": [
+      "card-035",
+      "card-036",
+      "card-041"
+    ],
+    "full": {
+      "path": "references/loop-termination-and-invariants--full.md",
+      "bytes": 5580,
+      "sha256": "6e8eaeb3eab33eb1b017eed9fd2255730313ce4fafee2f7801bcdd7b4d94c6de"
+    },
+    "rules": {
+      "loop-counting-termination-measure": {
+        "path": "references/loop-termination-and-invariants--loop-counting-termination-measure.md",
+        "bytes": 2096,
+        "sha256": "25a85f303d190176b5fcddb5d4e14cb17d645c8cf873f0c6eb14fc731928d582",
+        "source_card_ids": [
+          "card-035"
+        ],
+        "original_rule_sha256": "78f33e27e5ef00b936ba026c13ed3a8b5a07c09a4aa97a171d4e4ce381663488"
+      },
+      "loop-body-inherited-assumption-invariant": {
+        "path": "references/loop-termination-and-invariants--loop-body-inherited-assumption-invariant.md",
+        "bytes": 2161,
+        "sha256": "a19d9137d08e5bf35f34d75134f1022cd834b7e33801527b4c745375d151a206",
+        "source_card_ids": [
+          "card-036"
+        ],
+        "original_rule_sha256": "55d00ff98d9c3f87160cfa7f6bb681f5d732ae1232756e5cd928c1a7ea6b148a"
+      },
+      "packet-prefix-set-invariant": {
+        "path": "references/loop-termination-and-invariants--packet-prefix-set-invariant.md",
+        "bytes": 3115,
+        "sha256": "823a4d4355a5da4e3664e883a90d49f45d16d89d6cee106e1a87616066ffe9dc",
+        "source_card_ids": [
+          "card-041"
+        ],
+        "original_rule_sha256": "1317e84188aeacf65b0ebfdbc1b1af0e9876251021bc464d4299ef58bc2d0b34"
+      }
+    },
+    "shared_scope": "# While-loop termination measures and invariant carrying\n\n## Scope\n\n- Consult when: A while loop lacks decreases, loses entry assumptions in its body, or fails packet-prefix set/validity obligations\n- Consult when: Remaining iterations or carried invariants can discharge the obligation\n- Not for the counting-termination rule: No strictly decreasing numeric measure of the stated form\n- Not for carrying an unchanged assumption: It is not preserved on every iteration; this does not exclude the packet rule's evolving inductive relation\n\n",
+    "shared_links": "- Distinguish from [universal-instantiation-concrete](universal-instantiation-concrete.md): Universal-instantiation route instantiates one quantified fact at a concrete element/index; loop route carries multiple iteration facts in the invariant block.\n\n- Related [universal-instantiation-concrete](universal-instantiation-concrete.md): Universal-instantiation route instantiates one quantified fact at a concrete element/index; loop route carries multiple iteration facts in the invariant block.\n"
+  },
+  "natural-integer-type-mismatch": {
+    "path": "references/natural-integer-type-mismatch.md",
+    "bytes": 1837,
+    "sha256": "859c2d0744533f1ff890855fa13e3d42929343d4fe5946e2d67068a1a7922689",
+    "source_card_ids": [
+      "card-040",
+      "card-066"
+    ],
+    "full": {
+      "path": "references/natural-integer-type-mismatch--full.md",
+      "bytes": 3183,
+      "sha256": "0dee13c707c1cece2f44d7921757caef2064772edae7576268c9b46ccc2ce8a2"
+    },
+    "rules": {
+      "natural-predecessor-subtraction-conversion": {
+        "path": "references/natural-integer-type-mismatch--natural-predecessor-subtraction-conversion.md",
+        "bytes": 1939,
+        "sha256": "e1d6a74ae8bd95488aded8c7990c84117385a99dbe912457feb39d9428b3949d",
+        "source_card_ids": [
+          "card-040"
+        ],
+        "original_rule_sha256": "79891f47847ff3f2440a20df068cd78783faff6e0458786bf6b08ec09ba1bc26"
+      },
+      "empty-sequence-length-annotation": {
+        "path": "references/natural-integer-type-mismatch--empty-sequence-length-annotation.md",
+        "bytes": 1908,
+        "sha256": "ac1f925b9e76b1c122d2695fbffb65b023a514ebdeb3d096179262bd374548bd",
+        "source_card_ids": [
+          "card-066"
+        ],
+        "original_rule_sha256": "7d1cc43d9df4bd936e43bd8ceb017bc9b173a0da2dba54e2f9d166303a97b64f"
+      }
+    },
+    "shared_scope": "# Natural/integer and empty-sequence type annotations\n\n## Scope\n\n- Consult when: Verus type error arises from natural subtraction used as natural, natural length passed as integer index, or empty sequence needing element type\n- Not for: Surrounding context already supplies enough type information\n- Not for: Library interface accepts natural indices without conversion\n\n",
+    "shared_links": "- Distinguish from [specialized-temporal-action-binder-type](specialized-temporal-action-binder-type.md): Specialized binder route fixes a partial-application residual payload type; this route handles natural/integer numeric and empty-sequence types.\n\n- Related [specialized-temporal-action-binder-type](specialized-temporal-action-binder-type.md): Specialized binder route fixes a partial-application residual payload type; this route handles natural/integer numeric and empty-sequence types.\n"
+  },
+  "nondeterministic-step-result": {
+    "path": "references/nondeterministic-step-result.md",
+    "bytes": 2893,
+    "sha256": "cc9b3dc95a626f3467a8fdf3d23c348f9b8b81e8a94ebb4173e1996dd2aafd69",
+    "source_card_ids": [
+      "card-013"
+    ],
+    "full": {
+      "path": "references/nondeterministic-step-result.md",
+      "bytes": 2893,
+      "sha256": "cc9b3dc95a626f3467a8fdf3d23c348f9b8b81e8a94ebb4173e1996dd2aafd69"
+    },
+    "rules": {
+      "rule-card-013-verbatim": {
+        "path": "references/nondeterministic-step-result.md",
+        "bytes": 2893,
+        "sha256": "cc9b3dc95a626f3467a8fdf3d23c348f9b8b81e8a94ebb4173e1996dd2aafd69",
+        "source_card_ids": [
+          "card-013"
+        ],
+        "original_rule_sha256": "72d81d6716bc83f07fec0367dc44a4191b62a4e258fd0db9a5a6fa06dc6c68d3"
+      }
+    },
+    "shared_scope": "# Nondeterministic transition result without a chosen witness\n\n## Scope\n\n- Consult when: Helper asserts computed machine result equals transition of one manually chosen enabling step\n- Consult when: Several steps share the same precondition and choice is not unique\n- Not for: Step is unique\n- Not for: Universal per-step safety fact or host-result equality premise is missing\n\n",
+    "shared_links": "- Distinguish from [transition-system-step-safety](transition-system-step-safety.md): Transition-step safety proves per-step or preservation facts; this route avoids using a nonunique chosen step as an equality witness.\n\n- Related [transition-system-step-safety](transition-system-step-safety.md): Transition-step safety proves per-step or preservation facts; this route avoids using a nonunique chosen step as an equality witness and instead reuses an already-proved universal per-step safety fact together with host-result equality.\n\n- Related [universal-instantiation-concrete](universal-instantiation-concrete.md): Universal-instantiation route explicitly instantiates an available universal fact at a concrete term; this route avoids reconstructing a result through a chosen step witness and lets the verifier instantiate the universal per-step fact through the supplied host-result premises.\n"
+  },
+  "opaque-conversion-avoid-extraction": {
+    "path": "references/opaque-conversion-avoid-extraction.md",
+    "bytes": 2123,
+    "sha256": "83c2c94d2a99487988f5f6d821ba6690aff590e53d80b590ed4c4f73c4bcf680",
+    "source_card_ids": [
+      "card-059"
+    ],
+    "full": {
+      "path": "references/opaque-conversion-avoid-extraction.md",
+      "bytes": 2123,
+      "sha256": "83c2c94d2a99487988f5f6d821ba6690aff590e53d80b590ed4c4f73c4bcf680"
+    },
+    "rules": {
+      "card-059": {
+        "path": "references/opaque-conversion-avoid-extraction.md",
+        "bytes": 2123,
+        "sha256": "83c2c94d2a99487988f5f6d821ba6690aff590e53d80b590ed4c4f73c4bcf680",
+        "source_card_ids": [
+          "card-059"
+        ],
+        "original_rule_sha256": "98214f8df1abf20579bc3e9c074c720f72520d87a4f061838a860e1682df096b"
+      }
+    },
+    "shared_scope": "# Avoid ghost extraction of uninterpreted conversion results\n\n## Scope\n\n- Consult when: Ghost code extracts a field through an unwrap of an uninterpreted conversion\n- Consult when: Verus reports failed recommendation/precondition about that conversion\n- Consult when: Only the surrounding open spec definitions/predicates are needed\n- Not for: Proof genuinely depends on a property of the conversion result not captured by open predicates\n\n",
+    "shared_links": "- Distinguish from [opaque-spec-function-facts](opaque-spec-function-facts.md): Opaque function route exposes a definition through counterpart/connector; this route removes an unsupported ghost extraction instead.\n\n- Related [opaque-spec-function-facts](opaque-spec-function-facts.md): Opaque function route exposes a definition through counterpart/connector; this route removes an unsupported ghost extraction instead.\n"
+  },
+  "opaque-spec-function-facts": {
+    "path": "references/opaque-spec-function-facts.md",
+    "bytes": 2210,
+    "sha256": "acb08428b4c880eda11e903b94835743f3384023c53145c14677a04c5d0d400a",
+    "source_card_ids": [
+      "card-019",
+      "card-021",
+      "card-053"
+    ],
+    "full": {
+      "path": "references/opaque-spec-function-facts--full.md",
+      "bytes": 5863,
+      "sha256": "74961f11b30d34b8e1550c2de483b8e70a6fe1f7b5878008af11b697b60b585e"
+    },
+    "rules": {
+      "rule-card-019": {
+        "path": "references/opaque-spec-function-facts--rule-card-019.md",
+        "bytes": 2580,
+        "sha256": "fd152202ef31ef5af4f7551cf890fdb0f6c9fbe275d847479c304a124e5015be",
+        "source_card_ids": [
+          "card-019"
+        ],
+        "original_rule_sha256": "096b51a581b4720e35a1bb817e13cc2e1b55aa353fe43b05d4dbfa7dc4e1b719"
+      },
+      "rule-card-021": {
+        "path": "references/opaque-spec-function-facts--rule-card-021.md",
+        "bytes": 2822,
+        "sha256": "4372206dfa5b90f88473c9c9195e52c865630861a4cfa5140db48a1a168afec7",
+        "source_card_ids": [
+          "card-021"
+        ],
+        "original_rule_sha256": "3b471ae7e53ab0f223489da89d5f8268f7f6a06b32fb2ab5bb13fa26a4ce1b23"
+      },
+      "rule-card-053": {
+        "path": "references/opaque-spec-function-facts--rule-card-053.md",
+        "bytes": 3265,
+        "sha256": "bdafa039923caa093c0e823e141b8ba9e82ebeeb09051a4dec593487a979c73c",
+        "source_card_ids": [
+          "card-053"
+        ],
+        "original_rule_sha256": "adecf3f0ff9549a2758f335cab7a99111ed79fd2c0a8bb6ff7b9bd2abf633614"
+      }
+    },
+    "shared_scope": "# Facts about opaque/nondecreasing spec functions via open or recursive counterparts\n\n## Scope\n\n- Consult when: Need a length, body, or equality fact about a closed/opaque/nondecreasing spec function or wrapper\n- Consult when: Direct reveal or length assertion is rejected or fails\n- Consult when: An open counterpart/connector, fixed-width lemma, or recursive proof helper can expose the body\n- Not for: Direct revealing is supported or an existing direct lemma closes the goal\n- Not for: Required open counterpart/connector/fixed-width lemma is unavailable\n\n",
+    "shared_links": "- Distinguish from [direct-existing-lemma-bridge](direct-existing-lemma-bridge.md): Direct bridge uses an already goal-matching lemma/trait contract; opaque route must expose a definition through open counterpart/connector/helper.\n\n- Distinguish from [existing-roundtrip-proof-mode](existing-roundtrip-proof-mode.md): Roundtrip route invokes an existing proof-mode roundtrip fact before a value is moved; opaque route obtains structural facts for closed/nondecreasing definitions.\n\n- Related [direct-existing-lemma-bridge](direct-existing-lemma-bridge.md): Direct bridge uses an already goal-matching lemma/trait contract; opaque route must expose a definition through open counterpart/connector/helper.\n\n- Related [existing-roundtrip-proof-mode](existing-roundtrip-proof-mode.md): Roundtrip route invokes an existing proof-mode roundtrip fact before a value is moved; opaque route obtains structural facts for closed/nondecreasing definitions.\n"
+  },
+  "phase-accumulation-bridge": {
+    "path": "references/phase-accumulation-bridge.md",
+    "bytes": 3083,
+    "sha256": "5035f785b4d93f984f188628eab461e70f6880edfe5cdb775737c99bdf9fb0eb",
+    "source_card_ids": [
+      "card-030"
+    ],
+    "full": {
+      "path": "references/phase-accumulation-bridge.md",
+      "bytes": 3083,
+      "sha256": "5035f785b4d93f984f188628eab461e70f6880edfe5cdb775737c99bdf9fb0eb"
+    },
+    "rules": {
+      "phase-accumulation-bridge": {
+        "path": "references/phase-accumulation-bridge.md",
+        "bytes": 3083,
+        "sha256": "5035f785b4d93f984f188628eab461e70f6880edfe5cdb775737c99bdf9fb0eb",
+        "source_card_ids": [
+          "card-030"
+        ],
+        "original_rule_sha256": "ba4854ce283aa54c45d179e8a7637709c5b01eb8c00d8dc4cbcad78e713bb942"
+      }
+    },
+    "shared_scope": "# Recursive phase accumulation to all-phase bundle bridge\n\n## Scope\n\n- Consult when: Phase-descent lemma precondition uses recursive next-phase predicate while base liveness concludes all-phase bundle\n- Consult when: Verus rejects descent until equivalence between recursive accumulation and bundle is exposed\n- Not for: No recursive phase accumulation/all-phase mismatch exists\n- Not for: Unsupported reveal and explicit equality chain both unavailable\n\n",
+    "shared_links": "- Distinguish from [opaque-spec-function-facts](opaque-spec-function-facts.md): Opaque-spec route uses library open counterparts or fixed-width lemmas; phase bridge exposes a recursive temporal predicate by fuel reveal or stepwise equalities.\n\n- Related [opaque-spec-function-facts](opaque-spec-function-facts.md): Opaque-spec route uses library open counterparts or fixed-width lemmas; phase bridge exposes a recursive temporal predicate by fuel reveal or stepwise equalities.\n"
+  },
+  "post-verification-cleanup": {
+    "path": "references/post-verification-cleanup.md",
+    "bytes": 2545,
+    "sha256": "0357121e5922781a5384dc8cf2bd213b280b1337983d160420088947d6593471",
+    "source_card_ids": [
+      "card-024",
+      "card-038",
+      "card-042",
+      "card-050",
+      "card-052"
+    ],
+    "full": {
+      "path": "references/post-verification-cleanup--full.md",
+      "bytes": 8379,
+      "sha256": "84ad4c5866b3c4a308c13c78e26cd5255a81618c9db667fb4cab80731b16dfa7"
+    },
+    "rules": {
+      "exec-shape-deghost-restore": {
+        "path": "references/post-verification-cleanup--exec-shape-deghost-restore.md",
+        "bytes": 4131,
+        "sha256": "42fd7aa2448f7afe7c8920211b5a790c84114475fe9d108147efd6956834ce2d",
+        "source_card_ids": [
+          "card-038",
+          "card-042"
+        ],
+        "original_rule_sha256": "37a2a2c8f4bf6d59d74c151a96051bf0aeee5092759f82712286f9104de402c6"
+      },
+      "module-scope-proof-directive-scope-down": {
+        "path": "references/post-verification-cleanup--module-scope-proof-directive-scope-down.md",
+        "bytes": 2753,
+        "sha256": "be6c7b1743115113b12a193380d13b495a10756cab513340859602e2c699cadb",
+        "source_card_ids": [
+          "card-024"
+        ],
+        "original_rule_sha256": "4767a4a6139a0143ce5a1aceb5d1c16e8981fd901f284c93d3bef96148f53ee7"
+      },
+      "qualified-proof-helper-set-equality-no-import": {
+        "path": "references/post-verification-cleanup--qualified-proof-helper-set-equality-no-import.md",
+        "bytes": 3147,
+        "sha256": "11981176595b10dd2e88844a4205bb09ed3116a40dbe8ca453ffb0a0b8405798",
+        "source_card_ids": [
+          "card-050"
+        ],
+        "original_rule_sha256": "bb061cd8d77c862315a44dbcaa96ced37a29ffed93b0ff3052788b210788bf40"
+      },
+      "post-verification-trigger-implication-warning-cleanup": {
+        "path": "references/post-verification-cleanup--post-verification-trigger-implication-warning-cleanup.md",
+        "bytes": 2891,
+        "sha256": "808ad14a85830d26420e8ce57f98a4fbeb4979a2e359acdbe7f4f9c94673b602",
+        "source_card_ids": [
+          "card-052"
+        ],
+        "original_rule_sha256": "3bf39c450b82eb45eb690683ee9f37482189ab076bfe2f835af04fd0d9053158"
+      }
+    },
+    "shared_scope": "# Post-verification warning and proof-preservation cleanup\n\n## Scope\n\n- Consult when: Verus verification is already successful\n- Consult when: Remaining issue is a proof-only safety comparison difference or low-confidence auto-trigger/implication warning\n- Not for: Any proof goal is still failing\n\n",
+    "shared_links": "- Distinguish from [trigger-inference-annotation](trigger-inference-annotation.md): Trigger route responds to an active trigger-inference failure; this route only cleans up warnings or deghosted-code differences after verification.\n\n- Distinguish from [proof-helper-qualified-path](proof-helper-qualified-path.md): Qualified-path route prevents an import from surviving deghosting before conclusion; post-verification route repairs an already reported difference or warning.\n\n- Related [trigger-inference-annotation](trigger-inference-annotation.md): Use trigger-inference annotation when Verus reports an active trigger-inference failure or a failing quantifier; this post-verification route only cleans up a low-confidence automatic-trigger note after the proof already verifies.\n\n- Related [proof-helper-qualified-path](proof-helper-qualified-path.md): Use the qualified-path route during proof construction to prevent a top-level import from surviving deghosting; this cleanup route repairs an already reported post-verification difference or warning.\n\n- Related [set-equality-membership-witness](set-equality-membership-witness.md): Use the set-equality membership/witness route to construct set equality when no direct lemma applies; post-verification cleanup handles proof-only imports/macros once the set-equality proof already verifies but the comparison reports a difference.\n"
+  },
+  "predicate-equality-mutual-entailment": {
+    "path": "references/predicate-equality-mutual-entailment.md",
+    "bytes": 2512,
+    "sha256": "23a18de2b412856aaaa616b19518a0436a87ceefa962da02db374aa0bca13fdb",
+    "source_card_ids": [
+      "card-020"
+    ],
+    "full": {
+      "path": "references/predicate-equality-mutual-entailment.md",
+      "bytes": 2512,
+      "sha256": "23a18de2b412856aaaa616b19518a0436a87ceefa962da02db374aa0bca13fdb"
+    },
+    "rules": {
+      "predicate-equality-mutual-entailment-verbatim-card-020": {
+        "path": "references/predicate-equality-mutual-entailment.md",
+        "bytes": 2512,
+        "sha256": "23a18de2b412856aaaa616b19518a0436a87ceefa962da02db374aa0bca13fdb",
+        "source_card_ids": [
+          "card-020"
+        ],
+        "original_rule_sha256": "ca1b665f5915d9275376f92e2693a04ec71c449f9c932a2e48331e7ed199c884"
+      }
+    },
+    "shared_scope": "# Logical predicate equality by mutual entailment\n\n## Scope\n\n- Consult when: Goal is equality between logical predicates, such as a predicate and its conjunction with an entailed predicate\n- Consult when: Existing entailment-conjunction and mutual-entailment equality rules are available\n- Not for: Equality is between temporal/function objects rather than logical predicates\n- Not for: Required helpers are unavailable\n\n",
+    "shared_links": "- Distinguish from [temporal-predicate-equality-pointwise](temporal-predicate-equality-pointwise.md): Temporal-object equality uses index/suffix pointwise reasoning; logical predicate equality uses entailment rules over boolean predicates.\n\n- Related [temporal-predicate-equality-pointwise](temporal-predicate-equality-pointwise.md): Temporal-object equality uses index/suffix pointwise reasoning; logical predicate equality uses entailment rules over boolean predicates.\n"
+  },
+  "proof-helper-qualified-path": {
+    "path": "references/proof-helper-qualified-path.md",
+    "bytes": 1839,
+    "sha256": "c2532fe37a88758a2285d9cd7d8bcc9597ba9fe74f820bdb1ad46a11d91b5c63",
+    "source_card_ids": [
+      "card-055",
+      "card-065",
+      "card-068"
+    ],
+    "full": {
+      "path": "references/proof-helper-qualified-path--full.md",
+      "bytes": 5498,
+      "sha256": "0d0812813a8d447b47dd98750c11bd9b3b50096aa4397b33f27836cfcebeb096"
+    },
+    "rules": {
+      "qualified-proof-helper-macro-path": {
+        "path": "references/proof-helper-qualified-path--qualified-proof-helper-macro-path.md",
+        "bytes": 3924,
+        "sha256": "ffc3e8ad3833c702a7da2e91074ed9fff42eddd5f6605bc3e8d1c86c75fd7245",
+        "source_card_ids": [
+          "card-055",
+          "card-065"
+        ],
+        "original_rule_sha256": "0c9b3f9d095d2fc80fafdeb2cb2b1b0a8e7887c1cc9dc1f6b33640949eeb2fed"
+      },
+      "sequence-equality-closure-qualified-path": {
+        "path": "references/proof-helper-qualified-path--sequence-equality-closure-qualified-path.md",
+        "bytes": 2667,
+        "sha256": "61e397a8247fd219f630ac1ff904d1e719d1632e9b26fb7c7f03fe898e83ebc6",
+        "source_card_ids": [
+          "card-068"
+        ],
+        "original_rule_sha256": "0a7d161a0e3e89a450e2dd35a847853471f54da7f6b82f7aa981ddb09b8598ec"
+      }
+    },
+    "shared_scope": "# Qualified proof-only helper/macro references\n\n## Scope\n\n- Consult when: Proof helper, macro, or closure is reported out of scope\n- Consult when: Adding a top-level import would survive deghosting and cause a safety comparison difference\n- Consult when: The item is exposed under a fully qualified path\n- Not for: Difference is a real executable or contract change\n- Not for: Fully qualified path is not the installed path\n\n",
+    "shared_links": "- Distinguish from [post-verification-cleanup](post-verification-cleanup.md): Qualified-path route is chosen during proof construction to avoid a future deghosted difference; cleanup route handles an already verified proof with remaining warning/diff.\n\n- Related [post-verification-cleanup](post-verification-cleanup.md): Qualified-path route is selected during proof construction to prevent an import from surviving deghosting before a comparison is run; post-verification-cleanup is used only after the proof already verifies and a warning or deghosted-code difference remains.\n\n- Related [natural-integer-type-mismatch](natural-integer-type-mismatch.md): Natural/integer type route covers numeric and empty-sequence type mismatches generally. The empty-sequence annotation here is only a follow-up to a type-inference diagnostic after using a qualified proof/ghost macro path.\n"
+  },
+  "quantified-proof-antecedent-binder-scope": {
+    "path": "references/quantified-proof-antecedent-binder-scope.md",
+    "bytes": 2506,
+    "sha256": "d4ac1cddaa6893722969710069e0b736eea51ad1b77711de4e7378737659a87b",
+    "source_card_ids": [
+      "card-006",
+      "card-023",
+      "card-069",
+      "card-074"
+    ],
+    "full": {
+      "path": "references/quantified-proof-antecedent-binder-scope--full.md",
+      "bytes": 8800,
+      "sha256": "238f4ca16a3489997fd687b51a32030f06eae6707d15f508fd1de7049a6ca180"
+    },
+    "rules": {
+      "missing-antecedent-quantified-proof": {
+        "path": "references/quantified-proof-antecedent-binder-scope--missing-antecedent-quantified-proof.md",
+        "bytes": 5619,
+        "sha256": "fdb42787032a7cd89ba4dfa66f3693d0ddd5cfa00a0a05b32fe91e9d25e44a05",
+        "source_card_ids": [
+          "card-006",
+          "card-069"
+        ],
+        "original_rule_sha256": "49861c15692a0b128dad9a1916411e48ab173bbf4b4531195d220071589cca74"
+      },
+      "quantified-binder-scope-verbatim": {
+        "path": "references/quantified-proof-antecedent-binder-scope--quantified-binder-scope-verbatim.md",
+        "bytes": 3525,
+        "sha256": "2f9394e891a342a16e77e62797704d9ddbbde6b2232bf55e6acc616a7e2c2dc3",
+        "source_card_ids": [
+          "card-023"
+        ],
+        "original_rule_sha256": "ef34c3ee643560ef212a41079faf6483ceb61a176afe72661814972e63d1b3cd"
+      },
+      "helper-precondition-implication-branch-verbatim": {
+        "path": "references/quantified-proof-antecedent-binder-scope--helper-precondition-implication-branch-verbatim.md",
+        "bytes": 3608,
+        "sha256": "07b44dec636a0a5ec84b3d69824b4f990c87f8b6f881c29b7c7efa69e0b05e9c",
+        "source_card_ids": [
+          "card-074"
+        ],
+        "original_rule_sha256": "e9d84babd9dca48af6ecebfee8fe2c97c834852d1fac27d39efe9e01737a6eee"
+      }
+    },
+    "shared_scope": "# Quantified proof-block antecedent and binder scope failures\n\n## Scope\n\n- Consult when: Proof block, assert-forall, or helper precondition fails inside quantified implication\n- Consult when: Diagnostic says antecedent not assumed or facts disappear because binder was shadowed by a fresh symbol\n- Not for: Failure is a trigger-inference diagnostic\n- Not for: Needed logical premise is genuinely absent, not a scope or antecedent problem\n\n",
+    "shared_links": "## Conditional links\n\n- When When the actual diagnostic is an implication whose antecedent is not assumed, rather than a trigger inference failure.: [trigger-inference-annotation/original-card-057](trigger-inference-annotation.md#original-card-057)\n- When When the diagnostic is a quantified implication antecedent that is not being assumed rather than a method/field error.: [function-field-projection-syntax/card-015-verbatim](function-field-projection-syntax.md#card-015-verbatim)\n- When When the failing diagnostic is a weak implication missing its antecedent rather than trigger inference.: [trigger-inference-annotation/original-card-018](trigger-inference-annotation.md#original-card-018)\n\n- Distinguish from [trigger-inference-annotation](trigger-inference-annotation.md): Trigger route annotates quantifier patterns; antecedent/binder route makes the hypothesis or existing bound value available.\n\n- Related [trigger-inference-annotation](trigger-inference-annotation.md): Trigger-annotation route changes quantifier trigger patterns when trigger inference fails; this family repairs missing implication antecedent or binder shadowing inside quantified proof blocks.\n\n- Related [universal-instantiation-concrete](universal-instantiation-concrete.md): Universal-instantiation route asserts/applies an already in-scope universal fact at a concrete term; this family fixes antecedent availability or binder scope needed before such instantiation.\n\n- Related [post-verification-cleanup](post-verification-cleanup.md): Post-verification cleanup applies only after verification succeeds; this family addresses active missing-antecedent or binder-scope failures before verification, while card-069 reminds users to treat warning cleanup separately.\n"
+  },
+  "record-function-field-equality": {
+    "path": "references/record-function-field-equality.md",
+    "bytes": 1626,
+    "sha256": "6d9bf6be06c3771cd9a3798a8627b8e892ea746d6b7f23983010c67587bda6f7",
+    "source_card_ids": [
+      "card-004",
+      "card-005"
+    ],
+    "full": {
+      "path": "references/record-function-field-equality--full.md",
+      "bytes": 3796,
+      "sha256": "aa1c5d28d1d33f25646d207392f73024c0f2a9f31dada4864af683cce4df1f43"
+    },
+    "rules": {
+      "rule-card-004": {
+        "path": "references/record-function-field-equality--rule-card-004.md",
+        "bytes": 2614,
+        "sha256": "cbf21b047c1240d5bec899189302a674702cb20fa50c4bea68c53545013551e5",
+        "source_card_ids": [
+          "card-004"
+        ],
+        "original_rule_sha256": "cb0d48abda0b06ebe751051916afec2c6cf3ae8e2969047951bb4b53ad51f170"
+      },
+      "rule-card-005": {
+        "path": "references/record-function-field-equality--rule-card-005.md",
+        "bytes": 2412,
+        "sha256": "164f7317387220333fb5dfe8b85ab0921a0c36305c681f548ba6c2c02c2ad1d8",
+        "source_card_ids": [
+          "card-005"
+        ],
+        "original_rule_sha256": "27bd2137c659709ba6ae9b643055d7df0c7e14ed28b3fd255f4f6a45c762cf53"
+      }
+    },
+    "shared_scope": "# Record equality with function-valued fields\n\n## Scope\n\n- Consult when: Goal is equality of records containing function-valued projection fields\n- Consult when: Pointwise premise is available or built-in extensional equality is needed\n- Not for: Pointwise premise is incomplete\n- Not for: No function-valued field is involved\n\n",
+    "shared_links": "## Conditional links\n\n- When After syntax and triggers are fixed, when the remaining proof uses pointwise function-field equality to derive execution equality.: [function-field-projection-syntax/merged-field-projection-before-apply](function-field-projection-syntax.md#merged-field-projection-before-apply)\n- When After the syntax and trigger are fixed, when the remaining proof step is asserting function-field and record equality.: [function-field-projection-syntax/card-028-verbatim](function-field-projection-syntax.md#card-028-verbatim)\n\n- Distinguish from [function-field-projection-syntax](function-field-projection-syntax.md): Syntax route fixes callable-field parse/type errors; this route establishes logical field and record equality after syntax is correct.\n\n- Related [function-field-projection-syntax](function-field-projection-syntax.md): Syntax route fixes callable-field parse/type errors; this route establishes logical field and record equality after syntax is correct.\n"
+  },
+  "sequence-extensional-equality": {
+    "path": "references/sequence-extensional-equality.md",
+    "bytes": 3094,
+    "sha256": "9e2f5261c585dc3e17d69eb9451302d417d8d6b357b0ef49f47caceeaa3f7b4c",
+    "source_card_ids": [
+      "card-067"
+    ],
+    "full": {
+      "path": "references/sequence-extensional-equality.md",
+      "bytes": 3094,
+      "sha256": "9e2f5261c585dc3e17d69eb9451302d417d8d6b357b0ef49f47caceeaa3f7b4c"
+    },
+    "rules": {
+      "seq-ext-eq-verbatim-card-067": {
+        "path": "references/sequence-extensional-equality.md",
+        "bytes": 3094,
+        "sha256": "9e2f5261c585dc3e17d69eb9451302d417d8d6b357b0ef49f47caceeaa3f7b4c",
+        "source_card_ids": [
+          "card-067"
+        ],
+        "original_rule_sha256": "553451c92be713d1c7a035efa5147965e86184640e1472b9512c4a33cbbfb8f3"
+      }
+    },
+    "shared_scope": "# Sequence equality by length and pointwise element facts\n\n## Scope\n\n- Consult when: Goal is equality of two sequence expressions and direct assertion fails\n- Consult when: Extensional length and elementwise reasoning can establish both directions\n- Not for: Checker already discharges sequence equality directly\n- Not for: Installed environment lacks usable extensional length/index laws\n\n",
+    "shared_links": "## Conditional links\n\n- When After resolving the qualified path, when the closure still requires the explicit length and elementwise sequence-equality premises.: [proof-helper-qualified-path/sequence-equality-closure-qualified-path](proof-helper-qualified-path.md#sequence-equality-closure-qualified-path)\n- When Once the fixed-width header contract is established, when the remaining header and payload sequence equality needs length and pointwise element facts.: [opaque-spec-function-facts/rule-card-053](opaque-spec-function-facts.md#rule-card-053)\n\n- Distinguish from [set-equality-membership-witness](set-equality-membership-witness.md): Set equality concerns set membership witnesses; sequence equality concerns equal lengths and equal indexed elements.\n\n- Related [set-equality-membership-witness](set-equality-membership-witness.md): Set equality concerns set membership witnesses; sequence equality concerns equal lengths and equal indexed elements.\n"
+  },
+  "sequence-fold-concat-equality": {
+    "path": "references/sequence-fold-concat-equality.md",
+    "bytes": 1857,
+    "sha256": "365c6c28c03245a98306182d56d3aeb69b22496f6384bc27d7a5f6e33df36776",
+    "source_card_ids": [
+      "card-063",
+      "card-064"
+    ],
+    "full": {
+      "path": "references/sequence-fold-concat-equality--full.md",
+      "bytes": 4541,
+      "sha256": "40b04780a678647be8ac5e5f000d1f343c8e9e77682c99e16a6accdb7125eebc"
+    },
+    "rules": {
+      "seq-fold-concat-induction-second": {
+        "path": "references/sequence-fold-concat-equality--seq-fold-concat-induction-second.md",
+        "bytes": 2827,
+        "sha256": "57b8d8984d24f2eb56c3f63c4b59d5c5f6f27c66aa3ed6da36c4c9e67f3b7abe",
+        "source_card_ids": [
+          "card-063"
+        ],
+        "original_rule_sha256": "76218c067d06243d210771b3012cfcfb1fbf5e97e3126dee1c1b762984d0ffee"
+      },
+      "seq-fold-concat-split-lemma-helper": {
+        "path": "references/sequence-fold-concat-equality--seq-fold-concat-split-lemma-helper.md",
+        "bytes": 2641,
+        "sha256": "2b2332185808160ab565ea3cc014c4aa23115d87cc3eb1f9101e72e4a0a94ff8",
+        "source_card_ids": [
+          "card-064"
+        ],
+        "original_rule_sha256": "d7697e70b78f18217918077acd962d18cdba38e35e9de443e4754a6f50bfeeed"
+      }
+    },
+    "shared_scope": "# Fold over concatenated sequences\n\n## Scope\n\n- Consult when: Goal is fold over concatenation equals concatenation of folds\n- Consult when: Induction on second sequence or an existing split lemma is feasible\n- Consult when: Accumulator concatenation is associative/append-like\n- Not for: Fold operator is not associative or append-like\n- Not for: Sequence split/decomposition lemmas are unavailable\n\n",
+    "shared_links": "- Distinguish from [finite-set-fold-cardinality-induction](finite-set-fold-cardinality-induction.md): Finite-set fold uses source-set cardinality; sequence fold uses sequence length or split boundary.\n\n- Distinguish from [specialized-fold-bound-lemmas](specialized-fold-bound-lemmas.md): Specialized-bound route creates concrete recursive lemmas for element bounds; concat route proves distribution over sequence append.\n\n- Related [finite-set-fold-cardinality-induction](finite-set-fold-cardinality-induction.md): Finite-set fold uses source-set cardinality; sequence fold uses sequence length or split boundary.\n\n- Related [specialized-fold-bound-lemmas](specialized-fold-bound-lemmas.md): Specialized-bound route creates concrete recursive lemmas for element bounds; concat route proves distribution over sequence append.\n"
+  },
+  "set-equality-membership-witness": {
+    "path": "references/set-equality-membership-witness.md",
+    "bytes": 1969,
+    "sha256": "602489aa1f8be65fc8e81d72d939565eb9067aacf497138a74216c3859f10732",
+    "source_card_ids": [
+      "card-002",
+      "card-049"
+    ],
+    "full": {
+      "path": "references/set-equality-membership-witness--full.md",
+      "bytes": 5510,
+      "sha256": "800dc4d268405543340f5a92acf6939bbd30a682b0e09e7bafacabac59680108"
+    },
+    "rules": {
+      "rule-general-set-image-equality-witness": {
+        "path": "references/set-equality-membership-witness--rule-general-set-image-equality-witness.md",
+        "bytes": 3230,
+        "sha256": "9e7fe2f43642e0e0cab401e88f267137fe0c7ee2116a7c48081dcc700d2f4071",
+        "source_card_ids": [
+          "card-002"
+        ],
+        "original_rule_sha256": "5bd667690661c4d4909075f093ed1f20e67989484dd481a286f8d15e9a3b44df"
+      },
+      "rule-no-duplicate-sequence-removal-set-equality": {
+        "path": "references/set-equality-membership-witness--rule-no-duplicate-sequence-removal-set-equality.md",
+        "bytes": 3309,
+        "sha256": "86ac14ba8b506182b80938448da9eb1a0499e79a63bae3661366bbdd412cf6a9",
+        "source_card_ids": [
+          "card-049"
+        ],
+        "original_rule_sha256": "7d9ef4c5e9febac6c8afe60db6d2d6b20adecd5f677588135c6ed4cbc182a10b"
+      }
+    },
+    "shared_scope": "# Set equality by membership extensionality and witnesses\n\n## Scope\n\n- Consult when: Goal is equality of sets/set images or a sequence-set view after removal\n- Consult when: No direct matching library lemma\n- Consult when: Membership equivalence and witness indices are required\n- Not for: Direct library lemma already applies with available premises\n- Not for: Membership extensionality is not the missing step\n\n",
+    "shared_links": "- Distinguish from [temporal-existential-witness-lifting](temporal-existential-witness-lifting.md): Temporal existential witness lifting concerns execution/message existential goals, not membership equality of sets.\n\n- Related [direct-existing-lemma-bridge](direct-existing-lemma-bridge.md): Use the direct-bridge route only when an existing lemma itself closes the algebraic goal; otherwise set equality requires membership extensionality and explicit witnesses.\n\n- Related [sequence-extensional-equality](sequence-extensional-equality.md): Set equality concerns set membership and witnesses; sequence equality concerns equal lengths and equal indexed elements.\n\n- Related [temporal-existential-witness-lifting](temporal-existential-witness-lifting.md): Temporal existential witness lifting concerns execution/message existential goals, not membership equality of sets.\n"
+  },
+  "specialized-fold-bound-lemmas": {
+    "path": "references/specialized-fold-bound-lemmas.md",
+    "bytes": 2699,
+    "sha256": "4d0e1944c097f25600da4560a2917b8d7df3b9d05bd1e89411d9de6017e3dcc6",
+    "source_card_ids": [
+      "card-022"
+    ],
+    "full": {
+      "path": "references/specialized-fold-bound-lemmas.md",
+      "bytes": 2699,
+      "sha256": "4d0e1944c097f25600da4560a2917b8d7df3b9d05bd1e89411d9de6017e3dcc6"
+    },
+    "rules": {
+      "specialized-fold-bound-lemmas-verbatim": {
+        "path": "references/specialized-fold-bound-lemmas.md",
+        "bytes": 2699,
+        "sha256": "4d0e1944c097f25600da4560a2917b8d7df3b9d05bd1e89411d9de6017e3dcc6",
+        "source_card_ids": [
+          "card-022"
+        ],
+        "original_rule_sha256": "757359abe8ffbdd67fda15c4ac5fec784789f3b49dd5c51f5ff4a47387229f32"
+      }
+    },
+    "shared_scope": "# Specialized recursive lemmas for concrete fold bounds\n\n## Scope\n\n- Consult when: Generic higher-order fold lemmas do not connect to concrete fold expressions\n- Consult when: Concrete fold-bound or append-length obligations remain\n- Consult when: Element type supports recursive empty/nonempty decomposition\n- Not for: Generic lemma already instantiates correctly\n- Not for: Recursive structure lacks a decreasing well-founded measure\n\n",
+    "shared_links": "- Distinguish from [finite-set-fold-cardinality-induction](finite-set-fold-cardinality-induction.md): Finite-set route targets fold over finite sets; this route targets concrete sequence element bounds and recursive element facts.\n\n- Related [finite-set-fold-cardinality-induction](finite-set-fold-cardinality-induction.md): Finite-set route targets fold over finite sets; this route targets concrete sequence element bounds and recursive element facts.\n\n- Related [sequence-fold-concat-equality](sequence-fold-concat-equality.md): Specialized-bound route creates concrete recursive lemmas for element bounds; concat route proves distribution over sequence append.\n"
+  },
+  "specialized-temporal-action-binder-type": {
+    "path": "references/specialized-temporal-action-binder-type.md",
+    "bytes": 2646,
+    "sha256": "22e34fa43c627948b8ab2ee8e88102dacde24d771f31502a2e29a120791d8c56",
+    "source_card_ids": [
+      "card-027"
+    ],
+    "full": {
+      "path": "references/specialized-temporal-action-binder-type.md",
+      "bytes": 2646,
+      "sha256": "22e34fa43c627948b8ab2ee8e88102dacde24d771f31502a2e29a120791d8c56"
+    },
+    "rules": {
+      "specialized-temporal-action-binder-type": {
+        "path": "references/specialized-temporal-action-binder-type.md",
+        "bytes": 2646,
+        "sha256": "22e34fa43c627948b8ab2ee8e88102dacde24d771f31502a2e29a120791d8c56",
+        "source_card_ids": [
+          "card-027"
+        ],
+        "original_rule_sha256": "9c188cfa0ce82fb8078547b5cc5a70ff99f9b68dd40aef31a746a4d85cb3ce62"
+      }
+    },
+    "shared_scope": "# Specialized temporal action binder payload type\n\n## Scope\n\n- Consult when: A fairness/action is specialized to a fixed controller or identifier\n- Consult when: Universal binder uses full action-input tuple and Verus reports a payload type mismatch\n- Not for: The error points to a different action\n- Not for: The action's declared input type or fixed argument should not change\n\n",
+    "shared_links": "- Distinguish from [function-field-projection-syntax](function-field-projection-syntax.md): Function-field route fixes field-call syntax; this route fixes the residual universally quantified payload type after partial action application.\n\n- Related [function-field-projection-syntax](function-field-projection-syntax.md): Function-field route fixes field-call syntax; this route fixes the residual universally quantified payload type after partial action application.\n\n- Related [natural-integer-type-mismatch](natural-integer-type-mismatch.md): Specialized binder route fixes a partial-application residual payload type; this route handles natural/integer numeric and empty-sequence types.\n"
+  },
+  "temporal-entailment-pointwise-lifting": {
+    "path": "references/temporal-entailment-pointwise-lifting.md",
+    "bytes": 2829,
+    "sha256": "cf11841e767f8ce389db572e4f0f4c8330bb2ccdce61fbfeb9208a87a2ba233c",
+    "source_card_ids": [
+      "card-056"
+    ],
+    "full": {
+      "path": "references/temporal-entailment-pointwise-lifting.md",
+      "bytes": 2829,
+      "sha256": "cf11841e767f8ce389db572e4f0f4c8330bb2ccdce61fbfeb9208a87a2ba233c"
+    },
+    "rules": {
+      "card-056-verbatim": {
+        "path": "references/temporal-entailment-pointwise-lifting.md",
+        "bytes": 2829,
+        "sha256": "cf11841e767f8ce389db572e4f0f4c8330bb2ccdce61fbfeb9208a87a2ba233c",
+        "source_card_ids": [
+          "card-056"
+        ],
+        "original_rule_sha256": "7398b56fb6ef43788e72c4b197a1e11edc4c42b8de37cbaab85b16db6909dd09"
+      }
+    },
+    "shared_scope": "# Temporal entailment by pointwise/per-suffix lifting\n\n## Scope\n\n- Consult when: Goal is an entailment or leads-to relationship over cluster states or execution suffixes\n- Consult when: Body is empty or only the final postcondition is unproved\n- Consult when: Pointwise or per-suffix implication follows from open definitions\n- Not for: Target is not an entailment/leads-to over states/suffixes\n- Not for: Pointwise implication does not follow from available definitions\n\n",
+    "shared_links": "- Distinguish from [weak-fairness-pointwise-lemmas](weak-fairness-pointwise-lemmas.md): Weak-fairness route creates action precondition/outcome/preservation lemmas; this route lifts a single pointwise/per-suffix implication to a temporal goal.\n\n- Distinguish from [compound-stability-existing-rules](compound-stability-existing-rules.md): Stability route combines existing stability/conjunction rules; this route proves the entailment itself by pointwise lifting.\n\n- Related [weak-fairness-pointwise-lemmas](weak-fairness-pointwise-lemmas.md): Weak-fairness route creates action precondition/outcome/preservation lemmas; this route lifts a single pointwise/per-suffix implication to a temporal goal.\n\n- Related [compound-stability-existing-rules](compound-stability-existing-rules.md): Stability route combines existing stability/conjunction rules; this route proves the entailment itself by pointwise lifting.\n"
+  },
+  "temporal-existential-witness-lifting": {
+    "path": "references/temporal-existential-witness-lifting.md",
+    "bytes": 2487,
+    "sha256": "3fd7b9b17477944b8a81d5be6ae1d4814713343300c4cddfaae6ef6d3b096196",
+    "source_card_ids": [
+      "card-016",
+      "card-032",
+      "card-033"
+    ],
+    "full": {
+      "path": "references/temporal-existential-witness-lifting--full.md",
+      "bytes": 7980,
+      "sha256": "7ede88787203e9b2616ee258549745adffd8375adf352878a73ef271dad31b29"
+    },
+    "rules": {
+      "card-016-verbatim": {
+        "path": "references/temporal-existential-witness-lifting--card-016-verbatim.md",
+        "bytes": 3521,
+        "sha256": "839e43763c5454a78e848b994cd15d7448c824728562e61ba75fd64c9ed5a370",
+        "source_card_ids": [
+          "card-016"
+        ],
+        "original_rule_sha256": "a5566d9641767c96572bc0e745dad07870ad24f4c66f4ea509a1d7257e652766"
+      },
+      "card-032-verbatim": {
+        "path": "references/temporal-existential-witness-lifting--card-032-verbatim.md",
+        "bytes": 3634,
+        "sha256": "ebf700a8e9dfa373f7c4c6787e0c304c9a6c512b0977ef4c6dc32c61ad6ee7d2",
+        "source_card_ids": [
+          "card-032"
+        ],
+        "original_rule_sha256": "143b342bf3cfa4de1956a525feffc5387f2c81df6f5c235b4a7099da96d3a9ed"
+      },
+      "card-033-verbatim": {
+        "path": "references/temporal-existential-witness-lifting--card-033-verbatim.md",
+        "bytes": 3353,
+        "sha256": "a77a3c98b65101235a09aa23c4d0b2ac645aae5fa276b7f2f1aa593aeefc316c",
+        "source_card_ids": [
+          "card-033"
+        ],
+        "original_rule_sha256": "87e01b01c0eb7ab785cddfc363ce9082316f212479b44805e1b48317270af5a8"
+      }
+    },
+    "shared_scope": "# Temporal existential witness lifting and leads-to composition\n\n## Scope\n\n- Consult when: Leads-to or equality temporal formula contains existential message/state predicates\n- Consult when: Per-witness helper lemmas or witness-introduction/equality rules exist\n- For leads-to: Check the selected rule's per-witness helper premises; card-016 also requires an atomic membership/equality witness source\n- For equality (card-033): Check the trusted predicate-equality and witness-introduction rules and witness facts; a per-witness leads-to lemma is not its premise\n- Not for: The selected rule's required trusted helpers or witness facts are unavailable\n\n",
+    "shared_links": "- Distinguish from [eventual-witness-index-bridge](eventual-witness-index-bridge.md): Eventual index route chooses a time occurrence; this route selects message-like witnesses and lifts per-witness facts.\n\n- Related [eventual-witness-index-bridge](eventual-witness-index-bridge.md): Eventual index route chooses a time occurrence; this route selects message-like witnesses and lifts per-witness facts.\n\n- Related [set-equality-membership-witness](set-equality-membership-witness.md): Temporal existential witness lifting concerns execution/message existential goals, not membership equality of sets.\n\n- Related [temporal-predicate-equality-pointwise](temporal-predicate-equality-pointwise.md): Existential-witness route chooses message-like witnesses; temporal object equality route uses pointwise entailment and index identities.\n"
+  },
+  "temporal-induction-natural-offset": {
+    "path": "references/temporal-induction-natural-offset.md",
+    "bytes": 2349,
+    "sha256": "e73d8629a38aa24565a6dbf95d84958b3cea18376bc29481905fcb23faf4c132",
+    "source_card_ids": [
+      "card-039"
+    ],
+    "full": {
+      "path": "references/temporal-induction-natural-offset.md",
+      "bytes": 2349,
+      "sha256": "e73d8629a38aa24565a6dbf95d84958b3cea18376bc29481905fcb23faf4c132"
+    },
+    "rules": {
+      "card-039-verbatim": {
+        "path": "references/temporal-induction-natural-offset.md",
+        "bytes": 2349,
+        "sha256": "e73d8629a38aa24565a6dbf95d84958b3cea18376bc29481905fcb23faf4c132",
+        "source_card_ids": [
+          "card-039"
+        ],
+        "original_rule_sha256": "2ddba35961f145f4bd0f79ebe742f5fc97ef8315a01934acc59e72561e6c4e56"
+      }
+    },
+    "shared_scope": "# Temporal property at arbitrary natural offset by induction\n\n## Scope\n\n- Consult when: Property must hold at an arbitrary natural offset or suffix index\n- Consult when: Induction on the natural index is structurally appropriate\n- Consult when: Extensional execution equality principle is available\n- Not for: Property is not inductive over chosen index\n- Not for: No pointwise/extensional equality principle for base/step bridges\n\n",
+    "shared_links": "- Distinguish from [temporal-suffix-shift-helper](temporal-suffix-shift-helper.md): Induction route uses a recursive helper with decreases; suffix-shift route uses an existing helper directly.\n\n- Related [temporal-suffix-shift-helper](temporal-suffix-shift-helper.md): Induction route uses a recursive helper with decreases; suffix-shift route uses an existing helper directly.\n"
+  },
+  "temporal-predicate-equality-pointwise": {
+    "path": "references/temporal-predicate-equality-pointwise.md",
+    "bytes": 1819,
+    "sha256": "d921ba2adb9232137ba916ec479eac4dee981d1b29cc7bc2423ebfc82c4119ac",
+    "source_card_ids": [
+      "card-029",
+      "card-070"
+    ],
+    "full": {
+      "path": "references/temporal-predicate-equality-pointwise--full.md",
+      "bytes": 5338,
+      "sha256": "f2a08163a6ac30176952c907ea412cfa0c1d81bd11a91c55cd9b4cd5335341cd"
+    },
+    "rules": {
+      "card-029-verbatim": {
+        "path": "references/temporal-predicate-equality-pointwise--card-029-verbatim.md",
+        "bytes": 3311,
+        "sha256": "a97f9f6b92101748a2dab7278b909a668210a0bc35e773b7d6a124f0a2c4ad36",
+        "source_card_ids": [
+          "card-029"
+        ],
+        "original_rule_sha256": "142bf0f8feb80d790eeca5b40e2ffc435de1692e8e42527c585187181491eabe"
+      },
+      "card-070-verbatim": {
+        "path": "references/temporal-predicate-equality-pointwise--card-070-verbatim.md",
+        "bytes": 3211,
+        "sha256": "b24f77b820e763fcd072beb7d6481e975f2bb4d57037942f0a5526f1302724e4",
+        "source_card_ids": [
+          "card-070"
+        ],
+        "original_rule_sha256": "cbf44afe58ba47d2413fd8ee0949d66b26ea7e949c8e2178f193a45ce850527e"
+      }
+    },
+    "shared_scope": "# Temporal or spec-level object equality via mutual entailment and pointwise index reasoning\n\n## Scope\n\n- Consult when: Goal is equality of temporal/spec-level function or operator objects such as universal/always/nested applications\n- Consult when: Direct object equality is not automatic\n- Consult when: Pointwise index/suffix arithmetic and existing equality lemmas can discharge entailments\n- Not for: Built-in extensional equality already suffices\n- Not for: Equality is between non-temporal logical predicates\n\n",
+    "shared_links": "- Distinguish from [predicate-equality-mutual-entailment](predicate-equality-mutual-entailment.md): Predicate-equality route handles logical predicate conjunction equality; temporal route handles function/temporal objects with index arithmetic.\n\n- Distinguish from [temporal-existential-witness-lifting](temporal-existential-witness-lifting.md): Existential-witness route chooses message-like witnesses; temporal object equality route uses pointwise entailment and index identities.\n\n- Related [predicate-equality-mutual-entailment](predicate-equality-mutual-entailment.md): Predicate-equality route handles logical predicate conjunction equality; temporal route handles function/temporal objects with index arithmetic.\n\n- Related [temporal-existential-witness-lifting](temporal-existential-witness-lifting.md): Existential-witness route chooses message-like witnesses; temporal object equality route uses pointwise entailment and index identities.\n"
+  },
+  "temporal-suffix-shift-helper": {
+    "path": "references/temporal-suffix-shift-helper.md",
+    "bytes": 1836,
+    "sha256": "1b38c189fdb3bbd15c780c4b913a0b4eba418db47510281de1c40b5ad3eb562a",
+    "source_card_ids": [
+      "card-014",
+      "card-025"
+    ],
+    "full": {
+      "path": "references/temporal-suffix-shift-helper--full.md",
+      "bytes": 3958,
+      "sha256": "c40a95e3b0634f2d52b1adb9dffc197952ff785592a6870066a44a717092db6f"
+    },
+    "rules": {
+      "nested-always-forward-shift-helper": {
+        "path": "references/temporal-suffix-shift-helper--nested-always-forward-shift-helper.md",
+        "bytes": 2235,
+        "sha256": "5f39baf0bfde8e2bf64167df3d8b2b08fb08c198cb4d42538177d9bebde82f32",
+        "source_card_ids": [
+          "card-014"
+        ],
+        "original_rule_sha256": "323a9145f73444962556f61a1ea18032530b38f31a90a3281451af1774ccfd80"
+      },
+      "always-lifted-action-unfolding-helper": {
+        "path": "references/temporal-suffix-shift-helper--always-lifted-action-unfolding-helper.md",
+        "bytes": 2336,
+        "sha256": "84d305fcab3a2f3e249d7de7feedfab9ed08c57125fc01206c1c2f232b1f35f5",
+        "source_card_ids": [
+          "card-025"
+        ],
+        "original_rule_sha256": "585595e0de6d4244a767b5fa11ef1e9792b9aa196a9e65aa1374340bf1a62a6f"
+      }
+    },
+    "shared_scope": "# Temporal always/suffix goals via existing shift or unfolding helpers\n\n## Scope\n\n- Consult when: Goal is a suffix-wise or always-derived property\n- Consult when: An existing accepted unfolding/shift helper matches the available premise\n- Consult when: Satisfaction, always, lifting, head, and next-state definitions are open enough\n- Not for: Helper is absent or would require a new trusted body\n- Not for: Current assumption does not match helper precondition\n\n",
+    "shared_links": "- Distinguish from [temporal-induction-natural-offset](temporal-induction-natural-offset.md): This route applies an existing helper; induction route constructs a recursive proof over a natural offset.\n\n- Related [temporal-induction-natural-offset](temporal-induction-natural-offset.md): This route applies an existing helper; induction route constructs a recursive proof over a natural offset.\n"
+  },
+  "transition-system-step-safety": {
+    "path": "references/transition-system-step-safety.md",
+    "bytes": 2053,
+    "sha256": "efa219239c42701646aefabca893005ae939b4ab3d4d66bbb98ba2665302c64e",
+    "source_card_ids": [
+      "card-010",
+      "card-011",
+      "card-012"
+    ],
+    "full": {
+      "path": "references/transition-system-step-safety--full.md",
+      "bytes": 5034,
+      "sha256": "49f18c8293fe7191e8bdf2cfe837209f3067a7b05d95bce050b37bbf67079a96"
+    },
+    "rules": {
+      "card-010-verbatim": {
+        "path": "references/transition-system-step-safety--card-010-verbatim.md",
+        "bytes": 2269,
+        "sha256": "a67ff0aac240b2305801a492b6b32300c1aba2f34a48d34ad1817304cb0d12ca",
+        "source_card_ids": [
+          "card-010"
+        ],
+        "original_rule_sha256": "4eb545095194ad99cec6dc0b8a51de31bd0db529db6c4e374a339e068e3b7bfb"
+      },
+      "card-011-verbatim": {
+        "path": "references/transition-system-step-safety--card-011-verbatim.md",
+        "bytes": 2155,
+        "sha256": "526153db4c0da6f51434ef0c5826fba62ac8597b3528073117576c111b95b315",
+        "source_card_ids": [
+          "card-011"
+        ],
+        "original_rule_sha256": "c920f298115f8af48878a8ae9c88c5759e1f8ab34d11ca698258ea8a5a6d570a"
+      },
+      "card-012-verbatim": {
+        "path": "references/transition-system-step-safety--card-012-verbatim.md",
+        "bytes": 2198,
+        "sha256": "553b50d65a08e6d770067b26a5e6376b1fbda6393344e70fed95fdceff7ce51e",
+        "source_card_ids": [
+          "card-012"
+        ],
+        "original_rule_sha256": "94043d21d58024098a2927e040593e9ee06c479d1c6be68b1d74e42d6c34a396"
+      }
+    },
+    "shared_scope": "# State-machine invariant and step-safety lemmas\n\n## Scope\n\n- Consult when: Goal is an invariant, preservation, or safety property over a finite state-machine transition relation\n- Consult when: Step cases can be pattern-matched or decomposed into finite local analyses\n- Not for: Transition relation is uninterpreted or unbounded\n- Not for: Preservation is genuinely false without an additional missing invariant\n\n",
+    "shared_links": "- Distinguish from [nondeterministic-step-result](nondeterministic-step-result.md): Nondeterministic-step route is about not reconstructing a result through one nonunique witness, rather than proving preservation lemmas.\n\n- Related [nondeterministic-step-result](nondeterministic-step-result.md): Nondeterministic-step route is about not reconstructing a result through one nonunique witness, rather than proving preservation lemmas.\n"
+  },
+  "trigger-inference-annotation": {
+    "path": "references/trigger-inference-annotation.md",
+    "bytes": 2428,
+    "sha256": "6f70ac320cea4e559c1313ec62aa2b813409d6aae56c63e48828fc550185f054",
+    "source_card_ids": [
+      "card-018",
+      "card-034",
+      "card-057"
+    ],
+    "full": {
+      "path": "references/trigger-inference-annotation--full.md",
+      "bytes": 6735,
+      "sha256": "8baa2fcd2eef72f655a800f7d790f25957e9d61525f23da30aaa45a8907f1b81"
+    },
+    "rules": {
+      "original-card-018": {
+        "path": "references/trigger-inference-annotation--original-card-018.md",
+        "bytes": 3696,
+        "sha256": "8b191653812ca50ef3f94960d9ba46ac9f204b5b88dce61509dfd7daf8435c3c",
+        "source_card_ids": [
+          "card-018"
+        ],
+        "original_rule_sha256": "705a2a8a35c29896b76f936978dc70d60c4fc5fd36eee88b8262754bb07acc39"
+      },
+      "original-card-034": {
+        "path": "references/trigger-inference-annotation--original-card-034.md",
+        "bytes": 3709,
+        "sha256": "886497e56b78a8a56d2e7eeb4defddccb503e05ebc310ef80313d1605b4544d6",
+        "source_card_ids": [
+          "card-034"
+        ],
+        "original_rule_sha256": "109d84a2f711a6a5b1963f34f83d714e3dab3d0d1489af7442a54ca92f319505"
+      },
+      "original-card-057": {
+        "path": "references/trigger-inference-annotation--original-card-057.md",
+        "bytes": 3707,
+        "sha256": "7086567c1eb455572389f3ec0b59ad513cb6abda78251bbfa1ce56f854fb3e35",
+        "source_card_ids": [
+          "card-057"
+        ],
+        "original_rule_sha256": "97de5848a3a7cee7d62c641f46f170cf9044598a5ff5d1e3dfe8d3f18924cab7"
+      }
+    },
+    "shared_scope": "# Explicit triggers for quantifier inference failures\n\n## Scope\n\n- Consult when: Verus cannot infer triggers for a quantified assertion, choose, or witness term; cards 018/057 also cover a separately diagnosed missing antecedent\n- Not for: Only a low-confidence trigger note remains after successful verification\n- Boundary: A missing-antecedent-only case is not card-034's trigger-only case; it remains within cards 018/057's stated coverage\n- Not for: A genuinely missing logical premise, rather than trigger selection or antecedent availability\n\n",
+    "shared_links": "## Conditional links\n\n- When After fixing the field projection syntax, when Verus reports a missing trigger for the universal equality.: [function-field-projection-syntax/merged-field-projection-before-apply](function-field-projection-syntax.md#merged-field-projection-before-apply)\n- When After the field access is fixed, when Verus cannot infer a trigger for the universal pointwise equality.: [function-field-projection-syntax/card-028-verbatim](function-field-projection-syntax.md#card-028-verbatim)\n\n- Distinguish from [post-verification-cleanup](post-verification-cleanup.md): Cleanup route applies only after the proof verifies; trigger annotation here addresses an active trigger-inference diagnostic.\n\n- Related [quantified-proof-antecedent-binder-scope](quantified-proof-antecedent-binder-scope.md): Trigger rule annotates quantifier patterns for an active trigger-inference failure; antecedent/binder rule makes the hypothesis or existing bound value available.\n\n- Related [universal-instantiation-concrete](universal-instantiation-concrete.md): Trigger rule changes quantifier annotations; universal-instantiation rule asserts or applies an already-available universal fact at a concrete term without a trigger-inference diagnostic.\n\n- Related [post-verification-cleanup](post-verification-cleanup.md): Trigger rule responds only to an active trigger-inference failure; cleanup route applies after verification for warning or safety-comparison differences.\n\n- Related [universal-equivalence-pointwise](universal-equivalence-pointwise.md): Universal-equivalence route proves pointwise equivalence before choosing triggers or directional lemmas; trigger rule only annotates an existing quantifier.\n"
+  },
+  "universal-equivalence-pointwise": {
+    "path": "references/universal-equivalence-pointwise.md",
+    "bytes": 3204,
+    "sha256": "0380e2ccf29aeb39d27d984c11e4dd18b0644b0f63a7645a26a88f6ecd46c76e",
+    "source_card_ids": [
+      "card-077"
+    ],
+    "full": {
+      "path": "references/universal-equivalence-pointwise.md",
+      "bytes": 3204,
+      "sha256": "0380e2ccf29aeb39d27d984c11e4dd18b0644b0f63a7645a26a88f6ecd46c76e"
+    },
+    "rules": {
+      "rule-card-077": {
+        "path": "references/universal-equivalence-pointwise.md",
+        "bytes": 3204,
+        "sha256": "0380e2ccf29aeb39d27d984c11e4dd18b0644b0f63a7645a26a88f6ecd46c76e",
+        "source_card_ids": [
+          "card-077"
+        ],
+        "original_rule_sha256": "1143d4d2206870bafdb6ad83971485b369b9aff8defad0f39d6d6ecc9fc10092"
+      }
+    },
+    "shared_scope": "# Universal formula equivalence by pointwise facts and triggers\n\n## Scope\n\n- Consult when: Goal is equivalence between two universal formulas with different bodies\n- Consult when: Direct chaining fails\n- Consult when: Installed library facts/open definitions can prove pointwise equivalence\n- Not for: Bodies are already syntactically equivalent or a direct assertion closes the goal\n- Not for: Required library axioms/definitions are unavailable\n\n",
+    "shared_links": "- Distinguish from [trigger-inference-annotation](trigger-inference-annotation.md): This route first proves pointwise equivalence and then chooses triggers or directional lemmas; trigger route only annotates an existing quantifier.\n\n- Distinguish from [library-broadcast-activation](library-broadcast-activation.md): Broadcast route activates trusted library axioms; universal-equivalence route proves a pointwise extensional bridge.\n\n- Related [trigger-inference-annotation](trigger-inference-annotation.md): This route first proves pointwise equivalence and then chooses trigger annotations or directional lemmas; trigger-inference-annotation only annotates an existing quantifier.\n\n- Related [library-broadcast-activation](library-broadcast-activation.md): Library-broadcast-activation brings trusted library axiom groups into proof scope; this route proves a pointwise extensional bridge from installed library facts/open definitions.\n\n- Related [direct-existing-lemma-bridge](direct-existing-lemma-bridge.md): Use direct-existing-lemma-bridge when an existing trusted lemma/trait contract already proves the equivalence; use this family only when no such lemma exists and a pointwise bridge must be established.\n"
+  },
+  "universal-instantiation-concrete": {
+    "path": "references/universal-instantiation-concrete.md",
+    "bytes": 2319,
+    "sha256": "c357a2b4ff840ca0e5b4a392a8e471d6bfb576a628d44e3e13bb215123b848d8",
+    "source_card_ids": [
+      "card-037",
+      "card-058",
+      "card-076"
+    ],
+    "full": {
+      "path": "references/universal-instantiation-concrete--full.md",
+      "bytes": 5559,
+      "sha256": "de6575ec8c32faa780cd755146f0ac36fefb0716ada02f2f0b21d0a52692b0c2"
+    },
+    "rules": {
+      "card-037-whole-sequence-element-helper": {
+        "path": "references/universal-instantiation-concrete--card-037-whole-sequence-element-helper.md",
+        "bytes": 2592,
+        "sha256": "e29ac77b8b69added49438f03b72fd47f3076bba4b12ab1ef72848c4d2412d57",
+        "source_card_ids": [
+          "card-037"
+        ],
+        "original_rule_sha256": "c8cabe838a54c714f36b430ff925323744b1a9f28f5c33319e691547ce7bb844"
+      },
+      "card-058-entailment-implication-concrete": {
+        "path": "references/universal-instantiation-concrete--card-058-entailment-implication-concrete.md",
+        "bytes": 2751,
+        "sha256": "d4f41063e1d0f4901c6f2ae6e60c69cb7c0adabe1ed094766fb2b898548b3a25",
+        "source_card_ids": [
+          "card-058"
+        ],
+        "original_rule_sha256": "bc76cebda81b294c0bdc93cc2753c4ac2f2e300ead40be5ecd2bddb9b5894253"
+      },
+      "card-076-alias-inline-trigger-instantiation": {
+        "path": "references/universal-instantiation-concrete--card-076-alias-inline-trigger-instantiation.md",
+        "bytes": 2963,
+        "sha256": "d427cdd4cd58807b4382bafcd3a9f081332b72f057fe1bc8588d3ec47166d046",
+        "source_card_ids": [
+          "card-076"
+        ],
+        "original_rule_sha256": "366c7089a669382bc8661e594ba5c557db75fdaa9a7ad66fa12d4d5b06efa6c4"
+      }
+    },
+    "shared_scope": "# Instantiate an available universal fact at a concrete term\n\n## Scope\n\n- Consult when: A whole-sequence, entailment/validity, or temporal universal fact is available but not used at a concrete index, execution, or term\n- Consult when: No trigger-inference diagnostic is present, or local aliases hide the matching form\n- Not for: A trigger-inference error requires explicit trigger annotation\n- Not for: The failure is a missing antecedent inside a quantified proof block\n\n",
+    "shared_links": "- Distinguish from [trigger-inference-annotation](trigger-inference-annotation.md): Trigger route changes quantifier annotations; this route asserts or applies the universal fact at the needed concrete term.\n\n- Distinguish from [quantified-proof-antecedent-binder-scope](quantified-proof-antecedent-binder-scope.md): Antecedent/binder route fixes scope; this route fixes non-instantiation of an already in-scope universal fact.\n\n- Related [trigger-inference-annotation](trigger-inference-annotation.md): Trigger route changes quantifier annotations; this route asserts or applies the universal fact at the needed concrete term.\n\n- Related [quantified-proof-antecedent-binder-scope](quantified-proof-antecedent-binder-scope.md): Antecedent/binder route fixes scope; this route fixes non-instantiation of an already in-scope universal fact.\n\n- Related [loop-termination-and-invariants](loop-termination-and-invariants.md): Universal-instantiation route instantiates one quantified fact at a concrete element/index; loop route carries multiple iteration facts in the invariant block.\n"
+  },
+  "view-equality-constructor-case": {
+    "path": "references/view-equality-constructor-case.md",
+    "bytes": 2834,
+    "sha256": "564614066bd67c2d188999b08dc25295e99bb64738448205737df2bd74b7baa3",
+    "source_card_ids": [
+      "card-044"
+    ],
+    "full": {
+      "path": "references/view-equality-constructor-case.md",
+      "bytes": 2834,
+      "sha256": "564614066bd67c2d188999b08dc25295e99bb64738448205737df2bd74b7baa3"
+    },
+    "rules": {
+      "retain-card-044-constructor-case": {
+        "path": "references/view-equality-constructor-case.md",
+        "bytes": 2834,
+        "sha256": "564614066bd67c2d188999b08dc25295e99bb64738448205737df2bd74b7baa3",
+        "source_card_ids": [
+          "card-044"
+        ],
+        "original_rule_sha256": "ecc1cf3423b3e964e4f5996a7153d6c3e329cc8c86ead9b99399d0c0282b6d85"
+      }
+    },
+    "shared_scope": "# Constructor case analysis for view/marshalability equality\n\n## Scope\n\n- Consult when: Goal is equal abstract views imply equal marshalability\n- Consult when: No packaged view-equal/trait bridge exists or packaged route cannot instantiate\n- Consult when: Constructor cases expose field-level view equalities and per-field lemmas\n- Not for: Packaged bridge already discharges the obligation\n- Not for: Mismatch contradiction would rely on unestablished universal distinctness\n\n",
+    "shared_links": "## Conditional links\n\n- When When the packaged view-equal/trait chain cannot be instantiated and explicit constructor case analysis is needed.: [direct-existing-lemma-bridge/original-card-043](direct-existing-lemma-bridge.md#original-card-043)\n- When When the trait bridge is exposed but structural view equality remains open and constructor case splitting is needed.: [direct-existing-lemma-bridge/original-card-003](direct-existing-lemma-bridge.md#original-card-003)\n\n- Distinguish from [direct-existing-lemma-bridge](direct-existing-lemma-bridge.md): Direct bridge first tries packaged declaration/trait route; this family is the fallback explicit case analysis.\n\n- Related [direct-existing-lemma-bridge](direct-existing-lemma-bridge.md): Direct bridge first tries packaged declaration/trait route; this family is the fallback explicit case analysis.\n"
+  },
+  "weak-fairness-pointwise-lemmas": {
+    "path": "references/weak-fairness-pointwise-lemmas.md",
+    "bytes": 2562,
+    "sha256": "95869aa970573ca750d5d7e9f9f5babcf9590c607c5f6d27bcd7c4b15e76aacc",
+    "source_card_ids": [
+      "card-007"
+    ],
+    "full": {
+      "path": "references/weak-fairness-pointwise-lemmas.md",
+      "bytes": 2562,
+      "sha256": "95869aa970573ca750d5d7e9f9f5babcf9590c607c5f6d27bcd7c4b15e76aacc"
+    },
+    "rules": {
+      "rule-wfpl-card-007": {
+        "path": "references/weak-fairness-pointwise-lemmas.md",
+        "bytes": 2562,
+        "sha256": "95869aa970573ca750d5d7e9f9f5babcf9590c607c5f6d27bcd7c4b15e76aacc",
+        "source_card_ids": [
+          "card-007"
+        ],
+        "original_rule_sha256": "53022c2f71ac108cb5fcb972b1624ccffaa846b5df8390c42a3c93b63a247601"
+      }
+    },
+    "shared_scope": "# Weak-fairness liveness decomposed into pointwise lemmas\n\n## Scope\n\n- Consult when: Top-level temporal goal is weak-fairness/eventual stable state under transitions\n- Consult when: Direct weak fairness or leads-to fails\n- Consult when: Pointwise action precondition, firing outcome, and preservation can be proved\n- Not for: A needed pointwise implication cannot be proved\n- Not for: Step space is too large to case-split effectively\n\n",
+    "shared_links": "- Distinguish from [final-liveness-helper-chain](final-liveness-helper-chain.md): Final-liveness route assembles already-declared invariant/stability/phase helpers; weak-fairness route first creates pointwise action lemmas.\n\n- Related [final-liveness-helper-chain](final-liveness-helper-chain.md): Final-liveness route assembles already-declared invariant/stability/phase helpers; weak-fairness route first creates pointwise action lemmas.\n\n- Related [temporal-entailment-pointwise-lifting](temporal-entailment-pointwise-lifting.md): Weak-fairness route creates action precondition/outcome/preservation lemmas; this route lifts a single pointwise/per-suffix implication to a temporal goal.\n"
+  }
+}

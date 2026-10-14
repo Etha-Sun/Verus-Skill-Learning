@@ -1,0 +1,339 @@
+{
+  "compound-stability-existing-rules": {
+    "path": "references/compound-stability-existing-rules.md",
+    "sha256": "0fd63399888df138509df468a1bf77f9a49ba8a34d21865e6d76660f1119980b",
+    "source_card_ids": [
+      "card-026",
+      "card-045",
+      "card-047",
+      "card-062",
+      "card-071",
+      "card-072"
+    ],
+    "bytes": 9732
+  },
+  "direct-existing-lemma-bridge": {
+    "path": "references/direct-existing-lemma-bridge.md",
+    "sha256": "a031c2c037d7147f46baddb53f760e2c35ef67cc541e8b0563f0553b5889b78c",
+    "source_card_ids": [
+      "card-001",
+      "card-003",
+      "card-043"
+    ],
+    "bytes": 6567
+  },
+  "eventual-witness-index-bridge": {
+    "path": "references/eventual-witness-index-bridge.md",
+    "sha256": "458536b2aa2615ddc258a826f33bf0b9ea4a691e7aed355057dfd67aeed89365",
+    "source_card_ids": [
+      "card-008",
+      "card-009",
+      "card-061"
+    ],
+    "bytes": 5512
+  },
+  "existing-roundtrip-proof-mode": {
+    "path": "references/existing-roundtrip-proof-mode.md",
+    "sha256": "0e572e8ea62ee988b09584cc5e3a6e3daa6c886925a555011037729bf3991bc3",
+    "source_card_ids": [
+      "card-046"
+    ],
+    "bytes": 3337
+  },
+  "final-liveness-helper-chain": {
+    "path": "references/final-liveness-helper-chain.md",
+    "sha256": "f1895ba02c5d6a84d52e8030509cf740ac371fa8e5fe74d078b087362fcd9464",
+    "source_card_ids": [
+      "card-031"
+    ],
+    "bytes": 3106
+  },
+  "finite-set-fold-cardinality-induction": {
+    "path": "references/finite-set-fold-cardinality-induction.md",
+    "sha256": "e8c87d6090c866d5f74ba05e5be553c7c100270dfa32533651456f6924b82d55",
+    "source_card_ids": [
+      "card-017",
+      "card-048"
+    ],
+    "bytes": 5511
+  },
+  "function-field-projection-syntax": {
+    "path": "references/function-field-projection-syntax.md",
+    "sha256": "ed4fdc4b519d5b2730ee1f970c1e90ac7fbd6648127040f3e2bb248f5db496f2",
+    "source_card_ids": [
+      "card-015",
+      "card-028",
+      "card-060",
+      "card-075"
+    ],
+    "bytes": 6954
+  },
+  "ghost-empty-witness": {
+    "path": "references/ghost-empty-witness.md",
+    "sha256": "d1c5e5ea3be0debcd39dbec88d1d488cae31591ab77c82545e45201aaaf133ec",
+    "source_card_ids": [
+      "card-054",
+      "card-073"
+    ],
+    "bytes": 3516
+  },
+  "leads-to-transitivity-existing-helpers": {
+    "path": "references/leads-to-transitivity-existing-helpers.md",
+    "sha256": "2d8ad363e269aaaf134c314dcd0e049a8824481cfccdb200b59810b70f32e9ea",
+    "source_card_ids": [
+      "card-051"
+    ],
+    "bytes": 3419
+  },
+  "library-broadcast-activation": {
+    "path": "references/library-broadcast-activation.md",
+    "sha256": "47ff8ed44f3057025be00996771d42075f6edd5065e28a70a845be15f1880741",
+    "source_card_ids": [
+      "card-078"
+    ],
+    "bytes": 2284
+  },
+  "loop-termination-and-invariants": {
+    "path": "references/loop-termination-and-invariants.md",
+    "sha256": "65ff8136e53ba4218d6bdc38f9ad2e6ff7d7a5540d1f1afbd545bda66fd86272",
+    "source_card_ids": [
+      "card-035",
+      "card-036",
+      "card-041"
+    ],
+    "bytes": 5471
+  },
+  "natural-integer-type-mismatch": {
+    "path": "references/natural-integer-type-mismatch.md",
+    "sha256": "0dee13c707c1cece2f44d7921757caef2064772edae7576268c9b46ccc2ce8a2",
+    "source_card_ids": [
+      "card-040",
+      "card-066"
+    ],
+    "bytes": 3183
+  },
+  "nondeterministic-step-result": {
+    "path": "references/nondeterministic-step-result.md",
+    "sha256": "cc9b3dc95a626f3467a8fdf3d23c348f9b8b81e8a94ebb4173e1996dd2aafd69",
+    "source_card_ids": [
+      "card-013"
+    ],
+    "bytes": 2893
+  },
+  "opaque-conversion-avoid-extraction": {
+    "path": "references/opaque-conversion-avoid-extraction.md",
+    "sha256": "83c2c94d2a99487988f5f6d821ba6690aff590e53d80b590ed4c4f73c4bcf680",
+    "source_card_ids": [
+      "card-059"
+    ],
+    "bytes": 2123
+  },
+  "opaque-spec-function-facts": {
+    "path": "references/opaque-spec-function-facts.md",
+    "sha256": "74961f11b30d34b8e1550c2de483b8e70a6fe1f7b5878008af11b697b60b585e",
+    "source_card_ids": [
+      "card-019",
+      "card-021",
+      "card-053"
+    ],
+    "bytes": 5863
+  },
+  "phase-accumulation-bridge": {
+    "path": "references/phase-accumulation-bridge.md",
+    "sha256": "5035f785b4d93f984f188628eab461e70f6880edfe5cdb775737c99bdf9fb0eb",
+    "source_card_ids": [
+      "card-030"
+    ],
+    "bytes": 3083
+  },
+  "post-verification-cleanup": {
+    "path": "references/post-verification-cleanup.md",
+    "sha256": "84ad4c5866b3c4a308c13c78e26cd5255a81618c9db667fb4cab80731b16dfa7",
+    "source_card_ids": [
+      "card-024",
+      "card-038",
+      "card-042",
+      "card-050",
+      "card-052"
+    ],
+    "bytes": 8379
+  },
+  "predicate-equality-mutual-entailment": {
+    "path": "references/predicate-equality-mutual-entailment.md",
+    "sha256": "23a18de2b412856aaaa616b19518a0436a87ceefa962da02db374aa0bca13fdb",
+    "source_card_ids": [
+      "card-020"
+    ],
+    "bytes": 2512
+  },
+  "proof-helper-qualified-path": {
+    "path": "references/proof-helper-qualified-path.md",
+    "sha256": "0d0812813a8d447b47dd98750c11bd9b3b50096aa4397b33f27836cfcebeb096",
+    "source_card_ids": [
+      "card-055",
+      "card-065",
+      "card-068"
+    ],
+    "bytes": 5498
+  },
+  "quantified-proof-antecedent-binder-scope": {
+    "path": "references/quantified-proof-antecedent-binder-scope.md",
+    "sha256": "238f4ca16a3489997fd687b51a32030f06eae6707d15f508fd1de7049a6ca180",
+    "source_card_ids": [
+      "card-006",
+      "card-023",
+      "card-069",
+      "card-074"
+    ],
+    "bytes": 8800
+  },
+  "record-function-field-equality": {
+    "path": "references/record-function-field-equality.md",
+    "sha256": "aa1c5d28d1d33f25646d207392f73024c0f2a9f31dada4864af683cce4df1f43",
+    "source_card_ids": [
+      "card-004",
+      "card-005"
+    ],
+    "bytes": 3796
+  },
+  "sequence-extensional-equality": {
+    "path": "references/sequence-extensional-equality.md",
+    "sha256": "9e2f5261c585dc3e17d69eb9451302d417d8d6b357b0ef49f47caceeaa3f7b4c",
+    "source_card_ids": [
+      "card-067"
+    ],
+    "bytes": 3094
+  },
+  "sequence-fold-concat-equality": {
+    "path": "references/sequence-fold-concat-equality.md",
+    "sha256": "40b04780a678647be8ac5e5f000d1f343c8e9e77682c99e16a6accdb7125eebc",
+    "source_card_ids": [
+      "card-063",
+      "card-064"
+    ],
+    "bytes": 4541
+  },
+  "set-equality-membership-witness": {
+    "path": "references/set-equality-membership-witness.md",
+    "sha256": "800dc4d268405543340f5a92acf6939bbd30a682b0e09e7bafacabac59680108",
+    "source_card_ids": [
+      "card-002",
+      "card-049"
+    ],
+    "bytes": 5510
+  },
+  "specialized-fold-bound-lemmas": {
+    "path": "references/specialized-fold-bound-lemmas.md",
+    "sha256": "4d0e1944c097f25600da4560a2917b8d7df3b9d05bd1e89411d9de6017e3dcc6",
+    "source_card_ids": [
+      "card-022"
+    ],
+    "bytes": 2699
+  },
+  "specialized-temporal-action-binder-type": {
+    "path": "references/specialized-temporal-action-binder-type.md",
+    "sha256": "22e34fa43c627948b8ab2ee8e88102dacde24d771f31502a2e29a120791d8c56",
+    "source_card_ids": [
+      "card-027"
+    ],
+    "bytes": 2646
+  },
+  "temporal-entailment-pointwise-lifting": {
+    "path": "references/temporal-entailment-pointwise-lifting.md",
+    "sha256": "cf11841e767f8ce389db572e4f0f4c8330bb2ccdce61fbfeb9208a87a2ba233c",
+    "source_card_ids": [
+      "card-056"
+    ],
+    "bytes": 2829
+  },
+  "temporal-existential-witness-lifting": {
+    "path": "references/temporal-existential-witness-lifting.md",
+    "sha256": "19d11eeb4cd4a7a649d86aff412addbcddd974cc51d614b0c953a5ec5ec0b9ca",
+    "source_card_ids": [
+      "card-016",
+      "card-032",
+      "card-033"
+    ],
+    "bytes": 7794
+  },
+  "temporal-induction-natural-offset": {
+    "path": "references/temporal-induction-natural-offset.md",
+    "sha256": "e73d8629a38aa24565a6dbf95d84958b3cea18376bc29481905fcb23faf4c132",
+    "source_card_ids": [
+      "card-039"
+    ],
+    "bytes": 2349
+  },
+  "temporal-predicate-equality-pointwise": {
+    "path": "references/temporal-predicate-equality-pointwise.md",
+    "sha256": "f2a08163a6ac30176952c907ea412cfa0c1d81bd11a91c55cd9b4cd5335341cd",
+    "source_card_ids": [
+      "card-029",
+      "card-070"
+    ],
+    "bytes": 5338
+  },
+  "temporal-suffix-shift-helper": {
+    "path": "references/temporal-suffix-shift-helper.md",
+    "sha256": "c40a95e3b0634f2d52b1adb9dffc197952ff785592a6870066a44a717092db6f",
+    "source_card_ids": [
+      "card-014",
+      "card-025"
+    ],
+    "bytes": 3958
+  },
+  "transition-system-step-safety": {
+    "path": "references/transition-system-step-safety.md",
+    "sha256": "49f18c8293fe7191e8bdf2cfe837209f3067a7b05d95bce050b37bbf67079a96",
+    "source_card_ids": [
+      "card-010",
+      "card-011",
+      "card-012"
+    ],
+    "bytes": 5034
+  },
+  "trigger-inference-annotation": {
+    "path": "references/trigger-inference-annotation.md",
+    "sha256": "aa8be44ed3ddadbe366129354d127da3cef67e1725f3f501eada03305ca48a8c",
+    "source_card_ids": [
+      "card-018",
+      "card-034",
+      "card-057"
+    ],
+    "bytes": 6530
+  },
+  "universal-equivalence-pointwise": {
+    "path": "references/universal-equivalence-pointwise.md",
+    "sha256": "0380e2ccf29aeb39d27d984c11e4dd18b0644b0f63a7645a26a88f6ecd46c76e",
+    "source_card_ids": [
+      "card-077"
+    ],
+    "bytes": 3204
+  },
+  "universal-instantiation-concrete": {
+    "path": "references/universal-instantiation-concrete.md",
+    "sha256": "de6575ec8c32faa780cd755146f0ac36fefb0716ada02f2f0b21d0a52692b0c2",
+    "source_card_ids": [
+      "card-037",
+      "card-058",
+      "card-076"
+    ],
+    "bytes": 5559
+  },
+  "view-equality-constructor-case": {
+    "path": "references/view-equality-constructor-case.md",
+    "sha256": "564614066bd67c2d188999b08dc25295e99bb64738448205737df2bd74b7baa3",
+    "source_card_ids": [
+      "card-044"
+    ],
+    "bytes": 2834
+  },
+  "weak-fairness-pointwise-lemmas": {
+    "path": "references/weak-fairness-pointwise-lemmas.md",
+    "sha256": "95869aa970573ca750d5d7e9f9f5babcf9590c607c5f6d27bcd7c4b15e76aacc",
+    "source_card_ids": [
+      "card-007"
+    ],
+    "bytes": 2562
+  }
+}

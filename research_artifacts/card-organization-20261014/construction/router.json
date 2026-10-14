@@ -1,0 +1,3878 @@
+{
+  "schema_version": "card-cluster-proposal-v2",
+  "status": "candidate",
+  "input_bank_sha256": "ae38b9ace8560cb7e819eb348d152b916b0486e206b3d09c1b862e8681517f27",
+  "card_features": {
+    "card-001": {
+      "card_id": "card-001",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Known algebraic property about library types such as mapping over a union of sets",
+            "Installed library already provides a lemma whose conclusion matches"
+          ],
+          "proof_object": "Proof obligation for a library-level algebraic equality",
+          "goal_shape": "Conclusion matched by an installed library lemma",
+          "observable_signal": "Verifier fails on manual case analysis; matching library lemma exists",
+          "required_premises": "Lemma premises currently available",
+          "repair_action": "Inspect installed library definitions; invoke the matching lemma with arguments matching the obligation",
+          "avoid_when": "No matching lemma, extra premises unavailable, or equality form cannot connect to the postcondition",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "inspect the installed library definitions for a lemma with the same conclusion. If one exists, invoke that lemma in the proof body"
+            }
+          ]
+        }
+      ]
+    },
+    "card-002": {
+      "card_id": "card-002",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Equality of sets or set images",
+            "No directly applicable library lemma",
+            "Naked quantified membership equivalence or reverse-containment case split fails"
+          ],
+          "proof_object": "Set equality proof",
+          "goal_shape": "Pointwise membership equivalence for sets or set images",
+          "observable_signal": "Verifier fails on naked membership equivalence or reverse containment",
+          "required_premises": "Union and image definitions; reverse-direction image witness and mapping relation",
+          "repair_action": "Prove forward membership from either image; for reverse choose a witness satisfying source membership and mapping, prove it belongs to the union, derive union-image membership and contradiction",
+          "avoid_when": "Direct library lemma proves the same obligation with available premises; also avoid crediting trigger annotation alone for logical success",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "For the reverse direction, when image membership is assumed on one side, introduce a chosen witness satisfying the corresponding source membership and mapping relation"
+            }
+          ]
+        }
+      ]
+    },
+    "card-003": {
+      "card_id": "card-003",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Two structured values are marshalable and serialized representations are equal",
+            "Existing trait or generated instance promises view equality under those assumptions"
+          ],
+          "proof_object": "Structured view equality obligation",
+          "goal_shape": "Equal views of two structured values",
+          "observable_signal": "View equality postcondition not closed before bridge invocation",
+          "required_premises": "Marshalability, equal serialization, and available trait method",
+          "repair_action": "Invoke the existing trait/generated proof method whose contract maps the assumptions to view equality",
+          "avoid_when": "Trait method or instance unavailable, or relation does not imply structural view equality",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Invoke the existing proof method whose contract maps marshalability and equal serialization to view equality."
+            }
+          ]
+        },
+        {
+          "case_id": "c2",
+          "entry_states": [
+            "Trait-level relation is exposed but solver still cannot close structural view equality"
+          ],
+          "proof_object": "Structural view equality assertion",
+          "goal_shape": "Constructor-field equality of structured views",
+          "observable_signal": "Structural equality remains unproved after relation exposure",
+          "required_premises": "Open view-specification definitions and constructor cases",
+          "repair_action": "Expose view-equal relation, assert required structural view equality, and case-split constructors propagating field equalities",
+          "avoid_when": "Relation is insufficient; do not weaken specification or add trusted body",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "If the solver still cannot close the structural equality, case-split on the constructors and propagate field equalities."
+            }
+          ]
+        }
+      ]
+    },
+    "card-004": {
+      "card_id": "card-004",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Proof function has empty or incomplete body",
+            "Postcondition is equality of two records containing a function-valued projection field",
+            "Premise gives pointwise equality of that projection for every index"
+          ],
+          "proof_object": "Record equality postcondition",
+          "goal_shape": "Equality of records from pointwise equal function-valued fields",
+          "observable_signal": "Verus reports only the postcondition unsatisfied",
+          "required_premises": "Complete pointwise equality of the function-valued projection",
+          "repair_action": "Add proof-only local assertion for equality of the function-valued projection fields; optionally assert whole record equality; do not change signature or behavior",
+          "avoid_when": "Premise covers only a subset of indices or other fields are not known equal",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Add a proof-only local assertion for equality of the function-valued projection fields."
+            }
+          ]
+        }
+      ]
+    },
+    "card-005": {
+      "card_id": "card-005",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Pointwise function-equality premise is available",
+            "Direct equality assertion on function values is not discharged",
+            "Helper names for function equality are unavailable or rejected"
+          ],
+          "proof_object": "Equality of function-valued record fields",
+          "goal_shape": "Function-valued fields equal from pointwise agreement",
+          "observable_signal": "Assertion not discharged; unavailable helper calls rejected",
+          "required_premises": "Built-in extensional equality relation in the standard prelude; complete pointwise agreement",
+          "repair_action": "Use the built-in extensional equality relation on the two function-valued fields inside a proof assertion; remove unavailable imports or unsupported helper calls",
+          "avoid_when": "Extensional equality relation not available or premise is not complete pointwise agreement; do not add a new axiom or nonexistent import",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Use the built-in extensional equality relation available from the standard prelude on the two function-valued fields inside a proof assertion."
+            }
+          ]
+        }
+      ]
+    },
+    "card-006": {
+      "card_id": "card-006",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Quantified assertion or lemma call fails inside a proof block despite apparent antecedent",
+            "Verus warns that the implication form does not assume the antecedent for the body"
+          ],
+          "proof_object": "Quantified proof assertion under implication",
+          "goal_shape": "Antecedent available for consequent derivation",
+          "observable_signal": "Failed preconditions or assertions and missing-antecedent warning",
+          "required_premises": "Dedicated proof implication operator named implies by the current diagnostic",
+          "repair_action": "Use the dedicated proof implication operator implies or explicitly branch on the antecedent; check nested assertions separately",
+          "avoid_when": "Antecedent already available, another premise is missing, or current Verus diagnostic/language support differs",
+          "version_scope": "Observed in Verus 0.2025.09.12.bb1f342; confirm current diagnostic",
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "use the dedicated proof implication operator named implies by the current Verus diagnostic, or explicitly branch on the antecedent before deriving the consequent."
+            }
+          ]
+        }
+      ]
+    },
+    "card-007": {
+      "card_id": "card-007",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Top-level temporal goal such as eventually reaching a stable state under a transition system",
+            "Empty or weak proof body",
+            "Direct weak fairness or leads-to does not close the postcondition"
+          ],
+          "proof_object": "Temporal liveness postcondition",
+          "goal_shape": "Eventually stable state via pointwise transition reasoning",
+          "observable_signal": "Temporal postcondition remains open",
+          "required_premises": "Pointwise action precondition, action outcome, and transition preservation facts",
+          "repair_action": "Prove separate pointwise lemmas for precondition, action firing outcome, and preservation; combine with reusable generic temporal lifting helpers for lead-to and stable behavior",
+          "avoid_when": "A pointwise implication cannot be proved, step space too large, or weakening top-level spec would be needed",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Prove separate pointwise lemmas: desired state implies the relevant action precondition, an action firing yields the desired post-state, and every concrete transition step preserves the post-state"
+            }
+          ]
+        }
+      ]
+    },
+    "card-008": {
+      "card_id": "card-008",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Generic helper established that an action eventually fires after every point",
+            "Desired existential post-state does not follow"
+          ],
+          "proof_object": "Temporal existential post-state assertion",
+          "goal_shape": "Existential post-state from eventual lifted action occurrence",
+          "observable_signal": "Post-state existence or lifted eventual-state assertion failed",
+          "required_premises": "Pointwise implication from action plus always-true preconditions to post-state",
+          "repair_action": "Choose a concrete natural index for the action occurrence; rewrite the lifted action occurrence into an action on consecutive states at the shifted index; instantiate the pointwise implication",
+          "avoid_when": "Trigger restrictions make occurrence unusable or no pointwise action-to-post implication is available",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "choose a concrete natural index for the action occurrence. Rewrite that lifted action occurrence into an action on the underlying consecutive states at the shifted index"
+            }
+          ]
+        }
+      ]
+    },
+    "card-009": {
+      "card_id": "card-009",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Existential witness for a raw state predicate at an absolute shifted index exists",
+            "Assertion that the lifted state predicate eventually holds on the current suffix fails"
+          ],
+          "proof_object": "Eventual lifted-state assertion",
+          "goal_shape": "Relation between nested suffix head and offset-plus-index state",
+          "observable_signal": "Lifted eventual assertion fails despite existing raw witness",
+          "required_premises": "Arithmetic relation between offset, witness, and suffix head; liftable predicate",
+          "repair_action": "State and prove a pointwise implication from raw predicate at current offset plus index to lifted predicate on the nested suffix; use arithmetic equality to derive existential lifted-suffix form",
+          "avoid_when": "Arithmetic relation cannot be established or lifted predicate cannot be unfolded",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "State a pointwise implication for every natural index: if the raw state predicate holds at the current offset plus that index, then the lifted state predicate holds on the nested suffix"
+            }
+          ]
+        }
+      ]
+    },
+    "card-010": {
+      "card_id": "card-010",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Unsatisfied temporal postcondition requiring predicate at every future point",
+            "Relevant proof function body is empty"
+          ],
+          "proof_object": "Temporal state invariant proof",
+          "goal_shape": "Always state predicate via temporal induction rule",
+          "observable_signal": "Temporal postcondition unsatisfied",
+          "required_premises": "Supplied temporal induction rule; finite top-level step match; initialization and next-transition preservation facts",
+          "repair_action": "Use the temporal induction rule for state invariants; prove initialization and preservation by matching every step variant and reusing transition identities",
+          "avoid_when": "Environment lacks the induction rule, transition relation is not finite step match, or preservation is genuinely false without missing invariant",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Use the supplied temporal induction rule for state invariants. Establish both premises: every initial state satisfying the system initialization also satisfies the state predicate, and whenever a state satisfying the predicate takes a next transition"
+            }
+          ]
+        }
+      ]
+    },
+    "card-011": {
+      "card_id": "card-011",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Invariant is about messages in a network multiset",
+            "Transition cases remove at most one received message and add a multiset of newly sent messages"
+          ],
+          "proof_object": "Network multiset invariant preservation",
+          "goal_shape": "Safety of updated multiset from old and send multiset",
+          "observable_signal": "Preservation of network invariant not closing",
+          "required_premises": "Send multiset safe for specified controller and external destination",
+          "repair_action": "Introduce a multiset-level safety predicate; prove a lemma that any message in the updated multiset was present before or belongs to the send multiset; apply after per-send safety obligation",
+          "avoid_when": "System adds messages through an unconstrained source or host transition chooses arbitrary external message",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Prove a lemma that if the updated multiset is produced by removing one received message and adding a send multiset, then any message in the updated multiset was either already present before the update or belongs to the send multiset."
+            }
+          ]
+        }
+      ]
+    },
+    "card-012": {
+      "card_id": "card-012",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Controller-step preservation must rule out a request to its own external system"
+          ],
+          "proof_object": "Controller transition safety helper",
+          "goal_shape": "Every emitted request is ordinary rather than external",
+          "observable_signal": "Preservation case fails due possible forbidden outgoing message",
+          "required_premises": "Reconciler core defined by finite match; lift to installed reconcile-model transition",
+          "repair_action": "Write helper lemma pattern-matching reconciler core local step states; verify no external requests; lift to controller transition via marshal/response view reconstruction",
+          "avoid_when": "Reconciler transition uninterpreted or can return external requests; multiple controller models uncovered",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Write a helper lemma about the controller's reconciler core by pattern-matching all local step states and verifying that every emitted request is an ordinary Kubernetes request rather than an external request."
+            }
+          ]
+        }
+      ]
+    },
+    "card-013": {
+      "card_id": "card-013",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Helper reasons about a nondeterministic state-machine result",
+            "Assertion equates computed result with transition of one chosen enabling step",
+            "Several steps share precondition and choice is not unique"
+          ],
+          "proof_object": "Nondeterministic machine result assertion",
+          "goal_shape": "Result safety from universal per-step property plus host result equality",
+          "observable_signal": "Equality assertion with chosen witness fails",
+          "required_premises": "Universal fact already proved for every enabled step that its output is safe; premises that machine result equals supplied enabled host result",
+          "repair_action": "Do not reconstruct machine result through a chosen witness; assert desired safety directly on the host result and let verifier instantiate the universal fact",
+          "avoid_when": "Universal per-step property not established, conclusion requires comparing different results, or a uniqueness proof is available",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Keep the universal fact already proved for every enabled step that its transition output is safe, and use the premises that the machine result equals the supplied enabled host result. Assert the desired safety property directly on the host result"
+            }
+          ]
+        }
+      ]
+    },
+    "card-014": {
+      "card_id": "card-014",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Proof function must establish nested always property of an execution",
+            "Body is empty",
+            "Surrounding rules define helper shifting an always guarantee to any suffix"
+          ],
+          "proof_object": "Nested always postcondition",
+          "goal_shape": "Universal statement over natural suffix indices",
+          "observable_signal": "Nested always postcondition not discharged",
+          "required_premises": "Open satisfaction/always definitions; forward-shift helper precondition matches current assumption",
+          "repair_action": "View goal as universal over suffix indices; assert that universal; for arbitrary index invoke existing forward-shift helper",
+          "avoid_when": "Helper absent, definitions not open enough, or assumption not exactly helper required assumption",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Assert that universal statement, and for an arbitrary index invoke the existing forward-shift helper using the current assumption"
+            }
+          ]
+        }
+      ]
+    },
+    "card-015": {
+      "card_id": "card-015",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Newly added proof code produces method-name-taken-as-field or field-called-as-method error"
+          ],
+          "proof_object": "Proof body with field or method access",
+          "goal_shape": "Correct method versus function-valued field call",
+          "observable_signal": "Method/field parse or type errors",
+          "required_premises": "Rust distinction between method and stored function field",
+          "repair_action": "Call methods normally; select the function-valued field before applying it",
+          "avoid_when": "Diagnostic is not method-versus-field",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Distinguish an actual method from a field storing a function. Call methods normally; select a function-valued field before applying it."
+            }
+          ]
+        },
+        {
+          "case_id": "c2",
+          "entry_states": [
+            "Quantified assertion body warns or fails because implication antecedent is not being assumed"
+          ],
+          "proof_object": "Quantified proof assertion with implication",
+          "goal_shape": "Antecedent available inside quantified proof body",
+          "observable_signal": "Implication antecedent warning or failure",
+          "required_premises": "Dedicated proof implication operator or conditional guard",
+          "repair_action": "Use diagnostic's dedicated proof implication operator named implies in observed version, or explicit conditional guard before deriving conclusion",
+          "avoid_when": "Not a missing-antecedent error; confirm current diagnostics and do not alter specification meaning",
+          "version_scope": "Observed in Verus 0.2025.09.12.bb1f342; confirm current diagnostics",
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "use the diagnostic's dedicated proof implication operator, named implies in the observed version, or an explicit conditional guard before deriving the conclusion."
+            }
+          ]
+        }
+      ]
+    },
+    "card-016": {
+      "card_id": "card-016",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Temporal obligation shows one existential state condition leads to another",
+            "Trusted per-witness lemmas relate corresponding individual messages",
+            "Verifier cannot connect quantified statement-level conditions"
+          ],
+          "proof_object": "Existential leads-to proof",
+          "goal_shape": "Per-witness lifted existential leads-to",
+          "observable_signal": "Per-witness preconditions or bridge assertions fail",
+          "required_premises": "Trusted per-witness lemmas; witness selectable from atomic in-flight membership or pending-request equality",
+          "repair_action": "Define predicate templates matching lemma postconditions; prove forall per-witness calls with explicit triggers; lift to existential; bridge source existential by pointwise witness selection; compose via entailment-to-leads-to and transitivity",
+          "avoid_when": "No trusted per-witness lemma or witness cannot be selected from atomic state relation; composed high-level predicates may leave trigger issues",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Define predicate templates over a witness that exactly match the trusted lemma postconditions. For each witness, discharge the per-witness leads-to obligation by calling the trusted lemma under a forall assertion with an explicit trigger"
+            }
+          ]
+        }
+      ]
+    },
+    "card-017": {
+      "card_id": "card-017",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Set produced by folding over finite input set must be finite",
+            "Proof body empty causing postcondition failure"
+          ],
+          "proof_object": "Finiteness postcondition",
+          "goal_shape": "Finite folded result via finite-set cardinality induction",
+          "observable_signal": "Postcondition failure",
+          "required_premises": "Strictly decreasing cardinality; insertion preserves finiteness; fold unfoldings",
+          "repair_action": "Induct on cardinality of finite input set; zero case empty result; nonzero choose element, remove, recurse, assert full fold equals recursive result with chosen image inserted; conclude finiteness",
+          "avoid_when": "Folding operator lacks decreasing cardinality argument or unfoldings do not yield required equality",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Use induction on the cardinality of the finite input set."
+            }
+          ]
+        }
+      ]
+    },
+    "card-018": {
+      "card_id": "card-018",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Assertion or witness selection fails because verifier reports it cannot infer quantifier triggers"
+          ],
+          "proof_object": "Quantified assertion or choose expression",
+          "goal_shape": "Explicitly triggered bound-variable term",
+          "observable_signal": "Cannot infer quantifier triggers",
+          "required_premises": "Relevant atomic witness or per-witness entailment term mentioning the bound variable",
+          "repair_action": "Annotate a relevant atomic witness term or per-witness entailment term mentioning the bound variable",
+          "avoid_when": "No trigger-inference diagnostic or proof lacks genuine logical premise",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "annotate a relevant atomic witness term or per-witness entailment term that mentions the bound variable."
+            }
+          ]
+        },
+        {
+          "case_id": "c2",
+          "entry_states": [
+            "Verifier warns that weak implication does not assume its antecedent inside an assertion proof"
+          ],
+          "proof_object": "Quantified proof assertion under implication",
+          "goal_shape": "Antecedent available in proof body",
+          "observable_signal": "Weak implication antecedent warning or failure",
+          "required_premises": "Dedicated proof implication operator or explicit branch",
+          "repair_action": "Use dedicated proof implication operator named implies or explicitly branch on the antecedent",
+          "avoid_when": "No missing-antecedent diagnostic; check installed language version",
+          "version_scope": "Observed in Verus 0.2025.09.12.bb1f342; check installed language",
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "use the dedicated proof implication operator named implies by the current diagnostic, or explicitly branch on the antecedent."
+            }
+          ]
+        }
+      ]
+    },
+    "card-019": {
+      "card_id": "card-019",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Attempt to unfold spec function with no decreasing clause using fuel-based revealing is rejected"
+          ],
+          "proof_object": "Spec function definitional equality",
+          "goal_shape": "Definitional equality between wrapper and underlying fold expression",
+          "observable_signal": "Fuel-based revealing call rejected",
+          "required_premises": "Recursive proof helper reasoning about underlying fold body; definitional equality",
+          "repair_action": "Introduce recursive proof helper over underlying fold body; in original proof call helper and assert definitional equality between wrapper and fold expression",
+          "avoid_when": "Target spec function supports direct revealing with decreasing clause or body can be proven directly",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Introduce a recursive proof helper that directly reasons about the underlying fold body, then in the original required proof call that helper and assert definitional equality"
+            }
+          ]
+        }
+      ]
+    },
+    "card-020": {
+      "card_id": "card-020",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Obligation is equality between logical predicate and conjunction of that predicate with another predicate",
+            "Assumption says first predicate entails the second",
+            "Body empty or only direct final equality"
+          ],
+          "proof_object": "Logical predicate equality proof",
+          "goal_shape": "Predicate equality from mutual entailment",
+          "observable_signal": "Final equality not discharged",
+          "required_premises": "Existing entailment-to-conjunction, reflexive self-entailment, and equality-from-mutual-entailment rules",
+          "repair_action": "Use existing rule combining entailments into conjunction, supply reflexive self-entailment and given entailment; prove reverse from conjunction definition; apply mutual-entailment equality rule",
+          "avoid_when": "Required helpers unavailable, equality not between predicates with entailment, or reverse direction not dischargeable",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Use an existing rule that combines entailment to two predicates into entailment to their conjunction, supplying the first predicate for both the reflexive self-entailment and the given second entailment."
+            }
+          ]
+        }
+      ]
+    },
+    "card-021": {
+      "card_id": "card-021",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Direct assertion about length of closed serialization function fails or revealing rejected because function is closed",
+            "Fixed-width serialization length needed for downstream bounds"
+          ],
+          "proof_object": "Length fact about closed serialization",
+          "goal_shape": "Closed form connected to open structural definition",
+          "observable_signal": "Closed-function reveal rejection or fixed-width length assertion failing",
+          "required_premises": "Installed library open version and connector lemma",
+          "repair_action": "Locate open version and connector; build reusable length fact by applying connector, unfolding open definition, and transferring result back to closed serialization",
+          "avoid_when": "No open counterpart or connector, or spec intentionally avoids low-level serialization details",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Locate the allowed library's open version of the same conversion and the connector lemma relating the closed form to the open form."
+            }
+          ]
+        }
+      ]
+    },
+    "card-022": {
+      "card_id": "card-022",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Generic higher-order fold lemmas discharge own preconditions but postconditions do not connect to concrete fold expressions",
+            "Concrete fold-bound and append-length obligations fail after generic lemmas"
+          ],
+          "proof_object": "Concrete fold bound proof",
+          "goal_shape": "Bound and append length for concrete fold",
+          "observable_signal": "Concrete fold-bound or append-length assertions fail",
+          "required_premises": "Concrete element well-formedness and numeric bound; decreasing well-founded measure",
+          "repair_action": "Introduce specialized recursive lemmas over concrete element type; unfold empty/nonempty, call on remainder, add final element contribution",
+          "avoid_when": "Generic lemma instantiates correctly or recursive structure lacks decreasing measure",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Introduce specialized recursive lemmas over the concrete element type."
+            }
+          ]
+        }
+      ]
+    },
+    "card-023": {
+      "card_id": "card-023",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Quantified implication proof block fails to use its antecedent",
+            "Later index-bound facts unavailable because binder shadowed by fresh symbol"
+          ],
+          "proof_object": "Quantified proof block over a bound witness",
+          "goal_shape": "Use quantified binder directly instead of shadowing it",
+          "observable_signal": "Valid facts about witness disappear",
+          "required_premises": "Quantified binder already in scope",
+          "repair_action": "Use the quantified binder directly rather than redeclaring a fresh unconstrained symbol",
+          "avoid_when": "No binder-scope issue and the needed premise is genuinely absent",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Use the quantified binder directly rather than shadowing it with a new symbol."
+            }
+          ]
+        },
+        {
+          "case_id": "c2",
+          "entry_states": [
+            "Proof block for quantified implication does not assume its antecedent"
+          ],
+          "proof_object": "Quantified proof implication block",
+          "goal_shape": "Antecedent available as local hypothesis",
+          "observable_signal": "Warnings that antecedent is not being assumed; later facts unavailable",
+          "required_premises": "Dedicated proof implication operator or explicit branch",
+          "repair_action": "Use dedicated proof implication operator named implies or explicitly branch on antecedent before dependent operations",
+          "avoid_when": "Needed premise genuinely absent; confirm current diagnostics and do not rewrite arbitrary implications",
+          "version_scope": "Observed in Verus 0.2025.09.12.bb1f342; confirm current diagnostics",
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "use the dedicated proof implication operator named implies by the current diagnostic, or explicitly branch on that antecedent before any operation requiring it."
+            }
+          ]
+        }
+      ]
+    },
+    "card-024": {
+      "card_id": "card-024",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Verus verifies the proof",
+            "Proof-only safety comparison reports difference because proof-import-like directive left at module scope"
+          ],
+          "proof_object": "Proof-only directive scope",
+          "goal_shape": "Deghosted executable unchanged",
+          "observable_signal": "Safety comparison failure after successful verification",
+          "required_premises": "Directive can legally appear inside proof-function bodies",
+          "repair_action": "Move the directive into bodies of proof functions that require it; rerun proof checker and safety comparison",
+          "avoid_when": "Directive cannot legally appear inside a body or cannot be partitioned among proofs",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Move that directive into the bodies of the proof functions that require it, rather than keeping it at module scope."
+            }
+          ]
+        }
+      ]
+    },
+    "card-025": {
+      "card_id": "card-025",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Property must hold at every suffix of an execution",
+            "Available premise states always-form of lifted action",
+            "Existing proof helper unfolds always form into suffix-wise satisfaction"
+          ],
+          "proof_object": "Temporal suffix satisfaction proof",
+          "goal_shape": "Action on first two states from always-lifted premise",
+          "observable_signal": "Universal suffix property not discharged",
+          "required_premises": "Existing unfolding helper accepted; open lifting/satisfaction/head/next-state definitions",
+          "repair_action": "Invoke existing unfolding helper with current execution and wrapped temporal predicate; supply explicit type arguments if needed",
+          "avoid_when": "Unfolding helper absent or requires new trusted body; prove suffix expansion directly if absent",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Invoke the existing unfolding helper with the current execution and the wrapped temporal predicate; supply explicit type arguments if the wrapped predicate is not inferred."
+            }
+          ]
+        }
+      ]
+    },
+    "card-026": {
+      "card_id": "card-026",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Compound temporal formula stability proof with always-step property and universal fairness/action obligations",
+            "Direct goal fails or too large"
+          ],
+          "proof_object": "Compound temporal stability proof",
+          "goal_shape": "Stable conjunction of always-step and finitely many universal components",
+          "observable_signal": "Direct stability goal not discharged",
+          "required_premises": "Per-action fairness lemmas; suffix-shift lemma; conjunction-stability lemma",
+          "repair_action": "Prove stability per conjunct; for universally quantified components prove arbitrary instance then lift through universal; recombine pairwise",
+          "avoid_when": "Any component lacks premise or conjunction-stability rule is unproven placeholder; do not assume instance stability",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Establish stability separately for each conjunct. Prove stability of the always-step component by showing satisfaction at every suffix. For each universally quantified component, first prove the stability of an arbitrary instance and then lift stability through the universal quantifier."
+            }
+          ]
+        }
+      ]
+    },
+    "card-027": {
+      "card_id": "card-027",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Stability proof for fairness obligation with action specialized to fixed controller or identifier",
+            "Verus reports mismatched types in universal quantifier"
+          ],
+          "proof_object": "Specialized fairness quantifier",
+          "goal_shape": "Universal binder ranging over remaining payload type",
+          "observable_signal": "Mismatched types: expected payload type but binder uses full action-input tuple",
+          "required_premises": "Action input partially applied to fixed identifier; residual payload type",
+          "repair_action": "Change universal binders to range only over remaining payload type; keep fixed identifier inside action call; update corresponding predicate variables and stability arguments",
+          "avoid_when": "Error points to different action; do not change declared action input type or fixed argument",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Change those universal binders to range only over the remaining payload type. Keep the fixed identifier or key inside the action call."
+            }
+          ]
+        }
+      ]
+    },
+    "card-028": {
+      "card_id": "card-028",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Newly introduced pointwise equality proof on record containing function-valued field fails",
+            "Field is accessed like a method"
+          ],
+          "proof_object": "Function-valued field projection",
+          "goal_shape": "Field projection explicitly applied to index",
+          "observable_signal": "Field/method access syntax error",
+          "required_premises": "Function-valued field",
+          "repair_action": "Access the field first and then apply the contained function to the index",
+          "avoid_when": "Do not leave field applied as method call",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Access the field first and then apply the contained function to the index"
+            }
+          ]
+        },
+        {
+          "case_id": "c2",
+          "entry_states": [
+            "Verifier cannot infer a trigger for universal pointwise equality"
+          ],
+          "proof_object": "Universal pointwise equality assertion",
+          "goal_shape": "Function-field equality then containing record equality",
+          "observable_signal": "Trigger-inference error",
+          "required_premises": "Universal pointwise equality quantifier",
+          "repair_action": "Add explicit trigger to pointwise universal equality; after proving pointwise equality assert equality of function fields, then containing records",
+          "avoid_when": "Do not omit trigger when verifier cannot infer it; do not treat pointwise equality as record equality before field equality",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "add an explicit trigger to the pointwise universal equality. After proving pointwise equality, assert equality of the two function fields, which then yields equality of the containing records."
+            }
+          ]
+        }
+      ]
+    },
+    "card-029": {
+      "card_id": "card-029",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Equality between two temporal predicates",
+            "Helper rules for commuting universal temporal quantifier and moving always across quantifier exist"
+          ],
+          "proof_object": "Temporal predicate equality proof",
+          "goal_shape": "Helper-chain equality of universal-implication with always",
+          "observable_signal": "Empty body or postcondition not discharged",
+          "required_premises": "Existing always-universal commutation helper and universal-implication commutation helper; reflexive entailment",
+          "repair_action": "Instantiate always-moving helper on two pointwise predicate families; discharge precondition by reducing both directions to self-entailment with reflexivity assertion; instantiate implication-commutation; chain equalities",
+          "avoid_when": "Do not globally unfold temporal definitions, introduce new rule, or skip always-moving helper precondition",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Instantiate the helper that moves always across the universal using two pointwise predicate families that differ only in whether the always wraps the implication."
+            }
+          ]
+        }
+      ]
+    },
+    "card-030": {
+      "card_id": "card-030",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Liveness proof reaches phase-descent lemma whose premise uses next phase index",
+            "Base liveness lemma concludes all-phase assumption bundle",
+            "Verus rejects first descent"
+          ],
+          "proof_object": "Phase-descent precondition",
+          "goal_shape": "Equivalence between recursive phase accumulation and all-phase bundle",
+          "observable_signal": "Precondition about next phase predicate unsatisfied",
+          "required_premises": "Fuel-based reveal of recursive definition or stepwise pointwise equivalence chain",
+          "repair_action": "Expose recursive phase accumulation enough to see same conjunctive structure; use fuel reveal plus temporal predicate equality, or chain pointwise equivalences; substitute and descend",
+          "avoid_when": "Do not assume equality without exposing recursive definition or add new temporal lemma; if unsupported reveal, switch available style",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "expose enough of the recursive phase accumulation so the verifier sees that it has the same conjunctive structure as the all-phase assumption bundle."
+            }
+          ]
+        }
+      ]
+    },
+    "card-031": {
+      "card_id": "card-031",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Final liveness theorem has empty or partial body",
+            "Invariant derivation, stability, base liveness, phase-descent, and unpack helpers already exist"
+          ],
+          "proof_object": "Final liveness theorem",
+          "goal_shape": "Desired-state leads-to current-state property",
+          "observable_signal": "Final leads-to postcondition not closed",
+          "required_premises": "Step-fairness, invariant bundle, stability facts, non-interference, phase accumulation equality, associativity/trivial-conjunct rewrites",
+          "repair_action": "Derive specification entails step-fairness; obtain invariant bundle; establish stable conjunction; transfer non-interference; instantiate base liveness; bridge phases; descend; unpack desired state; close by transitivity/associativity rewrites",
+          "avoid_when": "Do not try final implication directly before invariants/stability; do not omit syntactic equality rewrites; never weaken specs or add trusted bodies",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "First derive from the input specification that it entails the step-fairness predicate, then obtain the derived invariant bundle and combine them to entail the stable specification conjunction with invariants."
+            }
+          ]
+        }
+      ]
+    },
+    "card-032": {
+      "card_id": "card-032",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Temporal leads-to goal has source/intermediate states containing existential over messages or witnesses",
+            "Existing helpers prove property for one specific witness at a time"
+          ],
+          "proof_object": "Existential leads-to proof",
+          "goal_shape": "Composition of lifted witness-specific intermediate predicates",
+          "observable_signal": "Direct existential lifting fails or witness not chosen",
+          "required_premises": "Witness-specific helper lemmas; pointwise witness selection from head state; transitivity",
+          "repair_action": "Decompose into intermediate lifted predicates; prove universal over witnesses and lift via existence-introduction; prove source existential implies lifted witness-specific pointwise by selecting head-state witness; apply transitivity including final step; add triggers if requested",
+          "avoid_when": "No per-witness helper, witness cannot be selected, or final transitivity omitted",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "For each witness-specific helper lemma, prove the universal fact over witnesses and lift it to the existential with the available existence-introduction rule. Then prove the source existential state implies the lifted witness-specific existential by reasoning pointwise over executions"
+            }
+          ]
+        }
+      ]
+    },
+    "card-033": {
+      "card_id": "card-033",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Two temporal predicates must be proved equal, one side existential temporal predicate combined with another",
+            "Predicate-equality and witness-introduction rules are trusted"
+          ],
+          "proof_object": "Existential temporal equality proof",
+          "goal_shape": "Mutual entailment closure via explicit witness-introduction",
+          "observable_signal": "Bare existential assertion fails",
+          "required_premises": "Predicate-equality rule; witness-introduction rule",
+          "repair_action": "Reduce equality to mutual entailment; branch on antecedent; for existential goal select concrete witness and expose conjuncts; apply witness-introduction; finish with equality rule",
+          "avoid_when": "Rules not trusted; use explicit case split if implication assertion does not assume antecedent in this version",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Reduce the equality to mutual entailment. Prove each entailment for an arbitrary execution by branching on whether the antecedent holds. When a goal is an existential temporal predicate, select a concrete witness and expose the conjuncts"
+            }
+          ]
+        }
+      ]
+    },
+    "card-034": {
+      "card_id": "card-034",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Verus reports it could not automatically infer triggers for a quantified assertion or choose expression used to select a witness"
+          ],
+          "proof_object": "Quantified assertion/choose expression",
+          "goal_shape": "Explicit trigger term mentioning bound variable",
+          "observable_signal": "Trigger-inference error",
+          "required_premises": "Relevant bound-variable term for later witness use",
+          "repair_action": "Add explicit trigger annotation to a term in quantified body; treat parallel assertions similarly; re-run and treat disappearance as next diagnostic",
+          "avoid_when": "Proof already verifies and only low-confidence automatic trigger note remains; do not add triggers mechanically without actual trigger-inference diagnostic",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Add an explicit trigger annotation to a term in the quantified body that mentions the bound variable and is relevant to the later witness use."
+            }
+          ]
+        }
+      ]
+    },
+    "card-035": {
+      "card_id": "card-035",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "While loop must have decreases clause",
+            "Loop counter starts at zero and increments until it reaches collection length"
+          ],
+          "proof_object": "Loop termination",
+          "goal_shape": "Strictly decreasing termination measure",
+          "observable_signal": "Missing-decreases diagnostic",
+          "required_premises": "Collection length minus current index decreases on every path; index bounds invariant",
+          "repair_action": "Add termination measure equal to remaining iterations and invariant that index remains within collection bounds",
+          "avoid_when": "Termination depends on state not captured by simple numeric counter or expression not actually decreasing",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Add a termination measure equal to the number of iterations remaining, written as the collection length minus the current index"
+            }
+          ]
+        }
+      ]
+    },
+    "card-036": {
+      "card_id": "card-036",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "After termination accepted, call inside loop fails a precondition/assertion depending on enclosing function assumptions",
+            "Assumptions were true at function entry"
+          ],
+          "proof_object": "Loop-body call precondition",
+          "goal_shape": "Function-entry assumptions carried as loop invariants",
+          "observable_signal": "Call precondition/assertion failure inside loop",
+          "required_premises": "Facts preserved on every iteration; entry-time state snapshots if needed",
+          "repair_action": "Add needed function preconditions as loop invariants; snapshot entry-time state into ghost constants and link current state to snapshot",
+          "avoid_when": "Assumption not preserved because loop modifies described state; use weaker per-iteration invariant or separate induction",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Add the needed function preconditions as loop invariants. If they mention entry-time state, first snapshot that state into ghost constants and include invariants linking the current state to the entry snapshot."
+            }
+          ]
+        }
+      ]
+    },
+    "card-037": {
+      "card_id": "card-037",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Whole-sequence validity or range property available",
+            "Assertion about one element at loop index fails because quantified assumption not instantiated automatically"
+          ],
+          "proof_object": "Element assertion at loop index",
+          "goal_shape": "Element property from whole-sequence universal plus bounds",
+          "observable_signal": "Element assertion or call precondition failure",
+          "required_premises": "In-bounds index and whole-sequence property",
+          "repair_action": "Introduce small proof-only helper taking whole-sequence property and in-bounds index to element property; call with concrete indexed term",
+          "avoid_when": "Element property not derivable under available bounds or index not in range",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Introduce a small proof-only helper that takes the whole-sequence property and an in-bounds index and concludes the element property, then call that helper in the loop body."
+            }
+          ]
+        }
+      ]
+    },
+    "card-038": {
+      "card_id": "card-038",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Verus passes",
+            "Lynette reports candidate differs from input in executable code despite intended ghost/proof-only changes"
+          ],
+          "proof_object": "Behavior-preservation comparison",
+          "goal_shape": "Original executable call and return shape",
+          "observable_signal": "Lynette difference despite proof-only intent",
+          "required_premises": "Original executable call structure and return shape preserved",
+          "repair_action": "Preserve original executable call structure, local borrow bindings, exact returned value; keep original ghost return identifier; move new mutations into proof blocks; do not alter deghosted return expression",
+          "avoid_when": "Proof genuinely requires executable binding or return shape change; reconsider proof strategy",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Preserve the original executable call structure, including local borrow bindings and the exact shape of the final returned value."
+            }
+          ]
+        }
+      ]
+    },
+    "card-039": {
+      "card_id": "card-039",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Recursive proof function has empty or insufficient body",
+            "Cannot establish temporal property at arbitrary natural offset"
+          ],
+          "proof_object": "Temporal property at arbitrary natural offset",
+          "goal_shape": "Induction on natural index with execution equality bridges",
+          "observable_signal": "Temporal property not proved",
+          "required_premises": "Decreasing natural index; extensional execution equality lemma; universal transitions",
+          "repair_action": "Add recursive helper with decreases on natural index; base use extensional equality; step instantiate transitions at predecessor and bridge goal index via extensional equality",
+          "avoid_when": "Property not inductive over index or no pointwise/extensional equality principle",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Add a recursive helper with a decreases clause on the natural index. In the base case, prove that the zero-offset suffix equals the original execution by using an existing extensional equality lemma"
+            }
+          ]
+        }
+      ]
+    },
+    "card-040": {
+      "card_id": "card-040",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Writing recursive helper for natural-number induction",
+            "Verus reports type mismatch assigning predecessor of natural because subtraction produces integer"
+          ],
+          "proof_object": "Predecessor assignment",
+          "goal_shape": "Natural predecessor typed as natural",
+          "observable_signal": "Type mismatch on natural subtraction",
+          "required_premises": "Branch condition current index strictly positive",
+          "repair_action": "Convert subtraction result back to natural, relying on positive branch ensuring nonnegative predecessor",
+          "avoid_when": "Branch does not guarantee nonnegative result or predecessor cannot safely convert back",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Convert the subtraction result back to a natural before assigning it, relying on the inductive branch condition that the current index is strictly positive"
+            }
+          ]
+        }
+      ]
+    },
+    "card-041": {
+      "card_id": "card-041",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "While loop over unapproved prefix mutates output packet sequence by appending one element per iteration",
+            "After termination final set-equality postcondition, invariant, or nested match arm fail"
+          ],
+          "proof_object": "Packet-prefix loop invariant",
+          "goal_shape": "Set equation connecting appended sequence to abstract prefix progression",
+          "observable_signal": "Final set-equality/invariant/match failures",
+          "required_premises": "Abstract prefix extension lemmas; element validity; pre-loop facts carried as invariants; ghost capture of abstract source/destination",
+          "repair_action": "Add inductive invariant equating emitted views to initial set plus prefix up to current position; carry all needed facts as invariants; capture abstract values in ghost vars; establish current element validity and advance invariant with extension/append-to-set lemmas",
+          "avoid_when": "Current element validity still not derivable from invariants; expose missing relation rather than repeating same calls",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Add an inductive invariant equating the emitted packet views as a set to the initial emitted set plus the abstract unapproved prefix up to the current position."
+            }
+          ]
+        }
+      ]
+    },
+    "card-042": {
+      "card_id": "card-042",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Proof checker reports success",
+            "Proof-only comparison reports generated executable differs from input"
+          ],
+          "proof_object": "Deghosted executable comparison",
+          "goal_shape": "Executable shape identical to input",
+          "observable_signal": "Lynette difference after verification",
+          "required_premises": "All new reasoning placed in ghost/proof text",
+          "repair_action": "Review diff for executable-shape changes; revert renames, added branches, intermediate bindings, reordering; capture shadowed parameter in ghost; keep executable control flow identical",
+          "avoid_when": "Executable refactor appears necessary; use ghost-only relationship or change proof strategy rather than alter runtime code",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Revert any local variable renaming, added unreachable or alternate branches, intermediate executable bindings, or reordered executable statements."
+            }
+          ]
+        }
+      ]
+    },
+    "card-043": {
+      "card_id": "card-043",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Equal abstract views must imply equal marshalability predicates",
+            "Declared specification lemma and trait bridge are available"
+          ],
+          "proof_object": "Marshalability equality proof",
+          "goal_shape": "Marshalability equality from view-equal relation",
+          "observable_signal": "Empty proof body/proof obligation",
+          "required_premises": "Specification lemma equating abstract view equality with custom view-equal predicate; trait lemma premise relation",
+          "repair_action": "Invoke declared spec lemma; explicitly assert custom view-equal relation; invoke trait lemma whose premise is that relation",
+          "avoid_when": "Packaged lemma opaque/cannot instantiate; do not repeat same call; use fallback constructor cases",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "First try the narrowest existing route: invoke a declared specification lemma that equates abstract view equality with the type's custom view-equal predicate; explicitly assert that custom relation for the two values; then invoke the trait lemma"
+            }
+          ]
+        },
+        {
+          "case_id": "c2",
+          "entry_states": [
+            "Packaged existing-lemma chain fails to instantiate or is unavailable"
+          ],
+          "proof_object": "Constructor case analysis",
+          "goal_shape": "Field-level view equalities and whole marshalability equality",
+          "observable_signal": "Proof still not discharged after packaged route",
+          "required_premises": "Constructor variants and per-field equal-view/equal-serialization lemmas",
+          "repair_action": "Case split both values; matching constructors derive field view equalities and invoke per-field lemmas; mismatched constructors derive contradiction",
+          "avoid_when": "Do not weaken postcondition or add assumptions",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Only if that chain does not discharge the obligation, expand the two values by constructor cases."
+            }
+          ]
+        }
+      ]
+    },
+    "card-044": {
+      "card_id": "card-044",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Packaged existing-lemma chain fails to instantiate or no view-equal specification bridge available",
+            "Equal abstract views imply equal marshalability"
+          ],
+          "proof_object": "Marshalability equality via constructor cases",
+          "goal_shape": "Whole-value marshalability equality from field lemmas",
+          "observable_signal": "Proof not closed by packaged route",
+          "required_premises": "Distinct view forms for mismatched constructors; per-field equal-view/equal-serialization lemmas",
+          "repair_action": "Perform constructor case analysis over both values; mismatched contradictory; matching derive field view equalities, invoke per-field lemmas, assert whole marshalability equality including lengths",
+          "avoid_when": "Mismatch contradiction relies on unestablished universal distinctness claim; only use concrete view equations",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Perform constructor case analysis over both values. Mismatched constructors close by contradiction because their abstract view forms are distinct under the equal-view premise."
+            }
+          ]
+        }
+      ]
+    },
+    "card-045": {
+      "card_id": "card-045",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Proof function empty/incomplete",
+            "Postcondition validity of stable property over large left-associative conjunction of always-wrapped temporal predicates already in file"
+          ],
+          "proof_object": "Always-conjunction stability proof",
+          "goal_shape": "Stability of each always-wrapped conjunct combined in target order",
+          "observable_signal": "Postcondition failure",
+          "required_premises": "Existing always-stability lemma for each always-wrapped predicate; pairwise conjunction stability rule",
+          "repair_action": "Record exact left-to-right conjunct order; prove each conjunct stable using existing rule; combine stability facts in same order with pairwise conjunction rule",
+          "avoid_when": "A conjunct is not always-wrapped shape or needed lemmas absent",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "For each conjunct, use the existing lemma that says an always-wrapped temporal predicate is stable, passing the inner predicate of that conjunct. Then combine the resulting stability facts in the same left-to-right order"
+            }
+          ]
+        }
+      ]
+    },
+    "card-046": {
+      "card_id": "card-046",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Executable deserializer/constructor returns value in success branch",
+            "New value's specification-level representation not connected to input",
+            "Existing trusted round-trip lemma or axiom relates reconstructed value back to input under checked condition"
+          ],
+          "proof_object": "Deserializer/constructor postcondition",
+          "goal_shape": "Representation equality from existing round-trip fact",
+          "observable_signal": "Postcondition failure after success return",
+          "required_premises": "Round-trip lemma precondition established before input moved",
+          "repair_action": "Call existing round-trip lemma/axiom in proof mode at point precondition established, before moving input into constructor; add targeted assertions for remaining conjuncts",
+          "avoid_when": "Round-trip property not already a trusted proof-mode lemma/axiom in current file, or success branch doesn't establish premise",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Place a call to that existing round-trip lemma or axiom in proof mode, not in executable code, at the point where the precondition is already established and before the input value is moved into the constructor."
+            }
+          ]
+        }
+      ]
+    },
+    "card-047": {
+      "card_id": "card-047",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Proof function has empty body",
+            "Postcondition that conjunction of always-lifted state predicates is stable",
+            "Existing stability and conjunction proof objects present"
+          ],
+          "proof_object": "Existing temporal stabilization proof object invocation",
+          "goal_shape": "Lifted temporal arguments combined by conjunction",
+          "observable_signal": "Postcondition or macro parser errors",
+          "required_premises": "Each component lifted to temporal predicate; no trailing separator",
+          "repair_action": "Use existing proof object with same component predicates; wrap raw state predicates in state-to-temporal lifting; pass comma-separated arguments without trailing separator",
+          "avoid_when": "Target not always-lifted conjunction, proof object absent, raw predicates passed, or trailing separator rejects",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Use the existing temporal stabilization proof object to combine the same component predicates that appear in the invariant. Wrap each component predicate first in the operation that lifts a state predicate to a temporal predicate"
+            }
+          ]
+        }
+      ]
+    },
+    "card-048": {
+      "card_id": "card-048",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Proof function missing body",
+            "Postcondition that fold-computed set equals image of finite source set under supplied function",
+            "Fold defined by recursion on finite cardinality"
+          ],
+          "proof_object": "Finite-set fold-image equality proof",
+          "goal_shape": "Fold over finite set equals image via cardinality induction",
+          "observable_signal": "Postcondition failure",
+          "required_premises": "Finite source-set cardinality; decreasing measure based on source-set length; rebuild/mapping identities",
+          "repair_action": "Add proof-only helper with decreasing measure preserving original contract; zero case empty source/fold/image; nonzero choose element, remove, recurse, unfold fold, prove rebuilt set/image equals insert; use built-in set reasoning",
+          "avoid_when": "Source not finite cardinality recursion, original signature/termination clauses must not change, or guessed helper-lemma names not in scope",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "add a proof-only helper with the same requires and ensures, and give the helper a decreasing measure based on the source-set length; have the original proof function call the helper."
+            }
+          ]
+        }
+      ]
+    },
+    "card-049": {
+      "card_id": "card-049",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Obligation: set view of sequence after removing index equals set view of original with element at index removed",
+            "Sequence known to have no duplicates"
+          ],
+          "proof_object": "Set equality from sequence removal",
+          "goal_shape": "Membership equivalence via index-shift witnesses and no-duplicates",
+          "observable_signal": "Postcondition not connecting shorter sequence's set view to original minus element",
+          "required_premises": "No duplicates; index-shift relation; set extensionality",
+          "repair_action": "Prove membership equivalence by witness index and split whether index precedes/follows removed index; map witness back/forth using removal index-shift; use no-duplicates to rule out removed element elsewhere; lift with set extensionality",
+          "avoid_when": "Sequence may contain duplicates or removed element recurs; do not leave empty universal membership assertion",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "For an arbitrary element, establish membership equivalence by taking a witness index and splitting on whether that index precedes or follows the removed index"
+            }
+          ]
+        }
+      ]
+    },
+    "card-050": {
+      "card_id": "card-050",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Proof-only set-equality argument verifies in Verus",
+            "Generated-code safety comparison reports files differ or disallowed macro change detected"
+          ],
+          "proof_object": "Deghosted safety comparison",
+          "goal_shape": "Proof-only imports/macros do not survive deghosting",
+          "observable_signal": "Lynette difference after verification",
+          "required_premises": "Macro/helper invocable by fully qualified path or direct set extensionality",
+          "repair_action": "Remove proof-only imports/macro invocations that survive deghosting; prefer qualified proof-only helper refs; alternatively replace macro with direct membership and set-extensionality assertion",
+          "avoid_when": "Comparison reports real executable or contract difference such as modified signatures/specifications",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Remove proof-only imports and macro invocations that survive deghosting. Prefer fully qualified proof-only helper references rather than adding a use"
+            }
+          ]
+        }
+      ]
+    },
+    "card-051": {
+      "card_id": "card-051",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Leads-to transitivity proof has empty body and only postcondition fails",
+            "Trusted helper lemmas for entailment, always, eventually, implication application, witness selection, execution equality, backward eventual propagation exist"
+          ],
+          "proof_object": "Leads-to transitivity proof",
+          "goal_shape": "A leads-to C from per-suffix composition of A leads-to B and B leads-to C",
+          "observable_signal": "Transitivity postcondition not closed",
+          "required_premises": "Existing trusted temporal helpers; decidable suffix index arithmetic",
+          "repair_action": "Fix arbitrary execution; apply entailment assumptions; unfold always; for suffix where first predicate holds apply implication, select witness time; align doubly shifted suffix with summed suffix via execution equality or pointwise state equality; apply second implication; propagate eventually backward; reassemble always",
+          "avoid_when": "Helper lemmas absent or contracts changed; do not add new axioms",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "For an arbitrary suffix where the first predicate holds, apply the implication to obtain eventually the intermediate predicate and select a witness time. Relate the doubly shifted suffix to the single suffix at the summed times"
+            }
+          ]
+        }
+      ]
+    },
+    "card-052": {
+      "card_id": "card-052",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Proof already verifies",
+            "Emits low-confidence automatic trigger note or warning about implication inside universal assertion"
+          ],
+          "proof_object": "Warning cleanup",
+          "goal_shape": "Same verified proof with warning removed",
+          "observable_signal": "Low-confidence trigger note or implication warning after success",
+          "required_premises": "Existing verified proof",
+          "repair_action": "Accept automatic trigger on proof-only quantified assertion, or rephrase bare implication as built-in implication relation/explicit conditional guard; only cleanup",
+          "avoid_when": "Goal is to make a failed proof pass; warning cleanup is not evidence that trigger changes help a failing proof",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "After the proof is already verified, accept the automatic trigger on the proof-only quantified assertion, or rephrase a bare implication in the assertion"
+            }
+          ]
+        }
+      ]
+    },
+    "card-053": {
+      "card_id": "card-053",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Length-prefixed serialization injectivity needs fixed-size header fact and sequence equality",
+            "Direct header length fails because closed encoding spec function opaque",
+            "Invoking sequence-equality helper too early fails"
+          ],
+          "proof_object": "Serialization injectivity proof",
+          "goal_shape": "Fixed-width header contract then pointwise header and sequence equality",
+          "observable_signal": "Header-length assertion or sequence equality fails",
+          "required_premises": "Installed fixed-width encoding lemma stating encoded length and decode round-trip; concatenation index facts",
+          "repair_action": "Invoke fixed-width encoding/round-trip lemma first; split header/payload; establish header bytes pointwise via concatenation index facts; then obtain sequence equality via explicit per-index block or separate pointwise facts; fully qualify helper if needed",
+          "avoid_when": "No fixed-width header or installed library lemma unavailable; then lower-level bit-vector reasoning required",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Locate an installed library lemma for the fixed-width little-endian or similar encoding that states both the encoded length and the decode round-trip. Invoke that lemma before asserting the header length."
+            }
+          ]
+        }
+      ]
+    },
+    "card-054": {
+      "card_id": "card-054",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Function returning ghost aggregate must prove all contained sequences empty and sequence-derived set empty",
+            "Body returns arbitrary or unconstrained witness"
+          ],
+          "proof_object": "Ghost aggregate witness construction",
+          "goal_shape": "Concrete all-empty sequence fields",
+          "observable_signal": "Equality postconditions not discharged",
+          "required_premises": "Empty sequence for appropriate element type; open map/filter/convert-to-set definitions",
+          "repair_action": "Construct concrete aggregate with every sequence field set to empty sequence in ghost context; return that concrete witness",
+          "avoid_when": "Contract requires nonempty or partially populated aggregate; replacing witness with empty values would violate spec",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Construct a concrete aggregate value with every sequence field set to the empty sequence for the appropriate element type."
+            }
+          ]
+        }
+      ]
+    },
+    "card-055": {
+      "card_id": "card-055",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Proof-only helper or macro not in scope",
+            "Simply adding a top-level import may later make Lynette report a deghosted source difference"
+          ],
+          "proof_object": "Name resolution for proof helper/macro",
+          "goal_shape": "Fully qualified use inside ghost body",
+          "observable_signal": "Not-in-scope error with import preservation risk",
+          "required_premises": "Correct installed path",
+          "repair_action": "Prefer fully qualified path at use site; confirm path from compiler diagnostic or installed library",
+          "avoid_when": "Fully qualified path is not installed path or helper produces executable artifacts that must remain",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Prefer a fully qualified path at the use site for the proof-only helper or macro instead of adding a file-level use that survives deghosting."
+            }
+          ]
+        }
+      ]
+    },
+    "card-056": {
+      "card_id": "card-056",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Proof function body empty",
+            "Only final entailment or leads-to postcondition unproved",
+            "Universal relationship over cluster states or execution suffixes"
+          ],
+          "proof_object": "Temporal entailment proof",
+          "goal_shape": "Pointwise/per-suffix implication lifted to every execution/suffix",
+          "observable_signal": "Final entailment/leads-to postcondition unproved",
+          "required_premises": "Open state/temporal definitions; supplied premise",
+          "repair_action": "Prove pointwise or per-suffix implication with assuming form; lift across every execution suffix/temporal wrapper; instantiate premise at arbitrary execution and combine",
+          "avoid_when": "Target not entailment/leads-to over states/suffixes or pointwise implication doesn't follow from open definitions",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Prove the relationship in stages: first establish the pointwise implication over arbitrary states or the per-suffix implication using the implication form that assumes the antecedent; then lift that pointwise fact across every execution suffix or temporal wrapper"
+            }
+          ]
+        }
+      ]
+    },
+    "card-057": {
+      "card_id": "card-057",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Verus reports cannot automatically infer triggers for universal assertion"
+          ],
+          "proof_object": "Universal assertion",
+          "goal_shape": "Explicit trigger on quantified state or suffix predicate application",
+          "observable_signal": "Trigger-inference error",
+          "required_premises": "Quantified state or suffix term later instantiation needs",
+          "repair_action": "Annotate predicate application on quantified state or suffix; re-run before evaluating other repair",
+          "avoid_when": "Proof failure requires new logical premise rather than diagnostic",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "For trigger inference, annotate the predicate application on the quantified state or suffix that later instantiation actually needs."
+            }
+          ]
+        },
+        {
+          "case_id": "c2",
+          "entry_states": [
+            "Implication inside quantified assertion does not assume antecedent in proof body"
+          ],
+          "proof_object": "Universal assertion with implication",
+          "goal_shape": "Antecedent available from dedicated operator or branch",
+          "observable_signal": "Implication warning",
+          "required_premises": "Dedicated proof implication operator or explicit branch",
+          "repair_action": "Use dedicated proof implication operator named implies in current diagnostic or branch explicitly on antecedent",
+          "avoid_when": "Not missing-antecedent diagnostic; successful-proof warning cleanup alone is not evidence",
+          "version_scope": "Observed in Verus 0.2025.09.12.bb1f342; confirm local syntax",
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "For a missing antecedent, use the dedicated proof implication operator named implies in the current diagnostic or branch explicitly on the antecedent."
+            }
+          ]
+        }
+      ]
+    },
+    "card-058": {
+      "card_id": "card-058",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Premise is entailment or validity statement",
+            "Asserting only its conclusion does not activate universal quantifier",
+            "Verus reports inferred assertion failed"
+          ],
+          "proof_object": "Assertion under entailment premise",
+          "goal_shape": "Full implication-form satisfaction at concrete execution",
+          "observable_signal": "Assertion failure despite entailment premise",
+          "required_premises": "Entailment over same execution type; selected implication matches premise syntactic form",
+          "repair_action": "Before using premise at concrete execution, assert full implication-form satisfaction, not just conclusion; apply with antecedent and conclude RHS",
+          "avoid_when": "Premise not entailment/validity over same execution type or implication term mismatch",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Before using the premise at a concrete execution, assert the full implication-form satisfaction for that execution, not just the conclusion."
+            }
+          ]
+        }
+      ]
+    },
+    "card-059": {
+      "card_id": "card-059",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Ghost code extracts field through unwrap of uninterpreted conversion",
+            "Verus reports failed recommendation/precondition about uninterpreted conversion",
+            "Surrounding entailment is still unproved"
+          ],
+          "proof_object": "Spec-level proof around conversion",
+          "goal_shape": "Reasoning through open definitions/predicates without extracting conversion result",
+          "observable_signal": "Failed recommendation or precondition about conversion",
+          "required_premises": "Open definitions and predicates around opaque value",
+          "repair_action": "Remove ghost extraction of conversion result; reason at spec level using open closures/predicates; local bindings acceptable but do not call uninterpreted conversion in ghost code",
+          "avoid_when": "Proof genuinely depends on property of conversion result not captured by existing open predicates",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Remove the ghost extraction of the conversion result. Reason at the spec level using the open definitions and predicates around that opaque value."
+            }
+          ]
+        }
+      ]
+    },
+    "card-060": {
+      "card_id": "card-060",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Verus compile error says struct field is not a method when stored spec function is applied directly to argument"
+          ],
+          "proof_object": "Function-valued field application",
+          "goal_shape": "Parenthesized field projection applied to index",
+          "observable_signal": "Field not method compile error",
+          "required_premises": "Field stores a function value",
+          "repair_action": "Rewrite each occurrence so field projection is parenthesized first and then applied to index",
+          "avoid_when": "Field not function-valued or equality provable by other supplied lemma without pointwise expansion",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Rewrite each occurrence so the field projection is parenthesized first and then applied to the index argument."
+            }
+          ]
+        },
+        {
+          "case_id": "c2",
+          "entry_states": [
+            "After parsing fix, Verus reports missing trigger for universal equality"
+          ],
+          "proof_object": "Universal equality assertion",
+          "goal_shape": "Explicit triggers on both sides of equality",
+          "observable_signal": "Missing trigger error",
+          "required_premises": "Pointwise equality quantifier later instantiated",
+          "repair_action": "Add explicit trigger annotations to both sides of equality",
+          "avoid_when": "No trigger error after syntax fix or pointwise equality not needed",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "if Verus reports a missing trigger for the universal equality, add explicit trigger annotations to both sides of the equality."
+            }
+          ]
+        }
+      ]
+    },
+    "card-061": {
+      "card_id": "card-061",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Temporal proof branch reduces to existential reachability obligation and requires witness index",
+            "Constructing index manually is difficult"
+          ],
+          "proof_object": "Existential reachability witness",
+          "goal_shape": "Concrete time index from spec-level choice",
+          "observable_signal": "Witness-precondition failure or branch not verifying",
+          "required_premises": "Existential property holds; valid trigger term function application or field access",
+          "repair_action": "Use available spec-level choice construct to obtain witness from existential; ensure chosen condition explicit trigger; use witness property to relocate next-state and close eventual obligation",
+          "avoid_when": "Existential does not hold or witness property insufficient; choice cannot replace missing premise",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Use the available spec-level choice construct to obtain a witness from the existential property. Ensure the chosen condition has an explicit trigger term that is a function application or field access"
+            }
+          ]
+        }
+      ]
+    },
+    "card-062": {
+      "card_id": "card-062",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Empty or incomplete proof body for temporal stability postcondition",
+            "Target predicate is finite conjunction of always-lifted state predicates"
+          ],
+          "proof_object": "Always-conjunction stability proof",
+          "goal_shape": "Stable conjunction in target's left-associated order",
+          "observable_signal": "Postcondition not discharged",
+          "required_premises": "Local stability and conjunction-combination rules or helper macro present",
+          "repair_action": "Inspect local temporal rule definitions; reuse existing stability/conjunction machinery or helper macro in same left-to-right order rather than manual unfolding",
+          "avoid_when": "Target not finite conjunction of always-lifted predicates or local rules absent/incompatible",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Inspect the local temporal rule definitions and reuse the existing stability and conjunction-combination machinery, or the helper macro already present in the file."
+            }
+          ]
+        }
+      ]
+    },
+    "card-063": {
+      "card_id": "card-063",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Obligation: left fold over concatenation of two sequences equals concatenation of two separate folds",
+            "Direct assertion or unfolding does not close proof"
+          ],
+          "proof_object": "Fold-concat equality proof",
+          "goal_shape": "Induction on length of second sequence with associativity",
+          "observable_signal": "Postcondition not closing",
+          "required_premises": "Concatenation associativity; library suffix/last-element relationships; decreasing sequence length",
+          "repair_action": "Introduce proof-only helper inducting on second sequence length; base second empty and combined equals first; step decompose last element, apply IH, close with associativity",
+          "avoid_when": "Fold operator not associative/append-like or sequence decomposition unavailable",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Introduce a proof-only helper that performs induction on the length of the second sequence."
+            }
+          ]
+        }
+      ]
+    },
+    "card-064": {
+      "card_id": "card-064",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Alternative route for folding a concatenated sequence",
+            "Can split concatenated sequence at boundary between original parts"
+          ],
+          "proof_object": "Fold-concat equality via split lemma",
+          "goal_shape": "Folding suffix from accumulator plus subrange identities",
+          "observable_signal": "Avoids manual induction route",
+          "required_premises": "Existing sequence split lemma; accumulator-plus-empty helper; extensional equality",
+          "repair_action": "Search library for split lemma folding suffix from accumulator; prove helper fold from nonempty acc equals acc ++ fold empty; apply split with first length; identify subranges by extensional equality; invoke helper",
+          "avoid_when": "Library split lemma unavailable or accumulator operation incompatible with helper formulation",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Search the sequence library for an existing split lemma that folds the suffix from an accumulator."
+            }
+          ]
+        }
+      ]
+    },
+    "card-065": {
+      "card_id": "card-065",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Proof/ghost macro not in scope",
+            "Adding top-level import would survive deghosting and later cause proof-only comparison difference"
+          ],
+          "proof_object": "Macro invocation",
+          "goal_shape": "Fully qualified ghost-only macro use",
+          "observable_signal": "Out-of-scope macro; import preservation risk",
+          "required_premises": "Macro exposed in fully qualified usable form",
+          "repair_action": "Invoke macro through fully qualified crate path; if empty sequence type-inference diagnostic appears, annotate intended element type",
+          "avoid_when": "Macro not exposed qualified or surrounding build already has import harmlessly and comparison passes",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Invoke the macro through its fully qualified crate path at each use site instead of adding a top-level import."
+            }
+          ]
+        }
+      ]
+    },
+    "card-066": {
+      "card_id": "card-066",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Generic proof: empty sequence argument triggers type-inference error",
+            "Or sequence length used where integer index expected producing natural-versus-integer mismatch"
+          ],
+          "proof_object": "Generic sequence type/index use",
+          "goal_shape": "Explicit element type and integer index type",
+          "observable_signal": "Type-inference or natural-vs-integer mismatch",
+          "required_premises": "Intended element type parameter; library operations take integer indices",
+          "repair_action": "Annotate empty sequence with element type parameter; cast natural lengths to integer when passing to subrange/split operations",
+          "avoid_when": "Context already supplies type information or library accepts natural indices without cast",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Annotate the empty sequence with the element type parameter, and cast natural-number lengths to integer when passing them to subrange or split operations."
+            }
+          ]
+        }
+      ]
+    },
+    "card-067": {
+      "card_id": "card-067",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Need prove equality of two sequence expressions, especially equivalence after adding same suffix to both sides",
+            "Proof body empty or equality not discharging"
+          ],
+          "proof_object": "Sequence equality proof",
+          "goal_shape": "Equal lengths and equal elements in both directions",
+          "observable_signal": "Sequence equality not discharging",
+          "required_premises": "Extensional length/index laws; concatenation index laws",
+          "repair_action": "Prove both implications; establish length equality from concat length laws; prove elementwise equality by splitting index at boundary; reverse recover prefix length; close with available extensional equality mechanism",
+          "avoid_when": "Checker already discharges equality without pointwise facts or installed env lacks extensional laws",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "For each implication, first establish length equality from the concatenation length laws, then prove that the two sequences agree at every valid index by splitting an index at the boundary"
+            }
+          ]
+        }
+      ]
+    },
+    "card-068": {
+      "card_id": "card-068",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Sequence-equality closure mechanism reported not in scope",
+            "Only easy way to bring into scope is new top-level import that safety comparison rejects"
+          ],
+          "proof_object": "Sequence closure invocation",
+          "goal_shape": "Fully qualified closure call with length/element premises",
+          "observable_signal": "Not-in-scope error; import rejection risk",
+          "required_premises": "Closure exported under library root; length and elementwise obligations",
+          "repair_action": "Invoke mechanism through fully qualified library path without top-level import; if closure fails, supply length/elementwise obligations then invoke",
+          "avoid_when": "Mechanism not exported under installed library root or local comparison accepts top-level import",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Invoke the existing sequence-equality mechanism through its fully qualified library path without adding a new top-level declaration."
+            }
+          ]
+        }
+      ]
+    },
+    "card-069": {
+      "card_id": "card-069",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Proof block inside universal assertion depends on implication antecedent",
+            "Verus reports inner assertion failure or warns antecedent not assumed in body"
+          ],
+          "proof_object": "Universal proof block with implication",
+          "goal_shape": "Explicit disjunction/branch or diagnostic implies",
+          "observable_signal": "Inner assertion failure or antecedent warning",
+          "required_premises": "Equivalent disjunction and explicit branch; if used, version-supported implies",
+          "repair_action": "Prove implication via equivalent disjunction and branch explicitly on antecedent; under branch derive consequent; alternative dedicated implies if current diagnostic confirms",
+          "avoid_when": "Antecedent already available or different premise missing; do not guess missing helper",
+          "version_scope": "Dedicated operator observed in Verus 0.2025.09.12.bb1f342; confirm current support",
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Prove the implication through an equivalent disjunction and branch explicitly on the antecedent inside the quantified proof."
+            }
+          ]
+        }
+      ]
+    },
+    "card-070": {
+      "card_id": "card-070",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Postcondition equality between spec-level function/temporal objects constructed by applying same operator once versus twice",
+            "Body empty or only this postcondition fails"
+          ],
+          "proof_object": "Spec object equality proof",
+          "goal_shape": "Mutual entailment via pointwise index arithmetic",
+          "observable_signal": "Only operator equality postcondition fails",
+          "required_premises": "Pointwise-equality lemma and spec-level object equality lemma; arithmetic identities",
+          "repair_action": "Prove entailment directions separately; nested-to-single instantiate outer/inner at index and zero; single-to-nested instantiate sum of two indices; prove pointwise state/suffix equality with arithmetic; invoke equality lemma",
+          "avoid_when": "Built-in extensional equality sufficient or arithmetic identity unavailable",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Prove the two semantic entailment directions separately. In the direction from the nested application to the single application, instantiate the outer and inner quantified statements at a concrete index and at zero."
+            }
+          ]
+        }
+      ]
+    },
+    "card-071": {
+      "card_id": "card-071",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Verus postcondition requires validity of stable form of conjunction of always-lifted state predicates",
+            "Proof body empty"
+          ],
+          "proof_object": "Always-conjunction stability chain",
+          "goal_shape": "Stability of intended left-nested always-wrapped conjuncts",
+          "observable_signal": "Postcondition not closed",
+          "required_premises": "Existing combinator contracts; state-to-temporal lifting; left-nested combination helper",
+          "repair_action": "Prove stability of each always-wrapped conjunct; always-stability takes inner temporal predicate; retain state lifting; combine in target's left-nested order",
+          "avoid_when": "Target not always-wrapped conjunction or structure doesn't match available helper",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Inspect the existing combinator contracts and establish stability of each always-wrapped temporal conjunct. The always-stability rule takes the inner temporal predicate, not an already-always-wrapped conjunct."
+            }
+          ]
+        }
+      ]
+    },
+    "card-072": {
+      "card_id": "card-072",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Always-stability rule was given temporal predicate already wrapped in always",
+            "Following conjunction-stability call fails precondition due extra always wrapper"
+          ],
+          "proof_object": "Conjunction stability proof",
+          "goal_shape": "Stability of intended always-wrapped conjuncts without extra wrapper",
+          "observable_signal": "Stable form has extra always wrapper causing precondition failure",
+          "required_premises": "Rule takes inner temporal predicate; state predicates still lifted",
+          "repair_action": "Pass inner temporal predicate to always-stability; remove extra always wrapper; retain state-to-temporal lifting; combine left-to-right",
+          "avoid_when": "Rule contract expects different wrapper shape; other conjunction premises missing; do not remove state lifting or claim type-layer repair sufficient",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Pass the inner temporal predicate to the always-stability rule, removing the extra always wrapper but retaining the state-to-temporal lifting when the component began as a state predicate."
+            }
+          ]
+        }
+      ]
+    },
+    "card-073": {
+      "card_id": "card-073",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Concrete initializer postcondition depends on abstract initial-state relation requiring ghost history field empty",
+            "Ghost field currently sourced from unconstrained arbitrary value"
+          ],
+          "proof_object": "Initializer ghost history field",
+          "goal_shape": "Concrete empty ghost history",
+          "observable_signal": "Postcondition not satisfied",
+          "required_premises": "Field is ghost-only and required initial value is empty",
+          "repair_action": "Replace arbitrary ghost initialization with concrete empty sequence, preserving executable behavior",
+          "avoid_when": "Relation requires nonempty/specific history or field affects executable behavior",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Replace the arbitrary ghost initialization with a concrete empty sequence for that field, preserving executable behavior."
+            }
+          ]
+        }
+      ]
+    },
+    "card-074": {
+      "card_id": "card-074",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Helper call inside quantified assertion whose body contains implication fails precondition",
+            "Verus warns implication antecedent not assumed in assertion body"
+          ],
+          "proof_object": "Quantified assertion containing dependent helper call",
+          "goal_shape": "Explicit conditional branch on antecedent",
+          "observable_signal": "Precondition not satisfied or antecedent warning",
+          "required_premises": "Conditional branch; trivial conclusion in else when possible",
+          "repair_action": "Replace single implication assertion with explicit conditional branch on antecedent; in branch perform helper call and assert conclusion; assert trivial conclusion in other branch when possible",
+          "avoid_when": "Implication part of actual specification/requires/ensures or goal already discharged by supplied lemma",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Replace the single implication assertion with an explicit conditional branch on the antecedent."
+            }
+          ]
+        }
+      ]
+    },
+    "card-075": {
+      "card_id": "card-075",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Compile error saying public spec-function-valued field has no method with that name when used with call-like dot syntax"
+          ],
+          "proof_object": "Function-valued field access",
+          "goal_shape": "Parenthesized field access before application",
+          "observable_signal": "No method with that name compile error",
+          "required_premises": "Spec function stored in struct field",
+          "repair_action": "Treat projection as field access and parenthesize before applying; apply same correction consistently to every occurrence",
+          "avoid_when": "Projection genuinely declared method or expression is actual method call",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Treat the projection as a field access and parenthesize that access before applying it to an argument."
+            }
+          ]
+        }
+      ]
+    },
+    "card-076": {
+      "card_id": "card-076",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Recursive or induction helper call fails its quantified stability precondition after always-style facts propagated to suffix",
+            "Needed facts asserted through local aliases"
+          ],
+          "proof_object": "Helper precondition instantiation",
+          "goal_shape": "Expanded suffix/predicate expressions matching helper preconditions",
+          "observable_signal": "Quantified stability precondition failure",
+          "required_premises": "Trusted quantified facts; exact quantified trigger terms required",
+          "repair_action": "Inline local aliases into expanded suffix and predicate expressions; explicitly assert each quantified hypothesis with conditional branch and exact quantified trigger term",
+          "avoid_when": "Aliases not implicated in trigger matching or necessary facts unavailable; accepting automatic trigger to suppress note is different",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Inline the local aliases back into the expanded suffix and predicate expressions used by the helper's preconditions. Then explicitly assert each quantified hypothesis the helper requires"
+            }
+          ]
+        }
+      ]
+    },
+    "card-077": {
+      "card_id": "card-077",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Goal: equivalence between two universal formulas with different bodies such as filtered-size and no-such-element",
+            "Direct chaining does not close"
+          ],
+          "proof_object": "Universal equivalence proof",
+          "goal_shape": "Pointwise equivalence plus triggers or directional lemmas",
+          "observable_signal": "Postcondition not closed",
+          "required_premises": "Installed library facts/open definitions; valid trigger patterns or directional lemmas",
+          "repair_action": "Prove pointwise equivalence for arbitrary element using library facts/open definitions; then assert universal equivalence with explicit valid multi-trigger patterns or introduce two directional lemmas with requires and case-split goal",
+          "avoid_when": "Universal bodies syntactically equivalent, direct assertion closes, or library axioms unavailable",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Prove a pointwise equivalence for an arbitrary element using the installed library facts and open definitions."
+            }
+          ]
+        }
+      ]
+    },
+    "card-078": {
+      "card_id": "card-078",
+      "cases": [
+        {
+          "case_id": "c1",
+          "entry_states": [
+            "Library-typed pointwise proof stuck because facts about installed library operation not used",
+            "Operation defined in installed standard library"
+          ],
+          "proof_object": "Pointwise proof over library operation",
+          "goal_shape": "Boolean predicate case split under broadcast axiom group",
+          "observable_signal": "Pointwise assertion unproved despite standard library definitions",
+          "required_premises": "Installed broadcast axiom groups; open definitions",
+          "repair_action": "Inspect installed library definitions; explicitly bring relevant broadcast axiom group into scope inside proof body; use open definitions and broadcast axioms with case analysis on relevant boolean predicate",
+          "avoid_when": "Relevant group/axiom absent in installed version or bringing group causes unintended instantiation; do not add new axioms or assumptions",
+          "version_scope": null,
+          "source_anchors": [
+            {
+              "field": "action",
+              "excerpt": "Inspect the installed library definitions and explicitly bring the relevant broadcast axiom group into scope inside the proof body."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "families": [
+    {
+      "family_id": "direct-existing-lemma-bridge",
+      "title": "Direct reuse of an existing lemma or trait bridge",
+      "include_when": [
+        "Goal is a known property about library types or structured view equality",
+        "An installed or already-declared lemma/trait contract has matching conclusion and available premises"
+      ],
+      "exclude_when": [
+        "No matching lemma or extra premises are unavailable",
+        "Equality form cannot connect to current postcondition",
+        "Manual constructor case is required because bridge is insufficient"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "set-equality-membership-witness",
+          "distinction": "Use this route only when the existing lemma itself closes the algebraic goal; otherwise set equality requires membership extensionality and explicit witnesses."
+        },
+        {
+          "family_id": "opaque-spec-function-facts",
+          "distinction": "Opaque-spec route needs an open counterpart/connector or fixed-width lemma, not a direct goal-matching lemma."
+        }
+      ]
+    },
+    {
+      "family_id": "set-equality-membership-witness",
+      "title": "Set equality by membership extensionality and witnesses",
+      "include_when": [
+        "Goal is equality of sets/set images or a sequence-set view after removal",
+        "No direct matching library lemma",
+        "Membership equivalence and witness indices are required"
+      ],
+      "exclude_when": [
+        "Direct library lemma already applies with available premises",
+        "Membership extensionality is not the missing step"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "temporal-existential-witness-lifting",
+          "distinction": "Temporal existential witness lifting concerns execution/message existential goals, not membership equality of sets."
+        }
+      ]
+    },
+    {
+      "family_id": "record-function-field-equality",
+      "title": "Record equality with function-valued fields",
+      "include_when": [
+        "Goal is equality of records containing function-valued projection fields",
+        "Pointwise premise is available or built-in extensional equality is needed"
+      ],
+      "exclude_when": [
+        "Pointwise premise is incomplete",
+        "No function-valued field is involved"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "function-field-projection-syntax",
+          "distinction": "Syntax route fixes callable-field parse/type errors; this route establishes logical field and record equality after syntax is correct."
+        }
+      ]
+    },
+    {
+      "family_id": "quantified-proof-antecedent-binder-scope",
+      "title": "Quantified proof-block antecedent and binder scope failures",
+      "include_when": [
+        "Proof block, assert-forall, or helper precondition fails inside quantified implication",
+        "Diagnostic says antecedent not assumed or facts disappear because binder was shadowed by a fresh symbol"
+      ],
+      "exclude_when": [
+        "Failure is a trigger-inference diagnostic",
+        "Needed logical premise is genuinely absent, not a scope or antecedent problem"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "trigger-inference-annotation",
+          "distinction": "Trigger route annotates quantifier patterns; antecedent/binder route makes the hypothesis or existing bound value available."
+        }
+      ]
+    },
+    {
+      "family_id": "trigger-inference-annotation",
+      "title": "Explicit triggers for quantifier inference failures",
+      "include_when": [
+        "Verus reports it cannot automatically infer triggers for a quantified assertion, choose, or witness term"
+      ],
+      "exclude_when": [
+        "Only a low-confidence trigger note remains after successful verification",
+        "Failure is a missing antecedent rather than trigger selection"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "post-verification-cleanup",
+          "distinction": "Cleanup route applies only after the proof verifies; trigger annotation here addresses an active trigger-inference diagnostic."
+        }
+      ]
+    },
+    {
+      "family_id": "function-field-projection-syntax",
+      "title": "Function-valued field versus method access",
+      "include_when": [
+        "Compile/type error says a public/spec function-valued field is used with call-like dot syntax or a method name is taken as a field",
+        "The referenced item is a function-valued struct field"
+      ],
+      "exclude_when": [
+        "The item is an actual declared method",
+        "The field is not function-valued"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "record-function-field-equality",
+          "distinction": "This route corrects projection/application syntax only; it does not establish pointwise equality or record equality."
+        }
+      ]
+    },
+    {
+      "family_id": "universal-instantiation-concrete",
+      "title": "Instantiate an available universal fact at a concrete term",
+      "include_when": [
+        "A whole-sequence, entailment/validity, or temporal universal fact is available but not used at a concrete index, execution, or term",
+        "No trigger-inference diagnostic is present, or local aliases hide the matching form"
+      ],
+      "exclude_when": [
+        "A trigger-inference error requires explicit trigger annotation",
+        "The failure is a missing antecedent inside a quantified proof block"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "trigger-inference-annotation",
+          "distinction": "Trigger route changes quantifier annotations; this route asserts or applies the universal fact at the needed concrete term."
+        },
+        {
+          "family_id": "quantified-proof-antecedent-binder-scope",
+          "distinction": "Antecedent/binder route fixes scope; this route fixes non-instantiation of an already in-scope universal fact."
+        }
+      ]
+    },
+    {
+      "family_id": "transition-system-step-safety",
+      "title": "State-machine invariant and step-safety lemmas",
+      "include_when": [
+        "Goal is an invariant, preservation, or safety property over a finite state-machine transition relation",
+        "Step cases can be pattern-matched or decomposed into finite local analyses"
+      ],
+      "exclude_when": [
+        "Transition relation is uninterpreted or unbounded",
+        "Preservation is genuinely false without an additional missing invariant"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "nondeterministic-step-result",
+          "distinction": "Nondeterministic-step route is about not reconstructing a result through one nonunique witness, rather than proving preservation lemmas."
+        }
+      ]
+    },
+    {
+      "family_id": "nondeterministic-step-result",
+      "title": "Nondeterministic transition result without a chosen witness",
+      "include_when": [
+        "Helper asserts computed machine result equals transition of one manually chosen enabling step",
+        "Several steps share the same precondition and choice is not unique"
+      ],
+      "exclude_when": [
+        "Step is unique",
+        "Universal per-step safety fact or host-result equality premise is missing"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "transition-system-step-safety",
+          "distinction": "Transition-step safety proves per-step or preservation facts; this route avoids using a nonunique chosen step as an equality witness."
+        }
+      ]
+    },
+    {
+      "family_id": "weak-fairness-pointwise-lemmas",
+      "title": "Weak-fairness liveness decomposed into pointwise lemmas",
+      "include_when": [
+        "Top-level temporal goal is weak-fairness/eventual stable state under transitions",
+        "Direct weak fairness or leads-to fails",
+        "Pointwise action precondition, firing outcome, and preservation can be proved"
+      ],
+      "exclude_when": [
+        "A needed pointwise implication cannot be proved",
+        "Step space is too large to case-split effectively"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "final-liveness-helper-chain",
+          "distinction": "Final-liveness route assembles already-declared invariant/stability/phase helpers; weak-fairness route first creates pointwise action lemmas."
+        }
+      ]
+    },
+    {
+      "family_id": "temporal-suffix-shift-helper",
+      "title": "Temporal always/suffix goals via existing shift or unfolding helpers",
+      "include_when": [
+        "Goal is a suffix-wise or always-derived property",
+        "An existing accepted unfolding/shift helper matches the available premise",
+        "Satisfaction, always, lifting, head, and next-state definitions are open enough"
+      ],
+      "exclude_when": [
+        "Helper is absent or would require a new trusted body",
+        "Current assumption does not match helper precondition"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "temporal-induction-natural-offset",
+          "distinction": "This route applies an existing helper; induction route constructs a recursive proof over a natural offset."
+        }
+      ]
+    },
+    {
+      "family_id": "temporal-induction-natural-offset",
+      "title": "Temporal property at arbitrary natural offset by induction",
+      "include_when": [
+        "Property must hold at an arbitrary natural offset or suffix index",
+        "Induction on the natural index is structurally appropriate",
+        "Extensional execution equality principle is available"
+      ],
+      "exclude_when": [
+        "Property is not inductive over chosen index",
+        "No pointwise/extensional equality principle for base/step bridges"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "temporal-suffix-shift-helper",
+          "distinction": "Induction route uses a recursive helper with decreases; suffix-shift route uses an existing helper directly."
+        }
+      ]
+    },
+    {
+      "family_id": "eventual-witness-index-bridge",
+      "title": "Eventual/existential temporal index witness bridging",
+      "include_when": [
+        "Goal is eventual or existential temporal obligation with an existing raw/action occurrence or witness",
+        "Lifted eventual/post-state assertion fails despite that witness",
+        "A concrete natural index or spec-level choice can expose the occurrence"
+      ],
+      "exclude_when": [
+        "No occurrence or pointwise action-to-state implication exists",
+        "Needed suffix/offset arithmetic cannot be established"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "temporal-existential-witness-lifting",
+          "distinction": "This route bridges time/state indices for a known occurrence; existential-witness-lifting handles message/witness predicates with helper lemmas."
+        }
+      ]
+    },
+    {
+      "family_id": "temporal-existential-witness-lifting",
+      "title": "Temporal existential witness lifting and leads-to composition",
+      "include_when": [
+        "Leads-to or equality temporal formula contains existential message/state predicates",
+        "Per-witness helper lemmas or witness-introduction/equality rules exist",
+        "A concrete witness can be selected from an atomic state relation"
+      ],
+      "exclude_when": [
+        "No trusted per-witness lemma exists",
+        "Witness cannot be selected from atomic membership/state equality"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "eventual-witness-index-bridge",
+          "distinction": "Eventual index route chooses a time occurrence; this route selects message-like witnesses and lifts per-witness facts."
+        }
+      ]
+    },
+    {
+      "family_id": "leads-to-transitivity-existing-helpers",
+      "title": "Leads-to transitivity with existing temporal helpers",
+      "include_when": [
+        "Goal is a leads-to transitivity postcondition",
+        "Trusted entailment, always, eventually, implication, witness, execution equality, and backward propagation helpers exist"
+      ],
+      "exclude_when": [
+        "Required helpers are absent or contracts changed",
+        "Conclusion is not a leads-to transitivity"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "final-liveness-helper-chain",
+          "distinction": "Final-liveness route assembles invariant/stability/phase helpers; this route focuses on two-step temporal implication composition and suffix index alignment."
+        }
+      ]
+    },
+    {
+      "family_id": "final-liveness-helper-chain",
+      "title": "Final liveness theorem assembled from existing helper chain",
+      "include_when": [
+        "Final liveness theorem needs invariant derivation, stability, base liveness, phase descent, and condition unpacking",
+        "The corresponding helper lemmas already exist and their preconditions match the current proof state"
+      ],
+      "exclude_when": [
+        "Required helper prerequisites are missing",
+        "Approach would require weakening specs or adding trusted bodies"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "leads-to-transitivity-existing-helpers",
+          "distinction": "Transitivity route addresses one entailment-composition step; final-liveness route composes a multi-part liveness chain."
+        }
+      ]
+    },
+    {
+      "family_id": "phase-accumulation-bridge",
+      "title": "Recursive phase accumulation to all-phase bundle bridge",
+      "include_when": [
+        "Phase-descent lemma precondition uses recursive next-phase predicate while base liveness concludes all-phase bundle",
+        "Verus rejects descent until equivalence between recursive accumulation and bundle is exposed"
+      ],
+      "exclude_when": [
+        "No recursive phase accumulation/all-phase mismatch exists",
+        "Unsupported reveal and explicit equality chain both unavailable"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "opaque-spec-function-facts",
+          "distinction": "Opaque-spec route uses library open counterparts or fixed-width lemmas; phase bridge exposes a recursive temporal predicate by fuel reveal or stepwise equalities."
+        }
+      ]
+    },
+    {
+      "family_id": "temporal-predicate-equality-pointwise",
+      "title": "Temporal or spec-level object equality via mutual entailment and pointwise index reasoning",
+      "include_when": [
+        "Goal is equality of temporal/spec-level function or operator objects such as universal/always/nested applications",
+        "Direct object equality is not automatic",
+        "Pointwise index/suffix arithmetic and existing equality lemmas can discharge entailments"
+      ],
+      "exclude_when": [
+        "Built-in extensional equality already suffices",
+        "Equality is between non-temporal logical predicates"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "predicate-equality-mutual-entailment",
+          "distinction": "Predicate-equality route handles logical predicate conjunction equality; temporal route handles function/temporal objects with index arithmetic."
+        },
+        {
+          "family_id": "temporal-existential-witness-lifting",
+          "distinction": "Existential-witness route chooses message-like witnesses; temporal object equality route uses pointwise entailment and index identities."
+        }
+      ]
+    },
+    {
+      "family_id": "compound-stability-existing-rules",
+      "title": "Compound temporal stability via existing stability and conjunction rules",
+      "include_when": [
+        "Target is a stable compound temporal predicate such as a conjunction of always-lifted predicates and/or finitely many universal fairness components",
+        "Existing stability, conjunction, or stabilization proof objects/macros are available"
+      ],
+      "exclude_when": [
+        "Target is not a finite conjunction of always-lifted or similarly stable predicates",
+        "Required local rules or proof objects are absent or incompatible"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "temporal-entailment-pointwise-lifting",
+          "distinction": "Pointwise lifting route proves an entailment from states/suffixes; stability route combines existing stability rules in a structured predicate order."
+        }
+      ]
+    },
+    {
+      "family_id": "finite-set-fold-cardinality-induction",
+      "title": "Finite-set fold proofs by cardinality induction",
+      "include_when": [
+        "Goal concerns a fold over a finite set, such as finiteness or equality to an image",
+        "Direct assertion or generic fold lemma does not close the goal",
+        "Source-set cardinality provides a decreasing measure"
+      ],
+      "exclude_when": [
+        "Fold is not defined by finite cardinality recursion",
+        "Direct library lemma already closes the goal"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "sequence-fold-concat-equality",
+          "distinction": "Sequence fold route concerns concatenated sequences and split/induction over second sequence; this route uses finite-set cardinality induction."
+        }
+      ]
+    },
+    {
+      "family_id": "sequence-fold-concat-equality",
+      "title": "Fold over concatenated sequences",
+      "include_when": [
+        "Goal is fold over concatenation equals concatenation of folds",
+        "Induction on second sequence or an existing split lemma is feasible",
+        "Accumulator concatenation is associative/append-like"
+      ],
+      "exclude_when": [
+        "Fold operator is not associative or append-like",
+        "Sequence split/decomposition lemmas are unavailable"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "finite-set-fold-cardinality-induction",
+          "distinction": "Finite-set fold uses source-set cardinality; sequence fold uses sequence length or split boundary."
+        },
+        {
+          "family_id": "specialized-fold-bound-lemmas",
+          "distinction": "Specialized-bound route creates concrete recursive lemmas for element bounds; concat route proves distribution over sequence append."
+        }
+      ]
+    },
+    {
+      "family_id": "specialized-fold-bound-lemmas",
+      "title": "Specialized recursive lemmas for concrete fold bounds",
+      "include_when": [
+        "Generic higher-order fold lemmas do not connect to concrete fold expressions",
+        "Concrete fold-bound or append-length obligations remain",
+        "Element type supports recursive empty/nonempty decomposition"
+      ],
+      "exclude_when": [
+        "Generic lemma already instantiates correctly",
+        "Recursive structure lacks a decreasing well-founded measure"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "finite-set-fold-cardinality-induction",
+          "distinction": "Finite-set route targets fold over finite sets; this route targets concrete sequence element bounds and recursive element facts."
+        }
+      ]
+    },
+    {
+      "family_id": "opaque-spec-function-facts",
+      "title": "Facts about opaque/nondecreasing spec functions via open or recursive counterparts",
+      "include_when": [
+        "Need a length, body, or equality fact about a closed/opaque/nondecreasing spec function or wrapper",
+        "Direct reveal or length assertion is rejected or fails",
+        "An open counterpart/connector, fixed-width lemma, or recursive proof helper can expose the body"
+      ],
+      "exclude_when": [
+        "Direct revealing is supported or an existing direct lemma closes the goal",
+        "Required open counterpart/connector/fixed-width lemma is unavailable"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "direct-existing-lemma-bridge",
+          "distinction": "Direct bridge uses an already goal-matching lemma/trait contract; opaque route must expose a definition through open counterpart/connector/helper."
+        },
+        {
+          "family_id": "existing-roundtrip-proof-mode",
+          "distinction": "Roundtrip route invokes an existing proof-mode roundtrip fact before a value is moved; opaque route obtains structural facts for closed/nondecreasing definitions."
+        }
+      ]
+    },
+    {
+      "family_id": "sequence-extensional-equality",
+      "title": "Sequence equality by length and pointwise element facts",
+      "include_when": [
+        "Goal is equality of two sequence expressions and direct assertion fails",
+        "Extensional length and elementwise reasoning can establish both directions"
+      ],
+      "exclude_when": [
+        "Checker already discharges sequence equality directly",
+        "Installed environment lacks usable extensional length/index laws"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "set-equality-membership-witness",
+          "distinction": "Set equality concerns set membership witnesses; sequence equality concerns equal lengths and equal indexed elements."
+        }
+      ]
+    },
+    {
+      "family_id": "post-verification-cleanup",
+      "title": "Post-verification warning and proof-preservation cleanup",
+      "include_when": [
+        "Verus verification is already successful",
+        "Remaining issue is a proof-only safety comparison difference or low-confidence auto-trigger/implication warning"
+      ],
+      "exclude_when": [
+        "Any proof goal is still failing"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "trigger-inference-annotation",
+          "distinction": "Trigger route responds to an active trigger-inference failure; this route only cleans up warnings or deghosted-code differences after verification."
+        },
+        {
+          "family_id": "proof-helper-qualified-path",
+          "distinction": "Qualified-path route prevents an import from surviving deghosting before conclusion; post-verification route repairs an already reported difference or warning."
+        }
+      ]
+    },
+    {
+      "family_id": "proof-helper-qualified-path",
+      "title": "Qualified proof-only helper/macro references",
+      "include_when": [
+        "Proof helper, macro, or closure is reported out of scope",
+        "Adding a top-level import would survive deghosting and cause a safety comparison difference",
+        "The item is exposed under a fully qualified path"
+      ],
+      "exclude_when": [
+        "Difference is a real executable or contract change",
+        "Fully qualified path is not the installed path"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "post-verification-cleanup",
+          "distinction": "Qualified-path route is chosen during proof construction to avoid a future deghosted difference; cleanup route handles an already verified proof with remaining warning/diff."
+        }
+      ]
+    },
+    {
+      "family_id": "natural-integer-type-mismatch",
+      "title": "Natural/integer and empty-sequence type annotations",
+      "include_when": [
+        "Verus type error arises from natural subtraction used as natural, natural length passed as integer index, or empty sequence needing element type"
+      ],
+      "exclude_when": [
+        "Surrounding context already supplies enough type information",
+        "Library interface accepts natural indices without conversion"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "specialized-temporal-action-binder-type",
+          "distinction": "Specialized binder route fixes a partial-application residual payload type; this route handles natural/integer numeric and empty-sequence types."
+        }
+      ]
+    },
+    {
+      "family_id": "specialized-temporal-action-binder-type",
+      "title": "Specialized temporal action binder payload type",
+      "include_when": [
+        "A fairness/action is specialized to a fixed controller or identifier",
+        "Universal binder uses full action-input tuple and Verus reports a payload type mismatch"
+      ],
+      "exclude_when": [
+        "The error points to a different action",
+        "The action's declared input type or fixed argument should not change"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "function-field-projection-syntax",
+          "distinction": "Function-field route fixes field-call syntax; this route fixes the residual universally quantified payload type after partial action application."
+        }
+      ]
+    },
+    {
+      "family_id": "view-equality-constructor-case",
+      "title": "Constructor case analysis for view/marshalability equality",
+      "include_when": [
+        "Goal is equal abstract views imply equal marshalability",
+        "No packaged view-equal/trait bridge exists or packaged route cannot instantiate",
+        "Constructor cases expose field-level view equalities and per-field lemmas"
+      ],
+      "exclude_when": [
+        "Packaged bridge already discharges the obligation",
+        "Mismatch contradiction would rely on unestablished universal distinctness"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "direct-existing-lemma-bridge",
+          "distinction": "Direct bridge first tries packaged declaration/trait route; this family is the fallback explicit case analysis."
+        }
+      ]
+    },
+    {
+      "family_id": "predicate-equality-mutual-entailment",
+      "title": "Logical predicate equality by mutual entailment",
+      "include_when": [
+        "Goal is equality between logical predicates, such as a predicate and its conjunction with an entailed predicate",
+        "Existing entailment-conjunction and mutual-entailment equality rules are available"
+      ],
+      "exclude_when": [
+        "Equality is between temporal/function objects rather than logical predicates",
+        "Required helpers are unavailable"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "temporal-predicate-equality-pointwise",
+          "distinction": "Temporal-object equality uses index/suffix pointwise reasoning; logical predicate equality uses entailment rules over boolean predicates."
+        }
+      ]
+    },
+    {
+      "family_id": "existing-roundtrip-proof-mode",
+      "title": "Existing round-trip fact used in proof mode before value movement",
+      "include_when": [
+        "Deserializer/constructor success branch returns a value whose representation is not connected to the input",
+        "An existing trusted proof-mode round-trip lemma/axiom relates the reconstructed value and input",
+        "Its precondition is established before the input is moved"
+      ],
+      "exclude_when": [
+        "No trusted round-trip proof-mode fact exists in current file",
+        "Success branch does not establish the lemma premise"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "opaque-spec-function-facts",
+          "distinction": "Opaque route obtains structural facts about closed/nondecreasing definitions; roundtrip route invokes an existing trusted roundtrip fact before moving the input."
+        }
+      ]
+    },
+    {
+      "family_id": "library-broadcast-activation",
+      "title": "Activate installed library broadcast axiom groups in proof body",
+      "include_when": [
+        "Pointwise proof is stuck on facts about an installed library operation",
+        "The relevant broadcast axiom group exists in the installed library and open definitions are available"
+      ],
+      "exclude_when": [
+        "Relevant broadcast axiom group is absent in installed version",
+        "Bringing it in causes unintended instantiation of unrelated facts"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "direct-existing-lemma-bridge",
+          "distinction": "Direct bridge invokes a matching lemma; broadcast route explicitly brings a trusted axiom group into proof scope for case analysis."
+        }
+      ]
+    },
+    {
+      "family_id": "opaque-conversion-avoid-extraction",
+      "title": "Avoid ghost extraction of uninterpreted conversion results",
+      "include_when": [
+        "Ghost code extracts a field through an unwrap of an uninterpreted conversion",
+        "Verus reports failed recommendation/precondition about that conversion",
+        "Only the surrounding open spec definitions/predicates are needed"
+      ],
+      "exclude_when": [
+        "Proof genuinely depends on a property of the conversion result not captured by open predicates"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "opaque-spec-function-facts",
+          "distinction": "Opaque function route exposes a definition through counterpart/connector; this route removes an unsupported ghost extraction instead."
+        }
+      ]
+    },
+    {
+      "family_id": "ghost-empty-witness",
+      "title": "Concrete empty ghost aggregate or history witness",
+      "include_when": [
+        "Ghost aggregate or history field must be all-empty or contain empty sequences/set",
+        "Current ghost source is an arbitrary or unconstrained value"
+      ],
+      "exclude_when": [
+        "Contract requires nonempty or partially populated value",
+        "Field affects executable behavior"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "existing-roundtrip-proof-mode",
+          "distinction": "Roundtrip route uses a trusted fact about a constructed return value; this route constructs a concrete empty ghost witness."
+        }
+      ]
+    },
+    {
+      "family_id": "universal-equivalence-pointwise",
+      "title": "Universal formula equivalence by pointwise facts and triggers",
+      "include_when": [
+        "Goal is equivalence between two universal formulas with different bodies",
+        "Direct chaining fails",
+        "Installed library facts/open definitions can prove pointwise equivalence"
+      ],
+      "exclude_when": [
+        "Bodies are already syntactically equivalent or a direct assertion closes the goal",
+        "Required library axioms/definitions are unavailable"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "trigger-inference-annotation",
+          "distinction": "This route first proves pointwise equivalence and then chooses triggers or directional lemmas; trigger route only annotates an existing quantifier."
+        },
+        {
+          "family_id": "library-broadcast-activation",
+          "distinction": "Broadcast route activates trusted library axioms; universal-equivalence route proves a pointwise extensional bridge."
+        }
+      ]
+    },
+    {
+      "family_id": "loop-termination-and-invariants",
+      "title": "While-loop termination measures and invariant carrying",
+      "include_when": [
+        "While loop lacks a decreases clause or loop-body assertions/preconditions fail because function-entry assumptions disappear",
+        "Remaining iterations or carried invariants can discharge the obligation"
+      ],
+      "exclude_when": [
+        "Termination is not a simple decreasing numeric measure",
+        "Relevant assumption is not preserved on every iteration"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "universal-instantiation-concrete",
+          "distinction": "Universal-instantiation route instantiates one quantified fact at a concrete element/index; loop route carries multiple iteration facts in the invariant block."
+        }
+      ]
+    },
+    {
+      "family_id": "temporal-entailment-pointwise-lifting",
+      "title": "Temporal entailment by pointwise/per-suffix lifting",
+      "include_when": [
+        "Goal is an entailment or leads-to relationship over cluster states or execution suffixes",
+        "Body is empty or only the final postcondition is unproved",
+        "Pointwise or per-suffix implication follows from open definitions"
+      ],
+      "exclude_when": [
+        "Target is not an entailment/leads-to over states/suffixes",
+        "Pointwise implication does not follow from available definitions"
+      ],
+      "distinguish_from": [
+        {
+          "family_id": "weak-fairness-pointwise-lemmas",
+          "distinction": "Weak-fairness route creates action precondition/outcome/preservation lemmas; this route lifts a single pointwise/per-suffix implication to a temporal goal."
+        },
+        {
+          "family_id": "compound-stability-existing-rules",
+          "distinction": "Stability route combines existing stability/conjunction rules; this route proves the entailment itself by pointwise lifting."
+        }
+      ]
+    }
+  ],
+  "assignments": {
+    "card-001": {
+      "card_id": "card-001",
+      "primary_family": "direct-existing-lemma-bridge",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card's main stated repair is to inspect and invoke an installed library lemma whose conclusion matches, so it belongs in the direct-existing bridge family.",
+      "needs_review": false
+    },
+    "card-002": {
+      "card_id": "card-002",
+      "primary_family": "set-equality-membership-witness",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card is a set/image equality proof with no direct lemma, requiring membership extensionality and a reverse-direction witness.",
+      "needs_review": false
+    },
+    "card-003": {
+      "card_id": "card-003",
+      "primary_family": "direct-existing-lemma-bridge",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [
+        {
+          "family_id": "view-equality-constructor-case",
+          "case_ids": [
+            "c2"
+          ],
+          "when": "When the trait bridge is exposed but structural view equality remains open and constructor case splitting is needed."
+        }
+      ],
+      "rationale": "The first stated and main route is invoking an existing trait method whose contract covers the premises; the fallback constructor case split is cross-linked separately.",
+      "needs_review": false
+    },
+    "card-004": {
+      "card_id": "card-004",
+      "primary_family": "record-function-field-equality",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card proves record equality by asserting equality of function-valued projection fields under a pointwise premise.",
+      "needs_review": false
+    },
+    "card-005": {
+      "card_id": "card-005",
+      "primary_family": "record-function-field-equality",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "When direct field assertion or helpers fail, the card uses built-in extensional equality for function-valued fields, still the same record-equality decision area.",
+      "needs_review": false
+    },
+    "card-006": {
+      "card_id": "card-006",
+      "primary_family": "quantified-proof-antecedent-binder-scope",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card's only diagnosis is a quantified proof implication whose antecedent is not assumed; the repair is implies or explicit branch.",
+      "needs_review": false
+    },
+    "card-007": {
+      "card_id": "card-007",
+      "primary_family": "weak-fairness-pointwise-lemmas",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "Weak-fairness liveness is decomposed into separate pointwise action/transition lemmas and temporal lifting helpers.",
+      "needs_review": false
+    },
+    "card-008": {
+      "card_id": "card-008",
+      "primary_family": "eventual-witness-index-bridge",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card chooses a concrete action occurrence index and bridges the lifted occurrence to consecutive states.",
+      "needs_review": false
+    },
+    "card-009": {
+      "card_id": "card-009",
+      "primary_family": "eventual-witness-index-bridge",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card bridges an existing raw-state shifted index to a nested suffix lifted eventual assertion via a pointwise implication.",
+      "needs_review": false
+    },
+    "card-010": {
+      "card_id": "card-010",
+      "primary_family": "transition-system-step-safety",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card proves an always/state invariant by supplied induction rule over initialization and finite transition steps.",
+      "needs_review": false
+    },
+    "card-011": {
+      "card_id": "card-011",
+      "primary_family": "transition-system-step-safety",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card isolates multiset update preservation for a network transition invariant with a per-send safety lemma.",
+      "needs_review": false
+    },
+    "card-012": {
+      "card_id": "card-012",
+      "primary_family": "transition-system-step-safety",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card proves a controller-step safety property by finite reconciler branch analysis and lifting.",
+      "needs_review": false
+    },
+    "card-013": {
+      "card_id": "card-013",
+      "primary_family": "nondeterministic-step-result",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card's core problem is the nonunique chosen enabling-step witness, and it reuses the universal per-step fact instead.",
+      "needs_review": false
+    },
+    "card-014": {
+      "card_id": "card-014",
+      "primary_family": "temporal-suffix-shift-helper",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card unfolds a nested always goal and invokes an existing forward-shift helper for every suffix index.",
+      "needs_review": false
+    },
+    "card-015": {
+      "card_id": "card-015",
+      "primary_family": "function-field-projection-syntax",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [
+        {
+          "family_id": "quantified-proof-antecedent-binder-scope",
+          "case_ids": [
+            "c2"
+          ],
+          "when": "When the diagnostic is a quantified implication antecedent that is not being assumed rather than a method/field error."
+        }
+      ],
+      "rationale": "The card combines two diagnostics; the first stated method-versus-field case determines primary storage, while the missing-antecedent case is exposed by guarded cross-link.",
+      "needs_review": false
+    },
+    "card-016": {
+      "card_id": "card-016",
+      "primary_family": "temporal-existential-witness-lifting",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card lifts per-witness leads-to lemmas to existential temporal form and selects a witness from atomic message/state relations.",
+      "needs_review": false
+    },
+    "card-017": {
+      "card_id": "card-017",
+      "primary_family": "finite-set-fold-cardinality-induction",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card uses induction on finite input-set cardinality to prove finiteness of the fold result.",
+      "needs_review": false
+    },
+    "card-018": {
+      "card_id": "card-018",
+      "primary_family": "trigger-inference-annotation",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [
+        {
+          "family_id": "quantified-proof-antecedent-binder-scope",
+          "case_ids": [
+            "c2"
+          ],
+          "when": "When the failing diagnostic is a weak implication missing its antecedent rather than trigger inference."
+        }
+      ],
+      "rationale": "The card explicitly separates trigger inference from missing antecedent; the first-stated trigger case is primary and the antecedent case is cross-linked.",
+      "needs_review": false
+    },
+    "card-019": {
+      "card_id": "card-019",
+      "primary_family": "opaque-spec-function-facts",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "Fuel reveal rejection for a nonrecursive wrapper is resolved by a recursive proof helper over the underlying fold and definitional equality.",
+      "needs_review": false
+    },
+    "card-020": {
+      "card_id": "card-020",
+      "primary_family": "predicate-equality-mutual-entailment",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card proves a logical predicate equality through existing entailment-to-conjunction and mutual-entailment rules.",
+      "needs_review": false
+    },
+    "card-021": {
+      "card_id": "card-021",
+      "primary_family": "opaque-spec-function-facts",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "A closed serialization function is connected to an open counterpart/connector to obtain length facts.",
+      "needs_review": false
+    },
+    "card-022": {
+      "card_id": "card-022",
+      "primary_family": "specialized-fold-bound-lemmas",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "Generic fold lemmas fail to connect concrete fold bounds, so the card introduces specialized recursive lemmas over the concrete element type.",
+      "needs_review": false
+    },
+    "card-023": {
+      "card_id": "card-023",
+      "primary_family": "quantified-proof-antecedent-binder-scope",
+      "primary_case_ids": [
+        "c1",
+        "c2"
+      ],
+      "cross_links": [],
+      "rationale": "The quantified proof block fails from either binder shadowing or an unassumed implication antecedent; both are scope/antecedent issues handled in this family.",
+      "needs_review": false
+    },
+    "card-024": {
+      "card_id": "card-024",
+      "primary_family": "post-verification-cleanup",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "Verification succeeds but the safety comparison reports a module-scope proof directive; this is post-verification cleanup.",
+      "needs_review": false
+    },
+    "card-025": {
+      "card_id": "card-025",
+      "primary_family": "temporal-suffix-shift-helper",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card uses an existing always-unfolding helper to reduce suffix satisfaction to the underlying action.",
+      "needs_review": false
+    },
+    "card-026": {
+      "card_id": "card-026",
+      "primary_family": "compound-stability-existing-rules",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The compound stability goal is decomposed by existing stability/conjunction and universal-lifting lemmas.",
+      "needs_review": false
+    },
+    "card-027": {
+      "card_id": "card-027",
+      "primary_family": "specialized-temporal-action-binder-type",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The type mismatch arises specifically from specializing a fairness action and quantifying over the residual payload type.",
+      "needs_review": false
+    },
+    "card-028": {
+      "card_id": "card-028",
+      "primary_family": "function-field-projection-syntax",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [
+        {
+          "family_id": "trigger-inference-annotation",
+          "case_ids": [
+            "c2"
+          ],
+          "when": "After the field access is fixed, when Verus cannot infer a trigger for the universal pointwise equality."
+        },
+        {
+          "family_id": "record-function-field-equality",
+          "case_ids": [
+            "c2"
+          ],
+          "when": "After the syntax and trigger are fixed, when the remaining proof step is asserting function-field and record equality."
+        }
+      ],
+      "rationale": "The first stated failure is accessing a function-valued field like a method, so primary storage is the syntax family; trigger and record-equality steps are cross-linked.",
+      "needs_review": false
+    },
+    "card-029": {
+      "card_id": "card-029",
+      "primary_family": "temporal-predicate-equality-pointwise",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card proves temporal predicate equality by instantiating existing universal/always commutation helpers and reflexive entailment premises.",
+      "needs_review": false
+    },
+    "card-030": {
+      "card_id": "card-030",
+      "primary_family": "phase-accumulation-bridge",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The core obstacle is exposing recursive phase accumulation to prove equality with the all-phase bundle before descent.",
+      "needs_review": false
+    },
+    "card-031": {
+      "card_id": "card-031",
+      "primary_family": "final-liveness-helper-chain",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The final liveness proof is an assembly of invariant, stability, phase-descent, and unpack helpers; this is the final-helper-chain family.",
+      "needs_review": false
+    },
+    "card-032": {
+      "card_id": "card-032",
+      "primary_family": "temporal-existential-witness-lifting",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card lifts witness-specific properties to existential temporal intermediates and composes transitivity.",
+      "needs_review": false
+    },
+    "card-033": {
+      "card_id": "card-033",
+      "primary_family": "temporal-existential-witness-lifting",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "Existential temporal equality is reduced to mutual entailment with explicit witness-introduction, matching this family.",
+      "needs_review": false
+    },
+    "card-034": {
+      "card_id": "card-034",
+      "primary_family": "trigger-inference-annotation",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card is the canonical explicit trigger-annotation response to an actual trigger-inference error.",
+      "needs_review": false
+    },
+    "card-035": {
+      "card_id": "card-035",
+      "primary_family": "loop-termination-and-invariants",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The missing decreases clause is fixed by a remaining-iterations measure and index bound invariant.",
+      "needs_review": false
+    },
+    "card-036": {
+      "card_id": "card-036",
+      "primary_family": "loop-termination-and-invariants",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "Loop-body call preconditions are discharged by carrying function-entry assumptions and entry snapshots as invariants.",
+      "needs_review": false
+    },
+    "card-037": {
+      "card_id": "card-037",
+      "primary_family": "universal-instantiation-concrete",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The whole-sequence universal property is instantiated at the concrete loop index through a proof-only helper.",
+      "needs_review": false
+    },
+    "card-038": {
+      "card_id": "card-038",
+      "primary_family": "post-verification-cleanup",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "Verification passes but the safety comparison rejects executable shape changes; this is a post-verification cleanup.",
+      "needs_review": false
+    },
+    "card-039": {
+      "card_id": "card-039",
+      "primary_family": "temporal-induction-natural-offset",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card constructs a recursive helper with a natural-index decreases clause and extensional equality bridges.",
+      "needs_review": false
+    },
+    "card-040": {
+      "card_id": "card-040",
+      "primary_family": "natural-integer-type-mismatch",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The predecessor type mismatch between natural subtraction and natural assignment is fixed by explicit conversion.",
+      "needs_review": false
+    },
+    "card-041": {
+      "card_id": "card-041",
+      "primary_family": "loop-termination-and-invariants",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The packet-prefix loop requires an inductive set invariant and pre-loop facts carried into the invariant block.",
+      "needs_review": false
+    },
+    "card-042": {
+      "card_id": "card-042",
+      "primary_family": "post-verification-cleanup",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The verified proof fails the executable shape comparison; the repair is restoring original executable names/bindings/branches/order.",
+      "needs_review": false
+    },
+    "card-043": {
+      "card_id": "card-043",
+      "primary_family": "direct-existing-lemma-bridge",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [
+        {
+          "family_id": "view-equality-constructor-case",
+          "case_ids": [
+            "c2"
+          ],
+          "when": "When the packaged view-equal/trait chain cannot be instantiated and explicit constructor case analysis is needed."
+        }
+      ],
+      "rationale": "The first-stated and primary route invokes an existing view-equal specification lemma and trait bridge; the fallback constructor case is cross-linked.",
+      "needs_review": false
+    },
+    "card-044": {
+      "card_id": "card-044",
+      "primary_family": "view-equality-constructor-case",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "This card is the explicit fallback constructor case analysis for view/marshalability equality.",
+      "needs_review": false
+    },
+    "card-045": {
+      "card_id": "card-045",
+      "primary_family": "compound-stability-existing-rules",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card combines existing always-stability and conjunction rules in the target's left-to-right order.",
+      "needs_review": false
+    },
+    "card-046": {
+      "card_id": "card-046",
+      "primary_family": "existing-roundtrip-proof-mode",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card invokes an existing proof-mode roundtrip lemma before moving the input into the constructor.",
+      "needs_review": false
+    },
+    "card-047": {
+      "card_id": "card-047",
+      "primary_family": "compound-stability-existing-rules",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card uses an existing stabilization proof object with correctly lifted temporal arguments and valid macro syntax.",
+      "needs_review": false
+    },
+    "card-048": {
+      "card_id": "card-048",
+      "primary_family": "finite-set-fold-cardinality-induction",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card proves fold-equals-image by induction on finite source-set cardinality in a proof helper.",
+      "needs_review": false
+    },
+    "card-049": {
+      "card_id": "card-049",
+      "primary_family": "set-equality-membership-witness",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The set view of a sequence after duplicate-free removal is proved by membership extensionality with index-shift witnesses.",
+      "needs_review": false
+    },
+    "card-050": {
+      "card_id": "card-050",
+      "primary_family": "post-verification-cleanup",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "Verified set equality fails the safety comparison because proof-only imports/macros survive deghosting; cleanup is required.",
+      "needs_review": false
+    },
+    "card-051": {
+      "card_id": "card-051",
+      "primary_family": "leads-to-transitivity-existing-helpers",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card composes two leads-to implications at arbitrary suffixes and aligns summed suffix indices using existing trusted helpers.",
+      "needs_review": false
+    },
+    "card-052": {
+      "card_id": "card-052",
+      "primary_family": "post-verification-cleanup",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "This is explicit post-verification warning cleanup only, and the card says it must not be treated as construction for a failing proof.",
+      "needs_review": false
+    },
+    "card-053": {
+      "card_id": "card-053",
+      "primary_family": "opaque-spec-function-facts",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [
+        {
+          "family_id": "sequence-extensional-equality",
+          "case_ids": [
+            "c1"
+          ],
+          "when": "Once the fixed-width header contract is established, when the remaining header and payload sequence equality needs length and pointwise element facts."
+        }
+      ],
+      "rationale": "The main obstacle is the opaque closed encoding length; the card first invokes an installed fixed-width encoding lemma. The later sequence equality is cross-linked.",
+      "needs_review": false
+    },
+    "card-054": {
+      "card_id": "card-054",
+      "primary_family": "ghost-empty-witness",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card constructs a concrete all-empty ghost aggregate instead of returning an unconstrained witness.",
+      "needs_review": false
+    },
+    "card-055": {
+      "card_id": "card-055",
+      "primary_family": "proof-helper-qualified-path",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "A missing proof helper/macro is resolved by a fully qualified path to avoid a later deghosted import difference.",
+      "needs_review": false
+    },
+    "card-056": {
+      "card_id": "card-056",
+      "primary_family": "temporal-entailment-pointwise-lifting",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card proves a pointwise or per-suffix implication and then lifts it to the temporal entailment goal.",
+      "needs_review": false
+    },
+    "card-057": {
+      "card_id": "card-057",
+      "primary_family": "trigger-inference-annotation",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [
+        {
+          "family_id": "quantified-proof-antecedent-binder-scope",
+          "case_ids": [
+            "c2"
+          ],
+          "when": "When the actual diagnostic is an implication whose antecedent is not assumed, rather than a trigger inference failure."
+        }
+      ],
+      "rationale": "The card explicitly treats trigger inference and missing antecedents as separate; the first-stated trigger case is primary.",
+      "needs_review": false
+    },
+    "card-058": {
+      "card_id": "card-058",
+      "primary_family": "universal-instantiation-concrete",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "An entailment/validity premise is a universal statement that must be asserted in full implication form at the concrete execution.",
+      "needs_review": false
+    },
+    "card-059": {
+      "card_id": "card-059",
+      "primary_family": "opaque-conversion-avoid-extraction",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card removes ghost extraction of an uninterpreted conversion and reasons through surrounding open specifications.",
+      "needs_review": false
+    },
+    "card-060": {
+      "card_id": "card-060",
+      "primary_family": "function-field-projection-syntax",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [
+        {
+          "family_id": "trigger-inference-annotation",
+          "case_ids": [
+            "c2"
+          ],
+          "when": "After fixing the field projection syntax, when Verus reports a missing trigger for the universal equality."
+        },
+        {
+          "family_id": "record-function-field-equality",
+          "case_ids": [
+            "c2"
+          ],
+          "when": "After syntax and triggers are fixed, when the remaining proof uses pointwise function-field equality to derive execution equality."
+        }
+      ],
+      "rationale": "The first stated case is the field-called-as-method syntax repair; the subsequent trigger and pointwise equality steps are exposed by cross-links.",
+      "needs_review": false
+    },
+    "card-061": {
+      "card_id": "card-061",
+      "primary_family": "eventual-witness-index-bridge",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The existential reachability branch uses a spec-level choice witness with a valid trigger term to close the eventual obligation.",
+      "needs_review": false
+    },
+    "card-062": {
+      "card_id": "card-062",
+      "primary_family": "compound-stability-existing-rules",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card reuses local stability/conjunction machinery or helper macro in the target's left-associated order.",
+      "needs_review": false
+    },
+    "card-063": {
+      "card_id": "card-063",
+      "primary_family": "sequence-fold-concat-equality",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card inducts on the second sequence length to prove fold distribution over concatenation.",
+      "needs_review": false
+    },
+    "card-064": {
+      "card_id": "card-064",
+      "primary_family": "sequence-fold-concat-equality",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "This is the alternative split-lemma route for the same concatenated-fold equality goal.",
+      "needs_review": false
+    },
+    "card-065": {
+      "card_id": "card-065",
+      "primary_family": "proof-helper-qualified-path",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card invokes an out-of-scope macro through a fully qualified crate path and handles any resulting empty-sequence type inference.",
+      "needs_review": false
+    },
+    "card-066": {
+      "card_id": "card-066",
+      "primary_family": "natural-integer-type-mismatch",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "Empty-sequence type inference and natural-to-integer index casts are narrow type annotations.",
+      "needs_review": false
+    },
+    "card-067": {
+      "card_id": "card-067",
+      "primary_family": "sequence-extensional-equality",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card proves common-suffix sequence equality by equal lengths and indexed elements in both directions.",
+      "needs_review": false
+    },
+    "card-068": {
+      "card_id": "card-068",
+      "primary_family": "proof-helper-qualified-path",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [
+        {
+          "family_id": "sequence-extensional-equality",
+          "case_ids": [
+            "c1"
+          ],
+          "when": "After resolving the qualified path, when the closure still requires the explicit length and elementwise sequence-equality premises."
+        }
+      ],
+      "rationale": "The primary obstacle is an out-of-scope sequence closure plus import risk; the qualified-path family is primary, with sequence premises cross-linked.",
+      "needs_review": false
+    },
+    "card-069": {
+      "card_id": "card-069",
+      "primary_family": "quantified-proof-antecedent-binder-scope",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The inner failure is an unassumed implication antecedent in a quantified proof block; the card repairs it by explicit disjunction/branch or diagnostic implies.",
+      "needs_review": false
+    },
+    "card-070": {
+      "card_id": "card-070",
+      "primary_family": "temporal-predicate-equality-pointwise",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "Equality between one and two applications of a temporal operator is proved by pointwise entailment directions and index arithmetic.",
+      "needs_review": false
+    },
+    "card-071": {
+      "card_id": "card-071",
+      "primary_family": "compound-stability-existing-rules",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card combines existing stability and chaining helpers in the target's left-nested order with correct inner temporal predicates.",
+      "needs_review": false
+    },
+    "card-072": {
+      "card_id": "card-072",
+      "primary_family": "compound-stability-existing-rules",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The extra always wrapper causes a precondition failure in the same always-conjunction stability chain.",
+      "needs_review": false
+    },
+    "card-073": {
+      "card_id": "card-073",
+      "primary_family": "ghost-empty-witness",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card replaces an arbitrary ghost history source with a concrete empty sequence satisfying the initial-state relation.",
+      "needs_review": false
+    },
+    "card-074": {
+      "card_id": "card-074",
+      "primary_family": "quantified-proof-antecedent-binder-scope",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The dependent helper call fails because the quantified implication antecedent is not assumed; explicit branching fixes it.",
+      "needs_review": false
+    },
+    "card-075": {
+      "card_id": "card-075",
+      "primary_family": "function-field-projection-syntax",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card corrects every call-like dot syntax occurrence on a spec-function-valued field by parenthesizing the projection.",
+      "needs_review": false
+    },
+    "card-076": {
+      "card_id": "card-076",
+      "primary_family": "universal-instantiation-concrete",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The recursive helper loses quantified suffix facts because aliases prevent trigger matching; inlining and instantiating exact quantified terms fixes instantiation.",
+      "needs_review": false
+    },
+    "card-077": {
+      "card_id": "card-077",
+      "primary_family": "universal-equivalence-pointwise",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card proves a pointwise equivalence between two universal bodies and then lifts it with triggers or directional lemmas.",
+      "needs_review": false
+    },
+    "card-078": {
+      "card_id": "card-078",
+      "primary_family": "library-broadcast-activation",
+      "primary_case_ids": [
+        "c1"
+      ],
+      "cross_links": [],
+      "rationale": "The card brings a relevant installed broadcast axiom group into scope in the proof body to activate library operation facts.",
+      "needs_review": false
+    }
+  },
+  "relations": [
+    {
+      "card_ids": [
+        "card-001",
+        "card-002"
+      ],
+      "relation": "conditional_alternative",
+      "boundary": "If a matching installed library lemma is available with all premises, use card-001; otherwise card-002's manual membership/witness route applies. Each card explicitly avoids the other's route under those conditions."
+    },
+    {
+      "card_ids": [
+        "card-004",
+        "card-005"
+      ],
+      "relation": "conditional_alternative",
+      "boundary": "Card-004 first tries a direct local field-equality assertion; card-005 applies when that direct assertion/helper route is rejected and built-in extensional equality is available."
+    },
+    {
+      "card_ids": [
+        "card-006",
+        "card-069"
+      ],
+      "relation": "duplicate_candidate",
+      "boundary": "Both diagnose missing implication antecedents in quantified proof bodies and propose the dedicated implies operator or explicit branching in the same observed version; card-069 adds the disjunction route and warns against missing-helper guesses."
+    },
+    {
+      "card_ids": [
+        "card-018",
+        "card-057"
+      ],
+      "relation": "duplicate_candidate",
+      "boundary": "Both explicitly separate trigger inference failures from missing antecedents and prescribe independent repairs for each diagnostic."
+    },
+    {
+      "card_ids": [
+        "card-014",
+        "card-025"
+      ],
+      "relation": "complementary",
+      "boundary": "Both use existing temporal helpers for suffix/always goals; card-014 shifts an always guarantee to an arbitrary suffix, card-025 unfolds an always-lifted action premise to suffix-wise satisfaction."
+    },
+    {
+      "card_ids": [
+        "card-017",
+        "card-048"
+      ],
+      "relation": "complementary",
+      "boundary": "Both use finite source-set cardinality induction for fold results, but one proves finiteness and the other equality to an image; they share the induction structure without duplicating the same postcondition."
+    },
+    {
+      "card_ids": [
+        "card-019",
+        "card-021"
+      ],
+      "relation": "complementary",
+      "boundary": "Both address inaccessible spec-function bodies: card-019 introduces a recursive helper for a wrapper with no decreasing clause, card-021 locates an open counterpart and connector for a closed serialization function."
+    },
+    {
+      "card_ids": [
+        "card-021",
+        "card-053"
+      ],
+      "relation": "conditional_alternative",
+      "boundary": "For closed encoding length facts, card-021 uses an open counterpart plus connector; card-053 uses an installed fixed-width length/round-trip lemma before header and sequence equality."
+    },
+    {
+      "card_ids": [
+        "card-024",
+        "card-038",
+        "card-042",
+        "card-050"
+      ],
+      "relation": "complementary",
+      "boundary": "All occur after successful verification with a Lynette/proof-preservation difference, but address distinct survivors: module-scope directives, executable call/return shape, general executable shape changes, and proof-only imports/macros."
+    },
+    {
+      "card_ids": [
+        "card-035",
+        "card-036",
+        "card-041"
+      ],
+      "relation": "complementary",
+      "boundary": "These are successive loop-repair layers: termination measure, carrying function-entry facts as invariants, and an inductive packet-prefix set invariant."
+    },
+    {
+      "card_ids": [
+        "card-040",
+        "card-066"
+      ],
+      "relation": "complementary",
+      "boundary": "Both are narrow natural/integer type diagnostics: predecessor conversion after natural subtraction versus empty-sequence type annotation and length-to-index casts."
+    },
+    {
+      "card_ids": [
+        "card-043",
+        "card-044"
+      ],
+      "relation": "conditional_alternative",
+      "boundary": "Card-043 first uses a packaged view-equal/trait chain; card-044 is the constructor-case fallback when that bridge is unavailable or cannot instantiate."
+    },
+    {
+      "card_ids": [
+        "card-045",
+        "card-047"
+      ],
+      "relation": "complementary",
+      "boundary": "Both prove always-conjunction stability using existing tools: card-045 uses per-conjunct always-stability lemmas and pairwise conjunction, card-047 uses an existing stabilization proof object/macro with lifted temporal arguments."
+    },
+    {
+      "card_ids": [
+        "card-047",
+        "card-071",
+        "card-072"
+      ],
+      "relation": "complementary",
+      "boundary": "These refine the same always-stability chain: card-047 requires lifting raw predicates and valid argument syntax, card-071 uses inner temporal predicates, and card-072 removes an extra always wrapper causing a precondition failure."
+    },
+    {
+      "card_ids": [
+        "card-063",
+        "card-064"
+      ],
+      "relation": "conditional_alternative",
+      "boundary": "For fold over concatenated sequences, card-063 performs induction on the second sequence; card-064 instead uses an existing split lemma plus an accumulator helper."
+    },
+    {
+      "card_ids": [
+        "card-051",
+        "card-031"
+      ],
+      "relation": "complementary",
+      "boundary": "Card-051 supplies a leads-to transitivity composition pattern that appears inside the larger final-liveness helper chain assembled by card-031."
+    },
+    {
+      "card_ids": [
+        "card-030",
+        "card-031"
+      ],
+      "relation": "complementary",
+      "boundary": "Card-030 bridges the recursive phase accumulation before descent; card-031 uses that precondition-compatible bridge as one stage of the final liveness helper chain."
+    },
+    {
+      "card_ids": [
+        "card-060",
+        "card-075"
+      ],
+      "relation": "duplicate_candidate",
+      "boundary": "Both prescribe parenthesizing a spec-function-valued field projection before applying it to an argument in response to a field-not-method compile error."
+    },
+    {
+      "card_ids": [
+        "card-016",
+        "card-032"
+      ],
+      "relation": "complementary",
+      "boundary": "Card-016 defines per-witness predicate templates and lifts trusted message lemmas; card-032 decomposes existential leads-to intermediates and preserves the final transitivity step."
+    },
+    {
+      "card_ids": [
+        "card-052",
+        "card-057"
+      ],
+      "relation": "conditional_alternative",
+      "boundary": "Card-057 repairs an active trigger or missing-antecedent diagnostic before verification, whereas card-052 only applies after the proof already verifies and is explicit that warning cleanup is not a failed-proof remedy."
+    },
+    {
+      "card_ids": [
+        "card-055",
+        "card-065",
+        "card-068"
+      ],
+      "relation": "complementary",
+      "boundary": "All avoid top-level proof-only imports by fully qualified references, across helpers, macros, and sequence-equality closures, with slightly different subsequent type or premise obligations."
+    }
+  ],
+  "review_items": [],
+  "blocking_errors": []
+}

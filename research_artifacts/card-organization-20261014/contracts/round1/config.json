@@ -1,0 +1,13 @@
+{
+  "repo": "${REPO_ROOT}",
+  "codex_bin": "${HOME}/.local/bin/codex",
+  "verus_bin": "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/verus-env",
+  "lynette_bin": "${HISTORICAL_WORKSPACE_ROOT}/RL-verus-1129/autoverus/utils/lynette/source/target/release/lynette",
+  "catalog": "${VERUS_SKILL_RUN_ROOT}/augment-v2-20260916/models.json",
+  "rust_root": "${WORKSPACE_ROOT}/tools/rust",
+  "scratch_root": "${SCRATCH_ROOT}",
+  "data_root": "${HISTORICAL_WORKSPACE_ROOT}/verusys-result",
+  "env_file": "${DEEPSEEK_ENV_FILE}",
+  "allow_same_version_verus": true,
+  "source_root": "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/runtime"
+}

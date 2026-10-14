@@ -1,0 +1,163 @@
+{
+  "schema_version": "reference-routing-review-v2",
+  "families": {
+    "compound-stability-existing-rules": {
+      "relation": "mixed",
+      "note": "Universal fairness/action conjuncts distinguish the first entry. The next two cover overlapping always-conjunction goals with different available helpers; neither excludes the other. The extra-wrapper entry is a specific failed-call diagnosis, not a required stage.",
+      "cue_overrides": {
+        "always-conjunction-per-conjunct-stability": {"title": "Always-conjunction with pairwise stability helpers", "when": "The target is a left-nested conjunction of always predicates and matching always/conjunction helpers are available", "avoid": "Unavailable helpers or incompatible predicate shapes/nesting"},
+        "existing-stabilization-proof-object-lifted-conjunction": {"title": "Always-conjunction with a local proof object or macro", "when": "The target is a finite always-lifted conjunction and a matching local proof object or macro accepts its lifted arguments", "avoid": "Absent/incompatible proof objects or wrong predicate lifting level"}
+      }
+    },
+    "direct-existing-lemma-bridge": {
+      "relation": "specialization",
+      "note": "003 and 043 have different premise-to-goal directions. The library-lemma entry is a general option and may also match either case; it is not a third mutually exclusive goal. Constructor fallback remains conditional in the original specialized bodies.",
+      "scope_replacements": [
+        {"old": "- Consult when: Goal is a known property about library types or structured view equality\n", "new": "- Consult when: A library lemma matches an algebraic goal, or the goal connects serialization, view equality, and marshalability\n"},
+        {"old": "- Consult when: An installed or already-declared lemma/trait contract has matching conclusion and available premises\n", "new": "- Consult when: The selected direct route has a matching installed/declared lemma or trait contract with available premises\n"},
+        {"old": "- Not for: No matching lemma or extra premises are unavailable\n- Not for: Equality form cannot connect to current postcondition\n- Not for: Manual constructor case is required because bridge is insufficient\n", "new": "- Not for the direct route: Its matching lemma, premises, or required equality connection are unavailable\n- Boundary: Cards 003/043 also describe conditional constructor fallbacks; failure of a direct bridge does not exclude those original fallback cases\n"}
+      ],
+      "cue_overrides": {
+        "original-card-003": {"title": "Marshalable + equal serialization to equal views", "when": "Both values are marshalable, serialized representations agree, and an existing trait/instance promises view equality", "avoid": "Trait unavailable or its view relation cannot imply the required structural equality"},
+        "original-card-043": {"title": "Equal abstract views to equal marshalability", "when": "The premise is abstract-view equality and the goal is equality of marshalability predicates", "avoid": "The goal has a different proof direction; an uninstantiable direct bridge requires the original conditional fallback"}
+      }
+    },
+    "eventual-witness-index-bridge": {
+      "relation": "mixed",
+      "note": "008 starts with eventual action occurrence; 009 already has a raw state witness but lacks the suffix form. 061 covers obtaining a reachability index from an established existential and can overlap witness selection in 008. These are not mandatory successive reads.",
+      "cue_overrides": {}
+    },
+    "finite-set-fold-cardinality-induction": {
+      "relation": "distinct",
+      "note": "Select by the requested conclusion: result finiteness versus equality to the mapped source set. Sharing cardinality induction does not make the conclusions interchangeable.",
+      "cue_overrides": {}
+    },
+    "function-field-projection-syntax": {
+      "relation": "overlap",
+      "note": "015 covers both method/field directions and a separate antecedent diagnosis; 028 focuses on pointwise record equality; the merged rule focuses on stored-function field calls. Field-call and later trigger cases overlap. These are reading focuses, not exclusive eligibility tests.",
+      "scope_replacements": [
+        {"old": "- Consult when: Compile/type error says a public/spec function-valued field is used with call-like dot syntax or a method name is taken as a field\n- Consult when: The referenced item is a function-valued struct field\n- Not for: The item is an actual declared method\n- Not for: The field is not function-valued\n", "new": "- Consult when: A method is mistaken for a field, a stored function field is called as a method, or pointwise record equality has the related syntax/trigger failure\n- Consult when: Card-015's separate case matches a quantified-proof missing-antecedent diagnostic\n- Not for: None of these method/field, pointwise-equality trigger, or missing-antecedent diagnostics is present\n- Boundary: The stored-function rule excludes genuine methods; that exclusion does not exclude card-015's method-as-field case\n"}
+      ],
+      "cue_overrides": {
+        "card-015-verbatim": {"title": "Method/field classification or separate antecedent issue", "when": "A method is treated as a field, a function field as a method, or a quantified proof lacks its implication antecedent", "avoid": "Neither method/field nor antecedent diagnostic is present; implication syntax is version-sensitive"},
+        "card-028-verbatim": {"title": "Pointwise record equality with function-field diagnostics", "when": "The failing proof is pointwise record equality and has field-call syntax or uninferred equality-trigger diagnostics", "avoid": "Treating pointwise agreement as field/record equality before the original rule's field-equality obligation is met"}
+      }
+    },
+    "ghost-empty-witness": {
+      "relation": "specialization",
+      "note": "The aggregate entry addresses the returned multi-field ghost witness; the history entry addresses one initializer field constrained by an abstract initial-state relation. A history may be part of an aggregate, so both can match.",
+      "cue_overrides": {}
+    },
+    "loop-termination-and-invariants": {
+      "relation": "complementary",
+      "note": "Choose the current failing obligation: missing decreases, unavailable entry assumptions, or packet-prefix set/validity reasoning. The packet rule also carries pre-loop facts, so it overlaps the assumption rule. The source does not require reading all three in order.",
+      "scope_replacements": [
+        {"old": "- Consult when: While loop lacks a decreases clause or loop-body assertions/preconditions fail because function-entry assumptions disappear\n", "new": "- Consult when: A while loop lacks decreases, loses entry assumptions in its body, or fails packet-prefix set/validity obligations\n"},
+        {"old": "- Not for: Termination is not a simple decreasing numeric measure\n- Not for: Relevant assumption is not preserved on every iteration\n", "new": "- Not for the counting-termination rule: No strictly decreasing numeric measure of the stated form\n- Not for carrying an unchanged assumption: It is not preserved on every iteration; this does not exclude the packet rule's evolving inductive relation\n"}
+      ],
+      "cue_overrides": {
+        "packet-prefix-set-invariant": {"title": "Packet-prefix append loop with set/validity failure", "when": "After termination repair, a packet-append prefix loop still fails final set equality, invariant preservation, or a match-arm obligation", "avoid": "A different loop relation is required; missing element-validity premises still need proof"}
+      }
+    },
+    "natural-integer-type-mismatch": {
+      "relation": "distinct",
+      "note": "Distinguish integer-valued predecessor subtraction where a natural is needed from a natural sequence length where an integer is needed. Empty-sequence element inference is a second case in the latter rule. The conversion directions are opposite, not interchangeable.",
+      "cue_overrides": {
+        "natural-predecessor-subtraction-conversion": {"title": "Natural predecessor expression: integer to natural mismatch", "when": "A natural-induction helper expects a natural predecessor but subtraction produces an integer", "avoid": "The branch does not establish nonnegativity or safe conversion"},
+        "empty-sequence-length-annotation": {"title": "Sequence argument: unknown element type or natural to integer mismatch", "when": "An empty sequence has unknown element type, or a natural sequence length is supplied to an integer-index interface", "avoid": "That type is already known or that interface accepts natural indices"}
+      }
+    },
+    "opaque-spec-function-facts": {
+      "relation": "mixed",
+      "note": "019 concerns rejected fuel reveal on a nondecreasing wrapper. 021 concerns a closed length fact with an open counterpart/connector; 053 is the length-prefixed injectivity case with a fixed-width length/round-trip lemma. Length subgoals can overlap; check which library facts actually exist.",
+      "cue_overrides": {
+        "rule-card-021": {"title": "Closed serialization length with an open counterpart", "when": "A needed closed-function length fact is unavailable directly but the library has an open counterpart and connector", "avoid": "No open counterpart/connector or the spec avoids encoding details"},
+        "rule-card-053": {"title": "Header/payload injectivity with a fixed-width encoding lemma", "when": "Length-prefixed injectivity needs header/sequence facts and the library supplies a fixed-width length and decode-round-trip lemma", "avoid": "No fixed-width header or no such installed encoding lemma"}
+      }
+    },
+    "post-verification-cleanup": {
+      "relation": "mixed",
+      "note": "After verification, distinguish executable-shape differences, module-scope directives, set-proof imports/macros, and warnings only. Directive and set-import cases may overlap and offer alternatives; a warning-only case is not evidence of a proof repair.",
+      "cue_overrides": {}
+    },
+    "proof-helper-qualified-path": {
+      "relation": "specialization",
+      "note": "The sequence-equality closure entry specializes the general out-of-scope proof-helper route and adds its equality-obligation context. Both may match a sequence helper; choose by the missing item, not by an invented exclusion of sequence cases from the general rule.",
+      "cue_overrides": {}
+    },
+    "quantified-proof-antecedent-binder-scope": {
+      "relation": "overlap",
+      "note": "All three can match a helper failure caused by a missing antecedent. The merged rule surveys that diagnostic; 023 additionally covers a shadowed bound symbol; 074 focuses on a helper call inside the implication. These are overlapping focuses, not three distinct error classes.",
+      "cue_overrides": {
+        "missing-antecedent-quantified-proof": {"title": "Missing-antecedent diagnostic: general coverage", "when": "An inner assertion or lemma fails with a missing-antecedent diagnostic inside a quantified implication", "avoid": "Antecedent already available, a different premise missing, or a trigger-inference-only failure"},
+        "quantified-binder-scope-verbatim": {"title": "Missing antecedent with binder/available-bound context", "when": "A quantified proof cannot use antecedent-dependent bounds/facts; the rule also covers a bound symbol shadowed by a fresh one", "avoid": "Bounds genuinely absent or no binder/antecedent issue; implication syntax is version-sensitive"},
+        "helper-precondition-implication-branch-verbatim": {"title": "Missing antecedent at a helper-call precondition", "when": "A helper inside a quantified implication fails its precondition, or that assertion warns its antecedent is not assumed", "avoid": "Changing specification requires/ensures, or a goal already discharged by a supplied case lemma"}
+      }
+    },
+    "record-function-field-equality": {
+      "relation": "refinement",
+      "note": "004 addresses the remaining record-equality goal from full pointwise agreement; 005 is explicitly conditioned on direct function equality failing and unavailable/rejected helper names. Distinguish the observed proof state, not two different mathematical premises.",
+      "cue_overrides": {}
+    },
+    "sequence-fold-concat-equality": {
+      "relation": "alternatives",
+      "note": "Both address the same concatenated-fold goal. One needs compatible prefix/last decomposition; the other an installed split lemma and compatible accumulator formulation. If both are available, the source does not establish a unique best route or require both.",
+      "cue_overrides": {
+        "seq-fold-concat-induction-second": {"title": "Concatenated fold with prefix/last decomposition", "when": "Direct concatenated-fold proof fails and the recursive fold has usable prefix/last decomposition with an append-like accumulator", "avoid": "Incompatible accumulator operation or unavailable decomposition relationship"},
+        "seq-fold-concat-split-lemma-helper": {"title": "Same concatenated-fold goal with an installed split lemma", "when": "An installed split lemma matches the concatenation boundary and the accumulator-plus-empty formulation is compatible", "avoid": "No matching split lemma or incompatible accumulator formulation"}
+      }
+    },
+    "set-equality-membership-witness": {
+      "relation": "specialization",
+      "note": "002 is broadly triggered by set/image equality but its concrete body uses image/union witnesses. 049 specifically needs duplicate-free sequence removal and shifted indices. Select by that structure; do not assume the image-union recipe proves arbitrary set equalities.",
+      "cue_overrides": {
+        "rule-general-set-image-equality-witness": {"title": "Set/image equality; concrete image-union witness case", "when": "Set/image equality lacks a direct lemma and reverse membership fails; the original body develops the image-of-union case", "avoid": "A matching library lemma already closes the goal; do not assume its image-union details fit a different set operation"}
+      }
+    },
+    "temporal-existential-witness-lifting": {
+      "relation": "mixed",
+      "note": "033 has an equality goal with equality/witness rules. 016 and 032 have leads-to goals and substantially overlapping witness lifting/composition: 016 emphasizes exact message templates, 032 intermediate predicates and final chaining. Neither leads-to entry is exclusive.",
+      "scope_replacements": [
+        {"old": "- Consult when: A concrete witness can be selected from an atomic state relation\n- Not for: No trusted per-witness lemma exists\n- Not for: Witness cannot be selected from atomic membership/state equality\n", "new": "- For leads-to: Check the selected rule's per-witness helper premises; card-016 also requires an atomic membership/equality witness source\n- For equality (card-033): Check the trusted predicate-equality and witness-introduction rules and witness facts; a per-witness leads-to lemma is not its premise\n- Not for: The selected rule's required trusted helpers or witness facts are unavailable\n"}
+      ],
+      "cue_overrides": {
+        "card-016-verbatim": {"title": "Existential leads-to: message-template coverage", "when": "Per-message leads-to lemmas exist but existential state predicates do not connect to their witness-specific templates", "avoid": "No trusted per-witness lemma or no atomic membership/equality witness source"},
+        "card-032-verbatim": {"title": "Existential leads-to: intermediate-chain coverage", "when": "Source/intermediate states are existential but supplied helper lemmas cover individual witnesses", "avoid": "A needed per-witness helper is absent/uninstantiable; separate legs may still leave the final chain open"},
+        "card-033-verbatim": {"title": "Existential temporal equality, not just leads-to", "when": "The goal is equality involving an existential temporal predicate and trusted equality/witness-introduction rules are supplied", "avoid": "Either required rule or witness facts are unavailable; an unassumed antecedent still needs its own check"}
+      }
+    },
+    "temporal-predicate-equality-pointwise": {
+      "relation": "distinct",
+      "note": "029 concerns moving universal/always operators with matching commutation helpers; 070 concerns one versus two applications of the same operator and the associated index identities. Select by the actual two sides of the equality.",
+      "cue_overrides": {}
+    },
+    "temporal-suffix-shift-helper": {
+      "relation": "distinct",
+      "note": "014 starts from a nested-always goal and a forward-shift helper. 025 starts from an always-lifted action premise and seeks suffix-wise action satisfaction with an unfolding helper. A larger proof may need both; match the current premise and goal.",
+      "cue_overrides": {}
+    },
+    "transition-system-step-safety": {
+      "relation": "complementary",
+      "note": "010 covers the outer all-future invariant; 011 a network-multiset update preservation subgoal; 012 the controller's no-external-request subcase. These are proof levels that can be needed together, not rival answers to one identical local obligation.",
+      "cue_overrides": {}
+    },
+    "trigger-inference-annotation": {
+      "relation": "overlap",
+      "note": "034 focuses on trigger inference only. 018 and 057 also cover independently diagnosed missing antecedents; 018 emphasizes witness/entailment terms, 057 state/suffix terms. An assertion trigger error can match all three. 018 retains a source Action/Validate wording tension; no exclusive split is claimed.",
+      "scope_replacements": [
+        {"old": "- Consult when: Verus reports it cannot automatically infer triggers for a quantified assertion, choose, or witness term\n", "new": "- Consult when: Verus cannot infer triggers for a quantified assertion, choose, or witness term; cards 018/057 also cover a separately diagnosed missing antecedent\n"},
+        {"old": "- Not for: Failure is a missing antecedent rather than trigger selection\n", "new": "- Boundary: A missing-antecedent-only case is not card-034's trigger-only case; it remains within cards 018/057's stated coverage\n- Not for: A genuinely missing logical premise, rather than trigger selection or antecedent availability\n"}
+      ],
+      "cue_overrides": {
+        "original-card-018": {"title": "Trigger/antecedent coverage with witness or entailment terms", "when": "Assertion/witness choice has a trigger-inference error or a quantified proof lacks its antecedent; witness/entailment terms are this rule's focus", "avoid": "Neither diagnostic present or a real premise missing; the source's Action/Validate wording tension remains"},
+        "original-card-034": {"title": "Trigger-only coverage for assertion or choose", "when": "Verus cannot infer triggers for a quantified assertion or witness choice", "avoid": "Only a successful-proof trigger note remains; a missing-antecedent-only case is outside this rule's trigger"},
+        "original-card-057": {"title": "Trigger/antecedent coverage with state or suffix terms", "when": "A universal assertion has a trigger-inference error or lacks its implication antecedent; quantified state/suffix terms are this rule's focus", "avoid": "A new logical premise is needed; warning cleanup after success is not evidence of required proof repair"}
+      }
+    },
+    "universal-instantiation-concrete": {
+      "relation": "distinct",
+      "note": "037 specializes an available sequence fact at an in-bounds index; 058 an available entailment at one execution; 076 stability facts at a recursive helper with alias-sensitive matching. This is fact instantiation, not a general trigger-inference repair.",
+      "cue_overrides": {}
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "selected_episodes": 40,
+  "expected_episodes": 40,
+  "all_cells_recorded": true,
+  "new_run_failures": [],
+  "arms": {
+    "old": {
+      "episodes": 20,
+      "budgeted_dual_passes": 13,
+      "V2_budgeted_dual_passes": 13,
+      "outcomes": {
+        "budgeted_dual_pass": 13,
+        "timeout": 7
+      },
+      "incomplete_provider_evidence": 0,
+      "editing_protocol_violations": 0,
+      "known_usage_totals_not_imputed": {
+        "prompt_tokens": 17844587,
+        "completion_tokens": 523776,
+        "estimated_cost_usd": 1.8964512159999998,
+        "uniform_off_peak_estimated_usd": 1.7273092760000002
+      },
+      "episodes_with_helper_reads": 5
+    },
+    "revised": {
+      "episodes": 20,
+      "budgeted_dual_passes": 14,
+      "V2_budgeted_dual_passes": 13,
+      "outcomes": {
+        "budgeted_dual_pass": 14,
+        "timeout": 6
+      },
+      "incomplete_provider_evidence": 1,
+      "editing_protocol_violations": 1,
+      "known_usage_totals_not_imputed": {
+        "prompt_tokens": 18987848,
+        "completion_tokens": 514759,
+        "estimated_cost_usd": 1.881139348,
+        "uniform_off_peak_estimated_usd": 1.739566532
+      },
+      "episodes_with_helper_reads": 9
+    }
+  },
+  "budget": {
+    "schema_version": "1",
+    "approval_limit_usd": 30.0,
+    "prior_spend_usd": 7.8174563280000005,
+    "optimizer_reserve_usd": 0.0,
+    "target_spend_usd": 1.6824199920000003,
+    "uncertain_spend_usd": 0.0,
+    "settled_requests": 419,
+    "uncertain_requests": 0,
+    "usage": {
+      "prompt_cache_hit_tokens": 17081856,
+      "prompt_cache_miss_tokens": 429215,
+      "completion_tokens": 516837
+    },
+    "reservations": {}
+  },
+  "excluded_earlier_attempts": [
+    {
+      "episode": "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--9b9f6ccef89db4103c7f",
+      "reason": "Pre-authorized replacement of early shared-bridge abort; costs retained"
+    }
+  ],
+  "source_summaries": {
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/summary.json": "ff080e2a61110485011016056bcd295b631c4b9655238db68b5c09557c0f94fe",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/summary.json": "ef5f087d8d0a5c28dd3fddadc163f8f698db4e459c3515cdfabd5f3f8eb02b81"
+  },
+  "caveat": "Do not compare raw costs across unequal price bands or treat incomplete usage as zero. Old timeout with late error and editing-protocol violation are retained, not outcome-selected retries. Final paired analysis still required."
+}

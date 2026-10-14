@@ -1,0 +1,873 @@
+{
+  "schema_version": "router-normalization-v1",
+  "source_sha256": "92d28e68f376516df5a697cf9732f75bf5b175360429149ad5ce70a90b90baa7",
+  "normalized_sha256": "5364c087b73beab1f639d8a8623978c434914793fc069ef539b0df04a612304e",
+  "changes": [
+    {
+      "path": "card_features",
+      "operation": "keyed_object_to_array",
+      "keys": [
+        "card-001",
+        "card-002",
+        "card-003",
+        "card-004",
+        "card-005",
+        "card-006",
+        "card-007",
+        "card-008",
+        "card-009",
+        "card-010",
+        "card-011",
+        "card-012",
+        "card-013",
+        "card-014",
+        "card-015",
+        "card-016",
+        "card-017",
+        "card-018",
+        "card-019",
+        "card-020",
+        "card-021",
+        "card-022",
+        "card-023",
+        "card-024",
+        "card-025",
+        "card-026",
+        "card-027",
+        "card-028",
+        "card-029",
+        "card-030",
+        "card-031",
+        "card-032",
+        "card-033",
+        "card-034",
+        "card-035",
+        "card-036",
+        "card-037",
+        "card-038",
+        "card-039",
+        "card-040",
+        "card-041",
+        "card-042",
+        "card-043",
+        "card-044",
+        "card-045",
+        "card-046",
+        "card-047",
+        "card-048",
+        "card-049",
+        "card-050",
+        "card-051",
+        "card-052",
+        "card-053",
+        "card-054",
+        "card-055",
+        "card-056",
+        "card-057",
+        "card-058",
+        "card-059",
+        "card-060",
+        "card-061",
+        "card-062",
+        "card-063",
+        "card-064",
+        "card-065",
+        "card-066",
+        "card-067",
+        "card-068",
+        "card-069",
+        "card-070",
+        "card-071",
+        "card-072",
+        "card-073",
+        "card-074",
+        "card-075",
+        "card-076",
+        "card-077",
+        "card-078"
+      ]
+    },
+    {
+      "path": "assignments",
+      "operation": "keyed_object_to_array",
+      "keys": [
+        "card-001",
+        "card-002",
+        "card-003",
+        "card-004",
+        "card-005",
+        "card-006",
+        "card-007",
+        "card-008",
+        "card-009",
+        "card-010",
+        "card-011",
+        "card-012",
+        "card-013",
+        "card-014",
+        "card-015",
+        "card-016",
+        "card-017",
+        "card-018",
+        "card-019",
+        "card-020",
+        "card-021",
+        "card-022",
+        "card-023",
+        "card-024",
+        "card-025",
+        "card-026",
+        "card-027",
+        "card-028",
+        "card-029",
+        "card-030",
+        "card-031",
+        "card-032",
+        "card-033",
+        "card-034",
+        "card-035",
+        "card-036",
+        "card-037",
+        "card-038",
+        "card-039",
+        "card-040",
+        "card-041",
+        "card-042",
+        "card-043",
+        "card-044",
+        "card-045",
+        "card-046",
+        "card-047",
+        "card-048",
+        "card-049",
+        "card-050",
+        "card-051",
+        "card-052",
+        "card-053",
+        "card-054",
+        "card-055",
+        "card-056",
+        "card-057",
+        "card-058",
+        "card-059",
+        "card-060",
+        "card-061",
+        "card-062",
+        "card-063",
+        "card-064",
+        "card-065",
+        "card-066",
+        "card-067",
+        "card-068",
+        "card-069",
+        "card-070",
+        "card-071",
+        "card-072",
+        "card-073",
+        "card-074",
+        "card-075",
+        "card-076",
+        "card-077",
+        "card-078"
+      ]
+    },
+    {
+      "card_id": "card-001",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-002",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-003",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-003",
+      "case_id": "c2",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-004",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-005",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-006",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-007",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-008",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-009",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-010",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-011",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-012",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-013",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-014",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-015",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-015",
+      "case_id": "c2",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-016",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-017",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-018",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-018",
+      "case_id": "c2",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-019",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-020",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-021",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-022",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-023",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-023",
+      "case_id": "c2",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-024",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-025",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-026",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-027",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-028",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-028",
+      "case_id": "c2",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-029",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-030",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-031",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-032",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-033",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-034",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-035",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-036",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-037",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-038",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-039",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-040",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-041",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-042",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-043",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-043",
+      "case_id": "c2",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-044",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-045",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-046",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-047",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-048",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-049",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-050",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-051",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-052",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-053",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-054",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-055",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-056",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-057",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-057",
+      "case_id": "c2",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-058",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-059",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-060",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-060",
+      "case_id": "c2",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-061",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-062",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-063",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-064",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-065",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-066",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-067",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-068",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-069",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-070",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-071",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-072",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-073",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-074",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-075",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-076",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-077",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    },
+    {
+      "card_id": "card-078",
+      "case_id": "c1",
+      "anchor": 0,
+      "operation": "field_case",
+      "before": "action",
+      "after": "Action"
+    }
+  ],
+  "validation": {
+    "cards": 78,
+    "cases": 86,
+    "families": 37,
+    "status": "candidate",
+    "review_items": 0
+  },
+  "semantic_edits": false,
+  "model_calls": 0,
+  "evaluation_authorized": false
+}

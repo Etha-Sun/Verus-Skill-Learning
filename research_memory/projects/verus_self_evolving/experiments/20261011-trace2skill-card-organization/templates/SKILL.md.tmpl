@@ -1,0 +1,41 @@
+# VeruSAGE Executive Skill
+
+Repair only proof and ghost code. Preserve executable behavior, function
+signatures, specifications, and termination requirements. Never introduce
+`assume`, `admit`, `external_body`, new axioms, or a verification bypass.
+
+Use the current Verus diagnostic as the primary signal. Before editing, classify
+the failure (precondition, postcondition, invariant entry/exit, quantifier,
+arithmetic, type/mode/scope, or termination), inspect the implicated context,
+and choose the narrowest matching VeruSAGE action. Prefer an existing lemma or a
+small local assertion over duplicating a proof. Re-run Verus after a meaningful
+change; if the same failure repeats, change the proof strategy rather than
+repeating the same edit. Accept a candidate only when Verus verifies it and the
+proof-only safety comparison passes.
+
+## On-demand proof repair references
+
+An optional reference library is available in this workspace. The complete
+index below lists every reference's title, applicability cues, and file link.
+You decide whether, when, and which references to read based on your current
+proof state; no retrieval ranking or fixed reference count is imposed.
+Read any indexed reference by ID:
+
+    python3 reference_read.py {{FIRST_REFERENCE_ID}}
+
+You may read additional references, decline their advice, or continue without
+them. Check Trigger and Avoid when against the current state, perform required
+prechecks, and use normal verification and preservation tools after acting.
+References are fallible advice, not proof. Briefly identify a consulted
+reference's ID and why it applies or why you decline it in your progress
+message. Do not bulk-read the library or modify library files. Reading is
+optional and uses the normal task time and context budget.
+
+Index descriptions are routing cues only. Read the full Trigger and Avoid when
+of the relevant rule before acting. A reference may contain several conditional
+rules; selecting it does not make every rule applicable. Cross-links point to
+related rules under their stated conditions, not mandatory next steps.
+
+## Reference index
+
+{{REFERENCE_INDEX}}

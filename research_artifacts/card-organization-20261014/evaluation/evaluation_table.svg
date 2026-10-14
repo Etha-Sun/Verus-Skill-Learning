@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="850" viewBox="0 0 2400 850">
+<rect width="2400" height="850" fill="#f6f8fb"/>
+<text x="60" y="87" font-family="AR PL SungtiL GB,serif" font-size="52" fill="#1e293b">四组评测结果总表</text>
+<text x="60" y="137" font-family="AR PL SungtiL GB,serif" font-size="29" fill="#1e293b">同一 validation20；每臂20次；R1比较组织形式，R2比较整篇读取与按需读取＋导航修订</text>
+<rect x="55" y="182" width="2290" height="83" fill="#20334b"/>
+<text x="80" y="236" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#ffffff">实验组</text>
+<text x="490" y="236" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#ffffff">成功 /20</text>
+<text x="720" y="236" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#ffffff">V2 /20</text>
+<text x="960" y="236" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#ffffff">输入 M</text>
+<text x="1190" y="236" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#ffffff">输出 K</text>
+<text x="1440" y="236" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#ffffff">时间 min</text>
+<text x="1710" y="236" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#ffffff">估算 USD</text>
+<text x="2000" y="236" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#ffffff">正文读取 /20</text>
+<rect x="55" y="265" width="2290" height="102" fill="#ffffff"/>
+<text x="80" y="329" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">R1-A 扁平78卡</text>
+<text x="490" y="329" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">13 (65%)</text>
+<text x="720" y="329" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">13</text>
+<text x="960" y="329" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">17.845</text>
+<text x="1190" y="329" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">523.776</text>
+<text x="1440" y="329" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">109.73</text>
+<text x="1710" y="329" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">1.8965</text>
+<text x="2000" y="329" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">5</text>
+<rect x="55" y="368" width="2290" height="102" fill="#edf3f9"/>
+<text x="80" y="432" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">R1-B 整篇读取</text>
+<text x="490" y="432" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">14 (70%)</text>
+<text x="720" y="432" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">13</text>
+<text x="960" y="432" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">18.988*</text>
+<text x="1190" y="432" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">514.759*</text>
+<text x="1440" y="432" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">111.85</text>
+<text x="1710" y="432" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">1.8811*</text>
+<text x="2000" y="432" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">9</text>
+<rect x="55" y="471" width="2290" height="102" fill="#ffffff"/>
+<text x="80" y="535" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">R2-B 整篇读取</text>
+<text x="490" y="535" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">14 (70%)</text>
+<text x="720" y="535" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">14</text>
+<text x="960" y="535" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">21.126</text>
+<text x="1190" y="535" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">442.632</text>
+<text x="1440" y="535" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">106.49</text>
+<text x="1710" y="535" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">2.3895</text>
+<text x="2000" y="535" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">11</text>
+<rect x="55" y="574" width="2290" height="102" fill="#edf3f9"/>
+<text x="80" y="638" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">R2-C 按需读取</text>
+<text x="490" y="638" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">14 (70%)</text>
+<text x="720" y="638" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">14</text>
+<text x="960" y="638" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">22.635</text>
+<text x="1190" y="638" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">455.460</text>
+<text x="1440" y="638" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">108.44</text>
+<text x="1710" y="638" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">2.4507</text>
+<text x="2000" y="638" font-family="AR PL SungtiL GB,serif" font-size="31" fill="#1e293b">5</text>
+<text x="65" y="742" font-family="AR PL SungtiL GB,serif" font-size="27" fill="#1e293b">输入/输出为全部计分任务累计量；actor 时间不是并行墙钟时间。估算 USD 采用账本时段费率。</text>
+<text x="65" y="782" font-family="AR PL SungtiL GB,serif" font-size="27" fill="#1e293b">* 含一条用量不完整记录，仅列已知量；资源改善请看同轮完整配对表。详细方法与费用范围见报告。</text>
+</svg>

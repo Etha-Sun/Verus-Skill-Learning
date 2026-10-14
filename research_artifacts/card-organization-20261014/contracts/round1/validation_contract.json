@@ -1,0 +1,1243 @@
+{
+  "schema_version": "card-organization-remaining-cells-v1",
+  "items": [
+    {
+      "id": "aded79905be896942897",
+      "task_id": "AL__tla_forall_not_equality",
+      "directory_group": "verified-anvil",
+      "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AL__tla_forall_not_equality.rs",
+      "source_sha256": "2044ca1f205c49f95ea4710872906da765a44a5abb3c2a67e4aea6961aa3053f"
+    },
+    {
+      "id": "a23a4969155913255f76",
+      "task_id": "AC__vreplicaset_controller__proof__helper_lemmas__vrs_rely_condition_equivalent_to_lifted_vrs_rely_condition",
+      "directory_group": "verified-anvil",
+      "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AC__vreplicaset_controller__proof__helper_lemmas__vrs_rely_condition_equivalent_to_lifted_vrs_rely_condition.rs",
+      "source_sha256": "df3facae7b68ee7c84224c2ce77590da096f312840cb24e74b27692bee1099ee"
+    },
+    {
+      "id": "3f17ea7c76a0ce99c098",
+      "task_id": "AC__vreplicaset_controller__proof__liveness__api_actions__lemma_api_request_other_than_pending_req_msg_maintains_matching_pods",
+      "directory_group": "verified-anvil",
+      "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AC__vreplicaset_controller__proof__liveness__api_actions__lemma_api_request_other_than_pending_req_msg_maintains_matching_pods.rs",
+      "source_sha256": "53b6fbe427d1289f54a9ef8b082f5a2ee61b5dcd76c08dbb62f05c03b391b58d"
+    },
+    {
+      "id": "9eeacceef983c2281854",
+      "task_id": "AC__vreplicaset_controller__proof__helper_lemmas__matching_pods_equal_to_matching_pod_entries_values",
+      "directory_group": "verified-anvil",
+      "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AC__vreplicaset_controller__proof__helper_lemmas__matching_pods_equal_to_matching_pod_entries_values.rs",
+      "source_sha256": "cc5b4c1b328e1cb0a643a05969d826f4ab7bd2042d914ac2ec3e5cf03fca87ef"
+    },
+    {
+      "id": "3ce00a38706256ab00ea",
+      "task_id": "AL__spec_entails_always_tla_forall",
+      "directory_group": "verified-anvil",
+      "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AL__spec_entails_always_tla_forall.rs",
+      "source_sha256": "a44f26a6f7ab1ca4a38b496fa06676b1734413dd7faed1ba3c89124fe2552218"
+    },
+    {
+      "id": "62ff0a3cf2c458b36ac8",
+      "task_id": "AL__true_pred_on_seq_implies_true_pred_on_filtered_seq",
+      "directory_group": "verified-anvil",
+      "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AL__true_pred_on_seq_implies_true_pred_on_filtered_seq.rs",
+      "source_sha256": "7bff1c5c19cd3ebe08f2d3281669353249982a0c940078c0bd2109f60a6964c2"
+    },
+    {
+      "id": "38ad565ba74f6662c186",
+      "task_id": "AL__leads_to_rank_step_one_help",
+      "directory_group": "verified-anvil",
+      "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AL__leads_to_rank_step_one_help.rs",
+      "source_sha256": "e7e596c6b475c1a8e9818d638d376fb024e789638c411e2c839855fa03b377a6"
+    },
+    {
+      "id": "aa78e84a931f703c7e9c",
+      "task_id": "IR__marshal_v__impl0__deserialize",
+      "directory_group": "verified-ironkv",
+      "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-ironkv/unverified/IR__marshal_v__impl0__deserialize.rs",
+      "source_sha256": "62a4f7f82874c3c5a9b2e253cfc8e3bf8262b51869b79c976ba1a9a2e4365d75"
+    },
+    {
+      "id": "b97aaebc64493c607210",
+      "task_id": "AL__pack_conditions_to_spec",
+      "directory_group": "verified-anvil",
+      "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AL__pack_conditions_to_spec.rs",
+      "source_sha256": "d79b1d81c1566689d8b74eb8802dab80b87f664e6486ea3a8df45a0680e3a048"
+    },
+    {
+      "id": "9a3d1aae6d0ea05a5ee1",
+      "task_id": "AC__vreplicaset_controller__proof__liveness__spec__next_with_wf_is_stable",
+      "directory_group": "verified-anvil",
+      "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AC__vreplicaset_controller__proof__liveness__spec__next_with_wf_is_stable.rs",
+      "source_sha256": "17af50add1c3eb0aea62ed65316b7a1bb06b0fb3dbb7d2e264c7a803a0322a90"
+    },
+    {
+      "id": "0e8d3ca5b02dc01ee01f",
+      "task_id": "AC__vreplicaset_controller__proof__liveness__resource_match__lemma_from_after_send_delete_pod_req_to_receive_ok_resp",
+      "directory_group": "verified-anvil",
+      "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AC__vreplicaset_controller__proof__liveness__resource_match__lemma_from_after_send_delete_pod_req_to_receive_ok_resp.rs",
+      "source_sha256": "4c81887af511426b2a84b13c70080cd4319e18705cd13d1669cc3cdea831cccf"
+    },
+    {
+      "id": "4dc90b360e4b603c1826",
+      "task_id": "IR__verus_extra__map_set_finite_auto",
+      "directory_group": "verified-ironkv",
+      "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-ironkv/unverified/IR__verus_extra__map_set_finite_auto.rs",
+      "source_sha256": "9f9066e469865c7741d12970beb1ec1c0ab04dca43f72eb78b4bc450d7956353"
+    },
+    {
+      "id": "9b9f6ccef89db4103c7f",
+      "task_id": "AL__unpack_conditions_from_spec",
+      "directory_group": "verified-anvil",
+      "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AL__unpack_conditions_from_spec.rs",
+      "source_sha256": "8740278e3269964da2ec60994a11e27e1ed7d08b74c007c613a00dd3b61e9bea"
+    },
+    {
+      "id": "6a7283f1b8a3f1d862db",
+      "task_id": "IR__delegation_map_v__impl4__new",
+      "directory_group": "verified-ironkv",
+      "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-ironkv/unverified/IR__delegation_map_v__impl4__new.rs",
+      "source_sha256": "2daaadf8b5ffda13a0cf6221593dc7493dc870dec6b48e372f2088fad4cfe7c2"
+    },
+    {
+      "id": "08d1a2c2d3839f127970",
+      "task_id": "IR__delegation_map_v__impl4__set",
+      "directory_group": "verified-ironkv",
+      "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-ironkv/unverified/IR__delegation_map_v__impl4__set.rs",
+      "source_sha256": "bbd8765991689bfcf3d774df3109b13c94b6104c93b564d5b204d7d32a4457c4"
+    },
+    {
+      "id": "cac8c7541d651d3480ff",
+      "task_id": "IR__single_delivery_state_v__impl0__lemma_seqno_in_un_acked_list",
+      "directory_group": "verified-ironkv",
+      "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-ironkv/unverified/IR__single_delivery_state_v__impl0__lemma_seqno_in_un_acked_list.rs",
+      "source_sha256": "fb4b1d9c87a31a432491588c2fe850b07b7ef3ac455f3ce931b336a7a7cdd183"
+    },
+    {
+      "id": "599792dd13f472f45fa4",
+      "task_id": "AL__always_distributed_by_and",
+      "directory_group": "verified-anvil",
+      "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AL__always_distributed_by_and.rs",
+      "source_sha256": "c8f9cee5f8dd54bcc5cb43e1baa6ce378c9cb1e4ac5bcd3c90d7338e32957748"
+    },
+    {
+      "id": "31ee3310a4aaede08658",
+      "task_id": "IR__single_delivery_state_v__impl1__insert",
+      "directory_group": "verified-ironkv",
+      "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-ironkv/unverified/IR__single_delivery_state_v__impl1__insert.rs",
+      "source_sha256": "14f93e9deef2fe6af380732e5c85aabee8c98cbf7bca5f87da6eb83ece7678cd"
+    },
+    {
+      "id": "b9e5384e929589f7b0cd",
+      "task_id": "AC__vreplicaset_controller__proof__liveness__api_actions__lemma_create_matching_pod_request_adds_matching_pod_and_returns_ok",
+      "directory_group": "verified-anvil",
+      "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AC__vreplicaset_controller__proof__liveness__api_actions__lemma_create_matching_pod_request_adds_matching_pod_and_returns_ok.rs",
+      "source_sha256": "ffee30e9eacdaeb2abf14c5daed598ea40a01555c675ad569729cdcee90e1a31"
+    },
+    {
+      "id": "33108254990fcf07c1e2",
+      "task_id": "IR__delegation_map_v__impl3__keys_in_index_range_agree",
+      "directory_group": "verified-ironkv",
+      "source_path": "fixed-claude-stratified-80-seed20260814/sources/verified-ironkv/unverified/IR__delegation_map_v__impl3__keys_in_index_range_agree.rs",
+      "source_sha256": "de4390f80a79f8c6d985b31cb13968bd48b313506cc03f9af36f776b015ef4e8"
+    }
+  ],
+  "schedule": [
+    {
+      "id": "9b9f6ccef89db4103c7f",
+      "condition": "old"
+    },
+    {
+      "id": "9b9f6ccef89db4103c7f",
+      "condition": "revised"
+    },
+    {
+      "id": "6a7283f1b8a3f1d862db",
+      "condition": "revised"
+    },
+    {
+      "id": "6a7283f1b8a3f1d862db",
+      "condition": "old"
+    },
+    {
+      "id": "08d1a2c2d3839f127970",
+      "condition": "old"
+    },
+    {
+      "id": "08d1a2c2d3839f127970",
+      "condition": "revised"
+    },
+    {
+      "id": "cac8c7541d651d3480ff",
+      "condition": "revised"
+    },
+    {
+      "id": "cac8c7541d651d3480ff",
+      "condition": "old"
+    },
+    {
+      "id": "599792dd13f472f45fa4",
+      "condition": "old"
+    },
+    {
+      "id": "599792dd13f472f45fa4",
+      "condition": "revised"
+    },
+    {
+      "id": "31ee3310a4aaede08658",
+      "condition": "revised"
+    },
+    {
+      "id": "31ee3310a4aaede08658",
+      "condition": "old"
+    },
+    {
+      "id": "b9e5384e929589f7b0cd",
+      "condition": "old"
+    },
+    {
+      "id": "b9e5384e929589f7b0cd",
+      "condition": "revised"
+    },
+    {
+      "id": "33108254990fcf07c1e2",
+      "condition": "revised"
+    },
+    {
+      "id": "33108254990fcf07c1e2",
+      "condition": "old"
+    }
+  ],
+  "model": "deepseek-v4-pro",
+  "reasoning_effort": "max",
+  "timeout_seconds": 600,
+  "workers": 2,
+  "artifacts": {
+    "old": {
+      "source_kind": "directory",
+      "entrypoint": "SKILL.md",
+      "entrypoint_sha256": "10acd2d687754e70a470fc1d041a7e1308c82c4f34ac108de85d874ab50d07c1",
+      "artifact_sha256": "4f571411bdd9667db0b356b973592b9b161add4326d5f4b6f17a940c05404635",
+      "hash_kind": "skill-tree-v1",
+      "file_count": 3,
+      "total_bytes": 123179,
+      "files": [
+        {
+          "relative_path": "SKILL.md",
+          "size_bytes": 11545,
+          "sha256": "10acd2d687754e70a470fc1d041a7e1308c82c4f34ac108de85d874ab50d07c1",
+          "executable": false
+        },
+        {
+          "relative_path": "card_read.py",
+          "size_bytes": 588,
+          "sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57",
+          "executable": false
+        },
+        {
+          "relative_path": "cards.json",
+          "size_bytes": 111046,
+          "sha256": "ae38b9ace8560cb7e819eb348d152b916b0486e206b3d09c1b862e8681517f27",
+          "executable": false
+        }
+      ]
+    },
+    "revised": {
+      "source_kind": "directory",
+      "entrypoint": "SKILL.md",
+      "entrypoint_sha256": "6d4e410ecd43bca58c2fe0dcd2164c8b10455d732759c581b5b0b56fa4f7c8ca",
+      "artifact_sha256": "7055acd4f2e37f9213c54441a945bb6ea4696fd2194e7932f3b2989416cf139a",
+      "hash_kind": "skill-tree-v1",
+      "file_count": 40,
+      "total_bytes": 187041,
+      "files": [
+        {
+          "relative_path": "SKILL.md",
+          "size_bytes": 7957,
+          "sha256": "6d4e410ecd43bca58c2fe0dcd2164c8b10455d732759c581b5b0b56fa4f7c8ca",
+          "executable": false
+        },
+        {
+          "relative_path": "reference_manifest.json",
+          "size_bytes": 10123,
+          "sha256": "7f13afe8aa0509142256774e9169a6bb121afdb78feb85a2264310bcafd9ff06",
+          "executable": false
+        },
+        {
+          "relative_path": "reference_read.py",
+          "size_bytes": 941,
+          "sha256": "c9c63b8adec05ac720dc7f5642f286db5226c0a3f7c21137b4dbc68d6dcc0ae2",
+          "executable": false
+        },
+        {
+          "relative_path": "references/compound-stability-existing-rules.md",
+          "size_bytes": 9732,
+          "sha256": "0fd63399888df138509df468a1bf77f9a49ba8a34d21865e6d76660f1119980b",
+          "executable": false
+        },
+        {
+          "relative_path": "references/direct-existing-lemma-bridge.md",
+          "size_bytes": 6567,
+          "sha256": "a031c2c037d7147f46baddb53f760e2c35ef67cc541e8b0563f0553b5889b78c",
+          "executable": false
+        },
+        {
+          "relative_path": "references/eventual-witness-index-bridge.md",
+          "size_bytes": 5512,
+          "sha256": "458536b2aa2615ddc258a826f33bf0b9ea4a691e7aed355057dfd67aeed89365",
+          "executable": false
+        },
+        {
+          "relative_path": "references/existing-roundtrip-proof-mode.md",
+          "size_bytes": 3337,
+          "sha256": "0e572e8ea62ee988b09584cc5e3a6e3daa6c886925a555011037729bf3991bc3",
+          "executable": false
+        },
+        {
+          "relative_path": "references/final-liveness-helper-chain.md",
+          "size_bytes": 3106,
+          "sha256": "f1895ba02c5d6a84d52e8030509cf740ac371fa8e5fe74d078b087362fcd9464",
+          "executable": false
+        },
+        {
+          "relative_path": "references/finite-set-fold-cardinality-induction.md",
+          "size_bytes": 5511,
+          "sha256": "e8c87d6090c866d5f74ba05e5be553c7c100270dfa32533651456f6924b82d55",
+          "executable": false
+        },
+        {
+          "relative_path": "references/function-field-projection-syntax.md",
+          "size_bytes": 6954,
+          "sha256": "ed4fdc4b519d5b2730ee1f970c1e90ac7fbd6648127040f3e2bb248f5db496f2",
+          "executable": false
+        },
+        {
+          "relative_path": "references/ghost-empty-witness.md",
+          "size_bytes": 3516,
+          "sha256": "d1c5e5ea3be0debcd39dbec88d1d488cae31591ab77c82545e45201aaaf133ec",
+          "executable": false
+        },
+        {
+          "relative_path": "references/leads-to-transitivity-existing-helpers.md",
+          "size_bytes": 3419,
+          "sha256": "2d8ad363e269aaaf134c314dcd0e049a8824481cfccdb200b59810b70f32e9ea",
+          "executable": false
+        },
+        {
+          "relative_path": "references/library-broadcast-activation.md",
+          "size_bytes": 2284,
+          "sha256": "47ff8ed44f3057025be00996771d42075f6edd5065e28a70a845be15f1880741",
+          "executable": false
+        },
+        {
+          "relative_path": "references/loop-termination-and-invariants.md",
+          "size_bytes": 5471,
+          "sha256": "65ff8136e53ba4218d6bdc38f9ad2e6ff7d7a5540d1f1afbd545bda66fd86272",
+          "executable": false
+        },
+        {
+          "relative_path": "references/natural-integer-type-mismatch.md",
+          "size_bytes": 3183,
+          "sha256": "0dee13c707c1cece2f44d7921757caef2064772edae7576268c9b46ccc2ce8a2",
+          "executable": false
+        },
+        {
+          "relative_path": "references/nondeterministic-step-result.md",
+          "size_bytes": 2893,
+          "sha256": "cc9b3dc95a626f3467a8fdf3d23c348f9b8b81e8a94ebb4173e1996dd2aafd69",
+          "executable": false
+        },
+        {
+          "relative_path": "references/opaque-conversion-avoid-extraction.md",
+          "size_bytes": 2123,
+          "sha256": "83c2c94d2a99487988f5f6d821ba6690aff590e53d80b590ed4c4f73c4bcf680",
+          "executable": false
+        },
+        {
+          "relative_path": "references/opaque-spec-function-facts.md",
+          "size_bytes": 5863,
+          "sha256": "74961f11b30d34b8e1550c2de483b8e70a6fe1f7b5878008af11b697b60b585e",
+          "executable": false
+        },
+        {
+          "relative_path": "references/phase-accumulation-bridge.md",
+          "size_bytes": 3083,
+          "sha256": "5035f785b4d93f984f188628eab461e70f6880edfe5cdb775737c99bdf9fb0eb",
+          "executable": false
+        },
+        {
+          "relative_path": "references/post-verification-cleanup.md",
+          "size_bytes": 8379,
+          "sha256": "84ad4c5866b3c4a308c13c78e26cd5255a81618c9db667fb4cab80731b16dfa7",
+          "executable": false
+        },
+        {
+          "relative_path": "references/predicate-equality-mutual-entailment.md",
+          "size_bytes": 2512,
+          "sha256": "23a18de2b412856aaaa616b19518a0436a87ceefa962da02db374aa0bca13fdb",
+          "executable": false
+        },
+        {
+          "relative_path": "references/proof-helper-qualified-path.md",
+          "size_bytes": 5498,
+          "sha256": "0d0812813a8d447b47dd98750c11bd9b3b50096aa4397b33f27836cfcebeb096",
+          "executable": false
+        },
+        {
+          "relative_path": "references/quantified-proof-antecedent-binder-scope.md",
+          "size_bytes": 8800,
+          "sha256": "238f4ca16a3489997fd687b51a32030f06eae6707d15f508fd1de7049a6ca180",
+          "executable": false
+        },
+        {
+          "relative_path": "references/record-function-field-equality.md",
+          "size_bytes": 3796,
+          "sha256": "aa1c5d28d1d33f25646d207392f73024c0f2a9f31dada4864af683cce4df1f43",
+          "executable": false
+        },
+        {
+          "relative_path": "references/sequence-extensional-equality.md",
+          "size_bytes": 3094,
+          "sha256": "9e2f5261c585dc3e17d69eb9451302d417d8d6b357b0ef49f47caceeaa3f7b4c",
+          "executable": false
+        },
+        {
+          "relative_path": "references/sequence-fold-concat-equality.md",
+          "size_bytes": 4541,
+          "sha256": "40b04780a678647be8ac5e5f000d1f343c8e9e77682c99e16a6accdb7125eebc",
+          "executable": false
+        },
+        {
+          "relative_path": "references/set-equality-membership-witness.md",
+          "size_bytes": 5510,
+          "sha256": "800dc4d268405543340f5a92acf6939bbd30a682b0e09e7bafacabac59680108",
+          "executable": false
+        },
+        {
+          "relative_path": "references/specialized-fold-bound-lemmas.md",
+          "size_bytes": 2699,
+          "sha256": "4d0e1944c097f25600da4560a2917b8d7df3b9d05bd1e89411d9de6017e3dcc6",
+          "executable": false
+        },
+        {
+          "relative_path": "references/specialized-temporal-action-binder-type.md",
+          "size_bytes": 2646,
+          "sha256": "22e34fa43c627948b8ab2ee8e88102dacde24d771f31502a2e29a120791d8c56",
+          "executable": false
+        },
+        {
+          "relative_path": "references/temporal-entailment-pointwise-lifting.md",
+          "size_bytes": 2829,
+          "sha256": "cf11841e767f8ce389db572e4f0f4c8330bb2ccdce61fbfeb9208a87a2ba233c",
+          "executable": false
+        },
+        {
+          "relative_path": "references/temporal-existential-witness-lifting.md",
+          "size_bytes": 7794,
+          "sha256": "19d11eeb4cd4a7a649d86aff412addbcddd974cc51d614b0c953a5ec5ec0b9ca",
+          "executable": false
+        },
+        {
+          "relative_path": "references/temporal-induction-natural-offset.md",
+          "size_bytes": 2349,
+          "sha256": "e73d8629a38aa24565a6dbf95d84958b3cea18376bc29481905fcb23faf4c132",
+          "executable": false
+        },
+        {
+          "relative_path": "references/temporal-predicate-equality-pointwise.md",
+          "size_bytes": 5338,
+          "sha256": "f2a08163a6ac30176952c907ea412cfa0c1d81bd11a91c55cd9b4cd5335341cd",
+          "executable": false
+        },
+        {
+          "relative_path": "references/temporal-suffix-shift-helper.md",
+          "size_bytes": 3958,
+          "sha256": "c40a95e3b0634f2d52b1adb9dffc197952ff785592a6870066a44a717092db6f",
+          "executable": false
+        },
+        {
+          "relative_path": "references/transition-system-step-safety.md",
+          "size_bytes": 5034,
+          "sha256": "49f18c8293fe7191e8bdf2cfe837209f3067a7b05d95bce050b37bbf67079a96",
+          "executable": false
+        },
+        {
+          "relative_path": "references/trigger-inference-annotation.md",
+          "size_bytes": 6530,
+          "sha256": "aa8be44ed3ddadbe366129354d127da3cef67e1725f3f501eada03305ca48a8c",
+          "executable": false
+        },
+        {
+          "relative_path": "references/universal-equivalence-pointwise.md",
+          "size_bytes": 3204,
+          "sha256": "0380e2ccf29aeb39d27d984c11e4dd18b0644b0f63a7645a26a88f6ecd46c76e",
+          "executable": false
+        },
+        {
+          "relative_path": "references/universal-instantiation-concrete.md",
+          "size_bytes": 5559,
+          "sha256": "de6575ec8c32faa780cd755146f0ac36fefb0716ada02f2f0b21d0a52692b0c2",
+          "executable": false
+        },
+        {
+          "relative_path": "references/view-equality-constructor-case.md",
+          "size_bytes": 2834,
+          "sha256": "564614066bd67c2d188999b08dc25295e99bb64738448205737df2bd74b7baa3",
+          "executable": false
+        },
+        {
+          "relative_path": "references/weak-fairness-pointwise-lemmas.md",
+          "size_bytes": 2562,
+          "sha256": "95869aa970573ca750d5d7e9f9f5babcf9590c607c5f6d27bcd7c4b15e76aacc",
+          "executable": false
+        }
+      ]
+    }
+  },
+  "bundle_paths": {
+    "old": "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/old",
+    "revised": "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised"
+  },
+  "input_hashes": {
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/config.json": "d276517a872f28ab81907f7c7e5c08026df21eb25bf9bc025c59d32c1d80db68",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/val/items.json": "7d0dc9b2cc74222638f938df2f2f4a1eafbdbfdce536c1fcc6a319d4bcb83453",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/old/SKILL.md": "10acd2d687754e70a470fc1d041a7e1308c82c4f34ac108de85d874ab50d07c1",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/old/card_read.py": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/old/cards.json": "ae38b9ace8560cb7e819eb348d152b916b0486e206b3d09c1b862e8681517f27",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/SKILL.md": "6d4e410ecd43bca58c2fe0dcd2164c8b10455d732759c581b5b0b56fa4f7c8ca",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/reference_manifest.json": "7f13afe8aa0509142256774e9169a6bb121afdb78feb85a2264310bcafd9ff06",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/reference_read.py": "c9c63b8adec05ac720dc7f5642f286db5226c0a3f7c21137b4dbc68d6dcc0ae2",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/compound-stability-existing-rules.md": "0fd63399888df138509df468a1bf77f9a49ba8a34d21865e6d76660f1119980b",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/direct-existing-lemma-bridge.md": "a031c2c037d7147f46baddb53f760e2c35ef67cc541e8b0563f0553b5889b78c",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/eventual-witness-index-bridge.md": "458536b2aa2615ddc258a826f33bf0b9ea4a691e7aed355057dfd67aeed89365",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/existing-roundtrip-proof-mode.md": "0e572e8ea62ee988b09584cc5e3a6e3daa6c886925a555011037729bf3991bc3",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/final-liveness-helper-chain.md": "f1895ba02c5d6a84d52e8030509cf740ac371fa8e5fe74d078b087362fcd9464",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/finite-set-fold-cardinality-induction.md": "e8c87d6090c866d5f74ba05e5be553c7c100270dfa32533651456f6924b82d55",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/function-field-projection-syntax.md": "ed4fdc4b519d5b2730ee1f970c1e90ac7fbd6648127040f3e2bb248f5db496f2",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/ghost-empty-witness.md": "d1c5e5ea3be0debcd39dbec88d1d488cae31591ab77c82545e45201aaaf133ec",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/leads-to-transitivity-existing-helpers.md": "2d8ad363e269aaaf134c314dcd0e049a8824481cfccdb200b59810b70f32e9ea",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/library-broadcast-activation.md": "47ff8ed44f3057025be00996771d42075f6edd5065e28a70a845be15f1880741",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/loop-termination-and-invariants.md": "65ff8136e53ba4218d6bdc38f9ad2e6ff7d7a5540d1f1afbd545bda66fd86272",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/natural-integer-type-mismatch.md": "0dee13c707c1cece2f44d7921757caef2064772edae7576268c9b46ccc2ce8a2",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/nondeterministic-step-result.md": "cc9b3dc95a626f3467a8fdf3d23c348f9b8b81e8a94ebb4173e1996dd2aafd69",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/opaque-conversion-avoid-extraction.md": "83c2c94d2a99487988f5f6d821ba6690aff590e53d80b590ed4c4f73c4bcf680",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/opaque-spec-function-facts.md": "74961f11b30d34b8e1550c2de483b8e70a6fe1f7b5878008af11b697b60b585e",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/phase-accumulation-bridge.md": "5035f785b4d93f984f188628eab461e70f6880edfe5cdb775737c99bdf9fb0eb",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/post-verification-cleanup.md": "84ad4c5866b3c4a308c13c78e26cd5255a81618c9db667fb4cab80731b16dfa7",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/predicate-equality-mutual-entailment.md": "23a18de2b412856aaaa616b19518a0436a87ceefa962da02db374aa0bca13fdb",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/proof-helper-qualified-path.md": "0d0812813a8d447b47dd98750c11bd9b3b50096aa4397b33f27836cfcebeb096",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/quantified-proof-antecedent-binder-scope.md": "238f4ca16a3489997fd687b51a32030f06eae6707d15f508fd1de7049a6ca180",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/record-function-field-equality.md": "aa1c5d28d1d33f25646d207392f73024c0f2a9f31dada4864af683cce4df1f43",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/sequence-extensional-equality.md": "9e2f5261c585dc3e17d69eb9451302d417d8d6b357b0ef49f47caceeaa3f7b4c",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/sequence-fold-concat-equality.md": "40b04780a678647be8ac5e5f000d1f343c8e9e77682c99e16a6accdb7125eebc",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/set-equality-membership-witness.md": "800dc4d268405543340f5a92acf6939bbd30a682b0e09e7bafacabac59680108",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/specialized-fold-bound-lemmas.md": "4d0e1944c097f25600da4560a2917b8d7df3b9d05bd1e89411d9de6017e3dcc6",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/specialized-temporal-action-binder-type.md": "22e34fa43c627948b8ab2ee8e88102dacde24d771f31502a2e29a120791d8c56",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/temporal-entailment-pointwise-lifting.md": "cf11841e767f8ce389db572e4f0f4c8330bb2ccdce61fbfeb9208a87a2ba233c",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/temporal-existential-witness-lifting.md": "19d11eeb4cd4a7a649d86aff412addbcddd974cc51d614b0c953a5ec5ec0b9ca",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/temporal-induction-natural-offset.md": "e73d8629a38aa24565a6dbf95d84958b3cea18376bc29481905fcb23faf4c132",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/temporal-predicate-equality-pointwise.md": "f2a08163a6ac30176952c907ea412cfa0c1d81bd11a91c55cd9b4cd5335341cd",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/temporal-suffix-shift-helper.md": "c40a95e3b0634f2d52b1adb9dffc197952ff785592a6870066a44a717092db6f",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/transition-system-step-safety.md": "49f18c8293fe7191e8bdf2cfe837209f3067a7b05d95bce050b37bbf67079a96",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/trigger-inference-annotation.md": "aa8be44ed3ddadbe366129354d127da3cef67e1725f3f501eada03305ca48a8c",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/universal-equivalence-pointwise.md": "0380e2ccf29aeb39d27d984c11e4dd18b0644b0f63a7645a26a88f6ecd46c76e",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/universal-instantiation-concrete.md": "de6575ec8c32faa780cd755146f0ac36fefb0716ada02f2f0b21d0a52692b0c2",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/view-equality-constructor-case.md": "564614066bd67c2d188999b08dc25295e99bb64738448205737df2bd74b7baa3",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/bundles/revised/references/weak-fairness-pointwise-lemmas.md": "95869aa970573ca750d5d7e9f9f5babcf9590c607c5f6d27bcd7c4b15e76aacc",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AL__tla_forall_not_equality.rs": "2044ca1f205c49f95ea4710872906da765a44a5abb3c2a67e4aea6961aa3053f",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AC__vreplicaset_controller__proof__helper_lemmas__vrs_rely_condition_equivalent_to_lifted_vrs_rely_condition.rs": "df3facae7b68ee7c84224c2ce77590da096f312840cb24e74b27692bee1099ee",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AC__vreplicaset_controller__proof__liveness__api_actions__lemma_api_request_other_than_pending_req_msg_maintains_matching_pods.rs": "53b6fbe427d1289f54a9ef8b082f5a2ee61b5dcd76c08dbb62f05c03b391b58d",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AC__vreplicaset_controller__proof__helper_lemmas__matching_pods_equal_to_matching_pod_entries_values.rs": "cc5b4c1b328e1cb0a643a05969d826f4ab7bd2042d914ac2ec3e5cf03fca87ef",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AL__spec_entails_always_tla_forall.rs": "a44f26a6f7ab1ca4a38b496fa06676b1734413dd7faed1ba3c89124fe2552218",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AL__true_pred_on_seq_implies_true_pred_on_filtered_seq.rs": "7bff1c5c19cd3ebe08f2d3281669353249982a0c940078c0bd2109f60a6964c2",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AL__leads_to_rank_step_one_help.rs": "e7e596c6b475c1a8e9818d638d376fb024e789638c411e2c839855fa03b377a6",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/sources/verified-ironkv/unverified/IR__marshal_v__impl0__deserialize.rs": "62a4f7f82874c3c5a9b2e253cfc8e3bf8262b51869b79c976ba1a9a2e4365d75",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AL__pack_conditions_to_spec.rs": "d79b1d81c1566689d8b74eb8802dab80b87f664e6486ea3a8df45a0680e3a048",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AC__vreplicaset_controller__proof__liveness__spec__next_with_wf_is_stable.rs": "17af50add1c3eb0aea62ed65316b7a1bb06b0fb3dbb7d2e264c7a803a0322a90",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AC__vreplicaset_controller__proof__liveness__resource_match__lemma_from_after_send_delete_pod_req_to_receive_ok_resp.rs": "4c81887af511426b2a84b13c70080cd4319e18705cd13d1669cc3cdea831cccf",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/sources/verified-ironkv/unverified/IR__verus_extra__map_set_finite_auto.rs": "9f9066e469865c7741d12970beb1ec1c0ab04dca43f72eb78b4bc450d7956353",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AL__unpack_conditions_from_spec.rs": "8740278e3269964da2ec60994a11e27e1ed7d08b74c007c613a00dd3b61e9bea",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/sources/verified-ironkv/unverified/IR__delegation_map_v__impl4__new.rs": "2daaadf8b5ffda13a0cf6221593dc7493dc870dec6b48e372f2088fad4cfe7c2",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/sources/verified-ironkv/unverified/IR__delegation_map_v__impl4__set.rs": "bbd8765991689bfcf3d774df3109b13c94b6104c93b564d5b204d7d32a4457c4",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/sources/verified-ironkv/unverified/IR__single_delivery_state_v__impl0__lemma_seqno_in_un_acked_list.rs": "fb4b1d9c87a31a432491588c2fe850b07b7ef3ac455f3ce931b336a7a7cdd183",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AL__always_distributed_by_and.rs": "c8f9cee5f8dd54bcc5cb43e1baa6ce378c9cb1e4ac5bcd3c90d7338e32957748",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/sources/verified-ironkv/unverified/IR__single_delivery_state_v__impl1__insert.rs": "14f93e9deef2fe6af380732e5c85aabee8c98cbf7bca5f87da6eb83ece7678cd",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/sources/verified-anvil/unverified/AC__vreplicaset_controller__proof__liveness__api_actions__lemma_create_matching_pod_request_adds_matching_pod_and_returns_ok.rs": "ffee30e9eacdaeb2abf14c5daed598ea40a01555c675ad569729cdcee90e1a31",
+    "${REPO_ROOT}/fixed-claude-stratified-80-seed20260814/sources/verified-ironkv/unverified/IR__delegation_map_v__impl3__keys_in_index_range_agree.rs": "de4390f80a79f8c6d985b31cb13968bd48b313506cc03f9af36f776b015ef4e8",
+    "${REPO_ROOT}/scripts/validate_card_revision.py": "117e6bfe663ace41e2a137d32049b74746aa579e3021108f50289eb65dab1189",
+    "${REPO_ROOT}/scripts/export_codex_transcript.py": "3198885e159cbe48817be78c89a88a0042595acf04f1f84a6037280816a318a7",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py": "baa66cb05dddb337a24b9ed28125958cb9ada569ffa229c444923098221b3771",
+    "${REPO_ROOT}/skill-evolution-pilot/src/skill_evolution_pilot/codex_runner.py": "d41bef499bf3756dcf8412f4b33ebd0b7645aa619e1a592373a98964aaeb0b76",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/codex_flash_runner.py": "89ac50fd94db99acb545527ee90a86939bddab50de7a033aa4b8939a01b49403",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/provider_capture.py": "b647d13f3f68efe49e96524dd65e5c8fd0455507f3415be2a3fa881d8daf9389",
+    "${REPO_ROOT}/skillopt-verusage/review/augmented78_revision.json": "8536416bc8f40ca20adbd334d68e3e0090f177b798660b099f296f92317b276a",
+    "${HOME}/.local/bin/codex": "cb0a15567e9a60a5820d54b0f6ae86d504dc3805c1eab21a47f70e3eb7b73a40",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/verus-env": "2d3dce407d9b84455c166ea06e49e06e8c02bc35c5ffd261c373389fcceb3d67",
+    "${HISTORICAL_WORKSPACE_ROOT}/RL-verus-1129/autoverus/utils/lynette/source/target/release/lynette": "bcdd8e1b1fc407bfd415814f2791af91f1ac30c2af9ee0085ae97b4fd38deb11",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/runtime/models.json": "b459a6e438d6a9939d01fd0dbb4693f165ed732bc8e4fd58d7145d9d94bd49a4",
+    "${REPO_ROOT}/scripts/evaluate_card_organization.py": "77422f9b8dd837e415ffa767133f8004908af25ff067735e9a5a2b9ad9998ff8",
+    "${REPO_ROOT}/scripts/build_card_organization.py": "6785c0f618bbc0c37ea9153d64f530bcf6bf4cc5584b429ffed3756071eb07f1",
+    "${REPO_ROOT}/scripts/summarize_success_timeout_tokens.py": "649c8bfeb9c9e62ff6d23982291447057c1ba9153d41ed08ad0036e078dae64c",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/TASK.md": "5f32a1cc4ef90b5898ebef41eb20f22d3abaa732055fc20d4e097834afbd7e5d",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/preflight.json": "3fc822140e9cc75f86377059c82597625d1801885bcdf04898351fa314fb5116",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-20261012-compact-v1/candidate_manifest.json": "33014ada4897ade3fb6e871f143685116df219ac5e4bb7f3a5112b27bc24a7b3",
+    "${REPO_ROOT}/skill-evolution-pilot/src/skill_evolution_pilot/token_compare.py": "60b3b5e7494cfa1ff72f1b535e2664b88d6812ff7f59ab2aad35ae536d685b74",
+    "${REPO_ROOT}/skill-evolution-pilot/src/skill_evolution_pilot/workspace.py": "7909003ba6f2610c3a1ba0e7e5b434bb637eae12ee9d7c49c176c3d5fb249428",
+    "${REPO_ROOT}/skill-evolution-pilot/src/skill_evolution_pilot/__init__.py": "b2f0aa37291406852c0c0ed0a08a5ff11aed1645d79b2e7ff9aa336c0dff1ed3",
+    "${REPO_ROOT}/skill-evolution-pilot/src/skill_evolution_pilot/codex_adapter.py": "537706c668b5bdaedc5a46504f710e3cf127288a52d3038a087a4c40988492ab",
+    "${REPO_ROOT}/skill-evolution-pilot/src/skill_evolution_pilot/batch_runner.py": "a310258f7cb6aac3f66127c1d7a72d3839673af1ed87c1a5d3fe7299cb7f66d3",
+    "${REPO_ROOT}/skill-evolution-pilot/src/skill_evolution_pilot/ig_scorer.py": "0300e3544a6a96e6692cf4ad40fbaa1eebaf2a2c09b2588449b5c57e18b20174",
+    "${REPO_ROOT}/skill-evolution-pilot/src/skill_evolution_pilot/qwen_runner.py": "5cf1b5a1f5fa70e5d90d707c409f42224d3f8f79e9fac17cbd3aad30a33fb195",
+    "${REPO_ROOT}/skill-evolution-pilot/src/skill_evolution_pilot/verusage_transcript.py": "869905f2f18a832e32d115868af48e77f3b394b82295af585bf9df498269ab22",
+    "${REPO_ROOT}/skill-evolution-pilot/src/skill_evolution_pilot/events.py": "80b6f0ce5c7b69bb2404da1ebcbe63e9fda5c50c6bdecc757532eccd676a421e",
+    "${REPO_ROOT}/skill-evolution-pilot/src/skill_evolution_pilot/qwen_batch.py": "4b3395d9ba3821cd80445a5ae7fcd82fa9f040bb1c283d32885f21d186ec1263",
+    "${REPO_ROOT}/skill-evolution-pilot/src/skill_evolution_pilot/token_matrix.py": "04048ea4d040bfd59be1f4126a1120f95e7c79db9e67f11c5deb7ee8d2b3348b",
+    "${REPO_ROOT}/skill-evolution-pilot/src/skill_evolution_pilot/meta_agent.py": "af5fefe126d9a5082cb33b59174f77df85559de53d1a5f82890b214646cc6e73",
+    "${REPO_ROOT}/skill-evolution-pilot/src/skill_evolution_pilot/openrouter_adapter.py": "fd3a1a36c0907f16df20278cc5481cf5ac0cefd964f57a54b896e916cea1f141",
+    "${REPO_ROOT}/skill-evolution-pilot/src/skill_evolution_pilot/token_ledger.py": "32fc8f3724838d36ed6f4dab2bf9a7c30dad6460fe8b05c999d788207269bb9f",
+    "${REPO_ROOT}/skill-evolution-pilot/src/skill_evolution_pilot/redaction.py": "73e7ccf4b434415862b2e9ebe7653658acf9865bc311f1aebc058d18261d6f81",
+    "${REPO_ROOT}/skill-evolution-pilot/src/skill_evolution_pilot/actor_isolation.py": "f798b107b2d3c8ff4f56dc4135c329be1af6b1e66fd706ef5553a7f62f1dc9de",
+    "${REPO_ROOT}/skill-evolution-pilot/src/skill_evolution_pilot/cli.py": "a914e7481023a548f76cdbde7ba1aac430c138d6eaaf66e9933fec8f91e4642e",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/campaign_native.py": "78017f7f66ed6c98712026ad348dd8d1e5ddfb9ba323fa40a8d3fdf730da1050",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/__init__.py": "2287f3032c9caa0e8a097e6ac4142f8dbeb77ed2beacac3c1470024afdb97639",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/card_bank.py": "70379579efe50cc0cea4a00cc2a37888f0ad74fb49272b07864e3907dcaa7443",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/card_search.py": "c980f51d80f027d8b19ee1d3870b57357457f3bd9c76af23432c9113051880ce",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/guarded_deepseek.py": "4f0223ac3e82c85e099fd301ded1717220f14afd363e0068ada41c83251540a1",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/outcome.py": "19d931af78599784eb1653f91328816ef2c477037a18a9e80ab9e2c237b5aaeb",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/evaluate_resume.py": "b2b6a3010eef375912eaa377afd2a11a9c26dd48d3fff20c66c7f5294d2ebb3f",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/checkpoint_prepare.py": "42d95d3267f077f498eb3e5920676f49ef65ecaf43bfd1f1f34d3a253a781d78",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/card_review.py": "641ebf28f42104d8173710d78e2a1d2df7f4e7e2b3f76feeeb06e0e4d2d9b35d",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/skill_validation.py": "5a856726998d892b4739dc2ec74903111e74163a003877f6b383afc8b546d203",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/pro_reanalysis.py": "44a126d734ef4dd339b8050b6268931bd8b0ee925b9b5d9a669adbdff19da209",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/adapter.py": "e08571e487e7ed8738c5e6bcc20bddb55843d5d5aa8d3a1501226d4480540c2c",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/card_query.py": "785b79244c3785418dd737ffb6ee4be87abf5d54d8ed47506c19d285d0767c49",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/skill_proxy.py": "0566b7eb280ccb372a3a9d987ef85dec24263801877623964b4aea5e01ff33ec",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/trace2skill.py": "d34a5880992be0824e17e73acd4be3179e7e452e4a55934fd618f856e48415b8",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/augmentation_campaign.py": "9e4202581830d292a893dccdb04aed78b06ba592073800bf718624ffa7e93249",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/cost_ledger.py": "1490824a24459fe858ffb62cd907f92b7c687ac1b0941ec8a2a0cac2d88e5b9b",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/calibrate.py": "bb58bd47844e0a54baa6ac4b516769d0ab2ec6abd8c51fd8947626f1780ee3de",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/native_card_update.py": "59af0c2e623289fdd8a6eb726bfab963f9950b45a1f5d6923602867d24ca777d",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/card_revision.py": "034f85ae951f1aeb2e76bec454986761cd44ebbb40976509b06cdd3b1f41ad9b",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/codex_flash_adapter.py": "647a17aea96480dcf37404420aedf681d8aae358b7996f2ebc57db38f635ba0a",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/provider_smoke.py": "99bf59371c4396d03b6f58711229e60cc46cbcc06055d8b16629385a390a7b9e",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/slow_retry_gate.py": "c017c9476f114032b40e64d4feca87ba77902841b4e5e1614c31983d450a2648",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/card_organization.py": "8d99d62f5653bd984b8bb9e60fc5b5bf63ae215763bbd2f5300442ca1c714146",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/train.py": "7ce9fed0b9cfa7c90eba57491d5541dfc15d00b972e9aeeedd353410afa0415d",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/campaign_evidence.py": "c4a4f12dce3f9339876ed06526940ccd7c990872d24f18fb2b0910b2d6dc9f49",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/codex_selection_gate.py": "59f2158052991eb3820be28176f8261bb5f773e92656d1ffdb5c74f9e35c11ef",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/retrieval.py": "dbd2d388080872beee55643ff597fe586462906897e76ffa4228677084d81c25",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/text_context.py": "36bdb5470533c80662881b0f66a064deded533272daeb1f6af7ee6d6130fdcc7",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/fixed_split.py": "b28278389d5014d09cba7f8ad458eb5f6d508bf679ed7de4adb75428f5d97ff5",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/skill_artifact.py": "a7be4f845d61331d70000981518de91308fa1f91a5792f1e3372d3df80c92c62",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/dataloader.py": "3868fd62f05fb8621702c7f8a684905af169052c4bf82353182c5fdf324051f2",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/verus_release.py": "8730c5fc558f5fde5d446c6949b597493b6a5a526dc042d0924ac940deb5bb26",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/codex_reoptimize.py": "c3a71017d94da1c0690368531336b3925366d52f4fbd2258cc173b5aef7c2eb6",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/split.py": "f55cdc1d2b12c656961be4c4c467e71d8fe6423137a5d0b3a559156ff04d61b5",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/test_eval.py": "2e5677033e14e65db18bc96b24ac1830654b8c75fa3f746fb00be39400b9629d",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/evaluation_recovery.py": "9145dee5734dd85e21c3763e6351e397f8e60e1a04a3034839a828f44a28f2cc",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/card_storage_recovery.py": "c76d652e9f7e92521004a5363d8d78711549d441c2ee9df6c85ff7f6eff029c8",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/report_tokens.py": "e4904e3e59d400168b6192051f7daf7495a114ef4dce8f5611fb9f55fbe60a86",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/budget_guard.py": "ca96c39c9b7f83c7d69c3cd17eafae237237809a21399e75188b7801c2c4355e",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/full_card_semantic_recovery.py": "599fa823f7f665a067d2816d8098cec35701599a4be12a127c5eae1d0f224af9",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/fork_card_optimize.py": "a3ce8d98e3a75633668816e56ae362f7a7c77dbddb8060f97d1ef59293f55688",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/retrieval_gate.py": "d121f26eed0bce14a0b101fdeb5fbd6ccf1e761b3d7e5cb3ce7df341b2f873db",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/checkpoint_selection.py": "f31e37d1f3f6485dc11055ee16e25a3c1eb1e5eced9b5a0df0e8cbd79af515c2",
+    "${REPO_ROOT}/skillopt-verusage/src/skillopt_verusage/runner.py": "10152550d8a664050c3e4bfeac67ec9efd2f03091f82f576cc2be5e8b4980f00",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/libverus_state_machines_macros.so": "85df0a962c4fe1f763a538331f42f31513c0999c61bcb20566972c5748a98bbb",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/z3": "260a93f9ad37363d880d251c79e3af07888ef3b2171eb8ec8d4d3808678a3e84",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/libvstd.rlib": "3853e54267dbaf870b9917e02fe8213659f29407aa41fb86e2b5b86bd37122e7",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/version.txt": "df5c59a1cdf09bacff2e0399dacc51919fad1d16ec5b817d314ca6e507d23c8f",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/cargo-verus": "3e94022ac6c9032901ee830eb054264996f063f9ec8666ca9cacb80a63f71bcf",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd.vir": "d5cd430290b5015f957b81dafb394dad89acec66270e33b179143064451b05e0",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/libverus_builtin_macros.so": "a7a85b326c55d7184b80b095e2bcea42c92622f5be98b3473cb567150acf3e5e",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/verus": "9c7f43d134de541234ba748232069b32e44eba028a601975b720b3655ad2eca7",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/.vstd-fingerprint": "f6b1560d8911d31682411666b46fa916ca2202aa98bc03a52ef60c510c2cee2a",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/verus-root": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/libverus_builtin.rlib": "a08ded296732874146a42eb41b38fe17573d46806efa65bcf03a5bba6fca435d",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/rust_verify": "aefa9c80d1a9638070c5111f36455400c10605e1b312848fb326fe2b82c7e8a3",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/view.rs": "210e75ba9f88e6e2d055c337c3baf79d8a6941cf67d8ddfd70cbe677a6b5e6c7",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/storage_protocol.rs": "b896839237bdaafb26daa72af7151757e260f03686aa0728a7c3787acca5d01b",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/pcm.rs": "43ad72b24ab4a4484423d76d1caf543fd3b413bcfc34981a9a3d1f656f590659",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/rwlock.rs": "939ec6f480492918de25cce82be9c55d15a18202fcc14b78bf9150a3566d3759",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/Cargo.toml": "60780e74105578fa8dd023efe12f9a4c62618c502a6584b03f780f1722f65b63",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/state_machine_internal.rs": "b40b052d8b370905861561a8f254f653cac6551265ad75bfc3491662364dd68d",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/calc_macro.rs": "0beb176215c6129a2d3c6629baa6c4b0b8dbecef418df04dc16eff405601567d",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/layout.rs": "045233348e8dcc2b01028e584a7868ce2218315df7c9cd0d255aaafc63459865",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/multiset_lib.rs": "a63d0b08eb59926abd4d2451825de7480d63ffa4008595843bbaa022c327c0f5",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/map_lib.rs": "1832f96fb40012d7087b5b409eb8c2b8acb5f1e2b71bc60d5d9b1557d6834e12",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/simple_pptr.rs": "932ac53afb8ac98e20177897423ac20a704f5936245150df61db10ebd0c73f97",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/vstd.rs": "0f9ddab67765ec44f92e0bbf9ff3f711540d82583e50cf281fb83f2e04725786",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/array.rs": "35b54fec445aca39980b8b9853d6a2dc9a56d5b11a6f7f43bff9d606feaa50cb",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/shared.rs": "30c0dfadd83cafaf020f3f4738b69697bc08b19c9eaf77d9c5fbcae597727f81",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/function.rs": "049933b2e2499ab138fc424fc3af14f52def2a4fe4dabdbbb08e5d64f54ffdb5",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/atomic_ghost.rs": "f308b6fbc8fdc3981c77e88e63494570d157469f385837e2d56d03d19e099d08",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/seq.rs": "cac4355a0b80d831d08986dffc96003a0e8deae3950ecf720eac946047426642",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/hash_set.rs": "318d4a12ff8bb11c4564d75335a30a4dc7697734617d47d92e276a2175638043",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/invariant.rs": "5e6997ef8fe8aa65b3a9ba1527ea73fab14ac1133b74704246644dc5fb7ac0f9",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/logatom.rs": "3d49e236334c033b792a1af3c8c7b73f9c460a8e16df69e538b0b57206d51848",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/pervasive.rs": "9670bd76d83eb6a8c639b1bf211c81373d86c060e8fdadac31d538aa9182ef09",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/set.rs": "d01e32977672ed20d081ded975c3c4f6bc8a9cb9488828610c79d38c2434e71b",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/math.rs": "e07ae80f73eb45c8409787d3201da313b2916fe44fd22077d82cb5875ec739f8",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/thread.rs": "7735376abf8a7c09cb3f8adc7be6763519d2bceed3bafd84df1de1c205bd30f5",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/map.rs": "1d418797ff9d50d2202a4f6de087060c49ca72858e355f37003c140bef5de5d1",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/set_lib.rs": "aafde9e8441be778fb26d970678c7d937c08b0e221926f8349498f053ec43a8b",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/hash_map.rs": "4d5f6193005b285ebc98cc3b743179bbc1701c7a12710be300082cc39965b137",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/cell.rs": "cf75f5399ab83b81e9301a5c5ff8b6ab0d7c04edc86a7c3471d285395c3ff923",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/bits.rs": "7ba5ef754bfb59673bd30823a2bda29aa6332a48aa8cf40eef1624ddb1680797",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/tokens.rs": "3f844166dd2bcbc2ef27fd95ba9b6d9a862b05a3efcfb0d6aff16f2a330d81e6",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/raw_ptr.rs": "a95aef4c9782a4661ee441b19e526b6995801598ad3ad343a6f3a44f187232d3",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/prelude.rs": "abb63d8ff8e56e39fa5936784463d0f166cec7ef2bef4de0dcad8349fccaddc2",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/pcm_lib.rs": "e9ab91f6fd60bbb5ce619b9670b4b62b2403aa634628460980478da6f87f49e7",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/bytes.rs": "1e0d52af8e72cb60a80fb9f2d3fb8e0f133de7b6ddb1e8e9c7faceebe28373db",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/multiset.rs": "bd6fa95066a3af0fbddc97528fced26c34d78af4dbde4194c675b74b866fb0cc",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/float.rs": "c2adab32e8d2c7a7264064c65daaaf7980696e54ae9b8a09d2d7078c2c9688e0",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/laws_cmp.rs": "78fd58b934f591a0161a77e53b439f67339fe2eb146d674a8d7dc78f3c85344f",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/build.rs": "53eb67141dc3c91ae5a0581b639806503171bb98dea0ed3d061c91220e23fe26",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/slice.rs": "cd9a9fd4f726b1ffd68b21e87aa4956a40eafffcc6c63b13ac4174a05ccecedc",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/compute.rs": "5cdb743098e9e2034204a272be50a48f3e7667863d3587ad313f4911134eeba9",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/SOURCES.md": "79271874869de907fc6c39556c72983b9a3733f28f4cf566de1884b4d06d1ad8",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/laws_eq.rs": "9fdb05f53b613a9847b0446c28d9e3f10078588a04d550f1cd36ddbce904f58e",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/modes.rs": "d62cb2bcac9ca8832e9fad781a92ecd091767c4196cb0c2e2581c65aea11f033",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/proph.rs": "c42ad3cf5384f3a65305078621e4f6e6ab7fe863ccacd244a693dd136b640520",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/atomic.rs": "f392098d86651189fb8ddd87a3928090c7349cd04965791a4833afd44c4d7270",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/relations.rs": "51c9e36d3cdc0e9a2c453ce91719c4c42085cf9487ca93f389578b385cf6b0a6",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/seq_lib.rs": "50d2d63e15868fa1404ee945d06b0ed298c0e978e35ef8c9ddb2fe49a3af81ca",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/string.rs": "bf72391ba8e459b0e13e9a618ee60b52c6c2a04e4b9d9a946924538283a95f83",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/tokens/seq.rs": "80383a6f5215ee2c9d2ef18536f31acbc8666e713336f1b2583058ad64380555",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/tokens/map.rs": "12c0b37869133f9fa191c2593e554bcd3079e975ff7ef8c4ef5d693a0426ace6",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/tokens/frac.rs": "92d60a3b101e494227fc62232db8b7464e7cb722d1f9d2b408f54b5e1c3aef40",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/arithmetic/README.md": "57ff079bf5c4524f55f7c3be236022d9d1eaed5e83a7930698c71b2535e670c3",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/arithmetic/overflow.rs": "f5316a606c7bc5e756b7883cc0833066a0b39288e597b25d787c5725b202efeb",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/arithmetic/logarithm.rs": "b27f12aba5351402ae458793912887a966a882eb6943439ce1dd57d20646fdc4",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/arithmetic/mul.rs": "5e70abd01449b207f358ec69e6f83760ccfc2fa32aa08d32ca168db53ec5ca04",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/arithmetic/power.rs": "cd00b1318597a0d60685f714ac4eb0c24ce9cf7bcf65520fb756de6a2dc259f7",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/arithmetic/power2.rs": "8bfd1c23bccbeb7a6225911935a0183dd54ed66809f0df24f1e3c3b7a15a3b62",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/arithmetic/div_mod.rs": "be1e17174cf7b8eb083caa512a1f1e1903bafa0a47151627e3c79fee17e37f50",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/arithmetic/mod.rs": "2a2fe9b694880a4a43753a6c520899e2786f39388ca7c2e9166969f681e66e48",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/arithmetic/internals/div_internals.rs": "d052121de80ea51fe35f0d781295f7f6712415c7501bdf206fe649ad33d022d0",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/arithmetic/internals/general_internals.rs": "fbef157aa9356ebdf670ce8513f1f560ff27c36991152397b635af53b1ae3235",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/arithmetic/internals/mul_internals_nonlinear.rs": "632414b72ca319f3e8a1d72ca2adde0e7f67ba60b62d544129a657079edee5df",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/arithmetic/internals/mod_internals.rs": "b4e7e8525b44120d10d64bfba703452c80124e26e00ba0a29713fe8083ea692a",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/arithmetic/internals/mod_internals_nonlinear.rs": "f366530711447b2764e380d1abd41b09562c06232734addb5500b5d648c0ac23",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/arithmetic/internals/mod.rs": "0a988aa6450fb912f1183597113538256148a6a5943dcd06016779ead76a447a",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/arithmetic/internals/mul_internals.rs": "8254b1015ae2e22ac120a2c6325ae6686abf74608877dcad701bb36ab6f1e81b",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/arithmetic/internals/div_internals_nonlinear.rs": "d68b881398bcfe1f7dcf6f64f5f895fa05544c3c55f4288d04eac7f42bbf231e",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/std_specs/vecdeque.rs": "4794f8553578249210377f73f78fce3101f817803daa6d79fda45cd40fab09e7",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/std_specs/borrow.rs": "29cadd1756b59a64c7d74f8b3679e6ab8e03e676b16d5f15e379d2a40c6f1965",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/std_specs/core.rs": "2ca9c57712f8a804154608aa0bc6fe83c66c1fc93bdcd7e34834dcaba7d89098",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/std_specs/atomic.rs": "de47be053564dfaffb9a1bd9e7eb43fb18c233a970b144d38c6bc71fff2567ed",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/std_specs/option.rs": "60c311090151976b28b66f054c8b4ecc00d92f8166c7f0b3786dca3c1c11d1f7",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/std_specs/alloc.rs": "3cb25dcad67e9f579e6c82cc5b3c4276b40ca0cf0e3c030528751b6ba4662571",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/std_specs/slice.rs": "07b08c41a66f5c4e2cbe46e5c059e2eb8b6f4f463529fc5aa2ef26b132431bcd",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/std_specs/bits.rs": "4bf86e02b483635134634c0300a4fc0624019eaffd687a974f8cb2227c4cb0d9",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/std_specs/cmp.rs": "74ee092c94f6326e4eaaf3638c94e66a407335a372d51e362f96debecd40dec3",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/std_specs/vec.rs": "8ba62bbff767ec7450a5edc458cb985efcb86afa2789dece216468b802ddcfdb",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/std_specs/num.rs": "5fa36d98a717894672e3a1540864489855182d23acdc459ef42aaed3d0ad15c7",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/std_specs/range.rs": "14766983d6aef82bccfb7088fefc2545000ae37c1c0b2d4b0ea288b60d776953",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/std_specs/result.rs": "697f82813f6bf06f3fef641e22b9af2d28f6fc72ce8ea11d417e926d93756e69",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/std_specs/mod.rs": "ad36d5e41df918fbe9b081a942e78d8470caebe0106969c7c8d15c7eff24f28a",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/std_specs/control_flow.rs": "3a31d06bcfe803837e0dc1bbc17f22651566bdc70ce396db415052b82376816d",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/std_specs/ops.rs": "472bd221a0daf9e572e0fb7a3ef23e4abdf26181a967d83831e0edd646c66758",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/std_specs/clone.rs": "66b70f4ee81dc5c970b100b73237c0febad3e4f82303199053e8ce0988a210a5",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/std_specs/hash.rs": "08331f3dd14fabf9f73a82ccfa7d4543b11bf5926c54833c9033bbf7733cbd34",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd/std_specs/smart_ptrs.rs": "79f7dde270cb8ed3c607245e542e5dca321a1d88682e44ef5c9d25fcf1a3fa6f",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/builtin_macros/Cargo.toml": "71a4a05040733fe28f12146ee12a3e39be6ac915f9bf55a71d9bdc18381f52c5",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/builtin_macros/src/atomic_ghost.rs": "d659867598111c109b61d8b28a09cb3ac66a6bcb65d9d2954a99661837b22d76",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/builtin_macros/src/struct_decl_inv.rs": "0955cca1ee95d883f4a10453f798f678acd000f5426165a68b553b4c342cc152",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/builtin_macros/src/enum_synthesize.rs": "d5a1236363ab9efb2f7bfaadfb5df75609aa4305d32ba4769f28a83f27c03e95",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/builtin_macros/src/lib.rs": "c443c773115e92c51d6713a251fabf7383c3e27fb1de0ded22589f3a4813c215",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/builtin_macros/src/attr_block_trait.rs": "10c748fe0199b70491cc9d2436922d2ce116106ca28e2892d389c3926781b299",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/builtin_macros/src/syntax.rs": "8d8667810dba6fc061d6a24c393b44ef00f1f4bdf484ed3a9aca5fdb2281b45e",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/builtin_macros/src/fndecl.rs": "abe5187ba2c2084f270be986ada0b6a8949e801455bc3351d84543bb721ca522",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/builtin_macros/src/attr_rewrite.rs": "b850a9b5c10fe2ddef315a511324dce5bc23a4a28740656a704757621e142cb9",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/builtin_macros/src/rustdoc.rs": "cb68583e3f7593d83ad1bed4d1c7e715a7693d820207eb461ed0bc64e7ecd5da",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/builtin_macros/src/syntax_trait.rs": "2e1f6d8d5464dc54c6dba6cec9aac6057276c4101806cb7ba61bd933824d69f4",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/builtin_macros/src/is_variant.rs": "0d1339366d68889de7b84eb915ccca625bc9a85c206a7bc23e96ecd495e3a64e",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/builtin_macros/src/structural.rs": "9e0ff0b5e7f2fffa82f376337dc5bc596627562a51bffcd85891a522043d52fd",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/builtin_macros/src/topological_sort.rs": "aa53f630cc04e1ae852ff6d04307ed2e62d0b81d281b4063a2f2460ee516a28d",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/builtin_macros/src/calc_macro.rs": "61c24635c9a716758faf949cec928d37f77c9a3b220567e7d7c11f885f95a701",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/builtin_macros/src/unerased_proxies.rs": "764e60cc0a6d22904c5589bd1b43cd4d03766db7fa2a6bd36604c041938f15e8",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/builtin/Cargo.toml": "e6a735b4a94a8965bbc65c15093d563e4493b1eb07fe70498dccdca3a62fc052",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/builtin/src/lib.rs": "3da047506ee1e1cff0fc2ed94b086522fa91e2e97801b9e25e7616c63ded1d6f",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/Cargo.toml": "faaa557150bb35872620f5c65b72b2af6677a82bceb2c18346c7989cd71d44c8",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/token_transition_checks.rs": "0c63eaaa116931beca65f000c734119cfc801944a7ad2648e8db5bc691f64784",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/vstd_path.rs": "87b22bcd4cb72f5ee5a0aea2bac6b61d73d4959cdffbeb3016b354e9b2cdb653",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/check_bind_stmts.rs": "fc05f29e9dfeb777d6b4b9e6bbf1a2bff902dca0609e717383349baf7a44b834",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/to_token_stream.rs": "79c774e9548df7f43a19ad0525396ae4d114bd3f30afa23f0c79a988a3de2296",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/to_relation.rs": "3b77b0dbf11c28cffac53fb158602fa56cc49af50125784e062e6c38964a2c2c",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/ast.rs": "c99866e82a538ef4d6e74cd1cd713df4d1c8cdfcff5acbddc1eeff8e8500e4c8",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/parse_transition.rs": "f783b2491e18e3a08ac511b168e5784d9dbf0749c009a6aa6f5cce9b7b6ffe1b",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/lemmas.rs": "34418f55c96af31240c4dd191a5288d7cadf88f04343cbabdb7908397d8dc301",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/lib.rs": "ffc2ffb9c10d1e7a3dee384d47e752e0c5fe7296dd0adfb93e24c64c2a05ec5d",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/transitions.rs": "dac66453a699754d970b6bac8813e792deae1cd224cc9c92e407db26b23816e4",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/check_birds_eye.rs": "336488d3bebdebc75409a291ab35407622f666478678caafa345195893d6d178",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/safety_conditions.rs": "0ea7883d9ce7fefb7053c57e81c120aa893c3e69ec2f0d98a7217ce95e476309",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/self_type_visitor.rs": "409cdd3835f43c64d81c3325e7228bffd0a764326facbd06a54d6db9f433eeed",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/field_access_visitor.rs": "980f2074c3e86ddd8db98f767d79a5e71a088a4694f070f6ce07a77119bd0529",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/util.rs": "84dd9fb542efbdac191a8e00c8cdf356e2b57575b53347a2c30c2ce0c83a3edb",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/ident_visitor.rs": "cc354b4f5677058e806774d435a45dcd414478d786a5f12dd49993dafc4ba9ce",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/simplification.rs": "9d82b86817d0469305576f1f81aba648a3759ee27a7dcdce561c39d17187818e",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/simplify_asserts.rs": "6095292b7bb4de995b83a99ce495650ba79e8e6f12d57ae7776abf95dd1066c6",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/inherent_safety_conditions.rs": "1f428b8f8da57e0de2e52a86d8cb306c3836eeddc750ec07959aa4c89758e25f",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/case_macro.rs": "f91b8b4916bb539e823e8d4c2857ab95a52a3b229aba9517a20522346369a36e",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/parse_token_stream.rs": "f2846d1d341de20ef6d19054ff05eabc201c651b0dd9b3d4c31d25869db61391",
+    "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/state_machines_macros/src/concurrency_tokens.rs": "f4c6fb8a926d8a28be56535069a916709aa6950714f363b8567b239e9b239449",
+    "${WORKSPACE_ROOT}/tools/rust/rustup/toolchains/1.88.0-x86_64-unknown-linux-gnu/bin/rustc": "ac3e92e45fe15c789939deedf7614f4f9578cc9609cb9ead39c9b1808a316c5b",
+    "${REPO_ROOT}/scripts/recover_card_organization_evaluation.py": "5f28efc288589fdc0bb77253d54b7a4d5e5002d6188dfb9735a42d61225e7267",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/config.json": "7e8448d6f8e387e743b4237efa8b9e0dea80c2b98561b88da3604b6439b09909",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/TASK.md": "5f32a1cc4ef90b5898ebef41eb20f22d3abaa732055fc20d4e097834afbd7e5d",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/runtime/models.json": "b459a6e438d6a9939d01fd0dbb4693f165ed732bc8e4fd58d7145d9d94bd49a4",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/preflight.json": "b635fb0b3df8707289b2664bde0b79ba63fa4811e044b674ab4d144213fa8b0d",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/validation_contract.json": "646ee1131fab0c4db1091c605edc6e14b74ccc975a3c4305a9230fb8a1dd0d93",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/review_receipt.json": "2c1b3c507961a60769ba9f0d1f3e6e4a98374baefdadc446fdb4652bce9a9901",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/budget.json": "83dfdd6e420c01037fca459ac9765685767ef8684d2cd57094d55659ba2295cb",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/interruption_audit.json": "e51809fbc4d9ca33e83158b356b96f611fe74e713e11d6bb407ed34381c00bea",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3/provider_calls.jsonl": "b345f0184afd7f235b7edf557f8f77f30f6eb3afd123f24cfbef10768b090550",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/reference_manifest.json": "7f13afe8aa0509142256774e9169a6bb121afdb78feb85a2264310bcafd9ff06",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/reference_read.py": "c9c63b8adec05ac720dc7f5642f286db5226c0a3f7c21137b4dbc68d6dcc0ae2",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/SKILL.md": "6d4e410ecd43bca58c2fe0dcd2164c8b10455d732759c581b5b0b56fa4f7c8ca",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/temporal-existential-witness-lifting.md": "19d11eeb4cd4a7a649d86aff412addbcddd974cc51d614b0c953a5ec5ec0b9ca",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/opaque-conversion-avoid-extraction.md": "83c2c94d2a99487988f5f6d821ba6690aff590e53d80b590ed4c4f73c4bcf680",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/phase-accumulation-bridge.md": "5035f785b4d93f984f188628eab461e70f6880edfe5cdb775737c99bdf9fb0eb",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/leads-to-transitivity-existing-helpers.md": "2d8ad363e269aaaf134c314dcd0e049a8824481cfccdb200b59810b70f32e9ea",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/finite-set-fold-cardinality-induction.md": "e8c87d6090c866d5f74ba05e5be553c7c100270dfa32533651456f6924b82d55",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/function-field-projection-syntax.md": "ed4fdc4b519d5b2730ee1f970c1e90ac7fbd6648127040f3e2bb248f5db496f2",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/specialized-temporal-action-binder-type.md": "22e34fa43c627948b8ab2ee8e88102dacde24d771f31502a2e29a120791d8c56",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/ghost-empty-witness.md": "d1c5e5ea3be0debcd39dbec88d1d488cae31591ab77c82545e45201aaaf133ec",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/quantified-proof-antecedent-binder-scope.md": "238f4ca16a3489997fd687b51a32030f06eae6707d15f508fd1de7049a6ca180",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/weak-fairness-pointwise-lemmas.md": "95869aa970573ca750d5d7e9f9f5babcf9590c607c5f6d27bcd7c4b15e76aacc",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/predicate-equality-mutual-entailment.md": "23a18de2b412856aaaa616b19518a0436a87ceefa962da02db374aa0bca13fdb",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/set-equality-membership-witness.md": "800dc4d268405543340f5a92acf6939bbd30a682b0e09e7bafacabac59680108",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/proof-helper-qualified-path.md": "0d0812813a8d447b47dd98750c11bd9b3b50096aa4397b33f27836cfcebeb096",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/existing-roundtrip-proof-mode.md": "0e572e8ea62ee988b09584cc5e3a6e3daa6c886925a555011037729bf3991bc3",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/natural-integer-type-mismatch.md": "0dee13c707c1cece2f44d7921757caef2064772edae7576268c9b46ccc2ce8a2",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/direct-existing-lemma-bridge.md": "a031c2c037d7147f46baddb53f760e2c35ef67cc541e8b0563f0553b5889b78c",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/specialized-fold-bound-lemmas.md": "4d0e1944c097f25600da4560a2917b8d7df3b9d05bd1e89411d9de6017e3dcc6",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/sequence-fold-concat-equality.md": "40b04780a678647be8ac5e5f000d1f343c8e9e77682c99e16a6accdb7125eebc",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/library-broadcast-activation.md": "47ff8ed44f3057025be00996771d42075f6edd5065e28a70a845be15f1880741",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/trigger-inference-annotation.md": "aa8be44ed3ddadbe366129354d127da3cef67e1725f3f501eada03305ca48a8c",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/transition-system-step-safety.md": "49f18c8293fe7191e8bdf2cfe837209f3067a7b05d95bce050b37bbf67079a96",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/temporal-entailment-pointwise-lifting.md": "cf11841e767f8ce389db572e4f0f4c8330bb2ccdce61fbfeb9208a87a2ba233c",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/eventual-witness-index-bridge.md": "458536b2aa2615ddc258a826f33bf0b9ea4a691e7aed355057dfd67aeed89365",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/loop-termination-and-invariants.md": "65ff8136e53ba4218d6bdc38f9ad2e6ff7d7a5540d1f1afbd545bda66fd86272",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/final-liveness-helper-chain.md": "f1895ba02c5d6a84d52e8030509cf740ac371fa8e5fe74d078b087362fcd9464",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/universal-equivalence-pointwise.md": "0380e2ccf29aeb39d27d984c11e4dd18b0644b0f63a7645a26a88f6ecd46c76e",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/temporal-induction-natural-offset.md": "e73d8629a38aa24565a6dbf95d84958b3cea18376bc29481905fcb23faf4c132",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/post-verification-cleanup.md": "84ad4c5866b3c4a308c13c78e26cd5255a81618c9db667fb4cab80731b16dfa7",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/view-equality-constructor-case.md": "564614066bd67c2d188999b08dc25295e99bb64738448205737df2bd74b7baa3",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/nondeterministic-step-result.md": "cc9b3dc95a626f3467a8fdf3d23c348f9b8b81e8a94ebb4173e1996dd2aafd69",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/universal-instantiation-concrete.md": "de6575ec8c32faa780cd755146f0ac36fefb0716ada02f2f0b21d0a52692b0c2",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/opaque-spec-function-facts.md": "74961f11b30d34b8e1550c2de483b8e70a6fe1f7b5878008af11b697b60b585e",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/record-function-field-equality.md": "aa1c5d28d1d33f25646d207392f73024c0f2a9f31dada4864af683cce4df1f43",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/temporal-predicate-equality-pointwise.md": "f2a08163a6ac30176952c907ea412cfa0c1d81bd11a91c55cd9b4cd5335341cd",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/compound-stability-existing-rules.md": "0fd63399888df138509df468a1bf77f9a49ba8a34d21865e6d76660f1119980b",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/sequence-extensional-equality.md": "9e2f5261c585dc3e17d69eb9451302d417d8d6b357b0ef49f47caceeaa3f7b4c",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/revised/references/temporal-suffix-shift-helper.md": "c40a95e3b0634f2d52b1adb9dffc197952ff785592a6870066a44a717092db6f",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/old/SKILL.md": "10acd2d687754e70a470fc1d041a7e1308c82c4f34ac108de85d874ab50d07c1",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/old/card_read.py": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/bundles/old/cards.json": "ae38b9ace8560cb7e819eb348d152b916b0486e206b3d09c1b862e8681517f27",
+    "${REPO_ROOT}/scripts/continue_card_organization_evaluation.py": "525d96cf6410d13123e17eb3dabdda2a32e10f15891147d86d1197499e3cee22",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/config.json": "38fa69049c8a7f4feb8e1c2409fb94f3e018a7808c520a0a16588a2da773204c",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/TASK.md": "5f32a1cc4ef90b5898ebef41eb20f22d3abaa732055fc20d4e097834afbd7e5d",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/runtime/models.json": "b459a6e438d6a9939d01fd0dbb4693f165ed732bc8e4fd58d7145d9d94bd49a4",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/preflight.json": "1d132619083ea3032fa69f33ebc8b4978919baac2c7dc203a466b5847ac5c95c",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/validation_contract.json": "77b7f43c52ef2020f0a15e58e51943a5071239c99e3503c69e4cae040f717374",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/summary.json": "ff080e2a61110485011016056bcd295b631c4b9655238db68b5c09557c0f94fe",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/budget.json": "c3a62ee9e2253ab8dc79cc21a9ea90c24c08208284d6c1c312a06881967f1618",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/provider_calls.jsonl": "3552999423f52520d1237b6aea31b3f2c38f4ee55a44aefc015d2f61f40bfebf",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/review_receipt.json": "66dcf984f708fa1095e74b35e819db4b7a89b11d07dd841c7f1ed009463b5604",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/audit/anomaly_audit.json": "a57aa39c34599c45ffc806ddc5fc0301bff27e090d51415ac9d342f17d6a5087",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/reference_read.py": "c9c63b8adec05ac720dc7f5642f286db5226c0a3f7c21137b4dbc68d6dcc0ae2",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/reference_manifest.json": "7f13afe8aa0509142256774e9169a6bb121afdb78feb85a2264310bcafd9ff06",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/SKILL.md": "6d4e410ecd43bca58c2fe0dcd2164c8b10455d732759c581b5b0b56fa4f7c8ca",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/leads-to-transitivity-existing-helpers.md": "2d8ad363e269aaaf134c314dcd0e049a8824481cfccdb200b59810b70f32e9ea",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/ghost-empty-witness.md": "d1c5e5ea3be0debcd39dbec88d1d488cae31591ab77c82545e45201aaaf133ec",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/temporal-induction-natural-offset.md": "e73d8629a38aa24565a6dbf95d84958b3cea18376bc29481905fcb23faf4c132",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/set-equality-membership-witness.md": "800dc4d268405543340f5a92acf6939bbd30a682b0e09e7bafacabac59680108",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/eventual-witness-index-bridge.md": "458536b2aa2615ddc258a826f33bf0b9ea4a691e7aed355057dfd67aeed89365",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/opaque-conversion-avoid-extraction.md": "83c2c94d2a99487988f5f6d821ba6690aff590e53d80b590ed4c4f73c4bcf680",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/function-field-projection-syntax.md": "ed4fdc4b519d5b2730ee1f970c1e90ac7fbd6648127040f3e2bb248f5db496f2",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/temporal-suffix-shift-helper.md": "c40a95e3b0634f2d52b1adb9dffc197952ff785592a6870066a44a717092db6f",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/weak-fairness-pointwise-lemmas.md": "95869aa970573ca750d5d7e9f9f5babcf9590c607c5f6d27bcd7c4b15e76aacc",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/compound-stability-existing-rules.md": "0fd63399888df138509df468a1bf77f9a49ba8a34d21865e6d76660f1119980b",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/finite-set-fold-cardinality-induction.md": "e8c87d6090c866d5f74ba05e5be553c7c100270dfa32533651456f6924b82d55",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/phase-accumulation-bridge.md": "5035f785b4d93f984f188628eab461e70f6880edfe5cdb775737c99bdf9fb0eb",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/specialized-temporal-action-binder-type.md": "22e34fa43c627948b8ab2ee8e88102dacde24d771f31502a2e29a120791d8c56",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/sequence-extensional-equality.md": "9e2f5261c585dc3e17d69eb9451302d417d8d6b357b0ef49f47caceeaa3f7b4c",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/final-liveness-helper-chain.md": "f1895ba02c5d6a84d52e8030509cf740ac371fa8e5fe74d078b087362fcd9464",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/opaque-spec-function-facts.md": "74961f11b30d34b8e1550c2de483b8e70a6fe1f7b5878008af11b697b60b585e",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/nondeterministic-step-result.md": "cc9b3dc95a626f3467a8fdf3d23c348f9b8b81e8a94ebb4173e1996dd2aafd69",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/predicate-equality-mutual-entailment.md": "23a18de2b412856aaaa616b19518a0436a87ceefa962da02db374aa0bca13fdb",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/direct-existing-lemma-bridge.md": "a031c2c037d7147f46baddb53f760e2c35ef67cc541e8b0563f0553b5889b78c",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/temporal-predicate-equality-pointwise.md": "f2a08163a6ac30176952c907ea412cfa0c1d81bd11a91c55cd9b4cd5335341cd",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/quantified-proof-antecedent-binder-scope.md": "238f4ca16a3489997fd687b51a32030f06eae6707d15f508fd1de7049a6ca180",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/library-broadcast-activation.md": "47ff8ed44f3057025be00996771d42075f6edd5065e28a70a845be15f1880741",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/view-equality-constructor-case.md": "564614066bd67c2d188999b08dc25295e99bb64738448205737df2bd74b7baa3",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/trigger-inference-annotation.md": "aa8be44ed3ddadbe366129354d127da3cef67e1725f3f501eada03305ca48a8c",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/proof-helper-qualified-path.md": "0d0812813a8d447b47dd98750c11bd9b3b50096aa4397b33f27836cfcebeb096",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/loop-termination-and-invariants.md": "65ff8136e53ba4218d6bdc38f9ad2e6ff7d7a5540d1f1afbd545bda66fd86272",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/universal-instantiation-concrete.md": "de6575ec8c32faa780cd755146f0ac36fefb0716ada02f2f0b21d0a52692b0c2",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/record-function-field-equality.md": "aa1c5d28d1d33f25646d207392f73024c0f2a9f31dada4864af683cce4df1f43",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/temporal-existential-witness-lifting.md": "19d11eeb4cd4a7a649d86aff412addbcddd974cc51d614b0c953a5ec5ec0b9ca",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/existing-roundtrip-proof-mode.md": "0e572e8ea62ee988b09584cc5e3a6e3daa6c886925a555011037729bf3991bc3",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/natural-integer-type-mismatch.md": "0dee13c707c1cece2f44d7921757caef2064772edae7576268c9b46ccc2ce8a2",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/specialized-fold-bound-lemmas.md": "4d0e1944c097f25600da4560a2917b8d7df3b9d05bd1e89411d9de6017e3dcc6",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/sequence-fold-concat-equality.md": "40b04780a678647be8ac5e5f000d1f343c8e9e77682c99e16a6accdb7125eebc",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/temporal-entailment-pointwise-lifting.md": "cf11841e767f8ce389db572e4f0f4c8330bb2ccdce61fbfeb9208a87a2ba233c",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/post-verification-cleanup.md": "84ad4c5866b3c4a308c13c78e26cd5255a81618c9db667fb4cab80731b16dfa7",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/universal-equivalence-pointwise.md": "0380e2ccf29aeb39d27d984c11e4dd18b0644b0f63a7645a26a88f6ecd46c76e",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/revised/references/transition-system-step-safety.md": "49f18c8293fe7191e8bdf2cfe837209f3067a7b05d95bce050b37bbf67079a96",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/old/SKILL.md": "10acd2d687754e70a470fc1d041a7e1308c82c4f34ac108de85d874ab50d07c1",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/old/cards.json": "ae38b9ace8560cb7e819eb348d152b916b0486e206b3d09c1b862e8681517f27",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v5/bundles/old/card_read.py": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--62ff0a3cf2c458b36ac8/result.json": "a869dc0653c807204eb7e5d28138e20524d43bc03d565f8c1c9b3fa4b775209e",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--62ff0a3cf2c458b36ac8/fidelity_audit.json": "fb45eaee0d0475c10a2ec1d0a5182695ee15ab06d9b8c22b234b95e6358092d9",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--62ff0a3cf2c458b36ac8/validation.json": "9e1be1211454911a3e9508cef90426e3c760c20dae20bd05cc23402937300860",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--62ff0a3cf2c458b36ac8/codex_events.raw.jsonl": "fccad5c5ef71d5b00c9d9f4bdd8bd021cf65a1ac0950ada6464e59dc96c4c961",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--0e8d3ca5b02dc01ee01f/fidelity_audit.json": "ca2e4ce39ab1cb37b67828a28fff3f6dfefe1a0e64a254770d8c7cec71b5c6d0",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--0e8d3ca5b02dc01ee01f/validation.json": "f356ec63f0205a2b14fc28d635bc9ebd62d3bbb9debeb7d2cec6ce153aad3f71",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--0e8d3ca5b02dc01ee01f/codex_events.raw.jsonl": "39b840fc45c265833b06ce645c45c0cecb9c8ed768c8172688576192fc8017a7",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--0e8d3ca5b02dc01ee01f/result.json": "b16ec788b1e214eb2bb7521a5d1e7342cd4f8e3cb29caeae889229d7854b3ab1",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--b97aaebc64493c607210/codex_events.raw.jsonl": "7a395312e7d4eb3fdcd00bf9bf470f694ee1c8ff7d1d7031c75a5429fea0cd1b",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--b97aaebc64493c607210/fidelity_audit.json": "44890298dabf91657eb1e8d32d855e8d250228bc211a6b0218b40c31bf9fa6b6",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--b97aaebc64493c607210/validation.json": "52115a756996857a6ed1a4b4631855ac30f1fcdc5d1937c885d297116188deb1",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--b97aaebc64493c607210/result.json": "44363bfea917b7d91346b50655072f09967012b5a4fdfdcf95b6f28d5f6d4fbd",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--9eeacceef983c2281854/validation.json": "f65caa0ca0586d2ceca6cfa866e378fb2000317e046d65c8ae1f79411ceba82b",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--9eeacceef983c2281854/fidelity_audit.json": "81ac491a53ab95de278887e6f3012655e3dab81839c5454d3c8c8c562c5ade23",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--9eeacceef983c2281854/result.json": "c9f8678984b3d16e9230aff1206e2aa1905ef4c1c3e2729c1922209c4851677a",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--9eeacceef983c2281854/codex_events.raw.jsonl": "546ab66d7ebc18443f478febedf4e27d714cb24e8adb9d384002bb804b42d993",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--3f17ea7c76a0ce99c098/codex_events.raw.jsonl": "0547e39876e6d2a1d63caef01f4417728c1e3f9920ea0adcef6a6cf67900f9a6",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--3f17ea7c76a0ce99c098/validation.json": "626ad08d1325065b3902ea37801ff1c0cb4a0f508082f8a3ff7fcefb73319064",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--3f17ea7c76a0ce99c098/result.json": "3970868042f67f1061aeef08172531a651e85c829d9532b5872826bbab50e6f0",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--3f17ea7c76a0ce99c098/fidelity_audit.json": "12f9861fbf51e1f7d5c69ba28ce5f4e5b342198f10a37c44e86a7f1afc576576",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--38ad565ba74f6662c186/fidelity_audit.json": "efc4cf788866235a5b15935b5b5830b094ff572053917954fe4d50d040029130",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--38ad565ba74f6662c186/codex_events.raw.jsonl": "6b96cd37a1786172a911814b6576cb44f6094eb10fe72177d8fc2296e771eaf2",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--38ad565ba74f6662c186/result.json": "83a0c934f4b61d7ad286ee189f294a510ba0df2267cc82990036706041cf5eca",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--38ad565ba74f6662c186/validation.json": "2fa49974b52f1764259674e7739ac4de9230818dd3959351ad4c2f015861cd7f",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--aa78e84a931f703c7e9c/validation.json": "d7e411a9f794b9bc431ada2657de95ac2af9bc6c19ff39f86ca4dbd050d3b808",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--aa78e84a931f703c7e9c/codex_events.raw.jsonl": "a5d7313852bf01ceb890e8bf213168b291f4cf146f387d334b10657ecb161f8d",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--aa78e84a931f703c7e9c/fidelity_audit.json": "d613dcb3414781d2087313ca16e9de519def35deaf6ea4cdc7141a2d756ead7d",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--aa78e84a931f703c7e9c/result.json": "0f955e6262a8b6bf1bede7a7c292880d228c9f2f9ffaf72914c1fac6bdbcf4cc",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--3ce00a38706256ab00ea/fidelity_audit.json": "f86556e5f500e5e3ecb455ab3c2d6cd2b2371eef54a8755e28168ae868b1af62",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--3ce00a38706256ab00ea/result.json": "1d414a2edff31b5c91b69c190581d2bfddb0ed158e13c56b3f15a5cb50098a6e",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--3ce00a38706256ab00ea/codex_events.raw.jsonl": "ed1fb0eb14a463d71100b6b00609ea7eb1a4cd0bc47346661ab3d87b16309c24",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--3ce00a38706256ab00ea/validation.json": "bbaa0b55d273223207980d3e7b32a65cbd8d8db693c95acbde249e0d4bf21c4a",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--62ff0a3cf2c458b36ac8/result.json": "a0824f0b50260fb218a0ece5b4bc6117cb0af2beb0dbdb29de76e44d9502ed8b",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--62ff0a3cf2c458b36ac8/fidelity_audit.json": "7ba4fe95633bf2d77749f6c382526c22cf5e21cf67861ddc76ff0fc1b835a0a5",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--62ff0a3cf2c458b36ac8/codex_events.raw.jsonl": "6c9166647fcb74113270666b62b6dea206dd89940521712a7b2ef1f6f51ba106",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--62ff0a3cf2c458b36ac8/validation.json": "054d76707f52d66b56057e2dfebb3cbfce4a3feb6432324c868decdeb00745e6",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--0e8d3ca5b02dc01ee01f/codex_events.raw.jsonl": "f9423d08c648f7368a957895e6e5820dba2832693802abe8e0914aac6b6ebace",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--0e8d3ca5b02dc01ee01f/validation.json": "3c4d83c09b734994edc24cadca9dc50366b1de55289dd876532e64b37f1a5330",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--0e8d3ca5b02dc01ee01f/fidelity_audit.json": "8c3b85f9369effdd9fc5bae85749a6f94969da4f8c3afa0aaf6fd2a3693b7f76",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--0e8d3ca5b02dc01ee01f/result.json": "f38afbb663b4e429e2a0f9b36534a429795d2a05e82136a7335941579037fc17",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--b97aaebc64493c607210/fidelity_audit.json": "6e455f1dd6a3cb27de5e3a89b2c29f2ca651de741ece0a176dd6be921887a309",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--b97aaebc64493c607210/codex_events.raw.jsonl": "c0d8456e787a47aa2edc5a81330a0b7d55f75a3dda0e6a96da9aab2d2f4a31e7",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--b97aaebc64493c607210/result.json": "d69fefa442a9fec9d5680e6ceaf9cd13d02ecd916ae2f08ff25b753e2fb9739d",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--b97aaebc64493c607210/validation.json": "c9300ac5bf6868b5a835bae44dac0eb4ca3138ce80d001ba9f1f7fbeec8cdf72",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--9eeacceef983c2281854/codex_events.raw.jsonl": "93ccd3b734361ac7c51464d92dfaf6c3e87516ab96479d510203e599950d3809",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--9eeacceef983c2281854/validation.json": "f9ee251fe9acf78edebed6b48616ede14127b3e65e40dbf0d18bd6727d5bbd96",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--9eeacceef983c2281854/result.json": "0e0d783fdef54b95ca8d92caa54a3b32e96e2d9c59ea7a458247e065eb22ead5",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--9eeacceef983c2281854/fidelity_audit.json": "01577298183682f73c7cbc68a1fbf900df6214e2413413e1ee2279dba19591c1",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--3f17ea7c76a0ce99c098/validation.json": "bbc90bb70643bed2e829a0894ef9f66fd24563d0188bb5ed510441fbee316681",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--3f17ea7c76a0ce99c098/fidelity_audit.json": "70eb36974fbf244bbb5e0b0bc19f4bdcfc14063a443c08d0e6b90905c0e31fa2",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--3f17ea7c76a0ce99c098/codex_events.raw.jsonl": "6e1f7f4ae5de51d3607520d7ddd46210ede9c64782ec95458a41da767d82b63b",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--3f17ea7c76a0ce99c098/result.json": "9223460db4d3188836704b2ab14018795cb66daf7f08cacf431d4cf27b7ea1ff",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--38ad565ba74f6662c186/validation.json": "c1604b77f645b4e858bc142db742a0ad0e7917be1a4c3f7445da442ccce30487",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--38ad565ba74f6662c186/fidelity_audit.json": "38dd9733da3505bd59c495d4f9b54347e160cd86e00f955b5dd5626ecb3c4b4c",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--38ad565ba74f6662c186/result.json": "fe6745a368d5e721266591ba9cd4413c40b3db205e5f70961550aab5c7d9bbab",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--38ad565ba74f6662c186/codex_events.raw.jsonl": "e0a63ed33b54c305f37434f93f3beb699b0d7d102b5f2997b79da4af82fbe831",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--aa78e84a931f703c7e9c/codex_events.raw.jsonl": "bec7fa8c14ed58747596a7c15da425a5cc3ac3a29775462b2f78fa490059f383",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--aa78e84a931f703c7e9c/validation.json": "ec1ee66701b9336fae4edbe39fe796b1ba2e18cfccde6fe6d175ba2e13bb1ef2",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--aa78e84a931f703c7e9c/fidelity_audit.json": "39ccfc7520ba537213bed3dffc3b23b2e73d810144b15b9c35f2ecdad6dd40d9",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--aa78e84a931f703c7e9c/result.json": "d115c114a5be1c1b243918772a1268b7381667b06271c7c396c884e1f6b24444",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--3ce00a38706256ab00ea/result.json": "99e434c5ce00572d13298b0ad2a229242710c700ab794f632ff0cb8b825023cc",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--3ce00a38706256ab00ea/validation.json": "2012985cb9bd201797316cf6091bab466c46d99a440409343241d2e380801f88",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--3ce00a38706256ab00ea/fidelity_audit.json": "180bc37fd74a816327b5b698226fb70a82ce4c781449a9fa13be5b3976cadee0",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--3ce00a38706256ab00ea/codex_events.raw.jsonl": "27bb8669d0bd54d3a2f5b806d0c86774a4bc9cffb2bfad5450691ba76699a9f9",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--aded79905be896942897/codex_events.raw.jsonl": "a4d7eb5884106289d3434b0f5de9e11d78bae13b5243d4b7d4e5c95de5b75aed",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--aded79905be896942897/validation.json": "a1d3ee2293b534b946a1ffd02ac85c019cafd5688d1a47e5cff33131d55a82b2",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--aded79905be896942897/result.json": "1e221a824ea7051a49c72aca7c8c29b09e78bbe5566c4f75514e28bcbd700930",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--aded79905be896942897/fidelity_audit.json": "a8f5e78ad1d6ce954ad0b80ef4f8c0c88a9000e9b8be12c80851842fd0b67951",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--9a3d1aae6d0ea05a5ee1/codex_events.raw.jsonl": "b0d724c3681a8a9178e9dbb2154dfca175813da6af2071227aa91b159949a109",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--9a3d1aae6d0ea05a5ee1/validation.json": "94d8b1ed5922e383e976684748afaac782e481c5f1054dd021eefef4eb63f1ef",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--9a3d1aae6d0ea05a5ee1/result.json": "5398568ced12fa43c5b56b43d84b4f3755287400a4c20970b52fdbf652e0cea3",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--9a3d1aae6d0ea05a5ee1/fidelity_audit.json": "15fbc4b0cb14f65997f6b072889ebc56ecd8a2683458cd4b473d5eb3ba756a62",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--a23a4969155913255f76/fidelity_audit.json": "b7bb6c46803a66d337648bc73652c4938b436ea61f8cf1490937167b29af1d01",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--a23a4969155913255f76/validation.json": "dc4835523f932181b9329087549c1a881928160a304b8c5fe7abb47b4b857784",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--a23a4969155913255f76/codex_events.raw.jsonl": "345aea68fd43ff71bca8aba4ba0d9d1fef6d0914cb468faefbb56f9738bd6c90",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--a23a4969155913255f76/result.json": "7233bbd591d7354a6d24234b0e6f141ed6a1edc6eec389b5579559900949a732",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--4dc90b360e4b603c1826/result.json": "a79f9fea460245b80c0f27f458f93763d7b981fa517cd9d6c0f7924274581096",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--4dc90b360e4b603c1826/validation.json": "5cfdbf7c8a0a3e936c8042208e4e29c96aca8606493e458e21526b9b5107bc91",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--4dc90b360e4b603c1826/fidelity_audit.json": "cbc3c257d6622a85f37fa6cbb3c3aeb726cd0a589fc791497325a77d5d87b3bf",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--4dc90b360e4b603c1826/codex_events.raw.jsonl": "20296ad8ccff82cc55e6edec8a0b0421e9bc0933c5e569890bebf2a90b8532bf",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--aded79905be896942897/result.json": "8bfe4d73cc2adc405cf6f5cc3c8c2054488ebdbd1d0977235cf4edc3ea220b0b",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--aded79905be896942897/fidelity_audit.json": "aa17b529a076e2d03020f4ec550bbf5fc2d9dc72d88e22997abd64bc52cc2473",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--aded79905be896942897/validation.json": "b14fa88a8ade75e629df9328e9525bfc9f7e65fe8c16c70aa12e8e8ca600d8f4",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--aded79905be896942897/codex_events.raw.jsonl": "79b6e9bb0bad7a530880ff72b8b17a51297d074c587d4395cdaf009f88d6a0a9",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--9a3d1aae6d0ea05a5ee1/result.json": "faf3419cd24e807af8b0efedafd60637cdb67fd1b73b3e3fcc9858d4b568ac6d",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--9a3d1aae6d0ea05a5ee1/codex_events.raw.jsonl": "5d81a49d9a6ad6c332839e8f1556038aa081ab0c36f723afd04f75ab27f8873a",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--9a3d1aae6d0ea05a5ee1/fidelity_audit.json": "5da599a553269a4a4f664c8e29687266ba2b059ef64527a2d1f9f078122dccfc",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_revised--9a3d1aae6d0ea05a5ee1/validation.json": "8fb4c62176007f68ee5618f6141a5471c49e45bb33f7646de2281f74138f4b1f",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--a23a4969155913255f76/fidelity_audit.json": "b009ea1a6659b78e9a53d29c9690eaad01deb8dee3ea5aff2d863bc8dbed9e2e",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--a23a4969155913255f76/validation.json": "4fa95179f0616e68b0af52e8d606f53a6dd1b4fa35aa6983368834920b9817b6",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--a23a4969155913255f76/result.json": "da8e300cefe4b1dd59941a3fbdca117ab90b5c9e66724dcce3e4799f15e5e547",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--a23a4969155913255f76/codex_events.raw.jsonl": "40725a6fbe2d267fda7c94f3f45061bb9d2b348e55ee7eb160a33ec201391ca5",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--9b9f6ccef89db4103c7f/codex_events.raw.jsonl": "b399c35388a6d79ede0b79e06b619f669c27797b05fbcf727a310faa73ff2a80",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--9b9f6ccef89db4103c7f/validation.json": "c9dc925e7307f6c6869f4e74bfcb908d55e99d25944b347552c4d7bf41ad3c2b",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--9b9f6ccef89db4103c7f/fidelity_audit.json": "e7a8b88b6569bb374c611c13e5cf3901c851521bf480cddfb4906ba823b6462f",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--9b9f6ccef89db4103c7f/result.json": "d02bab04b3caa5dbab314ff09a66ceb18a8ee36630541e9e6fb3706f645e924c",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--4dc90b360e4b603c1826/result.json": "383a0f413adaf4f11a09252626ea9b0b5b005897daf7e8628aca820efc7b27b1",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--4dc90b360e4b603c1826/codex_events.raw.jsonl": "129c07d9c5583b4f956242263fc068dcab058da20bba300fff30e01e88ccd6ed",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--4dc90b360e4b603c1826/fidelity_audit.json": "43511812058c32bdbf9d9566a961ac70eede4d3558b3bdd69f1ee9f7a6e726b6",
+    "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4/episodes/dev_old--4dc90b360e4b603c1826/validation.json": "a05ba1373b75087275d8fa4cda8f50b264e67db6eb0ebd817facb3a0576cafd6"
+  },
+  "installed_library_root": "${VERUS_SKILL_RUN_ROOT}/data-augment-20260911/no-reference-isolated-v2/verus-toolchain/vstd",
+  "public_provider_capture": true,
+  "reference_proof_supplied": false,
+  "ordinary_retry": false,
+  "sealed_test_access": false,
+  "expense_policy": "USD30 cumulative ceiling including prior settled costs and unresolved reservation bounds; construction excluded",
+  "caveat": "Development validation20 already used historically; one run per arm per task. Package comparison, not isolated causal retrieval benefit. Same-version local Verus is not historical bit-identical replay. A preceding infrastructure interruption left two incomplete cells; preserve them separately, and account for their known and unknown costs cumulatively. Continuation retains 24 prior cells and replaces only one audited early infrastructure abort; no best-of selection. Resources with missing usage are partial, and uniform-rate estimates accompany time-dependent billing.",
+  "installed_library_conditions": [
+    "old",
+    "revised"
+  ],
+  "budget_usd": 30,
+  "expected_episodes": 16,
+  "repeats": 1,
+  "model_context_window": 1048576,
+  "max_output_tokens_per_request": 131072,
+  "provider_request_timeout_seconds": 1800,
+  "transport_retry": false,
+  "environment_deviation": {
+    "user_authorized": true,
+    "verus_version": "Verus\n  Version: 0.2025.09.12.bb1f342\n  Profile: release\n  Platform: linux_x86_64\n  Toolchain: 1.88.0-x86_64-unknown-linux-gnu",
+    "historical_rust_verify_sha256": "c1100e7aea575799693b97deabe7c2abc4ce8bdb78f1ffdbb610b8c8ab66c650",
+    "local_rust_verify_sha256": "aefa9c80d1a9638070c5111f36455400c10605e1b312848fb326fe2b82c7e8a3",
+    "same_in_both_arms": true,
+    "codex_lynette_catalog_exact_historical_match": true
+  },
+  "arm_labels": {
+    "old": "repaired78-flat-original-Executive",
+    "revised": "compact-cluster-reduce-original-Executive"
+  },
+  "review_policy": "New hash-bound DeepSeek V4 Pro/max contract review; no historical Astra receipt reuse",
+  "bootstrap": {
+    "resamples": 10000,
+    "seed": 20261006,
+    "unit": "paired task"
+  },
+  "recovery": {
+    "prior_root": "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v3",
+    "prior_contract_sha256": "646ee1131fab0c4db1091c605edc6e14b74ccc975a3c4305a9230fb8a1dd0d93",
+    "prior_review_sha256": "2c1b3c507961a60769ba9f0d1f3e6e4a98374baefdadc446fdb4652bce9a9901",
+    "prior_settled_usd": 0.16717729600000003,
+    "prior_unknown_cost_bound_usd": 3.6780902400000004,
+    "prior_conservative_charge_usd": 3.8452675360000006,
+    "user_authorization": "Raise overall cap to USD30 and rerun after disclosed technical interruption.",
+    "launch": "systemd user service; Linger enabled; Restart=no",
+    "automatic_retry": false,
+    "earlier_interrupted_episodes_excluded_from_primary_matrix": 2
+  },
+  "continuation": {
+    "prior_root": "${VERUS_SKILL_RUN_ROOT}/skillopt-verusage/card-organization-evaluation-20261012-v4",
+    "prior_contract_sha256": "77b7f43c52ef2020f0a15e58e51943a5071239c99e3503c69e4cae040f717374",
+    "full_schedule": [
+      {
+        "id": "aded79905be896942897",
+        "condition": "old"
+      },
+      {
+        "id": "aded79905be896942897",
+        "condition": "revised"
+      },
+      {
+        "id": "a23a4969155913255f76",
+        "condition": "revised"
+      },
+      {
+        "id": "a23a4969155913255f76",
+        "condition": "old"
+      },
+      {
+        "id": "3f17ea7c76a0ce99c098",
+        "condition": "old"
+      },
+      {
+        "id": "3f17ea7c76a0ce99c098",
+        "condition": "revised"
+      },
+      {
+        "id": "9eeacceef983c2281854",
+        "condition": "revised"
+      },
+      {
+        "id": "9eeacceef983c2281854",
+        "condition": "old"
+      },
+      {
+        "id": "3ce00a38706256ab00ea",
+        "condition": "old"
+      },
+      {
+        "id": "3ce00a38706256ab00ea",
+        "condition": "revised"
+      },
+      {
+        "id": "62ff0a3cf2c458b36ac8",
+        "condition": "revised"
+      },
+      {
+        "id": "62ff0a3cf2c458b36ac8",
+        "condition": "old"
+      },
+      {
+        "id": "38ad565ba74f6662c186",
+        "condition": "old"
+      },
+      {
+        "id": "38ad565ba74f6662c186",
+        "condition": "revised"
+      },
+      {
+        "id": "aa78e84a931f703c7e9c",
+        "condition": "revised"
+      },
+      {
+        "id": "aa78e84a931f703c7e9c",
+        "condition": "old"
+      },
+      {
+        "id": "b97aaebc64493c607210",
+        "condition": "old"
+      },
+      {
+        "id": "b97aaebc64493c607210",
+        "condition": "revised"
+      },
+      {
+        "id": "9a3d1aae6d0ea05a5ee1",
+        "condition": "revised"
+      },
+      {
+        "id": "9a3d1aae6d0ea05a5ee1",
+        "condition": "old"
+      },
+      {
+        "id": "0e8d3ca5b02dc01ee01f",
+        "condition": "old"
+      },
+      {
+        "id": "0e8d3ca5b02dc01ee01f",
+        "condition": "revised"
+      },
+      {
+        "id": "4dc90b360e4b603c1826",
+        "condition": "revised"
+      },
+      {
+        "id": "4dc90b360e4b603c1826",
+        "condition": "old"
+      },
+      {
+        "id": "9b9f6ccef89db4103c7f",
+        "condition": "old"
+      },
+      {
+        "id": "9b9f6ccef89db4103c7f",
+        "condition": "revised"
+      },
+      {
+        "id": "6a7283f1b8a3f1d862db",
+        "condition": "revised"
+      },
+      {
+        "id": "6a7283f1b8a3f1d862db",
+        "condition": "old"
+      },
+      {
+        "id": "08d1a2c2d3839f127970",
+        "condition": "old"
+      },
+      {
+        "id": "08d1a2c2d3839f127970",
+        "condition": "revised"
+      },
+      {
+        "id": "cac8c7541d651d3480ff",
+        "condition": "revised"
+      },
+      {
+        "id": "cac8c7541d651d3480ff",
+        "condition": "old"
+      },
+      {
+        "id": "599792dd13f472f45fa4",
+        "condition": "old"
+      },
+      {
+        "id": "599792dd13f472f45fa4",
+        "condition": "revised"
+      },
+      {
+        "id": "31ee3310a4aaede08658",
+        "condition": "revised"
+      },
+      {
+        "id": "31ee3310a4aaede08658",
+        "condition": "old"
+      },
+      {
+        "id": "b9e5384e929589f7b0cd",
+        "condition": "old"
+      },
+      {
+        "id": "b9e5384e929589f7b0cd",
+        "condition": "revised"
+      },
+      {
+        "id": "33108254990fcf07c1e2",
+        "condition": "revised"
+      },
+      {
+        "id": "33108254990fcf07c1e2",
+        "condition": "old"
+      }
+    ],
+    "retain_prior_episode_keys": [
+      "dev_old--0e8d3ca5b02dc01ee01f",
+      "dev_old--38ad565ba74f6662c186",
+      "dev_old--3ce00a38706256ab00ea",
+      "dev_old--3f17ea7c76a0ce99c098",
+      "dev_old--4dc90b360e4b603c1826",
+      "dev_old--62ff0a3cf2c458b36ac8",
+      "dev_old--9a3d1aae6d0ea05a5ee1",
+      "dev_old--9eeacceef983c2281854",
+      "dev_old--a23a4969155913255f76",
+      "dev_old--aa78e84a931f703c7e9c",
+      "dev_old--aded79905be896942897",
+      "dev_old--b97aaebc64493c607210",
+      "dev_revised--0e8d3ca5b02dc01ee01f",
+      "dev_revised--38ad565ba74f6662c186",
+      "dev_revised--3ce00a38706256ab00ea",
+      "dev_revised--3f17ea7c76a0ce99c098",
+      "dev_revised--4dc90b360e4b603c1826",
+      "dev_revised--62ff0a3cf2c458b36ac8",
+      "dev_revised--9a3d1aae6d0ea05a5ee1",
+      "dev_revised--9eeacceef983c2281854",
+      "dev_revised--a23a4969155913255f76",
+      "dev_revised--aa78e84a931f703c7e9c",
+      "dev_revised--aded79905be896942897",
+      "dev_revised--b97aaebc64493c607210"
+    ],
+    "authorized_retry_keys": [
+      "dev_old--9b9f6ccef89db4103c7f"
+    ],
+    "unstarted_count": 15,
+    "prior_conservative_charge_usd": 7.8174563280000005,
+    "user_authorization": "Run the remaining tasks after the anomaly audit; retain completed outcomes, including timeouts and the agent editing violation.",
+    "preserve_actor_method_and_transport": true,
+    "reporting": "Final ledger completeness, terminal abort and editing compliance are separate from proof outcome.",
+    "known_transport_limitations": "Public-capture mode does not retain HTTP incomplete partial response bodies; unchanged for comparability. Any new provider failure still stops the run; no automatic paid retries."
+  }
+}

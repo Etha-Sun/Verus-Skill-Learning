@@ -100,7 +100,7 @@ def prepare(config_path, old, new, root, *, task_ids=TASKS,
 
 
 @contextmanager
-def bridge(config, root):
+def bridge(config, root, *, budget_guard=None):
     directory = root/'bridge'; directory.mkdir()
     catalog = (Path(config['source_root'])/'models.json').read_bytes()
     (directory/'models.json').write_bytes(catalog)
@@ -109,7 +109,8 @@ def bridge(config, root):
         api_key=os.environ['DEEPSEEK_API_KEY'], ledger_path=ledger, max_output_tokens=131072,
         retry_output_tokens=131072, request_timeout_seconds=1800, native_responses=True,
         expected_upstream_model='deepseek-v4-pro', pricing_profile='deepseek-current',
-        model_catalog=catalog, fail_closed_on_provider_error=True, capture_public_payloads=True)
+        model_catalog=catalog, fail_closed_on_provider_error=True, capture_public_payloads=True,
+        budget_guard=budget_guard)
     manifest = {'schema_version':'1', 'model':settings.model, 'upstream_base_url':settings.upstream_base_url,
         'max_output_tokens':131072, 'retry_output_tokens':131072, 'request_timeout_seconds':1800,
         'expected_upstream_model':settings.model, 'native_responses':True, 'chat_profile':'deepseek',
@@ -134,9 +135,11 @@ def bridge(config, root):
             raise RuntimeError('Provider requests remain in flight; costs unknown, preserve and stop')
 
 
-def run(config, root, contract, *, expected_episodes=8):
+def run(config, root, contract, *, expected_episodes=8, budget_guard=None,
+        retrieval_auditor=audit_retrieval):
     repo = Path(config['repo']).resolve()
-    for line in (repo/'.env').read_text().splitlines():
+    env_file = repo/'.env'
+    for line in env_file.read_text().splitlines() if env_file.exists() else ():
         key, separator, value = line.strip().removeprefix('export ').partition('=')
         if separator and key.strip() in ('DEEPSEEK_API_KEY','VERUS_SKILL_DATA_ROOT'):
             words = shlex.split(value,comments=True)
@@ -156,7 +159,7 @@ def run(config, root, contract, *, expected_episodes=8):
         shutil.copyfile(source,target)
         item['runtime_source'] = str(target)
     rows = []; failures = []
-    with bridge(config,root) as (settings,url,manifest):
+    with bridge(config,root,budget_guard=budget_guard) as (settings,url,manifest):
         def episode(job):
             item = items[job['id']]; condition = job['condition']
             key = episode_key(job); out = root/'episodes'/key
@@ -173,7 +176,7 @@ def run(config, root, contract, *, expected_episodes=8):
                 reference_proof_source=None, reference_kind='none',
                 actor_isolation_scratch_root=Path(config['scratch_root']),
                 actor_isolation_verus_root=Path(config['verus_bin']).parent,
-                actor_isolation_rust_root=Path(config['source_root'])/'toolchain',
+                actor_isolation_rust_root=Path(config.get('rust_root', str(Path(config['source_root'])/'toolchain'))),
                 actor_isolation_forbidden_paths=(repo,Path(os.environ['VERUS_SKILL_DATA_ROOT']),
                     Path(config['source_root'])/'rollout',Path(config['source_root'])/'train_items.json'),
                 installed_library_root=Path(contract['installed_library_root'])
@@ -206,7 +209,7 @@ def run(config, root, contract, *, expected_episodes=8):
     for result in rows:
         out = Path(result['episode']); key = result['row']['bridge_task_key']
         result['settled_usage'] = _bridge_usage(root/'provider_calls.jsonl',key,'deepseek-v4-pro')
-        result['retrieval'] = audit_retrieval(out/'codex_events.raw.jsonl')
+        result['retrieval'] = retrieval_auditor(out/'codex_events.raw.jsonl')
         write_json(out/'retrieval_audit.json',result['retrieval'])
         packet = export_transcript(out,root/'provider_calls.jsonl',root/'full_traces'/key)
         result['transcript_completeness'] = packet['completeness']

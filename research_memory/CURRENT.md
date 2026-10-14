@@ -1,5 +1,451 @@
 # Current Research State
 
+## Reviewed card-organization publication (2026-10-14)
+
+Publication branch: `feat/skillopt-card-organization-20261014`, based on
+`045b9b2ddd2cfdef00eb6a68f745344fbb8f2dea` from Yuechun's fork-packets branch.
+Portable entry: `research_artifacts/card-organization-20261014/README.md`.
+Includes unchanged evaluated A/B/C packages, two rounds of settings, 80 selected
+episode rows, English report, figures, compact summaries, prompts, and code.
+Main counts remain 13/14/14/14; strict V2 counts remain 13/13/14/14. No claim of
+stable improvement. Local machine paths in published metadata are placeholders;
+source/published hashes are distinguished. Original runs and source worktree are
+untouched. Credentials, sealed data, and full raw runs are excluded. Next step:
+review the portable report and use offline verification before any new paid run.
+
+## Lost-task reading audit COMPLETE (2026-10-14)
+
+All3losing R2episodes vs flat A have body reads, not a no-read/no-read pattern:
+Bkeys reads2fullrefs vs A0; C-and reads2bodies+2directories vs A0;
+C-unpack reads056+one directory vs A006/015/060. All read mainSKILL.
+C-and difficulty precedes firstbody; relevant antecedent fullbody only572s,
+no laterpatch. C-unpack explicitly cites056strategy; A explicitly cites060 and
+patches pointwise execution equality, but C also implements that technique:
+cannot attribute failure solely to lack of060 or conclude references caused harm.
+IMPORTANT: Bkeys finalsamehash Verus passes596.0s,Lynette598.5s,then actor
+timeouts600s. result proof_solved/safety_passed true,within_budget false.
+Follow-up: after Lynette, model request starts598.585s; provider returns601.368s
+requesting `sed -n 100,215p candidate.rs`. Actor already terminated600.355s;
+this final source-inspection command never executes. Deadline expires waiting
+for next model response, not after lengthy additional proof work or a final summary.
+Frozen score unchanged; distinguish actor completion from time-to-valid-proof.
+Earlier 'not solved' shorthand is misleading for this case; it is scored timeout,
+not failure to construct a valid proof. No causality from one trace pair.
+Evidence: projects/verus_self_evolving/experiments/20261013-selective-reference-reading/LOST_TASK_READING_AUDIT.md.
+Read-only evidence audit,no paidcalls,no raw/sealed/result/score modifications.
+
+Presentation update: user requests REPORT.md focus on the two task-outcome
+tables (vs flat78 overlap/gains/losses and six discordant tasks). Generator now
+writes that concise main report, moving previous metrics/methods to DETAILS.md.
+Underlying data, figures and scoring unchanged; regenerate preserves this layout.
+Main report is now English and begins with the verified recommended fixed recipe,
+A/B/C organization/reading differences, and R1/R2 design; it explicitly separates
+offline routing from inference and identifies identical B packages in both rounds.
+
+## Four-arm evaluation COMPLETE; reviewed figures ready (2026-10-14)
+
+Selective v2 continuation completes15/15 at03:17:33UTC,failures[],bridge drained,
+inputs unchanged. Combined round2 has40/40unique selected cells: B14/20,C14/20,
+both14V2 passes,6timeouts each,all40settled provider records complete.
+Round1 selected40: A13/20,B14/20;strictV2 is13each. R1B retains one timeout with
+incomplete late provider usage; mark those resource sums as known-only, not zero.
+All80 selected per-episode settled metrics rechecked against original ledgers;
+both merged source-summary hash sets verified. Four-arm figure script verifies
+same20task source hashes and same B package across rounds;4offline tests pass.
+R2C vs B: input+7.144%,output+2.898%,actor time+1.824%,uniform cost+5.142%;
+no overall efficacy/efficiency benefit established. Reader body episodes11->5;
+directories0->4.12joint-success pairs show output-7.970%,time-7.862%,uniform
+cost-2.737%,but this conditioned subset cannot replace the overall result.
+R2success delta0pp,task bootstrap95%[-20,+20]pp; R1+5pp,[0,+15]pp.
+R2selected period-price estimates B2.389451108,C2.450652732; uniform
+offpeak B1.634771864,C1.718836768. Fullattempt conservative occupancy6.874793200
+includes prior unknown upper bound1.839045120;not asserted actual bill.
+User requested presentation as full rounds without interruption narrative:
+main PNG/PDF/SVG show full matrices; compact method/cost notes retain valid
+replacement policy and material usage/compliance caveats, no fabrication.
+Artifacts suffix skillopt-verusage/four-arm-evaluation-20261014/:
+evaluation_overview and evaluation_table (png/pdf/svg),REPORT.md,metrics.json,
+episodes.csv. Images visually inspected, no clipped text. Reproduce via
+scripts/plot_four_arm_evaluation.py. Raw/sealed/oldresults untouched;no paidcalls.
+Compact report: projects/verus_self_evolving/experiments/20261013-selective-reference-reading/RESULTS.md.
+Next: use completed figures for teacher update; no evaluation service to resume.
+
+## Selective B/C continuation15 RUNNING; retained25, same USD30 (2026-10-13)
+
+User pauses requested four-arm report and explicitly requests finishing round two.
+Original selective v1 stopped after28attempts on DeepSeek IncompleteRead(125251
+bytes read), not on budget exhaustion. Bridge drained; frozen inputs unchanged.
+Original single-retry service exited at its clean-parent gate without a paid call;
+its waiting status file is stale, not evidence of a live queue. Both old services
+were checked inactive. This continuation supersedes that unstarted retry.
+Retain25 original cells including ordinary600s timeouts. Run15:12unstarted plus
+3technical replacements only: B3f17ea7c76a0ce99c098(user-reported SIGKILL),
+C9b9f6ccef89db4103c7f(provider disconnect), B6a7283f1b8a3f1d862db(shared bridge abort).
+Service verus-selective-eval-20261013-v2.service active/running,PID2170368,
+Linger=yes,Restart=no; first6provider records observed at launch,2actors started.
+Run suffix skillopt-verusage/selective-reference-evaluation-20261013-v2/.
+New guard inherits USD3.901802784 conservative occupancy =2.062757664known
++1.839045120unknown upper bound; not a new USD30 budget and not actual billing.
+Original budget/evidence untouched.24offline tests pass; actual systemd zero-API
+preflight passes B37/C146readchecks, dualvalidation,isolation,Codex0.147.0.
+Frozen actor/transport/models/TASK/Executive/skills/permissions unchanged.
+New script scripts/continue_selective_evaluation.py scopes scheduling and merges
+25retained+15new into combined/report.json and combined/episodes.csv, with source
+hashes and excluded-attempt pointers. If another provider fault happens, dispatch
+still stops for review; no automatic paid retry loop. New receipt is coding-agent
+wiring review under explicit user authorization, not independent model review.
+Next: monitor v2 only, then produce four-arm report for R1A/R1B/R2B/R2C after
+checking matrix/provider completeness, timeouts, editing compliance and all costs.
+Detailed launch evidence: projects/verus_self_evolving/experiments/20261013-selective-reference-reading/CONTINUATION_STATUS.md.
+
+## Selective B technical retry QUEUED; original run continues (2026-10-13)
+
+User reports accidentally killing the process and explicitly authorizes one retry.
+Only dev_old--3f17ea7c76a0ce99c098 is eligible: returncode -9, not timeout,
+unsolved, 463.99s actor duration; original raw events end in stream disconnect.
+External kill is user-reported, not independently attributed by kernel logs.
+Original service remains active, latest observed progress16/40, failures[].
+New service verus-selective-retry-20261013-v1.service active/running, PID2719262,
+status waiting_for_parent. It waits for the original execution lock, clean40-cell
+summary and provider drain, then runs only the authorized B cell once from scratch.
+This avoids increasing live concurrency above two. It never retries proof timeouts
+or other cells, nor chooses the better of two outcomes. Frozen sources/packages,
+600s,DeepSeek V4 Pro/max,permissions unchanged;6zero-API tests pass.
+Retry run suffix selective-reference-evaluation-20261013-retry-v1/ under
+skillopt-verusage. Uses original campaign budget.json with its existing USD30 cap;
+the interrupted attempt remains charged, no new budget. All original evidence stays.
+On success of the evaluation pipeline (even if proof unsolved), combined/report.json
+selects39 original cells plus the replacement;41attempts,40selected cells. Parent
+report remains the original attempt set; use the retry combined report for final
+comparison and disclose the exclusion. If parent halts or requests remain unsettled,
+the queued retry refuses execution; do not claim completion from service liveness.
+Initial service-management approval hit a tool-quota error; subsequent scoped
+launch was approved and service state independently confirmed. No API retry yet.
+Next: monitor both services and both status/progress files; preserve raw/sealed data.
+Details: projects/verus_self_evolving/experiments/20261013-selective-reference-reading/TECHNICAL_RETRY.md.
+
+## Selective B/C FRESH40 RUNNING IN SERVER SERVICE; USD30 (2026-10-13)
+
+User explicitly approves new USD30 evaluation and persistent server background
+run, then confirms unchanged grouped B vs selective-v2 C combined improvement
+(not pure read-granularity isolation, not old flat repaired78 A).
+Service verus-selective-eval-20261013-v1.service on vegeta active/running;
+systemd --user, Linger=yes, Restart=no, KillMode=control-group, initialPID1537476.
+Local PC shutdown or SSH disconnect is safe for server persistence; server outage,
+provider error or budget guard can still stop it. No automatic replay/reboot resume.
+Run suffix skillopt-verusage/selective-reference-evaluation-20261013-v1/.
+Fixed validation20xB/Cx1=40fresh cells,600s,DeepSeek V4 Pro/max,two workers,
+same correctedTASK/tools/vstd permissions/local same-version Verus deviation.
+New budget prior_spend=0; current unknown charges remain reserved conservatively;
+previous campaign/construction excluded. Trace2Skill/.env.deepseek unchanged.
+59offline tests and actual systemd zero-API preflight pass (B37,C146readerchecks).
+First pair started; first5providercalls valid with usage,no errors at launch audit.
+Contract SHA ee36426b5725bd0aa9eaff500a71c55a6c19a8de436f2de30d41610cf4080566.
+New wrapper recognizes both reader schemas, validates frozen body payloads,
+separates directories from bodies, flags direct access, and reports settled-provider
+validity/proof/V2 separately. Existing actor/transport unchanged, including known
+HTTP incomplete-response partial-capture limitation; new failure stops dispatch.
+Review receipt is coding-assistant wiring audit under user approval, not independent
+model review. Frozen candidate/control/source hashes remain intact; raw/sealed data
+and previous runs unchanged. Next: monitor existing service/log/budget/progress;
+do not duplicate launch or mutate hashed code. Final summary/report after drain.
+Details: projects/verus_self_evolving/experiments/20261013-selective-reference-reading/EVALUATION_STATUS.md.
+
+## Selective-v2 ROUTING REVIEW AND REVISION COMPLETE (2026-10-13)
+
+User authorized direct revision after questioning semantic distinctiveness.
+Reviewed21 multi-rule families/56rules against original source:5distinct,
+4specialization,3overlap,2complementary,1refinement,1alternatives,5mixed.
+New selective-v2 candidate adds compact family relationship notes, revises23
+rule cues and corrects5shared navigation Scope prefixes (direct-lemma,
+function-field,loop,temporal-existential,trigger). All72original rule blocks,
+78card coverage,shared conditional links,Executive,37top index,reader unchanged.
+Full references32byte-identical to B;5differ ONLY in shared routing Scope, applied
+consistently to directory/single-rule/full payloads. Do not reuse v1 all-full-bytes
+claim. Genuine overlap and inherited card018wording tension remain explicit.
+30offline tests pass; no independent model accuracy evidence. Zero API calls/cost,
+no live evaluation. SKILL8195bytes unchanged; directories median2124bytes. Static
+directory+one-rule vs B full median86.24%,11/56not smaller; not a token-savings claim.
+Run suffix: skillopt-verusage/card-organization-20261013-selective-v2/.
+Old compact-v1/selective-v1 and control B untouched; raw/sealed data unchanged.
+Next: user reviews real directories; before40cell evaluation settle unchanged B
+versus v2 combined navigation+granularity intervention or separately approve a
+navigation-matched control for stricter granularity attribution; then new budget,
+frozen contract and service preflight. No silent reuse of previous USD30approval.
+Evidence: projects/verus_self_evolving/experiments/20261013-selective-reference-reading/ROUTING_REVIEW_V2.md
+and routing_review_v2.json. Previous v1 chronology follows.
+
+## Selective reference candidate READY FOR REVIEW (2026-10-13)
+
+User approved the proposed next ablation, with candidate review before evaluation.
+New candidate/control snapshot under skillopt-verusage/card-organization-20261013-selective-v1/.
+Control is current grouped B, NOT flat repaired78 A. Candidate preserves original
+Executive, all37 top-level descriptions, 72 rule bodies and78source-card coverage.
+16single-rule references remain immediate full reads;21multi-rule families get
+short internal directories and optional --rules selection / --full fallback.
+Reader emits distinct index/read_single/read_rules/read_full events; directory
+exposure is not a body read. Shared scope/links accompany selected rules.
+SKILL7957->8195bytes, only reader instructions grow. 19offline tests pass including
+real-package hashes, all rule bodies, full fallbacks and Markdown links/anchors.
+No provider calls, USD0 new build cost, no evaluation launched. Routing cues are
+coding-assistant source-only summaries, not a new DeepSeek-generated artifact.
+Static directory+one-rule bytes sometimes exceed the old full reference (3/56);
+do not promise token savings. Existing rule ambiguities are inherited unchanged.
+Next: user reviews candidate, approves new cost ceiling; wire both-arm event
+metrics/package permissions and freeze a new40-cell validation20 B/C contract,
+then zero-API server preflight. OldUSD30cap does not authorize this new campaign.
+Frozen prior actor/transport/evaluation sources, raw/sealed data and old outputs
+remain unchanged. Details: projects/verus_self_evolving/experiments/20261013-selective-reference-reading/PLAN.md
+and CANDIDATE_REVIEW.md. Previous chronology follows.
+
+## Additional-success task history VERIFIED (2026-10-12)
+
+For IR__delegation_map_v__impl4__new (6a7283f1b8a3f1d862db), current B raw commands
+show cat SKILL.md and ls references, but no reference body opening/helper call;
+it inspects installed vstd/map.rs,set.rs,set_lib.rs,map_lib.rs and then proves.
+Historical published result records extracted with manifest SHA checks (16unique
+records;14provider-valid, all14 dual-pass;2invalid interrupted attempts excluded).
+Closest recipe: executive-single I5C6Z6 old originalExecutive+repaired78 flat
+passed130.765s,5862output tokens, same complete skill-tree hash as current A;
+diagnostic-first counterpart passed168.847s. Earlier repaired78 passed38.070s;
+initial Executive without card bank passed33.011s/44.460s in two main repeats.
+Thus current B123s vs current A600s is a single-run win, NOT a historically
+unsolved task or demonstrated reference-body transfer. Index exposure may still
+matter; do not claim zero skill influence. Historical TASK/tool builds differ
+across campaigns, so these times are descriptive, not causal paired comparisons.
+Evidence under v5/audit/task_history/comparison.json and hash-named raw results;
+extractor v5/audit/task_history.py. Raw/sealed data unchanged; no model calls.
+
+## v5 FINISHED: FULL40 CELLS; PROOF OUTCOME A13/B14 (2026-10-12)
+
+Continuation16/16 finished14:12:48UTC, no failures, bridge drained, frozen inputs
+unchanged. Combined24retained+16new=40cells/20complete task pairs. Budgeted dual
+passes: repaired78flat13/20, grouped14/20. V2 dual passes13each because Baa78
+retains its separately audited cp editing violation. The ONLY differing proof
+outcome is IR__delegation_map_v__impl4__new, ID6a7283f1b8a3f1d862db: B passes
+Verus/safety in123.00s with V2_TRACE and complete provider usage; A times out
+600.36s, proof not solved. This additional success is NOT the editing-violation
+case. All13 A proof successes are also B proof successes. No helper/body direct
+access flags recorded for either arm on the additional-success task; do not
+attribute it causally to reading references. One run per task; no efficacy claim.
+Evidence: v5/combined_report.json,combined_summary.json and task result/usage.
+Known B usage still excludes one v4 incomplete-response bill; final normalized
+paired resource/statistical analysis remains pending. Raw/sealed data unchanged.
+
+## v5 CONTINUATION RUNNING: 24 RETAINED + 16 NEW (2026-10-12)
+
+User authorizes remaining work after audit. New systemd service on vegeta:
+verus-card-eval-20261012-v5.service, Linger=yes, Restart=no. Fixed scope15unstarted
+plus A9b9early-infrastructure-abort; retain24 prior outcomes unchanged. Do not
+retry600s timeouts or agent editing violation. TotalUSD30 still includes all
+earlier known costs/unknown bounds; inherited occupancyUSD7.817456328.
+Run-root: skillopt-verusage/card-organization-evaluation-20261012-v5/.
+19offline tests plus both actual systemd preflights pass; four first native calls
+completed with no errors. Live TASK/model/600s/package hashes match prior.
+Separate wrapper fixes derived reporting of settled-provider validity, early
+bridge abort and editing protocol; adds uniform-rate cost column. Frozen actor
+and transport source unchanged, including known incomplete partial-capture gap.
+Do not claim upstream faults or shared fail-closed behavior are eliminated.
+Contract SHAc78e0bf8f39c2b9f796c327b78d05d2ed94dd417044cdd849c33fba7a488ea6c.
+After drain expect16-row summary plus40-cell combined_summary/report/CSV.
+Next: monitor v5service/logs; no duplicate launch or outcome-driven retries.
+Details: projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/CONTINUATION_STATUS.md.
+Raw/sealed data and old results unchanged. Earlier chronology follows.
+
+## v4 ANOMALIES AUDITED; NO PAID RETRY (2026-10-12)
+
+Audit resolves three separate events. B0e8d timed out600s and wrote its result
+at10:48:58UTC; its outstanding response hit HTTP chunked EOF at10:50:19UTC,
+setting shared bridge halted_error. A9b9 then failed early at193.65s due to local
+409 responses; five CLI reconnects did not dispatch five paid retries. Stop is
+fail-closed behavior, not systemd disappearance or USD30 exhaustion.
+Baa78's V0_INVALID is a real shell-edit violation (cp backup to candidate.rs),
+not failed proof: Verus2verified0errors/Lynette0,281.32s, input/skill intact,
+provider/terminal/events/snapshots valid. Backup originated from own candidate.
+Proof-only budgeted successes remain8each on same8tasks; V2-compliant successes
+are A8/B7. Report both dimensions without post-hoc primary endpoint changes.
+Audit identified stale provider_valid after late settlement, collateral bridge
+abort misbucketed as ordinary unsolved, misleading V0 failure text, and missing
+partial response persistence when public capture enabled. Frozen code unchanged.
+Next proposal: fix instrumentation/classification in a new version; preserve all
+outcomes, consider15unstarted+1early-infrastructure-aborted cell after approval.
+Do not automatically retry600s timeouts or agent-caused protocol violations.
+Report: projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/ANOMALY_AUDIT.md.
+Reproducible evidence: v4/audit/anomaly_audit.py and JSON. Assertions pass;
+raw/sealed data and original outputs unchanged; zero new model calls.
+
+## Card organization v4 STOPPED ON PROVIDER INCOMPLETE READ (2026-10-12)
+
+Status check at12:56UTC: systemd service failed/exit1; summary finished10:52:51UTC.
+25/40 episode records exist (A13,B12),15unstarted; no automatic restart.
+One native upstream response raised IncompleteRead(1835121 bytes read), task
+dev_revised--0e8d3ca5b02dc01ee01f. Error latch stopped scheduling; two identical
+failure entries do not mean two distinct failed API requests. Bridge drained,
+frozen inputs unchanged. This differs from earlier v3 detached-driver loss.
+Saved scoring reports A8 andB8 budgeted dual passes, but B's aa78e84a931f703c7e9c
+has V0_INVALID trace fidelity despite dual pass. Audit before efficacy claims.
+Summary also leaves provider_valid stale after a late ledger error: revised
+0e8d... has one unmetered/error request; old9b9... terminated under bridge latch
+with codex_returncode1/V0_INVALID. Do not treat these as ordinary proof failures.
+Current statistics.json is provisional, not a fully reconciled validity table.
+New v4 settledUSD2.133143672, unknown boundUSD1.83904512, inherited conservative
+chargeUSD3.845267536; total budget occupancyUSD7.817456328, not budget exhaustion.
+No restart or paid retry authorized in this status-only query. Next: reconcile
+late provider errors/trace fidelity and propose targeted recovery, keeping results.
+Evidence: skillopt-verusage/card-organization-evaluation-20261012-v4/summary.json,
+statistics.json,provider_calls.jsonl,evaluation.log. Raw/sealed data unchanged.
+
+## Card organization SYSTEMD RUNNING; USD30 CAP (2026-10-12)
+
+User explicitly raised total evaluation ceiling to USD30 and authorized rerun.
+Fresh40-cell run preserves actor configuration/schedule/packages, with all v3
+interrupted evidence retained. New shared guard inherits USD3.845267536:
+USD0.167177296 settled including review plus USD3.67809024 unknown-call bounds.
+This is conservative budget occupancy, not a claim of actual unknown billing.
+New run-root: skillopt-verusage/card-organization-evaluation-20261012-v4/.
+Service on vegeta: verus-card-eval-20261012-v4.service, systemd user manager,
+Linger=yes, Restart=no; independent of local PC/SSH/CLI session. Actual systemd
+zero-API probes passed both arms, then first provider calls succeeded.
+New contract SHA77b7f43c52ef2020f0a15e58e51943a5071239c99e3503c69e4cae040f717374.
+Original Pro/max method review preserved; new exact-hash recovery receipt is
+explicitly a coding-assistant delta review under user authorization, not a new
+model review or relabeled old approval. No extra paid governance call.
+Evidence: service_receipt.json, recovery_delta.json, evaluation.log, budget.json.
+Next: inspect systemctl --user status and episode progress; never start duplicate
+run or clear old unknown reservations. Await40 results and drained ledger.
+Raw/sealed data and candidate packages unchanged. Earlier v3 history follows.
+
+## Card organization INTERRUPTED; RECOVERY APPROVAL PENDING (2026-10-12)
+
+Correction after user asked about shutting down their local computer: the
+server vegeta's detached driver PID is absent, both actors logged Broken pipe,
+and no episode completed. Exact driver exit cause is unestablished. Preserve
+2interrupted/38unstarted cells, USD0.167177296 settled including review, plus
+2unknown requests with USD3.67809024 unresolved reservations. Budget/ledger
+are unchanged; do NOT silently clear reservations or restart paid work.
+Asked user to permit technical repeats under the SAME total USD20 ceiling with
+unknown calls conservatively charged at their reservation bounds. No reply yet.
+Server user systemd works; enabled current-user Linger=yes and started a
+300s zero-API sleep probe. Use a systemd user service for authorized recovery,
+not the previous nohup process. Local shutdown is safe for that service, not
+evidence that the interrupted campaign is still running.
+Evidence: run-root skillopt-verusage/card-organization-evaluation-20261012-v3/interruption_audit.json.
+
+### Prior launch record (superseded by interruption above)
+
+User approves validation20 x2arms x1repeat=40 fresh episodes,600s each,
+evaluation USD20 including new Pro/max contract review, excluding construction
+USD1.74243608. Also explicitly permits identical local same-version Verus in both
+arms despite historical rust_verify hash difference; Codex/Lynette/catalog match.
+Thin evaluation wrapper and eight tests added;142related tests pass. Both real
+isolated tool/reader probes pass (78cards+37references). Pro/max review approves
+with no blockers; costUSD0.13711104 included in shared evaluation cap.
+Frozen run-root: skillopt-verusage/card-organization-evaluation-20261012-v3/.
+Detached evaluation launched, first A/B pair running with successful native
+provider responses. Live manifests confirm sharedTASK/model/600s/vstd/isolation.
+Check launch.pid/evaluation.log/progress.json; do not launch a duplicate process.
+Unknown costs or technical failure halt without automatic retry. Do not mutate
+frozen sources. Await all40 results and drained ledger before final analysis.
+Details: projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/EVALUATION_STATUS.md.
+Raw/sealed data unchanged. Earlier construction chronology follows.
+
+## Card organization SHORT INDEX GENERATED; REVIEW REQUIRED (2026-10-12 UTC)
+
+Latest: user authorized shortening only the main directory. compact-v1 candidate
+SKILL7957bytes vs first31507 and control11545;37one-line references,72rules,
+all39non-SKILL files and complete pre-index prefix unchanged.149related tests
+and37reader checks pass. One Pro/max directory-editing call estimatedUSD0.02385372,
+cumulativeUSD1.74243608. Raw response saved; reviewed cues remove unsupported
+action tails with explicit change records, no additional paid call. No evaluation.
+Current run-root path: skillopt-verusage/card-organization-20261012-compact-v1/.
+Review: projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/SHORT_INDEX_REVIEW.md.
+Next: review the short candidate before any actor run; source/raw/sealed data unchanged.
+Earlier construction chronology follows.
+
+User authorized implementation+candidate generation, review before evaluation;
+all models DeepSeek V4 Pro/max, confirmed env location, future20x2x1=40episodes.
+This supersedes pending questions/80episode proposal below. Historical40costs
+USD4.54–5.72 inform future estimate only. Current construction ceilingUSD5,
+peak-cost reservations before requests; unknown costs block dispatch; no retries.
+Driver/validator/renderer implemented,101related offline tests pass. A control
+SKILL reproduces published bytes. Router v2 call ended03:56:07Z incomplete at
+65536completion tokens (33880reasoning), input28889; ledgerUSD0.29765604,
+settled1/uncertain0/reserved0. Shared client did not save incomplete response
+body; request/error/usage retained. No usable proposal, reduction or candidate.
+Run-root skillopt-verusage/card-organization-20261012-v1/. Asked user for ONE
+131072output-cap retry with unchanged prompt/input/Pro-max and same cumulative
+USD5ceiling including prior expense. No automatic paid retry, no evaluation.
+User approved ONE131072cap retry. v2prepared03:58:48Z and launched, full input
+and Router prompt identical, priorUSD0.29765604inherited under sameUSD5cap;
+peak request reserveUSD0.71604588. Capture instrumented to save incomplete
+bodies before rejecting them; new contract hashes changed code,132tests pass.
+Update: v2completed, output74333including35298reasoning, input28889(28800hit).
+Saved full provider envelope/raw/parsed proposal; cumulativeUSD0.59339940.
+Offline format-only normalization converts keyed objects to arrays and anchor
+field capitalization, preserving all semantics and original evidence. Validates
+78cards/86cases/37families; all anchors match.137related offline tests pass.
+Separate card-organization-20261012-reduce-v1 run inherits all prior expense;
+draft reducers launched Pro/max32768, no new Router call or actor evaluation.
+Router missed known018Action/Validate tension; independent review retains it.
+Final update: all37reducers complete; accumulated estimatedUSD1.71858236,
+no unresolved calls/reservations. Candidate37references/72rules covers78cards
+exactly once;66verbatim plus6merged pairs. Explicit audited fallback restores
+003/043 and018/034/057 rather than accepting unsafe model merges. Original
+responses/proposals retained, source wording conflicts not silently resolved.
+Main SKILL31507bytes vs control11545(2.729x); group count did not shorten index.
+All139related tests and37whole-reference reader checks pass. No actor evaluation.
+Next: review candidate and confirm whether to compact directory descriptions
+without changing taxonomy/rules. Raw/sealed/source cards unchanged.
+Review: projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/CANDIDATE_REVIEW.md.
+Receipt: projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/BUILD_STATUS.md.
+
+## Trace2Skill-style repaired78 organization PLANNED (2026-10-11)
+
+Xinyue requested a parallel card-organization experiment with Yuechun's shared
+recommended configuration fixed. Dedicated worktree fast-forwarded to045b9b2;
+published63/78/78bank counts, unique IDs and principal-manifest hashes checked.
+Plan: contemporaneous repaired78 flat control vs semantic reduce + clustered
+references, same corrected TASK/original Executive/model/budgets/tools/vstd
+permissions. Proposed validation20 x2arms x2repeats=80episodes, subject to a
+separate paid-run budget and reviewed-contract gate. This tests a package, not
+clustering alone; validation remains development evidence. No implementation,
+new model calls, bulk archive restoration, or sealed-test access this turn.
+Next: offline input/coverage audit and frozen-control reconstruction, then one
+reviewed candidate. Original checkout/raw data/historical results unchanged.
+User clarified Trace2Skill is only an organizational inspiration, not a required
+algorithm. PLAN5.2 specifies an offline semantic organizer (features, global
+taxonomy, assignment, boundary review, contrastive directory), not an external
+online retrieval agent. Novelty and efficacy remain unverified hypotheses.
+Historical comparison companion now lists12main conditions, five within-round
+comparisons and separate checkpoint4arms. Published statistics archive hash
+verified and cumulative values checked; no full raw-ledger re-audit. PLAN7
+adopts matching outcomes, settled usage, success/joint-success/all-attempt
+views and task-cluster bootstrap. Prior14/20 corrected-TASK control is context,
+not a reused baseline. No live runs or source/result changes.
+Offline Router/Reducer v1 prompt drafts now exist under the plan's prompts/:
+both target DeepSeek V4 Pro/max, not yet executed. Router proposes a global
+taxonomy with complete card assignment; reducer preserves applicability and
+clause-level sources, retaining unsafe-to-merge cards verbatim. JSON contracts
+are drafts, not implemented validators. Next: review prompts and implement
+offline schema/coverage checks before any separately budgeted model calls.
+Router now v2 after read-only review of15actual card bodies: explicit consumer
+and granularity tests, Verus entry states, per-card cases and guarded cross-links,
+source anchors and intra-card ambiguity review (018Action/Validate tension).
+Reducer contract maps cases to rules to preserve those links. Prompts remain
+unexecuted; no whole-bank classification or demonstrated retrieval gain.
+User accepted latest Router prompt. Added main-SKILL and reference-index static
+templates: original Executive prefix unchanged, optional read instructions,
+complete ID/title/link/applicability/exclusion directory. Router v2/reducer v2
+are the planned inputs, to be hash-frozen before construction. No taxonomy
+invented, placeholders not deployable; no renderer/reader or live calls yet.
+User mandates DeepSeek V4 Pro/max for ALL model roles, including reviews, and
+asks explicit clarification on material ambiguities. Asked execution scope,
+80vs40episodes, spending ceiling, and credential path (workspace-root env file
+absent; adjacent Trace2Skill env candidate found, contents unread). Answers
+pending; no paid calls authorized by merely providing a key location. PLAN0
+records these gates and full-reference rather than nested-card reading.
+Plan: projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/PLAN.md.
+
 ## October DeepSeek card/trace private publication COMPLETE (2026-10-11)
 
 User explicitly authorized uploading complete cards and traces to the existing

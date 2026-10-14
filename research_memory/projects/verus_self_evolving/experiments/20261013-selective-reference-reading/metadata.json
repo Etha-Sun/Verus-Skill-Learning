@@ -1,0 +1,9 @@
+{
+  "title": "Reference-internal selective reading ablation candidate",
+  "project": "verus_self_evolving",
+  "kind": "experiments",
+  "created_at": "2026-10-13T00:00:00-05:00",
+  "status": "complete_B14_C14_four_arm_figures_reviewed",
+  "links": ["RESULTS.md", "CONTINUATION_STATUS.md", "TECHNICAL_RETRY.md", "EVALUATION_STATUS.md", "PLAN.md", "ROUTING_REVIEW_V2.md", "routing_review_v2.json", "CANDIDATE_REVIEW.md", "rule_cues.json"],
+  "raw_data_read_only": true
+}

@@ -1,0 +1,100 @@
+{
+  "compound-stability-existing-rules": {
+    "compound-stability-universal-components": {"title": "Compound stability with universal obligations", "when": "An always-step conjunct is combined with universal fairness or action obligations", "avoid": "Missing component premises or unproved conjunction-stability rule"},
+    "always-conjunction-per-conjunct-stability": {"title": "Left-nested always-conjunction stability", "when": "The goal is stability of a left-nested conjunction of already always-wrapped predicates", "avoid": "Absent or incompatible stability helpers, predicate shapes, or nesting"},
+    "existing-stabilization-proof-object-lifted-conjunction": {"title": "Finite lifted conjunction with local proof object", "when": "A finite always-lifted conjunction has existing local stability proof objects or a macro", "avoid": "Absent or incompatible proof objects, or predicates at the wrong lifting level"},
+    "always-stability-extra-wrapper-precondition": {"title": "Extra always wrapper in a helper precondition", "when": "A conjunction-stability precondition fails after an already wrapped predicate was given to always-stability", "avoid": "The exact contract expects that wrapper shape or other premises are missing"}
+  },
+  "direct-existing-lemma-bridge": {
+    "installed-library-lemma-direct": {"title": "Existing library lemma matches the goal", "when": "A library lemma has the required algebraic conclusion and available premises", "avoid": "No matching lemma, missing premises, or incompatible equality form"},
+    "original-card-003": {"title": "Equal serialization to equal views", "when": "Marshalable values have equal serialization and an existing trait contract promises view equality", "avoid": "Trait unavailable or its view relation does not imply the required structural equality"},
+    "original-card-043": {"title": "Equal views to equal marshalability", "when": "Two datatype values have equal abstract views and the goal is equal marshalability predicates", "avoid": "Repeated direct calls when the view-equivalence declaration cannot instantiate; inspect fallback conditions"}
+  },
+  "eventual-witness-index-bridge": {
+    "card-008-verbatim": {"title": "Eventual action to post-state existence", "when": "Eventual action occurrence is established but post-state existence still fails", "avoid": "Unusable occurrence triggers or missing pointwise action-to-post implication"},
+    "card-009-verbatim": {"title": "Absolute witness to suffix eventual state", "when": "A raw state witness at an absolute shifted index does not establish eventual satisfaction on the current suffix", "avoid": "Unproved offset arithmetic or unavailable lifted-predicate unfolding"},
+    "card-061-verbatim": {"title": "Existential reachability witness", "when": "A temporal branch has an existential reachability fact but a manual witness index is difficult", "avoid": "The existential is unproved or its witness property cannot support the next step"}
+  },
+  "finite-set-fold-cardinality-induction": {
+    "finite-set-fold-finiteness-cardinality-induction": {"title": "Finiteness of a folded set", "when": "A fold over a finite input set must produce a finite set", "avoid": "No decreasing cardinality argument or unsuitable empty/nonempty fold equalities"},
+    "finite-set-fold-image-equality-cardinality-induction-helper": {"title": "Folded set equals a set image", "when": "A finite-cardinality recursive fold must equal the image of its finite source set", "avoid": "Source finiteness or finite-cardinality recursion is absent"}
+  },
+  "function-field-projection-syntax": {
+    "card-015-verbatim": {"title": "Method/field or missing-antecedent diagnostics", "when": "New proof code confuses methods and fields, or warns that a quantified antecedent is not assumed", "avoid": "Neither diagnostic is present; implication syntax is version-sensitive"},
+    "card-028-verbatim": {"title": "Function-field equality syntax or trigger failure", "when": "Pointwise record equality fails on field-as-method syntax or uninferred quantifier triggers", "avoid": "Treating pointwise agreement as record equality without establishing field equality"},
+    "merged-field-projection-before-apply": {"title": "Stored spec-function field called as a method", "when": "A compile error reports no method for a function-valued field used with call-like dot syntax", "avoid": "A genuine method, a non-function field, or a missing logical fact"}
+  },
+  "ghost-empty-witness": {
+    "concrete-empty-ghost-aggregate": {"title": "Empty ghost aggregate obligation", "when": "An unconstrained ghost aggregate must have empty sequences and an empty derived set", "avoid": "The contract requires nonempty contents"},
+    "concrete-empty-ghost-history-initializer": {"title": "Empty ghost history at initialization", "when": "The abstract initial-state relation requires an empty history currently initialized arbitrarily", "avoid": "Nonempty history is required or the field affects executable behavior"}
+  },
+  "loop-termination-and-invariants": {
+    "loop-counting-termination-measure": {"title": "Counting-loop termination diagnostic", "when": "A counter increments from zero to a collection length and Verus requests a decreases clause", "avoid": "Termination depends on other state or the measure does not decrease on every path"},
+    "loop-body-inherited-assumption-invariant": {"title": "Function assumptions unavailable inside a loop", "when": "Termination is accepted but an inner precondition depends on function-entry assumptions", "avoid": "The loop modifies relevant state so those assumptions are not preserved"},
+    "packet-prefix-set-invariant": {"title": "Packet-prefix loop set and validity obligations", "when": "A packet-append prefix loop still fails set equality, invariants, or match-arm obligations after termination repair", "avoid": "Repeating unchanged assertions when missing field or record premises remain"}
+  },
+  "natural-integer-type-mismatch": {
+    "natural-predecessor-subtraction-conversion": {"title": "Natural predecessor has integer type", "when": "A natural-number induction helper gets an integer from predecessor subtraction", "avoid": "The branch does not establish nonnegativity or safe conversion"},
+    "empty-sequence-length-annotation": {"title": "Empty sequence inference or length/index mismatch", "when": "An empty sequence lacks an inferred element type or a natural length is used as an integer index", "avoid": "Types are already determined or the interface accepts natural indices"}
+  },
+  "opaque-spec-function-facts": {
+    "rule-card-019": {"title": "Fuel reveal rejected for a spec wrapper", "when": "Fuel-based revealing is rejected for a spec function without a decreasing clause", "avoid": "Direct revealing is supported or the original function needs no wrapper"},
+    "rule-card-021": {"title": "Opaque fixed-width serialization length", "when": "A closed serialization function blocks a required fixed-width length fact", "avoid": "No open counterpart or connector, or the spec avoids encoding details"},
+    "rule-card-053": {"title": "Length-prefixed serialization injectivity", "when": "Injectivity needs a fixed header length and sequence equality but header assertions or early equality helpers fail", "avoid": "No fixed-width header or installed encoding/decoding round-trip lemma"}
+  },
+  "post-verification-cleanup": {
+    "exec-shape-deghost-restore": {"title": "Verified proof with executable-shape difference", "when": "Verus succeeds but Lynette reports changed executable calls, bindings, branches, or returns", "avoid": "The proof strategy genuinely needs executable changes; semantic equivalence alone is insufficient"},
+    "module-scope-proof-directive-scope-down": {"title": "Verified proof with module-scope directive difference", "when": "A proof-import-like directive at module scope causes a safety-comparison difference after verification", "avoid": "The directive is illegal locally or cannot be partitioned across dependent proofs"},
+    "qualified-proof-helper-set-equality-no-import": {"title": "Verified set proof with import or macro difference", "when": "A set-equality proof verifies but safety comparison rejects a proof-only import or macro change", "avoid": "A real executable, signature, or specification difference"},
+    "post-verification-trigger-implication-warning-cleanup": {"title": "Warnings after successful verification", "when": "The proof already verifies and only automatic-trigger or quantified-implication warnings remain", "avoid": "An active quantifier or implication proof failure"}
+  },
+  "proof-helper-qualified-path": {
+    "qualified-proof-helper-macro-path": {"title": "Proof helper or macro out of scope", "when": "A proof-only helper or macro is unavailable locally and a new top-level import may violate preservation", "avoid": "No usable installed qualified path, executable artifacts, or an already harmless import"},
+    "sequence-equality-closure-qualified-path": {"title": "Sequence-equality closure out of scope", "when": "A sequence-equality closure mechanism is unavailable or its proposed import fails safety comparison", "avoid": "No library-root export or the local import policy already permits it"}
+  },
+  "quantified-proof-antecedent-binder-scope": {
+    "missing-antecedent-quantified-proof": {"title": "Diagnostic says quantified antecedent is not assumed", "when": "An inner assertion or lemma fails with a missing-antecedent warning in a quantified proof", "avoid": "The antecedent is already available, a different premise is missing, or the failure is trigger inference"},
+    "quantified-binder-scope-verbatim": {"title": "Binder or antecedent facts unavailable", "when": "A quantified implication loses antecedent-dependent bounds or facts about its bound value", "avoid": "Genuinely absent bounds or no binder/antecedent issue; syntax is version-sensitive"},
+    "helper-precondition-implication-branch-verbatim": {"title": "Helper precondition inside quantified implication", "when": "A helper precondition fails inside an implication-bearing quantified assertion", "avoid": "Rewriting specification requires/ensures or a goal already discharged by a supplied case lemma"}
+  },
+  "record-function-field-equality": {
+    "rule-card-004": {"title": "Record equality from full pointwise field agreement", "when": "Record equality is the failing postcondition and every index of a function-valued field already agrees", "avoid": "Agreement covers only some indices or other record fields are not known equal"},
+    "rule-card-005": {"title": "Direct function-value equality remains unproved", "when": "Full pointwise agreement exists but direct function equality and guessed helpers fail", "avoid": "No installed extensional equality relation or incomplete pointwise agreement"}
+  },
+  "sequence-fold-concat-equality": {
+    "seq-fold-concat-induction-second": {"title": "Concatenated fold resists direct unfolding", "when": "A left fold over concatenation must equal concatenated separate folds and a direct proof fails", "avoid": "Non-associative or non-append-like accumulator operation, or missing prefix/last decomposition"},
+    "seq-fold-concat-split-lemma-helper": {"title": "Concatenated fold with a library split lemma", "when": "The fold can be split at the boundary between its two source sequences", "avoid": "No split lemma or incompatible accumulator-plus-empty formulation"}
+  },
+  "set-equality-membership-witness": {
+    "rule-general-set-image-equality-witness": {"title": "Set/image equality without a direct library lemma", "when": "A membership equivalence or reverse-containment assertion does not establish set equality", "avoid": "An applicable library lemma already proves the same goal with available premises"},
+    "rule-no-duplicate-sequence-removal-set-equality": {"title": "Set view after duplicate-free sequence removal", "when": "Removing an index from a duplicate-free sequence must equal removing that element from its set view", "avoid": "Duplicates are possible or the removed element occurs at another index"}
+  },
+  "temporal-existential-witness-lifting": {
+    "card-016-verbatim": {"title": "Existential message states with per-message lemmas", "when": "Trusted per-message leads-to lemmas do not connect existential statement-level state conditions", "avoid": "No per-witness lemma or no witness selectable from atomic state membership/equality"},
+    "card-032-verbatim": {"title": "Existential intermediate states with witness helpers", "when": "A leads-to source or intermediate state is existential but helpers cover only individual witnesses", "avoid": "Unavailable or uninstantiable helpers; individual legs alone may leave final transitivity open"},
+    "card-033-verbatim": {"title": "Existential temporal predicate equality", "when": "Temporal equality involves an existential and existing equality and witness-introduction rules", "avoid": "Either trusted rule is missing or an antecedent is not available in the proof block"}
+  },
+  "temporal-predicate-equality-pointwise": {
+    "card-029-verbatim": {"title": "Universal/always commutation equality", "when": "Temporal equality has existing universal-commutation and always-moving helpers", "avoid": "Global unfolding, new trusted rules, or undischarged helper preconditions"},
+    "card-070-verbatim": {"title": "Single versus nested temporal operator", "when": "The failing postcondition equates one application of a temporal/spec operator with two applications", "avoid": "Built-in equality already suffices or the required index-shift identity is unavailable"}
+  },
+  "temporal-suffix-shift-helper": {
+    "nested-always-forward-shift-helper": {"title": "Nested always with an existing suffix helper", "when": "An empty proof must establish nested always and the context supplies a forward-shift helper", "avoid": "Missing helper, insufficient unfolding, or a mismatching assumption"},
+    "always-lifted-action-unfolding-helper": {"title": "Always-lifted action to every suffix", "when": "An always-lifted action premise must yield suffix-wise satisfaction and an unfolding helper exists", "avoid": "The helper is absent or not already accepted without a new trusted body"}
+  },
+  "transition-system-step-safety": {
+    "card-010-verbatim": {"title": "Temporal invariant with finite transition cases", "when": "An empty proof must show that a specification entails a state predicate at every future point", "avoid": "No induction rule, no finite step match, or a transition needs a missing invariant"},
+    "card-011-verbatim": {"title": "Network multiset message invariant", "when": "Transitions remove at most one received message and add a multiset of sent messages", "avoid": "Unconstrained message sources or arbitrary external messages without finite case analysis"},
+    "card-012-verbatim": {"title": "Controller cannot send its own external request", "when": "The controller preservation case must exclude a request to its own external system", "avoid": "Uninterpreted or request-producing reconciler, or uncovered external-system models"}
+  },
+  "trigger-inference-annotation": {
+    "original-card-018": {"title": "Trigger-inference or missing-antecedent diagnostic", "when": "An assertion or witness choice reports uninferred triggers or a weak-implication antecedent warning", "avoid": "Neither diagnostic is present or a genuine premise is missing; original wording tension is retained"},
+    "original-card-034": {"title": "Active trigger-inference failure", "when": "Verus cannot infer triggers for a quantified assertion or witness choice", "avoid": "The proof already verifies and only a low-confidence trigger note remains"},
+    "original-card-057": {"title": "Universal assertion trigger or antecedent warning", "when": "A universal assertion reports uninferred triggers or an implication antecedent not assumed", "avoid": "A new logical premise is needed; successful-proof warnings do not establish necessity"}
+  },
+  "universal-instantiation-concrete": {
+    "card-037-whole-sequence-element-helper": {"title": "Whole-sequence fact missing at one index", "when": "A whole-sequence validity/range premise is available but an element assertion at the loop index fails", "avoid": "The index is not in bounds or the element property does not follow"},
+    "card-058-entailment-implication-concrete": {"title": "Entailment premise inactive at one execution", "when": "An entailment/validity premise exists but asserting its conclusion at a concrete execution fails", "avoid": "Mismatching execution type or implication surface form"},
+    "card-076-alias-inline-trigger-instantiation": {"title": "Alias facts miss quantified stability precondition", "when": "A recursive helper fails stability after always-facts reached a suffix through local aliases", "avoid": "Aliases do not affect matching or trusted quantified facts are absent"}
+  }
+}

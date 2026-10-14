@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1600" viewBox="0 0 2400 1600">
+<rect width="2400" height="1600" fill="#f6f8fb"/>
+<text x="70" y="94" font-family="AR PL SungtiL GB,serif" font-size="54" fill="#1e293b">Verus 证明：卡片组织与按需读取评测</text>
+<text x="70" y="144" font-family="AR PL SungtiL GB,serif" font-size="29" fill="#1e293b">两轮独立配对实验 | 固定 validation20 | 每臂每题 1 次 | DeepSeek V4 Pro/max | 600s</text>
+<rect x="65" y="190" width="1110" height="380" fill="#ffffff"/>
+<text x="95" y="245" font-family="AR PL SungtiL GB,serif" font-size="33" fill="#1e293b">预算内双检查通过（题 / 20）</text>
+<rect x="375" y="272" width="1" height="244" fill="#e7edf4"/>
+<text x="365" y="546" font-family="AR PL SungtiL GB,serif" font-size="21" fill="#64748b">0.0</text>
+<rect x="705.0" y="272" width="1.0" height="244" fill="#e7edf4"/>
+<text x="695.0" y="546" font-family="AR PL SungtiL GB,serif" font-size="21" fill="#64748b">10.0</text>
+<rect x="1035" y="272" width="1" height="244" fill="#e7edf4"/>
+<text x="1025" y="546" font-family="AR PL SungtiL GB,serif" font-size="21" fill="#64748b">20.0</text>
+<text x="92" y="306" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R1-A 扁平78卡</text>
+<rect x="375" y="280" width="429.0" height="33" fill="#8493a5"/>
+<text x="814.0" y="304" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">13</text>
+<text x="92" y="367" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R1-B 整篇读取</text>
+<rect x="375" y="341" width="462.0" height="33" fill="#3c72b4"/>
+<text x="847.0" y="365" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">14</text>
+<text x="92" y="428" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R2-B 整篇读取</text>
+<rect x="375" y="402" width="462.0" height="33" fill="#3c72b4"/>
+<text x="847.0" y="426" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">14</text>
+<text x="92" y="489" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R2-C 按需读取</text>
+<rect x="375" y="463" width="462.0" height="33" fill="#14887c"/>
+<text x="847.0" y="487" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">14</text>
+<rect x="1235" y="190" width="1110" height="380" fill="#ffffff"/>
+<text x="1265" y="245" font-family="AR PL SungtiL GB,serif" font-size="33" fill="#1e293b">累计输入 token（百万）</text>
+<rect x="1545" y="272" width="1" height="244" fill="#e7edf4"/>
+<text x="1535" y="546" font-family="AR PL SungtiL GB,serif" font-size="21" fill="#64748b">0.0</text>
+<rect x="1875.0" y="272" width="1.0" height="244" fill="#e7edf4"/>
+<text x="1865.0" y="546" font-family="AR PL SungtiL GB,serif" font-size="21" fill="#64748b">13.0</text>
+<rect x="2205" y="272" width="1" height="244" fill="#e7edf4"/>
+<text x="2195" y="546" font-family="AR PL SungtiL GB,serif" font-size="21" fill="#64748b">26.0</text>
+<text x="1262" y="306" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R1-A 扁平78卡</text>
+<rect x="1545" y="280" width="452.4540463478843" height="33" fill="#8493a5"/>
+<text x="2007.4540463478843" y="304" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">17.84</text>
+<text x="1262" y="367" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R1-B 整篇读取</text>
+<rect x="1545" y="341" width="481.44172005990276" height="33" fill="#3c72b4"/>
+<text x="2036.4417200599028" y="365" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">18.99*</text>
+<text x="1262" y="428" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R2-B 整篇读取</text>
+<rect x="1545" y="402" width="535.646335443088" height="33" fill="#3c72b4"/>
+<text x="2090.646335443088" y="426" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">21.13</text>
+<text x="1262" y="489" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R2-C 按需读取</text>
+<rect x="1545" y="463" width="573.913043478261" height="33" fill="#14887c"/>
+<text x="2128.913043478261" y="487" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">22.63</text>
+<rect x="65" y="600" width="1110" height="380" fill="#ffffff"/>
+<text x="95" y="655" font-family="AR PL SungtiL GB,serif" font-size="33" fill="#1e293b">累计输出 token（千）</text>
+<rect x="375" y="682" width="1" height="244" fill="#e7edf4"/>
+<text x="365" y="956" font-family="AR PL SungtiL GB,serif" font-size="21" fill="#64748b">0.0</text>
+<rect x="705.0" y="682" width="1.0" height="244" fill="#e7edf4"/>
+<text x="695.0" y="956" font-family="AR PL SungtiL GB,serif" font-size="21" fill="#64748b">301.2</text>
+<rect x="1035" y="682" width="1" height="244" fill="#e7edf4"/>
+<text x="1025" y="956" font-family="AR PL SungtiL GB,serif" font-size="21" fill="#64748b">602.3</text>
+<text x="92" y="716" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R1-A 扁平78卡</text>
+<rect x="375" y="690" width="573.913043478261" height="33" fill="#8493a5"/>
+<text x="958.913043478261" y="714" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">523.8</text>
+<text x="92" y="777" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R1-B 整篇读取</text>
+<rect x="375" y="751" width="564.0329154978963" height="33" fill="#3c72b4"/>
+<text x="949.0329154978963" y="775" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">514.8*</text>
+<text x="92" y="838" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R2-B 整篇读取</text>
+<rect x="375" y="812" width="485.00175315568026" height="33" fill="#3c72b4"/>
+<text x="870.0017531556803" y="836" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">442.6</text>
+<text x="92" y="899" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R2-C 按需读取</text>
+<rect x="375" y="873" width="499.05767882187945" height="33" fill="#14887c"/>
+<text x="884.0576788218794" y="897" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">455.5</text>
+<rect x="1235" y="600" width="1110" height="380" fill="#ffffff"/>
+<text x="1265" y="655" font-family="AR PL SungtiL GB,serif" font-size="33" fill="#1e293b">累计 actor 时间（分钟）</text>
+<rect x="1545" y="682" width="1" height="244" fill="#e7edf4"/>
+<text x="1535" y="956" font-family="AR PL SungtiL GB,serif" font-size="21" fill="#64748b">0.0</text>
+<rect x="1875.0" y="682" width="1.0" height="244" fill="#e7edf4"/>
+<text x="1865.0" y="956" font-family="AR PL SungtiL GB,serif" font-size="21" fill="#64748b">64.3</text>
+<rect x="2205" y="682" width="1" height="244" fill="#e7edf4"/>
+<text x="2195" y="956" font-family="AR PL SungtiL GB,serif" font-size="21" fill="#64748b">128.6</text>
+<text x="1262" y="716" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R1-A 扁平78卡</text>
+<rect x="1545" y="690" width="563.0385189819758" height="33" fill="#8493a5"/>
+<text x="2118.038518981976" y="714" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">109.7</text>
+<text x="1262" y="777" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R1-B 整篇读取</text>
+<rect x="1545" y="751" width="573.913043478261" height="33" fill="#3c72b4"/>
+<text x="2128.913043478261" y="775" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">111.8</text>
+<text x="1262" y="838" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R2-B 整篇读取</text>
+<rect x="1545" y="812" width="546.4291164955066" height="33" fill="#3c72b4"/>
+<text x="2101.4291164955066" y="836" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">106.5</text>
+<text x="1262" y="899" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R2-C 按需读取</text>
+<rect x="1545" y="873" width="556.3966418805458" height="33" fill="#14887c"/>
+<text x="2111.3966418805458" y="897" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">108.4</text>
+<rect x="65" y="1010" width="1110" height="380" fill="#ffffff"/>
+<text x="95" y="1065" font-family="AR PL SungtiL GB,serif" font-size="33" fill="#1e293b">统一费率估算成本（USD）</text>
+<rect x="375" y="1092" width="1" height="244" fill="#e7edf4"/>
+<text x="365" y="1366" font-family="AR PL SungtiL GB,serif" font-size="21" fill="#64748b">0.0</text>
+<rect x="705.0" y="1092" width="1.0" height="244" fill="#e7edf4"/>
+<text x="695.0" y="1366" font-family="AR PL SungtiL GB,serif" font-size="21" fill="#64748b">1.0</text>
+<rect x="1035" y="1092" width="1" height="244" fill="#e7edf4"/>
+<text x="1025" y="1366" font-family="AR PL SungtiL GB,serif" font-size="21" fill="#64748b">2.0</text>
+<text x="92" y="1126" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R1-A 扁平78卡</text>
+<rect x="375" y="1100" width="569.8691630251434" height="33" fill="#8493a5"/>
+<text x="954.8691630251434" y="1124" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">1.727</text>
+<text x="92" y="1187" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R1-B 整篇读取</text>
+<rect x="375" y="1161" width="573.9130434782609" height="33" fill="#3c72b4"/>
+<text x="958.9130434782609" y="1185" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">1.740*</text>
+<text x="92" y="1248" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R2-B 整篇读取</text>
+<rect x="375" y="1222" width="539.3394725651514" height="33" fill="#3c72b4"/>
+<text x="924.3394725651514" y="1246" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">1.635</text>
+<text x="92" y="1309" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R2-C 按需读取</text>
+<rect x="375" y="1283" width="567.0739363047354" height="33" fill="#14887c"/>
+<text x="952.0739363047354" y="1307" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">1.719</text>
+<rect x="1235" y="1010" width="1110" height="380" fill="#ffffff"/>
+<text x="1265" y="1065" font-family="AR PL SungtiL GB,serif" font-size="33" fill="#1e293b">调用 reader 读取正文的任务数（/20）</text>
+<rect x="1545" y="1092" width="1" height="244" fill="#e7edf4"/>
+<text x="1535" y="1366" font-family="AR PL SungtiL GB,serif" font-size="21" fill="#64748b">0.0</text>
+<rect x="1875.0" y="1092" width="1.0" height="244" fill="#e7edf4"/>
+<text x="1865.0" y="1366" font-family="AR PL SungtiL GB,serif" font-size="21" fill="#64748b">10.0</text>
+<rect x="2205" y="1092" width="1" height="244" fill="#e7edf4"/>
+<text x="2195" y="1366" font-family="AR PL SungtiL GB,serif" font-size="21" fill="#64748b">20.0</text>
+<text x="1262" y="1126" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R1-A 扁平78卡</text>
+<rect x="1545" y="1100" width="165.0" height="33" fill="#8493a5"/>
+<text x="1720.0" y="1124" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">5</text>
+<text x="1262" y="1187" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R1-B 整篇读取</text>
+<rect x="1545" y="1161" width="297.0" height="33" fill="#3c72b4"/>
+<text x="1852.0" y="1185" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">9</text>
+<text x="1262" y="1248" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R2-B 整篇读取</text>
+<rect x="1545" y="1222" width="363.0" height="33" fill="#3c72b4"/>
+<text x="1918.0" y="1246" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">11</text>
+<text x="1262" y="1309" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">R2-C 按需读取</text>
+<rect x="1545" y="1283" width="165.0" height="33" fill="#14887c"/>
+<text x="1720.0" y="1307" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">5</text>
+<text x="75" y="1475" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">严格 V2 合规成功：13 / 13 / 14 / 14（各 /20）。* R1-B 一条账本用量不完整，成本与 token 为已知量。</text>
+<text x="75" y="1515" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">只作同轮配对比较；C 同时包含导航修订。读取指标不含目录暴露，不等于实际采纳。费用不含构建与计分集外尝试。</text>
+<text x="75" y="1555" font-family="AR PL SungtiL GB,serif" font-size="25" fill="#1e293b">完整计分矩阵：每臂20题，固定验证集单次开发评测。详细方法、计分口径与费用范围见 REPORT.md。</text>
+</svg>

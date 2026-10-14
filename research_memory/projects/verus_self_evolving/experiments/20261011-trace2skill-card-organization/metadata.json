@@ -1,0 +1,9 @@
+{
+  "title": "Trace2Skill-style repaired78 organization parallel experiment plan",
+  "project": "verus_self_evolving",
+  "kind": "experiments",
+  "created_at": "2026-10-11T21:49:43-05:00",
+  "status": "evaluation40_complete_A13_B14_paired_resource_analysis_pending",
+  "links": ["PLAN.md", "CONTINUATION_STATUS.md", "ANOMALY_AUDIT.md", "EVALUATION_STATUS.md", "SHORT_INDEX_REVIEW.md", "CANDIDATE_REVIEW.md", "BUILD_STATUS.md"],
+  "raw_data_read_only": true
+}

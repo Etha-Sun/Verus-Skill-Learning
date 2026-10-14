@@ -1,5 +1,11 @@
 # Verus Skill Learning
 
+## October 14 Card-Organization Experiments
+
+[Experiment overview, evaluated A/B/C skills, and four-arm results](research_artifacts/card-organization-20261014/README.md)
+include the [English report](research_artifacts/card-organization-20261014/evaluation/REPORT.md),
+per-task tables, figures, frozen settings, and an offline verification command.
+
 `verus-skill-learning` learns verifier-grounded repair skills and decision
 policies from Verus trajectories. The repository contains reusable code,
 tests, configuration contracts, and reviewed summaries. Datasets and generated

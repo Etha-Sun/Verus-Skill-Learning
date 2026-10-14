@@ -81,12 +81,14 @@ def response_text(body: bytes) -> str:
 
 class GuardedDeepSeek:
     def __init__(self, *, root: Path, api_key: str, guards: list[SharedBudgetGuard],
-                 ledger: Path, output_cap: int = 16384, tokenizer_path=None, tokenizer_sha256=None):
+                 ledger: Path, output_cap: int = 16384, tokenizer_path=None, tokenizer_sha256=None,
+                 capture_public_payloads: bool = False):
         self.root = root
         self.api_key = api_key
         self.guards = guards
         self.ledger = ledger
         self.output_cap = output_cap
+        self.capture_public_payloads = capture_public_payloads
         self.tokenizer_path = tokenizer_path
         self.tokenizer_sha256 = tokenizer_sha256
         self.lock = threading.Lock()
@@ -177,6 +179,7 @@ class GuardedDeepSeek:
                                   retry_output_tokens=payload["max_output_tokens"],
                                   request_timeout_seconds=1800, native_responses=True,
                                   expected_upstream_model="deepseek-v4-pro", pricing_profile="deepseek-current",
+                                  capture_public_payloads=self.capture_public_payloads,
                                   budget_guard=BudgetMux(self.guards, request_bound=bound))
             try:
                 body, _, record = forward_native_responses(config, payload, task_id=name)

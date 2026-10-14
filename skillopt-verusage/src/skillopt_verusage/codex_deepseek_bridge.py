@@ -615,6 +615,9 @@ def forward_native_responses(
             content_type = response.headers.get_content_type()
             body = response.read()
         usage, upstream_model, response_status = _native_response_usage(body)
+        if capture_directory is not None:
+            capture_metadata = finish_capture(capture_directory, body, content_type,
+                                             request_id, task_id, config.api_key)
         if response_status != "completed":
             error_text = f"DeepSeek Responses terminal status is {response_status!r}"
             raise RuntimeError(error_text)
@@ -628,9 +631,6 @@ def forward_native_responses(
                 f"expected {expected_upstream_model!r}"
             )
             raise RuntimeError(error_text)
-        if capture_directory is not None:
-            capture_metadata = finish_capture(capture_directory, body, content_type,
-                                             request_id, task_id, config.api_key)
     except HTTPError as error:
         detail = error.read().decode("utf-8", errors="replace")[:2000]
         error_text = f"DeepSeek HTTP {error.code}: {detail}"

@@ -99,3 +99,25 @@ def test_http_failure_does_not_echo_credential_to_actor_or_ledger(tmp_path, monk
     assert 'fixture-secret' not in str(caught.value)
     assert 'fixture-secret' not in cfg.ledger_path.read_text()
     assert cfg.halted_error and 'fixture-secret' not in cfg.halted_error
+
+
+def test_incomplete_terminal_body_is_saved_but_not_accepted(tmp_path, monkeypatch):
+    cfg = config(tmp_path, monkeypatch)
+    event = {'type': 'response.incomplete', 'response': {'status': 'incomplete',
+        'model': 'deepseek-v4-pro', 'usage': {'input_tokens': 10, 'output_tokens': 16},
+        'output': [{'type': 'message', 'content': [{'type': 'output_text',
+                    'text': 'partial proposal fixture-secret'}]}]}}
+    body = ('data: ' + json.dumps(event) + '\n\n').encode()
+    value = BytesIO(body)
+    value.headers = Message()
+    value.headers['Content-Type'] = 'text/event-stream'
+    monkeypatch.setattr('skillopt_verusage.codex_deepseek_bridge.urlopen', lambda *args, **kwargs: value)
+    with pytest.raises(RuntimeError, match='incomplete'):
+        forward_native_responses(cfg, {'input': []}, task_id='incomplete-fixture')
+    record = json.loads(cfg.ledger_path.read_text())
+    capture = record['public_capture']
+    assert capture['complete'] is True
+    saved = (cfg.ledger_path.parent/capture['relative_path']/'response.txt').read_text()
+    assert 'partial proposal' in saved and 'fixture-secret' not in saved
+    assert record['attempts'][0]['finish_reason'] == 'incomplete'
+    assert record['attempts'][0]['usage']['completion_tokens'] == 16

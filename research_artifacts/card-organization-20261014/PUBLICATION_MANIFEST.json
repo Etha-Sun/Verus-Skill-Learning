@@ -1,0 +1,1527 @@
+{
+  "base_commit": "045b9b2ddd2cfdef00eb6a68f745344fbb8f2dea",
+  "policy": "Selected reviewed artifacts only. No credentials, sealed task data, or full raw runs. Machine paths are symbolic placeholders in metadata; skill bundles are byte-identical. Source hashes identify original local files, not normalized publication copies. Research-memory index files are regenerated separately.",
+  "files": [
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/ANOMALY_AUDIT.md",
+      "source_sha256": "daa538cb2fd2c0f8c365f602f7080abb2361024594fb28a21ba0a1b823ea765a",
+      "published_sha256": "daa538cb2fd2c0f8c365f602f7080abb2361024594fb28a21ba0a1b823ea765a",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/BUILD_STATUS.md",
+      "source_sha256": "68ddbfa3d94b1d41dff6935c5b1b84f26d8f0feb17de060f7d372d2049429411",
+      "published_sha256": "68ddbfa3d94b1d41dff6935c5b1b84f26d8f0feb17de060f7d372d2049429411",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/CANDIDATE_REVIEW.md",
+      "source_sha256": "0a8d529e6f284a6edb88d608c8b10bd16f0546dcd5d1a69d912fd6cbb53c31cd",
+      "published_sha256": "0a8d529e6f284a6edb88d608c8b10bd16f0546dcd5d1a69d912fd6cbb53c31cd",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/CONTINUATION_STATUS.md",
+      "source_sha256": "9ad8ad40dd36e84b1bec34b783a49fa8dfc2f1ee44aae94f678addf92499a46d",
+      "published_sha256": "9ad8ad40dd36e84b1bec34b783a49fa8dfc2f1ee44aae94f678addf92499a46d",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/ENTRY.md",
+      "source_sha256": "005fb3e75562a8ed1767ad6eefc03a94f434d464113bc914038366dcfa3bf143",
+      "published_sha256": "005fb3e75562a8ed1767ad6eefc03a94f434d464113bc914038366dcfa3bf143",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/EVALUATION_STATUS.md",
+      "source_sha256": "542dfc9058f5a615d083210a11d8f34f7745d8ab12d5490290c90d742a0bb7d5",
+      "published_sha256": "542dfc9058f5a615d083210a11d8f34f7745d8ab12d5490290c90d742a0bb7d5",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/HISTORICAL_COMPARISONS.md",
+      "source_sha256": "d064f7b3efc1162e3838f309da9f0c55bffabc94bff0aea0162bfea1f85dba07",
+      "published_sha256": "d064f7b3efc1162e3838f309da9f0c55bffabc94bff0aea0162bfea1f85dba07",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/PLAN.md",
+      "source_sha256": "32948ba2c27645c888415f20b07557410bd153ed09210d9adf4e6dda74d6d7b2",
+      "published_sha256": "32948ba2c27645c888415f20b07557410bd153ed09210d9adf4e6dda74d6d7b2",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/ROUTER_RESULT_REVIEW.md",
+      "source_sha256": "98e179e193abde59c17f0c33d1b0fb3582edf71ab76cce98a40ec22a8bebc2cf",
+      "published_sha256": "98e179e193abde59c17f0c33d1b0fb3582edf71ab76cce98a40ec22a8bebc2cf",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/SHORT_INDEX_REVIEW.md",
+      "source_sha256": "17ec236c8592b28ce21db253e2a75ba5eb0f1909aa6a71c03ab05690148ec8f1",
+      "published_sha256": "17ec236c8592b28ce21db253e2a75ba5eb0f1909aa6a71c03ab05690148ec8f1",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/metadata.json",
+      "source_sha256": "b7850c06424590fcc857fc21fbb3eb6f9881a59a943ce873b2af9624fcdc1f79",
+      "published_sha256": "b7850c06424590fcc857fc21fbb3eb6f9881a59a943ce873b2af9624fcdc1f79",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/prompts/README.md",
+      "source_sha256": "5eafe83078309e18541cf6a05464ecf9051908c01529962e684330ad5fb43af3",
+      "published_sha256": "5eafe83078309e18541cf6a05464ecf9051908c01529962e684330ad5fb43af3",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/prompts/compact_index_system.md",
+      "source_sha256": "2c2c3f908b9690e1a949b7c81e0a1584cf701610340ed27618db7e87b93908f6",
+      "published_sha256": "2c2c3f908b9690e1a949b7c81e0a1584cf701610340ed27618db7e87b93908f6",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/prompts/reduce_system.md",
+      "source_sha256": "fcdd08cafd15155c13f0bfade0b92c35152cb5f06fe51f888afb9dbacfe0f0c8",
+      "published_sha256": "fcdd08cafd15155c13f0bfade0b92c35152cb5f06fe51f888afb9dbacfe0f0c8",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/prompts/router_review.md",
+      "source_sha256": "50e0c417040ec192051b692c9354aea30f4df4adbe4dd4290042f894fead31e0",
+      "published_sha256": "50e0c417040ec192051b692c9354aea30f4df4adbe4dd4290042f894fead31e0",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/prompts/router_system.md",
+      "source_sha256": "600e8a3d200a6e8ab834c059ca4646f0f7f5c8db1c2bcc6e768cf263fa81c726",
+      "published_sha256": "600e8a3d200a6e8ab834c059ca4646f0f7f5c8db1c2bcc6e768cf263fa81c726",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/templates/README.md",
+      "source_sha256": "bb43affe053e3da2fc3da8af10b3601eccf2f7f80a8a25fd5633e8c66389a00d",
+      "published_sha256": "bb43affe053e3da2fc3da8af10b3601eccf2f7f80a8a25fd5633e8c66389a00d",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/templates/REFERENCE_INDEX_ENTRY.md.tmpl",
+      "source_sha256": "bb4b80252108bf89a33541ff2825b0abe83eb18ceb55d45cbba9dc0266105236",
+      "published_sha256": "bb4b80252108bf89a33541ff2825b0abe83eb18ceb55d45cbba9dc0266105236",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261011-trace2skill-card-organization/templates/SKILL.md.tmpl",
+      "source_sha256": "9c4968579986de09ed7a806f5c1e983c62035c8bebba826aeb4b2df720afff65",
+      "published_sha256": "9c4968579986de09ed7a806f5c1e983c62035c8bebba826aeb4b2df720afff65",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261013-selective-reference-reading/CANDIDATE_REVIEW.md",
+      "source_sha256": "14b781785e713c31965de91c98880b83e2eaa64a2dca0f4e5f6b565545c95f7a",
+      "published_sha256": "14b781785e713c31965de91c98880b83e2eaa64a2dca0f4e5f6b565545c95f7a",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261013-selective-reference-reading/CONTINUATION_STATUS.md",
+      "source_sha256": "09f73135ad471a38f4754d9ef1a509be8717b8097ee382beafc199332b324294",
+      "published_sha256": "09f73135ad471a38f4754d9ef1a509be8717b8097ee382beafc199332b324294",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261013-selective-reference-reading/ENTRY.md",
+      "source_sha256": "a92b0bb01ddfc5131b9f581d299448f5a46adbd268358a767d8f5b7986e96583",
+      "published_sha256": "a92b0bb01ddfc5131b9f581d299448f5a46adbd268358a767d8f5b7986e96583",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261013-selective-reference-reading/EVALUATION_STATUS.md",
+      "source_sha256": "534d8c45b4fea8f1b87a8432c4150bdeb3394305bb8014a81e151fc4d192bf7a",
+      "published_sha256": "534d8c45b4fea8f1b87a8432c4150bdeb3394305bb8014a81e151fc4d192bf7a",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261013-selective-reference-reading/LOST_TASK_READING_AUDIT.md",
+      "source_sha256": "c0957ca25df2e9309385f425940f5d51359dfe1cbb3ba71b5ef359b2ba4913cd",
+      "published_sha256": "c0957ca25df2e9309385f425940f5d51359dfe1cbb3ba71b5ef359b2ba4913cd",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261013-selective-reference-reading/PLAN.md",
+      "source_sha256": "b9e977068ce68905c5f72db8e93e1fa44f70d272a73e7c544fd26484b8fa417c",
+      "published_sha256": "b9e977068ce68905c5f72db8e93e1fa44f70d272a73e7c544fd26484b8fa417c",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261013-selective-reference-reading/RESULTS.md",
+      "source_sha256": "ed0e0e5871ba81ff568a45cd4dfea4e210cdf60e6ef2d20998693962f6db8b63",
+      "published_sha256": "ed0e0e5871ba81ff568a45cd4dfea4e210cdf60e6ef2d20998693962f6db8b63",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261013-selective-reference-reading/ROUTING_REVIEW_V2.md",
+      "source_sha256": "6c9ba065e855cadd9072fb560e391332a08e892bb4ee813a030428fda6aa1e23",
+      "published_sha256": "6c9ba065e855cadd9072fb560e391332a08e892bb4ee813a030428fda6aa1e23",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261013-selective-reference-reading/TECHNICAL_RETRY.md",
+      "source_sha256": "1ae718b745f773f18fa82bcae284b73ca0c1692a14623e6fbdb8b8c499c746ed",
+      "published_sha256": "1ae718b745f773f18fa82bcae284b73ca0c1692a14623e6fbdb8b8c499c746ed",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261013-selective-reference-reading/metadata.json",
+      "source_sha256": "51f5cb77a3ad460c99d0c916c321420f362b1b90707f40cb399961add9fb5114",
+      "published_sha256": "51f5cb77a3ad460c99d0c916c321420f362b1b90707f40cb399961add9fb5114",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261013-selective-reference-reading/routing_review_v2.json",
+      "source_sha256": "19bf31bb0991b92ff0576a9b02cd964ddf82f8c04faf3d1f36d7845554d04914",
+      "published_sha256": "19bf31bb0991b92ff0576a9b02cd964ddf82f8c04faf3d1f36d7845554d04914",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/projects/verus_self_evolving/experiments/20261013-selective-reference-reading/rule_cues.json",
+      "source_sha256": "6b1983f097564e302413168f8a37b87824018fca71cf5838ea69e4d48a8485af",
+      "published_sha256": "6b1983f097564e302413168f8a37b87824018fca71cf5838ea69e4d48a8485af",
+      "path_normalized": false
+    },
+    {
+      "published_path": "scripts/adopt_card_router.py",
+      "source_sha256": "e14ccbae9d84ab5ef1b6ccf52f5038edd99b6d3a8bf245a73a013b52c45b7644",
+      "published_sha256": "e14ccbae9d84ab5ef1b6ccf52f5038edd99b6d3a8bf245a73a013b52c45b7644",
+      "path_normalized": false
+    },
+    {
+      "published_path": "scripts/build_card_organization.py",
+      "source_sha256": "6785c0f618bbc0c37ea9153d64f530bcf6bf4cc5584b429ffed3756071eb07f1",
+      "published_sha256": "6785c0f618bbc0c37ea9153d64f530bcf6bf4cc5584b429ffed3756071eb07f1",
+      "path_normalized": false
+    },
+    {
+      "published_path": "scripts/build_selective_references.py",
+      "source_sha256": "98317a45891f2c752a7dfb8bf8514a85f2a02a233597ab8c8d462834df0f4c20",
+      "published_sha256": "98317a45891f2c752a7dfb8bf8514a85f2a02a233597ab8c8d462834df0f4c20",
+      "path_normalized": false
+    },
+    {
+      "published_path": "scripts/compact_card_index.py",
+      "source_sha256": "e5c4c989d2df4bca515bcfb0a30c8b76b009814fe0cc1e28eadbb03263975f85",
+      "published_sha256": "e5c4c989d2df4bca515bcfb0a30c8b76b009814fe0cc1e28eadbb03263975f85",
+      "path_normalized": false
+    },
+    {
+      "published_path": "scripts/continue_card_organization_evaluation.py",
+      "source_sha256": "525d96cf6410d13123e17eb3dabdda2a32e10f15891147d86d1197499e3cee22",
+      "published_sha256": "525d96cf6410d13123e17eb3dabdda2a32e10f15891147d86d1197499e3cee22",
+      "path_normalized": false
+    },
+    {
+      "published_path": "scripts/continue_selective_evaluation.py",
+      "source_sha256": "a6d56dab4bc7d70ae56eb080e029a557f5ac16d833406c7897138004934392d2",
+      "published_sha256": "a6d56dab4bc7d70ae56eb080e029a557f5ac16d833406c7897138004934392d2",
+      "path_normalized": false
+    },
+    {
+      "published_path": "scripts/evaluate_card_organization.py",
+      "source_sha256": "77422f9b8dd837e415ffa767133f8004908af25ff067735e9a5a2b9ad9998ff8",
+      "published_sha256": "77422f9b8dd837e415ffa767133f8004908af25ff067735e9a5a2b9ad9998ff8",
+      "path_normalized": false
+    },
+    {
+      "published_path": "scripts/evaluate_selective_references.py",
+      "source_sha256": "ffc8fe47e215644b053e8fab097236a79073009f0d5f53714ca868b24be16812",
+      "published_sha256": "ffc8fe47e215644b053e8fab097236a79073009f0d5f53714ca868b24be16812",
+      "path_normalized": false
+    },
+    {
+      "published_path": "scripts/finalize_card_candidate.py",
+      "source_sha256": "d809eb033e27c3f5b55864a8a18d0e916efeee890dbc7386a9cb02edccc64072",
+      "published_sha256": "d809eb033e27c3f5b55864a8a18d0e916efeee890dbc7386a9cb02edccc64072",
+      "path_normalized": false
+    },
+    {
+      "published_path": "scripts/plot_four_arm_evaluation.py",
+      "source_sha256": "bc3d739c7747251a406f444df8de044ca2f58896d1eddfcc6deaf3c1bc9e3312",
+      "published_sha256": "bc3d739c7747251a406f444df8de044ca2f58896d1eddfcc6deaf3c1bc9e3312",
+      "path_normalized": false
+    },
+    {
+      "published_path": "scripts/probe_selective_package.py",
+      "source_sha256": "3d7bfbdb5e9c322f318081084bef04dc1da62ff026ce03683d1b0c71a46232ed",
+      "published_sha256": "3d7bfbdb5e9c322f318081084bef04dc1da62ff026ce03683d1b0c71a46232ed",
+      "path_normalized": false
+    },
+    {
+      "published_path": "scripts/recover_card_organization_evaluation.py",
+      "source_sha256": "5f28efc288589fdc0bb77253d54b7a4d5e5002d6188dfb9735a42d61225e7267",
+      "published_sha256": "5f28efc288589fdc0bb77253d54b7a4d5e5002d6188dfb9735a42d61225e7267",
+      "path_normalized": false
+    },
+    {
+      "published_path": "scripts/reference_rule_read.py",
+      "source_sha256": "73becd95450b6949a64c108d9e1f01615fac0073522d005630f2e11bf99c2abc",
+      "published_sha256": "73becd95450b6949a64c108d9e1f01615fac0073522d005630f2e11bf99c2abc",
+      "path_normalized": false
+    },
+    {
+      "published_path": "scripts/retry_selective_interruption.py",
+      "source_sha256": "92d3007bc9222bafab31f02cdf5af8dda2fb67fb29fe211724ac18ef2b313020",
+      "published_sha256": "92d3007bc9222bafab31f02cdf5af8dda2fb67fb29fe211724ac18ef2b313020",
+      "path_normalized": false
+    },
+    {
+      "published_path": "scripts/review_compact_index.py",
+      "source_sha256": "e191b73ad5814be5463152fd7ff3111647cd856547c16805d542c13fcb40d68e",
+      "published_sha256": "e191b73ad5814be5463152fd7ff3111647cd856547c16805d542c13fcb40d68e",
+      "path_normalized": false
+    },
+    {
+      "published_path": "scripts/revise_selective_routes.py",
+      "source_sha256": "1c89d62b9d4fe06136b953738eedb8e1d84e8a3f7f16d0c5a0dec47446edcb3d",
+      "published_sha256": "1c89d62b9d4fe06136b953738eedb8e1d84e8a3f7f16d0c5a0dec47446edcb3d",
+      "path_normalized": false
+    },
+    {
+      "published_path": "skillopt-verusage/src/skillopt_verusage/card_organization.py",
+      "source_sha256": "8d99d62f5653bd984b8bb9e60fc5b5bf63ae215763bbd2f5300442ca1c714146",
+      "published_sha256": "8d99d62f5653bd984b8bb9e60fc5b5bf63ae215763bbd2f5300442ca1c714146",
+      "path_normalized": false
+    },
+    {
+      "published_path": "skillopt-verusage/tests/test_card_candidate_review.py",
+      "source_sha256": "5cac3a7011d565420654a80022cdb84238f8e9404b9a79fcc241e47e23fe93c1",
+      "published_sha256": "5cac3a7011d565420654a80022cdb84238f8e9404b9a79fcc241e47e23fe93c1",
+      "path_normalized": false
+    },
+    {
+      "published_path": "skillopt-verusage/tests/test_card_evaluation_continuation.py",
+      "source_sha256": "f6c692ac79921bd8d23108286a690d5e36dbf8b3ea0471f9ffa299d61705e98d",
+      "published_sha256": "f6c692ac79921bd8d23108286a690d5e36dbf8b3ea0471f9ffa299d61705e98d",
+      "path_normalized": false
+    },
+    {
+      "published_path": "skillopt-verusage/tests/test_card_evaluation_recovery.py",
+      "source_sha256": "47848ef073c1b5671a3a5a03f07193ec4cc6cac39a943684ff9db375a0300a34",
+      "published_sha256": "47848ef073c1b5671a3a5a03f07193ec4cc6cac39a943684ff9db375a0300a34",
+      "path_normalized": false
+    },
+    {
+      "published_path": "skillopt-verusage/tests/test_card_organization.py",
+      "source_sha256": "9363ad93828d9b66532456743fd59b1030f2fe83b57485a633e0298de27a35c2",
+      "published_sha256": "9363ad93828d9b66532456743fd59b1030f2fe83b57485a633e0298de27a35c2",
+      "path_normalized": false
+    },
+    {
+      "published_path": "skillopt-verusage/tests/test_card_organization_evaluation.py",
+      "source_sha256": "93dd40fe1b8626ba3745cd7314072e5cc652e3f939ddcf704b3b6e7a465aead7",
+      "published_sha256": "93dd40fe1b8626ba3745cd7314072e5cc652e3f939ddcf704b3b6e7a465aead7",
+      "path_normalized": false
+    },
+    {
+      "published_path": "skillopt-verusage/tests/test_compact_card_index.py",
+      "source_sha256": "11e9a205c5d3bb48f70a196a5064d2a4cc67e68e14865c952c32c9831fed5adb",
+      "published_sha256": "11e9a205c5d3bb48f70a196a5064d2a4cc67e68e14865c952c32c9831fed5adb",
+      "path_normalized": false
+    },
+    {
+      "published_path": "skillopt-verusage/tests/test_four_arm_figures.py",
+      "source_sha256": "d8a3326b6cbb7bb0672384d35cde9c89c52575f9aec7889f844e49497119d8ea",
+      "published_sha256": "d8a3326b6cbb7bb0672384d35cde9c89c52575f9aec7889f844e49497119d8ea",
+      "path_normalized": false
+    },
+    {
+      "published_path": "skillopt-verusage/tests/test_router_normalization.py",
+      "source_sha256": "911090033522f653a6ba047cb50d2bc8d32c3c7c0b35d29004141088c699d5e1",
+      "published_sha256": "911090033522f653a6ba047cb50d2bc8d32c3c7c0b35d29004141088c699d5e1",
+      "path_normalized": false
+    },
+    {
+      "published_path": "skillopt-verusage/tests/test_selective_continuation.py",
+      "source_sha256": "e858ece9ae11a380770f8272b5bbfea1efc5d48812c4ffe1bc4099f595ad684c",
+      "published_sha256": "e858ece9ae11a380770f8272b5bbfea1efc5d48812c4ffe1bc4099f595ad684c",
+      "path_normalized": false
+    },
+    {
+      "published_path": "skillopt-verusage/tests/test_selective_evaluation.py",
+      "source_sha256": "8d2421bae1215aa7c1e2ee8d1244f941c29cdbfa047812e70d95a69ae55f3a7f",
+      "published_sha256": "8d2421bae1215aa7c1e2ee8d1244f941c29cdbfa047812e70d95a69ae55f3a7f",
+      "path_normalized": false
+    },
+    {
+      "published_path": "skillopt-verusage/tests/test_selective_references.py",
+      "source_sha256": "2e7fede3cc63f4d68ef40590286916cf3230de2c74886f6a017ce5fa5a369910",
+      "published_sha256": "2e7fede3cc63f4d68ef40590286916cf3230de2c74886f6a017ce5fa5a369910",
+      "path_normalized": false
+    },
+    {
+      "published_path": "skillopt-verusage/tests/test_selective_retry.py",
+      "source_sha256": "63a482a4cf02a0e66f172d60045cccde2da18cfe351ecbdcbca12450e1d1464e",
+      "published_sha256": "63a482a4cf02a0e66f172d60045cccde2da18cfe351ecbdcbca12450e1d1464e",
+      "path_normalized": false
+    },
+    {
+      "published_path": "skillopt-verusage/tests/test_selective_route_revision.py",
+      "source_sha256": "c5c1d97e7df4a09ea10ed0913676bdedc0aa867c6a131f27f54cd89a05c359f7",
+      "published_sha256": "c5c1d97e7df4a09ea10ed0913676bdedc0aa867c6a131f27f54cd89a05c359f7",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_memory/CURRENT.md",
+      "source_sha256": "36f7fc42f3cf17b36ca6308920e1e0b7d1bacac6ff2ff1b1b5b17097588c3e38",
+      "published_sha256": "177dc6191287974a908b52ea557a651967301da2070d5d3e218e181b818b149b",
+      "path_normalized": false,
+      "publication_edit": "Added publication closeout pointer; original research evidence retained."
+    },
+    {
+      "published_path": "scripts/validate_card_revision.py",
+      "source_sha256": "117e6bfe663ace41e2a137d32049b74746aa579e3021108f50289eb65dab1189",
+      "published_sha256": "117e6bfe663ace41e2a137d32049b74746aa579e3021108f50289eb65dab1189",
+      "path_normalized": false
+    },
+    {
+      "published_path": "skillopt-verusage/src/skillopt_verusage/codex_deepseek_bridge.py",
+      "source_sha256": "baa66cb05dddb337a24b9ed28125958cb9ada569ffa229c444923098221b3771",
+      "published_sha256": "baa66cb05dddb337a24b9ed28125958cb9ada569ffa229c444923098221b3771",
+      "path_normalized": false
+    },
+    {
+      "published_path": "skillopt-verusage/src/skillopt_verusage/guarded_deepseek.py",
+      "source_sha256": "4f0223ac3e82c85e099fd301ded1717220f14afd363e0068ada41c83251540a1",
+      "published_sha256": "4f0223ac3e82c85e099fd301ded1717220f14afd363e0068ada41c83251540a1",
+      "path_normalized": false
+    },
+    {
+      "published_path": "skillopt-verusage/tests/test_provider_capture.py",
+      "source_sha256": "a19ebcd0ebebe1d44dc27b6840bf90c4d1d299a90badb0490a56f7e87d8b3dd7",
+      "published_sha256": "a19ebcd0ebebe1d44dc27b6840bf90c4d1d299a90badb0490a56f7e87d8b3dd7",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/evaluation/DETAILS.md",
+      "source_sha256": "c9e9d8950983d567773f04699415cb47d6a7b807510ea32c09f2456c34eeaa19",
+      "published_sha256": "c9e9d8950983d567773f04699415cb47d6a7b807510ea32c09f2456c34eeaa19",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/evaluation/REPORT.md",
+      "source_sha256": "558a9303443dd46ed09d9330aa5c0bc6d45f4581d78d03cc8c112edfc15e183c",
+      "published_sha256": "558a9303443dd46ed09d9330aa5c0bc6d45f4581d78d03cc8c112edfc15e183c",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/evaluation/episodes.csv",
+      "source_sha256": "a349b16c21326fdb5b6ba9e1f8f4c209407267e148ee2282245ff2dea266d84c",
+      "published_sha256": "da01a797b6a6f7d3ef4f1c2c95e4d6e31b8f150bfaa1ba3d6b7fe386fcf3b27f",
+      "path_normalized": true
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/evaluation/evaluation_overview.pdf",
+      "source_sha256": "b2e16bcf52352adf0cfe9ba8571c3fd49f754cec55b8d39e4c0be4b5fd238d7a",
+      "published_sha256": "b2e16bcf52352adf0cfe9ba8571c3fd49f754cec55b8d39e4c0be4b5fd238d7a",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/evaluation/evaluation_overview.png",
+      "source_sha256": "6ee212801cc17b79b5774dd000daebaedb0e2fd74b36199955c576b164478e46",
+      "published_sha256": "6ee212801cc17b79b5774dd000daebaedb0e2fd74b36199955c576b164478e46",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/evaluation/evaluation_overview.svg",
+      "source_sha256": "e0dce9a23329967595b60a1b870c4a9fdade79de3bc7dbec0dbe46280f0d7620",
+      "published_sha256": "e0dce9a23329967595b60a1b870c4a9fdade79de3bc7dbec0dbe46280f0d7620",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/evaluation/evaluation_table.pdf",
+      "source_sha256": "9273c665a1984b9097527337c38c6faa1ea07b2f4970092d14d64cbc8e30549a",
+      "published_sha256": "9273c665a1984b9097527337c38c6faa1ea07b2f4970092d14d64cbc8e30549a",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/evaluation/evaluation_table.png",
+      "source_sha256": "812f032c5100bb905cf4cea60a0cd519a444a81e54ddedc56ae85e7ee9d28d6a",
+      "published_sha256": "812f032c5100bb905cf4cea60a0cd519a444a81e54ddedc56ae85e7ee9d28d6a",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/evaluation/evaluation_table.svg",
+      "source_sha256": "3f228909c67d8b35845f21438576b056aa2adc007f158c76f04bb1a49ec5fd4e",
+      "published_sha256": "3f228909c67d8b35845f21438576b056aa2adc007f158c76f04bb1a49ec5fd4e",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/evaluation/metrics.json",
+      "source_sha256": "1585ff02c155dfd4ff85f66ea34bb54d92b246dea9a37d5fa18fe4d5581f9f57",
+      "published_sha256": "b6a6bed2cbc79c0fd86436729fa402c8b0e8bf67404623a6a3253f1dd67a1034",
+      "path_normalized": true
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/contracts/round1/validation_contract.json",
+      "source_sha256": "c78e0bf8f39c2b9f796c327b78d05d2ed94dd417044cdd849c33fba7a488ea6c",
+      "published_sha256": "d549e5b7aba94c94950ee551e3e431fa2a52bb61ca79a50892681d3d7f913543",
+      "path_normalized": true
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/contracts/round1/config.json",
+      "source_sha256": "38fa69049c8a7f4feb8e1c2409fb94f3e018a7808c520a0a16588a2da773204c",
+      "published_sha256": "49610b9bd4357388421d9e9d7cee98f8d17f5431dcb83c55ac4c7682cbcb8c01",
+      "path_normalized": true
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/contracts/round1/TASK.md",
+      "source_sha256": "5f32a1cc4ef90b5898ebef41eb20f22d3abaa732055fc20d4e097834afbd7e5d",
+      "published_sha256": "6cffe7e05b0d970887d6560f7581efd40a0d9fd5835ace665abb175e47bc88ea",
+      "path_normalized": true
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/contracts/round1/combined_summary.json",
+      "source_sha256": "f65bba668a3dfb7ffe206f9bd935672b95f0097a08fc8dc58b7575eb6f8cbe17",
+      "published_sha256": "4060f179ae5dd363e68095d4e57f5b7c851c5b173a19ca6e5793440aa66e889a",
+      "path_normalized": true,
+      "projection": "Omit redundant workspace_inventory and skill_artifact; add publication_note."
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/contracts/round1/combined_report.json",
+      "source_sha256": "a320f0d61bc1aad8d5f4ac4db7b540c554a7be30d4820e3bdb16af61028bb4c3",
+      "published_sha256": "0d3d39b9b5753a024d4b525cb0e19d8f26155e041d85f9de4bb5ec75a2f005ef",
+      "path_normalized": true
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/contracts/round2/validation_contract.json",
+      "source_sha256": "706693b4212a46fc888c0239905fb792a2b1be2e50fd6a58f62b14b6b370373c",
+      "published_sha256": "b4e79b56b990a263bb69329a53f51a725ae7e23112e4f316245cef68e1cb0271",
+      "path_normalized": true
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/contracts/round2/config.json",
+      "source_sha256": "10b2bc4863d4a5297a9c4cf7eaeeecb79001b7eeb08a4fb4d80b54c32a512e39",
+      "published_sha256": "8c932aa44c1ece4a121b48c9ee42009c66939157f900ea47abceb198259841af",
+      "path_normalized": true
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/contracts/round2/TASK.md",
+      "source_sha256": "5f32a1cc4ef90b5898ebef41eb20f22d3abaa732055fc20d4e097834afbd7e5d",
+      "published_sha256": "6cffe7e05b0d970887d6560f7581efd40a0d9fd5835ace665abb175e47bc88ea",
+      "path_normalized": true
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/contracts/round2/summary.json",
+      "source_sha256": "2954f774e91998db7503dfa72d838298eb768e292f4f7c2128b190a8b4e6f98c",
+      "published_sha256": "daa101f9bff4a41c6226e735bbe494a67bf06fcee42605dea322d3d0f842d2b9",
+      "path_normalized": true,
+      "projection": "Omit redundant workspace_inventory and skill_artifact; add publication_note."
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/contracts/round2/report.json",
+      "source_sha256": "4d4edec7c937ba5bdd45ce9f45386e7ca9a1d4c75e65e563bdaa457c933769f1",
+      "published_sha256": "4d4edec7c937ba5bdd45ce9f45386e7ca9a1d4c75e65e563bdaa457c933769f1",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/A-flat78/SKILL.md",
+      "source_sha256": "10acd2d687754e70a470fc1d041a7e1308c82c4f34ac108de85d874ab50d07c1",
+      "published_sha256": "10acd2d687754e70a470fc1d041a7e1308c82c4f34ac108de85d874ab50d07c1",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/A-flat78/card_read.py",
+      "source_sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57",
+      "published_sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/A-flat78/cards.json",
+      "source_sha256": "ae38b9ace8560cb7e819eb348d152b916b0486e206b3d09c1b862e8681517f27",
+      "published_sha256": "ae38b9ace8560cb7e819eb348d152b916b0486e206b3d09c1b862e8681517f27",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/SKILL.md",
+      "source_sha256": "6d4e410ecd43bca58c2fe0dcd2164c8b10455d732759c581b5b0b56fa4f7c8ca",
+      "published_sha256": "6d4e410ecd43bca58c2fe0dcd2164c8b10455d732759c581b5b0b56fa4f7c8ca",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/reference_manifest.json",
+      "source_sha256": "7f13afe8aa0509142256774e9169a6bb121afdb78feb85a2264310bcafd9ff06",
+      "published_sha256": "7f13afe8aa0509142256774e9169a6bb121afdb78feb85a2264310bcafd9ff06",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/reference_read.py",
+      "source_sha256": "c9c63b8adec05ac720dc7f5642f286db5226c0a3f7c21137b4dbc68d6dcc0ae2",
+      "published_sha256": "c9c63b8adec05ac720dc7f5642f286db5226c0a3f7c21137b4dbc68d6dcc0ae2",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/compound-stability-existing-rules.md",
+      "source_sha256": "0fd63399888df138509df468a1bf77f9a49ba8a34d21865e6d76660f1119980b",
+      "published_sha256": "0fd63399888df138509df468a1bf77f9a49ba8a34d21865e6d76660f1119980b",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/direct-existing-lemma-bridge.md",
+      "source_sha256": "a031c2c037d7147f46baddb53f760e2c35ef67cc541e8b0563f0553b5889b78c",
+      "published_sha256": "a031c2c037d7147f46baddb53f760e2c35ef67cc541e8b0563f0553b5889b78c",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/eventual-witness-index-bridge.md",
+      "source_sha256": "458536b2aa2615ddc258a826f33bf0b9ea4a691e7aed355057dfd67aeed89365",
+      "published_sha256": "458536b2aa2615ddc258a826f33bf0b9ea4a691e7aed355057dfd67aeed89365",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/existing-roundtrip-proof-mode.md",
+      "source_sha256": "0e572e8ea62ee988b09584cc5e3a6e3daa6c886925a555011037729bf3991bc3",
+      "published_sha256": "0e572e8ea62ee988b09584cc5e3a6e3daa6c886925a555011037729bf3991bc3",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/final-liveness-helper-chain.md",
+      "source_sha256": "f1895ba02c5d6a84d52e8030509cf740ac371fa8e5fe74d078b087362fcd9464",
+      "published_sha256": "f1895ba02c5d6a84d52e8030509cf740ac371fa8e5fe74d078b087362fcd9464",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/finite-set-fold-cardinality-induction.md",
+      "source_sha256": "e8c87d6090c866d5f74ba05e5be553c7c100270dfa32533651456f6924b82d55",
+      "published_sha256": "e8c87d6090c866d5f74ba05e5be553c7c100270dfa32533651456f6924b82d55",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/function-field-projection-syntax.md",
+      "source_sha256": "ed4fdc4b519d5b2730ee1f970c1e90ac7fbd6648127040f3e2bb248f5db496f2",
+      "published_sha256": "ed4fdc4b519d5b2730ee1f970c1e90ac7fbd6648127040f3e2bb248f5db496f2",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/ghost-empty-witness.md",
+      "source_sha256": "d1c5e5ea3be0debcd39dbec88d1d488cae31591ab77c82545e45201aaaf133ec",
+      "published_sha256": "d1c5e5ea3be0debcd39dbec88d1d488cae31591ab77c82545e45201aaaf133ec",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/leads-to-transitivity-existing-helpers.md",
+      "source_sha256": "2d8ad363e269aaaf134c314dcd0e049a8824481cfccdb200b59810b70f32e9ea",
+      "published_sha256": "2d8ad363e269aaaf134c314dcd0e049a8824481cfccdb200b59810b70f32e9ea",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/library-broadcast-activation.md",
+      "source_sha256": "47ff8ed44f3057025be00996771d42075f6edd5065e28a70a845be15f1880741",
+      "published_sha256": "47ff8ed44f3057025be00996771d42075f6edd5065e28a70a845be15f1880741",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/loop-termination-and-invariants.md",
+      "source_sha256": "65ff8136e53ba4218d6bdc38f9ad2e6ff7d7a5540d1f1afbd545bda66fd86272",
+      "published_sha256": "65ff8136e53ba4218d6bdc38f9ad2e6ff7d7a5540d1f1afbd545bda66fd86272",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/natural-integer-type-mismatch.md",
+      "source_sha256": "0dee13c707c1cece2f44d7921757caef2064772edae7576268c9b46ccc2ce8a2",
+      "published_sha256": "0dee13c707c1cece2f44d7921757caef2064772edae7576268c9b46ccc2ce8a2",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/nondeterministic-step-result.md",
+      "source_sha256": "cc9b3dc95a626f3467a8fdf3d23c348f9b8b81e8a94ebb4173e1996dd2aafd69",
+      "published_sha256": "cc9b3dc95a626f3467a8fdf3d23c348f9b8b81e8a94ebb4173e1996dd2aafd69",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/opaque-conversion-avoid-extraction.md",
+      "source_sha256": "83c2c94d2a99487988f5f6d821ba6690aff590e53d80b590ed4c4f73c4bcf680",
+      "published_sha256": "83c2c94d2a99487988f5f6d821ba6690aff590e53d80b590ed4c4f73c4bcf680",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/opaque-spec-function-facts.md",
+      "source_sha256": "74961f11b30d34b8e1550c2de483b8e70a6fe1f7b5878008af11b697b60b585e",
+      "published_sha256": "74961f11b30d34b8e1550c2de483b8e70a6fe1f7b5878008af11b697b60b585e",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/phase-accumulation-bridge.md",
+      "source_sha256": "5035f785b4d93f984f188628eab461e70f6880edfe5cdb775737c99bdf9fb0eb",
+      "published_sha256": "5035f785b4d93f984f188628eab461e70f6880edfe5cdb775737c99bdf9fb0eb",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/post-verification-cleanup.md",
+      "source_sha256": "84ad4c5866b3c4a308c13c78e26cd5255a81618c9db667fb4cab80731b16dfa7",
+      "published_sha256": "84ad4c5866b3c4a308c13c78e26cd5255a81618c9db667fb4cab80731b16dfa7",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/predicate-equality-mutual-entailment.md",
+      "source_sha256": "23a18de2b412856aaaa616b19518a0436a87ceefa962da02db374aa0bca13fdb",
+      "published_sha256": "23a18de2b412856aaaa616b19518a0436a87ceefa962da02db374aa0bca13fdb",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/proof-helper-qualified-path.md",
+      "source_sha256": "0d0812813a8d447b47dd98750c11bd9b3b50096aa4397b33f27836cfcebeb096",
+      "published_sha256": "0d0812813a8d447b47dd98750c11bd9b3b50096aa4397b33f27836cfcebeb096",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/quantified-proof-antecedent-binder-scope.md",
+      "source_sha256": "238f4ca16a3489997fd687b51a32030f06eae6707d15f508fd1de7049a6ca180",
+      "published_sha256": "238f4ca16a3489997fd687b51a32030f06eae6707d15f508fd1de7049a6ca180",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/record-function-field-equality.md",
+      "source_sha256": "aa1c5d28d1d33f25646d207392f73024c0f2a9f31dada4864af683cce4df1f43",
+      "published_sha256": "aa1c5d28d1d33f25646d207392f73024c0f2a9f31dada4864af683cce4df1f43",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/sequence-extensional-equality.md",
+      "source_sha256": "9e2f5261c585dc3e17d69eb9451302d417d8d6b357b0ef49f47caceeaa3f7b4c",
+      "published_sha256": "9e2f5261c585dc3e17d69eb9451302d417d8d6b357b0ef49f47caceeaa3f7b4c",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/sequence-fold-concat-equality.md",
+      "source_sha256": "40b04780a678647be8ac5e5f000d1f343c8e9e77682c99e16a6accdb7125eebc",
+      "published_sha256": "40b04780a678647be8ac5e5f000d1f343c8e9e77682c99e16a6accdb7125eebc",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/set-equality-membership-witness.md",
+      "source_sha256": "800dc4d268405543340f5a92acf6939bbd30a682b0e09e7bafacabac59680108",
+      "published_sha256": "800dc4d268405543340f5a92acf6939bbd30a682b0e09e7bafacabac59680108",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/specialized-fold-bound-lemmas.md",
+      "source_sha256": "4d0e1944c097f25600da4560a2917b8d7df3b9d05bd1e89411d9de6017e3dcc6",
+      "published_sha256": "4d0e1944c097f25600da4560a2917b8d7df3b9d05bd1e89411d9de6017e3dcc6",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/specialized-temporal-action-binder-type.md",
+      "source_sha256": "22e34fa43c627948b8ab2ee8e88102dacde24d771f31502a2e29a120791d8c56",
+      "published_sha256": "22e34fa43c627948b8ab2ee8e88102dacde24d771f31502a2e29a120791d8c56",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/temporal-entailment-pointwise-lifting.md",
+      "source_sha256": "cf11841e767f8ce389db572e4f0f4c8330bb2ccdce61fbfeb9208a87a2ba233c",
+      "published_sha256": "cf11841e767f8ce389db572e4f0f4c8330bb2ccdce61fbfeb9208a87a2ba233c",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/temporal-existential-witness-lifting.md",
+      "source_sha256": "19d11eeb4cd4a7a649d86aff412addbcddd974cc51d614b0c953a5ec5ec0b9ca",
+      "published_sha256": "19d11eeb4cd4a7a649d86aff412addbcddd974cc51d614b0c953a5ec5ec0b9ca",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/temporal-induction-natural-offset.md",
+      "source_sha256": "e73d8629a38aa24565a6dbf95d84958b3cea18376bc29481905fcb23faf4c132",
+      "published_sha256": "e73d8629a38aa24565a6dbf95d84958b3cea18376bc29481905fcb23faf4c132",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/temporal-predicate-equality-pointwise.md",
+      "source_sha256": "f2a08163a6ac30176952c907ea412cfa0c1d81bd11a91c55cd9b4cd5335341cd",
+      "published_sha256": "f2a08163a6ac30176952c907ea412cfa0c1d81bd11a91c55cd9b4cd5335341cd",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/temporal-suffix-shift-helper.md",
+      "source_sha256": "c40a95e3b0634f2d52b1adb9dffc197952ff785592a6870066a44a717092db6f",
+      "published_sha256": "c40a95e3b0634f2d52b1adb9dffc197952ff785592a6870066a44a717092db6f",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/transition-system-step-safety.md",
+      "source_sha256": "49f18c8293fe7191e8bdf2cfe837209f3067a7b05d95bce050b37bbf67079a96",
+      "published_sha256": "49f18c8293fe7191e8bdf2cfe837209f3067a7b05d95bce050b37bbf67079a96",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/trigger-inference-annotation.md",
+      "source_sha256": "aa8be44ed3ddadbe366129354d127da3cef67e1725f3f501eada03305ca48a8c",
+      "published_sha256": "aa8be44ed3ddadbe366129354d127da3cef67e1725f3f501eada03305ca48a8c",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/universal-equivalence-pointwise.md",
+      "source_sha256": "0380e2ccf29aeb39d27d984c11e4dd18b0644b0f63a7645a26a88f6ecd46c76e",
+      "published_sha256": "0380e2ccf29aeb39d27d984c11e4dd18b0644b0f63a7645a26a88f6ecd46c76e",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/universal-instantiation-concrete.md",
+      "source_sha256": "de6575ec8c32faa780cd755146f0ac36fefb0716ada02f2f0b21d0a52692b0c2",
+      "published_sha256": "de6575ec8c32faa780cd755146f0ac36fefb0716ada02f2f0b21d0a52692b0c2",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/view-equality-constructor-case.md",
+      "source_sha256": "564614066bd67c2d188999b08dc25295e99bb64738448205737df2bd74b7baa3",
+      "published_sha256": "564614066bd67c2d188999b08dc25295e99bb64738448205737df2bd74b7baa3",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/B-grouped/references/weak-fairness-pointwise-lemmas.md",
+      "source_sha256": "95869aa970573ca750d5d7e9f9f5babcf9590c607c5f6d27bcd7c4b15e76aacc",
+      "published_sha256": "95869aa970573ca750d5d7e9f9f5babcf9590c607c5f6d27bcd7c4b15e76aacc",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/SKILL.md",
+      "source_sha256": "9f5f1ba75af8a8806b1153daad053e1a934bf0158d5a7e73fb3968ff7785b9a0",
+      "published_sha256": "9f5f1ba75af8a8806b1153daad053e1a934bf0158d5a7e73fb3968ff7785b9a0",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/reference_manifest.json",
+      "source_sha256": "b3500d167990d4c52e3c7c21d8840ff82516e7c970e19b60e1c15a2a48138540",
+      "published_sha256": "b3500d167990d4c52e3c7c21d8840ff82516e7c970e19b60e1c15a2a48138540",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/reference_read.py",
+      "source_sha256": "73becd95450b6949a64c108d9e1f01615fac0073522d005630f2e11bf99c2abc",
+      "published_sha256": "73becd95450b6949a64c108d9e1f01615fac0073522d005630f2e11bf99c2abc",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/compound-stability-existing-rules--always-conjunction-per-conjunct-stability.md",
+      "source_sha256": "f1db8cee34dfa52aeb4c21073799de5e9c8adca7cf76049d969d8bac813ada5a",
+      "published_sha256": "f1db8cee34dfa52aeb4c21073799de5e9c8adca7cf76049d969d8bac813ada5a",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/compound-stability-existing-rules--always-stability-extra-wrapper-precondition.md",
+      "source_sha256": "490384a03442a82365913284ed5f559817609e081d3f02744674d92121a3836a",
+      "published_sha256": "490384a03442a82365913284ed5f559817609e081d3f02744674d92121a3836a",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/compound-stability-existing-rules--compound-stability-universal-components.md",
+      "source_sha256": "dcf4352dd30af608089f88a89897dfd257bcc8a73e86d9d9ab05a3697afc6190",
+      "published_sha256": "dcf4352dd30af608089f88a89897dfd257bcc8a73e86d9d9ab05a3697afc6190",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/compound-stability-existing-rules--existing-stabilization-proof-object-lifted-conjunction.md",
+      "source_sha256": "2478d94994a6ba9e6bedc2d2727d27a7561d8d28898ac0319058570714a52fec",
+      "published_sha256": "2478d94994a6ba9e6bedc2d2727d27a7561d8d28898ac0319058570714a52fec",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/compound-stability-existing-rules--full.md",
+      "source_sha256": "0fd63399888df138509df468a1bf77f9a49ba8a34d21865e6d76660f1119980b",
+      "published_sha256": "0fd63399888df138509df468a1bf77f9a49ba8a34d21865e6d76660f1119980b",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/compound-stability-existing-rules.md",
+      "source_sha256": "8f12230703740b977d09ba670099e7f96682ce2644bf1a1dd132383092d6c4ad",
+      "published_sha256": "8f12230703740b977d09ba670099e7f96682ce2644bf1a1dd132383092d6c4ad",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/direct-existing-lemma-bridge--full.md",
+      "source_sha256": "36ca70e1b603e331fbf7e1a0ef3cf84a7b02d0f56c8dd24d95b689870df8ca01",
+      "published_sha256": "36ca70e1b603e331fbf7e1a0ef3cf84a7b02d0f56c8dd24d95b689870df8ca01",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/direct-existing-lemma-bridge--installed-library-lemma-direct.md",
+      "source_sha256": "21a3edc5570b2a304babefc205d6d8a731be5d39418eca4d7896b08a819b5318",
+      "published_sha256": "21a3edc5570b2a304babefc205d6d8a731be5d39418eca4d7896b08a819b5318",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/direct-existing-lemma-bridge--original-card-003.md",
+      "source_sha256": "b7cc1b61f4e6dafaa91e1a02e3644f3300db296fb17420cfb19abac9aaafc025",
+      "published_sha256": "b7cc1b61f4e6dafaa91e1a02e3644f3300db296fb17420cfb19abac9aaafc025",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/direct-existing-lemma-bridge--original-card-043.md",
+      "source_sha256": "c0d809cba7e38eb4d74c28d20e8586ff0270decdef1e3aeee852863193b4aef7",
+      "published_sha256": "c0d809cba7e38eb4d74c28d20e8586ff0270decdef1e3aeee852863193b4aef7",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/direct-existing-lemma-bridge.md",
+      "source_sha256": "d385ae58dd4d895153c3c45d928b17b62174c8ab6df06ca56daf56a81f0d8605",
+      "published_sha256": "d385ae58dd4d895153c3c45d928b17b62174c8ab6df06ca56daf56a81f0d8605",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/eventual-witness-index-bridge--card-008-verbatim.md",
+      "source_sha256": "ba3244ddcdee5641a380dcc2d125ccbcb8da1e6902db763e647c9172683ea5da",
+      "published_sha256": "ba3244ddcdee5641a380dcc2d125ccbcb8da1e6902db763e647c9172683ea5da",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/eventual-witness-index-bridge--card-009-verbatim.md",
+      "source_sha256": "762b0a7435d9fb830b01c901a2557abdd2cace246c0d7e48608946446a02dd65",
+      "published_sha256": "762b0a7435d9fb830b01c901a2557abdd2cace246c0d7e48608946446a02dd65",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/eventual-witness-index-bridge--card-061-verbatim.md",
+      "source_sha256": "e02224d358a7dc3cdbc436eaadca56a139b6a26294b12b165b7a2cd2a474904b",
+      "published_sha256": "e02224d358a7dc3cdbc436eaadca56a139b6a26294b12b165b7a2cd2a474904b",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/eventual-witness-index-bridge--full.md",
+      "source_sha256": "458536b2aa2615ddc258a826f33bf0b9ea4a691e7aed355057dfd67aeed89365",
+      "published_sha256": "458536b2aa2615ddc258a826f33bf0b9ea4a691e7aed355057dfd67aeed89365",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/eventual-witness-index-bridge.md",
+      "source_sha256": "4f0736b542109734d51634b4ebe35f20eca51f557a30999c5fb89be497b0f787",
+      "published_sha256": "4f0736b542109734d51634b4ebe35f20eca51f557a30999c5fb89be497b0f787",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/existing-roundtrip-proof-mode.md",
+      "source_sha256": "0e572e8ea62ee988b09584cc5e3a6e3daa6c886925a555011037729bf3991bc3",
+      "published_sha256": "0e572e8ea62ee988b09584cc5e3a6e3daa6c886925a555011037729bf3991bc3",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/final-liveness-helper-chain.md",
+      "source_sha256": "f1895ba02c5d6a84d52e8030509cf740ac371fa8e5fe74d078b087362fcd9464",
+      "published_sha256": "f1895ba02c5d6a84d52e8030509cf740ac371fa8e5fe74d078b087362fcd9464",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/finite-set-fold-cardinality-induction--finite-set-fold-finiteness-cardinality-induction.md",
+      "source_sha256": "6613566589779dcfb745df73f90270fdcbd78f651bb909dad80464ce87063a84",
+      "published_sha256": "6613566589779dcfb745df73f90270fdcbd78f651bb909dad80464ce87063a84",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/finite-set-fold-cardinality-induction--finite-set-fold-image-equality-cardinality-induction-helper.md",
+      "source_sha256": "ace08b46d3d6bdf773d04d475d45b25533996a51721df8b657cd80a8994ef240",
+      "published_sha256": "ace08b46d3d6bdf773d04d475d45b25533996a51721df8b657cd80a8994ef240",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/finite-set-fold-cardinality-induction--full.md",
+      "source_sha256": "e8c87d6090c866d5f74ba05e5be553c7c100270dfa32533651456f6924b82d55",
+      "published_sha256": "e8c87d6090c866d5f74ba05e5be553c7c100270dfa32533651456f6924b82d55",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/finite-set-fold-cardinality-induction.md",
+      "source_sha256": "3984c79f2e4df040b12abaa6973a24f59b543ae645a66e396ea9559af8f86fec",
+      "published_sha256": "3984c79f2e4df040b12abaa6973a24f59b543ae645a66e396ea9559af8f86fec",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/function-field-projection-syntax--card-015-verbatim.md",
+      "source_sha256": "273aa8c5af6aeec742ea4382b9d17f041ed0f7a3570ec3f502f5eeb7ceaf3b10",
+      "published_sha256": "273aa8c5af6aeec742ea4382b9d17f041ed0f7a3570ec3f502f5eeb7ceaf3b10",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/function-field-projection-syntax--card-028-verbatim.md",
+      "source_sha256": "9bdaaf4926c24f867bdc4de64dce28c0f2d52f19dd9391ccc5ac5e61808db78b",
+      "published_sha256": "9bdaaf4926c24f867bdc4de64dce28c0f2d52f19dd9391ccc5ac5e61808db78b",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/function-field-projection-syntax--full.md",
+      "source_sha256": "3bc3ad3a0e9642991f6282d9204614a0b13ddf30b2d723243ae44d90571ab871",
+      "published_sha256": "3bc3ad3a0e9642991f6282d9204614a0b13ddf30b2d723243ae44d90571ab871",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/function-field-projection-syntax--merged-field-projection-before-apply.md",
+      "source_sha256": "9ee92b26dcc22502ee1ad10905d3c18edda7e1eba2f9947eb424a2be7e89c09a",
+      "published_sha256": "9ee92b26dcc22502ee1ad10905d3c18edda7e1eba2f9947eb424a2be7e89c09a",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/function-field-projection-syntax.md",
+      "source_sha256": "702793bbf674429834bddf9f9bfcaffd4604ee7543993e7fa2b245a0a5fa4362",
+      "published_sha256": "702793bbf674429834bddf9f9bfcaffd4604ee7543993e7fa2b245a0a5fa4362",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/ghost-empty-witness--concrete-empty-ghost-aggregate.md",
+      "source_sha256": "7f229704730ebb2297054c95e74b90638643f8f95eb1d62a9c902929599d4976",
+      "published_sha256": "7f229704730ebb2297054c95e74b90638643f8f95eb1d62a9c902929599d4976",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/ghost-empty-witness--concrete-empty-ghost-history-initializer.md",
+      "source_sha256": "9c1707f605bd6553a03c670969dd29fba8950289fa8655ea4f25ebd51fbe607b",
+      "published_sha256": "9c1707f605bd6553a03c670969dd29fba8950289fa8655ea4f25ebd51fbe607b",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/ghost-empty-witness--full.md",
+      "source_sha256": "d1c5e5ea3be0debcd39dbec88d1d488cae31591ab77c82545e45201aaaf133ec",
+      "published_sha256": "d1c5e5ea3be0debcd39dbec88d1d488cae31591ab77c82545e45201aaaf133ec",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/ghost-empty-witness.md",
+      "source_sha256": "b10710504c4133f20d923f2f75b8ee6b8412bf6321aa9fefa11117234a69505b",
+      "published_sha256": "b10710504c4133f20d923f2f75b8ee6b8412bf6321aa9fefa11117234a69505b",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/leads-to-transitivity-existing-helpers.md",
+      "source_sha256": "2d8ad363e269aaaf134c314dcd0e049a8824481cfccdb200b59810b70f32e9ea",
+      "published_sha256": "2d8ad363e269aaaf134c314dcd0e049a8824481cfccdb200b59810b70f32e9ea",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/library-broadcast-activation.md",
+      "source_sha256": "47ff8ed44f3057025be00996771d42075f6edd5065e28a70a845be15f1880741",
+      "published_sha256": "47ff8ed44f3057025be00996771d42075f6edd5065e28a70a845be15f1880741",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/loop-termination-and-invariants--full.md",
+      "source_sha256": "6e8eaeb3eab33eb1b017eed9fd2255730313ce4fafee2f7801bcdd7b4d94c6de",
+      "published_sha256": "6e8eaeb3eab33eb1b017eed9fd2255730313ce4fafee2f7801bcdd7b4d94c6de",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/loop-termination-and-invariants--loop-body-inherited-assumption-invariant.md",
+      "source_sha256": "a19d9137d08e5bf35f34d75134f1022cd834b7e33801527b4c745375d151a206",
+      "published_sha256": "a19d9137d08e5bf35f34d75134f1022cd834b7e33801527b4c745375d151a206",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/loop-termination-and-invariants--loop-counting-termination-measure.md",
+      "source_sha256": "25a85f303d190176b5fcddb5d4e14cb17d645c8cf873f0c6eb14fc731928d582",
+      "published_sha256": "25a85f303d190176b5fcddb5d4e14cb17d645c8cf873f0c6eb14fc731928d582",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/loop-termination-and-invariants--packet-prefix-set-invariant.md",
+      "source_sha256": "823a4d4355a5da4e3664e883a90d49f45d16d89d6cee106e1a87616066ffe9dc",
+      "published_sha256": "823a4d4355a5da4e3664e883a90d49f45d16d89d6cee106e1a87616066ffe9dc",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/loop-termination-and-invariants.md",
+      "source_sha256": "71eb7bbe4bed02db2e0c8d09c91a0ee4289ab1bb02529cabcc73991d6fcdb3c7",
+      "published_sha256": "71eb7bbe4bed02db2e0c8d09c91a0ee4289ab1bb02529cabcc73991d6fcdb3c7",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/natural-integer-type-mismatch--empty-sequence-length-annotation.md",
+      "source_sha256": "ac1f925b9e76b1c122d2695fbffb65b023a514ebdeb3d096179262bd374548bd",
+      "published_sha256": "ac1f925b9e76b1c122d2695fbffb65b023a514ebdeb3d096179262bd374548bd",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/natural-integer-type-mismatch--full.md",
+      "source_sha256": "0dee13c707c1cece2f44d7921757caef2064772edae7576268c9b46ccc2ce8a2",
+      "published_sha256": "0dee13c707c1cece2f44d7921757caef2064772edae7576268c9b46ccc2ce8a2",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/natural-integer-type-mismatch--natural-predecessor-subtraction-conversion.md",
+      "source_sha256": "e1d6a74ae8bd95488aded8c7990c84117385a99dbe912457feb39d9428b3949d",
+      "published_sha256": "e1d6a74ae8bd95488aded8c7990c84117385a99dbe912457feb39d9428b3949d",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/natural-integer-type-mismatch.md",
+      "source_sha256": "859c2d0744533f1ff890855fa13e3d42929343d4fe5946e2d67068a1a7922689",
+      "published_sha256": "859c2d0744533f1ff890855fa13e3d42929343d4fe5946e2d67068a1a7922689",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/nondeterministic-step-result.md",
+      "source_sha256": "cc9b3dc95a626f3467a8fdf3d23c348f9b8b81e8a94ebb4173e1996dd2aafd69",
+      "published_sha256": "cc9b3dc95a626f3467a8fdf3d23c348f9b8b81e8a94ebb4173e1996dd2aafd69",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/opaque-conversion-avoid-extraction.md",
+      "source_sha256": "83c2c94d2a99487988f5f6d821ba6690aff590e53d80b590ed4c4f73c4bcf680",
+      "published_sha256": "83c2c94d2a99487988f5f6d821ba6690aff590e53d80b590ed4c4f73c4bcf680",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/opaque-spec-function-facts--full.md",
+      "source_sha256": "74961f11b30d34b8e1550c2de483b8e70a6fe1f7b5878008af11b697b60b585e",
+      "published_sha256": "74961f11b30d34b8e1550c2de483b8e70a6fe1f7b5878008af11b697b60b585e",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/opaque-spec-function-facts--rule-card-019.md",
+      "source_sha256": "fd152202ef31ef5af4f7551cf890fdb0f6c9fbe275d847479c304a124e5015be",
+      "published_sha256": "fd152202ef31ef5af4f7551cf890fdb0f6c9fbe275d847479c304a124e5015be",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/opaque-spec-function-facts--rule-card-021.md",
+      "source_sha256": "4372206dfa5b90f88473c9c9195e52c865630861a4cfa5140db48a1a168afec7",
+      "published_sha256": "4372206dfa5b90f88473c9c9195e52c865630861a4cfa5140db48a1a168afec7",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/opaque-spec-function-facts--rule-card-053.md",
+      "source_sha256": "bdafa039923caa093c0e823e141b8ba9e82ebeeb09051a4dec593487a979c73c",
+      "published_sha256": "bdafa039923caa093c0e823e141b8ba9e82ebeeb09051a4dec593487a979c73c",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/opaque-spec-function-facts.md",
+      "source_sha256": "acb08428b4c880eda11e903b94835743f3384023c53145c14677a04c5d0d400a",
+      "published_sha256": "acb08428b4c880eda11e903b94835743f3384023c53145c14677a04c5d0d400a",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/phase-accumulation-bridge.md",
+      "source_sha256": "5035f785b4d93f984f188628eab461e70f6880edfe5cdb775737c99bdf9fb0eb",
+      "published_sha256": "5035f785b4d93f984f188628eab461e70f6880edfe5cdb775737c99bdf9fb0eb",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/post-verification-cleanup--exec-shape-deghost-restore.md",
+      "source_sha256": "42fd7aa2448f7afe7c8920211b5a790c84114475fe9d108147efd6956834ce2d",
+      "published_sha256": "42fd7aa2448f7afe7c8920211b5a790c84114475fe9d108147efd6956834ce2d",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/post-verification-cleanup--full.md",
+      "source_sha256": "84ad4c5866b3c4a308c13c78e26cd5255a81618c9db667fb4cab80731b16dfa7",
+      "published_sha256": "84ad4c5866b3c4a308c13c78e26cd5255a81618c9db667fb4cab80731b16dfa7",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/post-verification-cleanup--module-scope-proof-directive-scope-down.md",
+      "source_sha256": "be6c7b1743115113b12a193380d13b495a10756cab513340859602e2c699cadb",
+      "published_sha256": "be6c7b1743115113b12a193380d13b495a10756cab513340859602e2c699cadb",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/post-verification-cleanup--post-verification-trigger-implication-warning-cleanup.md",
+      "source_sha256": "808ad14a85830d26420e8ce57f98a4fbeb4979a2e359acdbe7f4f9c94673b602",
+      "published_sha256": "808ad14a85830d26420e8ce57f98a4fbeb4979a2e359acdbe7f4f9c94673b602",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/post-verification-cleanup--qualified-proof-helper-set-equality-no-import.md",
+      "source_sha256": "11981176595b10dd2e88844a4205bb09ed3116a40dbe8ca453ffb0a0b8405798",
+      "published_sha256": "11981176595b10dd2e88844a4205bb09ed3116a40dbe8ca453ffb0a0b8405798",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/post-verification-cleanup.md",
+      "source_sha256": "0357121e5922781a5384dc8cf2bd213b280b1337983d160420088947d6593471",
+      "published_sha256": "0357121e5922781a5384dc8cf2bd213b280b1337983d160420088947d6593471",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/predicate-equality-mutual-entailment.md",
+      "source_sha256": "23a18de2b412856aaaa616b19518a0436a87ceefa962da02db374aa0bca13fdb",
+      "published_sha256": "23a18de2b412856aaaa616b19518a0436a87ceefa962da02db374aa0bca13fdb",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/proof-helper-qualified-path--full.md",
+      "source_sha256": "0d0812813a8d447b47dd98750c11bd9b3b50096aa4397b33f27836cfcebeb096",
+      "published_sha256": "0d0812813a8d447b47dd98750c11bd9b3b50096aa4397b33f27836cfcebeb096",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/proof-helper-qualified-path--qualified-proof-helper-macro-path.md",
+      "source_sha256": "ffc3e8ad3833c702a7da2e91074ed9fff42eddd5f6605bc3e8d1c86c75fd7245",
+      "published_sha256": "ffc3e8ad3833c702a7da2e91074ed9fff42eddd5f6605bc3e8d1c86c75fd7245",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/proof-helper-qualified-path--sequence-equality-closure-qualified-path.md",
+      "source_sha256": "61e397a8247fd219f630ac1ff904d1e719d1632e9b26fb7c7f03fe898e83ebc6",
+      "published_sha256": "61e397a8247fd219f630ac1ff904d1e719d1632e9b26fb7c7f03fe898e83ebc6",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/proof-helper-qualified-path.md",
+      "source_sha256": "c2532fe37a88758a2285d9cd7d8bcc9597ba9fe74f820bdb1ad46a11d91b5c63",
+      "published_sha256": "c2532fe37a88758a2285d9cd7d8bcc9597ba9fe74f820bdb1ad46a11d91b5c63",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/quantified-proof-antecedent-binder-scope--full.md",
+      "source_sha256": "238f4ca16a3489997fd687b51a32030f06eae6707d15f508fd1de7049a6ca180",
+      "published_sha256": "238f4ca16a3489997fd687b51a32030f06eae6707d15f508fd1de7049a6ca180",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/quantified-proof-antecedent-binder-scope--helper-precondition-implication-branch-verbatim.md",
+      "source_sha256": "07b44dec636a0a5ec84b3d69824b4f990c87f8b6f881c29b7c7efa69e0b05e9c",
+      "published_sha256": "07b44dec636a0a5ec84b3d69824b4f990c87f8b6f881c29b7c7efa69e0b05e9c",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/quantified-proof-antecedent-binder-scope--missing-antecedent-quantified-proof.md",
+      "source_sha256": "fdb42787032a7cd89ba4dfa66f3693d0ddd5cfa00a0a05b32fe91e9d25e44a05",
+      "published_sha256": "fdb42787032a7cd89ba4dfa66f3693d0ddd5cfa00a0a05b32fe91e9d25e44a05",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/quantified-proof-antecedent-binder-scope--quantified-binder-scope-verbatim.md",
+      "source_sha256": "2f9394e891a342a16e77e62797704d9ddbbde6b2232bf55e6acc616a7e2c2dc3",
+      "published_sha256": "2f9394e891a342a16e77e62797704d9ddbbde6b2232bf55e6acc616a7e2c2dc3",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/quantified-proof-antecedent-binder-scope.md",
+      "source_sha256": "d4ac1cddaa6893722969710069e0b736eea51ad1b77711de4e7378737659a87b",
+      "published_sha256": "d4ac1cddaa6893722969710069e0b736eea51ad1b77711de4e7378737659a87b",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/record-function-field-equality--full.md",
+      "source_sha256": "aa1c5d28d1d33f25646d207392f73024c0f2a9f31dada4864af683cce4df1f43",
+      "published_sha256": "aa1c5d28d1d33f25646d207392f73024c0f2a9f31dada4864af683cce4df1f43",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/record-function-field-equality--rule-card-004.md",
+      "source_sha256": "cbf21b047c1240d5bec899189302a674702cb20fa50c4bea68c53545013551e5",
+      "published_sha256": "cbf21b047c1240d5bec899189302a674702cb20fa50c4bea68c53545013551e5",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/record-function-field-equality--rule-card-005.md",
+      "source_sha256": "164f7317387220333fb5dfe8b85ab0921a0c36305c681f548ba6c2c02c2ad1d8",
+      "published_sha256": "164f7317387220333fb5dfe8b85ab0921a0c36305c681f548ba6c2c02c2ad1d8",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/record-function-field-equality.md",
+      "source_sha256": "6d9bf6be06c3771cd9a3798a8627b8e892ea746d6b7f23983010c67587bda6f7",
+      "published_sha256": "6d9bf6be06c3771cd9a3798a8627b8e892ea746d6b7f23983010c67587bda6f7",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/sequence-extensional-equality.md",
+      "source_sha256": "9e2f5261c585dc3e17d69eb9451302d417d8d6b357b0ef49f47caceeaa3f7b4c",
+      "published_sha256": "9e2f5261c585dc3e17d69eb9451302d417d8d6b357b0ef49f47caceeaa3f7b4c",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/sequence-fold-concat-equality--full.md",
+      "source_sha256": "40b04780a678647be8ac5e5f000d1f343c8e9e77682c99e16a6accdb7125eebc",
+      "published_sha256": "40b04780a678647be8ac5e5f000d1f343c8e9e77682c99e16a6accdb7125eebc",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/sequence-fold-concat-equality--seq-fold-concat-induction-second.md",
+      "source_sha256": "57b8d8984d24f2eb56c3f63c4b59d5c5f6f27c66aa3ed6da36c4c9e67f3b7abe",
+      "published_sha256": "57b8d8984d24f2eb56c3f63c4b59d5c5f6f27c66aa3ed6da36c4c9e67f3b7abe",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/sequence-fold-concat-equality--seq-fold-concat-split-lemma-helper.md",
+      "source_sha256": "2b2332185808160ab565ea3cc014c4aa23115d87cc3eb1f9101e72e4a0a94ff8",
+      "published_sha256": "2b2332185808160ab565ea3cc014c4aa23115d87cc3eb1f9101e72e4a0a94ff8",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/sequence-fold-concat-equality.md",
+      "source_sha256": "365c6c28c03245a98306182d56d3aeb69b22496f6384bc27d7a5f6e33df36776",
+      "published_sha256": "365c6c28c03245a98306182d56d3aeb69b22496f6384bc27d7a5f6e33df36776",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/set-equality-membership-witness--full.md",
+      "source_sha256": "800dc4d268405543340f5a92acf6939bbd30a682b0e09e7bafacabac59680108",
+      "published_sha256": "800dc4d268405543340f5a92acf6939bbd30a682b0e09e7bafacabac59680108",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/set-equality-membership-witness--rule-general-set-image-equality-witness.md",
+      "source_sha256": "9e7fe2f43642e0e0cab401e88f267137fe0c7ee2116a7c48081dcc700d2f4071",
+      "published_sha256": "9e7fe2f43642e0e0cab401e88f267137fe0c7ee2116a7c48081dcc700d2f4071",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/set-equality-membership-witness--rule-no-duplicate-sequence-removal-set-equality.md",
+      "source_sha256": "86ac14ba8b506182b80938448da9eb1a0499e79a63bae3661366bbdd412cf6a9",
+      "published_sha256": "86ac14ba8b506182b80938448da9eb1a0499e79a63bae3661366bbdd412cf6a9",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/set-equality-membership-witness.md",
+      "source_sha256": "602489aa1f8be65fc8e81d72d939565eb9067aacf497138a74216c3859f10732",
+      "published_sha256": "602489aa1f8be65fc8e81d72d939565eb9067aacf497138a74216c3859f10732",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/specialized-fold-bound-lemmas.md",
+      "source_sha256": "4d0e1944c097f25600da4560a2917b8d7df3b9d05bd1e89411d9de6017e3dcc6",
+      "published_sha256": "4d0e1944c097f25600da4560a2917b8d7df3b9d05bd1e89411d9de6017e3dcc6",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/specialized-temporal-action-binder-type.md",
+      "source_sha256": "22e34fa43c627948b8ab2ee8e88102dacde24d771f31502a2e29a120791d8c56",
+      "published_sha256": "22e34fa43c627948b8ab2ee8e88102dacde24d771f31502a2e29a120791d8c56",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/temporal-entailment-pointwise-lifting.md",
+      "source_sha256": "cf11841e767f8ce389db572e4f0f4c8330bb2ccdce61fbfeb9208a87a2ba233c",
+      "published_sha256": "cf11841e767f8ce389db572e4f0f4c8330bb2ccdce61fbfeb9208a87a2ba233c",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/temporal-existential-witness-lifting--card-016-verbatim.md",
+      "source_sha256": "839e43763c5454a78e848b994cd15d7448c824728562e61ba75fd64c9ed5a370",
+      "published_sha256": "839e43763c5454a78e848b994cd15d7448c824728562e61ba75fd64c9ed5a370",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/temporal-existential-witness-lifting--card-032-verbatim.md",
+      "source_sha256": "ebf700a8e9dfa373f7c4c6787e0c304c9a6c512b0977ef4c6dc32c61ad6ee7d2",
+      "published_sha256": "ebf700a8e9dfa373f7c4c6787e0c304c9a6c512b0977ef4c6dc32c61ad6ee7d2",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/temporal-existential-witness-lifting--card-033-verbatim.md",
+      "source_sha256": "a77a3c98b65101235a09aa23c4d0b2ac645aae5fa276b7f2f1aa593aeefc316c",
+      "published_sha256": "a77a3c98b65101235a09aa23c4d0b2ac645aae5fa276b7f2f1aa593aeefc316c",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/temporal-existential-witness-lifting--full.md",
+      "source_sha256": "7ede88787203e9b2616ee258549745adffd8375adf352878a73ef271dad31b29",
+      "published_sha256": "7ede88787203e9b2616ee258549745adffd8375adf352878a73ef271dad31b29",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/temporal-existential-witness-lifting.md",
+      "source_sha256": "3fd7b9b17477944b8a81d5be6ae1d4814713343300c4cddfaae6ef6d3b096196",
+      "published_sha256": "3fd7b9b17477944b8a81d5be6ae1d4814713343300c4cddfaae6ef6d3b096196",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/temporal-induction-natural-offset.md",
+      "source_sha256": "e73d8629a38aa24565a6dbf95d84958b3cea18376bc29481905fcb23faf4c132",
+      "published_sha256": "e73d8629a38aa24565a6dbf95d84958b3cea18376bc29481905fcb23faf4c132",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/temporal-predicate-equality-pointwise--card-029-verbatim.md",
+      "source_sha256": "a97f9f6b92101748a2dab7278b909a668210a0bc35e773b7d6a124f0a2c4ad36",
+      "published_sha256": "a97f9f6b92101748a2dab7278b909a668210a0bc35e773b7d6a124f0a2c4ad36",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/temporal-predicate-equality-pointwise--card-070-verbatim.md",
+      "source_sha256": "b24f77b820e763fcd072beb7d6481e975f2bb4d57037942f0a5526f1302724e4",
+      "published_sha256": "b24f77b820e763fcd072beb7d6481e975f2bb4d57037942f0a5526f1302724e4",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/temporal-predicate-equality-pointwise--full.md",
+      "source_sha256": "f2a08163a6ac30176952c907ea412cfa0c1d81bd11a91c55cd9b4cd5335341cd",
+      "published_sha256": "f2a08163a6ac30176952c907ea412cfa0c1d81bd11a91c55cd9b4cd5335341cd",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/temporal-predicate-equality-pointwise.md",
+      "source_sha256": "d921ba2adb9232137ba916ec479eac4dee981d1b29cc7bc2423ebfc82c4119ac",
+      "published_sha256": "d921ba2adb9232137ba916ec479eac4dee981d1b29cc7bc2423ebfc82c4119ac",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/temporal-suffix-shift-helper--always-lifted-action-unfolding-helper.md",
+      "source_sha256": "84d305fcab3a2f3e249d7de7feedfab9ed08c57125fc01206c1c2f232b1f35f5",
+      "published_sha256": "84d305fcab3a2f3e249d7de7feedfab9ed08c57125fc01206c1c2f232b1f35f5",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/temporal-suffix-shift-helper--full.md",
+      "source_sha256": "c40a95e3b0634f2d52b1adb9dffc197952ff785592a6870066a44a717092db6f",
+      "published_sha256": "c40a95e3b0634f2d52b1adb9dffc197952ff785592a6870066a44a717092db6f",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/temporal-suffix-shift-helper--nested-always-forward-shift-helper.md",
+      "source_sha256": "5f39baf0bfde8e2bf64167df3d8b2b08fb08c198cb4d42538177d9bebde82f32",
+      "published_sha256": "5f39baf0bfde8e2bf64167df3d8b2b08fb08c198cb4d42538177d9bebde82f32",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/temporal-suffix-shift-helper.md",
+      "source_sha256": "1b38c189fdb3bbd15c780c4b913a0b4eba418db47510281de1c40b5ad3eb562a",
+      "published_sha256": "1b38c189fdb3bbd15c780c4b913a0b4eba418db47510281de1c40b5ad3eb562a",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/transition-system-step-safety--card-010-verbatim.md",
+      "source_sha256": "a67ff0aac240b2305801a492b6b32300c1aba2f34a48d34ad1817304cb0d12ca",
+      "published_sha256": "a67ff0aac240b2305801a492b6b32300c1aba2f34a48d34ad1817304cb0d12ca",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/transition-system-step-safety--card-011-verbatim.md",
+      "source_sha256": "526153db4c0da6f51434ef0c5826fba62ac8597b3528073117576c111b95b315",
+      "published_sha256": "526153db4c0da6f51434ef0c5826fba62ac8597b3528073117576c111b95b315",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/transition-system-step-safety--card-012-verbatim.md",
+      "source_sha256": "553b50d65a08e6d770067b26a5e6376b1fbda6393344e70fed95fdceff7ce51e",
+      "published_sha256": "553b50d65a08e6d770067b26a5e6376b1fbda6393344e70fed95fdceff7ce51e",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/transition-system-step-safety--full.md",
+      "source_sha256": "49f18c8293fe7191e8bdf2cfe837209f3067a7b05d95bce050b37bbf67079a96",
+      "published_sha256": "49f18c8293fe7191e8bdf2cfe837209f3067a7b05d95bce050b37bbf67079a96",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/transition-system-step-safety.md",
+      "source_sha256": "efa219239c42701646aefabca893005ae939b4ab3d4d66bbb98ba2665302c64e",
+      "published_sha256": "efa219239c42701646aefabca893005ae939b4ab3d4d66bbb98ba2665302c64e",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/trigger-inference-annotation--full.md",
+      "source_sha256": "8baa2fcd2eef72f655a800f7d790f25957e9d61525f23da30aaa45a8907f1b81",
+      "published_sha256": "8baa2fcd2eef72f655a800f7d790f25957e9d61525f23da30aaa45a8907f1b81",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/trigger-inference-annotation--original-card-018.md",
+      "source_sha256": "8b191653812ca50ef3f94960d9ba46ac9f204b5b88dce61509dfd7daf8435c3c",
+      "published_sha256": "8b191653812ca50ef3f94960d9ba46ac9f204b5b88dce61509dfd7daf8435c3c",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/trigger-inference-annotation--original-card-034.md",
+      "source_sha256": "886497e56b78a8a56d2e7eeb4defddccb503e05ebc310ef80313d1605b4544d6",
+      "published_sha256": "886497e56b78a8a56d2e7eeb4defddccb503e05ebc310ef80313d1605b4544d6",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/trigger-inference-annotation--original-card-057.md",
+      "source_sha256": "7086567c1eb455572389f3ec0b59ad513cb6abda78251bbfa1ce56f854fb3e35",
+      "published_sha256": "7086567c1eb455572389f3ec0b59ad513cb6abda78251bbfa1ce56f854fb3e35",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/trigger-inference-annotation.md",
+      "source_sha256": "6f70ac320cea4e559c1313ec62aa2b813409d6aae56c63e48828fc550185f054",
+      "published_sha256": "6f70ac320cea4e559c1313ec62aa2b813409d6aae56c63e48828fc550185f054",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/universal-equivalence-pointwise.md",
+      "source_sha256": "0380e2ccf29aeb39d27d984c11e4dd18b0644b0f63a7645a26a88f6ecd46c76e",
+      "published_sha256": "0380e2ccf29aeb39d27d984c11e4dd18b0644b0f63a7645a26a88f6ecd46c76e",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/universal-instantiation-concrete--card-037-whole-sequence-element-helper.md",
+      "source_sha256": "e29ac77b8b69added49438f03b72fd47f3076bba4b12ab1ef72848c4d2412d57",
+      "published_sha256": "e29ac77b8b69added49438f03b72fd47f3076bba4b12ab1ef72848c4d2412d57",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/universal-instantiation-concrete--card-058-entailment-implication-concrete.md",
+      "source_sha256": "d4f41063e1d0f4901c6f2ae6e60c69cb7c0adabe1ed094766fb2b898548b3a25",
+      "published_sha256": "d4f41063e1d0f4901c6f2ae6e60c69cb7c0adabe1ed094766fb2b898548b3a25",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/universal-instantiation-concrete--card-076-alias-inline-trigger-instantiation.md",
+      "source_sha256": "d427cdd4cd58807b4382bafcd3a9f081332b72f057fe1bc8588d3ec47166d046",
+      "published_sha256": "d427cdd4cd58807b4382bafcd3a9f081332b72f057fe1bc8588d3ec47166d046",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/universal-instantiation-concrete--full.md",
+      "source_sha256": "de6575ec8c32faa780cd755146f0ac36fefb0716ada02f2f0b21d0a52692b0c2",
+      "published_sha256": "de6575ec8c32faa780cd755146f0ac36fefb0716ada02f2f0b21d0a52692b0c2",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/universal-instantiation-concrete.md",
+      "source_sha256": "c357a2b4ff840ca0e5b4a392a8e471d6bfb576a628d44e3e13bb215123b848d8",
+      "published_sha256": "c357a2b4ff840ca0e5b4a392a8e471d6bfb576a628d44e3e13bb215123b848d8",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/view-equality-constructor-case.md",
+      "source_sha256": "564614066bd67c2d188999b08dc25295e99bb64738448205737df2bd74b7baa3",
+      "published_sha256": "564614066bd67c2d188999b08dc25295e99bb64738448205737df2bd74b7baa3",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/skills/C-selective/references/weak-fairness-pointwise-lemmas.md",
+      "source_sha256": "95869aa970573ca750d5d7e9f9f5babcf9590c607c5f6d27bcd7c4b15e76aacc",
+      "published_sha256": "95869aa970573ca750d5d7e9f9f5babcf9590c607c5f6d27bcd7c4b15e76aacc",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/construction/router.json",
+      "source_sha256": "92d28e68f376516df5a697cf9732f75bf5b175360429149ad5ce70a90b90baa7",
+      "published_sha256": "92d28e68f376516df5a697cf9732f75bf5b175360429149ad5ce70a90b90baa7",
+      "path_normalized": false
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/construction/router_normalization.json",
+      "source_sha256": "85f022f9c7205e055936d378d360c750037cd554f4c6f352297db09d316997c8",
+      "published_sha256": "85f022f9c7205e055936d378d360c750037cd554f4c6f352297db09d316997c8",
+      "path_normalized": false
+    },
+    {
+      "published_path": "README.md",
+      "source_sha256": null,
+      "published_sha256": "107553878580c72067ca4c5a9eab0cebc6929ad2555ed6be69d99e95866b8154",
+      "publication_generated": true
+    },
+    {
+      "published_path": "scripts/verify_card_organization_publication.py",
+      "source_sha256": null,
+      "published_sha256": "3fa38ea2d9306e9b52a894b4b5d9298c3fe7784956c76c788b937bb4b3ffaecd",
+      "publication_generated": true
+    },
+    {
+      "published_path": "research_artifacts/card-organization-20261014/README.md",
+      "source_sha256": null,
+      "published_sha256": "592b59bdb7dc7dd8fb108233c601aad03ef6d5312ba8236fe64d5324ac8f3aba",
+      "publication_generated": true
+    },
+    {
+      "published_path": "research_memory/INDEX.md",
+      "source_sha256": null,
+      "published_sha256": "9c6c1826064ebc74cad68676930c24d798103c72f78d720307a1ae70838fbe37",
+      "publication_generated": true
+    },
+    {
+      "published_path": "research_memory/registry/entries.json",
+      "source_sha256": null,
+      "published_sha256": "e66dd0842dca6405cc9725407f0f03d98d22d34c77c78c3debb1ee056384f8db",
+      "publication_generated": true
+    }
+  ]
+}
