@@ -1,0 +1,42 @@
+{
+  "id": "card-058",
+  "title": "card-058 — A premise is an entailment or validity statement, and asserting only its conclusion does not activate the premise's universal quantifier; Verus reports the inferred assertion as failed",
+  "content": "**Trigger:** A premise is an entailment or validity statement, and asserting only its conclusion does not activate the premise's universal quantifier; Verus reports the inferred assertion as failed. **Action:** Before using the premise at a concrete execution, assert the full implication-form satisfaction for that execution, not just the conclusion. Then apply the implication with the antecedent and conclude the right-hand side. This uses the existing universal hypothesis rather than adding any new trusted fact. **Why:** An entailment expands to a universal quantifier over executions, and SMT instantiation often needs the surface form of the implication applied to the chosen execution. **Validate:** Re-run Verus; the previously failing assertion should be discharged and the final target should close. **Avoid when:** The premise is not an entailment or validity over the same execution type, or the selected implication term does not match the premise's syntactic form; use a helper lemma or a different unfolding in that case.",
+  "clauses": [
+    {
+      "id": "S1",
+      "role": "Trigger",
+      "text": "A premise is an entailment or validity statement, and asserting only its conclusion does not activate the premise's universal quantifier; Verus reports the inferred assertion as failed."
+    },
+    {
+      "id": "S2",
+      "role": "Action",
+      "text": "Before using the premise at a concrete execution, assert the full implication-form satisfaction for that execution, not just the conclusion."
+    },
+    {
+      "id": "S3",
+      "role": "Action",
+      "text": "Then apply the implication with the antecedent and conclude the right-hand side."
+    },
+    {
+      "id": "S4",
+      "role": "Action",
+      "text": "This uses the existing universal hypothesis rather than adding any new trusted fact."
+    },
+    {
+      "id": "S5",
+      "role": "Why",
+      "text": "An entailment expands to a universal quantifier over executions, and SMT instantiation often needs the surface form of the implication applied to the chosen execution."
+    },
+    {
+      "id": "S6",
+      "role": "Validate",
+      "text": "Re-run Verus; the previously failing assertion should be discharged and the final target should close."
+    },
+    {
+      "id": "S7",
+      "role": "Avoid when",
+      "text": "The premise is not an entailment or validity over the same execution type, or the selected implication term does not match the premise's syntactic form; use a helper lemma or a different unfolding in that case."
+    }
+  ]
+}

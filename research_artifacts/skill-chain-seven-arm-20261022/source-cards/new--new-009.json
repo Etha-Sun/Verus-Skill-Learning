@@ -1,0 +1,97 @@
+{
+  "id": "new-009",
+  "title": "Inspect legal trigger terms at a quantifier diagnostic",
+  "content": "**Trigger:** The verifier currently reports that a quantifier in the pointwise execution equality proof has no inferred trigger, after field-projection syntax has already been corrected enough to reach trigger inference. What remains to be proved is the pointwise equality over an arbitrary index that is needed as a precondition for the execution equality lemma, without assuming any missing premise.\n\n**Action:** Inspect the immediate trigger diagnostic and the quantified equality assertion at the reported source span. Identify the bound index, the two compared spec-function applications, and any trigger annotations already present in that quantifier body. Bind the current execution arguments and the arbitrary index variable from the quantifier scope. Do not bind a concrete witness or suffix arithmetic expression, and do not absorb later proof obligations. Compare the existing trigger annotations in the quantifier body, if any, with the diagnostic claim that no trigger could be inferred. Compare the syntactic shape of the two compared function applications and which legal call or projection terms occur in the body. If no legal existing term in that quantifier body is annotated, select one existing function-call or field-projection term from the body and add a single trigger annotation to it, without copying a historical side choice and without annotating more than one term at once. Rerun the same verifier command. If the missing-trigger diagnostic persists after one legal annotation, inspect the reported trigger shape and choose a different existing call or projection term. If no legal term remains, stop this action and report that the current equality formulation needs restructuring before the proof can proceed.\n\n**Why:** Reviewed evidence shows that after field-projection syntax was corrected, a missing-trigger diagnostic appeared on the pointwise equality quantifier, and later checks with trigger annotation on at least one existing term passed. No minimal trigger placement is established because the available fork shares the earlier prefix, so the evidence supports bounded inspection, not a universal side or sufficiency claim.\n\n**Validate:** Rerun the same verifier command on the same pointwise equality obligation and read the next diagnostic. If the missing-trigger diagnostic disappears and the enclosing proof reaches its next obligation, treat only that local trigger failure as addressed; if a later proof failure appears at another location, classify it as a separate decision rather than evidence that the annotation is sufficient elsewhere.\n\n**Avoid when:** Stop if no legal function-call or field-projection term remains available as a trigger in the current quantifier, if the diagnostic says the current terms cannot be used as triggers, or if further annotations would require changing the specification or the asserted proposition. Also stop this action when the same obligation passes and open a separate action for any subsequent failed obligation.",
+  "clauses": [
+    {
+      "id": "S1",
+      "role": "Trigger",
+      "text": "The verifier currently reports that a quantifier in the pointwise execution equality proof has no inferred trigger, after field-projection syntax has already been corrected enough to reach trigger inference."
+    },
+    {
+      "id": "S2",
+      "role": "Trigger",
+      "text": "What remains to be proved is the pointwise equality over an arbitrary index that is needed as a precondition for the execution equality lemma, without assuming any missing premise."
+    },
+    {
+      "id": "S3",
+      "role": "Action",
+      "text": "Inspect the immediate trigger diagnostic and the quantified equality assertion at the reported source span."
+    },
+    {
+      "id": "S4",
+      "role": "Action",
+      "text": "Identify the bound index, the two compared spec-function applications, and any trigger annotations already present in that quantifier body."
+    },
+    {
+      "id": "S5",
+      "role": "Action",
+      "text": "Bind the current execution arguments and the arbitrary index variable from the quantifier scope."
+    },
+    {
+      "id": "S6",
+      "role": "Action",
+      "text": "Do not bind a concrete witness or suffix arithmetic expression, and do not absorb later proof obligations."
+    },
+    {
+      "id": "S7",
+      "role": "Action",
+      "text": "Compare the existing trigger annotations in the quantifier body, if any, with the diagnostic claim that no trigger could be inferred."
+    },
+    {
+      "id": "S8",
+      "role": "Action",
+      "text": "Compare the syntactic shape of the two compared function applications and which legal call or projection terms occur in the body."
+    },
+    {
+      "id": "S9",
+      "role": "Action",
+      "text": "If no legal existing term in that quantifier body is annotated, select one existing function-call or field-projection term from the body and add a single trigger annotation to it, without copying a historical side choice and without annotating more than one term at once."
+    },
+    {
+      "id": "S10",
+      "role": "Action",
+      "text": "Rerun the same verifier command."
+    },
+    {
+      "id": "S11",
+      "role": "Action",
+      "text": "If the missing-trigger diagnostic persists after one legal annotation, inspect the reported trigger shape and choose a different existing call or projection term."
+    },
+    {
+      "id": "S12",
+      "role": "Action",
+      "text": "If no legal term remains, stop this action and report that the current equality formulation needs restructuring before the proof can proceed."
+    },
+    {
+      "id": "S13",
+      "role": "Why",
+      "text": "Reviewed evidence shows that after field-projection syntax was corrected, a missing-trigger diagnostic appeared on the pointwise equality quantifier, and later checks with trigger annotation on at least one existing term passed."
+    },
+    {
+      "id": "S14",
+      "role": "Why",
+      "text": "No minimal trigger placement is established because the available fork shares the earlier prefix, so the evidence supports bounded inspection, not a universal side or sufficiency claim."
+    },
+    {
+      "id": "S15",
+      "role": "Validate",
+      "text": "Rerun the same verifier command on the same pointwise equality obligation and read the next diagnostic."
+    },
+    {
+      "id": "S16",
+      "role": "Validate",
+      "text": "If the missing-trigger diagnostic disappears and the enclosing proof reaches its next obligation, treat only that local trigger failure as addressed; if a later proof failure appears at another location, classify it as a separate decision rather than evidence that the annotation is sufficient elsewhere."
+    },
+    {
+      "id": "S17",
+      "role": "Avoid when",
+      "text": "Stop if no legal function-call or field-projection term remains available as a trigger in the current quantifier, if the diagnostic says the current terms cannot be used as triggers, or if further annotations would require changing the specification or the asserted proposition."
+    },
+    {
+      "id": "S18",
+      "role": "Avoid when",
+      "text": "Also stop this action when the same obligation passes and open a separate action for any subsequent failed obligation."
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "id": "new-003",
+  "title": "Match a quantified step to the helper execution scope",
+  "content": "**Trigger:** The current Verus diagnostic reports a precondition failure at a call to the forward-preservation helper. The unfilled requirement is the universal step relation saying that whenever the invariant and the next predicate hold at a suffix, the invariant holds at the immediate suffix.\n\n**Action:** Inspect the stability and witness proof body at the forward helper call, the called helper's quantified step requirement, and the universal always-fact that has already been propagated to the chosen base execution. Note any local aliases that rename the base execution or the implication predicate. Bind the base execution, its relation to the current starting index, an arbitrary step index, and the predicates named by the actual helper contract. Determine from that contract which execution argument each premise concerns; keep shifted facts within that scope instead of presupposing that the original execution and base execution are interchangeable. Compare the step relation at an arbitrary suffix of the base execution with the form required by the helper's quantified step requirement. Also compare any local alias expression with the expanded suffix and predicate form used when the universal always-fact was established. Before calling the forward helper, prove the universal step relation at an arbitrary suffix in the exact base-execution form the helper requires; if that succeeds, call the helper. The remaining obligation is the step relation for an arbitrary suffix, not the helper's final conclusion. If the probe fails, hold the current suffix and inspect which side of the step relation is unjustified. If no expression mismatch appears but the step relation still fails, check whether the corresponding universal always-fact is available at the base execution and at the shifted index. If neither is available and no existing rule can derive it from the current premises, stop rather than assume the quantified step or modify the helper's prerequisite.\n\n**Why:** Reviewed training windows show the same forward helper precondition failed after the field-call syntax repair. Later attempts explicitly proved the quantified step relation before that call, and the indexed checks then reported seven verified with no errors; one passing branch retained local aliases, and another later change altered the way the step assertion was expressed, so neither inlining nor a single assertion form is established as necessary.\n\n**Validate:** Re-run the same Verus command and inspect the same quantified helper precondition and the added local step proof. Confirm their verification before treating the step fact as available; a diagnostic merely moving elsewhere is not independent evidence that each earlier assertion passed. Treat another unresolved conclusion as a separate obligation.\n\n**Avoid when:** Stop when the helper call is absent, the quantified step is not among the current premises or derivable from the supplied rules, the failure is not the helper precondition, or the only route would assume the missing step or alter the original contract.",
+  "clauses": [
+    {
+      "id": "S1",
+      "role": "Trigger",
+      "text": "The current Verus diagnostic reports a precondition failure at a call to the forward-preservation helper."
+    },
+    {
+      "id": "S2",
+      "role": "Trigger",
+      "text": "The unfilled requirement is the universal step relation saying that whenever the invariant and the next predicate hold at a suffix, the invariant holds at the immediate suffix."
+    },
+    {
+      "id": "S3",
+      "role": "Action",
+      "text": "Inspect the stability and witness proof body at the forward helper call, the called helper's quantified step requirement, and the universal always-fact that has already been propagated to the chosen base execution."
+    },
+    {
+      "id": "S4",
+      "role": "Action",
+      "text": "Note any local aliases that rename the base execution or the implication predicate."
+    },
+    {
+      "id": "S5",
+      "role": "Action",
+      "text": "Bind the base execution, its relation to the current starting index, an arbitrary step index, and the predicates named by the actual helper contract."
+    },
+    {
+      "id": "S6",
+      "role": "Action",
+      "text": "Determine from that contract which execution argument each premise concerns; keep shifted facts within that scope instead of presupposing that the original execution and base execution are interchangeable."
+    },
+    {
+      "id": "S7",
+      "role": "Action",
+      "text": "Compare the step relation at an arbitrary suffix of the base execution with the form required by the helper's quantified step requirement."
+    },
+    {
+      "id": "S8",
+      "role": "Action",
+      "text": "Also compare any local alias expression with the expanded suffix and predicate form used when the universal always-fact was established."
+    },
+    {
+      "id": "S9",
+      "role": "Action",
+      "text": "Before calling the forward helper, prove the universal step relation at an arbitrary suffix in the exact base-execution form the helper requires; if that succeeds, call the helper."
+    },
+    {
+      "id": "S10",
+      "role": "Action",
+      "text": "The remaining obligation is the step relation for an arbitrary suffix, not the helper's final conclusion."
+    },
+    {
+      "id": "S11",
+      "role": "Action",
+      "text": "If the probe fails, hold the current suffix and inspect which side of the step relation is unjustified."
+    },
+    {
+      "id": "S12",
+      "role": "Action",
+      "text": "If no expression mismatch appears but the step relation still fails, check whether the corresponding universal always-fact is available at the base execution and at the shifted index."
+    },
+    {
+      "id": "S13",
+      "role": "Action",
+      "text": "If neither is available and no existing rule can derive it from the current premises, stop rather than assume the quantified step or modify the helper's prerequisite."
+    },
+    {
+      "id": "S14",
+      "role": "Why",
+      "text": "Reviewed training windows show the same forward helper precondition failed after the field-call syntax repair."
+    },
+    {
+      "id": "S15",
+      "role": "Why",
+      "text": "Later attempts explicitly proved the quantified step relation before that call, and the indexed checks then reported seven verified with no errors; one passing branch retained local aliases, and another later change altered the way the step assertion was expressed, so neither inlining nor a single assertion form is established as necessary."
+    },
+    {
+      "id": "S16",
+      "role": "Validate",
+      "text": "Re-run the same Verus command and inspect the same quantified helper precondition and the added local step proof."
+    },
+    {
+      "id": "S17",
+      "role": "Validate",
+      "text": "Confirm their verification before treating the step fact as available; a diagnostic merely moving elsewhere is not independent evidence that each earlier assertion passed."
+    },
+    {
+      "id": "S18",
+      "role": "Validate",
+      "text": "Treat another unresolved conclusion as a separate obligation."
+    },
+    {
+      "id": "S19",
+      "role": "Avoid when",
+      "text": "Stop when the helper call is absent, the quantified step is not among the current premises or derivable from the supplied rules, the failure is not the helper precondition, or the only route would assume the missing step or alter the original contract."
+    }
+  ]
+}

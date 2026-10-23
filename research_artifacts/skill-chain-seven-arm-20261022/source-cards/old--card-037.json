@@ -1,0 +1,37 @@
+{
+  "id": "card-037",
+  "title": "card-037 — A whole-sequence validity or range property is available, but an assertion about one element at the loop index fails because the quantified assumption is not instantiated automatically",
+  "content": "**Trigger:** A whole-sequence validity or range property is available, but an assertion about one element at the loop index fails because the quantified assumption is not instantiated automatically.\n**Action:** Introduce a small proof-only helper that takes the whole-sequence property and an in-bounds index and concludes the element property, then call that helper in the loop body. Use the concrete indexed term at the call site so the quantifier trigger can match.\n**Why:** A bounded forall often requires an explicit instantiation step; a lemma localizes that step and keeps the loop body legible.\n**Validate:** Rerun Verus; the previously failing element assertion or call precondition should become provable.\n**Avoid when:** The element property is not actually derivable from the whole-sequence assumption under the available bounds, or the index is not guaranteed to be in range.",
+  "clauses": [
+    {
+      "id": "S1",
+      "role": "Trigger",
+      "text": "A whole-sequence validity or range property is available, but an assertion about one element at the loop index fails because the quantified assumption is not instantiated automatically."
+    },
+    {
+      "id": "S2",
+      "role": "Action",
+      "text": "Introduce a small proof-only helper that takes the whole-sequence property and an in-bounds index and concludes the element property, then call that helper in the loop body."
+    },
+    {
+      "id": "S3",
+      "role": "Action",
+      "text": "Use the concrete indexed term at the call site so the quantifier trigger can match."
+    },
+    {
+      "id": "S4",
+      "role": "Why",
+      "text": "A bounded forall often requires an explicit instantiation step; a lemma localizes that step and keeps the loop body legible."
+    },
+    {
+      "id": "S5",
+      "role": "Validate",
+      "text": "Rerun Verus; the previously failing element assertion or call precondition should become provable."
+    },
+    {
+      "id": "S6",
+      "role": "Avoid when",
+      "text": "The element property is not actually derivable from the whole-sequence assumption under the available bounds, or the index is not guaranteed to be in range."
+    }
+  ]
+}

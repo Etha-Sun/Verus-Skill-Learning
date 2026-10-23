@@ -1,0 +1,72 @@
+{
+  "id": "new-008",
+  "title": "Check pointwise entailment premises of an equality helper",
+  "content": "**Trigger:** The current Verus diagnostic reports a postcondition failure at the end of an empty proof body for the target equality, and the existing temporal predicate definitions and helper proof functions are available unchanged.\n\n**Action:** Inspect the current failed postcondition and the precondition of each available helper proof function to identify which helper requires a pointwise pair of entailment premises. Bind the current predicate values and the two pointwise predicate-family arguments required by the inspected helper contract. For its local entailment checks, bind an arbitrary element of the required family type within the appropriate proof scope; do not reuse historical argument names or presume the two families are equal. Compare each required entailment direction between the two bound pointwise predicates with the definitional form of entailment at that same arbitrary element, without assuming either direction holds. If the helper precondition is the current unresolved subgoal, add proof-block assertions for each entailment direction separately and rerun Verus before invoking the helper; do not invoke the helper until both assertions are accepted. If no precondition mismatch is identified or the probe reports a failure on either direction, inspect the unfolded definitions of entailment, validity, implication, and always for that element rather than assuming reflexivity or proceeding to the equality chain.\n\n**Why:** Reviewed evidence bundles a single source transition that adds two pointwise predicate families, a mutual entailment assertion, and two helper calls, with aggregate Verus moving from 0 verified, 1 error to 1 verified, 0 errors. This collectively associates the additions with closure but does not isolate any component; per-assertion and safety-comparison results are not present in the indexed window.\n\n**Validate:** Re-run Verus on the same target postcondition. Interpret a changed diagnostic as separation of the new precondition obligation; only accept if the original postcondition is reported verified, and do not infer helper contribution from a shell exit status alone.\n\n**Avoid when:** Stop this route if the candidate helper does not require the relevant pointwise entailment premises, its types or conditions do not match the current equality obligation, or either direction cannot be justified. Do not reuse the historical lambda names or equality chain as a fixed template; the empty-body observation is evidence context, not a requirement to match the historical source verbatim.",
+  "clauses": [
+    {
+      "id": "S1",
+      "role": "Trigger",
+      "text": "The current Verus diagnostic reports a postcondition failure at the end of an empty proof body for the target equality, and the existing temporal predicate definitions and helper proof functions are available unchanged."
+    },
+    {
+      "id": "S2",
+      "role": "Action",
+      "text": "Inspect the current failed postcondition and the precondition of each available helper proof function to identify which helper requires a pointwise pair of entailment premises."
+    },
+    {
+      "id": "S3",
+      "role": "Action",
+      "text": "Bind the current predicate values and the two pointwise predicate-family arguments required by the inspected helper contract."
+    },
+    {
+      "id": "S4",
+      "role": "Action",
+      "text": "For its local entailment checks, bind an arbitrary element of the required family type within the appropriate proof scope; do not reuse historical argument names or presume the two families are equal."
+    },
+    {
+      "id": "S5",
+      "role": "Action",
+      "text": "Compare each required entailment direction between the two bound pointwise predicates with the definitional form of entailment at that same arbitrary element, without assuming either direction holds."
+    },
+    {
+      "id": "S6",
+      "role": "Action",
+      "text": "If the helper precondition is the current unresolved subgoal, add proof-block assertions for each entailment direction separately and rerun Verus before invoking the helper; do not invoke the helper until both assertions are accepted."
+    },
+    {
+      "id": "S7",
+      "role": "Action",
+      "text": "If no precondition mismatch is identified or the probe reports a failure on either direction, inspect the unfolded definitions of entailment, validity, implication, and always for that element rather than assuming reflexivity or proceeding to the equality chain."
+    },
+    {
+      "id": "S8",
+      "role": "Why",
+      "text": "Reviewed evidence bundles a single source transition that adds two pointwise predicate families, a mutual entailment assertion, and two helper calls, with aggregate Verus moving from 0 verified, 1 error to 1 verified, 0 errors."
+    },
+    {
+      "id": "S9",
+      "role": "Why",
+      "text": "This collectively associates the additions with closure but does not isolate any component; per-assertion and safety-comparison results are not present in the indexed window."
+    },
+    {
+      "id": "S10",
+      "role": "Validate",
+      "text": "Re-run Verus on the same target postcondition."
+    },
+    {
+      "id": "S11",
+      "role": "Validate",
+      "text": "Interpret a changed diagnostic as separation of the new precondition obligation; only accept if the original postcondition is reported verified, and do not infer helper contribution from a shell exit status alone."
+    },
+    {
+      "id": "S12",
+      "role": "Avoid when",
+      "text": "Stop this route if the candidate helper does not require the relevant pointwise entailment premises, its types or conditions do not match the current equality obligation, or either direction cannot be justified."
+    },
+    {
+      "id": "S13",
+      "role": "Avoid when",
+      "text": "Do not reuse the historical lambda names or equality chain as a fixed template; the empty-body observation is evidence context, not a requirement to match the historical source verbatim."
+    }
+  ]
+}

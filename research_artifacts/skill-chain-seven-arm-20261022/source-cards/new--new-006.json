@@ -1,0 +1,107 @@
+{
+  "id": "new-006",
+  "title": "Match temporal stability composition to local rule contracts",
+  "content": "**Trigger:** An empty or incomplete proof body leaves a temporal stability postcondition open for a conjunction of temporal predicates constructed from state predicates. Inspect the exact temporal wrappers: local stability and conjunction rules may be used only when their real input shapes and premises match the goal.\n\n**Action:** Inspect the failed proof function declaration, its empty body, the exact postcondition being failed, and the local temporal proof rules that establish stability of an always-lifted predicate and stability closure under conjunction. Bind the current proof function parameters, the exact failing postcondition, the empty body, and the available stability and conjunction rules in the same module scope. Treat the postcondition as unproved and assume no missing premise. Compare the outer temporal structure of the failing postcondition with the conclusions of the available local rules. Determine whether the whole claim is a validity/stability claim over a conjunction, and whether each conjunct is an instance of the individual stability rule's input shape. If the comparison shows the local stability and conjunction rules can license the current postcondition, add a proof-only derivation using the available local composition machinery in the order dictated by the postcondition's structure, preserving all specifications and termination measures. Then run Verus and read the complete diagnostics. If composition fails, inspect its actual rule or macro expansion before decomposing it. Only if the inspected contracts justify the decomposition, prove the required stability fact for each operand in its valid scope and then discharge every premise of the conjunction rule. A proof for one operand does not justify the remaining operands; otherwise leave the unsupported connection open.\n\n**Why:** Reviewed evidence shows one adjacent source edit that replaced an empty proof body with a proof-only invocation of local composition machinery over four lifted state predicates. Before the edit, Verus reported the postcondition unsatisfied with zero verified and one error; after the edit, it reported one verified and zero errors. The observation is aggregate and correlational: it does not isolate which helper-internal obligation, conjunct count, or ordering property was necessary, and no counterfactual body or alternative ordering was reviewed.\n\n**Validate:** Re-run the same Verus obligation on the current candidate and read the full diagnostics. Interpret an aggregate one-verified, zero-errors result only as closure of the whole postcondition for this file, not as proof that each local proof step was independently discharged. If the same failure repeats, inspect the first new diagnostic and change strategy rather than repeating the same edit.\n\n**Avoid when:** Stop when the proof function no longer has the empty-body postcondition and the same obligation is discharged by Verus, or when a missing or incompatible premise or rule type prevents lawful application. Do not continue merely to remove pre-existing warnings or change executable and specification code.",
+  "clauses": [
+    {
+      "id": "S1",
+      "role": "Trigger",
+      "text": "An empty or incomplete proof body leaves a temporal stability postcondition open for a conjunction of temporal predicates constructed from state predicates."
+    },
+    {
+      "id": "S2",
+      "role": "Trigger",
+      "text": "Inspect the exact temporal wrappers: local stability and conjunction rules may be used only when their real input shapes and premises match the goal."
+    },
+    {
+      "id": "S3",
+      "role": "Action",
+      "text": "Inspect the failed proof function declaration, its empty body, the exact postcondition being failed, and the local temporal proof rules that establish stability of an always-lifted predicate and stability closure under conjunction."
+    },
+    {
+      "id": "S4",
+      "role": "Action",
+      "text": "Bind the current proof function parameters, the exact failing postcondition, the empty body, and the available stability and conjunction rules in the same module scope."
+    },
+    {
+      "id": "S5",
+      "role": "Action",
+      "text": "Treat the postcondition as unproved and assume no missing premise."
+    },
+    {
+      "id": "S6",
+      "role": "Action",
+      "text": "Compare the outer temporal structure of the failing postcondition with the conclusions of the available local rules."
+    },
+    {
+      "id": "S7",
+      "role": "Action",
+      "text": "Determine whether the whole claim is a validity/stability claim over a conjunction, and whether each conjunct is an instance of the individual stability rule's input shape."
+    },
+    {
+      "id": "S8",
+      "role": "Action",
+      "text": "If the comparison shows the local stability and conjunction rules can license the current postcondition, add a proof-only derivation using the available local composition machinery in the order dictated by the postcondition's structure, preserving all specifications and termination measures."
+    },
+    {
+      "id": "S9",
+      "role": "Action",
+      "text": "Then run Verus and read the complete diagnostics."
+    },
+    {
+      "id": "S10",
+      "role": "Action",
+      "text": "If composition fails, inspect its actual rule or macro expansion before decomposing it."
+    },
+    {
+      "id": "S11",
+      "role": "Action",
+      "text": "Only if the inspected contracts justify the decomposition, prove the required stability fact for each operand in its valid scope and then discharge every premise of the conjunction rule."
+    },
+    {
+      "id": "S12",
+      "role": "Action",
+      "text": "A proof for one operand does not justify the remaining operands; otherwise leave the unsupported connection open."
+    },
+    {
+      "id": "S13",
+      "role": "Why",
+      "text": "Reviewed evidence shows one adjacent source edit that replaced an empty proof body with a proof-only invocation of local composition machinery over four lifted state predicates."
+    },
+    {
+      "id": "S14",
+      "role": "Why",
+      "text": "Before the edit, Verus reported the postcondition unsatisfied with zero verified and one error; after the edit, it reported one verified and zero errors."
+    },
+    {
+      "id": "S15",
+      "role": "Why",
+      "text": "The observation is aggregate and correlational: it does not isolate which helper-internal obligation, conjunct count, or ordering property was necessary, and no counterfactual body or alternative ordering was reviewed."
+    },
+    {
+      "id": "S16",
+      "role": "Validate",
+      "text": "Re-run the same Verus obligation on the current candidate and read the full diagnostics."
+    },
+    {
+      "id": "S17",
+      "role": "Validate",
+      "text": "Interpret an aggregate one-verified, zero-errors result only as closure of the whole postcondition for this file, not as proof that each local proof step was independently discharged."
+    },
+    {
+      "id": "S18",
+      "role": "Validate",
+      "text": "If the same failure repeats, inspect the first new diagnostic and change strategy rather than repeating the same edit."
+    },
+    {
+      "id": "S19",
+      "role": "Avoid when",
+      "text": "Stop when the proof function no longer has the empty-body postcondition and the same obligation is discharged by Verus, or when a missing or incompatible premise or rule type prevents lawful application."
+    },
+    {
+      "id": "S20",
+      "role": "Avoid when",
+      "text": "Do not continue merely to remove pre-existing warnings or change executable and specification code."
+    }
+  ]
+}

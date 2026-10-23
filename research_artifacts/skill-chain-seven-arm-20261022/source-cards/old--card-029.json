@@ -1,0 +1,62 @@
+{
+  "id": "card-029",
+  "title": "card-029 — A proof obligation is an equality between two temporal predicates and the body is empty or cannot discharge the postcondition, while existing helper rules already describe commuting a universal temporal quantifier and moving the always construct across that quantifier",
+  "content": "**Trigger:** A proof obligation is an equality between two temporal predicates and the body is empty or cannot discharge the postcondition, while existing helper rules already describe commuting a universal temporal quantifier and moving the always construct across that quantifier. **Action:** Instantiate the helper that moves always across the universal using two pointwise predicate families that differ only in whether the always wraps the implication. For each index, discharge the helper precondition by reducing both entailment directions to self-entailment of the same always predicate; a local reflexivity assertion is sufficient. Then instantiate the helper that commutes a plain implication through the universal quantifier. Chain the resulting equalities under congruence of always to close the target. **Why:** The two helper postconditions rewrite the left side into the right side in two compatible steps. The precondition is definitional reflexivity after the always operation is applied to the same underlying predicate, so it does not require a new lemma. **Validate:** Rerun Verus and expect verification with zero proof errors; then run the behavior-preservation checker and confirm it exits successfully. In the observed traces this helper chain closed the postcondition, while a missing local proof block produced a syntax error and was fixed by adding a local reflexivity assertion. **Avoid when:** Do not attempt to unfold all temporal definitions globally or introduce a new universal temporal rule. Do not skip the precondition assertion for the always-moving helper, because its external body still requires that premise to be discharged.",
+  "clauses": [
+    {
+      "id": "S1",
+      "role": "Trigger",
+      "text": "A proof obligation is an equality between two temporal predicates and the body is empty or cannot discharge the postcondition, while existing helper rules already describe commuting a universal temporal quantifier and moving the always construct across that quantifier."
+    },
+    {
+      "id": "S2",
+      "role": "Action",
+      "text": "Instantiate the helper that moves always across the universal using two pointwise predicate families that differ only in whether the always wraps the implication."
+    },
+    {
+      "id": "S3",
+      "role": "Action",
+      "text": "For each index, discharge the helper precondition by reducing both entailment directions to self-entailment of the same always predicate; a local reflexivity assertion is sufficient."
+    },
+    {
+      "id": "S4",
+      "role": "Action",
+      "text": "Then instantiate the helper that commutes a plain implication through the universal quantifier."
+    },
+    {
+      "id": "S5",
+      "role": "Action",
+      "text": "Chain the resulting equalities under congruence of always to close the target."
+    },
+    {
+      "id": "S6",
+      "role": "Why",
+      "text": "The two helper postconditions rewrite the left side into the right side in two compatible steps."
+    },
+    {
+      "id": "S7",
+      "role": "Why",
+      "text": "The precondition is definitional reflexivity after the always operation is applied to the same underlying predicate, so it does not require a new lemma."
+    },
+    {
+      "id": "S8",
+      "role": "Validate",
+      "text": "Rerun Verus and expect verification with zero proof errors; then run the behavior-preservation checker and confirm it exits successfully."
+    },
+    {
+      "id": "S9",
+      "role": "Validate",
+      "text": "In the observed traces this helper chain closed the postcondition, while a missing local proof block produced a syntax error and was fixed by adding a local reflexivity assertion."
+    },
+    {
+      "id": "S10",
+      "role": "Avoid when",
+      "text": "Do not attempt to unfold all temporal definitions globally or introduce a new universal temporal rule."
+    },
+    {
+      "id": "S11",
+      "role": "Avoid when",
+      "text": "Do not skip the precondition assertion for the always-moving helper, because its external body still requires that premise to be discharged."
+    }
+  ]
+}

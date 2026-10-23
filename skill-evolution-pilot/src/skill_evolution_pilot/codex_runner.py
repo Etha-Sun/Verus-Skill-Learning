@@ -478,6 +478,7 @@ def run_codex_smoke(
     continuation_instructions: str | None = None,
     reference_kind: str = "original_final",
     installed_library_root: Path | None = None,
+    supplemental_prompt: str | None = None,
 ) -> dict[str, Any]:
     installed_library_root = approved_library_root(installed_library_root, actor_isolation, contract_profile)
     out_dir = _require_external_output(out_dir)
@@ -540,6 +541,12 @@ Continuation experiment:
         if initial_candidate_source is None:
             raise ValueError("continuation instructions require a checkpoint")
         prompt += "\n" + continuation_instructions + "\n"
+    if supplemental_prompt is not None:
+        if contract_profile != "project" or initial_candidate_source is not None:
+            raise ValueError("fixed-exposure knowledge requires an original project task")
+        if not supplemental_prompt.strip():
+            raise ValueError("fixed-exposure knowledge must be nonempty")
+        prompt += "\n\n" + supplemental_prompt.strip() + "\n"
     rust_environment = ""
     if actor_isolation is not None:
         rust_root = actor_isolation.rust_root.resolve()

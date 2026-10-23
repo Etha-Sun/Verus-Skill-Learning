@@ -1,0 +1,92 @@
+{
+  "id": "new-007",
+  "title": "Inspect permitted interfaces for a closed serialization definition",
+  "content": "**Trigger:** The current failed diagnostic is a reveal rejection on the closed little-endian conversion function, or a serialized-length assertion that cannot see the closed function body. This operation applies when the closed-function diagnostic or an equivalent serialized-length obligation remains the immediate failed verification goal and the bytes module is available for inspection.\n\n**Action:** Inspect the bytes module declarations for the closed conversion, any open conversion with the same intended meaning, and any proof whose postcondition explicitly relates the closed form to the open form. Also inspect the available sequence-length facts for the open definition. Bind the current 64-bit value whose serialization length must be established, the closed serialization term, the open serialization term, and the scope in which the serialization trait body is visible. Do not bind the closed function body because the diagnostic states it is not visible. Compare the structure and length consequences of the open conversion definition with the closed conversion term. Compare any connector proof's stated consequence against the equality needed to transfer a length fact from the open form to the closed form. If a connector proof with the stated closed-equals-open consequence is present, invoke that connector and then assert only that the open serialization term has the expected length. Use the rerun diagnostic to determine whether the open length fact is discharged before attempting to transfer it to the closed form. If no connector consequence is available or the open length is not discharged, do not attempt to reveal the closed function again. Determine whether a general byte-width fact in the bytes module can be instantiated at the current value, and only then attempt to connect that fact to the closed serialization term.\n\n**Why:** One reviewed window showed that the closed little-endian conversion function rejected a reveal diagnostic, and a separate later transition removed that path in favor of an open form and connector version but immediately produced a syntax error at an ensures. This supports inspecting the allowed open and connector relationships, not copying that later formula.\n\n**Validate:** Re-run the verifier after any permitted connector call or open-length assertion, and check the original serialized-length obligation. Determine whether the original closed-term length assertion is now discharged or whether the transfer step remains the failing goal.\n\n**Avoid when:** Stop if the bytes module provides neither an open definition nor an explicit consequence relating the closed and open forms, or if the open length cannot be established without an unadmitted premise.",
+  "clauses": [
+    {
+      "id": "S1",
+      "role": "Trigger",
+      "text": "The current failed diagnostic is a reveal rejection on the closed little-endian conversion function, or a serialized-length assertion that cannot see the closed function body."
+    },
+    {
+      "id": "S2",
+      "role": "Trigger",
+      "text": "This operation applies when the closed-function diagnostic or an equivalent serialized-length obligation remains the immediate failed verification goal and the bytes module is available for inspection."
+    },
+    {
+      "id": "S3",
+      "role": "Action",
+      "text": "Inspect the bytes module declarations for the closed conversion, any open conversion with the same intended meaning, and any proof whose postcondition explicitly relates the closed form to the open form."
+    },
+    {
+      "id": "S4",
+      "role": "Action",
+      "text": "Also inspect the available sequence-length facts for the open definition."
+    },
+    {
+      "id": "S5",
+      "role": "Action",
+      "text": "Bind the current 64-bit value whose serialization length must be established, the closed serialization term, the open serialization term, and the scope in which the serialization trait body is visible."
+    },
+    {
+      "id": "S6",
+      "role": "Action",
+      "text": "Do not bind the closed function body because the diagnostic states it is not visible."
+    },
+    {
+      "id": "S7",
+      "role": "Action",
+      "text": "Compare the structure and length consequences of the open conversion definition with the closed conversion term."
+    },
+    {
+      "id": "S8",
+      "role": "Action",
+      "text": "Compare any connector proof's stated consequence against the equality needed to transfer a length fact from the open form to the closed form."
+    },
+    {
+      "id": "S9",
+      "role": "Action",
+      "text": "If a connector proof with the stated closed-equals-open consequence is present, invoke that connector and then assert only that the open serialization term has the expected length."
+    },
+    {
+      "id": "S10",
+      "role": "Action",
+      "text": "Use the rerun diagnostic to determine whether the open length fact is discharged before attempting to transfer it to the closed form."
+    },
+    {
+      "id": "S11",
+      "role": "Action",
+      "text": "If no connector consequence is available or the open length is not discharged, do not attempt to reveal the closed function again."
+    },
+    {
+      "id": "S12",
+      "role": "Action",
+      "text": "Determine whether a general byte-width fact in the bytes module can be instantiated at the current value, and only then attempt to connect that fact to the closed serialization term."
+    },
+    {
+      "id": "S13",
+      "role": "Why",
+      "text": "One reviewed window showed that the closed little-endian conversion function rejected a reveal diagnostic, and a separate later transition removed that path in favor of an open form and connector version but immediately produced a syntax error at an ensures."
+    },
+    {
+      "id": "S14",
+      "role": "Why",
+      "text": "This supports inspecting the allowed open and connector relationships, not copying that later formula."
+    },
+    {
+      "id": "S15",
+      "role": "Validate",
+      "text": "Re-run the verifier after any permitted connector call or open-length assertion, and check the original serialized-length obligation."
+    },
+    {
+      "id": "S16",
+      "role": "Validate",
+      "text": "Determine whether the original closed-term length assertion is now discharged or whether the transfer step remains the failing goal."
+    },
+    {
+      "id": "S17",
+      "role": "Avoid when",
+      "text": "Stop if the bytes module provides neither an open definition nor an explicit consequence relating the closed and open forms, or if the open length cannot be established without an unadmitted premise."
+    }
+  ]
+}

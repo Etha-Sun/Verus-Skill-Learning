@@ -1,0 +1,57 @@
+{
+  "id": "card-017",
+  "title": "card-017 — A proof obligation states that a set produced by folding over a finite input set is finite, and the proof body is empty, causing a postcondition failure",
+  "content": "**Trigger:** A proof obligation states that a set produced by folding over a finite input set is finite, and the proof body is empty, causing a postcondition failure.\n\n**Action:** Use induction on the cardinality of the finite input set. In the zero-cardinality case, show the folded result equals the empty set, so it is finite. In the nonzero-cardinality case, choose an element, assert that removing it strictly lowers the cardinality, recursively prove finiteness for the result over the remaining set, and assert that the full fold equals the recursive result with the image of the chosen element inserted. Conclude finiteness through the fact that inserting into a finite set preserves finiteness. Either add a recursive proof helper and call it from the required function, or if allowed add the decreasing clause and reason directly inside the required function.\n\n**Why:** The recursive equality mirrors the recursive definition of the fold, so the full result is exposed as an insert over a smaller fold. Induction on a strictly decreasing cardinality gives termination and transfers the finiteness property step by step.\n\n**Validate:** Rerun Verus until every function verifies with no errors, then run the proof-safety comparison and expect a zero exit and no differences.\n\n**Avoid when:** The folding operator does not have a decreasing cardinality argument, or the empty and nonempty unfoldings do not produce the equality needed to transfer finiteness.",
+  "clauses": [
+    {
+      "id": "S1",
+      "role": "Trigger",
+      "text": "A proof obligation states that a set produced by folding over a finite input set is finite, and the proof body is empty, causing a postcondition failure."
+    },
+    {
+      "id": "S2",
+      "role": "Action",
+      "text": "Use induction on the cardinality of the finite input set."
+    },
+    {
+      "id": "S3",
+      "role": "Action",
+      "text": "In the zero-cardinality case, show the folded result equals the empty set, so it is finite."
+    },
+    {
+      "id": "S4",
+      "role": "Action",
+      "text": "In the nonzero-cardinality case, choose an element, assert that removing it strictly lowers the cardinality, recursively prove finiteness for the result over the remaining set, and assert that the full fold equals the recursive result with the image of the chosen element inserted."
+    },
+    {
+      "id": "S5",
+      "role": "Action",
+      "text": "Conclude finiteness through the fact that inserting into a finite set preserves finiteness."
+    },
+    {
+      "id": "S6",
+      "role": "Action",
+      "text": "Either add a recursive proof helper and call it from the required function, or if allowed add the decreasing clause and reason directly inside the required function."
+    },
+    {
+      "id": "S7",
+      "role": "Why",
+      "text": "The recursive equality mirrors the recursive definition of the fold, so the full result is exposed as an insert over a smaller fold."
+    },
+    {
+      "id": "S8",
+      "role": "Why",
+      "text": "Induction on a strictly decreasing cardinality gives termination and transfers the finiteness property step by step."
+    },
+    {
+      "id": "S9",
+      "role": "Validate",
+      "text": "Rerun Verus until every function verifies with no errors, then run the proof-safety comparison and expect a zero exit and no differences."
+    },
+    {
+      "id": "S10",
+      "role": "Avoid when",
+      "text": "The folding operator does not have a decreasing cardinality argument, or the empty and nonempty unfoldings do not produce the equality needed to transfer finiteness."
+    }
+  ]
+}

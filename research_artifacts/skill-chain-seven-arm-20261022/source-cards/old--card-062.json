@@ -1,0 +1,42 @@
+{
+  "id": "card-062",
+  "title": "card-062 — Verus reports an empty or incomplete proof body for a temporal stability postcondition, and the target predicate is a finite conjunction of always-lifted state predicates",
+  "content": "**Trigger:** Verus reports an empty or incomplete proof body for a temporal stability postcondition, and the target predicate is a finite conjunction of always-lifted state predicates. **Action:** Inspect the local temporal rule definitions and reuse the existing stability and conjunction-combination machinery, or the helper macro already present in the file. Apply it to each lifted state predicate in the same left-to-right order as the target predicate is constructed, rather than unfolding the temporal definitions by hand. **Why:** The supplied rules express exactly the two logical facts needed: every always predicate is stable, and stable predicates are closed under binary conjunction. Using them in the same order lets Verus connect the proof steps to the target's left-associated structure. **Validate:** Re-run Verus and confirm the postcondition is discharged with only pre-existing warnings, then run the proof-only safety comparison and inspect that only the proof body changed. **Avoid when:** The target is not a finite conjunction of always-lifted predicates, or the expected local stability and conjunction rules are absent or incompatible with the definitions.",
+  "clauses": [
+    {
+      "id": "S1",
+      "role": "Trigger",
+      "text": "Verus reports an empty or incomplete proof body for a temporal stability postcondition, and the target predicate is a finite conjunction of always-lifted state predicates."
+    },
+    {
+      "id": "S2",
+      "role": "Action",
+      "text": "Inspect the local temporal rule definitions and reuse the existing stability and conjunction-combination machinery, or the helper macro already present in the file."
+    },
+    {
+      "id": "S3",
+      "role": "Action",
+      "text": "Apply it to each lifted state predicate in the same left-to-right order as the target predicate is constructed, rather than unfolding the temporal definitions by hand."
+    },
+    {
+      "id": "S4",
+      "role": "Why",
+      "text": "The supplied rules express exactly the two logical facts needed: every always predicate is stable, and stable predicates are closed under binary conjunction."
+    },
+    {
+      "id": "S5",
+      "role": "Why",
+      "text": "Using them in the same order lets Verus connect the proof steps to the target's left-associated structure."
+    },
+    {
+      "id": "S6",
+      "role": "Validate",
+      "text": "Re-run Verus and confirm the postcondition is discharged with only pre-existing warnings, then run the proof-only safety comparison and inspect that only the proof body changed."
+    },
+    {
+      "id": "S7",
+      "role": "Avoid when",
+      "text": "The target is not a finite conjunction of always-lifted predicates, or the expected local stability and conjunction rules are absent or incompatible with the definitions."
+    }
+  ]
+}

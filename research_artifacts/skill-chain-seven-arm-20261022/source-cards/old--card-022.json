@@ -1,0 +1,57 @@
+{
+  "id": "card-022",
+  "title": "card-022 — Generic higher-order fold lemmas discharge their own preconditions, but their postconditions do not connect to later concrete fold expressions",
+  "content": "**Trigger:** Generic higher-order fold lemmas discharge their own preconditions, but their postconditions do not connect to later concrete fold expressions. Concrete fold-bound and append-length obligations continue to fail even after those generic lemmas are invoked.\n\n**Action:** Introduce specialized recursive lemmas over the concrete element type. In the empty case, unfold the fold with enough fuel and prove the zero or empty result. In the nonempty case, remove the final element, establish the elementwise facts for the shortened sequence, call the lemma on the remainder, unfold the fold again, and add the final element's contribution to the bound. Include preconditions that every element is well-formed for serialization and that each element satisfies the chosen numeric bound.\n\n**Why:** The concrete fold expression matches the specialized lemma's conclusion exactly, whereas the higher-order lemma retains an abstract function argument that the solver does not rewrite into the concrete folding function.\n\n**Validate:** The previously failing concrete fold-bound and append-length assertions discharge after replacement. Verus reports no errors and the proof-only safety comparison passes.\n\n**Avoid when:** The generic lemma already instantiates correctly, or the recursive structure does not provide a decreasing well-founded measure.",
+  "clauses": [
+    {
+      "id": "S1",
+      "role": "Trigger",
+      "text": "Generic higher-order fold lemmas discharge their own preconditions, but their postconditions do not connect to later concrete fold expressions."
+    },
+    {
+      "id": "S2",
+      "role": "Trigger",
+      "text": "Concrete fold-bound and append-length obligations continue to fail even after those generic lemmas are invoked."
+    },
+    {
+      "id": "S3",
+      "role": "Action",
+      "text": "Introduce specialized recursive lemmas over the concrete element type."
+    },
+    {
+      "id": "S4",
+      "role": "Action",
+      "text": "In the empty case, unfold the fold with enough fuel and prove the zero or empty result."
+    },
+    {
+      "id": "S5",
+      "role": "Action",
+      "text": "In the nonempty case, remove the final element, establish the elementwise facts for the shortened sequence, call the lemma on the remainder, unfold the fold again, and add the final element's contribution to the bound."
+    },
+    {
+      "id": "S6",
+      "role": "Action",
+      "text": "Include preconditions that every element is well-formed for serialization and that each element satisfies the chosen numeric bound."
+    },
+    {
+      "id": "S7",
+      "role": "Why",
+      "text": "The concrete fold expression matches the specialized lemma's conclusion exactly, whereas the higher-order lemma retains an abstract function argument that the solver does not rewrite into the concrete folding function."
+    },
+    {
+      "id": "S8",
+      "role": "Validate",
+      "text": "The previously failing concrete fold-bound and append-length assertions discharge after replacement."
+    },
+    {
+      "id": "S9",
+      "role": "Validate",
+      "text": "Verus reports no errors and the proof-only safety comparison passes."
+    },
+    {
+      "id": "S10",
+      "role": "Avoid when",
+      "text": "The generic lemma already instantiates correctly, or the recursive structure does not provide a decreasing well-founded measure."
+    }
+  ]
+}

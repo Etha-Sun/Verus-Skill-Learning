@@ -1,0 +1,87 @@
+{
+  "id": "new-004",
+  "title": "Locate a supported witness in set-image membership reasoning",
+  "content": "**Trigger:** The current failed obligation is a set-extensionality assertion: a membership equivalence between the image of a union and the union of two images. The failure is an assertion failure rather than a parse or name-resolution error, and the active proof block already binds the two domain sets and the mapping function.\n\n**Action:** Inspect the failing membership-equivalence assertion and the surrounding quantified proof block, including which conditional branch is active and which membership or image-equality premises are already in scope for the current range element. Bind the current range element, the two domain sets, the mapping function, and the active branch of the quantified proof block. Compare membership of the current range element in the image of the union with its membership in the union of the two images, and identify which direction the active branch must still establish. If the active branch assumes membership in one of the two images, check whether the in-scope premises already provide a source element with that membership and an image equal to the current range element. If such a source element is in scope, use it to derive the required union containment; if no such premise is in scope, do not introduce a missing premise. If a source element is not yet bound, inspect whether the active image-membership premise and accessible definitions justify its existence. If they do, check the installed witness-selection construct and its contract before binding such an element and proving the required membership and image relation. Otherwise leave the witness connection unresolved; do not merely repeat the containment assertion or switch to an unspecified repair.\n\n**Why:** In this training group, after the parse structure was corrected, the quantified membership-equivalence assertion still failed, and an earlier branch that only asserted the negative union membership also failed. A later nearby transition changed the source-element extraction form and a subsequent run reported success, but only a single nearby edit separates those checks and the exact mechanism was not isolated, so witness reasoning remains an uncertain hypothesis rather than a known necessity.\n\n**Validate:** Re-run the same failed assertion or enclosing postcondition and inspect whether the original membership-equivalence obligation closes or the same line still fails. Treat a new or shifted failure as a signal to inspect the active branch premises rather than assume the source-element relation is sufficient.\n\n**Avoid when:** Stop if neither an existing source-element premise nor a justified existence argument supports the required image relation, if the selection construct cannot be applied legally, or if the probe would introduce an assumption. A missing already-bound witness alone does not rule out deriving one from image membership; historical success establishes no universal witness necessity.",
+  "clauses": [
+    {
+      "id": "S1",
+      "role": "Trigger",
+      "text": "The current failed obligation is a set-extensionality assertion: a membership equivalence between the image of a union and the union of two images."
+    },
+    {
+      "id": "S2",
+      "role": "Trigger",
+      "text": "The failure is an assertion failure rather than a parse or name-resolution error, and the active proof block already binds the two domain sets and the mapping function."
+    },
+    {
+      "id": "S3",
+      "role": "Action",
+      "text": "Inspect the failing membership-equivalence assertion and the surrounding quantified proof block, including which conditional branch is active and which membership or image-equality premises are already in scope for the current range element."
+    },
+    {
+      "id": "S4",
+      "role": "Action",
+      "text": "Bind the current range element, the two domain sets, the mapping function, and the active branch of the quantified proof block."
+    },
+    {
+      "id": "S5",
+      "role": "Action",
+      "text": "Compare membership of the current range element in the image of the union with its membership in the union of the two images, and identify which direction the active branch must still establish."
+    },
+    {
+      "id": "S6",
+      "role": "Action",
+      "text": "If the active branch assumes membership in one of the two images, check whether the in-scope premises already provide a source element with that membership and an image equal to the current range element."
+    },
+    {
+      "id": "S7",
+      "role": "Action",
+      "text": "If such a source element is in scope, use it to derive the required union containment; if no such premise is in scope, do not introduce a missing premise."
+    },
+    {
+      "id": "S8",
+      "role": "Action",
+      "text": "If a source element is not yet bound, inspect whether the active image-membership premise and accessible definitions justify its existence."
+    },
+    {
+      "id": "S9",
+      "role": "Action",
+      "text": "If they do, check the installed witness-selection construct and its contract before binding such an element and proving the required membership and image relation."
+    },
+    {
+      "id": "S10",
+      "role": "Action",
+      "text": "Otherwise leave the witness connection unresolved; do not merely repeat the containment assertion or switch to an unspecified repair."
+    },
+    {
+      "id": "S11",
+      "role": "Why",
+      "text": "In this training group, after the parse structure was corrected, the quantified membership-equivalence assertion still failed, and an earlier branch that only asserted the negative union membership also failed."
+    },
+    {
+      "id": "S12",
+      "role": "Why",
+      "text": "A later nearby transition changed the source-element extraction form and a subsequent run reported success, but only a single nearby edit separates those checks and the exact mechanism was not isolated, so witness reasoning remains an uncertain hypothesis rather than a known necessity."
+    },
+    {
+      "id": "S13",
+      "role": "Validate",
+      "text": "Re-run the same failed assertion or enclosing postcondition and inspect whether the original membership-equivalence obligation closes or the same line still fails."
+    },
+    {
+      "id": "S14",
+      "role": "Validate",
+      "text": "Treat a new or shifted failure as a signal to inspect the active branch premises rather than assume the source-element relation is sufficient."
+    },
+    {
+      "id": "S15",
+      "role": "Avoid when",
+      "text": "Stop if neither an existing source-element premise nor a justified existence argument supports the required image relation, if the selection construct cannot be applied legally, or if the probe would introduce an assumption."
+    },
+    {
+      "id": "S16",
+      "role": "Avoid when",
+      "text": "A missing already-bound witness alone does not rule out deriving one from image membership; historical success establishes no universal witness necessity."
+    }
+  ]
+}

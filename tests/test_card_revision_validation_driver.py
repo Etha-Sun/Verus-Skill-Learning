@@ -30,7 +30,9 @@ def test_review_gate_requires_exact_hash_and_reasonable_approval(tmp_path, drive
             driver.check_review(receipt,contract)
 
 
-def test_shared_runner_collects_single_job(tmp_path,driver,monkeypatch):
+@pytest.mark.parametrize('timeout', [None, 600, 1200])
+@pytest.mark.parametrize('fixed_exposure', [False, True])
+def test_shared_runner_collects_single_job(tmp_path,driver,monkeypatch,timeout,fixed_exposure):
     repo = tmp_path/'repo'; repo.mkdir(); (repo/'.env').write_text('')
     monkeypatch.setenv('DEEPSEEK_API_KEY','test-no-network')
     monkeypatch.setenv('VERUS_SKILL_DATA_ROOT',str(tmp_path/'data'))
@@ -38,10 +40,12 @@ def test_shared_runner_collects_single_job(tmp_path,driver,monkeypatch):
     root = tmp_path/'run'; root.mkdir(); calls = []
     ledger = root/'provider_calls.jsonl'; ledger.write_text('')
     @contextmanager
-    def bridge(*args):
+    def bridge(*args, **kwargs):
         yield SimpleNamespace(ledger_path=ledger,halted_error=None),'mock','manifest'
     def run_task(**kwargs):
         calls.append(kwargs['bridge_task_key'])
+        assert kwargs['timeout_seconds'] == (600 if timeout is None else timeout)
+        assert kwargs['supplemental_prompt'] == ('knowledge packet' if fixed_exposure else None)
         kwargs['out_dir'].mkdir()
         return {'bridge_task_key':kwargs['bridge_task_key'],'proof_solved':True,
                 'provider_valid':True,'fidelity':'V2_TRACE'}
@@ -57,10 +61,21 @@ def test_shared_runner_collects_single_job(tmp_path,driver,monkeypatch):
         'schedule':[{'id':'one','condition':'old','repeat':0}],
         'bundle_paths':{'old':str(tmp_path)},'artifacts':{'old':{'artifact_sha256':'hash'}},
         'model':'deepseek-v4-pro','caveat':'test'}
-    driver.run(config,root,contract,expected_episodes=1)
+    if timeout is not None:
+        contract['timeout_seconds'] = timeout
+    if fixed_exposure:
+        knowledge = root/'knowledge.md'; knowledge.write_text('knowledge packet')
+        contract['schedule'][0]['knowledge_path'] = str(knowledge)
+    driver.run(config,root,contract,expected_episodes=1,retrieval_auditor=lambda *args: {})
     summary = json.loads((root/'summary.json').read_text())
     assert calls==['dev_old--one--repeat-0']
     assert summary['completed_episodes']==1 and not summary['failures']
+
+
+@pytest.mark.parametrize('timeout', [True, 1200.0, '1200', 0, 1800])
+def test_shared_runner_rejects_unreviewed_timeout(tmp_path, driver, timeout):
+    with pytest.raises(ValueError, match='actor timeout'):
+        driver.run({}, tmp_path, {'timeout_seconds': timeout})
 
 
 def test_prepare_freezes_exactly_four_tasks_and_eight_episodes(tmp_path, driver, monkeypatch):

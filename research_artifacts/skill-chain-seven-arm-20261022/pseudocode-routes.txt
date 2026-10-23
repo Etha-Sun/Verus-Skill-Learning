@@ -1,0 +1,349 @@
+@@ old--card-002
+S1|when set/image equality remains open after a bare membership assertion:
+S11|    if a library lemma already matches and its premises hold: use that route instead
+S2|    obligation: pointwise membership equivalence
+S3|        direction forward:
+S3|            under <membership in either image>:
+S3|                <derive membership in the image union from union/image definitions>
+S4|        direction reverse:
+S4|            under <image membership on the active side>:
+S4|                choose <source witness with source membership and mapping relation>
+S4|                <prove witness membership in the union>
+S4|                <derive union-image membership and the required contradiction>
+S2|    <close set equality through the established membership equivalence>
+S5|    if the quantified equivalence receives a low-confidence-trigger warning:
+S5|        accept the automatic trigger OR annotate reliable membership triggers
+S12|        do not attribute proof success to warning suppression alone
+S9,S10|    <check Verus zero errors, proof-safety comparison, unchanged assumptions/specifications>
+@@ old--card-017
+S1|when an empty proof leaves finiteness of a finite-set fold open:
+S10|    stop if cardinality does not decrease or required branch equalities are unavailable
+S6|    choose proof placement:
+S6|        recursive proof helper, called from the target function
+S6|        OR, if permitted, direct proof with a decreasing clause in the target
+S2|    induction on cardinality of the finite input set:
+S3|        case cardinality = zero:
+S3|            <show fold result equals the empty set>
+S3|            <conclude finiteness>
+S4|        case cardinality > zero:
+S4|            choose <an input element>
+S4|            <prove removal strictly decreases cardinality>
+S4|            <recursively prove finiteness of the fold on the remainder>
+S4|            <show full fold equals insertion of the chosen image into the smaller fold>
+S5|            <conclude finiteness by preservation under insertion>
+S9|    <check all functions with Verus, then proof-safety exit zero and no differences>
+@@ old--card-022
+S1,S2|when generic fold lemmas pass but concrete fold-bound/append-length goals still fail:
+S10|    stop if the generic lemma already instantiates or no decreasing measure exists
+S3,S6|    specialized recursive lemma over the concrete element type:
+S6|        requires <every element is serialization-well-formed>
+S6|        requires <every element satisfies the selected numeric bound>
+S4|        case empty sequence:
+S4|            <unfold the fold with sufficient fuel>
+S4|            <prove the zero or empty result>
+S5|        case nonempty sequence:
+S5|            bind <sequence with final element removed> and <final element>
+S5|            <establish elementwise premises for the shortened sequence>
+S5|            <apply the recursive lemma to the remainder>
+S5|            <unfold the concrete fold>
+S5|            <add the final element's contribution to the bound>
+S8,S9|    <check the original concrete assertions, Verus zero errors, and proof-only safety>
+@@ old--card-029
+S1|when temporal equality remains open and both quantified-temporal helper rules exist:
+S10|    do not globally unfold temporal definitions or invent a universal temporal rule
+S2|    bind <two pointwise families differing in where always wraps the implication>
+S2,S3,S11|    obligation: precondition of the always-through-universal helper
+S3|        for each family index:
+S3|            direction first pointwise predicate entails second:
+S3|                <reduce to self-entailment of the same always predicate>
+S3|                <discharge with a local reflexivity assertion>
+S3|            direction second pointwise predicate entails first:
+S3|                <reduce to the same self-entailment and assert reflexivity>
+S2,S11|    <apply the always-through-universal helper with its premise established>
+S4|    <apply the helper commuting plain implication through the universal>
+S5|    <chain the two equalities under congruence of always to close the target>
+S8|    <check Verus zero errors and behavior preservation>
+@@ old--card-037
+S1|when a whole-sequence property is available but a loop-index element assertion fails:
+S6|    stop if bounds are missing or the element property is not derivable
+S2|    proof-only element helper:
+S2|        requires <whole-sequence property> and <index in bounds>
+S2|        <derive the element property at that index>
+S2|    in the loop body, at the current index:
+S3|        <use the concrete indexed term for quantifier matching>
+S2|        <call the helper with the sequence property and index bound>
+S5|    <rerun Verus on the failed element assertion or callee precondition>
+@@ old--card-058
+S1|when asserting a consequence fails to instantiate an entailment/validity premise:
+S7|    if execution types differ or the implication term does not match the premise:
+S7|        leave this route; use a helper lemma or a different unfolding
+S2|    at the concrete execution required by the goal:
+S2,S4|        <assert the full implication-form satisfaction from the universal hypothesis>
+S3|        under <the implication's antecedent holds here>:
+S3|            <apply the established implication>
+S3|            <conclude its right-hand side at this execution>
+S4|    do not add a new trusted fact
+S6|    <rerun Verus on the failed assertion and final target>
+@@ old--card-060
+S1|when applying a stored spec-function field produces a field-is-not-a-method error:
+S8|    stop if this is not a function-valued field or a supplied lemma avoids expansion
+S2|    for each affected occurrence:
+S2|        <parenthesize the field projection, then apply it to the index argument>
+S6|    <rerun Verus to check that parsing succeeds>
+S3|    if the next diagnostic is a missing trigger for universal equality:
+S3|        within that quantified equality:
+S3|            <annotate explicit trigger terms on both sides>
+S7|        <recheck verification of all proof functions and proof-safety comparison>
+S8|    syntax repair leaves any missing logical fact as an obligation
+@@ old--card-062
+S1|when a finite conjunction of always-lifted state predicates has an open stability goal:
+S2|    <inspect local stability and conjunction rules or the existing helper macro>
+S7|    stop if the target shape differs or those rules are absent/incompatible
+S3|    following the target's left-to-right construction:
+S3,S4|        for each always-lifted state predicate:
+S2,S3,S4|            <apply the available individual stability machinery>
+S2,S3,S4,S5|        <combine stability facts with the local conjunction machinery>
+S5|        <match the target's left-associated structure>
+S6|    <check the postcondition, pre-existing warnings only, and proof-body-only changes>
+@@ old--card-070
+S1|when equality of once-applied and twice-applied spec objects remains open:
+S12|    stop if built-in extensionality suffices or needed index arithmetic is unavailable
+S2|    direction nested application entails single application:
+S3|        <instantiate the outer/inner quantified statements at a concrete index and zero>
+S5|        for arbitrary state/suffix index:
+S5|            <prove equality of underlying values using the available arithmetic identities>
+S5|        <apply the supplied pointwise-to-object equality lemma>
+S2,S9|        <close and verify this entailment direction>
+S2|    direction single application entails nested application:
+S4|        for two arbitrary indices:
+S4|            <instantiate the single-application fact at their sum>
+S5|            for arbitrary state/suffix index:
+S5|                <prove equality of underlying values using the available arithmetic identities>
+S5|            <apply the supplied pointwise-to-object equality lemma>
+S2,S9|        <close and verify this entailment direction>
+S5,S9|    after both directions verify:
+S5|        <invoke the supplied equality lemma for the spec-level objects>
+S10,S11|    <check proof-only safety; add no trusted bodies and weaken no contracts>
+@@ old--card-076
+S1|when a helper's quantified stability premise fails after facts were propagated to a suffix:
+S8|    stop if aliases are not implicated or required quantified facts are unavailable
+S2|    <expand local aliases to the suffix/predicate expressions in the helper contract>
+S3|    for each required quantified hypothesis:
+S3|        for arbitrary values bound by that hypothesis:
+S3|            under <its antecedent>:
+S3|                <assert the exact quantified trigger term to instantiate the always fact>
+S3|                <establish the required consequence in this scope>
+S3|        <close the quantified hypothesis>
+S9|    do not confuse using an existing trigger with changing trigger selection
+S6,S7|    <rerun Verus on the helper precondition and enclosing proof; check Lynette>
+@@ new--new-001
+S1|when recursive-set finiteness remains open in an empty or newly recursive proof:
+S2|    <inspect the failed postcondition, accumulator declaration, and existing branches>
+S3|    bind <finite input set> under <its explicit finiteness premise>
+S12|    stop if that premise cannot be justified
+S4,S5|    inspect only branch relations available in the current definitions:
+S7|        case empty input:
+S7|            <establish the empty-result relation and its finiteness>
+S8,S9,S14|            if unresolved: leave the relation open; add no speculative equality
+S14|            do not apply reduced-input recursion checks to this branch
+S4|        case nonempty input:
+S4|            bind <input with one element removed> and <its accumulated result>
+S5|            <check the active result's insertion relation to that reduced result>
+S6|            if insertion relation is known AND reduced-result finiteness is proved:
+S6|                <check preservation under insertion and connection to the target>
+S8,S9|            if insertion preservation remains open:
+S9|                <inspect reduced-input finiteness and strict decrease before any recursive call>
+S8,S9|                leave missing equalities as obligations, not additional assumptions
+S13|            stop if neither finite reduced result nor justified smaller-input step is available
+S11|    <rerun the same finiteness postcondition>
+S11|    if verified: record the branch relation used
+S11|    otherwise: check whether missing smaller-input finiteness is the blocker
+@@ new--new-002
+S1,S2|when a loop-local packet assertion or callee precondition fails:
+S3,S4|    <inspect the diagnostic, preceding invariants, and available packet/endpoint facts>
+S5,S6|    at the current call site and index:
+S5|        bind <collection, view length, index, pre-loop endpoint, in-loop client state>
+S6|        bind <current invariant set and legally scoped proof helpers>
+S7|        <compare required packet validity and endpoint equality with same-index invariants>
+S8|        do not infer a match from a sequence property present elsewhere
+S9|        case required sequence property missing from invariants:
+S9|            <prove the current entry facts establish the property>
+S9|            <prove every iteration preserves the property>
+S9|            only after both: propose the property as an invariant
+S19|            absence alone is a diagnostic, not a reason to abandon this check
+S10|        case property present but unapplied at this index:
+S10|            <inspect an available instantiation rule and its actual preconditions>
+S10|            <try one justified application>
+S11,S13|        do not invent a helper or assume either missing obligation
+S16|        <rerun the same verifier command>
+S12|        if the same precondition still fails:
+S12|            <compare view/index identity, pre-loop vs in-loop endpoint, and newly missing facts>
+S17|        if the failure moves: classify the new obligation separately
+S18|    stop if property/bounds cannot be derived or invariant-proved, no applicable rule exists,
+S18|        or the probe would assume a premise or change executable behavior
+@@ new--new-003
+S1,S2|when the forward-preservation helper's universal step precondition fails:
+S3|    <inspect the call-site proof, helper contract, and propagated universal always-fact>
+S4|    <identify aliases of the base execution and implication predicate>
+S5,S6|    bind <base execution, relation to starting index, predicates from the actual contract>
+S5,S6|    for arbitrary step index in the contract's base-execution scope:
+S7|        <compare the suffix step relation with the quantified helper requirement>
+S8|        <compare aliases with the expanded forms used to establish the always-fact>
+S6|        do not treat the original and base executions as interchangeable
+S9,S10|        <prove the required step relation at this suffix, not the helper's final conclusion>
+S11|        if the probe fails:
+S11|            hold this suffix; inspect which side of the step relation is unjustified
+S12|            if no expression mismatch is found:
+S12|                <check the universal always-fact at the base execution and shifted index>
+S13|                if neither is available nor derivable: stop; do not alter the prerequisite
+S16,S17|    <verify the local step proof and the original quantified precondition>
+S9,S17|    only after verification: call the forward-preservation helper
+S18|    treat another unresolved conclusion as a separate obligation
+S19|    stop if the call/premise is absent, the step is underivable, or the contract would change
+@@ new--new-004
+S1,S2|when image/union membership equivalence fails in an existing quantified proof:
+S2|    this route concerns assertion failure, not parsing or name resolution
+S3|    <inspect the assertion, active branch, and available membership/image-equality premises>
+S4|    in the current range-element scope:
+S4|        bind <range element, two domain sets, mapping, active branch>
+S5|        <compare both image/union forms and identify the open direction>
+S6|        under <membership in one of the two images>:
+S6|            check for <source element with source membership and image equal to current element>
+S7|            if that source element and its relations are in scope:
+S7|                <derive the required union containment from them>
+S8|            otherwise, if the source element is not yet bound:
+S8|                <inspect whether active image membership and definitions justify existence>
+S9|                if justified:
+S9|                    <check the installed selection construct and its contract>
+S9|                    <bind the element and prove its membership and image relation>
+S10|                otherwise: leave the witness connection unresolved
+S7,S10|            do not invent premises, repeat containment alone, or use an unspecified repair
+S13|    <rerun the original assertion or enclosing postcondition>
+S14|    if failure shifts: inspect branch premises; do not assume the witness relation suffices
+S15,S16|    stop for unsupported existence/relations or illegal selection, not mere lack of a bound witness
+@@ new--new-005
+S1,S2|when final entailment stays open despite pointwise and temporal-lifting reasoning:
+S2|    <distinguish proved reasoning from attempted reasoning and check premise instantiation>
+S3,S4|    <inspect entailment, its quantified premise, predicates, and the actual connecting contract>
+S5|    for arbitrary execution required by the current obligation:
+S6,S20|        under <a justified source-satisfaction branch>:
+S6|            bind <source and destination predicates from the current contract>
+S8|            <compare the hypothesis's full instance at this execution with the local expression>
+S9|            <identify the required antecedent and actual source-to-destination direction>
+S10|            if the declaration and current premises justify the instance:
+S10,S11|                <derive its expression from the current declaration, not a historical formula>
+S10|                <assert and verify the full hypothesis instance>
+S10,S12|                <derive its consequence; the destination property is still an obligation>
+S13|                if the instance is justified but final entailment is still open:
+S13|                    <check pointwise implication and temporal lifting in the required direction>
+S14|                    if a link is unavailable: leave it open and inspect its premises
+S7,S21|            keep consequences in this execution/premise scope; reverse no implication
+S20,S21|        stop if scope, instance, or connection is unjustifiable; weaken no specification
+S18|    <rerun the same final entailment postcondition>
+S19|    if verified: stop
+S19|    if an intermediate assertion fails:
+S19|        <use its location to distinguish missing instantiation from pointwise strengthening>
+S19|        do not repeat the same edit without a changed diagnostic
+@@ new--new-006
+S1,S2|when temporal stability of a conjunction remains open:
+S3,S4|    <inspect the failed function/body, parameters, exact postcondition, and local rules>
+S5|    the postcondition and missing premises remain unproved
+S6,S7|    <compare validity/stability wrapper, conjunction structure, and each operand's input shape>
+S2,S8|    if the actual stability and conjunction contracts license this target:
+S8|        <derive it using local composition in the target's structural order>
+S8|        preserve specifications and termination measures
+S9|        <run Verus and read full diagnostics>
+S10|        if composition fails:
+S10|            <inspect the actual rule or macro expansion before decomposing>
+S11|            only if those contracts justify decomposition:
+S11|                for each operand, in its valid scope:
+S11|                    <prove that operand's required stability fact>
+S11|                <discharge every premise of the conjunction rule>
+S12|                one proved operand does not establish any other operand
+S12|            otherwise: leave the unsupported connection open
+S19|    otherwise: stop for missing/incompatible premises or rule types
+S16,S17|    <recheck the original postcondition; aggregate success is not per-step evidence>
+S18|    if failure repeats: inspect the first new diagnostic and change strategy
+S19,S20|    if the obligation is discharged: stop; do not edit code/specs to remove old warnings
+@@ new--new-007
+S1,S2|when closed-conversion reveal/length fails and the bytes module can be inspected:
+S3,S4|    <inspect closed/open declarations, connector postconditions, and open-length facts>
+S5|    bind <current 64-bit value, closed term, open term, visible trait-body scope>
+S6|    do not bind or reveal the inaccessible closed body
+S7,S8|    <compare open length consequences and the exact closed-equals-open relation needed>
+S9|    if a connector with that consequence is present:
+S9|        <invoke the connector>
+S9|        <assert the expected length of the open term only>
+S10|        <rerun and check whether the open-length fact is discharged>
+S10|        only after it is discharged: attempt transfer to the closed term
+S11|    if no connector consequence is available OR open length is not discharged:
+S11|        do not retry revealing the closed function
+S12|        <check whether a general module byte-width fact instantiates at this value>
+S12|        only if it does: attempt to connect that fact to the closed term
+S15,S16|    <rerun the original closed-term length obligation and locate any remaining transfer gap>
+S17|    stop if neither open definition nor explicit connector consequence is available,
+S17|        or open length would require an unadmitted premise
+@@ new--new-008
+S1,S2|when equality remains open and existing temporal definitions/helpers are available:
+S2|    <inspect the failed target and identify a helper requiring pointwise mutual entailment>
+S12|    stop if that premise, the types, or the helper conditions do not match
+S3|    bind <current predicates and two families from the actual helper contract>
+S4|    for arbitrary element of the required family type, within its proof scope:
+S4,S13|        do not presume family equality or reuse historical lambda arguments
+S5|        <compare both required entailment directions with entailment's definition here>
+S6|        if this helper precondition is the unresolved subgoal:
+S6|            direction first bound predicate entails second:
+S6|                <prove a separate local entailment assertion>
+S6|            direction second bound predicate entails first:
+S6|                <prove a separate local entailment assertion>
+S6|            <rerun Verus before any helper invocation>
+S7|        if no precondition mismatch is found OR either direction fails:
+S7|            <inspect entailment/validity/implication/always definitions at this element>
+S7|            do not assume reflexivity or proceed to an equality chain
+S6|    <close the required pointwise pair after both local assertions are verified>
+S6,S12|    only after both assertions are accepted: invoke the matched helper
+S12|    if either direction cannot be justified: stop this route
+S10,S11|    <rerun the original equality target; accept only its reported verification>
+S11|    a changed diagnostic separates obligations; shell success alone proves no helper contribution
+@@ new--new-009
+S1,S2|when syntax now parses but a pointwise-equality quantifier has no inferred trigger:
+S3,S4|    <inspect the reported equality, bound index, two function applications, and annotations>
+S5|    within that quantifier's scope:
+S5|        bind <current executions and its arbitrary index>
+S6|        introduce no concrete witness, suffix-arithmetic expression, or later obligation
+S7,S8|        <compare diagnostic and existing annotations; inspect legal call/projection shapes>
+S17|        if the diagnostic rejects the available terms as triggers: stop this action
+S9|        if no legal existing body term is annotated:
+S9|            <select one existing call/projection term; annotate that single term>
+S9|            do not copy a historical side choice or annotate multiple terms at once
+S10|        <rerun the same verifier command>
+S11|        if missing-trigger persists after one legal annotation:
+S11|            <inspect the reported shape and select a different existing call/projection term>
+S12,S17|        if no legal term remains or proposition/specification would need alteration:
+S12|            stop; report that the equality formulation needs restructuring
+S15,S16|    <inspect the next diagnostic on the same equality obligation>
+S16|    if the local trigger error disappears: mark only that failure addressed
+S16,S18|    treat a later failed obligation as a separate action; stop this action once it passes
+@@ new--new-010
+S1|when an inner quantified-entailment assertion lacks its outer implication's antecedent:
+S2|    <inspect the inner obligation, assertion body, and enclosing quantified formula>
+S3|    for the arbitrary quantified values already required by this proof scope:
+S3|        bind <only the execution/index needed by the inner obligation>
+S4|        <compare the needed premise with the hypotheses actually in scope>
+S5|        if the antecedent is only part of an expression, not a body hypothesis:
+S5|            <inspect the accepted implication-assertion form and current proposition>
+S6|            case antecedent holds, where the proposition requires its consequent:
+S6,S7|                <establish the inner obligation under that justified antecedent>
+S7|                retain existing local steps only within their valid scopes
+S6|            complementary case:
+S6|                <discharge the remaining case obligation>
+S6|            <close the enclosing implication obligation>
+S7|        do not require a fixed disjunction formula or equality-lemma chain
+S13|        <rerun the same assertion; classify any warnings as fatal or nonfatal>
+S8|        if the assertion still fails:
+S8|            <inspect the actual missing premise, index, or object relation>
+S9|            if existing equality reasoning is relevant:
+S9|                <check that it concerns those same objects>
+S9|            otherwise: leave that equality route unused
+S10|            do not repeat the same formulation or invent a relation
+S14|    stop if antecedent support is unjustifiable or supported branching/connections do not close it

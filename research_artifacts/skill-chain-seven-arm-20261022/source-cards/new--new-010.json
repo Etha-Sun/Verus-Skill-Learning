@@ -1,0 +1,77 @@
+{
+  "id": "new-010",
+  "title": "Check antecedent scope inside a quantified implication proof",
+  "content": "**Trigger:** A proof assertion inside a universally quantified entailment fails verification, and the diagnostic indicates that an outer implication does not make its antecedent available in the body; the inner obligation depends on that antecedent.\n\n**Action:** Inspect the failing assertion body and the exact inner obligation requiring a current execution or suffix as a premise, along with the formula enclosing the universal quantifier. Bind the arbitrary quantified values already introduced by the universal assertion and any current execution or index required by the inner obligation without adding new variables beyond what the proof scope requires. Compare the premise the inner proof needs with the assumption actually available under the current outer formula; determine whether the antecedent is in scope as a hypothesis or only as part of a compound expression. If the needed antecedent is not available in the proof body, inspect the implication assertion form accepted by the current toolchain and the current proposition. Introduce a justified conditional branch on that antecedent where the proposition requires its consequent, keeping the complementary case and outer implication as proof obligations. Retain any existing local proof steps inside their valid scopes; do not require a particular disjunction formula or an equality-lemma chain. If the assertion still fails, inspect the actual remaining premise, index or object relation identified by the diagnostic. If existing equality reasoning is relevant, verify that it concerns those same objects; otherwise leave that route unused. Do not repeat the same formulation or introduce an unsupported relation.\n\n**Why:** Neighboring evidence shows a source state using an outer implication with explicit antecedent branches produced a passing Verus check, while another state rewriting to a disjunction also passed without visible implication warnings. The check alone does not isolate the branch from retained equality proof steps, and warning absence is based on visible stdout only.\n\n**Validate:** Re-run the same Verus check on the same failed assertion and confirm whether the inner assertion is now discharged; if warnings remain, record whether they are fatal or nonfatal.\n\n**Avoid when:** Stop if the antecedent cannot be made available without assuming or admitting it, or if the obligation is not discharged after explicit branching and supported equality connections; do not infer that a passing check validates a missing premise.",
+  "clauses": [
+    {
+      "id": "S1",
+      "role": "Trigger",
+      "text": "A proof assertion inside a universally quantified entailment fails verification, and the diagnostic indicates that an outer implication does not make its antecedent available in the body; the inner obligation depends on that antecedent."
+    },
+    {
+      "id": "S2",
+      "role": "Action",
+      "text": "Inspect the failing assertion body and the exact inner obligation requiring a current execution or suffix as a premise, along with the formula enclosing the universal quantifier."
+    },
+    {
+      "id": "S3",
+      "role": "Action",
+      "text": "Bind the arbitrary quantified values already introduced by the universal assertion and any current execution or index required by the inner obligation without adding new variables beyond what the proof scope requires."
+    },
+    {
+      "id": "S4",
+      "role": "Action",
+      "text": "Compare the premise the inner proof needs with the assumption actually available under the current outer formula; determine whether the antecedent is in scope as a hypothesis or only as part of a compound expression."
+    },
+    {
+      "id": "S5",
+      "role": "Action",
+      "text": "If the needed antecedent is not available in the proof body, inspect the implication assertion form accepted by the current toolchain and the current proposition."
+    },
+    {
+      "id": "S6",
+      "role": "Action",
+      "text": "Introduce a justified conditional branch on that antecedent where the proposition requires its consequent, keeping the complementary case and outer implication as proof obligations."
+    },
+    {
+      "id": "S7",
+      "role": "Action",
+      "text": "Retain any existing local proof steps inside their valid scopes; do not require a particular disjunction formula or an equality-lemma chain."
+    },
+    {
+      "id": "S8",
+      "role": "Action",
+      "text": "If the assertion still fails, inspect the actual remaining premise, index or object relation identified by the diagnostic."
+    },
+    {
+      "id": "S9",
+      "role": "Action",
+      "text": "If existing equality reasoning is relevant, verify that it concerns those same objects; otherwise leave that route unused."
+    },
+    {
+      "id": "S10",
+      "role": "Action",
+      "text": "Do not repeat the same formulation or introduce an unsupported relation."
+    },
+    {
+      "id": "S11",
+      "role": "Why",
+      "text": "Neighboring evidence shows a source state using an outer implication with explicit antecedent branches produced a passing Verus check, while another state rewriting to a disjunction also passed without visible implication warnings."
+    },
+    {
+      "id": "S12",
+      "role": "Why",
+      "text": "The check alone does not isolate the branch from retained equality proof steps, and warning absence is based on visible stdout only."
+    },
+    {
+      "id": "S13",
+      "role": "Validate",
+      "text": "Re-run the same Verus check on the same failed assertion and confirm whether the inner assertion is now discharged; if warnings remain, record whether they are fatal or nonfatal."
+    },
+    {
+      "id": "S14",
+      "role": "Avoid when",
+      "text": "Stop if the antecedent cannot be made available without assuming or admitting it, or if the obligation is not discharged after explicit branching and supported equality connections; do not infer that a passing check validates a missing premise."
+    }
+  ]
+}

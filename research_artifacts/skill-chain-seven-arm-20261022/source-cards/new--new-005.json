@@ -1,0 +1,112 @@
+{
+  "id": "new-005",
+  "title": "Expose an entailment instance before using its consequence",
+  "content": "**Trigger:** A final entailment obligation remains open even though pointwise and temporal-lifting reasoning is present. Determine whether that reasoning is actually proved or only attempted, and whether the given temporal hypothesis has been instantiated for the execution at the open obligation.\n\n**Action:** Inspect the open entailment, the declaration of entailment and its underlying quantified premise, and the available temporal predicates. Read the actual contract or definition that can connect the source and destination predicates. Bind the arbitrary execution required by the current obligation. Within a justified source-satisfaction branch, bind the source and destination predicates according to the current contract. Keep consequences within this execution and premise scope. Compare the complete quantified conclusion supplied by the hypothesis, instantiated at that execution, with the local expression being used. Check which premise must be established before the consequence is available; use the actual source-to-destination direction instead of a generic/specialized name-based guess. Only if the declaration and current premises justify it, expose the full instantiated hypothesis at the bound execution and verify that local assertion before deriving its consequence. Discover its expression from the current declaration; do not substitute into a historical successful formula. The destination property remains to be proved, never assumed. If the instance is justified but the final entailment is still open, check the actual pointwise implication and temporal-lifting obligations in the direction required by the current goal. If a link is unavailable, leave it unresolved and inspect its supporting premises rather than reversing it or borrowing an unproved relation.\n\n**Why:** Reviewed endpoints include a failed direct entailment assertion and failed generic transitivity reasoning. A later passing state added full premise instances, removed the helper and changed the outer assertion together; the suffix reasoning was already present. This supports a conditional inspection of premise instances, not isolated causality, an observed SMT firing or a universally sufficient expression.\n\n**Validate:** Re-run the verifier on the same final entailment postcondition. If it passes, stop; if an intermediate assertion fails, use its location to decide whether the missing link is hypothesis instantiation or the pointwise strengthening, and do not repeat the same edit without a changed diagnostic.\n\n**Avoid when:** Stop this route if no source-satisfaction scope is justified, the hypothesis cannot be instantiated at the required execution, or the actual pointwise/temporal connection cannot be derived. Do not assume obligations, reverse an implication, or weaken the specification.",
+  "clauses": [
+    {
+      "id": "S1",
+      "role": "Trigger",
+      "text": "A final entailment obligation remains open even though pointwise and temporal-lifting reasoning is present."
+    },
+    {
+      "id": "S2",
+      "role": "Trigger",
+      "text": "Determine whether that reasoning is actually proved or only attempted, and whether the given temporal hypothesis has been instantiated for the execution at the open obligation."
+    },
+    {
+      "id": "S3",
+      "role": "Action",
+      "text": "Inspect the open entailment, the declaration of entailment and its underlying quantified premise, and the available temporal predicates."
+    },
+    {
+      "id": "S4",
+      "role": "Action",
+      "text": "Read the actual contract or definition that can connect the source and destination predicates."
+    },
+    {
+      "id": "S5",
+      "role": "Action",
+      "text": "Bind the arbitrary execution required by the current obligation."
+    },
+    {
+      "id": "S6",
+      "role": "Action",
+      "text": "Within a justified source-satisfaction branch, bind the source and destination predicates according to the current contract."
+    },
+    {
+      "id": "S7",
+      "role": "Action",
+      "text": "Keep consequences within this execution and premise scope."
+    },
+    {
+      "id": "S8",
+      "role": "Action",
+      "text": "Compare the complete quantified conclusion supplied by the hypothesis, instantiated at that execution, with the local expression being used."
+    },
+    {
+      "id": "S9",
+      "role": "Action",
+      "text": "Check which premise must be established before the consequence is available; use the actual source-to-destination direction instead of a generic/specialized name-based guess."
+    },
+    {
+      "id": "S10",
+      "role": "Action",
+      "text": "Only if the declaration and current premises justify it, expose the full instantiated hypothesis at the bound execution and verify that local assertion before deriving its consequence."
+    },
+    {
+      "id": "S11",
+      "role": "Action",
+      "text": "Discover its expression from the current declaration; do not substitute into a historical successful formula."
+    },
+    {
+      "id": "S12",
+      "role": "Action",
+      "text": "The destination property remains to be proved, never assumed."
+    },
+    {
+      "id": "S13",
+      "role": "Action",
+      "text": "If the instance is justified but the final entailment is still open, check the actual pointwise implication and temporal-lifting obligations in the direction required by the current goal."
+    },
+    {
+      "id": "S14",
+      "role": "Action",
+      "text": "If a link is unavailable, leave it unresolved and inspect its supporting premises rather than reversing it or borrowing an unproved relation."
+    },
+    {
+      "id": "S15",
+      "role": "Why",
+      "text": "Reviewed endpoints include a failed direct entailment assertion and failed generic transitivity reasoning."
+    },
+    {
+      "id": "S16",
+      "role": "Why",
+      "text": "A later passing state added full premise instances, removed the helper and changed the outer assertion together; the suffix reasoning was already present."
+    },
+    {
+      "id": "S17",
+      "role": "Why",
+      "text": "This supports a conditional inspection of premise instances, not isolated causality, an observed SMT firing or a universally sufficient expression."
+    },
+    {
+      "id": "S18",
+      "role": "Validate",
+      "text": "Re-run the verifier on the same final entailment postcondition."
+    },
+    {
+      "id": "S19",
+      "role": "Validate",
+      "text": "If it passes, stop; if an intermediate assertion fails, use its location to decide whether the missing link is hypothesis instantiation or the pointwise strengthening, and do not repeat the same edit without a changed diagnostic."
+    },
+    {
+      "id": "S20",
+      "role": "Avoid when",
+      "text": "Stop this route if no source-satisfaction scope is justified, the hypothesis cannot be instantiated at the required execution, or the actual pointwise/temporal connection cannot be derived."
+    },
+    {
+      "id": "S21",
+      "role": "Avoid when",
+      "text": "Do not assume obligations, reverse an implication, or weaken the specification."
+    }
+  ]
+}

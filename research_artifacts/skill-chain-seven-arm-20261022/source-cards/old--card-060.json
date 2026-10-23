@@ -1,0 +1,47 @@
+{
+  "id": "card-060",
+  "title": "card-060 — Verus compile errors say a struct field is not a method when a stored spec function is applied directly to an argument in a proof",
+  "content": "**Trigger:** Verus compile errors say a struct field is not a method when a stored spec function is applied directly to an argument in a proof. **Action:** Rewrite each occurrence so the field projection is parenthesized first and then applied to the index argument. After fixing parsing, if Verus reports a missing trigger for the universal equality, add explicit trigger annotations to both sides of the equality. **Why:** The field stores a function value rather than a method, so the parser needs the projection to be treated as a callable value. The explicit trigger then lets the pointwise equality quantifier instantiate at arbitrary indices so the execution equality lemma can be applied. **Validate:** Re-run Verus; compile errors should vanish. If a subsequent trigger error appears, adding the explicit trigger should enable verification, and the final proof should pass with all proof functions verified and the safety comparison clean. **Avoid when:** The field is not a function-valued field, or the equality can be proved by another supplied lemma without pointwise expansion; fixing syntax does not replace a missing logical fact.",
+  "clauses": [
+    {
+      "id": "S1",
+      "role": "Trigger",
+      "text": "Verus compile errors say a struct field is not a method when a stored spec function is applied directly to an argument in a proof."
+    },
+    {
+      "id": "S2",
+      "role": "Action",
+      "text": "Rewrite each occurrence so the field projection is parenthesized first and then applied to the index argument."
+    },
+    {
+      "id": "S3",
+      "role": "Action",
+      "text": "After fixing parsing, if Verus reports a missing trigger for the universal equality, add explicit trigger annotations to both sides of the equality."
+    },
+    {
+      "id": "S4",
+      "role": "Why",
+      "text": "The field stores a function value rather than a method, so the parser needs the projection to be treated as a callable value."
+    },
+    {
+      "id": "S5",
+      "role": "Why",
+      "text": "The explicit trigger then lets the pointwise equality quantifier instantiate at arbitrary indices so the execution equality lemma can be applied."
+    },
+    {
+      "id": "S6",
+      "role": "Validate",
+      "text": "Re-run Verus; compile errors should vanish."
+    },
+    {
+      "id": "S7",
+      "role": "Validate",
+      "text": "If a subsequent trigger error appears, adding the explicit trigger should enable verification, and the final proof should pass with all proof functions verified and the safety comparison clean."
+    },
+    {
+      "id": "S8",
+      "role": "Avoid when",
+      "text": "The field is not a function-valued field, or the equality can be proved by another supplied lemma without pointwise expansion; fixing syntax does not replace a missing logical fact."
+    }
+  ]
+}

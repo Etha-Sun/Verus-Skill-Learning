@@ -1,0 +1,101 @@
+{
+  "source_root_alias": "VERUS_SKILL_RUN_ROOT/skillopt-verusage",
+  "bundles": "Exact evaluated bytes; no content or index rewrite for publication.",
+  "files": [
+    {
+      "file": "bundles/no_skill/SKILL.md",
+      "source": "on-demand-ten-card-seven-arm-resume-20261022-v1/bundles/no_skill/SKILL.md",
+      "sha256": "96a557582ff423d159aa97698d3ea1eb55bd07af59cbfd3a518d86326a40df40"
+    },
+    {
+      "file": "bundles/old_prose/SKILL.md",
+      "source": "on-demand-ten-card-seven-arm-resume-20261022-v1/bundles/old_prose/SKILL.md",
+      "sha256": "39d349f58c9e097b75f726a756607a5cde9afe8c666ca21ff088fbf90e9b2da6"
+    },
+    {
+      "file": "bundles/old_prose/cards.json",
+      "source": "on-demand-ten-card-seven-arm-resume-20261022-v1/bundles/old_prose/cards.json",
+      "sha256": "0bb354fac8fb3646a352258afad4e46fd0d3aa2907e1785fb834740d87000074"
+    },
+    {
+      "file": "bundles/old_prose/card_read.py",
+      "source": "on-demand-ten-card-seven-arm-resume-20261022-v1/bundles/old_prose/card_read.py",
+      "sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57"
+    },
+    {
+      "file": "bundles/old_skeleton/SKILL.md",
+      "source": "on-demand-ten-card-seven-arm-resume-20261022-v1/bundles/old_skeleton/SKILL.md",
+      "sha256": "39d349f58c9e097b75f726a756607a5cde9afe8c666ca21ff088fbf90e9b2da6"
+    },
+    {
+      "file": "bundles/old_skeleton/cards.json",
+      "source": "on-demand-ten-card-seven-arm-resume-20261022-v1/bundles/old_skeleton/cards.json",
+      "sha256": "2d923648c2b54d0a73400613d25f850098874323a3a283a47f8777490479d151"
+    },
+    {
+      "file": "bundles/old_skeleton/card_read.py",
+      "source": "on-demand-ten-card-seven-arm-resume-20261022-v1/bundles/old_skeleton/card_read.py",
+      "sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57"
+    },
+    {
+      "file": "bundles/old_pseudocode/SKILL.md",
+      "source": "on-demand-ten-card-seven-arm-resume-20261022-v1/bundles/old_pseudocode/SKILL.md",
+      "sha256": "39d349f58c9e097b75f726a756607a5cde9afe8c666ca21ff088fbf90e9b2da6"
+    },
+    {
+      "file": "bundles/old_pseudocode/cards.json",
+      "source": "on-demand-ten-card-seven-arm-resume-20261022-v1/bundles/old_pseudocode/cards.json",
+      "sha256": "1165c5876aaa1f7e58312aa3fc817ea1442fba34112bcf0714c5f43ee9258582"
+    },
+    {
+      "file": "bundles/old_pseudocode/card_read.py",
+      "source": "on-demand-ten-card-seven-arm-resume-20261022-v1/bundles/old_pseudocode/card_read.py",
+      "sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57"
+    },
+    {
+      "file": "bundles/new_prose/SKILL.md",
+      "source": "on-demand-ten-card-seven-arm-resume-20261022-v1/bundles/new_prose/SKILL.md",
+      "sha256": "5d24245c9e718ac38c465ecaf89d5816839e28b72f1772618c6120f5e8829c8a"
+    },
+    {
+      "file": "bundles/new_prose/cards.json",
+      "source": "on-demand-ten-card-seven-arm-resume-20261022-v1/bundles/new_prose/cards.json",
+      "sha256": "e8f99f4389aa85b1d7038c697b3f5192fd3f7a6b621b0a71b933d88ae6b81c0f"
+    },
+    {
+      "file": "bundles/new_prose/card_read.py",
+      "source": "on-demand-ten-card-seven-arm-resume-20261022-v1/bundles/new_prose/card_read.py",
+      "sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57"
+    },
+    {
+      "file": "bundles/new_skeleton/SKILL.md",
+      "source": "on-demand-ten-card-seven-arm-resume-20261022-v1/bundles/new_skeleton/SKILL.md",
+      "sha256": "5d24245c9e718ac38c465ecaf89d5816839e28b72f1772618c6120f5e8829c8a"
+    },
+    {
+      "file": "bundles/new_skeleton/cards.json",
+      "source": "on-demand-ten-card-seven-arm-resume-20261022-v1/bundles/new_skeleton/cards.json",
+      "sha256": "213dc075e353f5c4a426c3d06c6c355045176b6d353667201b05736b2f4149d8"
+    },
+    {
+      "file": "bundles/new_skeleton/card_read.py",
+      "source": "on-demand-ten-card-seven-arm-resume-20261022-v1/bundles/new_skeleton/card_read.py",
+      "sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57"
+    },
+    {
+      "file": "bundles/new_pseudocode/SKILL.md",
+      "source": "on-demand-ten-card-seven-arm-resume-20261022-v1/bundles/new_pseudocode/SKILL.md",
+      "sha256": "5d24245c9e718ac38c465ecaf89d5816839e28b72f1772618c6120f5e8829c8a"
+    },
+    {
+      "file": "bundles/new_pseudocode/cards.json",
+      "source": "on-demand-ten-card-seven-arm-resume-20261022-v1/bundles/new_pseudocode/cards.json",
+      "sha256": "d2fd7f2b60551762bf14a1a9a7b36340f410e3817d6467b6482dd752390a74af"
+    },
+    {
+      "file": "bundles/new_pseudocode/card_read.py",
+      "source": "on-demand-ten-card-seven-arm-resume-20261022-v1/bundles/new_pseudocode/card_read.py",
+      "sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57"
+    }
+  ]
+}

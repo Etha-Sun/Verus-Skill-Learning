@@ -1,0 +1,67 @@
+{
+  "id": "card-070",
+  "title": "card-070 — A postcondition asserts equality between two spec-level function or temporal objects constructed by applying the same operator once versus twice, and the proof body is empty or only this postcondition fails",
+  "content": "**Trigger:** A postcondition asserts equality between two spec-level function or temporal objects constructed by applying the same operator once versus twice, and the proof body is empty or only this postcondition fails.\n**Action:** Prove the two semantic entailment directions separately. In the direction from the nested application to the single application, instantiate the outer and inner quantified statements at a concrete index and at zero. In the direction from the single application to the nested application, instantiate at the sum of two arbitrary indices. For each direction, prove equality of the underlying state or suffix objects pointwise at every index using simple arithmetic identities and the supplied pointwise-equality lemma, then invoke the supplied equality lemma for the spec-level objects.\n**Why:** Equality of function-like specification objects is not derived automatically. The prover needs pointwise equality plus the supplied lemma that turns pointwise equality into object equality. The remaining mathematical work is arithmetic over indices and the existing object equality lemmas.\n**Validate:** Run Verus after each entailment direction and ensure both verify before invoking the final equality lemma. Then run the proof-only safety comparison. Do not add new trusted bodies or weaken contracts; existing trusted declarations are background only.\n**Avoid when:** Built-in extensional equality for those objects already suffices without manual pointwise evidence, or the arithmetic identity needed for the index shift is not available in scope.",
+  "clauses": [
+    {
+      "id": "S1",
+      "role": "Trigger",
+      "text": "A postcondition asserts equality between two spec-level function or temporal objects constructed by applying the same operator once versus twice, and the proof body is empty or only this postcondition fails."
+    },
+    {
+      "id": "S2",
+      "role": "Action",
+      "text": "Prove the two semantic entailment directions separately."
+    },
+    {
+      "id": "S3",
+      "role": "Action",
+      "text": "In the direction from the nested application to the single application, instantiate the outer and inner quantified statements at a concrete index and at zero."
+    },
+    {
+      "id": "S4",
+      "role": "Action",
+      "text": "In the direction from the single application to the nested application, instantiate at the sum of two arbitrary indices."
+    },
+    {
+      "id": "S5",
+      "role": "Action",
+      "text": "For each direction, prove equality of the underlying state or suffix objects pointwise at every index using simple arithmetic identities and the supplied pointwise-equality lemma, then invoke the supplied equality lemma for the spec-level objects."
+    },
+    {
+      "id": "S6",
+      "role": "Why",
+      "text": "Equality of function-like specification objects is not derived automatically."
+    },
+    {
+      "id": "S7",
+      "role": "Why",
+      "text": "The prover needs pointwise equality plus the supplied lemma that turns pointwise equality into object equality."
+    },
+    {
+      "id": "S8",
+      "role": "Why",
+      "text": "The remaining mathematical work is arithmetic over indices and the existing object equality lemmas."
+    },
+    {
+      "id": "S9",
+      "role": "Validate",
+      "text": "Run Verus after each entailment direction and ensure both verify before invoking the final equality lemma."
+    },
+    {
+      "id": "S10",
+      "role": "Validate",
+      "text": "Then run the proof-only safety comparison."
+    },
+    {
+      "id": "S11",
+      "role": "Validate",
+      "text": "Do not add new trusted bodies or weaken contracts; existing trusted declarations are background only."
+    },
+    {
+      "id": "S12",
+      "role": "Avoid when",
+      "text": "Built-in extensional equality for those objects already suffices without manual pointwise evidence, or the arithmetic identity needed for the index shift is not available in scope."
+    }
+  ]
+}

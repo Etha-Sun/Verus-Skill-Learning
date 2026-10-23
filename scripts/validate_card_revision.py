@@ -137,6 +137,9 @@ def bridge(config, root, *, budget_guard=None):
 
 def run(config, root, contract, *, expected_episodes=8, budget_guard=None,
         retrieval_auditor=audit_retrieval):
+    actor_timeout = contract.get('timeout_seconds', 600)
+    if type(actor_timeout) is not int or actor_timeout not in (600, 1200):
+        raise ValueError('Expected reviewed 600s or 1200s actor timeout')
     repo = Path(config['repo']).resolve()
     env_file = repo/'.env'
     for line in env_file.read_text().splitlines() if env_file.exists() else ():
@@ -172,7 +175,7 @@ def run(config, root, contract, *, expected_episodes=8, budget_guard=None,
                 lynette_bin=Path(config['lynette_bin']), bridge_url=url,
                 bridge_ledger_path=settings.ledger_path, bridge_manifest_path=manifest,
                 bridge_task_key=key, model=contract['model'], reasoning_effort='max',
-                timeout_seconds=600, model_context_window=1048576, run_stage='dev_'+condition,
+                timeout_seconds=actor_timeout, model_context_window=1048576, run_stage='dev_'+condition,
                 reference_proof_source=None, reference_kind='none',
                 actor_isolation_scratch_root=Path(config['scratch_root']),
                 actor_isolation_verus_root=Path(config['verus_bin']).parent,
@@ -180,7 +183,9 @@ def run(config, root, contract, *, expected_episodes=8, budget_guard=None,
                 actor_isolation_forbidden_paths=(repo,Path(os.environ['VERUS_SKILL_DATA_ROOT']),
                     Path(config['source_root'])/'rollout',Path(config['source_root'])/'train_items.json'),
                 installed_library_root=Path(contract['installed_library_root'])
-                    if condition in contract.get('installed_library_conditions', ['revised']) else None)
+                    if condition in contract.get('installed_library_conditions', ['revised']) else None,
+                supplemental_prompt=Path(job['knowledge_path']).read_text()
+                    if 'knowledge_path' in job else None)
             return {'condition':condition,'episode':str(out),'row':row}
 
         jobs = iter(contract['schedule'])

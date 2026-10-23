@@ -243,6 +243,7 @@ def run_task(
     actor_isolation_rust_root: Path | None = None,
     actor_isolation_forbidden_paths: tuple[Path, ...] = (),
     installed_library_root: Path | None = None,
+    supplemental_prompt: str | None = None,
 ) -> dict[str, Any]:
     if Path(item_id).name != item_id:
         raise ValueError(f"unsafe item id: {item_id!r}")
@@ -333,6 +334,7 @@ def run_task(
         continuation_instructions=continuation_instructions,
         reference_kind=reference_kind,
         installed_library_root=installed_library_root,
+        supplemental_prompt=supplemental_prompt,
     )
     manifest_path = out_dir / "run_manifest.json"
     run_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -447,7 +449,8 @@ def run_task(
         else build_prompt(installed_library_root=installed_library_root.resolve() if installed_library_root else None)
     )
     (out_dir / "target_user_prompt.txt").write_text(
-        target_prompt, encoding="utf-8"
+        (out_dir / "prompt.txt").read_text(encoding="utf-8")
+        if supplemental_prompt is not None else target_prompt, encoding="utf-8"
     )
     (out_dir / "result.json").write_text(
         json.dumps(enriched, ensure_ascii=False, indent=2) + "\n",

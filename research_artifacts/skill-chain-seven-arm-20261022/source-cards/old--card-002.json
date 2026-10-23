@@ -1,0 +1,67 @@
+{
+  "id": "card-002",
+  "title": "card-002 — The proof goal is equality of sets or set images, no existing library lemma can directly discharge it, and the verifier fails on a naked quantified membership equivalence or on a case split that merely asserts the reverse containment",
+  "content": "**Trigger:** The proof goal is equality of sets or set images, no existing library lemma can directly discharge it, and the verifier fails on a naked quantified membership equivalence or on a case split that merely asserts the reverse containment.\n**Action:** Establish set equality through pointwise membership equivalence. For the forward direction, derive membership in the image union from membership in either image using union and image definitions. For the reverse direction, when image membership is assumed on one side, introduce a chosen witness satisfying the corresponding source membership and mapping relation; prove the witness belongs to the union; then derive the union image membership and obtain the contradiction. If the verifier warns about low-confidence triggers for the quantified equivalence, accept the automatic trigger or annotate the equivalence to give the solver reliable membership triggers.\n**Why:** The reverse direction requires exposing the existential witness because merely asserting union-image membership does not give the solver enough information. The chosen witness connects the image definition to union membership. Trigger annotation can suppress a warning after the logical witness step succeeds, but the success depends on that witness.\n**Validate:** Run the verifier after adding the witness step and confirm zero errors; then run the proof-safety comparison. Confirm no assumptions or specification changes were introduced.\n**Avoid when:** A directly applicable library lemma proves the same obligation and its premises hold, because manual witness reasoning is then avoidable. Also avoid assuming after a successful proof that the trigger annotation alone was responsible for discharging the obligation; it may only have suppressed a warning.",
+  "clauses": [
+    {
+      "id": "S1",
+      "role": "Trigger",
+      "text": "The proof goal is equality of sets or set images, no existing library lemma can directly discharge it, and the verifier fails on a naked quantified membership equivalence or on a case split that merely asserts the reverse containment."
+    },
+    {
+      "id": "S2",
+      "role": "Action",
+      "text": "Establish set equality through pointwise membership equivalence."
+    },
+    {
+      "id": "S3",
+      "role": "Action",
+      "text": "For the forward direction, derive membership in the image union from membership in either image using union and image definitions."
+    },
+    {
+      "id": "S4",
+      "role": "Action",
+      "text": "For the reverse direction, when image membership is assumed on one side, introduce a chosen witness satisfying the corresponding source membership and mapping relation; prove the witness belongs to the union; then derive the union image membership and obtain the contradiction."
+    },
+    {
+      "id": "S5",
+      "role": "Action",
+      "text": "If the verifier warns about low-confidence triggers for the quantified equivalence, accept the automatic trigger or annotate the equivalence to give the solver reliable membership triggers."
+    },
+    {
+      "id": "S6",
+      "role": "Why",
+      "text": "The reverse direction requires exposing the existential witness because merely asserting union-image membership does not give the solver enough information."
+    },
+    {
+      "id": "S7",
+      "role": "Why",
+      "text": "The chosen witness connects the image definition to union membership."
+    },
+    {
+      "id": "S8",
+      "role": "Why",
+      "text": "Trigger annotation can suppress a warning after the logical witness step succeeds, but the success depends on that witness."
+    },
+    {
+      "id": "S9",
+      "role": "Validate",
+      "text": "Run the verifier after adding the witness step and confirm zero errors; then run the proof-safety comparison."
+    },
+    {
+      "id": "S10",
+      "role": "Validate",
+      "text": "Confirm no assumptions or specification changes were introduced."
+    },
+    {
+      "id": "S11",
+      "role": "Avoid when",
+      "text": "A directly applicable library lemma proves the same obligation and its premises hold, because manual witness reasoning is then avoidable."
+    },
+    {
+      "id": "S12",
+      "role": "Avoid when",
+      "text": "Also avoid assuming after a successful proof that the trigger annotation alone was responsible for discharging the obligation; it may only have suppressed a warning."
+    }
+  ]
+}

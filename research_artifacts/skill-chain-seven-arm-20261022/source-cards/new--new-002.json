@@ -1,0 +1,102 @@
+{
+  "id": "new-002",
+  "title": "Check loop-local availability of a callee premise",
+  "content": "**Trigger:** The current obstruction is a failed callee precondition or local assertion inside a loop over a packet collection. A required per-element property may be available outside the loop but absent or unapplied at the current call site; diagnose this from the current source rather than requiring the historical sequence of failed attempts.\n\n**Action:** Inspect the failing precondition or assertion diagnostic and the immediately preceding loop invariants and local proof statements. Determine which per-packet and source-endpoint facts are currently available at the call site. Bind the current packet collection, its view length, the current index, the client endpoint before the loop, and the client state inside the loop. Also bind the current loop invariant set and any proof helpers that are in legal scope at the same index. Compare the per-packet validity fact and source-endpoint equality required by the callee precondition with what the loop invariants currently state about that same index. Do not conclude they match merely because a sequence-level property is present somewhere else. If a required sequence property is missing from the loop invariants, check whether current entry facts establish it and every iteration preserves it before proposing that property as an invariant; verify both obligations. If the property is already present but unapplied at the current index, inspect an available instantiation rule and its actual preconditions, then try one justified application. Do not invent a helper or assume either obligation. If the same precondition still fails, inspect whether the invariant or helper references the same view and index, whether the endpoint is expressed before or inside the loop, and whether a different unsupported fact is now exposed. Do not assume the missing premise is true without proof support.\n\n**Why:** Reviewed attempts show that sequence-level assertions placed before and inside the loop, and added but uninvoked proof helpers, did not clear the loop-body assertion or precondition failures. This does not establish whether the missing support is quantifier instantiation, precondition visibility, a missing loop invariant, or a combination of these.\n\n**Validate:** Run the same verifier command and inspect whether the same callee precondition or assertion is still reported. If the failure moves to a new location, classify the new obligation separately before making another edit.\n\n**Avoid when:** Stop when the required property or index bound cannot be derived in the relevant scope or proved as an invariant, when no applicable instantiation rule is available, or when the probe would assume a premise or change executable behavior. A fact absent from the existing invariant list is a diagnostic condition, not by itself a reason to abandon checking whether it can be established.",
+  "clauses": [
+    {
+      "id": "S1",
+      "role": "Trigger",
+      "text": "The current obstruction is a failed callee precondition or local assertion inside a loop over a packet collection."
+    },
+    {
+      "id": "S2",
+      "role": "Trigger",
+      "text": "A required per-element property may be available outside the loop but absent or unapplied at the current call site; diagnose this from the current source rather than requiring the historical sequence of failed attempts."
+    },
+    {
+      "id": "S3",
+      "role": "Action",
+      "text": "Inspect the failing precondition or assertion diagnostic and the immediately preceding loop invariants and local proof statements."
+    },
+    {
+      "id": "S4",
+      "role": "Action",
+      "text": "Determine which per-packet and source-endpoint facts are currently available at the call site."
+    },
+    {
+      "id": "S5",
+      "role": "Action",
+      "text": "Bind the current packet collection, its view length, the current index, the client endpoint before the loop, and the client state inside the loop."
+    },
+    {
+      "id": "S6",
+      "role": "Action",
+      "text": "Also bind the current loop invariant set and any proof helpers that are in legal scope at the same index."
+    },
+    {
+      "id": "S7",
+      "role": "Action",
+      "text": "Compare the per-packet validity fact and source-endpoint equality required by the callee precondition with what the loop invariants currently state about that same index."
+    },
+    {
+      "id": "S8",
+      "role": "Action",
+      "text": "Do not conclude they match merely because a sequence-level property is present somewhere else."
+    },
+    {
+      "id": "S9",
+      "role": "Action",
+      "text": "If a required sequence property is missing from the loop invariants, check whether current entry facts establish it and every iteration preserves it before proposing that property as an invariant; verify both obligations."
+    },
+    {
+      "id": "S10",
+      "role": "Action",
+      "text": "If the property is already present but unapplied at the current index, inspect an available instantiation rule and its actual preconditions, then try one justified application."
+    },
+    {
+      "id": "S11",
+      "role": "Action",
+      "text": "Do not invent a helper or assume either obligation."
+    },
+    {
+      "id": "S12",
+      "role": "Action",
+      "text": "If the same precondition still fails, inspect whether the invariant or helper references the same view and index, whether the endpoint is expressed before or inside the loop, and whether a different unsupported fact is now exposed."
+    },
+    {
+      "id": "S13",
+      "role": "Action",
+      "text": "Do not assume the missing premise is true without proof support."
+    },
+    {
+      "id": "S14",
+      "role": "Why",
+      "text": "Reviewed attempts show that sequence-level assertions placed before and inside the loop, and added but uninvoked proof helpers, did not clear the loop-body assertion or precondition failures."
+    },
+    {
+      "id": "S15",
+      "role": "Why",
+      "text": "This does not establish whether the missing support is quantifier instantiation, precondition visibility, a missing loop invariant, or a combination of these."
+    },
+    {
+      "id": "S16",
+      "role": "Validate",
+      "text": "Run the same verifier command and inspect whether the same callee precondition or assertion is still reported."
+    },
+    {
+      "id": "S17",
+      "role": "Validate",
+      "text": "If the failure moves to a new location, classify the new obligation separately before making another edit."
+    },
+    {
+      "id": "S18",
+      "role": "Avoid when",
+      "text": "Stop when the required property or index bound cannot be derived in the relevant scope or proved as an invariant, when no applicable instantiation rule is available, or when the probe would assume a premise or change executable behavior."
+    },
+    {
+      "id": "S19",
+      "role": "Avoid when",
+      "text": "A fact absent from the existing invariant list is a diagnostic condition, not by itself a reason to abandon checking whether it can be established."
+    }
+  ]
+}

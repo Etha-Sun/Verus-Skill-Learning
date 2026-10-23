@@ -1,0 +1,77 @@
+{
+  "id": "new-001",
+  "title": "Check recursive set finiteness at the active branch",
+  "content": "**Trigger:** The current failed obligation is a finiteness postcondition for the set produced by recursively accumulating over a finite input set, and the proof body is empty or has just introduced an unverified recursive proof routine; the remaining goal is to connect the accumulator's branch behavior to finiteness without assuming a missing premise.\n\n**Action:** Inspect the current postcondition diagnostic, the declarations of the recursive accumulator and target proof obligation in scope, and the branch structure already present in the proof body. Within the current proof scope, bind the finite input set and its explicit finiteness premise. In a nonempty branch, also bind the result of removing an element and the accumulated result on that reduced input; keep the empty branch separate. Compare the active branch's accumulated result with the insertion relation on the reduced result and with the empty-set base relation, checking only whether those relations are already available from the definitions in scope. If the active branch result is known to be an insertion into a reduced result whose finiteness has been proved, check preservation of finiteness through that insertion and its connection to the target result. In the empty branch, check the empty-result relation and finiteness from the available definitions. Leave any missing relation as an obligation, not an assumed equality. If the insertion preservation or empty base finiteness is not discharged, do not add further equality assertions; instead inspect whether the reduced input is provably finite and strictly smaller before considering any recursive call.\n\n**Why:** Reviewed windows show edits that added a recursive proof routine and a call from the target before passing Verus runs, but each edit was bundled with no admitted intermediate check; the necessity of the routine split, equality form, or particular branch condition is therefore not established.\n\n**Validate:** Re-run the same finiteness postcondition after the branch-level probe; if the postcondition is now established, record which branch relation was used, and if it remains unsatisfied, check whether a missing smaller-input finiteness premise is the remaining blocker rather than the final finiteness transfer.\n\n**Avoid when:** Stop this route if the finite-input premise cannot be justified. In a recursive branch, stop if neither a supported finite reduced result nor a justified smaller-input recursive step is available. These recursive conditions do not apply to the empty branch; do not assume a missing branch relation.",
+  "clauses": [
+    {
+      "id": "S1",
+      "role": "Trigger",
+      "text": "The current failed obligation is a finiteness postcondition for the set produced by recursively accumulating over a finite input set, and the proof body is empty or has just introduced an unverified recursive proof routine; the remaining goal is to connect the accumulator's branch behavior to finiteness without assuming a missing premise."
+    },
+    {
+      "id": "S2",
+      "role": "Action",
+      "text": "Inspect the current postcondition diagnostic, the declarations of the recursive accumulator and target proof obligation in scope, and the branch structure already present in the proof body."
+    },
+    {
+      "id": "S3",
+      "role": "Action",
+      "text": "Within the current proof scope, bind the finite input set and its explicit finiteness premise."
+    },
+    {
+      "id": "S4",
+      "role": "Action",
+      "text": "In a nonempty branch, also bind the result of removing an element and the accumulated result on that reduced input; keep the empty branch separate."
+    },
+    {
+      "id": "S5",
+      "role": "Action",
+      "text": "Compare the active branch's accumulated result with the insertion relation on the reduced result and with the empty-set base relation, checking only whether those relations are already available from the definitions in scope."
+    },
+    {
+      "id": "S6",
+      "role": "Action",
+      "text": "If the active branch result is known to be an insertion into a reduced result whose finiteness has been proved, check preservation of finiteness through that insertion and its connection to the target result."
+    },
+    {
+      "id": "S7",
+      "role": "Action",
+      "text": "In the empty branch, check the empty-result relation and finiteness from the available definitions."
+    },
+    {
+      "id": "S8",
+      "role": "Action",
+      "text": "Leave any missing relation as an obligation, not an assumed equality."
+    },
+    {
+      "id": "S9",
+      "role": "Action",
+      "text": "If the insertion preservation or empty base finiteness is not discharged, do not add further equality assertions; instead inspect whether the reduced input is provably finite and strictly smaller before considering any recursive call."
+    },
+    {
+      "id": "S10",
+      "role": "Why",
+      "text": "Reviewed windows show edits that added a recursive proof routine and a call from the target before passing Verus runs, but each edit was bundled with no admitted intermediate check; the necessity of the routine split, equality form, or particular branch condition is therefore not established."
+    },
+    {
+      "id": "S11",
+      "role": "Validate",
+      "text": "Re-run the same finiteness postcondition after the branch-level probe; if the postcondition is now established, record which branch relation was used, and if it remains unsatisfied, check whether a missing smaller-input finiteness premise is the remaining blocker rather than the final finiteness transfer."
+    },
+    {
+      "id": "S12",
+      "role": "Avoid when",
+      "text": "Stop this route if the finite-input premise cannot be justified."
+    },
+    {
+      "id": "S13",
+      "role": "Avoid when",
+      "text": "In a recursive branch, stop if neither a supported finite reduced result nor a justified smaller-input recursive step is available."
+    },
+    {
+      "id": "S14",
+      "role": "Avoid when",
+      "text": "These recursive conditions do not apply to the empty branch; do not assume a missing branch relation."
+    }
+  ]
+}
