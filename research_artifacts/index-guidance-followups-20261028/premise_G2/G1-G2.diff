@@ -1,0 +1,15 @@
+--- G1_current/SKILL.md
++++ G2_premise_check/SKILL.md
+@@ -30,8 +30,10 @@
+ Check applicability and rejection conditions against the current state, perform required
+ prechecks, and use normal verification and preservation tools after acting.
+ Turn applicable advice into a small proof step and check the intended obligation.
+-Cards are fallible advice, not proof. Briefly identify a consulted card's ID
+-and why it applies or why you decline it in your progress message. Do not
++Cards are fallible advice, not proof. Briefly identify a consulted card’s ID and connect its advice to the current
++obligation and available premises. Distinguish applying its route from borrowing
++a general technique; check the premises needed for the step you actually take,
++and decline advice that requires unavailable premises. Do not
+ bulk-read cards.json or modify library files. Reading is optional and uses the
+ normal task time and context budget.
+ 

@@ -129,3 +129,8 @@ examined development results, not held-out test evidence or a general superiorit
 The bundle source paths (relative to the run-root alias) and SHA-256 hashes are in
 [manifest.json](manifest.json). All published bundle bytes match the evaluated
 artifacts; raw datasets and historical runs remain unchanged.
+
+## Later index and main-text comparisons
+
+See the [v2 index and G1/G2 follow-up publication](../index-guidance-followups-20261028/README.md)
+for the exact subsequent bundles, intervention diffs, reviewed results and per-task timing ratios.

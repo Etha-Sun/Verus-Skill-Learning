@@ -1,0 +1,5 @@
+# Preserve frozen patch context, archive CSV line endings and Executive EOF.
+*.diff -whitespace
+*.csv whitespace=cr-at-eol
+*/EXECUTIVE.md whitespace=-blank-at-eof
+main_G1/GUIDANCE.md whitespace=-blank-at-eof

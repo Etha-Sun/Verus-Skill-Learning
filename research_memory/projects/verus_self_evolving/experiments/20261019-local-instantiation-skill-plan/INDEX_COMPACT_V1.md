@@ -1,0 +1,12 @@
+## Card index
+
+- new-001: Recursive accumulator finiteness — Empty/new recursive proof over finite input. Inspect branch relations; require finite input and, in recursive branches, a proved reduced result or justified smaller-input recursion.
+- new-002: Packet-loop precondition/local assertion — Check whether the required per-element fact is available at this call's index and endpoint. Inspect invariant support versus unapplied facts; a sequence-level fact elsewhere is insufficient.
+- new-003: Forward-preservation helper precondition — A universal invariant/next step is missing. Match and prove it at arbitrary suffixes of the helper's base execution; stop if the call or derivable step is absent.
+- new-004: Set-image membership equivalence — Assertion failure for image-of-union versus union-of-images, with sets/map in scope. Inspect the active direction's source witness; bind one only from justified image membership/existence, not an assumed relation.
+- new-005: Final temporal entailment — Pointwise/lifting reasoning is present but closure fails. Check its proof status and the full hypothesis instance at the required execution; stop without justified source scope or a derivable connection.
+- new-006: Temporal stability of a conjunction — Empty/incomplete proof over lifted state predicates. Match temporal wrappers and local stability/conjunction rule contracts; inspect composition only when all required premises are supportable.
+- new-007: Closed little-endian serialization — Reveal rejected or length proof blocked by the closed body; bytes module available. Inspect permitted open definitions, connector consequences or byte-width facts; stop without a justified length/transfer route.
+- new-008: Empty-body temporal equality postcondition — Inspect existing equality helpers requiring pointwise mutual entailments, including predicate-family arguments. Check each direction locally; reject mismatched types/premises or an unjustifiable direction.
+- new-009: Execution-equality quantifier lacks a trigger — After projection-syntax repair, pointwise equality must satisfy the execution helper. Inspect existing legal call/projection terms; not a general quantifier-failure repair.
+- new-010: Quantified entailment assertion lacks antecedent scope — The inner proof needs an outer implication's antecedent. Inspect actual scope and a justified conditional branch; stop if supplying the premise would require assuming it.

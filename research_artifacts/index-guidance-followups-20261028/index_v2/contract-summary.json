@@ -1,0 +1,129 @@
+{
+  "schema_version": "index-matching-v2-16",
+  "model": "deepseek-v4-pro",
+  "reasoning_effort": "max",
+  "timeout_seconds": 600,
+  "workers": 2,
+  "model_context_window": 1048576,
+  "max_output_tokens_per_request": 131072,
+  "provider_request_timeout_seconds": 1800,
+  "schedule": [
+    {
+      "id": "a23a4969155913255f76",
+      "condition": "I0_old_index",
+      "repeat": 0
+    },
+    {
+      "id": "a23a4969155913255f76",
+      "condition": "I2_matching_v2",
+      "repeat": 0
+    },
+    {
+      "id": "9b9f6ccef89db4103c7f",
+      "condition": "I2_matching_v2",
+      "repeat": 0
+    },
+    {
+      "id": "9b9f6ccef89db4103c7f",
+      "condition": "I0_old_index",
+      "repeat": 0
+    },
+    {
+      "id": "aded79905be896942897",
+      "condition": "I0_old_index",
+      "repeat": 0
+    },
+    {
+      "id": "aded79905be896942897",
+      "condition": "I2_matching_v2",
+      "repeat": 0
+    },
+    {
+      "id": "62ff0a3cf2c458b36ac8",
+      "condition": "I2_matching_v2",
+      "repeat": 0
+    },
+    {
+      "id": "62ff0a3cf2c458b36ac8",
+      "condition": "I0_old_index",
+      "repeat": 0
+    },
+    {
+      "id": "a23a4969155913255f76",
+      "condition": "I2_matching_v2",
+      "repeat": 1
+    },
+    {
+      "id": "a23a4969155913255f76",
+      "condition": "I0_old_index",
+      "repeat": 1
+    },
+    {
+      "id": "9b9f6ccef89db4103c7f",
+      "condition": "I0_old_index",
+      "repeat": 1
+    },
+    {
+      "id": "9b9f6ccef89db4103c7f",
+      "condition": "I2_matching_v2",
+      "repeat": 1
+    },
+    {
+      "id": "aded79905be896942897",
+      "condition": "I2_matching_v2",
+      "repeat": 1
+    },
+    {
+      "id": "aded79905be896942897",
+      "condition": "I0_old_index",
+      "repeat": 1
+    },
+    {
+      "id": "62ff0a3cf2c458b36ac8",
+      "condition": "I0_old_index",
+      "repeat": 1
+    },
+    {
+      "id": "62ff0a3cf2c458b36ac8",
+      "condition": "I2_matching_v2",
+      "repeat": 1
+    }
+  ],
+  "expected_episodes": 16,
+  "repeats": 2,
+  "budget_usd": 20,
+  "primary": "Same candidate SHA256 Verus and Lynette pass observed within 600s; normal exit separate",
+  "ordinary_retry": false,
+  "transport_retry": false,
+  "reference_proof_supplied": false,
+  "sealed_test_access": false,
+  "intervention": "Only final Card index section; exact R0 workflow, Executive, ten new_skeleton bodies, reader, harness.",
+  "caveat": "Four known development tasks, independent fresh samples; repeat labels are scheduling blocks, not shared seeds. Reads are not improvement. Index wording, boundary salience and length change jointly. Wrong card-001 example is retained identically in both arms. No checkpoint resumes, historical answers, retries or expansion.",
+  "publication_note": "Selected historical contract fields for review, not an executable launch contract or authorization.",
+  "items": [
+    {
+      "id": "a23a4969155913255f76",
+      "task_id": "AC__vreplicaset_controller__proof__helper_lemmas__vrs_rely_condition_equivalent_to_lifted_vrs_rely_condition",
+      "directory_group": "verified-anvil",
+      "source_sha256": "df3facae7b68ee7c84224c2ce77590da096f312840cb24e74b27692bee1099ee"
+    },
+    {
+      "id": "9b9f6ccef89db4103c7f",
+      "task_id": "AL__unpack_conditions_from_spec",
+      "directory_group": "verified-anvil",
+      "source_sha256": "8740278e3269964da2ec60994a11e27e1ed7d08b74c007c613a00dd3b61e9bea"
+    },
+    {
+      "id": "aded79905be896942897",
+      "task_id": "AL__tla_forall_not_equality",
+      "directory_group": "verified-anvil",
+      "source_sha256": "2044ca1f205c49f95ea4710872906da765a44a5abb3c2a67e4aea6961aa3053f"
+    },
+    {
+      "id": "62ff0a3cf2c458b36ac8",
+      "task_id": "AL__true_pred_on_seq_implies_true_pred_on_filtered_seq",
+      "directory_group": "verified-anvil",
+      "source_sha256": "7bff1c5c19cd3ebe08f2d3281669353249982a0c940078c0bd2109f60a6964c2"
+    }
+  ]
+}

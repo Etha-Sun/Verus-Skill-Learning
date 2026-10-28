@@ -1,0 +1,9 @@
+{
+  "status": "minimal_in_place_revision_review_only",
+  "draft_sha256": "7df0f0299b9c041fb4eb46f1bb95fba0358c578a5a70ee531233b3b347e05820",
+  "insertions": [
+    "When choosing an approach to an unfamiliar obligation, or when its premises or\nscope change, match the current state against the card index before expanding\nthe proof attempt. Reuse applicable guidance or read a plausible match; a clear\nlocal correction can proceed directly. ",
+    "Turn applicable advice into a small proof step and check the intended obligation.\n",
+    "Reconsider earlier card choices or a no-match decision when the obligation changes.\n"
+  ]
+}

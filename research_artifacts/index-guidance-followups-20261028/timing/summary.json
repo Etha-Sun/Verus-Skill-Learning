@@ -1,0 +1,92 @@
+{
+  "definition": "For each task, average all repeats including failures; compute modified/control; arithmetic-mean the four task ratios. Lower is better.",
+  "metrics": {
+    "wall_seconds": "result.wall_seconds, episode start to actor exit/timeout and final host checks",
+    "final_verus_seconds": "One separately timed host check of the last candidate; process startup/front end/SMT included; generation and Lynette excluded; pure SMT time unavailable",
+    "cumulative_command_proxy_seconds": "Completed actor Verus-command windows plus final host Verus time; includes failures/probes, shell/output overhead and mixed-command ancillary work. Not isolated solver time."
+  },
+  "batches": [
+    {
+      "name": "index_v2",
+      "source_run": "index-matching-20261024-run16-v1",
+      "control": "I0_old_index",
+      "modified": "I2_matching_v2",
+      "repeats": 2,
+      "summary": {
+        "I0_old_index": {
+          "runs": 8,
+          "passes": 5,
+          "wall_seconds": 374.1856760056253,
+          "final_verus_seconds": 0.6729230138735147,
+          "cumulative_command_proxy_seconds": 5.379997685857234,
+          "completed_actor_verus_commands": 97,
+          "mixed_commands": 13,
+          "mixed_command_seconds": 3.8417108058929443
+        },
+        "I2_matching_v2": {
+          "runs": 8,
+          "passes": 6,
+          "wall_seconds": 320.9739025823801,
+          "final_verus_seconds": 0.7131723543861881,
+          "cumulative_command_proxy_seconds": 4.60463414399419,
+          "completed_actor_verus_commands": 72,
+          "mixed_commands": 8,
+          "mixed_command_seconds": 5.251641750335693
+        }
+      },
+      "mean_per_task_ratios": {
+        "wall_seconds": 0.9192273649526781,
+        "final_verus_seconds": 1.0693002481627696,
+        "cumulative_command_proxy_seconds": 0.8735329706942879
+      },
+      "unmatched": [],
+      "excluded": {}
+    },
+    {
+      "name": "main_G1",
+      "source_run": "obligation-guidance-20261024-run24-v1",
+      "control": "G0_original_main",
+      "modified": "G1_obligation_main",
+      "repeats": 3,
+      "summary": {
+        "G0_original_main": {
+          "runs": 12,
+          "passes": 9,
+          "wall_seconds": 314.5543567369071,
+          "final_verus_seconds": 0.5968771161763774,
+          "cumulative_command_proxy_seconds": 4.605947532467932,
+          "completed_actor_verus_commands": 123,
+          "mixed_commands": 21,
+          "mixed_command_seconds": 6.852742910385132
+        },
+        "G1_obligation_main": {
+          "runs": 12,
+          "passes": 10,
+          "wall_seconds": 314.1383259448242,
+          "final_verus_seconds": 0.6795650995045435,
+          "cumulative_command_proxy_seconds": 5.61206117036636,
+          "completed_actor_verus_commands": 124,
+          "mixed_commands": 6,
+          "mixed_command_seconds": 3.6910147666931152
+        }
+      },
+      "mean_per_task_ratios": {
+        "wall_seconds": 1.1579906632939556,
+        "final_verus_seconds": 1.1374640450716034,
+        "cumulative_command_proxy_seconds": 1.1822534337874733
+      },
+      "unmatched": [],
+      "excluded": {
+        "invalid_wrapper_usage": 1
+      }
+    }
+  ],
+  "checks": {
+    "episodes": 40,
+    "unique_episodes": 40,
+    "final_host_event_times_match": true,
+    "historical_outcomes_unchanged": true,
+    "raw_data_changed": false,
+    "new_api_or_prover_calls": 0
+  }
+}

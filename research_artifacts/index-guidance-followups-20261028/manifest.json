@@ -1,0 +1,341 @@
+{
+  "schema": "reviewed-index-guidance-publication-v1",
+  "date": "2026-10-28",
+  "prior_publication_commit": "6832542f4f5f6ff909b6f060cb9518730b044a15",
+  "source_aliases": {
+    "RUN_ROOT": "External skillopt-verusage run directory; not included",
+    "REPO": "Repository root"
+  },
+  "scope": "Selected frozen bundles, contract summaries, reviewed reports and per-episode metrics. No complete run directories, private paths, raw requests/responses, credentials, launch approvals or reference solutions.",
+  "files": [
+    {
+      "path": "index_v2/bundles/I0_old_index/SKILL.md",
+      "sha256": "5d24245c9e718ac38c465ecaf89d5816839e28b72f1772618c6120f5e8829c8a",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/index-matching-20261024-run16-v1/bundles/I0_old_index/SKILL.md",
+      "source_sha256": "5d24245c9e718ac38c465ecaf89d5816839e28b72f1772618c6120f5e8829c8a"
+    },
+    {
+      "path": "index_v2/bundles/I0_old_index/cards.json",
+      "sha256": "213dc075e353f5c4a426c3d06c6c355045176b6d353667201b05736b2f4149d8",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/index-matching-20261024-run16-v1/bundles/I0_old_index/cards.json",
+      "source_sha256": "213dc075e353f5c4a426c3d06c6c355045176b6d353667201b05736b2f4149d8"
+    },
+    {
+      "path": "index_v2/bundles/I0_old_index/card_read.py",
+      "sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/index-matching-20261024-run16-v1/bundles/I0_old_index/card_read.py",
+      "source_sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57"
+    },
+    {
+      "path": "index_v2/bundles/I2_matching_v2/SKILL.md",
+      "sha256": "34ae679697213cd375a2dde8d6ad3cc7125e45f6b46e7f2b71c0adac796e0c95",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/index-matching-20261024-run16-v1/bundles/I2_matching_v2/SKILL.md",
+      "source_sha256": "34ae679697213cd375a2dde8d6ad3cc7125e45f6b46e7f2b71c0adac796e0c95"
+    },
+    {
+      "path": "index_v2/bundles/I2_matching_v2/cards.json",
+      "sha256": "213dc075e353f5c4a426c3d06c6c355045176b6d353667201b05736b2f4149d8",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/index-matching-20261024-run16-v1/bundles/I2_matching_v2/cards.json",
+      "source_sha256": "213dc075e353f5c4a426c3d06c6c355045176b6d353667201b05736b2f4149d8"
+    },
+    {
+      "path": "index_v2/bundles/I2_matching_v2/card_read.py",
+      "sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/index-matching-20261024-run16-v1/bundles/I2_matching_v2/card_read.py",
+      "source_sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57"
+    },
+    {
+      "path": "index_v2/I0-I2.diff",
+      "sha256": "7e845d6c45250baa6c6cb8b570bf9b13f4b3016dbf74c79ea7625e9c3ad54860",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/index-matching-20261024-run16-v1/I0-I2.diff",
+      "source_sha256": "7e845d6c45250baa6c6cb8b570bf9b13f4b3016dbf74c79ea7625e9c3ad54860"
+    },
+    {
+      "path": "index_v2/EXECUTIVE.md",
+      "sha256": "89e04498de97d9abe744aecf0c6771915b0961e78e06e655afff4b69a7759540",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/index-matching-20261024-run16-v1/EXECUTIVE.md",
+      "source_sha256": "89e04498de97d9abe744aecf0c6771915b0961e78e06e655afff4b69a7759540"
+    },
+    {
+      "path": "index_v2/TASK.md",
+      "sha256": "238435d2e60c7e5e51940805c1f9aa83bf27b112d8e298e2f9d8af5730fc4e6c",
+      "transformation": "Only the installed vstd personal absolute path is replaced by ${VSTD_SOURCE_ROOT}; original source hash retained.",
+      "source": "RUN_ROOT/index-matching-20261024-run16-v1/TASK.md",
+      "source_sha256": "5f32a1cc4ef90b5898ebef41eb20f22d3abaa732055fc20d4e097834afbd7e5d"
+    },
+    {
+      "path": "index_v2/contract-summary.json",
+      "sha256": "ed7c7b85841ba7e98d45f6774060e245420de9cb2cd295c27712427de3190d66",
+      "transformation": "selected fields; run-root paths aliased",
+      "source": "RUN_ROOT/index-matching-20261024-run16-v1/validation_contract.json",
+      "source_sha256": "cfed3295af50222dc34bdf08b6f6936c18ad3345a2dab07c0afecda402fb8f84"
+    },
+    {
+      "path": "index_v2/episodes.csv",
+      "sha256": "94c1a6fcaa06e41d3ec6cbce31d97bd5c0b4ba5b33b85f306360111ee3158ea6",
+      "transformation": "selected reviewed scalar fields; repeat converted from zero-based to one-based; path aliases",
+      "source": "RUN_ROOT/index-matching-20261024-run16-v1/final-review/analysis.json",
+      "source_sha256": "2c951ef2c2b6ff9f748b88c485a2970bd56c97dc20cecee6c64ce5f96bf32d42"
+    },
+    {
+      "path": "main_G1/bundles/G0_original_main/SKILL.md",
+      "sha256": "e8f13dbda4f58a152b3f00d0e06f3d38177339c8a0a422722e8ec140beeec532",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/obligation-guidance-20261024-run24-v1/bundles/G0_original_main/SKILL.md",
+      "source_sha256": "e8f13dbda4f58a152b3f00d0e06f3d38177339c8a0a422722e8ec140beeec532"
+    },
+    {
+      "path": "main_G1/bundles/G0_original_main/cards.json",
+      "sha256": "213dc075e353f5c4a426c3d06c6c355045176b6d353667201b05736b2f4149d8",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/obligation-guidance-20261024-run24-v1/bundles/G0_original_main/cards.json",
+      "source_sha256": "213dc075e353f5c4a426c3d06c6c355045176b6d353667201b05736b2f4149d8"
+    },
+    {
+      "path": "main_G1/bundles/G0_original_main/card_read.py",
+      "sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/obligation-guidance-20261024-run24-v1/bundles/G0_original_main/card_read.py",
+      "source_sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57"
+    },
+    {
+      "path": "main_G1/bundles/G1_obligation_main/SKILL.md",
+      "sha256": "7df0f0299b9c041fb4eb46f1bb95fba0358c578a5a70ee531233b3b347e05820",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/obligation-guidance-20261024-run24-v1/bundles/G1_obligation_main/SKILL.md",
+      "source_sha256": "7df0f0299b9c041fb4eb46f1bb95fba0358c578a5a70ee531233b3b347e05820"
+    },
+    {
+      "path": "main_G1/bundles/G1_obligation_main/cards.json",
+      "sha256": "213dc075e353f5c4a426c3d06c6c355045176b6d353667201b05736b2f4149d8",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/obligation-guidance-20261024-run24-v1/bundles/G1_obligation_main/cards.json",
+      "source_sha256": "213dc075e353f5c4a426c3d06c6c355045176b6d353667201b05736b2f4149d8"
+    },
+    {
+      "path": "main_G1/bundles/G1_obligation_main/card_read.py",
+      "sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/obligation-guidance-20261024-run24-v1/bundles/G1_obligation_main/card_read.py",
+      "source_sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57"
+    },
+    {
+      "path": "main_G1/G0-G1.diff",
+      "sha256": "14874f3d30d15229d76c2f6d7645e1a45a39bb0ff5cfe3c009e4180607613101",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/obligation-guidance-20261024-run24-v1/G0-G1.diff",
+      "source_sha256": "14874f3d30d15229d76c2f6d7645e1a45a39bb0ff5cfe3c009e4180607613101"
+    },
+    {
+      "path": "main_G1/EXECUTIVE.md",
+      "sha256": "89e04498de97d9abe744aecf0c6771915b0961e78e06e655afff4b69a7759540",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/obligation-guidance-20261024-run24-v1/EXECUTIVE.md",
+      "source_sha256": "89e04498de97d9abe744aecf0c6771915b0961e78e06e655afff4b69a7759540"
+    },
+    {
+      "path": "main_G1/TASK.md",
+      "sha256": "238435d2e60c7e5e51940805c1f9aa83bf27b112d8e298e2f9d8af5730fc4e6c",
+      "transformation": "Only the installed vstd personal absolute path is replaced by ${VSTD_SOURCE_ROOT}; original source hash retained.",
+      "source": "RUN_ROOT/obligation-guidance-20261024-run24-v1/TASK.md",
+      "source_sha256": "5f32a1cc4ef90b5898ebef41eb20f22d3abaa732055fc20d4e097834afbd7e5d"
+    },
+    {
+      "path": "main_G1/COMMON_ID_FIX.diff",
+      "sha256": "7a17883374e03ad90dcd6fd102096a30a3dfce325d6d91663a9fd489a7642205",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/obligation-guidance-20261024-run24-v1/COMMON_ID_FIX.diff",
+      "source_sha256": "7a17883374e03ad90dcd6fd102096a30a3dfce325d6d91663a9fd489a7642205"
+    },
+    {
+      "path": "main_G1/contract-summary.json",
+      "sha256": "f657895616fb04341fb7c709881d32875d88dbc3fd00e49b2eafbc7cf3775986",
+      "transformation": "selected fields; run-root paths aliased",
+      "source": "RUN_ROOT/obligation-guidance-20261024-run24-v1/validation_contract.json",
+      "source_sha256": "a256797fb1703c6614ad65e2bf543909916d641c45a6e46b20bb0493c90d3057"
+    },
+    {
+      "path": "main_G1/episodes.csv",
+      "sha256": "af01ee16a945a034e2da8cd096a1d842006bfeebbf1e7fb5fdabddc35d6f4911",
+      "transformation": "selected reviewed scalar fields; repeat converted from zero-based to one-based; path aliases",
+      "source": "RUN_ROOT/obligation-guidance-20261024-run24-v1/final-review/analysis.json",
+      "source_sha256": "d340fa5e6ecab1c2fd869ce0fb339fbd8d4d2e4373541c991870b244f00f1645"
+    },
+    {
+      "path": "premise_G2/bundles/G1_current/SKILL.md",
+      "sha256": "7df0f0299b9c041fb4eb46f1bb95fba0358c578a5a70ee531233b3b347e05820",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/guidance-premises-20261024-run24-v1/bundles/G1_current/SKILL.md",
+      "source_sha256": "7df0f0299b9c041fb4eb46f1bb95fba0358c578a5a70ee531233b3b347e05820"
+    },
+    {
+      "path": "premise_G2/bundles/G1_current/cards.json",
+      "sha256": "213dc075e353f5c4a426c3d06c6c355045176b6d353667201b05736b2f4149d8",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/guidance-premises-20261024-run24-v1/bundles/G1_current/cards.json",
+      "source_sha256": "213dc075e353f5c4a426c3d06c6c355045176b6d353667201b05736b2f4149d8"
+    },
+    {
+      "path": "premise_G2/bundles/G1_current/card_read.py",
+      "sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/guidance-premises-20261024-run24-v1/bundles/G1_current/card_read.py",
+      "source_sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57"
+    },
+    {
+      "path": "premise_G2/bundles/G2_premise_check/SKILL.md",
+      "sha256": "a1c3f5762f77d40c48445c4df3d6311bad6fb9820ac26ea3f61ef62480bcb6b6",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/guidance-premises-20261024-run24-v1/bundles/G2_premise_check/SKILL.md",
+      "source_sha256": "a1c3f5762f77d40c48445c4df3d6311bad6fb9820ac26ea3f61ef62480bcb6b6"
+    },
+    {
+      "path": "premise_G2/bundles/G2_premise_check/cards.json",
+      "sha256": "213dc075e353f5c4a426c3d06c6c355045176b6d353667201b05736b2f4149d8",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/guidance-premises-20261024-run24-v1/bundles/G2_premise_check/cards.json",
+      "source_sha256": "213dc075e353f5c4a426c3d06c6c355045176b6d353667201b05736b2f4149d8"
+    },
+    {
+      "path": "premise_G2/bundles/G2_premise_check/card_read.py",
+      "sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/guidance-premises-20261024-run24-v1/bundles/G2_premise_check/card_read.py",
+      "source_sha256": "0d6b25e4b6e3506873492d96029cfd2a4bb55f7e71b180586b93ed4c4c76fd57"
+    },
+    {
+      "path": "premise_G2/G1-G2.diff",
+      "sha256": "8d83c660b13a34eb569890a9b255b48af4efc843fb4b29ae132cac72fc61c18f",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/guidance-premises-20261024-run24-v1/G1-G2.diff",
+      "source_sha256": "8d83c660b13a34eb569890a9b255b48af4efc843fb4b29ae132cac72fc61c18f"
+    },
+    {
+      "path": "premise_G2/EXECUTIVE.md",
+      "sha256": "89e04498de97d9abe744aecf0c6771915b0961e78e06e655afff4b69a7759540",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/guidance-premises-20261024-run24-v1/EXECUTIVE.md",
+      "source_sha256": "89e04498de97d9abe744aecf0c6771915b0961e78e06e655afff4b69a7759540"
+    },
+    {
+      "path": "premise_G2/TASK.md",
+      "sha256": "238435d2e60c7e5e51940805c1f9aa83bf27b112d8e298e2f9d8af5730fc4e6c",
+      "transformation": "Only the installed vstd personal absolute path is replaced by ${VSTD_SOURCE_ROOT}; original source hash retained.",
+      "source": "RUN_ROOT/guidance-premises-20261024-run24-v1/TASK.md",
+      "source_sha256": "5f32a1cc4ef90b5898ebef41eb20f22d3abaa732055fc20d4e097834afbd7e5d"
+    },
+    {
+      "path": "premise_G2/contract-summary.json",
+      "sha256": "bda21e14b1a65f6e5dafad8716c3289081768b990169b119e093187549762d75",
+      "transformation": "selected fields; run-root paths aliased",
+      "source": "RUN_ROOT/guidance-premises-20261024-run24-v1/validation_contract.json",
+      "source_sha256": "7f9c806ed30ab34d7a59dbcf9e4c858787de2133e598a154e6a7486bb9a2dbe3"
+    },
+    {
+      "path": "premise_G2/episodes.csv",
+      "sha256": "19436a8e341cf8a3aa428e05a58741e284fcb9261bf5fafdf1e95109053ddbb6",
+      "transformation": "selected reviewed scalar fields; repeat converted from zero-based to one-based; path aliases",
+      "source": "RUN_ROOT/guidance-premises-20261024-run24-v1/final-review/analysis.json",
+      "source_sha256": "c8d00d04f345a40f500c240f55634d3c557591566774b3662a920a463ff1cfa1"
+    },
+    {
+      "path": "index_v2/REPORT.md",
+      "sha256": "24b8205f0cc794a23ba6e4db97601a14d61debe47ad94caf6fe5a82ceac944cf",
+      "transformation": "historical reviewed report; local links mapped or labeled as archive-only; path aliases; publication note",
+      "source": "RUN_ROOT/index-matching-20261024-run16-v1/final-review/REPORT.md",
+      "source_sha256": "5612eda81f77b25fe71c6e1916a6bcfcd3506faff349ca2782cda3634fa38916"
+    },
+    {
+      "path": "main_G1/REPORT.md",
+      "sha256": "7b15841bc77aebd7577c12af5775f3cc1f371c7197f9a035e6ab89e369325861",
+      "transformation": "historical reviewed report; local links mapped or labeled as archive-only; path aliases; publication note",
+      "source": "RUN_ROOT/obligation-guidance-20261024-run24-v1/final-review/REPORT.md",
+      "source_sha256": "82eda46ca24f577e278e9343b9f5fd2f872d1472cca55b93f7b9b7df51bb533c"
+    },
+    {
+      "path": "premise_G2/REPORT.md",
+      "sha256": "6d885e3bea7f52cf01401fb3198f10b595961b7410a7a32e11c97982bdbaecbd",
+      "transformation": "historical reviewed report; local links mapped or labeled as archive-only; path aliases; publication note",
+      "source": "RUN_ROOT/guidance-premises-20261024-run24-v1/final-review/REPORT.md",
+      "source_sha256": "544bf70c8d6349a636344fc29f2d7a57899339c1cc1f2af64ee2d69bb1e0b145"
+    },
+    {
+      "path": "timing/per-task.csv",
+      "sha256": "e037dc31a9c95bbe793b236f63ad44cf267439caa69934cd289be92af0cde316",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/followup-timing-20261028/per-task.csv",
+      "source_sha256": "e037dc31a9c95bbe793b236f63ad44cf267439caa69934cd289be92af0cde316"
+    },
+    {
+      "path": "timing/cells.csv",
+      "sha256": "3f54e3cf32a2be3d50c8941e74c9707279ec68c4af785ec102119d645a592f96",
+      "transformation": "run-root path alias; measurements unchanged",
+      "source": "RUN_ROOT/followup-timing-20261028/cells.csv",
+      "source_sha256": "9c8974c23a2605b44ac19ba9ed164947c6a9c1bf8d881385f2c429c15d6f7324"
+    },
+    {
+      "path": "timing/summary.json",
+      "sha256": "49399296a3e0006239d7a4c82ff9554f4442899f1d0aa980837a959042e1add0",
+      "transformation": "selected aggregate fields only",
+      "source": "RUN_ROOT/followup-timing-20261028/analysis.json",
+      "source_sha256": "ae7c57e0356809e447f0e18573e70cca0d4d2a1596edfa2be99b129232b6ac66"
+    },
+    {
+      "path": "timing/source-hashes.json",
+      "sha256": "73032857e76e521a035e9cb9ea07f11e35a286c5c71945eb73c29e5952378689",
+      "transformation": "source-file hashes only; run-root paths aliased",
+      "source": "RUN_ROOT/followup-timing-20261028/analysis.json",
+      "source_sha256": "ae7c57e0356809e447f0e18573e70cca0d4d2a1596edfa2be99b129232b6ac66"
+    },
+    {
+      "path": "timing/archive_analyze.py",
+      "sha256": "e9aa5769cdc23ba68d45d05c0a109c0109750f2a474c3fa44bfc6c7d9cd601a5",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/followup-timing-20261028/analyze.py",
+      "source_sha256": "e9aa5769cdc23ba68d45d05c0a109c0109750f2a474c3fa44bfc6c7d9cd601a5"
+    },
+    {
+      "path": "timing/REPORT.md",
+      "sha256": "d7bf72f3b8786cc1081fd0d7ff5e9480451f39e515f32ff1e0e3bcbf907b2cd9",
+      "transformation": "publication-relative links and archive prerequisites; numerical content unchanged",
+      "source": "RUN_ROOT/followup-timing-20261028/REPORT.md",
+      "source_sha256": "bbeb25d22e575a02c33f4b45f34b1bfe93d0a0b853786aad4741ce826f1f6251"
+    },
+    {
+      "path": "INDEX_V2.md",
+      "sha256": "3001e0481118f8a45521feccf97b6ddc167600d21914533ea32a7da449db8b92",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/index-matching-20261024-v2/INDEX_NEW.md",
+      "source_sha256": "3001e0481118f8a45521feccf97b6ddc167600d21914533ea32a7da449db8b92"
+    },
+    {
+      "path": "main_G1/reviewed-insertions.json",
+      "sha256": "bed5809f433537e9791ab61a048b0d1c230b104db1db0ed41919591e708b981e",
+      "transformation": "selected three approved insertions and exact draft hash",
+      "source": "RUN_ROOT/obligation-guidance-20261024-run24-v1/checks.json",
+      "source_sha256": "41812f02ddd404649d7314a64148e93be833b3796206fffb728b47c383ff379e"
+    },
+    {
+      "path": "main_G1/GUIDANCE.md",
+      "sha256": "e84375e50e13bf0816f5666502e3fa556e94578c8a02bf200934e3306fd27c72",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/obligation-guidance-20261024-run24-v1/GUIDANCE.md",
+      "source_sha256": "e84375e50e13bf0816f5666502e3fa556e94578c8a02bf200934e3306fd27c72"
+    },
+    {
+      "path": "premise_G2/GUIDANCE.md",
+      "sha256": "1f95b37980b2a4a63a408bda0253516309df3283c5b27eec7e9f1e9622881c89",
+      "transformation": "verbatim",
+      "source": "RUN_ROOT/guidance-premises-20261024-run24-v1/GUIDANCE.md",
+      "source_sha256": "1f95b37980b2a4a63a408bda0253516309df3283c5b27eec7e9f1e9622881c89"
+    }
+  ]
+}

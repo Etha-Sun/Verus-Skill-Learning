@@ -1,0 +1,11 @@
+--- frozen-v2/SKILL.md
++++ common-baseline/SKILL.md
+@@ -20,7 +20,7 @@
+ cards to read based on your current proof state; no retrieval ranking or fixed
+ card count is imposed. Read any indexed card by ID:
+ 
+-    python3 card_read.py card-001
++    python3 card_read.py new-001
+ 
+ You may read additional cards, decline their advice, or continue without them.
+ Check applicability and rejection conditions against the current state, perform required
