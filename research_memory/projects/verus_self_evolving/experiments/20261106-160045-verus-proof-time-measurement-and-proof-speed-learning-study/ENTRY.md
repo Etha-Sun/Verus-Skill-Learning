@@ -7,7 +7,7 @@
 - created_at: `2026-11-06T16:00:45`
 - status: `complete`
 - motivating meeting: `../../meetings/20261106-150340-proof-time-as-evaluation-metric-and-skill-learning-reward-meeting/ENTRY.md`
-- code: `scripts/proof_time/` (commits `1205049`, `1b28cf5`)
+- code: `scripts/proof_time/` (commits `49e4f7a`, `be2dce5`)
 - outputs: `$VERUS_SKILL_RUN_ROOT/proof-time-study-20261106/` (local machine:
   `~/verus-skill-runs/proof-time-study-20261106`), not committed
 - toolchain: Verus 0.2025.09.12.bb1f342 + bundled Z3 4.12.5; human proofs from

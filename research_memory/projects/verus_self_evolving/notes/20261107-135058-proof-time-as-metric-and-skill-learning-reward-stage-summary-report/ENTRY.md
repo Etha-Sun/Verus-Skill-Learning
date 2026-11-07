@@ -9,7 +9,7 @@
 - audience: advisor and group meeting
 - assignment: `../../meetings/20261106-150340-proof-time-as-evaluation-metric-and-skill-learning-reward-meeting/ENTRY.md`
 - full evidence: `../../experiments/20261106-160045-verus-proof-time-measurement-and-proof-speed-learning-study/ENTRY.md`
-- code: `scripts/proof_time/` (commits `1205049`, `1b28cf5`)
+- code: `scripts/proof_time/` (commits `49e4f7a`, `be2dce5`)
 - run outputs: `$VERUS_SKILL_RUN_ROOT/proof-time-study-20261106/` (not committed)
 
 ## Question
