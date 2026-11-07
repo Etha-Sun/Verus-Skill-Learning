@@ -1,5 +1,46 @@
 # Current Research State
 
+## Proof-time study ANALYSIS COMPLETE, card learning deferred (2026-11-06)
+
+The advisor meeting (11-06) asked to treat Verus proof time as a metric and as a
+skill-learning reward. Findings:
+- Verus 0.2025.09.12's per-function rlimit-count is lagged/wrong. Exact cost now
+  comes from SMT-log replay (scripts/proof_time/smt_replay.py); it is
+  seed-stable, and log-corr with Z3 time is 0.86 on heavy tasks.
+- Human vs DeepSeek cost is at parity on 50 tasks (1.03x).
+- Cost is driven by spec-definition unfolding, prelude axioms and case splits,
+  not by redundant asserts or user quantifiers.
+- On 68 heavy human proofs (SMT > 2 s), one single deletion (an unneeded assert
+  of a large predicate) or adding spinoff_prover gives >30% savings in 13 tasks.
+  Confirmed in seconds (median 0.72x; e.g. 30 s -> 11 s).
+- Failing calls are not slower, but on heavy proofs removing a needed statement
+  often runs past 4x baseline.
+- DeepSeek optimizer edits gave little (geomean 0.956), and the edits are mostly
+  null.
+Follow-up findings:
+- Search post-processing with exact rlimit, no LLM: 0.781 on 67 heavy human
+  proofs and 0.958 on 50 small DeepSeek proofs.
+- A ranking eval asked DeepSeek to spot costly-unneeded statements. With none,
+  rules or learned cards it did not beat random on held-out tasks; cards
+  overfit train.
+End-to-end A/B (11-07): Codex + DeepSeek, val 20 tasks x 3 conditions x 4
+repeats, $38.6. Final-proof cost vs base:
+- learned rules SKILL: 0.972x (p=0.03, no task costlier), solves 57 vs 51.
+- measure-and-clean procedure: 0.952x (p=0.18), but 1.4x agent time.
+The effect is small and matches the ~5% removable upper bound on small tasks.
+Heavy end-to-end (11-07): 16 bench-only AC/OS/NR tasks, bwrap-sandboxed
+(the old harness let agents see benchmark ground truth; audited, val
+unaffected), 75 episodes, $18.
+- Solves: about 60% in every condition; the AC tasks were never solved.
+- Cost on 9 paired tasks vs base:
+  - procedure 0.87x (p=0.16, 1.24x time);
+  - rules 1.04x (no effect).
+- Solution-path variance on the same task is large (up to 4x) and dominates
+  any skill effect.
+- Next idea: same-task, different-path contrasts and best-of-k by exact cost.
+Entry:
+projects/verus_self_evolving/experiments/20261106-160045-verus-proof-time-measurement-and-proof-speed-learning-study/ENTRY.md
+
 ## October DeepSeek card/trace private publication COMPLETE (2026-10-11)
 
 User explicitly authorized uploading complete cards and traces to the existing

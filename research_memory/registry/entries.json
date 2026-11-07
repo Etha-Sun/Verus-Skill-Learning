@@ -1,5 +1,21 @@
 [
   {
+    "created_at": "2026-11-06T16:00:45",
+    "project": "verus_self_evolving",
+    "kind": "experiments",
+    "title": "Verus proof time measurement and proof speed learning study",
+    "status": "analysis_complete_card_learning_not_started",
+    "path": "projects/verus_self_evolving/experiments/20261106-160045-verus-proof-time-measurement-and-proof-speed-learning-study/ENTRY.md"
+  },
+  {
+    "created_at": "2026-11-06T15:03:40",
+    "project": "verus_self_evolving",
+    "kind": "meetings",
+    "title": "Proof time as evaluation metric and skill learning reward meeting",
+    "status": "reviewed_summary",
+    "path": "projects/verus_self_evolving/meetings/20261106-150340-proof-time-as-evaluation-metric-and-skill-learning-reward-meeting/ENTRY.md"
+  },
+  {
     "created_at": "2026-10-11T14:24:45",
     "project": "verus_self_evolving",
     "kind": "notes",
