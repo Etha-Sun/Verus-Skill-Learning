@@ -320,6 +320,93 @@ User direction: relative gains on small tasks also count; hope heavy-task lesson
     same agent) are natural, strong learning signal for cost-aware cards or
     for best-of-k selection.
 
+## Same-task cost-contrast pairs (2026-11-07, `mine_pairs.py`)
+
+- Pool: 561 verified DeepSeek proofs over 60 tasks, from historical runs, val
+  e2e and heavy e2e, each with an exact target-function cost.
+- Small tasks have almost no contrast:
+  - train: 6 of 34 tasks have a pair at 1.5x or more, the largest 2.2x;
+  - selection (val): 3 of 17.
+  - Absolute costs are tiny (0.03-0.4M rlimit).
+- Large contrasts appear only on heavy tasks: shootdown 9.7x,
+  run_blocked_thread 5.4x, new_endpoint 4.1x, plus 2 tasks around 1.6-1.7x.
+- Cost is not monotone in the number of asserts.
+  - new_endpoint: the cheapest proof (25M) asserts each `wf` conjunct
+    separately (19 asserts) before the closing lemma call. The costliest
+    (104M) asserts `self.wf()` as one obligation.
+  - run_blocked_thread and block_running_thread: re-asserting `wf`
+    conjuncts that were not needed made the proof costlier (15.7M vs 9.2M).
+  - So the useful lesson is conditional:
+    - split a large obligation that must be proved into its conjuncts;
+    - do not assert large facts that are not needed.
+  - Surface rules such as "fewer asserts" cannot express this, which fits the
+    null rules result on heavy tasks.
+- Consequence: pair-based card learning needs more same-task samples on heavy
+  tasks; the existing train split has too little contrast.
+
+## Pair-card learning: design and expectations, written before running (2026-11-07)
+
+- Training pool: the 9 heavy tasks solved before. 4 more base samples each
+  (repeats r2-r5, same sandboxed harness, 1200 s), added to the existing
+  proofs.
+- Cards: DeepSeek sees, per training task, the cheapest and costliest verified
+  proofs. The prompt carries:
+  - the target-region diff;
+  - exact per-function cost;
+  - the instruction to write general, conditional cards with no task names.
+- Held-out test: `e2e_heavy_test.jsonl`, fixed before any sampling.
+  - 10 of the 19 unused, guard-passing, non-AC heavy tasks (7 OS, 3 NR),
+    spread evenly over human Z3 time.
+  - AC is excluded because it was 0/24 solved within 1200 s.
+  - Caveat: several OS test tasks share the process_manager code base with
+    training tasks. That transfer is within a project, which is the realistic
+    use case.
+- Test arms: base vs base+pair-cards, 2 repeats each (40 episodes). The
+  primary metric is paired target-function cost; solve rate and time are
+  secondary.
+- Expectations:
+  - Within-task path variance (p75 max/min 1.5) is large, so with about 6-8
+    paired tasks only an effect around 0.8x or stronger could show; p<0.05
+    is unlikely.
+  - The plausible outcome is a direction: 0.85-1.0x.
+  - The cards may also lower the solve rate if they push agents to decompose
+    too much.
+  - A cost above 1.0x would mean the conditional lesson was mislearned.
+
+## Pair-card learning: results (2026-11-07)
+
+- Sampling: 36 base episodes on the 9 training tasks, $6.36, 25 new verified
+  proofs.
+  - Training pairs at 1.5x or more: 7 heavy (4 at 3x or more) and 6 from the
+    small train split.
+  - Test and val tasks were excluded.
+- Cards (`skills/pair_cards.md`, a single DeepSeek call, about $0.04), 6 in
+  total:
+  - library lemmas over manual pointwise reasoning;
+  - a narrow helper that reveals an invariant once;
+  - split a large wf conjunction that must be re-established;
+  - constructor case analysis for disjunctive transitions;
+  - bind old-state facts before mutation;
+  - direct per-element loop invariants.
+  - All are general and conditional, with no task names.
+- Card audit before testing: the decomposition card cites 3 pairs, but the
+  full sample spread supports it on only 1 task (new_endpoint).
+  - block_running_thread: decomposed proofs cost 8.8M, 15.7M and 20.8M.
+  - run_blocked_thread: no relation.
+  - Contrasting only the extremes (cheapest vs costliest) overstates a pattern.
+    This is a weakness of the pair method.
+- Held-out test: 10 tasks × {base, paircards} × 2, 40 episodes, $6.94.
+  - Solves: 9/20 vs 9/20. 5 tasks were never solved; all 3 NR test tasks
+    timed out in every run.
+  - Paired cost on the only 4 tasks solved in both arms: 0.994x (p=1.0).
+    2 of those 4 give identical cost in every run of both arms (essentially
+    one proof).
+  - One sibling task of a training task (block_running..._set_trap_frame) was
+    solved 2/2 with cards vs 0/2 base. It is a single task, so no claim is
+    made.
+- Verdict: no measurable effect, inside the expected 0.85-1.0 range at the
+  null end. Same-task pair cards did no better than hand rules.
+
 ## Updated conclusions
 
 - Proof-cost knowledge stated as text did not let DeepSeek predict which

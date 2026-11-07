@@ -187,6 +187,7 @@ def main() -> None:
     ap.add_argument("--skill-base", type=Path, required=True)
     ap.add_argument("--skill-rules", type=Path, required=True)
     ap.add_argument("--skill-procedure", type=Path, required=True)
+    ap.add_argument("--skill-paircards", type=Path, help="cards learned from same-task cost pairs")
     ap.add_argument("--repeats", type=int, default=4)
     ap.add_argument("--budget", type=int, default=600)
     ap.add_argument("--codex", default=shutil.which("codex") or "codex")
@@ -204,6 +205,8 @@ def main() -> None:
     a.skills = {"base": base, "rules": base + "\n\n" + a.skill_rules.read_text(),
                 "procedure": base + "\n\n" + a.skill_procedure.read_text().replace(
                     "you will be shown the exact", "run ./tools/proof_cost.sh to see the exact")}
+    if a.skill_paircards:
+        a.skills["paircards"] = base + "\n\n" + a.skill_paircards.read_text()
     tasks = [json.loads(l) for l in a.tasks.read_text().splitlines()]
     if a.only_task:
         tasks = [t for t in tasks if t["task_id"] == a.only_task]

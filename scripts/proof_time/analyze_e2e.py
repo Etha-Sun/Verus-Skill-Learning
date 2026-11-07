@@ -21,7 +21,7 @@ root = Path(sys.argv[1])
 tasks = {json.loads(l)["task_id"]: json.loads(l) for l in Path(sys.argv[2]).read_text().splitlines()}
 bench = {json.loads(l)["task_id"]: json.loads(l) for l in Path(sys.argv[3]).read_text().splitlines()}
 rs = [json.loads(p.read_text()) for p in root.glob("*/*/result.json")]
-conds = ["base", "rules", "procedure"]
+conds = [c for c in ["base", "rules", "procedure", "paircards"] if (root / c).is_dir()]
 src_fns = {}
 
 
@@ -56,7 +56,7 @@ def perm_p(logs, n=20000):
     return hits / n
 
 
-for a_, b_ in [("rules", "base"), ("procedure", "base"), ("procedure", "rules")]:
+for a_, b_ in [(x, y) for x, y in [("rules", "base"), ("procedure", "base"), ("procedure", "rules"), ("paircards", "base")] if x in conds and y in conds]:
     for label, idx in [("target cost", 0), ("whole-file cost", 1), ("actor wall", 2)]:
         logs = [math.log(st.median(v[0] for v in by[t][a_]) if idx == 0 else st.median(x[idx] for x in by[t][a_]))
                 - math.log(st.median(v[0] for v in by[t][b_]) if idx == 0 else st.median(x[idx] for x in by[t][b_]))

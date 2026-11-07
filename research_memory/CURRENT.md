@@ -37,7 +37,13 @@ unaffected), 75 episodes, $18.
   - rules 1.04x (no effect).
 - Solution-path variance on the same task is large (up to 4x) and dominates
   any skill effect.
-- Next idea: same-task, different-path contrasts and best-of-k by exact cost.
+- Pair cards learned from same-task cheap/costly proofs: held-out heavy test
+  (10 tasks × 2 arms × 2) gave 0.994x on 4 paired tasks, solves 9 vs 9. No
+  effect. Cards from extreme pairs overstate patterns (decomposition helped on
+  1 of 3 cited tasks).
+- Conclusion: exact cost is a solid metric and selection signal (procedure,
+  best-of-k). Text skills, whether hand rules or learned cards, barely change
+  proof cost. Next: write a summary report; test-20 only if the user asks.
 Entry:
 projects/verus_self_evolving/experiments/20261106-160045-verus-proof-time-measurement-and-proof-speed-learning-study/ENTRY.md
 
