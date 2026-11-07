@@ -1,6 +1,6 @@
 # Current Research State
 
-## Proof-time study ANALYSIS COMPLETE, card learning deferred (2026-11-06)
+## Proof-time study COMPLETE, stage summary written (2026-11-07)
 
 The advisor meeting (11-06) asked to treat Verus proof time as a metric and as a
 skill-learning reward. Findings:
@@ -43,9 +43,13 @@ unaffected), 75 episodes, $18.
   1 of 3 cited tasks).
 - Conclusion: exact cost is a solid metric and selection signal (procedure,
   best-of-k). Text skills, whether hand rules or learned cards, barely change
-  proof cost. Next: write a summary report; test-20 only if the user asks.
-Entry:
+  proof cost. Next: bring the summary report to the advisor; test-20 (about
+  $13) or a smt_replay metric hook for card evaluation only if requested.
+Entries:
+projects/verus_self_evolving/notes/20261107-135058-proof-time-as-metric-and-skill-learning-reward-stage-summary-report/ENTRY.md
+(summary report)
 projects/verus_self_evolving/experiments/20261106-160045-verus-proof-time-measurement-and-proof-speed-learning-study/ENTRY.md
+(full evidence)
 
 ## October DeepSeek card/trace private publication COMPLETE (2026-10-11)
 
