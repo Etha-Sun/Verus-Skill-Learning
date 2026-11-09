@@ -95,18 +95,46 @@ signal, but it does not compress into static text guidance.
 
 ## 4. Can an agent learn to write cheaper proofs?
 
-All end-to-end runs used the real Codex CLI driving DeepSeek V4 Pro (effort
-max) under a bwrap sandbox, with exact final cost of the target function plus
-any helpers the proof added. Paired comparisons use per-task medians over
-solved repeats with a sign-flip permutation test.
+Two separate tests were used, with different metrics.
 
-| Skill tried | Where learned | Test | Cost vs base |
+**(a) Can the agent identify costly statements?** (ranking test, no proof
+writing)
+
+- Input: a verified heavy human proof with the statements of the target
+  function numbered. DeepSeek V4 Pro (effort high) picks the 5 statements it
+  believes are removable and costly.
+- Label: a statement is positive if deleting it alone keeps the proof
+  verified and cuts exact rlimit by 10% or more (from the single-factor
+  ablation).
+- Metric: precision@5 = share of the 5 picks that are positive. Higher is
+  better. 30 held-out test tasks; the averages below are over the 16 that have
+  at least one positive; 3 repeats per condition.
+
+| Guidance | Learned from | Precision@5 |
+|---|---|---|
+| random picks | - | 0.196 |
+| none | - | 0.258 |
+| evidence rules | ablations | 0.242 |
+| cards from single-statement contrasts | train split | 0.217 (beat none 9/3 on train; no transfer) |
+
+**(b) Does the agent write cheaper proofs?** (end-to-end solving)
+
+- The real Codex CLI drives DeepSeek V4 Pro (effort max) from scratch under a
+  bwrap sandbox.
+- Metric: final cost (exact rlimit of the target function plus helpers the
+  proof added) divided by the base agent's cost. Lower is better; 1.0 means no
+  effect.
+- Paired over tasks solved in both arms, using per-task medians over solved
+  repeats; p from a sign-flip permutation test.
+
+| Skill | Learned from | Test | Cost vs base |
 |---|---|---|---|
-| none (just ask to rank costly statements) | - | 30 held-out heavy proofs, ranking | precision@5 0.258 vs random 0.196 |
-| learned cards from single-statement contrasts | train split | same ranking test | 0.217 (worse than none; fit train only) |
 | rules (evidence rules + small-task cards) | ablations + train labels | val 20 small tasks, 240 episodes | 0.972, p=0.029 (14 paired tasks) |
-| rules | same | 16 heavy tasks, 75 episodes | 1.036, n.s. |
-| cards learned from same-task cheap/costly proof pairs | 9 heavy + small train tasks | 10 held-out heavy tasks, 40 episodes | 0.994, p=1.0 (4 paired tasks); solves 9/20 vs 9/20 |
+| rules | same | 16 heavy tasks, 75 episodes | 1.036, n.s. (9 paired tasks) |
+| cards from same-task cheap/costly proof pairs | 9 heavy + small train tasks | 10 held-out heavy tasks, 40 episodes | 0.994, p=1.0 (4 paired tasks); solves 9/20 vs 9/20 |
+
+For comparison, the measured-feedback procedure (section 3) gave 0.952 on val
+and 0.868 on heavy tasks.
 
 Why text skills fail here:
 
