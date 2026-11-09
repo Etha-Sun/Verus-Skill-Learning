@@ -407,6 +407,74 @@ User direction: relative gains on small tasks also count; hope heavy-task lesson
 - Verdict: no measurable effect, inside the expected 0.85-1.0 range at the
   null end. Same-task pair cards did no better than hand rules.
 
+## Path-level strategy analysis: design and expectations, written before running (2026-11-08)
+
+- Question: on heavy tasks, does the proof *strategy* (which lemmas to call,
+  whether to unfold a wf predicate manually, how to structure the proof)
+  explain the large within-task cost spread? If yes, strategy-level skills are
+  a better learning target than statement-level cards.
+- Data: the 9 heavy training tasks, all 4-10 verified proofs each (70 total),
+  already sampled; no new episodes and no test run.
+- Method (`path_strategies.py`): per task, DeepSeek sees every proof region in
+  shuffled order with no costs and groups them by proof strategy, naming each
+  group. Then compute the share of within-task log-cost variance explained by
+  the groups (eta squared), with a permutation null over random groupings of
+  the same sizes.
+- Expectations:
+  - 4 tasks have little spread (max/min 1.1-1.6x: receive_endpoint,
+    new_container, create_entry, receive_pages); grouping will explain little
+    there and is uninformative.
+  - run_blocked_thread (4-8M vs 20-23M) and block_running_thread (9-10M vs
+    16-27M) look bimodal; if strategy matters, groups should separate the
+    modes (eta squared above 0.7).
+  - new_endpoint (25-105M) is continuous; expect partial separation.
+  - Risk: the blind grouping may follow surface style (assert density) rather
+    than strategy, or the cost modes may come from small differences
+    (one large assert) rather than strategy; in that case the null result
+    supports the statement-level reading.
+- Cost: about 9 DeepSeek calls, under $1.
+
+## Path-level strategy analysis: results (2026-11-08)
+
+- Run: 9 DeepSeek V4 Pro calls (effort high), blind to cost; outputs in
+  `path_strategies/` and `path_strategies.log` in the run directory. Cost
+  under $1. eta2 = share of within-task log-cost variance explained by the
+  strategy groups; p from 10,000 random regroupings with the same sizes.
+
+| Task | Proofs | Spread | Groups | eta2 | p | Reading |
+|---|---|---|---|---|---|---|
+| new_endpoint | 9 | 4.1x | 2 | 0.64 | 0.025 | asserting every wf conjunct explicitly: 25-45M; relying on reveal + lemma: 42-105M |
+| receive_pages | 8 | 1.5x | 3 | 0.89 | 0.038 | old-state equality with case split 4.7-5.2M; direct current-state asserts 6.1-7.2M; ghost snapshots 6.7-6.9M |
+| shootdown | 4 | 9.7x | 3 | 1.00 | 0.16 | custom helper lemmas 1.2-2.2M; everything inline 11.6M |
+| receive_endpoint | 10 | 1.6x | 2 | 0.85 | 0.10 | the one proof with helper proof fns 3.9M; inline 5.4-6.3M |
+| new_container | 10 | 1.02x | 2 | - | - | no spread |
+| block_running | 9 | 3.1x | 3 | 0.22 | 0.43 | lemma-based group spans 9.1-27.4M |
+| no_lock | 4 | 1.6x | 2 | 0.12 | 1.0 | no relation |
+| run_blocked | 7 | 5.4x | 3 | 0.05 | 0.97 | every group spans about 4-23M |
+| create_entry | 10 | 1.08x | 1 | - | - | one strategy |
+
+- Against the expectations written beforehand:
+  - The two bimodal tasks (run_blocked, block_running) were expected to
+    separate by strategy. They did not: the cost modes cut across the blind
+    strategy groups, so they come from finer differences (which large
+    predicates are asserted), not from the overall approach.
+  - new_endpoint separated partially, as expected (eta2 0.64).
+  - Strategy did explain cost on shootdown and on two low-spread tasks.
+- Recurring patterns (each from 1-2 tasks, so hypotheses only):
+  - Factoring invariant reasoning into separate helper lemmas was cheaper
+    in both tasks where some proofs did it (shootdown 1.2-2.2M vs 11.6M;
+    receive_endpoint 3.9M vs 5.4-6.3M). The cost counted includes the added
+    helpers, so this is a real saving; it resembles the spinoff_prover lever
+    (smaller solver context per query).
+  - Explicitly rebuilding a large wf conjunction helped on new_endpoint but
+    not on block_running (8.8M and 15.7M), the same mixed evidence as the
+    pair-card audit.
+- Verdict: strategy matters on some heavy tasks, but it does not explain the
+  largest spreads, and no strategy-level rule is supported on more than 2
+  tasks. A strategy-level skill would rest on the "helper lemma" pattern,
+  which needs more tasks to confirm. Caveat: one blind grouping per task by
+  one model; a different grouping could change eta2 on small tasks.
+
 ## Updated conclusions
 
 - Proof-cost knowledge stated as text did not let DeepSeek predict which

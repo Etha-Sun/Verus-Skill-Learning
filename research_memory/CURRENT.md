@@ -43,7 +43,13 @@ unaffected), 75 episodes, $18.
   1 of 3 cited tasks).
 - Conclusion: exact cost is a solid metric and selection signal (procedure,
   best-of-k). Text skills, whether hand rules or learned cards, barely change
-  proof cost. Next: bring the summary report to the advisor; test-20 (about
+  proof cost.
+- Path-level analysis (11-08, no new episodes): blind strategy groups of the
+  70 verified proofs on 9 heavy tasks explain cost on new_endpoint (p=0.025),
+  shootdown and receive_pages, but not the two largest bimodal spreads
+  (run_blocked, block_running). Only hypothesis: factoring invariant
+  reasoning into helper lemmas was cheaper on 2/2 tasks where it appeared.
+  Next: bring the summary report to the advisor; test-20 (about
   $13) or a smt_replay metric hook for card evaluation only if requested.
 Entries:
 projects/verus_self_evolving/notes/20261107-135058-proof-time-as-metric-and-skill-learning-reward-stage-summary-report/ENTRY.md
