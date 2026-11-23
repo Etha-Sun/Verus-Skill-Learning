@@ -1,5 +1,73 @@
 # Current Research State
 
+## Verus speed study: baseline, batching, fail-fast flags (2026-11-22)
+
+User asked to learn from AXLE (arXiv 2606.26442) and speed up Verus. AXLE's
+server is closed (GitHub has only the Python client); its measured gains are
+preloaded Mathlib (5.14 s -> 1.05 s median), no environment replay, and
+concurrency. Verus baseline on 802 verifying VeruSAGE human proofs
+(0.2025.09.12, shared noisy host, best of 3):
+- SMT is 64% of total time, but 68% of files are light (SMT < 0.2 s, SMT 5%
+  of their time); 10% heavy files take 64% of all time (SMT 89%).
+- Fixed per-call cost: median about 0.6 s, of which vstd.vir import 173 ms.
+Levers:
+- verus-speed/batch_verify.py (files as modules of one crate): light passing
+  files CPU 0.56x, wall 1.57x at 12 processes, batch size 8; 0 verdict
+  mismatches on 547 files in 6 runs. Larger batches are slower. On a
+  half-failing set with heavy files it is a net loss (CPU 1.18x). One unstable
+  proof passed alone but failed in a batch; batch failures are now re-run
+  alone. Batch-pass/alone-fail was not observed but is not excluded.
+- --multiple-errors 0 --no-auto-recommends-check: failing runs 0.86x.
+- verus-speed/auto_speed.py wraps the existing exact-rlimit search (0.78x on
+  heavy); re-checked on one NR task (0.45x).
+Newer Verus 0.2026.11.02 (run via rust_verify + Rust 1.99.1 + PyPI Z3 4.16.0,
+no source build) is not a speed-up: only 461 of 849 files verify unchanged
+(old: 802), and on those it is 2.1x slower per file (median wall 0.69 s ->
+1.29 s; vstd import 174 -> 395 ms); solver time about equal. Stay on
+0.2025.09.12.
+Caveats: SeVerus artifact not downloaded. No end-to-end agent run was made,
+so no claim about agent episode time or solve rate.
+Follow-up on the current version (same day): a result cache was dropped
+(about 8% repeat calls, Verus 1% of episode time). verus-speed/fast_cost.py
+costs search candidates with one capped solve (Verus only logs SMT under a
+tiny rlimit; the replay gives verdict and exact rlimit): identical rlimit,
+1.65-2.3x per call, whole rewrite search 1.31x geomean on 5 heavy proofs with
+identical final proofs.
+Repository scale (same day, whole upstream crates, same Verus): IronKV 8 s,
+Node Replication 16 s, NRKernel 79 s wall / 600 s CPU (2 rlimit failures),
+Anvil framework 63 s, Anvil vreplicaset controller crate 175 s wall / 611 s
+CPU (16 threads). Wall is bounded by a few heavy functions (one Anvil lemma is
+156 s); threads saturate by 16; spinoff-all helps NRKernel (61 s) but not
+Anvil. Verifying one function costs 7.4 s (NRKernel) / 16 s (Anvil), almost
+all whole-crate front end. Atmosphere did not verify cleanly at the pinned
+commit. Estimate only: earlier single-file rewrites would give about 0.85x
+repo solver time. Section 5 of verus-speed/README.md.
+Repository-scale rewriting (same day): transplanting single-file rewrites
+fails (heaviest Anvil lemma 0.67x on its task, 1.36x in the repo; one proof
+broken). Searching inside the repo (verus-speed/repo_search.py) made 14/22
+NRKernel and 13/20 Anvil heavy functions cheaper (best 0.39x, 0.25x), but
+whole-repo exact rlimit is only 0.917x (NRKernel) and 0.932x (Anvil):
+functions in a module share a solver process, so alone-in-repo ratios do not
+add up, and an untouched Anvil lemma changed by 20M rlimit. Proof cost differs
+across three contexts (single-file task, function alone in repo, full check).
+On five unseen seeds 26 of 27 rewrites stay verified; one NRKernel rewrite
+fails 2 of 5, so three-seed confirmation is too weak.
+ARIS-style idea report with same-family review (PROCEED WITH CAUTION):
+idea-stage/IDEA_REPORT_20261122_verus_speed.md. User wants follow-up
+experiments run without asking; performance first.
+AXLE-for-Verus round (same day, after reading AXLE's docs in full): built a
+resident Verus verifier (~100-line patch, verus-speed/patches/): light files
+and failing attempts take about half the time (paired 0.53x / 0.49x, 1049
+requests, identical verdicts). Trusted check verus-speed/verify_proof.py: 0
+of 288 accepted synthetic cheats slip through vs 45 for VeruSAGE's check
+(`assume (false)` with a space). Portfolio: 8 projects on the old Verus, 4 on
+0.2026.11.02 (launchers rebuilt from source). README section 7.
+Next: function slicer for repo iteration; remove lifetime child process
+from resident mode; lemma extraction tool. into
+dataset-scale checks (best-of-k, search variants).
+Report: verus-speed/README.md; LLM guidance: verus-speed/LLM_GUIDE.md.
+Outputs: $VERUS_SKILL_RUN_ROOT/verus-speed-20261122/ (not committed).
+
 ## Proof-time study COMPLETE, stage summary written (2026-11-07)
 
 The advisor meeting (11-06) asked to treat Verus proof time as a metric and as a
