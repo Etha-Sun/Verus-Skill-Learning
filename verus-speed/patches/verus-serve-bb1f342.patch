@@ -1,0 +1,211 @@
+diff --git a/source/rust_verify/src/import_export.rs b/source/rust_verify/src/import_export.rs
+index 6865886f2..861e34c22 100644
+--- a/source/rust_verify/src/import_export.rs
++++ b/source/rust_verify/src/import_export.rs
+@@ -6,7 +6,7 @@ use std::collections::HashMap;
+ use std::sync::Arc;
+ use vir::ast::{Krate, Mode, VirErr};
+ 
+-#[derive(Debug, Deserialize, Serialize)]
++#[derive(Clone, Debug, Deserialize, Serialize)]
+ pub(crate) struct CrateMetadata {
+     pub crate_id: u64,
+     pub original_files: HashMap<Vec<u8>, FileStartEndPos>,
+@@ -24,6 +24,11 @@ pub(crate) struct ImportOutput {
+     pub(crate) metadatas: Vec<CrateMetadata>,
+ }
+ 
++type ImportKey = (String, u64, std::time::SystemTime);
++static IMPORT_CACHE: std::sync::LazyLock<
++    std::sync::Mutex<HashMap<ImportKey, (Krate, CrateMetadata)>>,
++> = std::sync::LazyLock::new(|| std::sync::Mutex::new(HashMap::new()));
++
+ pub(crate) fn import_crates(
+     args: &Args,
+     import_virs_via_cargo: Vec<(String, String)>,
+@@ -33,6 +38,18 @@ pub(crate) fn import_crates(
+     let mut vir_crates = Vec::new();
+     for (crate_name, file_path) in args.import.iter().chain(import_virs_via_cargo.iter()) {
+         crate_names.push(crate_name.clone());
++        // Resident mode: reuse an already deserialized library if the file is unchanged.
++        let cache_key = std::env::var_os("VERUS_IMPORT_CACHE").and_then(|_| {
++            let md = std::fs::metadata(file_path).ok()?;
++            Some((file_path.clone(), md.len(), md.modified().ok()?))
++        });
++        if let Some(key) = &cache_key {
++            if let Some((krate, metadata)) = IMPORT_CACHE.lock().unwrap().get(key) {
++                vir_crates.push(krate.clone());
++                metadatas.push(metadata.clone());
++                continue;
++            }
++        }
+         let file = std::io::BufReader::new(match std::fs::File::open(file_path) {
+             Ok(file) => file,
+             Err(err) => {
+@@ -52,6 +69,9 @@ pub(crate) fn import_crates(
+         };
+         //   let libcrate: Krate = serde_json::from_reader(file).expect("read crate from file");
+         // We can also look at other packages: https://github.com/djkoloski/rust_serialization_benchmark
++        if let Some(key) = cache_key {
++            IMPORT_CACHE.lock().unwrap().insert(key, (krate.clone(), metadata.clone()));
++        }
+         vir_crates.push(krate);
+         metadatas.push(metadata);
+     }
+diff --git a/source/rust_verify/src/lib.rs b/source/rust_verify/src/lib.rs
+index 83d1ba4da..f49911a6f 100644
+--- a/source/rust_verify/src/lib.rs
++++ b/source/rust_verify/src/lib.rs
+@@ -78,3 +78,9 @@ mod user_filter;
+ pub mod util;
+ pub mod verifier;
+ pub mod verus_items;
++
++/// Clears process-wide state left by a previous verification run in the same
++/// process (used by `rust_verify --internal-serve`).
++pub fn reset_process_globals() {
++    rustc_mir_build_verus::verus::reset_verus_globals();
++}
+diff --git a/source/rust_verify/src/main.rs b/source/rust_verify/src/main.rs
+index a777a7e7f..1afadff25 100644
+--- a/source/rust_verify/src/main.rs
++++ b/source/rust_verify/src/main.rs
+@@ -25,12 +25,55 @@ fn os_setup() -> Result<(), Box<dyn std::error::Error>> {
+ }
+ 
+ pub fn main() {
++    let argv: Vec<String> = std::env::args().collect();
++    if argv.get(1).map(|s| s.as_str()) == Some("--internal-serve") {
++        serve(argv[0].clone());
++        return;
++    }
++    std::process::exit(verus_main(argv));
++}
++
++/// Resident mode: verify one request per stdin line, {"cwd": ..., "args": [...]},
++/// and end each with a sentinel line carrying the exit code. Keeps the process,
++/// the loaded rustc library and (with VERUS_IMPORT_CACHE) imported VIR alive.
++fn serve(program: String) {
++    use std::io::{BufRead, Write};
++    const SENTINEL: &str = "\x1eVERUS-SERVE-DONE ";
++    let stdin = std::io::stdin();
++    for line in stdin.lock().lines() {
++        let Ok(line) = line else { break };
++        if line.trim().is_empty() {
++            continue;
++        }
++        let rc = match serde_json::from_str::<serde_json::Value>(&line) {
++            Err(_) => 2,
++            Ok(req) => {
++                let cwd = req["cwd"].as_str().unwrap_or(".").to_string();
++                let mut argv = vec![program.clone()];
++                if let Some(a) = req["args"].as_array() {
++                    argv.extend(a.iter().filter_map(|x| x.as_str().map(String::from)));
++                }
++                if std::env::set_current_dir(&cwd).is_err() {
++                    2
++                } else {
++                    std::panic::catch_unwind(|| verus_main(argv)).unwrap_or(101)
++                }
++            }
++        };
++        let _ = std::io::stderr().flush();
++        println!("{}{{\"rc\":{}}}", SENTINEL, rc);
++        let _ = std::io::stdout().flush();
++    }
++}
++
++fn verus_main(argv: Vec<String>) -> i32 {
++    rust_verify::reset_process_globals();
+     let mut dep_tracker = rust_verify::cargo_verus_dep_tracker::DepTracker::init();
+     let via_cargo = dep_tracker.compare_env(rust_verify::cargo_verus::VERUS_DRIVER_VIA_CARGO, "1");
+     // For now, verus_builtin, vstd, etc. must be rebuilt for each via_cargo crate:
+     let via_cargo_rebuild_verus_libs = via_cargo;
+ 
+-    let mut internal_args = std::env::args();
++    let mut internal_args = argv.clone().into_iter();
+     let internal_program = internal_args.next().unwrap();
+     let (build_test_mode, has_rustc) = if let Some(first_arg) = internal_args.next() {
+         match first_arg.as_str() {
+@@ -41,7 +84,7 @@ pub fn main() {
+                 use std::io::Read;
+                 std::io::stdin().read_to_string(&mut buffer).expect("cannot read stdin");
+                 rust_verify::lifetime::lifetime_rustc_driver(&internal_args[..], buffer);
+-                return;
++                return 0;
+             }
+             arg if arg.contains("rustc") => {
+                 // Setting RUSTC_WRAPPER causes Cargo to pass rustc path as the first argument.
+@@ -64,14 +107,19 @@ pub fn main() {
+     );
+     let logger_handler =
+         rustc_session::EarlyDiagCtxt::new(rustc_session::config::ErrorOutputType::default());
+-    rustc_driver::init_logger(&logger_handler, rustc_log::LoggerConfig::from_env("RUSTVERIFY_LOG"));
++    // A resident process (--internal-serve) runs this function many times; the
++    // global logger may only be installed once.
++    static LOGGER: std::sync::Once = std::sync::Once::new();
++    LOGGER.call_once(|| {
++        rustc_driver::init_logger(&logger_handler, rustc_log::LoggerConfig::from_env("RUSTVERIFY_LOG"))
++    });
+ 
+     if via_cargo != has_rustc {
+         let _ = logger_handler.early_err("Error: VERUS_DRIVER_VIA_CARGO must be 1 if and only if 'rustc' is the first argument to verus");
+-        std::process::exit(1);
++        return 1;
+     }
+ 
+-    let mut args = if build_test_mode || via_cargo { internal_args } else { std::env::args() };
++    let mut args = if build_test_mode || via_cargo { internal_args } else { argv.clone().into_iter() };
+     let program =
+         if build_test_mode || via_cargo { internal_program } else { args.next().unwrap() };
+ 
+@@ -97,7 +145,7 @@ pub fn main() {
+     if is_direct_rustc_call {
+         args.insert(0, program.clone());
+         rust_verify::driver::run_rustc_compiler_directly(&args);
+-        return;
++        return 0;
+     }
+ 
+     let via_cargo = via_cargo.then(|| rust_verify::config::parse_cargo_args(&program, &mut args));
+@@ -114,7 +162,7 @@ pub fn main() {
+         } else {
+             println!("{}", build_info);
+         }
+-        return;
++        return 0;
+     }
+ 
+     let via_cargo_compile = via_cargo
+@@ -538,9 +586,7 @@ pub fn main() {
+     }
+ 
+     match status {
+-        Ok(()) => (),
+-        Err(_) => {
+-            std::process::exit(1);
+-        }
++        Ok(()) => 0,
++        Err(_) => 1,
+     }
+ }
+diff --git a/source/rustc_mir_build_additional_files/verus.rs b/source/rustc_mir_build_additional_files/verus.rs
+index 5eea32264..53a74a323 100644
+--- a/source/rustc_mir_build_additional_files/verus.rs
++++ b/source/rustc_mir_build_additional_files/verus.rs
+@@ -109,6 +109,15 @@ static VERUS_AWARE_DEF_IDS: RwLock<Option<Arc<HashSet<LocalDefId>>>> = RwLock::n
+ /// Used to communicate the VerusErasureCtxt
+ static VERUS_ERASURE_CTXT: RwLock<Option<Arc<VerusErasureCtxt>>> = RwLock::new(None);
+ 
++/// Clears the per-run globals so that one process can verify several crates in
++/// sequence (rust_verify --internal-serve).
++pub fn reset_verus_globals() {
++    *VERUS_AWARE_DEF_IDS.write().unwrap_or_else(|e| e.into_inner()) = None;
++    *VERUS_ERASURE_CTXT.write().unwrap_or_else(|e| e.into_inner()) = None;
++    VERUS_AWARE_DEF_IDS.clear_poison();
++    VERUS_ERASURE_CTXT.clear_poison();
++}
++
+ pub fn set_verus_aware_def_ids(ids: Arc<HashSet<LocalDefId>>) {
+     let v: &mut Option<Arc<HashSet<LocalDefId>>> = &mut VERUS_AWARE_DEF_IDS.write().unwrap();
+     if v.is_some() {
