@@ -30,8 +30,12 @@ Z3 = CACHE / "toolchains/bb1f342/verus-release/z3"
 
 
 def verdict(stdout: str) -> dict:
-    """Last JSON object in stdout -> verification-results."""
-    i = stdout.rfind('{\n  "verification-results"')
+    """verification-results of the last top-level JSON object in stdout.
+
+    Verus prints it pretty-printed starting at column 0; the first key differs
+    between versions, so look for the last line that is exactly "{"."""
+    i = stdout.rfind("\n{\n")
+    i = 0 if i < 0 and stdout.startswith("{\n") else i + 1
     if i < 0:
         return {}
     try:
@@ -79,6 +83,18 @@ def summarize(rows: list[dict], total_wall: float) -> dict:
             "no_result": sum(not r["res"] for r in rows)}
 
 
+def compare(tasks: list[dict], cold: list[dict], warm: list[dict]) -> dict:
+    """Exact (verified, errors, success) agreement; requests with no result in
+    either arm (timeout, crash) are counted separately, never as agreement."""
+    key = lambda r: (r["res"].get("verified"), r["res"].get("errors"), bool(r["res"].get("success")))
+    both = [t["task_id"] for t, c, w in zip(tasks, cold, warm) if not c["res"] and not w["res"]]
+    one = [t["task_id"] for t, c, w in zip(tasks, cold, warm) if bool(c["res"]) != bool(w["res"])]
+    mism = [t["task_id"] for t, c, w in zip(tasks, cold, warm) if c["res"] and w["res"] and key(c) != key(w)]
+    return {"verdict_mismatch": len(mism), "mismatched_tasks": mism[:20], "both_no_result": both,
+            "one_no_result": one, "compared": len(tasks) - len(both) - len(one),
+            "warm_crashes": sum(r.get("crashed", False) for r in warm)}
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--tasks", type=Path, nargs="+", required=True)
@@ -89,25 +105,58 @@ def main() -> None:
     ap.add_argument("--timeout", type=int, default=600)
     ap.add_argument("--rust-verify", type=Path, default=DEFAULT_RUST_VERIFY)
     ap.add_argument("--toolchain", default="1.88.0-x86_64-unknown-linux-gnu")
+    ap.add_argument("--z3", type=Path, default=Z3)
+    ap.add_argument("--interleave", action="store_true", help="run both arms per request, random order")
     ap.add_argument("--args", nargs="*", default=["--output-json", "--num-threads", "1"])
     a = ap.parse_args()
     tasks = [json.loads(l) for p in a.tasks for l in p.read_text().splitlines() if l.strip()]
     if a.limit:
         tasks = tasks[: a.limit]
     command = ["rustup", "run", a.toolchain, str(a.rust_verify)]
-    env = verus_env({"VERUS_Z3_PATH": str(Z3)})
+    env = verus_env({"VERUS_Z3_PATH": str(a.z3)})
     cold_env = dict(env)
     cold_env.pop("VERUS_IMPORT_CACHE", None)
-    results: dict = {"tasks": len(tasks), "concurrency": a.concurrency, "arms": {}}
+    results: dict = {"tasks": len(tasks), "concurrency": a.concurrency, "arms": {},
+                     "interleaved": a.interleave}
     rows: dict = {}
-    for arm in a.arms:
+    if a.interleave:
+        # Each request runs in both arms back to back, in random order, so load
+        # drift on a shared host hits both arms alike.
+        import random
+        pool = Pool(command, size=a.concurrency, env={"VERUS_Z3_PATH": str(a.z3)})
+        rng = random.Random(0)
+        orders = [rng.random() < 0.5 for _ in tasks]
+
+        def both(i_t):
+            i, t = i_t
+            src = Path(t["candidate_path"])
+            c = lambda: run_cold(command, cold_env, src, a.args, a.timeout)
+            w = lambda: run_warm(pool, src, a.args, a.timeout)
+            if orders[i]:
+                rc = c(); rw = w()
+            else:
+                rw = w(); rc = c()
+            return rc, rw
+
+        start = time.monotonic()
+        with ThreadPoolExecutor(a.concurrency) as ex:
+            pairs = list(ex.map(both, enumerate(tasks)))
+        total = time.monotonic() - start
+        pool.close()
+        rows["cold"] = [p[0] for p in pairs]
+        rows["warm"] = [p[1] for p in pairs]
+        for arm in ("cold", "warm"):
+            results["arms"][arm] = summarize(rows[arm], total)
+            results["arms"][arm]["sum_wall_s"] = round(sum(r["wall_s"] for r in rows[arm]), 1)
+            print(arm, json.dumps(results["arms"][arm]), flush=True)
+    for arm in ([] if a.interleave else a.arms):
         start = time.monotonic()
         if arm == "cold":
             with ThreadPoolExecutor(a.concurrency) as ex:
                 rows[arm] = list(ex.map(lambda t: run_cold(command, cold_env, Path(t["candidate_path"]),
                                                            a.args, a.timeout), tasks))
         else:
-            pool = Pool(command, size=a.concurrency, env={"VERUS_Z3_PATH": str(Z3)})
+            pool = Pool(command, size=a.concurrency, env={"VERUS_Z3_PATH": str(a.z3)})
             with ThreadPoolExecutor(a.concurrency) as ex:
                 rows[arm] = list(ex.map(lambda t: run_warm(pool, Path(t["candidate_path"]), a.args,
                                                            a.timeout), tasks))
@@ -115,12 +164,9 @@ def main() -> None:
         results["arms"][arm] = summarize(rows[arm], time.monotonic() - start)
         print(arm, json.dumps(results["arms"][arm]), flush=True)
     if "cold" in rows and "warm" in rows:
-        mism = [t["task_id"] for t, c, w in zip(tasks, rows["cold"], rows["warm"])
-                if bool(c["res"].get("success")) != bool(w["res"].get("success"))]
-        results["verdict_mismatch"] = len(mism)
-        results["mismatched_tasks"] = mism[:20]
-        results["warm_crashes"] = sum(r.get("crashed", False) for r in rows["warm"])
-        print(json.dumps({k: results[k] for k in ("verdict_mismatch", "warm_crashes")}))
+        results.update(compare(tasks, rows["cold"], rows["warm"]))
+        print(json.dumps({k: v for k, v in results.items() if k in
+                          ("verdict_mismatch", "both_no_result", "one_no_result", "warm_crashes")}))
     results["rows"] = {arm: [{"task_id": t["task_id"], **r} for t, r in zip(tasks, rs)]
                        for arm, rs in rows.items()}
     a.out.write_text(json.dumps(results, indent=1))

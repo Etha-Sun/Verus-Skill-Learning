@@ -1,0 +1,12 @@
+[package]
+name = "fnspans"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "Print exact body spans of the functions in Verus source files (for slice_stub.py)"
+
+[dependencies]
+proc-macro2 = { version = "1.0", features = ["span-locations"] }
+serde_json = "1.0"
+syn_verus = { git = "https://github.com/verus-lang/verus", rev = "142e202798538e782bc1ada3b300730a9d07fce9", features = ["full", "extra-traits"] }
+quote = "1.0"

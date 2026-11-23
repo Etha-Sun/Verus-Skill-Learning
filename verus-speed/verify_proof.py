@@ -3,8 +3,9 @@
 
 A candidate is accepted only if
 1. Verus verifies it, and
-2. it is the original task with proof code added (lynette `additions`: exec
-   code, signatures and specs unchanged), and it adds no trust escape. Trust escapes are counted on a token stream (comments and
+2. it is the original task with proof code added (lynette `additions` or the
+   repository proof guard: exec code, signatures and specs unchanged), and it
+   adds no trust escape. Trust escapes are counted on a token stream (comments and
    whitespace removed), so `assume (`, `#[verifier(external_body)]` and the
    like cannot slip past a plain-text count, and a candidate may not move an
    escape that exists in the original (for example a dependency stub) to
@@ -27,22 +28,27 @@ from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts/proof_time"))
+from proof_guard import check as guard_check  # noqa: E402
+
 CACHE = Path.home() / ".cache/verus-skill"
 LYNETTE = Path(os.environ.get("LYNETTE", CACHE / "build/lynette/release/lynette"))
 VERUS = CACHE / "toolchains/bb1f342/verus-release/verus"
 
 # Each pattern runs on the token stream (no whitespace, no comments).
 ESCAPES = {
-    "assume": r"(?<![\w:])assume\(",
-    "admit": r"(?<![\w:])admit\(",
-    "external_body": r"#\[verifier(::external_body\]|\(external_body\)\])",
-    "external": r"#\[verifier(::external\]|\(external\)\])",
-    "admit_attr": r"#\[verifier(::admit\]|\(admit\)\])",
+    # statements, also path-qualified (builtin::admit(), vstd::prelude::assume_(...))
+    "assume": r"(?<!\w)assume_?\(",
+    "admit": r"(?<!\w)admit\(",
+    # attributes in any position (#[...], #![...], cfg_attr(..., ...)) and either syntax
+    "external_body": r"verifier(::external_body|\(external_body\))\b",
+    "external": r"verifier(::external|\(external\))(?!_)\b",
+    "admit_attr": r"verifier(::admit|\(admit\))\b",
     "assume_specification": r"assume_specification",
     "external_fn_specification": r"external_fn_specification",
     "external_type_specification": r"external_type_specification",
     "external_trait_specification": r"external_trait_specification",
-    "trusted": r"#\[verus::trusted",
+    "trusted": r"verus::trusted",
     "unsafe": r"(?<!\w)unsafe(?!\w)",
     "no_decreases": r"exec_allows_no_decreases_clause",
     "inline_air": r"inline_air_stmt",
@@ -73,6 +79,13 @@ def escapes(text: str) -> Counter:
 
 
 def structure(original: str, candidate: str) -> list[str]:
+    """Problems that make the candidate not a proof-only change of the original.
+
+    Two structural checks with different blind spots are combined: lynette
+    `additions` (AST level) and the repository's proof guard
+    (scripts/proof_time/proof_guard.py: headers, spec bodies and proof-stripped
+    exec bodies unchanged). The candidate passes if either accepts it; trust
+    escapes are checked separately and always apply."""
     problems = []
     extra = escapes(candidate) - escapes(original)
     for (kind, owner), n in sorted(extra.items()):
@@ -84,9 +97,11 @@ def structure(original: str, candidate: str) -> list[str]:
         # `additions`, not `compare`: compare extracts pure Rust and so drops proof
         # functions, including their requires/ensures.
         p = subprocess.run([str(LYNETTE), "additions", str(o), str(c)], capture_output=True, text=True)
-        if p.returncode != 0:
-            problems.append("not a proof-only change of the original"
-                            + (f": {(p.stdout + p.stderr).strip()[-200:]}" if (p.stdout + p.stderr).strip() else ""))
+    if p.returncode != 0:
+        guard_errors = guard_check(original, candidate)
+        if guard_errors:
+            out = (p.stdout + p.stderr).strip()[-160:]
+            problems.append(f"not a proof-only change (lynette: {out}; guard: {guard_errors[:2]})")
     return problems
 
 

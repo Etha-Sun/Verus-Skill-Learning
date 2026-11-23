@@ -54,6 +54,9 @@ def variants(text: str, name: str) -> dict[str, str]:
         "admit": ins("    admit();"),
         "external_body": attr("#[verifier::external_body]"),
         "external_body_paren": attr("#[verifier(external_body)]"),
+        "builtin_admit": ins("    builtin::admit();"),
+        "builtin_assume_": ins("    builtin::assume_(false);"),
+        "cfg_attr_external_body": attr("#[cfg_attr(verus_keep_ghost, verifier::external_body)]"),
     }
     if re.search(r"\brequires\b", header):
         out["requires_false"] = text[:start] + re.sub(r"\brequires\b", "requires false,", header, count=1) + text[body_start:]
