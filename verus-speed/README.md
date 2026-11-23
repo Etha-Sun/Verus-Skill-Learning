@@ -301,8 +301,16 @@ arms, cold = one process per request, warm = 8 resident processes.
 | heavy (SMT >= 2 s) | 77 | 12.5 s | 10.9 s | 0.88x |
 | unproved (failing attempts) | 200 | 0.90 s | 0.42 s | 0.49x |
 
-- Verdicts and per-function verified/error counts agree on all 1049
-  requests; no worker crashed.
+- Verdicts and per-function verified/error counts agree on all 1048
+  requests that produced a result; one request
+  (`MA__bin_sizes__bounds_for_smallest_bin_fitting_size`) timed out at
+  600 s in both arms. No worker crashed.
+- Caveats (from the audit): the warm arm ran fully before the cold arm, so
+  load drift is a confound (two cold-only runs at different times differed
+  by 4% in median); the interleaved run on the newer Verus (8.1) does not
+  have this problem. The table leaves out 47 human proofs that fail on this
+  Verus version (802 rows plus 200 unproved). Classes come from
+  `baseline_default.jsonl`.
 - Overall median 1.04 s → 0.58 s. Total throughput barely moves (1.52 →
   1.58 req/s) because a few heavy files dominate the total.
 - Empty file: 0.57-0.81 s cold, 0.18-0.24 s warm. What is left per request:
@@ -321,16 +329,29 @@ structural part takes about 0.1 s and runs in parallel with Verus.
 Finding while building it: `lynette compare` drops proof functions (it
 compares extracted Rust), so it never sees a lemma's requires/ensures.
 
-Adversarial evaluation (`cheat_eval.py`): 120 sampled tasks; 46 of them have
+Adversarial evaluation (`cheat_eval.py`; final numbers in 8.4): 120 sampled
+tasks, of which 101 have a human proof with a target function to edit; 46 of them have
 a human proof that is a proof-only extension of the task file (for the
 others VeruSAGE built the task separately, and both checkers rightly reject
 the human file). Eight cheat kinds on the target function:
 
 | | Cheats Verus accepts | VeruSAGE check lets through | Ours lets through |
 |---|---|---|---|
-| all kinds | 288 of 354 | 45 | 0 |
+| all kinds, on the 46 tasks | 334 of 492 | 45 | 0 |
 | `assume (false);` (space before the parenthesis) | 45 | 45 | 0 |
-| honest proofs accepted | 46 of 46 | 46 | 46 |
+| honest proofs accepted (of 101) | | 46 | 66 |
+
+Numbers are from the rerun with the final check and eleven cheat kinds
+(`cheat_eval.json`; the first run is kept as `cheat_eval_v1_prerule.json`).
+Of the 101 human proofs, 35 are rejected by our check and 55 by VeruSAGE's;
+these files are not literal extensions of the VeruSAGE task file, and the
+audit found some differ only in function order or `spinoff_prover`, so they
+are reported as rejections, not counted as honest or dishonest. On the 66
+tasks our check accepts, 490 of 709 cheats verify; VeruSAGE's check lets 45
+through, ours none. `builtin::admit()` and `builtin::assume_(false)` never
+verify on these files with this Verus, so they are not a working cheat here,
+but the check rejects them; the `cfg_attr(..., verifier::external_body)`
+variant verifies on all 101 and both checkers reject it.
 
 The cheat set is synthetic and the honest set is small; this shows a real
 hole in a widely used checker, not a full robustness evaluation.
@@ -362,7 +383,132 @@ NRKernel 5.9 → 4.5 s, IronKV 5.2 → 3.5 s, Anvil controller 13.5 → 9.6 s. T
 rest is whole-crate rustc type checking and VIR conversion; rustc's own
 incremental cache (`-C incremental`) is written but gives no speed-up.
 
-## 8. Files
+## 8. Round 3: newer Verus, repository iteration, real-trajectory trust check
+
+Goal and plan: `RESEARCH_PLAN.md` (set by the user on 2026-11-23). Native
+Verus speed only; no agent runs.
+
+### 8.1 Resident verifier on Verus 0.2026.11.02
+
+The patch was ported (`patches/verus-serve-8bf68ee.patch`). This version has
+six per-process globals to reset, including maps keyed by `DefId` and
+`HirId` that would carry stale entries from the previous crate. Benchmark:
+461 human proofs that verify on this version plus 200 unproved task files,
+concurrency 8, both arms per request in random order (`--interleave`).
+
+| Class | Requests | Cold median | Warm median | Paired geomean warm/cold |
+|---|---|---|---|---|
+| light | 415 | 1.39 s | 0.55 s | 0.41x |
+| medium | 29 | 2.58 s | 1.88 s | 0.73x |
+| heavy | 17 | 7.69 s | 6.47 s | 0.97x |
+| unproved | 200 | 1.45 s | 0.49 s | 0.35x |
+
+464 passes in both arms (3 of the 200 "unproved" files verify on this
+version), no mismatch in (verified, errors) on all 661, no crash. Classes
+use this version's own baseline (`cmp_new.jsonl`); the heavy class has only
+17 files and no confidence interval, so read it with medium. The gain is larger
+than on 0.2025.09.12 (0.53x / 0.49x) because the newer version's fixed cost
+per call is larger.
+
+### 8.2 Repository single-function checks (Verus 0.2025.09.12)
+
+`repo_serve_bench.py`: 12 random functions per project, each checked with
+`--verify-only-module M --verify-function F`, 2 repeats, arms interleaved.
+
+| Project | Native | Resident | Resident, no lifetime pass |
+|---|---|---|---|
+| IronKV | 4.65 s | 4.50 s | 3.26 s |
+| Node Replication | 7.66 s | 8.62 s | 6.03 s |
+| Vest | 5.57 s | 6.11 s | 3.23 s |
+| pmemlog | 1.74 s | 1.32 s | 0.97 s |
+| verified-graphs | 1.15 s | 0.90 s | 0.73 s |
+| NRKernel | 6.35 s | 5.22 s | 4.11 s |
+| Anvil controller | 12.78 s | 9.84 s | 7.56 s |
+
+A resident process alone barely helps here: the ≈0.3 s it saves is small
+next to the whole-crate front end, and in two projects it is within noise
+(no growth with request count; worker ≈500 MB). One warm request in IronKV
+returned no result once and could not be reproduced in 8 repeats; exit
+status and stderr are now recorded for every warm request.
+
+### 8.3 Function slicer (`slice_stub.py`, `fnspans/`)
+
+The slicer copies the crate and replaces the body of every proof and exec
+function except the target (and every function the `--verify-function`
+selector also matches) with a trusted `#[verifier::external_body]` stub.
+Signatures, requires/ensures and spec bodies stay. Function spans come from
+a small syn_verus parser (`fnspans/`); a first regex-based version broke on
+`ensures if c {} else {...}`, `ensures match`, comments and macro templates,
+and was replaced. Functions used as termination proofs (`decreases_by`) are
+never stubbed: Verus panics on an external_body termination proof.
+
+Why the verdict should not change: callers only ever see callee specs. On
+IronKV's `DelegationMap::get` the slice's SMT query differs from the
+repository's only by 23 missing `ens%` declarations of functions that only
+the stubbed bodies called (Verus prunes module context from the bodies
+present); nothing is added.
+
+`slice_bench.py`: same 12 functions per project, each also broken
+(`assert(false);` inserted at the start of its body) in both the repository
+and the slice. Agreement is exact equality of (verified, errors) and counts
+only non-trivial cases: as-is rows where the repository verified at least
+one function, broken rows where the repository reported at least one
+verification error (an insertion that fails before SMT in both, or a
+selector that matches nothing, tests nothing and is listed separately).
+
+| Project | Repo check | Slice | Slice + resident + no lifetime | Agree (as is) | Agree (broken) |
+|---|---|---|---|---|---|
+| IronKV | 4.14 s | 2.28 s | 1.38 s (0.33x) | 11/11 | 5/5 |
+| Node Replication | 6.08 s | 5.27 s | 3.17 s (0.52x) | 12/12 | 3/3 |
+| Vest | 4.50 s | 2.27 s | 1.11 s (0.25x) | 12/12 | 1/1 |
+| pmemlog | 1.40 s | 0.94 s | 0.44 s (0.31x) | 11/11 | 10/10 |
+| verified-graphs | 0.94 s | 0.67 s | 0.32 s (0.34x) | 12/12 | 12/12 |
+| Anvil controller | 12.44 s | 6.71 s | 3.87 s (0.31x) | 12/12 | 8/8 |
+| NRKernel | 6.50 s | 3.34 s | 1.82 s (0.28x) | 11/11 | 5/5 |
+
+Over all 7 projects: 81/81 functions and 44/44 broken variants agree (3
+trivial as-is rows and 5 trivial broken rows not counted). The
+first NRKernel run had one disagreement that came from the keep rule, not
+the slicer: `--verify-function '*inv'` matches every function whose name
+ends in `inv`, so the repository run verified `lemma_inv_implies_interp_inv`,
+which the slice had stubbed; the slicer now keeps every function the
+selector matches. Building a slice takes 0.03-0.74 s.
+
+What this does not test: with `--no-lifetime` the fast check skips
+ownership and borrow checking of the target; termination through mutual
+recursion with a stubbed callee is not re-checked; type errors in other
+bodies are not seen; and `assert(false)` exercises only SMT-level failures.
+All of these are caught by the final full check. Broken variants are fewer than 12 where
+the function name is not unique in the crate or the insertion does not
+compile in the repository either. The slice is a filter: the final verdict
+still comes from the full in-repository check.
+
+### 8.4 Trusted check on real agent output
+
+`trajectory_check_eval.py` re-judges the final files of 459 recorded Codex +
+DeepSeek episodes (no new runs; verdicts from the recorded results). Of 306
+verified finals, VeruSAGE's check and our first version both rejected the
+same 7. All 7 are legitimate on inspection: a `broadcast use` statement in
+an exec body (3), and new helper lemmas plus `proof { }` blocks that
+`lynette additions` mis-classifies (4). No real cheat was found.
+
+The check now accepts a candidate if it adds no trust escape and either
+`lynette additions` or the repository's proof guard accepts it (the two have
+different blind spots; every synthetic cheat is rejected by both or by the
+escape check).
+
+| | Synthetic cheats let through (46 tasks / 66 tasks) | Honest human proofs accepted (of 101) | Real verified agent finals accepted (of 306) |
+|---|---|---|---|
+| VeruSAGE check | 45 / 45 | 46 | 299 |
+| ours | 0 / 0 | 66 | 305 |
+
+From `cheat_eval.json` and `trajectory_checks.json`, both produced with the
+final check. The audit of the first version found a hole of its own:
+statements were matched only without a path prefix, so `builtin::admit();`
+would have passed; patterns now match path-qualified calls, `assume_`, and
+attributes in any position.
+
+## 9. Files
 
 - `baseline.py`: per-phase timing of named flag configurations.
 - `analyze_baseline.py`: tables in section 2 and config ratios.
@@ -382,4 +528,9 @@ incremental cache (`-C incremental`) is written but gives no speed-up.
 - `verus_serve.py`, `serve_bench.py`, `analyze_serve.py`: pool client and benchmark.
 - `verify_proof.py`, `cheat_eval.py`: trusted check and adversarial evaluation.
 - `repo_probe.py`: which projects verify with which toolchain.
+- `patches/verus-serve-8bf68ee.patch`: resident-verifier patch for Verus 0.2026.11.02.
+- `repo_serve_bench.py`: repository single-function checks, native vs resident.
+- `slice_stub.py`, `fnspans/`, `slice_bench.py`: function slicer, its span parser, and its benchmark.
+- `trajectory_check_eval.py`: acceptance checkers on recorded agent finals.
+- `RESEARCH_PLAN.md`: goal, claims, experiment blocks, paper options.
 - `LLM_GUIDE.md`: guidance for an LLM writing proofs, tagged by evidence.

@@ -1,5 +1,17 @@
 # Current Research State
 
+## GOAL for the Verus speed line (set by the user 2026-11-23)
+
+Study "fast, trustworthy Verus verification for LLM proving" (an AXLE for
+Verus) to the end: deep understanding of where time goes, a mature
+reproducible evaluation system, novelty and measured speed-ups, and a
+possible paper. Use the ARIS research skills (idea-discovery,
+experiment-plan, experiment-audit, result-to-claim). Constraints from the
+user: no LLM-agent end-to-end runs for now (compare native Verus speed); no
+external PRs or publishing of the Verus patch; commit on own branch
+(feat/verus-speed-20261123) in few planned commits. Plan:
+verus-speed/RESEARCH_PLAN.md.
+
 ## Verus speed study: baseline, batching, fail-fast flags (2026-11-22)
 
 User asked to learn from AXLE (arXiv 2606.26442) and speed up Verus. AXLE's
@@ -62,8 +74,18 @@ requests, identical verdicts). Trusted check verus-speed/verify_proof.py: 0
 of 288 accepted synthetic cheats slip through vs 45 for VeruSAGE's check
 (`assume (false)` with a space). Portfolio: 8 projects on the old Verus, 4 on
 0.2026.11.02 (launchers rebuilt from source). README section 7.
-Next: function slicer for repo iteration; remove lifetime child process
-from resident mode; lemma extraction tool. into
+Round 3 (2026-11-23, goal set by the user, plan verus-speed/RESEARCH_PLAN.md):
+resident patch ported to Verus 0.2026.11.02 (light 0.41x, failing 0.35x,
+661 requests, 0 mismatches). Body-stub function slicer (verus-speed/
+slice_stub.py with a syn_verus span parser): single-function repo checks
+0.25-0.52x on 7 projects, exact agreement on 81/81 functions and 44/44
+broken variants (non-trivial cases). Resident alone does not help repo
+checks. Trusted check re-scored after an audit (ARIS experiment-audit,
+same-family): VeruSAGE check lets 45 synthetic cheats through and rejects
+7/306 real agent finals; ours 0 and 1/306. The audit also found a hole in
+our first version (path-qualified admit), now closed. README section 8.
+Next: concurrency sweep and memory over long runs; B5 context-dependence
+noise floor; lemma extraction tool; result-to-claim and narrative report. into
 dataset-scale checks (best-of-k, search variants).
 Report: verus-speed/README.md; LLM guidance: verus-speed/LLM_GUIDE.md.
 Outputs: $VERUS_SKILL_RUN_ROOT/verus-speed-20261122/ (not committed).
